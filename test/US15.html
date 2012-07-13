@@ -81,8 +81,8 @@
     			<li>Display  marker <b>Snord116</b>.  This marker has a marker type of <b>Complex/Cluster/Region</b></li>
     			<ul><li>Verify the Sequence Map display: <br><b>chr7:66880887-67119801 bp<br>(From MGI annotation of NCBI Build XX)</b></b></li></ul>
     			
-    			<li>Display  marker <b>Tg(Ins1-Tag,-luc)1Gcr</b>.  This marker has a marker type of <b>Transgene</b></li>
-    			<ul><li>Verify the Sequence Map display: <br><b>chr3:156098318-156098318 bp<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			<li>Display  marker <b>Tg(Ins1-Tag,-luc)1Gcr</b>.  This marker has a marker type of <b>Transgene.</b>  The Allele Detail is displayed because it is a transgene.</li>
+    			<ul><li>Verify the marker coordinate display in the Nomenclature section (Allele Detail):<br><b>chr3:156098318-156098318 bp</li></ul>
     			
        		</ol>
        		
@@ -93,7 +93,7 @@
     			<ul><li>Verify the Sequence Map display: <br><b>chr11:51790041-51790112 bp, + strand <br>(From GtRNAdb annotation of NCBI Build XX)</b></li></ul>
     		</ol>
     		<li>Verify newly assigned coordinates override previously assigned coordinates from the <i>same</i> collection.<ol>
-    		<p concordion:assertTrue="true">7/13/12</p> 	
+    		<p concordion:assertTrue="true">jlewis 7/13/12</p> 	
     			<li>Collection = QTL (Marker Type = QTL)</li>
     				<ul><li>Display marker <b>Ity2a</b>.
     				<ul><li>Verify the Sequence Map display: <br><b>chr11:46268437-46294757 bp<br>genome coordinates based on the boundaries of the QTL region <br>(From MGI annotation of NCBI Build XX)</b></li></ul>
@@ -145,8 +145,7 @@
     		<li>Verify previously assigned coordinates are deleted
     		<p concordion:assertTrue="false">jlewis 7/13/12</p> 
     		<ol>
-    			<li>Display marker <b>Mir24-1</b>. Marker type is <b>Gene</b> <b>TEST FAILED</b>
-    			    <ul><li>Verify the Sequence Map display: <b>no coordinates, provider, or build text displayed</b></li></ul>
+    			<li>Display marker <b>Mir24-1</b>. Marker type is <b>Gene</b>.  Display Gene Model coordinates associated with marker prior to miRBase coordinate assignment.<ul><li>Verify the Sequence Map display: <br><b>Chr13:63402516-63402583 bp, + strand<br>(From NCBI annotation of NCBI Build 37)</b></li></ul>
     			<li>Display marker <b>Aaiq2</b>.  Marker type is <b>QTL</b>.
     			    <ul><li>Verify the Sequence Map display: <b>no coordinates, provider, or build text displayed</b></li></ul>
     		</ol>
