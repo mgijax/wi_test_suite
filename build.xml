@@ -1,0 +1,62 @@
+<project name="test_suite" default="test" basedir=".">
+
+	<!--pull in values from the properties file -->
+	<property file="build.properties" />
+
+	<!--libs -->
+	<path id="libs">
+		<fileset includes="*.jar" dir="${lib.dir}" />
+	</path>
+	
+	<path id="tests.path">
+        <fileset includes="*.jar" dir="${lib.dir}" />
+        <pathelement location="${compile.dir}" />
+	</path>
+	
+	<!--clean -->
+	<target name="clean">
+		<delete dir="${compile.dir}"/>
+        <delete dir="${testoutput.dir}"/>
+	</target>
+	
+	<!-- Index test - copies the index html files to test output -->
+	<target name="index-test">
+        <mkdir dir="${testoutput.dir}"/>
+		<copy todir="${testoutput.dir}" overwrite="true">
+		  <fileset dir="${test.dir}">
+		    <include name="**/*.html"/>
+		  </fileset>
+		</copy>
+	</target>
+		  	
+	<!-- Compile tests -->
+	<target name="compile-test" depends="clean, index-test">
+
+		<copy todir="${compile.dir}" overwrite="true">
+		  <fileset dir="${test.dir}">
+		    <include name="**/*.html"/>
+		  </fileset>
+		</copy>
+		<javac srcdir="${test.dir}" destdir="${compile.dir}" verbose="${talk}">
+			<classpath refid="tests.path" />
+		</javac>
+	</target>
+
+    <!-- run tests -->
+	<target name="test" depends="compile-test">
+		<junit fork="yes" forkmode="once" failureproperty="junit.failure">
+			<jvmarg value="-Dconcordion.output.dir=${testoutput.dir}"/>
+			<classpath>
+				<path refid="tests.path" />
+			</classpath>
+			<formatter type="xml" usefile="true" />
+			<batchtest todir="${testoutput.dir}">
+				<fileset dir="${compile.dir}" includes="**/*Test.class">
+					<exclude name="**/FooTest.class" />
+					<exclude name="**/BaseConcordionTest.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+</project>
