@@ -55,7 +55,7 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>Loaded chr, coordinates, provider text, and build text are displayed in the Sequence Map section of the Production WI Marker Detail page for markers with Gene Models.  
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">7/16/12 - marka. Test failed: collection provider not displayed</p> 
     		<ol>
     			<li>Display  marker <b>Qk</b>.  This marker has a marker type of <b>Gene</b></li>
     			<ul><li>Verify the Sequence Map display: <br><b>chr17:10389999-10519999 bp, - strand <br>(From MGI annotation of NCBI Build XX)</b></li></ul>
@@ -66,7 +66,7 @@
        		</ol>
        		
     		<li>Verify newly assigned coordinates override previous coordinates defined by Gene Model.<ol>
-    		<p concordion:assertTrue="false">new test</p> 	
+    		<p concordion:assertTrue="false">7/16/12 - marka. Test failed: collection provider not displayed</p>	
     			<li>Display  marker <b>Pde1b</b>.  This marker has a gene model provider of <b>VEGA</b></li>
     			<ul><li>Verify the Sequence Map display: <br><b>chr15:103333465-103360483  bp, + strand <br>(From Ensembl annotation of NCBI Build XX)</b></li></ul>
     			
@@ -80,14 +80,14 @@
     		
     		
     		<li>Verify assignment of coordinates with special cases in re: to chromosomes<ol>
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">7/16/12 - marka. Test failed: collection provider not displayed</p> 
     		    <li>Display marker <b>mt-Nd6</b>. This marker is on the <b>MT chromosome</b>.</li>
     		    <ul><li>Verify the Sequence Map display: <br><b>chrMT:12999-14999 bp, - strand<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
     			
     		</ol>
     		
     		<li>Markers with no coordinate assignment via the load continue to display gene model coordinates and credit/build text. (as-of 7/11/2012 - coordinates on Public WI for the following markers)<ol>
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">7/16/12 - marka. Test passed.</p>
     			<li>Display marker <b>Trp53</b>. This marker has a marker type of <b>Gene</b> & provider of <b>VEGA</b>.</li>
     			    <ul><li>Verify the Sequence Map display: <br><b>Chr11:69393861-69405375 bp, + strand <br>(From VEGA annotation of NCBI Build 37)</b></li></ul>
                 <li>Display marker <b>Sry</b>. This marker has a marker type of <b>Gene</b> & provider of <b>NCBI</b>.</li>
@@ -99,13 +99,11 @@
                </ol>
     	
     		<li>Removal of assigned coordinates results in display of Gene Model coordinates again.
-    		<p concordion:assertTrue="false">new test</p> 
-    		    <ol>
-    			
+    		<p concordion:assertTrue="true">7/16/12 - marka. Test passed.</p> 
+    		    <ol>    			
                 <li>Display marker <b>Mir24-1</b>. This marker has a marker type of <b>Gene</b> & provider of <b>NCBI Gene Model</b>.</li>
                     <li>Verify the Sequence Map display: <br><b>Chr13:63402516-63402583 bp, + strand<br>(From NCBI annotation of NCBI Build 37)</b></li>
-               </ol>	
-    			
+               </ol>	    			
 		</ol>
 	</div>
 	<div id="auto">
