@@ -55,7 +55,7 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>Loaded chr, coordinates, provider text, and build text are displayed in the Sequence Map section of the Production WI Marker Detail page for markers with Gene Models.  
-    		<p concordion:assertTrue="false">7/16/12 - marka. Test failed: collection provider not displayed</p> 
+    		<p concordion:assertTrue="true">7/17/12 - jrl. Test passed.</p> 
     		<ol>
     			<li>Display  marker <b>Qk</b>.  This marker has a marker type of <b>Gene</b></li>
     			<ul><li>Verify the Sequence Map display: <br><b>chr17:10389999-10519999 bp, - strand <br>(From MGI annotation of NCBI Build XX)</b></li></ul>
@@ -66,7 +66,7 @@
        		</ol>
        		
     		<li>Verify newly assigned coordinates override previous coordinates defined by Gene Model.<ol>
-    		<p concordion:assertTrue="false">7/16/12 - marka. Test failed: collection provider not displayed</p>	
+    		<p concordion:assertTrue="true">7/17/12 - jrl. Test passed.</p>	
     			<li>Display  marker <b>Pde1b</b>.  This marker has a gene model provider of <b>VEGA</b></li>
     			<ul><li>Verify the Sequence Map display: <br><b>chr15:103333465-103360483  bp, + strand <br>(From Ensembl annotation of NCBI Build XX)</b></li></ul>
     			
@@ -80,7 +80,7 @@
     		
     		
     		<li>Verify assignment of coordinates with special cases in re: to chromosomes<ol>
-    		<p concordion:assertTrue="false">7/16/12 - marka. Test failed: collection provider not displayed</p> 
+    		<p concordion:assertTrue="true">7/17/12 - jrl. Test passed.</p> 
     		    <li>Display marker <b>mt-Nd6</b>. This marker is on the <b>MT chromosome</b>.</li>
     		    <ul><li>Verify the Sequence Map display: <br><b>chrMT:12999-14999 bp, - strand<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
     			
