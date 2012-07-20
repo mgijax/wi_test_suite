@@ -1,0 +1,219 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 39</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Acceptance Criteria</a> | <a href="#manual">Manual Tests</a> | <a href="#auto">Automated Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Public Reports contain correct coords for markers with directly associated coordinates</h1>
+    <ul>
+        <li>User Story 39, Public Reports contain correct coords for markers with directly associated coordinates.</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ul>
+		<li>change reports to display the "provider display" field</li>
+		<li>add needed reports for new markers with coordinates</li>
+		<li>reports show correct coordinates</li>
+	</ul>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<ol>
+    		<li>Coordinates are reported for markers that have newly loaded coordinates.  Confirm these data appear in the MRK_List1.rpt public report for all marker types.  
+    		<p concordion:assertTrue="false">fail - jsb 7/20/12</p> 
+    		<ol>
+    			<li>Find marker <b>1700016D08Rik : MGI:1925627</b>.  This marker has a marker type of <b>Gene</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>16</b></li>
+			  <li>cM position: <b>2.3</b></li>
+			  <li>start coordinate: <b>3908825</b></li>
+			  <li>end coordinate: <b>3909192</b></li>
+			  <li>strand: <b>-</b></li></ul>
+    			
+    			<li>Find  marker <b>Pou5f1-rs8 : MGI:101886</b>.  This marker has a marker type of <b>Pseudogene</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>X</b></li>
+			  <li>cM position: <b>29.26</b></li>
+			  <li>start coordinate: <b>50232039</b></li>
+			  <li>end coordinate: <b>50233572</b></li>
+			  <li>strand: <b>+</b></li></ul>
+    			
+    			<li>Find  marker <b>D12Mit100 : MGI:89344</b>.  This marker has a marker type of <b>DNA Segment</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>12</b></li>
+			  <li>cM position: <b>54.46</b></li>
+			  <li>start coordinate: <b>105761460</b></li>
+			  <li>end coordinate: <b>105761553</b></li>
+			  <li>strand: <b>+</b></li></ul>
+    			
+    			<li>Find  marker <b>Del(5D5Mit73-D5Mit351)1J : MGI:3027284 </b>  This marker has a marker type of <b>Cyto Marker</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>5</b></li>
+			  <li>cM position: <b>Syntenic</b></li>
+			  <li>start coordinate: <b>26927527</b></li>
+			  <li>end coordinate: <b>37410359</b></li>
+			  <li>strand: <b></b></li></ul>
+    			
+    			<li>Find  marker <b>Arbq2 : MGI:3777455</b>.  This marker has a marker type of <b>QTL</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>Y</b></li>
+			  <li>cM position: <b>Syntenic</b></li>
+			  <li>start coordinate: <b>484252</b></li>
+			  <li>end coordinate: <b>484471</b></li>
+			  <li>strand: <b></b></li></ul>
+    			
+    			<li>Find  marker <b>3-209M19-S : MGI:1891885</b>.  This marker has a marker type of <b>BAC/YAC</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>2</b></li>
+			  <li>cM position: <b>54.43</b></li>
+			  <li>start coordinate: <b>103286918</b></li>
+			  <li>end coordinate: <b>103286918</b></li>
+			  <li>strand: <b></b></li></ul>
+    			
+    			<li>Find  marker <b>H3093D10 : MGI:3606239</b>.  This marker has a marker type of <b>Other Genome Feature</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>9</b></li>
+			  <li>cM position: <b>35.47</b></li>
+			  <li>start coordinate: <b>65557564</b></li>
+			  <li>end coordinate: <b>65558161</b></li>
+			  <li>strand: <b>-</b></li></ul>
+    			
+    			<li>Find  marker <b>Snord116 : MGI:1891407</b>.  This marker has a marker type of <b>Complex/Cluster/Region</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>7</b></li>
+			  <li>cM position: <b>34.0</b></li>
+			  <li>start coordinate: <b>66880887</b></li>
+			  <li>end coordinate: <b>67119801</b></li>
+			  <li>strand: <b></b></li></ul>
+    			
+    			<li>Find  marker <b>Tg(Ins1-Tag,-luc)1Gcr</b>.  This marker has a marker type of <b>Transgene.</b>  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>3</b></li>
+			  <li>cM position: <b>80.51</b></li>
+			  <li>start coordinate: <b>156098318</b></li>
+			  <li>end coordinate: <b>156098318</b></li>
+			  <li>strand: <b></b></li></ul>
+       		</ol>
+       		
+		<li>Coordinates are reported for tRNA markers that have newly loaded coordinates.  Confirm these data appear in the MRK_List1.rpt public report for tRNA genes.
+    		<p concordion:assertTrue="false">fail - jsb 7/20/12</p>  
+    		<ol>
+    		<li>Find  marker <b>n-Ta1 : MGI:4413674</b>.  This marker has a marker type of <b>Gene</b> and feature type of <b>tRNA gene</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>11</b></li>
+			  <li>cM position: <b>31.8</b></li>
+			  <li>start coordinate: <b>51790041</b></li>
+			  <li>end coordinate: <b>51790112</b></li>
+			  <li>strand: <b>+</b></li></ul>
+       		</ol>
+    		<li>Verify newly assigned coordinates override previously assigned coordinates from the <i>same</i> collection.<ol>
+    		<p concordion:assertTrue="false">fail - jsb 7/20/12</p> 	
+    			<li>Find marker <b>Ity2a : MGI:3762326</b>.  This marker has a marker type of <b>QTL</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>11</b></li>
+			  <li>cM position: <b>27.9</b></li>
+			  <li>start coordinate: <b>46268437</b></li>
+			  <li>end coordinate: <b>46294757</b></li>
+			  <li>strand: <b></b></li></ul>
+
+    			<li>Find marker <b>D12Mit100 : MGI:89344</b>.  This marker has a marker type of <b>DNA Segment</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>12</b></li>
+			  <li>cM position: <b>54.46</b></li>
+			  <li>start coordinate: <b>105761460</b></li>
+			  <li>end coordinate: <b>105761553</b></li>
+			  <li>strand: <b></b></li></ul>
+    		</ol>
+    		
+    		<li>Verify newly assigned coordinates override previously assigned coordinates from a <i>different</i> collection.<ol>
+    		<p concordion:assertTrue="false">fail - jsb 7/20/12</p> 	
+    		 <li>Find marker <b>D1Dcr15 : MGI:3764022</b>.  This marker has a type of <b>DNA Segment</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>1</b></li>
+			  <li>cM position: <b>69.75</b></li>
+			  <li>start coordinate: <b>162387261</b></li>
+			  <li>end coordinate: <b>162387360</b></li>
+			  <li>strand: <b></b></li></ul>
+
+    			<li>Find marker <b>30.MMHAP16FRB12 : 30.MMHAP16FRB12</b>.  This marker has a type of <b>DNA Segment</b>.  Verify the location fields:</li>
+    			<ul><li>chromosome: <b>X</b></li>
+			  <li>cM position: <b>25.52</b></li>
+			  <li>start coordinate: <b>45460000</b></li>
+			  <li>end coordinate: <b>45460183</b></li>
+			  <li>strand: <b></b></li></ul>
+    		</ol>
+    		
+    		<li>Markers from a new collection specified in the input file now have their assigned coordinates.
+    		<p concordion:assertTrue="false">fail - jsb 7/20/12</p> 
+    			<ol><li>Find marker <b>Snord116l3 : MGI:1927534</b>.  This marker has a type of <b>Gene</b>.  Verify the location fields:</li></ol>
+    			<ul><li>chromosome: <b>7</b></li>
+			  <li>cM position: <b>34.02</b></li>
+			  <li>start coordinate: <b>67024347</b></li>
+			  <li>end coordinate: <b>67024436</b></li>
+			  <li>strand: <b>-</b></li></ul>
+    		
+    		<li>Verify assignment of coordinates with special cases in re: to chromosomes<ol>
+    		<p concordion:assertTrue="false">fail - jsb 7/20/12</p> 
+    		    <li>Find marker <b>mt-Olr : MGI:102494</b>. This marker is on the <b>MT chromosome</b> and has type <b>Other Genome Feature</b>.  Verify the location fields:</li></ol>
+    			<ul><li>chromosome: <b>MT</b></li>
+			  <li>cM position: <b>Syntenic</b></li>
+			  <li>start coordinate: <b>4952</b></li>
+			  <li>end coordinate: <b>5327</b></li>
+			  <li>strand: <b>+</b></li></ul>
+    		
+    		<li>Verify that markers with no coordinate assignment via the load (or gene models) don't include coordinates in the report. (as-of July 9th - no coordinates on Public WI for the following markers)  The results are the same for each of these - <b>no display of coordinates or strand</b><ol>
+    		<p concordion:assertTrue="false">fail - jsb 7/20/12</p> 
+    			<li>Find marker <b>Gm4146</b>. This marker has a marker type of <b>Gene</b>.</li>
+                <li>Find marker <b>412H6</b>.  This marker has a marker type of <b>DNA segment</b></li>
+                <li>Find marker <b>Del(18)20H</b>.  This marker has a marker type of <b>Cyto Marker</b>.</li>
+                <li>Find marker <b>Aasm3</b>.  This marker has a marker type of <b>QTL</b>.</li>
+                <li>Find marker <b>Gm10270</b>. This marker has a marker type of <b>Pseudogene</b>.</li>
+                <li>Find marker <b>51B23</b>. This marker has a marker type of <b>BAC/YAC</b>.</li>
+                <li>Find marker <b>Ap3s1-rs3</b>.  This marker has a marker type of <b>Other Genome Feature</b>.</li>
+                <li>Find marker <b>Mirc18</b>.  This marker has a marker type of <b>Complex/Cluster/Region</b>.</li>
+                <li>Find marker <b>Tn(sb-Tyr)1799B.CA1Ove</b>.  This marker has a marker type of <b>Transgene</b>.</li>
+    		</ol>
+    		
+    		<li>Verify previously assigned coordinates are deleted
+    		<p concordion:assertTrue="false">fail - jsb 7/20/12</p> 
+    		<ol>
+    			<li>Find marker <b>Mir24-1</b>. Marker type is <b>Gene</b>.  Verify that Gene Model coordinates associated with marker prior to miRBase coordinate assignment are shown:</li></ul>
+    			<ul><li>chromosome: <b>13</b></li>
+			  <li>cM position: <b>32.8</b></li>
+			  <li>start coordinate: <b>63402516</b></li>
+			  <li>end coordinate: <b>63402583</b></li>
+			  <li>strand: <b>+</b></li></ul>
+
+    			<li>Find marker <b>Aaiq2</b>.  Marker type is <b>QTL</b>.  Verify that no coordinates or strand are shown.</li></ul>
+    		</ol>
+	</div>
+	<div id="auto">
+
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
