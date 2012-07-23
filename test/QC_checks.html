@@ -12,26 +12,26 @@
 	p {margin:2px 0px;}
 </style>
 
-    <title>Scrum-Bob Test Template</title>
+    <title>QC Checks-US3</title>
 </head>
 
 <body>
 
 <div id="TOC">
-	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Acceptance Criteria</a> | <a href="#manual">Manual Tests</a> | <a href="#auto">Automated Tests</a></p>
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#auto">Automated Tests</a></p>
 </div>
 
 <div id="maintitle">
     <h1>QC Checks</h1>
     <ul>
-        <li>User Story #3 - Initial QC checks for the coordinates in the Input File</li>
+        <li>User Story #3 - Initial QC checks for the coordinates &amp; associated data  in the Input File</li>
     </ul>
 </div>
 
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-		<li>Abort processing for files with any of these errors and inform the curator of the error condition
+		<li>Fail the QC check process for files with any of these errors and inform the curator of the error condition
 		<ol><li>Header record does not include the &quot;Build=&quot; parameter</li>
 		    <li>duplicate lines are found in the input file</li>
 		    <li>duplicate MGI IDs are found in the input file</li>
@@ -40,36 +40,28 @@
 		    <li>first column for other than the header record begins "MGI:"
 		    
 		</ol>
-		
-		<li>Columns 8-n may be used by curators with no impact to QC or Load
-		
-		<li>Blank lines within the input file are ignored
-		
-		<li>Ctrl-M characters are ignored (unprintable control character sometimes inserted  at the end of a line when moving a file from Windows to Unix/Linux)
-		
-		<li>Double quotes within the input file are ignored
-		
-		<li>Skip processing for invalid markers in the input file and create a report for the curator
-		<ol><li>MGI ID does not exist in the database
-		    <li>MGI ID is not a mouse marker
-		    <li>MGI ID status is nto official or interim
+		<li>Accept and correct the following conditions in an input file during the QC check process.<ol>
+		   <li>Columns 8-n may be used by curators with no impact to QC or Load
+		   <li>Blank lines within the input file are ignored
+		   <li>Ctrl-M characters are ignored (unprintable control character sometimes inserted  at the end of a line when moving a file from Windows to Unix/Linux)
+		   <li>Double quotes within the input file are ignored
 		</ol>
-		
-		<li>Skip processing for any MGI Marker ID that is not a primary ID (i.e. secondard IDs not processed)
-		
-		<li>Skip processing for any marker where the start coordinate is greater than the end coordinate.
-		
-		<li>Skip processing if the chromosome is not a valid chromosome (UN is not valid)
-		
-		<li>Skip processing if the coordinates are not numeric values
-		
-		<li>Skip processing if the strand is not +, -, or blank
-		
-		<li>Report information to curators, but load anyway:
-		<ol><li>if the chromosome in the input file does not match the chromosome for a marker
-		    <li>list the new 'source/display' pairs not already in database
-		    <li>display the Build text in the file
-		    </ol>
+		<li>Reject on a line-by-line basis for the following conditions.  The overall QC check passes and the curators are informed via warning messages.
+		<ol>
+		    <li>MGI ID does not exist in the database
+		    <li>MGI ID is not a mouse marker
+		    <li>MGI ID status is not official or interim
+		    <li>MGI Marker ID is not a primary ID (i.e. secondary IDs not processed)
+		    <li>start coordinate is greater than the end coordinate
+		    <li>chromosome is not a valid chromosome (i.e. 1-19, X, Y, XY are valid)
+	        <li>coordinates are not numeric values
+	        <li>strand is not +, -, or blank
+		</ol>  
+		<li>Report the following information to the curator during the QC check.  No data is rejected due to these conditions.<ol>
+		   <li>list the marker when the chromosome in the input file does not match the chromosome for the marker in the database
+		   <li>list the new 'source/display' pairs found in the input file that are not already in database
+		   <li>display the Build text in the file
+		</ol>
 	</ol>
 </div>
 
@@ -84,7 +76,121 @@
 <p concordion:assertTrue="false">testing assertFalse - displays as red</p>
  -->
 		<h3>Manual tests</h3>
-		
+		<ol>
+		    <h4>Abort Entire File</h4>
+    		<li>Abort processing for input file when the header record does not include the Build parameter  
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>QC check an input file that does not have a header record.  This should fail the QC check and report it to the curator.</li>
+    			<li>QC check an input file that has a header record with parameters, but does not include a Build parameter.  This should fail the QC check and report it to the curator.</li>
+    			<li>QC check an input file that has a header record with multiple parameters.  The Build parameter is included at the end of the list.  This should pass the QC.</li>
+    		</ol>
+    		<li>Abort processing for input file when duplicate lines are found.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file that has 2 consecutive duplicate lines.  This should fail the QC check and report it to the curator.
+                <li>QC check an input file that has 3 non-consecutive duplicate lines.  This should fail the QC check and report it to the curator.
+            </ol>
+            <li>Abort processing for input file when duplicate MGI IDs are found.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file that has 2 matching IDs.  This should fail the QC check and report it to the curator.
+                <li>QC check an input file that has 3 matching IDs.  This should fail the QC check and report it to the curator.
+            </ol>
+            <li>Abort processing for input file when fewer than 7 columns are found.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file that has columns 1, 2, &amp; 3 only.  This should fail the QC check and report it to the curator.
+                <li>QC check an input file that has columns 1 and 6.  This should fail the QC check and report it to the curator.
+                <li>QC check an input file that has columns 1, 6, 7 &amp; 8 only.  This should pass the QC check.
+                <li>QC check an input file that has columns 1,2,3,4,5,6,7,8.  This should pass the QC check.
+            </ol>
+            <li>Abort processing for an input file containing blanks in required columns.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file that has blanks in a single column other than strand.  This should fail the QC check and report it to the curator.
+                <li>QC check an input file that has blanks in multiple columns other than strand.  This should fail the QC check and report it to the curator.
+                <li>QC check an input file that has a blank strand column.  This should pass the QC check.
+            </ol>
+		    <li>Abort processing for an input file when the first field in lines 2-n do not begin with "MGI:".
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file that has a line that begins "MGIx:".  This should fail the QC check and report it to the curator.
+                <li>QC check an input file that has a line that begins "MGI9".  This should fail the QC check and report it to the curator.
+                <li>QC check an input file that has a line that begins "mgi:".  This should pass the QC check.
+            </ol>
+            <h4>Accept & Correct File</h4>
+            <li>Allow curators to add notes in columns 8-n in the input file
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file that has curator information in column 8 of the first line.  This should pass the QC check.
+                <li>QC check an input file that has curator information in column 8 for several lines.  This should pass the QC check.
+            </ol>
+            <li>Accept input files with blank lines.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file with a single blank line. This should pass the QC check.
+                <li>QC check an input file with consecutive blank lines.  This should pass the QC check.
+            </ol>
+            <li>Accept input files with ctrl-M characters.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file with a single ctrl-M character.  This should pass the QC check.
+                <li>QC check an input file with consecutive ctrl-M characters.  This should pass the QC check.
+            </ol>
+		    <li>Accept input files with double quotes surrounding fields in the file.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file with double quotes around column 1, "MGI:nnnnn".  This should pass the QC check.
+                <li>QC check an input file with double quotes around several columns in a single line.  This should pass the QC check.
+            </ol>
+		    <h4>Rejects  - Line by Line</h4>
+		    <li>Warn curator when an MGI ID not in the database.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file with an invalid MGI ID.  This passes the QC check even though this line fails.  The warning is reported to the curator.
+            </ol>
+            <li>Warn curator when an MGI ID is not for a mouse marker.  
+            <p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file that includes an MGI ID for an allele.  This passes the QC check even though this line fails.  The warning is reported to the curator.
+                <li>QC check an input file that includes an MGI ID for a non-mouse marker.  This passes the QC check even though this line fails.  The warning is reported to the curator.
+            </ol>
+            <li>Warn curator when an MGI ID has a status other than Official or Interim.  
+            <p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file that includes an MGI ID for a withdrawn marker.  This passes the QC check even though this line fails.  The warning is reported to the curator.
+                <li>QC check an input file that includes an MGI ID for an Interim marker.  This passes the QC check with no warning.
+            </ol>
+            <li>Warn curator when a secondary MGI ID is included in the file.  
+            <p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file with a secondary MGI ID for a marker.  This passes the QC check even though this line fails.  The warning is reported to the curator.
+            </ol>
+            <li>Warn curator when the start coordinate is greater than the end coordinate.  
+            <p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file with a start coordinate greater than the end coordinate.  This passes the QC check even though this line fails.  The warning is reported to the curator.
+                <li>QC check an input file with a start coordinate equal to the end coordinate.  This passes the QC check with no warning.
+            </ol>
+            <li>Warn curator when the chromosome is not valid.  
+            <p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file with a chromosome of 20.  This passes the QC check even though this line fails.  The warning is reported to the curator.
+                <li>QC check an input file with a chromosome of UN.  This passes the QC check even though this line fails.  The warning is reported to the curator.
+                <li>QC check an input file with a lower case x.  This passes the QC check with no warnings.
+            </ol>
+            <li>Warn curator when the coordinates are not numeric.  
+            <p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file with one of the coordinates including an alpha character.  This passes the QC check even though this line fails.  The warning is reported to the curator.
+                <li>QC check an input file with both of the coordinates including an alpha character.  This passes the QC check even though this line fails.  The warning is reported to the curator.
+            </ol>
+            <li>Warn curator when the strand is something other than +, -, or blank.
+            <p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check an input file with an invalid strand.  This passes the QC check even though this line fails.  The warning is reported to the curator.
+            </ol>
 		</ol>
 	</div>
 	<div id="auto">
