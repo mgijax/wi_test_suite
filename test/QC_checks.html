@@ -125,19 +125,19 @@
             </ol></li>
             <h4>Accept & Correct</h4>
             <li>Allow curators to add notes in columns 8-n in the input file
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS jlewis 7/27/12</p> 
     		<ol>
                 <li>QC check test input file, <b>AcceptCorrect1.txt</b>, that has curator information in column 8 of the first line.  This should pass the QC check.</li>
                 <li>QC check test input file, <b>AcceptCorrect2.txt</b>, that has curator information in column 8 for several lines.  This should pass the QC check.</li>
             </ol></li>
             <li>Accept input files with blank lines.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS jlewis 7/27/12</p> 
     		<ol>
                 <li>QC check test input file, <b>AcceptCorrect1.txt</b>, that has a single blank line. This should pass the QC check.</li>
                 <li>QC check test input file, <b>AcceptCorrect2.txt</b>, that has consecutive blank lines.  This should pass the QC check.</li>
             </ol></li>
-            <li>Accept input files with ctrl-M characters.
-    		<p concordion:assertTrue="false">new test</p> 
+            <li>Accept input files with ctrl-M characters <b>(Richard expected that ctrl-M characters would be replaced by NewLine characters - requirement issue?)</b>
+    		<p concordion:assertTrue="false">FAIL jlewis 7/27/12</p> 
     		<ol>
                 <li>QC check test input file, <b>AcceptCorrect3.txt</b>, that has a single ctrl-M character.  This should pass the QC check.</li>
                 <li>QC check test input file, <b>AcceptCorrect3.txt</b>, that has consecutive ctrl-M characters.  This should pass the QC check.</li>
@@ -145,48 +145,48 @@
 		    
 		    <h4>Line Rejects</h4>
 		    <li>Report to the curator when an MGI ID is not in the database.  Reject that line.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS jlewis 7/27/12</p> 
     		<ol>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has an <b>invalid id - MGI:9999999</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when an MGI ID is not for a mouse marker.  Reject that line.
-            <p concordion:assertTrue="false">new test</p> 
+            <p concordion:assertTrue="false">FAIL jlewis 7/27/12</p><b>This MGI ID was listed twice in the error report -- once as I expected as an ALLELE ID, but also as ANNOTATION EVIDENCE as I did not expect</b> 
     		<ol>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that includes an <b>allele MGI ID- MGI:1856161</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when an MGI ID has a status other than Official or Interim.  Reject that line
-            <p concordion:assertTrue="false">new test</p> 
+            <p concordion:assertTrue="true">PASS jlewis 7/27/12</p> 
     		<ol>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that includes an <b>MGI ID for a withdrawn marker: Gm200, MGI:2685046</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that includes an <b>MGI ID for an Interim marker: Ppnr, MGI:1349458</b>.  This passes the QC check.</li>
             </ol></li>
             <li>Report to the curator when a secondary MGI ID is included in the file.  Reject the line.
-            <p concordion:assertTrue="false">new test</p> 
+            <p concordion:assertTrue="true">PASS jlewis 7/27/12</p> 
     		<ol>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>secondary MGI ID for a marker: Ren1, MGI:2138723</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when the start coordinate is greater than the end coordinate.  Reject the line.
-            <p concordion:assertTrue="false">new test</p> 
+            <p concordion:assertTrue="true">PASS jlewis 7/27/12</p> 
     		<ol>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>start coordinate greater than the end coordinate: Brca1, MGI:104537</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>start coordinate equal to the end coordinate: MGI:4821094</b>.  This passes the QC check.</li>
             </ol></li>
             <li>Report to the curator when the chromosome is not valid.  Reject the line.
-            <p concordion:assertTrue="false">new test</p> 
+            <p concordion:assertTrue="false">FAIL jlewis 7/27/12</p><b>I expected that lines with invalid chromosomes (20, UN) would be rejected.  One was reported as a chr mismatch (and accepted) and the other was accepted.</b>
     		<ol>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>chromosome of 20: Pax6, MGI:97490</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>chromosome of UN: Gdap4, MGI:1337999</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>lower case x: Dach2, MGI:1890446</b>.  This passes the QC check.</li>
             </ol></li>
             <li>Report to the curator when the coordinates are not integer.  Reject the line.
-            <p concordion:assertTrue="false">new test</p> 
+            <p concordion:assertTrue="true">PASS jlewis 7/27/12</p> 
     		<ol>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has <b>one of the coordinates including an alpha character: Bmp1, MGI:88176</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has <b>both of the coordinates including an alpha character: Bmp2, MGI:88177</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>coordinate with a decimal place: Bmp3, MGI:88179</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when the strand is something other than +, -, or blank.  Reject the line.
-            <p concordion:assertTrue="false">new test</p> 
+            <p concordion:assertTrue="true">PASS jlewis 7/27/12</p> 
     		<ol>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has an <b>invalid strand: Bmp4, MGI:88180</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
