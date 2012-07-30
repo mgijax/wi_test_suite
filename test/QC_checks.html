@@ -88,40 +88,41 @@
     			<li>QC check test input file, <b>Sanity1_3.txt</b>, that has a header record with multiple parameters.  The Build parameter is included at the end of the list.  This should pass the QC.</li>
     		</ol></li>
     		<li>Abort processing for input file when duplicate lines are found.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS rmb 7/27/12</p> 
     		<ol>
-                <li>QC check an input file that has 2 consecutive duplicate lines.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check an input file that has 3 non-consecutive duplicate lines.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>Sanity2_1.txt</b>, that has 2 consecutive duplicate lines.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>Sanity2_2.txt</b>, that has 3 non-consecutive duplicate lines.  This should fail the QC check and report it to the curator.</li>
             </ol></li>
             <li>Abort processing for input file when duplicate MGI IDs are found.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS rmb 7/27/12</p> 
     		<ol>
-                <li>QC check an input file that has 2 matching IDs.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check an input file that has 3 matching IDs.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>Sanity3_1.txt</b>, that has 2 matching IDs.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>Sanity3_2.txt</b>, that has 3 matching IDs.  This should fail the QC check and report it to the curator.</li>
             </ol></li>
             <li>Abort processing for input file when fewer than 7 columns are found.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS rmb 7/27/12</p> 
     		<ol>
-                <li>QC check an input file that has columns 1, 2, &amp; 3 only.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check an input file that has columns 1 and 6.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check an input file that has columns 1, 6, 7 &amp; 8 only.  This should pass the QC check.</li>
-                <li>QC check an input file that has columns 1,2,3,4,5,6,7,8.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>Sanity4_1.txt</b>, that has columns 1, 2, &amp; 3 only.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>Sanity4_2.txt</b>, that has data for columns 1 and 6, but only 2 columns represented.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>Sanity4_3.txt</b>, that has columns 1, 6, 7 &amp; 8 only.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>Sanity4_4.txt</b>, that has columns 1,2,3,4,5,6,7,8.  This should pass the QC check.</li>
             </ol></li>
             <li>Abort processing for an input file containing blanks in required columns.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS rmb 7/27/12</p> 
+    		
     		<ol>
-                <li>QC check an input file that has blanks in a single column other than strand.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check an input file that has blanks in multiple columns other than strand.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check an input file that has a blank strand column.  This should pass the QC check.</li>
-                <li>QC check an input file that has a valid delete record.  Values in columns 1, 6, 7 and all others blank.  This should pass the QC check.</li>
-                <li>QC check an input file that has a valid delete/reload record.  Values in columns 1,2,3,4,5,6,7 and all others blank.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>Sanity5_1.txt</b>, that has blanks in a single column other than strand.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>Sanity5_2.txt</b>, that has blanks in multiple columns other than strand.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>Sanity5_3.txt</b>, that has a blank strand column.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>Sanity5_3.txt</b>, that has a valid delete record.  Values in columns 1, 6, 7 and all others blank.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>Sanity5_3.txt</b>, that has a valid delete/reload record.  Values in columns 1,2,3,4,5,6,7 and all others blank.  This should pass the QC check.</li>
             </ol></li>
 		    <li>Abort processing for an input file when the first field in lines 2-n do not begin with "MGI:".
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS rmb 7/27/12</p> 
     		<ol>
-                <li>QC check an input file that has a line that begins "MGIx:".  This should fail the QC check and report it to the curator.</li>
-                <li>QC check an input file that has a line that begins "MGI9".  This should fail the QC check and report it to the curator.</li>
-                <li>QC check an input file that has a line that begins "mgi:".  This should pass the QC check.</li>
+                <li>QC check test input file, <b>Sanity6_1a.txt</b>, that has a line that begins with no MGI prefix (just the number).  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>Sanity6_2a.txt</b>, that has a line that begins "MGI3" (i.e. no colon after "MGI").  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>Sanity6_3.txt</b>, that has a line that begins "mgi:".  This should pass the QC check.</li>
             </ol></li>
             <h4>Accept & Correct</h4>
             <li>Allow curators to add notes in columns 8-n in the input file
@@ -136,11 +137,11 @@
                 <li>QC check test input file, <b>AcceptCorrect1.txt</b>, that has a single blank line. This should pass the QC check.</li>
                 <li>QC check test input file, <b>AcceptCorrect2.txt</b>, that has consecutive blank lines.  This should pass the QC check.</li>
             </ol></li>
-            <li>Accept input files with ctrl-M characters <b>(Richard expected that ctrl-M characters would be replaced by NewLine characters - requirement issue?)</b>
-    		<p concordion:assertTrue="false">FAIL jlewis 7/27/12</p> 
+            <li>Accept input files with ctrl-M characters 
+    		<p concordion:assertTrue="true">PASS rmb 7/29/12</p> 
     		<ol>
                 <li>QC check test input file, <b>AcceptCorrect3.txt</b>, that has a single ctrl-M character.  This should pass the QC check.</li>
-                <li>QC check test input file, <b>AcceptCorrect3.txt</b>, that has consecutive ctrl-M characters.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>AcceptCorrect4.txt</b>, that has consecutive ctrl-M characters.  This should pass the QC check.</li>
             </ol></li>
 		    
 		    <h4>Line Rejects</h4>
@@ -150,7 +151,7 @@
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has an <b>invalid id - MGI:9999999</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when an MGI ID is not for a mouse marker.  Reject that line.
-            <p concordion:assertTrue="false">FAIL jlewis 7/27/12</p><b>This MGI ID was listed twice in the error report -- once as I expected as an ALLELE ID, but also as ANNOTATION EVIDENCE as I did not expect</b> 
+            <p concordion:assertTrue="true">PASS rmb 7/29/12</p><b>This MGI ID was listed twice in the error report -- once as I expected as an ALLELE ID, but also as ANNOTATION EVIDENCE as I did not expect</b> (fixed, rmb) 
     		<ol>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that includes an <b>allele MGI ID- MGI:1856161</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
@@ -172,7 +173,7 @@
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>start coordinate equal to the end coordinate: MGI:4821094</b>.  This passes the QC check.</li>
             </ol></li>
             <li>Report to the curator when the chromosome is not valid.  Reject the line.
-            <p concordion:assertTrue="false">FAIL jlewis 7/27/12</p><b>I expected that lines with invalid chromosomes (20, UN) would be rejected.  One was reported as a chr mismatch (and accepted) and the other was accepted.</b>
+            <p concordion:assertTrue="true">PASS rmb 7/29/12</p><b>I expected that lines with invalid chromosomes (20, UN) would be rejected.  One was reported as a chr mismatch (and accepted) and the other was accepted.</b> (fixed, rmb)
     		<ol>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>chromosome of 20: Pax6, MGI:97490</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>chromosome of UN: Gdap4, MGI:1337999</b>.  Report discrepancy to curator and reject the line.</li>
@@ -199,7 +200,7 @@
                 <li>Chromosomes don't match -- marker has UN in database</li>
             </ol></li>
             <li>List new source/display pairs present in the Input File
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">FAIL rmb 7/29/12</p> 
     		<ol>
                 <li>Input file has a single occurence of a new source/display pair</li>
                 <li>Input file has multiple occurences of a new source/display pair</li>
