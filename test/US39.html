@@ -28,11 +28,12 @@
         <li>User Story 39, Public Reports contain correct coords for markers 
         with directly associated coordinates.</li>
         <li>Reports included in test: 
-        <ol><li>MGI_MRK_coord.rpt (new)</li>
+        <ol><li>MGI_MRK_Coord.rpt (new)</li>
+            <li>MGI_Gene_Model_Coord.rpt (new)</li>
             <li>MGI_AllGenes.rpt</li>
             <li>MRK_list1.rpt</li>
             <li>MRK_list2.rpt</li>
-            <li>MGI_Coordinate.rpt</li>
+            <li>MGI_QTLAllele.rpt</li>
             <li>MGI_EntrezGene.rpt</li>
             <li>MGI_GTDNA.rpt</li>
             <li>MGI_GTGUP.rpt</li>
@@ -45,9 +46,6 @@
             <li>MRK_List.rpt</li>
             <li>MRK_Sequence.py</li>
             <li>MRK_VEGA.rpt</li>
-            <li>Affy_1.0_ST_mgi.rpt</li>
-            <li>Affy_430_2.0_mgi.rpt</li>
-            <li>Affy_U74_mgi.rpt</li>
 		</li>
     </ul>
 </div>
@@ -58,9 +56,8 @@
 		<li>Reports show curator assigned coordinates</li>
 		<li>Reports show gene model coordinates when no curator assigned coordinates exist</li>
 		<li>Reports that display provider data show curator assigned provider</li>
-		<li>MRK_coordinate report is split into 2 new reports; MGI_gene_model_coord.rpt 
-		and MGI_MRK_coord.rpt</li>
-		<li>New reports created for tRNA markers, DNA segment markers, and heritable phenotypic markers</li>
+		<li>MRK_coordinate report is split into 2 new reports; MGI_Gene_Model_Coord.rpt 
+		and MGI_MRK_Coord.rpt</li>
 	</ul>
 </div>
 
@@ -77,20 +74,18 @@
 		<h3>Manual tests</h3>
 
 		<ol>
-			<li>Confirm new report MGI_MRK_coord.rpt is created
-			<p concordion:assertTrue="false">new test</p>
+			<li>Confirm new report MGI_MRK_coord.rpt is created and added to the Index page
+			<p concordion:assertTrue="true">PASS jlewis 7/30/12</p>
 			<ol>
-				<li>Report title is MGI Marker coordinates</li>
+				<li>Report title is MGI Marker Coordinates</li>
 				<li>Report appears in the Mouse Genetic Markers section of the 
 				reports index page</li>
+				<li>Report only includes markers with coordinates (regardless of how assigned)
 				<li>Report contains following columns:  MGI ID, Marker Type, 
-				Feature Type, Symbol, Name, Chr, Start, End, Strand, Provider, 
+				Feature Type, Symbol, Name, Chr, Start, End, Strand, Build, Provider, 
 				Display</li>
-				<li>Markers with no coordinates that has curator assigned coordinates removed are not included in report.
-				<ul>
-					<li>Verify that marker <b>XX</b> does not appear in report</li>
-				</ul>
-				</li>
+				
+		
 				<li>Coordinates are reported properly for markers with no gene 
 				model that have newly loaded coordinates.<br/>
 				Find marker <b>1110002O04Rik</b>. Verify the location fields:
@@ -115,14 +110,8 @@
 				</li>
 				<li>Coordinates are reported properly for markers with no gene 
 				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>Aaiq2</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
+				Find marker <b>Aaiq2</b>. Verify this marker is NOT included.
+				
 				</li>
 	
 				<li>Coordinates are reported properly for markers with gene 
@@ -137,14 +126,34 @@
 				</ul>
 				</li>
 			</ol>
-			</li>			
-			<li>Confirm that markers have the correct coordinates in 
-			MGI_AllGenes.rpt
-			<p concordion:assertTrue="false">new test</p>
+			</li>		
+			
+			<li>Confirm new report MGI_Gene_Model_Coord.rpt is created and added to the Index page
+			<p concordion:assertTrue="false">PASS - jlewis 7/30/12 </p> 
 			<ol>
-				<li>Coordinates are reported properly for markers with no gene 
+				<li>Report title is MGI Gene Model Coordinates</li>
+				<li>Report appears in the Sequence section of the 
+				reports index page</li>
+				<li>Report only includes markers with Gene Models</li>
+				<li>Report contains following columns:  MGI ID, Marker Type, Symbol, Name, Genome Build, EG ID, NCBI Chr, NCBI Start,
+				    NCBI End, NCBI Strand, Ensembl ID, Ens Chr, Ens Start, Ens End, Ens Strand, VEGA ID, VEGA Chr, VEGA Start, 
+				    VEGA End, VEGA Strand </li>
+			
+								
+				<li>Coordinates are reported properly for markers with gene 
 				model that have newly loaded coordinates.<br/>
-				Find marker <b>Ity2a</b>. Verify the location fields:
+				Find marker <b>Mir1193</b>. Verify the appropriate coordinate fields have the Gene Model coordinates (not the assigned ones).  Compare to Public.<ul>
+					<li>chromosome: <b>x</b></li>
+			  		<li>cM position: <b>x</b></li>
+					<li>start coordinate: <b>x</b></li>
+					<li>end coordinate: <b>x</b></li>
+					<li>strand: <b>x</b></li>
+				</ul>
+				</li>
+				
+				<li>Coordinates are reported properly for markers with gene 
+				model that have newly loaded coordinates.<br/>
+				Find marker <b>Kit</b>. Verify the appropriate coordinate fields have the Gene Model coordinates (not the assigned ones).
 				<ul>
 					<li>chromosome: <b>x</b></li>
 			  		<li>cM position: <b>x</b></li>
@@ -153,6 +162,27 @@
 					<li>strand: <b>x</b></li>
 				</ul>
 				</li>
+				
+	     		<li>Coordinates are reported properly for markers with gene 
+				model that have deleted curator assigned coordinates.<br/>
+				Find marker <b>Mir24-1</b>. Verify the appropriate location fields display the Gene Model Coordinates:
+				<ul>
+					<li>chromosome: <b>x</b></li>
+			  		<li>cM position: <b>x</b></li>
+					<li>start coordinate: <b>x</b></li>
+					<li>end coordinate: <b>x</b></li>
+					<li>strand: <b>x</b></li>
+				</ul>
+				</li>
+			</ol>
+			</li>	
+				
+				
+			<li>Confirm that markers have the correct coordinates in 
+			MGI_AllGenes.rpt (must have a gene model to be included in this report)
+			<p concordion:assertTrue="true">PASS jlewis - 7/30/12</p>
+			<ol>
+				
 				<li>Coordinates are reported properly for markers with gene 
 				model that have newly loaded coordinates.<br/>
 				Find marker <b>Mir191</b>. Verify the location fields:
@@ -164,17 +194,7 @@
 					<li>strand: <b>x</b></li>
 				</ul>
 				</li>
-				<li>Coordinates are reported properly for markers with no gene 
-				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>Aaiq2</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
+				
 				<li>Coordinates are reported properly for markers with gene 
 				model that have deleted curator assigned coordinates.<br/>
 				Find marker <b>Mir24-1</b>. Verify the location fields:
@@ -189,7 +209,7 @@
 			</ol>
 			</li>
 			<li>Confirm that markers have the correct coordinates in MRK_list1.rpt
-			<p concordion:assertTrue="false">new test</p>
+			<p concordion:assertTrue="true">PASS jlewis 7/30/12</p>
 			<ol>
 				<li>Coordinates are reported properly for markers with no gene 
 				model that have newly loaded coordinates.<br/>
@@ -215,14 +235,8 @@
 				</li>
 				<li>Coordinates are reported properly for markers with no gene 
 				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>Aaiq2</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
+				Find marker <b>Aaiq2</b>. Verify no coordinate fields are reported.
+				
 				</li>
 				<li>Coordinates are reported properly for markers with gene 
 				model that have deleted curator assigned coordinates.<br/>
@@ -238,7 +252,7 @@
 			</ol>
 			</li>
 			<li>Confirm that markers have the correct coordinates in MRK_list2.rpt
-			<p concordion:assertTrue="false">new test</p>
+			<p concordion:assertTrue="true">PASS jlewis 7/30/12</p>
 			<ol>
 				<li>Coordinates are reported properly for markers with no gene 
 				model that have newly loaded coordinates.<br/>
@@ -264,14 +278,8 @@
 				</li>
 				<li>Coordinates are reported properly for markers with no gene 
 				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>Aaiq2</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
+				Find marker <b>Aaiq2</b>. Verify no coordinate fields are reported.
+				
 				</li>								
 				<li>Coordinates are reported properly for markers with gene 
 				model that have deleted curator assigned coordinates.<br/>
@@ -286,27 +294,9 @@
 				</li>
 			</ol>
 			</li>			
-			<li>Confirm changes to MGI_Coordinate.rpt
-			<p concordion:assertTrue="false">new test</p>
-			<ol>
-				<li>Report is replaced by MGI_gene_model_report.rpt</li>
-				<ul>
-					<li>Report title is MGI Gene Model Coordinates</li>
-					<li>Report contains following columns: MGI accession id, 
-					marker type, marker symbol, marker name, 
-					representative genome id, representative genome chromosome, 
-					representative genome start, representative genome end, 
-					representative genome strand, representative genome build,	
-					Entrez gene id, NCBI gene chromosome, NCBI gene start, 
-					NCBI gene end, NCBI gene strand, Ensembl gene id, 
-					Ensembl gene chromosome, Ensembl gene start, Ensembl gene end, 
-					Ensembl gene strand, VEGA gene id, VEGA gene chromosome, 
-					VEGA gene start, VEGA gene end, VEGA gene strand</li>
-				</ul>
-			</ol>
-			</li>
+			
 			<li>Confirm changes to MGI_QTLAllele.rpt
-			<p concordion:assertTrue="false">new test</p>
+			<p concordion:assertTrue="false">FAIL jlewis 7/30/12 <b>Newly assigned coordinates not displayed.</b></p>
 			<ol>				
 				<li>Report now contains following new columns: chr, start,
 				end</li>
@@ -340,7 +330,7 @@
 			<ol>
 				<li>Coordinates are reported properly for markers with no gene 
 				model that have newly loaded coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
+				Find marker <b>n-Ta1</b>. Verify the location fields:
 				<ul>
 					<li>chromosome: <b>x</b></li>
 			  		<li>cM position: <b>x</b></li>
@@ -360,20 +350,10 @@
 					<li>strand: <b>x</b></li>
 				</ul>
 				</li>
-				<li>Coordinates are reported properly for markers with no gene 
-				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
+				
 				<li>Coordinates are reported properly for markers with gene 
 				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
+				Find marker <b>Mir24-1</b>. Verify the location fields:
 				<ul>
 					<li>chromosome: <b>x</b></li>
 			  		<li>cM position: <b>x</b></li>
@@ -777,17 +757,7 @@
 					<li>strand: <b>x</b></li>
 				</ul>
 				</li>
-				<li>Coordinates are reported properly for markers with Ensembl gene 
-				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
+				
 			</ol>
 			</li>
 			<li>Confirm that markers have the correct coordinates in 
@@ -855,164 +825,10 @@
 					<li>strand: <b>x</b></li>
 				</ul>
 				</li>
-				<li>Coordinates are reported properly for markers with VEGA gene 
-				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-			</ol>
-			</li>
-			<li>Confirm that markers have the correct coordinates in 
-			Affy_1.0_ST_mgi.rpt
-			<p concordion:assertTrue="false">new test</p>
-			<ol>
-				<li>Coordinates are reported properly for markers with no gene 
-				model that have newly loaded coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-				<li>Coordinates are reported properly for markers with gene 
-				model that have newly loaded coordinates.<br/>
-				Find marker <b>Qk</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-				<li>Coordinates are reported properly for markers with no gene 
-				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-				<li>Coordinates are reported properly for markers with gene 
-				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-			</ol>
-			</li>
-			<li>Confirm that markers have the correct coordinates in  Affy_430_2.0_mgi.rpt<p concordion:assertTrue="false">new test</p>
-			<ol>
-				<li>Coordinates are reported properly for markers with no gene 
-				model that have newly loaded coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-				<li>Coordinates are reported properly for markers with gene 
-				model that have newly loaded coordinates.<br/>
-				Find marker <b>Qk</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-				<li>Coordinates are reported properly for markers with no gene 
-				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-				<li>Coordinates are reported properly for markers with gene 
-				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-			</ol>
-			</li>
-			<li>Confirm that markers have the correct coordinates in 
-			 Affy_U74_mgi.rpt<p concordion:assertTrue="false">new test</p>
-			<ol>
-				<li>Coordinates are reported properly for markers with no gene 
-				model that have newly loaded coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-				<li>Coordinates are reported properly for markers with gene 
-				model that have newly loaded coordinates.<br/>
-				Find marker <b>Qk</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-				<li>Coordinates are reported properly for markers with no gene 
-				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
-				<li>Coordinates are reported properly for markers with gene 
-				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>XX</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
+				
+			
+
+			
 			</ol>
 			</li>													
 		</ol>
