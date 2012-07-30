@@ -81,11 +81,11 @@
 		<ol>
 		    <h4>Sanity Checks</h4>
     		<li>Abort processing for input file when the header record does not include the Build parameter
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS rmb 7/27/12</p> 
     		<ol>
-    			<li>QC check an input file that does not have a header record.  This should fail the QC check and report it to the curator.</li>
-    			<li>QC check an input file that has a header record with parameters, but does not include a Build parameter.  This should fail the QC check and report it to the curator.</li>
-    			<li>QC check an input file that has a header record with multiple parameters.  The Build parameter is included at the end of the list.  This should pass the QC.</li>
+    			<li>QC check test input file, <b>Sanity1_1.txt</b>, that does not have a header record.  This should fail the QC check and report it to the curator.</li>
+    			<li>QC check test input file, <b>Sanity1_2.txt</b>, that has a header record with parameters, but does not include a Build parameter.  This should fail the QC check and report it to the curator.</li>
+    			<li>QC check test input file, <b>Sanity1_3.txt</b>, that has a header record with multiple parameters.  The Build parameter is included at the end of the list.  This should pass the QC.</li>
     		</ol></li>
     		<li>Abort processing for input file when duplicate lines are found.
     		<p concordion:assertTrue="false">new test</p> 
