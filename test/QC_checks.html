@@ -100,7 +100,9 @@
                 <li>QC check test input file, <b>Sanity3_2.txt</b>, that has 3 matching IDs.  This should fail the QC check and report it to the curator.</li>
             </ol></li>
             <li>Abort processing for input file when fewer than 7 columns are found.
-    		<p concordion:assertTrue="true">PASS rmb 7/27/12</p> 
+    		<p concordion:assertTrue="true">PASS rmb 7/31/12</p> 
+    		<b>In some cases, the "Lines With Missing Columns or Data" in the Sanity Report displays the following character at the end of a line: "\n".  This will be addressed in a future Sprint.</b>
+    		
     		<ol>
                 <li>QC check test input file, <b>Sanity4_1.txt</b>, that has columns 1, 2, &amp; 3 only.  This should fail the QC check and report it to the curator.</li>
                 <li>QC check test input file, <b>Sanity4_2.txt</b>, that has data for columns 1 and 6, but only 2 columns represented.  This should fail the QC check and report it to the curator.</li>
@@ -173,11 +175,12 @@
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>start coordinate equal to the end coordinate: MGI:4821094</b>.  This passes the QC check.</li>
             </ol></li>
             <li>Report to the curator when the chromosome is not valid.  Reject the line.
-            <p concordion:assertTrue="true">PASS rmb 7/29/12</p><b>I expected that lines with invalid chromosomes (20, UN) would be rejected.  One was reported as a chr mismatch (and accepted) and the other was accepted.</b> (fixed, rmb)
+            <p concordion:assertTrue="true">PASS rmb 7/30/12</p><b>I expected that lines with invalid chromosomes (20, UN) would be rejected.  One was reported as a chr mismatch (and accepted) and the other was accepted.</b> (fixed, rmb)
     		<ol>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>chromosome of 20: Pax6, MGI:97490</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>chromosome of UN: Gdap4, MGI:1337999</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>lower case x: Dach2, MGI:1890446</b>.  This passes the QC check.</li>
+                <li>QC check test input file, <b>LineReject2.txt</b>, that has a <b>space between 1 and 9 in the Chr (1 9)</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when the coordinates are not integer.  Reject the line.
             <p concordion:assertTrue="true">PASS jlewis 7/27/12</p> 
@@ -193,24 +196,32 @@
             </ol></li>
              <h4>Report & Load</h4>
             <li>List marker when chromosome in the input file does not match the chromosome in the database.  Line accepted.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS rmb 7/30/12</p> 
     		<ol>
-                <li>Chromosomes don't match -- marker has chr and coordinates in database.</li>
-                <li>Chromosomes don't match -- marker has only chr in database</li>
-                <li>Chromosomes don't match -- marker has UN in database</li>
+                <li>QC check test input file, <b>Report_Load18_1.txt</b>, where Chromosomes don't match -- marker has chr and coordinates in database.</li>
+                <li>QC check test input file, <b>Report_Load18_2.txt</b>, where Chromosomes don't match -- marker has only chr in database</li>
+                <li>QC check test input file, <b>Report_Load18_3.txt</b>, where Chromosomes don't match -- marker has UN in database</li>
+          
             </ol></li>
             <li>List new source/display pairs present in the Input File
-    		<p concordion:assertTrue="false">FAIL rmb 7/29/12</p> 
+    		<p concordion:assertTrue="true">PASS rmb 7/30/12</p>
+    		<b>A requirements change has been proposed for the source/display report.  A new User Story will be entered in the Backlog for this change (rmb).</b>
+    		 
     		<ol>
-                <li>Input file has a single occurence of a new source/display pair</li>
-                <li>Input file has multiple occurences of a new source/display pair</li>
-                <li>Input file has multiple new source/display pairs</li>
+                <li>QC check test input file, <b>Report_Load19_1.txt</b>, where input file has a single occurence of a new source/display pair</li>
+                <li>QC check test input file, <b>Report_Load19_2.txt</b>, where input file has multiple occurences of a new source/display pair</li>
+                <li>QC check test input file, <b>Report_Load19_3.txt</b>, where input file has multiple new source/display pairs</li>
+                <li>QC check test input file, <b>Report_Load19_4.txt</b>, where input file has old source/new display</li>
+                <li>QC check test input file, <b>Report_Load19_5.txt</b>, where input file has new source/old display</li>
+                <li>QC check test input file, <b>Report_Load19_6.txt</b>, where input file tests case sensitivity of source/display text</li>
             </ol></li>
             <li>List build text from Input File and all unique build texts in the database
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS rmb 7/29/12</p> 
     		<ol>
-                <li>Input file has build text that is currently in the database</li>
-                <li>Input file has build text that is new</li>
+                <li>QC check test input file, <b>Report_Load20_1.txt</b>, where input file has build text that is currently in the database (build=NCBI Build 37)</li>
+                <li>QC check test input file, <b>Report_Load20_2.txt</b>, where input file has build text that is new (build=NCBI Build 40)</li>
+                <li>QC check test input file, <b>Report_Load20_3.txt</b>, where input file tests case sensitivity for build text (build=ncbi build 37) [case sensitive]</li>
+                <li>QC check test input file, <b>Report_Load20_4.txt</b>, where input file tests case sensitivity for "build=" (Build=NCBI Build 37) [case insensitive]</li>
             </ol></li>
 		    
 		</ol>
