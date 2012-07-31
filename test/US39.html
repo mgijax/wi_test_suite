@@ -296,7 +296,7 @@
 			</li>			
 			
 			<li>Confirm changes to MGI_QTLAllele.rpt
-			<p concordion:assertTrue="false">FAIL jlewis 7/30/12 <b>Newly assigned coordinates not displayed.</b></p>
+			<p concordion:assertTrue="true">PASS jlewis 7/31/12 </p>
 			<ol>				
 				<li>Report now contains following new columns: chr, start,
 				end</li>
@@ -328,17 +328,7 @@
 			MGI_IKMC_DNA_GT_info.rpt 
 			<p concordion:assertTrue="false">new test</p>
 			<ol>
-				<li>Coordinates are reported properly for markers with no gene 
-				model that have newly loaded coordinates.<br/>
-				Find marker <b>n-Ta1</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
+				
 				<li>Coordinates are reported properly for markers with gene 
 				model that have newly loaded coordinates.<br/>
 				Find marker <b>Qk</b>. Verify the location fields:
@@ -366,7 +356,7 @@
 			</li>					
 			<li>Confirm that markers have the correct coordinates in 
 			MGI_EntrezGene.rpt
-			<p concordion:assertTrue="false">new test</p>
+			<p concordion:assertTrue="true">PASS jlewis 7/31/2012</p>
 			<ol>
 				<li>Coordinates are reported properly for markers with gene 
 				model that have newly loaded coordinates.<br/>
@@ -744,7 +734,7 @@
 			</li>
 			<li>Confirm that markers have the correct coordinates in 
 			MRK_ENSEMBL.rpt
-			<p concordion:assertTrue="false">new test</p>
+			<p concordion:assertTrue="true">PASS 7/31/2012 jlewis</p>
 			<ol>
 				<li>Coordinates are reported properly for markers with Ensembl gene 
 				model that have newly loaded coordinates.<br/>
@@ -762,7 +752,7 @@
 			</li>
 			<li>Confirm that markers have the correct coordinates in 
 			MRK_Sequence.rpt
-			<p concordion:assertTrue="false">new test</p>
+			<p concordion:assertTrue="true">PASS jlewis 7/31/12</p>
 			<ol>
 				<li>Coordinates are reported properly for markers with no gene 
 				model that have newly loaded coordinates.<br/>
@@ -785,18 +775,7 @@
 					<li>end coordinate: <b>x</b></li>
 					<li>strand: <b>x</b></li>
 				</ul>
-				</li>
-				<li>Coordinates are reported properly for markers with no gene 
-				model that have deleted curator assigned coordinates.<br/>
-				Find marker <b>Aaiq2</b>. Verify the location fields:
-				<ul>
-					<li>chromosome: <b>x</b></li>
-			  		<li>cM position: <b>x</b></li>
-					<li>start coordinate: <b>x</b></li>
-					<li>end coordinate: <b>x</b></li>
-					<li>strand: <b>x</b></li>
-				</ul>
-				</li>
+				
 				<li>Coordinates are reported properly for markers with gene 
 				model that have deleted curator assigned coordinates.<br/>
 				Find marker <b>Mir24-1</b>. Verify the location fields:
