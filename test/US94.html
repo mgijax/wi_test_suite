@@ -33,18 +33,19 @@
 	<ol>
 		<li>Display genetic chromosome & location in Genetic Map section of Marker Detail
 		<ul>
-		    <li>Does this display stay as-is w/ requirements as-is?
-            <li>Are these required fields for a Marker?</li>
-            <li>Do values originates from the Marker table (Curator assigned?)</li>	
-            <li>Any special rules re: Marker Type?</li>
+		    <li>The current requirements for this section do not change.</li>
+            
 		</ul></li>
 		<li>Display genomic chromosome & location in Sequence Map section of Marker Detail
 		<ul>
-		    <li>Are these optional fields for a Marker?</li>
-		    <li>Chromsome may originate from assigned location or representative gene model?</li>
-		    <li>Any special rules re: Marker Type?</li>
+		    <li>The genomic chromosome & location are optional fields </li>
+		    <li>Chromosome and coordinates are either both present or both absent</li>
+		    <li>Chromsome may originate from assigned location or representative gene model</li>
+		    <li>Assigned chromosome overrides gene model chromosome</li>
+		    <li>Genetic & Genomic chromosomes may differ</li>
 		</ul></li>
-		<li>Genetic & Genomic chromosomes may differ - display appropriately</li>
+		<li>Update links to Mouse GBrowser (thumbnail and full browser) to use genomic chromosomes</li>
+		<li>Update link to Gene Tree (in Orthology section) to use genomic chromosome
 	</ol>
 </div>
 
@@ -60,20 +61,74 @@
  -->
 		<h3>Manual tests</h3>
 		<ol>
-    		<li>Test Requirement 1 
+    		<li>Verify display of genetic chromsome and location in the Genetic Map section remains the same.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>Test 1</li>
-    			
-    			<li>Test 2</li>
+    			<li>Display a marker with chromsome and cM in Genetic Map section and a Gene Model (Kit).</li>
+    			<li>Display a marker with chromosome and cM in the Genetic Map section and assigned location</li>
+    			<li>Display a marker with chromosome and syntenic in the Genetic Map section.</li>
+    			<li>Display a marker with only chromosome in the Genetic Map section.</li>
+    			<li>Display a marker on chromosome MT. (no GBrowse links)</li>
+    			<li>Display a marker with chromosome UN</li>
+    			<li>Display a marker with chromosome and cytoband (Thim).</li>
     		</ol>
+    		</li>
     			
-    		<li>Test Requirement 2
+    		<li>Verify  genomic chromosome,  location, GBrowse links, and Gene Tree link for markers with Gene Models
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    		<li>Test 1</li>
-    		<li>Test 2</li>
+    		<li>Test marker where both chromosomes are the same</li>
+    		<li>Test marker where chromosomes are different</li>
+    		<li>Test marker where both chromosomes are MT (no GBrowse links)</li>
     		</ol>
+    		</li>
+    		
+    		<li>Verify  genomic chromosome,  location, GBrowse links, and Gene Tree link for markers with an assigned location that overrides a Gene Model.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		<li>Test marker where both chromosomes are the same</li>
+    		<li>Test marker where chromosomes are different</li>
+    		<li>Test marker where both chromosomes are MT (no GBrowse links)</li>
+    		</ol>
+    		</li>
+    		
+    		<li>Verify  genomic chromosome,  location, GBrowse links, and Gene Tree link for markers with an assigned location (no gene model).
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		<li>Test marker where both chromosomes are the same</li>
+    		<li>Test marker where chromosomes are different</li>
+    		<li>Test marker where both chromosomes are MT (no GBrowse links)</li>
+    		<li>Test marker where genetic chromosome is UN</li>
+    		<li>Test marker where genetic chromosome is XY and genomic chromosome is X.</li>
+    		</ol>
+    		</li>
+    		
+    		<li>Verify  genomic chromosome,  location, GBrowse links, and Gene Tree link for markers that have assigned location deleted (with gene model)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		<li>Test marker where both chromosomes are the same</li>
+    		<li>Test marker where chromosomes are different</li>
+    		<li>Test marker where both chromosomes are MT (no GBrowse links)</li>
+    		</ol>
+    		</li>
+    		
+    		<li>Verify there's no display of Genomic Chromosome and location for markers that have assigned location deleted (with no gene model)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		<li>Test marker with genetic chromosome & cM</li>
+    		<li>Test marker with genetic chromosome of UN</li>
+    		</ol>
+    		</li>
+    		
+    		<li>Verify the human ortholog section of the Marker Detail and the Orthology Page is unchanged
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		<li>Test marker with a Human Ortholog section and Gene Model (Pax6)</li>
+    		<li>Test marker with a Human Ortholog section and Assigned Location (w/ gene model)</li>
+    		<li>Test marker with a Human Ortholog section and Assigned Location (no gene model)</li>
+    		</ol>
+    		</li>
+    		
 		</ol>
 	</div>
 	<div id="auto">
