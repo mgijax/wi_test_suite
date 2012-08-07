@@ -44,7 +44,7 @@
 		    <li>Assigned chromosome overrides gene model chromosome</li>
 		    <li>Genetic & Genomic chromosomes may differ</li>
 		</ul></li>
-		<li>Update links to Mouse GBrowser (thumbnail and full browser) to use genomic chromosomes</li>
+		<li>Update links to Mouse GBrowse (thumbnail and full browser) to use genomic chromosomes</li>
 		<li>Update link to Gene Tree (in Orthology section) to use genomic chromosome
 	</ol>
 </div>
@@ -64,13 +64,24 @@
     		<li>Verify display of genetic chromsome and location in the Genetic Map section remains the same.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>Display a marker with chromsome and cM in Genetic Map section and a Gene Model (Kit).</li>
-    			<li>Display a marker with chromosome and cM in the Genetic Map section and assigned location</li>
-    			<li>Display a marker with chromosome and syntenic in the Genetic Map section.</li>
-    			<li>Display a marker with only chromosome in the Genetic Map section.</li>
-    			<li>Display a marker on chromosome MT. (no GBrowse links)</li>
-    			<li>Display a marker with chromosome UN</li>
-    			<li>Display a marker with chromosome and cytoband (Thim).</li>
+    			<li>Display a marker with chromsome and cM in Genetic Map section and a Gene Model (no coordinate assignment).
+    			<ul><li>Display <b>Pax6</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = 2; location = 55.31 cM</b></li></ul></li>
+    			<li>Display a marker with chromosome and cM in the Genetic Map section and assigned location
+    			<ul><li>Display <b>n-Ta1</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = 11; location = ? cM</b></li></ul></li>
+    			<li>Display a marker with chromosome and syntenic in the Genetic Map section.
+    			<ul><li>Display <b>Gm6329</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = 8; location = syntenic</b></li></ul></li>
+    			<li>Display a marker on chromosome MT. (no GBrowse thumbnail link)
+    			<ul><li>Display <b>mt-Atp6</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = MT; location = syntenic</b></li></ul></li>
+    			<li>Display a marker with chromosome UN
+    			<ul><li>Display <b>Bdv1</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = Unknown; location = nothing displayed</b></li></ul></li>
+    			<li>Display a marker with chromosome and cytoband (Thim).
+    			<ul><li>Display <b>Thim</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = 2; location = cytoband F2-G</b></li></ul></li>
     		</ol>
     		</li>
     			
@@ -88,7 +99,7 @@
     		<ol>
     		<li>Test marker where both chromosomes are the same</li>
     		<li>Test marker where chromosomes are different</li>
-    		<li>Test marker where both chromosomes are MT (no GBrowse links)</li>
+    		<li>Test marker where both chromosomes are MT (no GBrowse thumbnail link)</li>
     		</ol>
     		</li>
     		
@@ -108,7 +119,7 @@
     		<ol>
     		<li>Test marker where both chromosomes are the same</li>
     		<li>Test marker where chromosomes are different</li>
-    		<li>Test marker where both chromosomes are MT (no GBrowse links)</li>
+    		<li>Test marker where both chromosomes are MT (no GBrowse thumbnail link)</li>
     		</ol>
     		</li>
     		
