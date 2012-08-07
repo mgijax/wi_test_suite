@@ -68,7 +68,7 @@
     			<ul><li>Display <b>Pax6</b> Marker Detail page.</li>
     			    <li>Genetic Map section; <b>Chromosome = 2; location = 55.31 cM</b></li></ul></li>
     			<li>Display a marker with chromosome and cM in the Genetic Map section and assigned location
-    			<ul><li>Display <b>n-Ta1</b> Marker Detail page.</li>
+    			<ul><li>Display <b>n-Ta1</b> Marker Detail page. (use existing data in Input File Build3)</li>
     			    <li>Genetic Map section; <b>Chromosome = 11; location = ? cM</b></li></ul></li>
     			<li>Display a marker with chromosome and syntenic in the Genetic Map section.
     			<ul><li>Display <b>Gm6329</b> Marker Detail page.</li>
@@ -85,21 +85,37 @@
     		</ol>
     		</li>
     			
-    		<li>Verify  genomic chromosome,  location, GBrowse links, and Gene Tree link for markers with Gene Models
+    		<li>Verify  genetic & genomic chromosome/location, GBrowse links, and Gene Tree link for markers with Gene Models
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
     		<li>Test marker where both chromosomes are the same</li>
     		<li>Test marker where chromosomes are different</li>
-    		<li>Test marker where both chromosomes are MT (no GBrowse links)</li>
+    		<li>Test marker where both chromosomes are MT (no GBrowse thumbnail link)</li>
     		</ol>
     		</li>
     		
     		<li>Verify  genomic chromosome,  location, GBrowse links, and Gene Tree link for markers with an assigned location that overrides a Gene Model.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    		<li>Test marker where both chromosomes are the same</li>
-    		<li>Test marker where chromosomes are different</li>
-    		<li>Test marker where both chromosomes are MT (no GBrowse thumbnail link)</li>
+    		<li>Test marker where both chromosomes are the same
+    		<ul><li>Display <b>Kit</b> Marker Detail page. (use existing data in Input File Build3)</li> 
+    		    <li>Genetic Map section; <b>Chromosome = 5; location = ? cM</b></li>
+                <li>Sequence Map section; <b>Chr5:75000000-76052747 bp, + strand </b></li>
+    			<li>GBrowse links; <b>2 links - both contain ref=5 in URL; thumbnail image - displays 5</b> </li>
+    			<li>Gene Tree link; <b>link contains: 5:75000000-75656722</b> </li></ul></li>
+    		<li>Test marker where chromosomes are different.  
+    		<ul><li>Display <b>Pax3</b> Marker Detail page. (new data record needed in Input File) </li> 
+    		    <li>Genetic Map section; <b>Chromosome = 1; location = ? cM</b></li>
+                <li>Sequence Map section; <b>Chr19:78000000-78199999 bp, - strand  </b></li>
+    			<li>GBrowse links; <b>2 links - both contain ref=19 in URL; thumbnail image - displays 19</b> </li>
+    			<li>Gene Tree link; <b>link contains: 19:78000000-78199999</b> </li></ul></li>
+    		<li>Test marker where original chromosome is MT, but is now overridden. (new data record needed in Input File)
+    		<ul><li>Display <b>mt-Nd1</b> Marker Detail page. (new data record needed in Input File) </li> 
+    		    <li>Genetic Map section; <b>Chromosome = MT; location = Syntenic</b></li>
+                <li>Sequence Map section; <b>Chr19:270000-379999 bp, + strand  </b></li>
+    			<li>GBrowse links; <b>2 links - both contain ref=19 in URL; thumbnail image - displays 19</b> </li>
+    			<li>Gene Tree link; <b>link contains: Chr19:270000-379999</b> </li></ul></li>
+    		  		
     		</ol>
     		</li>
     		
