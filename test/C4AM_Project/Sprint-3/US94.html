@@ -124,10 +124,14 @@
     		</ol>
     		</li>
     		
-    		<li>Verify  genomic chromosome,  location, GBrowse links, and Gene Tree link for markers with an assigned location (no gene model).
+    		<li>Verify  genomic chromosome,  location, and GBrowse links for markers with an assigned location (no gene model).
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    		<li>Test marker where both chromosomes are the same</li>
+    		<li>Test marker where both chromosomes are the same
+    		<ul><li>Display <b>Ity2a</b> Marker Detail page. (existing data record in Input File Build3)</li> 
+    		    <li>Genetic Map section; <b>Chromosome = 11; location = cM position of peak correlated region/marker: 23.57 cM</b></li>
+                <li>Sequence Map section; <b>Chr11:37691255-60325392 bp, + strand</b></li>
+    			<li>GBrowse links; <b>only GBrowse link, no thumbnail; GBrowse link has chr = 11</b> </li></ul></li>
     		<li>Test marker where chromosomes are different</li>
     		<li>Test marker where both chromosomes are MT (no GBrowse links)</li>
     		<li>Test marker where genetic chromosome is UN</li>
