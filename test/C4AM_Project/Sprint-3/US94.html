@@ -88,9 +88,14 @@
     		<li>Verify  genetic & genomic chromosome/location, GBrowse links, and Gene Tree link for markers with Gene Models
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    		<li>Test marker where both chromosomes are the same</li>
-    		<li>Test marker where chromosomes are different</li>
-    		<li>Test marker where both chromosomes are MT (no GBrowse thumbnail link)</li>
+    		<li>Test marker where both chromosomes are the same
+    		<ul><li>Display <b>Acadl</b> Marker Detail page.</li>
+    			<li>Genetic Map section; <b>Chromosome = 1; location = 33.64 cM</b></li>
+    			<li>Sequence Map section; <b>Chr1:66877413-66909851 bp, - strand</b></li></ul></li>
+    		<li>Test marker where both chromosomes are MT
+    		<ul><li>Display <b>mt-Atp6</b> Marker Detail page.</li>
+    			<li>Genetic Map section; <b>Chromosome = MT; location = Syntenic</b></li>
+    			<li>Sequence Map section; <b>ChrMT:7927-8607 bp, + strand</b></li></ul></li>
     		</ol>
     		</li>
     		
