@@ -151,8 +151,13 @@
     		<li>Verify there's no display of Genomic Chromosome and location for markers that have assigned location deleted (with no gene model)
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    		<li>Test marker with genetic chromosome & cM</li>
-    		<li>Test marker with genetic chromosome of UN</li>
+    		<li>Test marker with genetic chromosome & cM
+    		<ul><li>Display <b>Aaiq2</b> Marker Detail page (test data from existing test file from Build 3)</li>
+    			    <li>Genetic Map section; <b>Chromosome = 4; location = syntenic</b></li>
+    			    <li>Sequence Map section; <b>no chromosome/coordinate display</b></ul></li>
+    		<li>Test marker with genetic chromosome of UN (this cannot be tested until a 2nd "delete" run is completed)
+    		<ul><li>Display <b>Trm1</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = Unknown; location = no display</b></li></ul></li>
     		</ol>
     		</li>
     		
