@@ -130,12 +130,21 @@
     		</ol>
     		</li>
     		
-    		<li>Verify  genomic chromosome,  location, GBrowse links, and Gene Tree link for markers that have assigned location deleted (with gene model)
+    		<li>Verify genetic & genomic chromosome/location, GBrowse links, and Gene Tree link for markers that have assigned location deleted (with gene model)
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    		<li>Test marker where both chromosomes are the same</li>
-    		<li>Test marker where chromosomes are different</li>
-    		<li>Test marker where both chromosomes are MT (no GBrowse thumbnail link)</li>
+    		<li>Test marker where both chromosomes are the same (use existing data in Input File for Build3)
+    		<ul><li>Display <b>Mir24-1</b> Marker Detail page. (use existing data in Input File Build3)</li> 
+    		    <li>Genetic Map section; <b>Chromosome = 13; location = 32.8 cM</b></li>
+                <li>Sequence Map section; <b>Chr13:63402516-63402583 bp, + strand </b></li>
+    			<li>GBrowse links; <b>NO GBrowse links or image</b> </li>
+    			<li>Gene Tree link; <b>NO gene tree link</b> </li></ul></li>
+    		<li>Test marker where chromosomes were different (prior to the delete) (requires a 2nd run)
+    		<ul><li>Display <b>Brca2</b> Marker Detail page. (unable to test until a follow-up "delete" action taken)</li> 
+    		    <li>Genetic Map section; <b>Chromosome = 5; location = 89.52 cM</b></li>
+                <li>Sequence Map section; <b>Chr5:151325205-151372321 bp, + strand  </b></li>
+    			<li>GBrowse links; <b>2 links - both contain ref=5 in URL; thumbnail image - displays 5</b> </li>
+    			<li>Gene Tree link; <b>link contains: Chr5:151325205-151372321</b> </li></ul></li>
     		</ol>
     		</li>
     		
@@ -150,9 +159,15 @@
     		<li>Verify the human ortholog section of the Marker Detail and the Orthology Page is unchanged
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    		<li>Test marker with a Human Ortholog section and Gene Model (Pax6)</li>
-    		<li>Test marker with a Human Ortholog section and Assigned Location (w/ gene model)</li>
-    		<li>Test marker with a Human Ortholog section and Assigned Location (no gene model)</li>
+    		<li>Test marker with a Human Ortholog section and Gene Model
+    		<ul><li>Display <b>Pax6</b> Marker Detail page.</li>
+    			    <li>Human ortholog section; <b>Location = Human Chr11: 31806340-31839509 bp, - strand</b></li></ul></li>
+    		<li>Test marker with a Human Ortholog section and Assigned Location (w/ gene model)
+    		<ul><li>Display <b>Kit</b> Marker Detail page.</li>
+    			    <li>Human ortholog section; <b>Location = Human Chr4: 55524095-55606881 bp, + strand</b></li></ul></li>
+    		<li>Test marker with a Human Ortholog section and Assigned Location (no gene model)
+    		<ul><li>Display <b>Pepc</b> Marker Detail page.</li>
+    			    <li>Human ortholog section; <b>Location = Human Chr1</b></li></ul></li>
     		</ol>
     		</li>
     		
