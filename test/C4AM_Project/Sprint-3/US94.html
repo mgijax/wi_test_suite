@@ -62,18 +62,18 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>Verify display of genetic chromsome and location in the Genetic Map section remains the same.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS jlewis 8/8/12</p> 
     		<ol>
     			<li>Display a marker with chromsome and cM in Genetic Map section and a Gene Model (no coordinate assignment).
     			<ul><li>Display <b>Pax6</b> Marker Detail page.</li>
     			    <li>Genetic Map section; <b>Chromosome = 2; location = 55.31 cM</b></li></ul></li>
     			<li>Display a marker with chromosome and cM in the Genetic Map section and assigned location
-    			<ul><li>Display <b>n-Ta1</b> Marker Detail page. (use existing data in Input File Build3)</li>
-    			    <li>Genetic Map section; <b>Chromosome = 11; location = ? cM</b></li></ul></li>
+    			<ul><li>Display <b>n-Ta1</b> Marker Detail page. (using assigned values in Input File Build4)</li>
+    			    <li>Genetic Map section; <b>Chromosome = 11; location = 31.8 cM</b></li></ul></li>
     			<li>Display a marker with chromosome and syntenic in the Genetic Map section.
     			<ul><li>Display <b>Gm6329</b> Marker Detail page.</li>
     			    <li>Genetic Map section; <b>Chromosome = 8; location = syntenic</b></li></ul></li>
-    			<li>Display a marker on chromosome MT. (no GBrowse thumbnail link)
+    			<li>Display a marker on chromosome MT. (no GBrowse thumbnail)
     			<ul><li>Display <b>mt-Atp6</b> Marker Detail page.</li>
     			    <li>Genetic Map section; <b>Chromosome = MT; location = syntenic</b></li></ul></li>
     			<li>Display a marker with chromosome UN
@@ -100,19 +100,19 @@
     		</li>
     		
     		<li>Verify  genomic chromosome,  location, GBrowse links, and Gene Tree link for markers with an assigned location that overrides a Gene Model.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS jlewis 8/8/2012 </p> 
     		<ol>
     		<li>Test marker where both chromosomes are the same
-    		<ul><li>Display <b>Kit</b> Marker Detail page. (use existing data in Input File Build3)</li> 
-    		    <li>Genetic Map section; <b>Chromosome = 5; location = ? cM</b></li>
+    		<ul><li>Display <b>Kit</b> Marker Detail page. (use assigned values in Input File Build4)</li> 
+    		    <li>Genetic Map section; <b>Chromosome = 5; location = 39.52 cM</b></li>
                 <li>Sequence Map section; <b>Chr5:75000000-76052747 bp, + strand </b></li>
     			<li>GBrowse links; <b>2 links - both contain ref=5 in URL; thumbnail image - displays 5</b> </li>
     			<li>Gene Tree link; <b>link contains: 5:75000000-75656722</b> </li></ul></li>
     		<li>Test marker where chromosomes are different.  
     		<ul><li>Display <b>Pax3</b> Marker Detail page. (new data record needed in Input File) </li> 
-    		    <li>Genetic Map section; <b>Chromosome = 1; location = ? cM</b></li>
+    		    <li>Genetic Map section; <b>Chromosome = 1; location = 39.79 cM</b></li>
                 <li>Sequence Map section; <b>Chr19:78000000-78199999 bp, - strand  </b></li>
-    			<li>GBrowse links; <b>2 links - both contain ref=19 in URL; thumbnail image - displays 19</b> </li>
+    			<li><b>Thumbnail missing-data error; bad coordinate range for this chromosome</b> GBrowse links; <b>2 links - both contain ref=19 in URL; thumbnail image - displays 19</b> </li>
     			<li>Gene Tree link; <b>link contains: 19:78000000-78199999</b> </li></ul></li>
     		<li>Test marker where original chromosome is MT, but is now overridden. (new data record needed in Input File)
     		<ul><li>Display <b>mt-Nd1</b> Marker Detail page. (new data record needed in Input File) </li> 
@@ -157,7 +157,7 @@
     		</li>
     		
     		<li>Verify genetic & genomic chromosome/location, GBrowse links, and Gene Tree link for markers that have assigned location deleted (with gene model)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">IN PROGRESS jlewis 8/8/2012 -- 5.1 complete; 5.2 waiting on add'l Build</p> 
     		<ol>
     		<li>Test marker where both chromosomes are the same (use existing data in Input File for Build3)
     		<ul><li>Display <b>Mir24-1</b> Marker Detail page. (use existing data in Input File Build3)</li> 
@@ -188,7 +188,7 @@
     		</li>
     		
     		<li>Verify the human ortholog section of the Marker Detail and the Orthology Page is unchanged
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS jlewis 8/8/2012</p> 
     		<ol>
     		<li>Test marker with a Human Ortholog section and Gene Model
     		<ul><li>Display <b>Pax6</b> Marker Detail page.</li>
