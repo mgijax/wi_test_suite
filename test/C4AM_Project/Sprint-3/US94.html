@@ -132,10 +132,27 @@
     		    <li>Genetic Map section; <b>Chromosome = 11; location = cM position of peak correlated region/marker: 23.57 cM</b></li>
                 <li>Sequence Map section; <b>Chr11:37691255-60325392 bp, + strand</b></li>
     			<li>GBrowse links; <b>only GBrowse link, no thumbnail; GBrowse link has chr = 11</b> </li></ul></li>
-    		<li>Test marker where chromosomes are different</li>
-    		<li>Test marker where both chromosomes are MT (no GBrowse links)</li>
-    		<li>Test marker where genetic chromosome is UN</li>
-    		<li>Test marker where genetic chromosome is XY and genomic chromosome is X.</li>
+    		<li>Test marker where chromosomes are different
+    		<ul><li>Display <b>D3Dcr10</b> Marker Detail page. (new daata record in Input File)</li> 
+    		    <li>Genetic Map section; <b>Chromosome = 3; location = 35.78 cM</b></li>
+                <li>Sequence Map section; <b>Chr3:80972321-80972419 bp</b></li>
+    			<li>GBrowse links; <b>no GBrowse thumbnail or link</b> </li></ul></li>
+    		<li>Test marker where both chromosomes are MT (no GBrowse links)
+    			<ul><li>Display <b>mt-Olr</b> Marker Detail page. (existing data record in Input File Build3)</li> 
+    		    <li>Genetic Map section; <b>Chromosome = MT; location = Syntenic </b></li>
+                <li>Sequence Map section; <b>ChrMT:4952-5327 bp, + strand</b></li>
+    			<li>GBrowse thumbnail, links; <b>GBrowse thumbnail and link should be established using ChrMT</b> </li></ul></li>
+    		<li>Test marker where genetic chromosome is UN
+    			<ul><li>Display <b>Mir1194</b> Marker Detail page. (existing data record in Input File Build3)</li> 
+    		    <li>Genetic Map section; <b>Chromosome = Unknown</b></li>
+                <li>Sequence Map section; <b>Chr4:107370439-107370559 bp, - strand</b></li>
+    			<li>GBrowse thumbnail, links; <b>GBrowse thumbnail and link should be established using Chr4</b> </li></ul></li> 		
+    		<li>Test marker where genetic chromosome is XY and genomic chromosome is X.
+    			<ul><li>Display <b>Sts</b> Marker Detail page. (new data record in Input File)</li> 
+    		    <li>Genetic Map section; <b>Chromosome = XY; location = Syntenic</b></li>
+                <li>Sequence Map section; <b>ChrX:166550223-166648337 bp, - strand</b></li>
+    			<li>GBrowse thumbnail, links; <b>GBrowse thumbnail and link should be established using ChrX</b> </li></ul></li>
+    		
     		</ol>
     		</li>
     		
