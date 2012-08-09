@@ -113,8 +113,8 @@
     			<li>Gene Tree link; <b>link contains: 5:75000000-75656722</b> </li></ul></li>
     		<li>Test marker where chromosomes are different.  
     		<ul><li>Display <b>Pax3</b> Marker Detail page. (new data record needed in Input File) </li> 
-    		    <li>Genetic Map section; <b>Chromosome = 1; location = 39.79 cM</b></li>
-                <li>Sequence Map section; <b>Chr19:78000000-78199999 bp, - strand  </b></li>
+    		    <li>Genetic Map section; <b>Chromosome = 1; location = 11.48 cM</b></li>
+                <li>Sequence Map section; <b>Chr19:31000000-31199999 bp, - strand  </b></li>
     			<li><b>Thumbnail missing-data error; bad coordinate range for this chromosome</b> GBrowse links; <b>2 links - both contain ref=19 in URL; thumbnail image - displays 19</b> </li>
     			<li>Gene Tree link; <b>link contains: 19:78000000-78199999</b> </li></ul></li>
     		<li>Test marker where original chromosome is MT, but is now overridden. (new data record needed in Input File)
@@ -161,7 +161,7 @@
     		</li>
     		
     		<li>Verify genetic & genomic chromosome/location, GBrowse links, and Gene Tree link for markers that have assigned location deleted (with gene model)
-    		<p concordion:assertTrue="false">IN PROGRESS jlewis 8/8/2012 -- 5.1 complete; 5.2 waiting on add'l Build</p> 
+    		<p concordion:assertTrue="true">PASS jlewis 8/9/2012</p> 
     		<ol>
     		<li>Test marker where both chromosomes are the same (use existing data in Input File for Build3)
     		<ul><li>Display <b>Mir24-1</b> Marker Detail page. (use existing data in Input File Build3)</li> 
@@ -179,7 +179,7 @@
     		</li>
     		
     		<li>Verify there's no display of Genomic Chromosome and location for markers that have assigned location deleted (with no gene model)
-    		<p concordion:assertTrue="false">IN PROGRESS jlewis 8/8/2012 -- 6.1 complete; 6.2 waiting on add'l Build</p> 
+    		<p concordion:assertTrue="true">PASS jlewis 8/9/2012</p> 
     		<ol>
     		<li>Test marker with genetic chromosome & cM
     		<ul><li>Display <b>Aaiq2</b> Marker Detail page (test data from existing test file from Build 3)</li>
