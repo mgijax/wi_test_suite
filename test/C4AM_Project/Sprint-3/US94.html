@@ -68,7 +68,7 @@
     			<ul><li>Display <b>Pax6</b> Marker Detail page.</li>
     			    <li>Genetic Map section; <b>Chromosome = 2; location = 55.31 cM</b></li></ul></li>
     			<li>Display a marker with chromosome and cM in the Genetic Map section and assigned location
-    			<ul><li>Display <b>n-Ta1</b> Marker Detail page. (using assigned values in Input File Build4)</li>
+    			<ul><li>Display <b>n-Ta1</b> Marker Detail page. <i>(assigned values in Build4)</i></li>
     			    <li>Genetic Map section; <b>Chromosome = 11; location = 31.8 cM</b></li></ul></li>
     			<li>Display a marker with chromosome and syntenic in the Genetic Map section.
     			<ul><li>Display <b>Gm6329</b> Marker Detail page.</li>
@@ -98,7 +98,8 @@
     		<ul><li>Display <b>mt-Atp6</b> Marker Detail page.</li>
     			<li>Genetic Map section; <b>Chromosome = MT; location = Syntenic</b></li>
     			<li>Sequence Map section; <b>ChrMT:7927-8607 bp, + strand</b></li>
-    			<li>GBrowse links; <b>only GBrowse link, no thumbnail; GBrowse link has chr = MT</b></ul></li>
+    			<li>GBrowse links; <b>only GBrowse link, no thumbnail; GBrowse link has chr = MT</b> <i>note: MT thumbnail does not display on Prod, but does display on Public</i></li>
+    			<li>Gene Tree link; <b>link contains: MT:7927-8607</b> </li></ul></li>
     		</ol>
     		</li>
     		
@@ -106,19 +107,19 @@
     		<p concordion:assertTrue="true">PASS jlewis 8/8/2012 </p> 
     		<ol>
     		<li>Test marker where both chromosomes are the same
-    		<ul><li>Display <b>Kit</b> Marker Detail page. (use assigned values in Input File Build4)</li> 
+    		<ul><li>Display <b>Kit</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
     		    <li>Genetic Map section; <b>Chromosome = 5; location = 39.52 cM</b></li>
                 <li>Sequence Map section; <b>Chr5:75000000-76052747 bp, + strand </b></li>
     			<li>GBrowse links; <b>2 links - both contain ref=5 in URL; thumbnail image - displays 5</b> </li>
     			<li>Gene Tree link; <b>link contains: 5:75000000-75656722</b> </li></ul></li>
     		<li>Test marker where chromosomes are different.  
-    		<ul><li>Display <b>Pax3</b> Marker Detail page. (new data record needed in Input File) </li> 
+    		<ul><li>Display <b>Pax3</b> Marker Detail page. <i>assigned values in Build 4 & 5</i> </li> 
     		    <li>Genetic Map section; <b>Chromosome = 1; location = 11.48 cM</b></li>
                 <li>Sequence Map section; <b>Chr19:31000000-31199999 bp, - strand  </b></li>
     			<li><b>Thumbnail missing-data error; bad coordinate range for this chromosome</b> GBrowse links; <b>2 links - both contain ref=19 in URL; thumbnail image - displays 19</b> </li>
     			<li>Gene Tree link; <b>link contains: 19:78000000-78199999</b> </li></ul></li>
-    		<li>Test marker where original chromosome is MT, but is now overridden. (new data record needed in Input File)
-    		<ul><li>Display <b>mt-Nd1</b> Marker Detail page. (new data record needed in Input File) </li> 
+    		<li>Test marker where original chromosome is MT, but is now overridden.
+    		<ul><li>Display <b>mt-Nd1</b> Marker Detail page. <i>assigned values in Build 4</i> </li> 
     		    <li>Genetic Map section; <b>Chromosome = MT; location = Syntenic</b></li>
                 <li>Sequence Map section; <b>Chr19:270000-379999 bp, + strand  </b></li>
     			<li>GBrowse links; <b>2 links - both contain ref=19 in URL; thumbnail image - displays 19</b> </li>
@@ -128,31 +129,40 @@
     		</li>
     		
     		<li>Verify  genomic chromosome,  location, and GBrowse links for markers with an assigned location (no gene model).
-    		<p concordion:assertTrue="false">PENDING rmb 8/8/12</p> 
+    		<p concordion:assertTrue="true">PASS jlewis 8/9/12</p> 
     		<ol>
     		<li>Test marker where both chromosomes are the same
-    		<ul><li>Display <b>Ity2a</b> Marker Detail page. (existing data record in Input File Build3)</li> 
-    		    <li>Genetic Map section; <b>Chromosome = 11; location = cM position of peak correlated region/marker: <i>NEW cM VALUE*</i></b></li>
-    		    <i>*NEW cM VALUE: New Value is expected because the cM load has not been modified for this Sprint.</i>
+    		<ul><li>Display <b>Ity2a</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = 11; location = cM position of peak correlated region/marker: 27.9 <i>NEW cM VALUE*</i></b></li>
                 <li>Sequence Map section; <b>Chr11:37691255-60325392 bp, + strand</b></li>
-    			<li>GBrowse links; <b>only GBrowse link, no thumbnail; GBrowse link has chr = 11</b></li></ul></li>
+    			<li>GBrowse links; <b>only GBrowse link, no thumbnail; GBrowse link has chr = 11</b></li></ul></li>	
     		<li>Test marker where chromosomes are different
-    		<ul><li>Display <b>D3Dcr10</b> Marker Detail page. (new data record in Input File)</li> 
-    		    <li>Genetic Map section; <b>Chromosome = 3; location = <i>NEW cM VALUE</i></b> (see 4.1)</li>
+    		<ul><li>Display <b>D3Dcr10</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = 3; location = <i> 35.38 cM - new cM location displayed; future change to display 'Syntenic'</i></b></li>
                 <li>Sequence Map section; <b>Chr4:80000000-80000111 bp</b></li>
+    			<li>GBrowse links; <b>no GBrowse thumbnail or link</b> </li>
+    			<li>Display <b>Mir1892</b> Marker Detail page. <i>assigned values in Build 5</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = 12; location = <i>37.15 cM - new cM location; future change to display 'Syntenic'</i></b></li>
+                <li>Sequence Map section; <b>Chr6:82000000-82000100 bp, + strand </b></li>
     			<li>GBrowse links; <b>no GBrowse thumbnail or link</b> </li></ul></li>
     		<li>Test marker where both chromosomes are MT
-    			<ul><li>Display <b>mt-Olr</b> Marker Detail page. (existing data record in Input File Build3)</li> 
+    			<ul><li>Display <b>mt-Olr</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
     		    <li>Genetic Map section; <b>Chromosome = MT; location = Syntenic </b></li>
                 <li>Sequence Map section; <b>ChrMT:4952-5327 bp, + strand</b></li>
-    			<li>GBrowse thumbnail, links; <b>GBrowse thumbnail and link should be established using ChrMT</b><i>(not observed, checking to see if this were expected)</i></li></ul></li>
+    			<li>GBrowse thumbnail, links; <b>No GBrowse links due to Marker Type - Other Genome Feature</b></li></ul></li>
     		<li>Test marker where genetic chromosome is UN
-    			<ul><li>Display <b>Mir1194</b> Marker Detail page. (existing data record in Input File Build3)</li> 
+    			<ul><li>Display <b>Mir1194</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
     		    <li>Genetic Map section; <b>Chromosome = Unknown</b></li>
                 <li>Sequence Map section; <b>Chr4:107370439-107370559 bp, - strand</b></li>
-    			<li>GBrowse thumbnail, links; <b>GBrowse thumbnail and link should be established using Chr4</b> </li></ul></li> 		
+    			<li>GBrowse thumbnail, links; <b>GBrowse thumbnail and link should be established using Chr4</b> </li>
+    			<li>Display <b>Mir199s</b> Marker Detail page. <i>assigned values in Build 4 and Build 5</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = Unknown</b></li>
+                <li>Sequence Map section; <b>Chr2:169141111-169144444 bp, - strand</b></li>
+    			<li>GBrowse thumbnail, links; <b>GBrowse thumbnail and link should be established using Chr2</b> </li>
+    			</ul></li>
+    			 		
     		<li>Test marker where genetic chromosome is XY and genomic chromosome is X.
-    			<ul><li>Display <b>Sts</b> Marker Detail page. (new data record in Input File)</li> 
+    			<ul><li>Display <b>Sts</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
     		    <li>Genetic Map section; <b>Chromosome = XY; location = Syntenic</b></li>
                 <li>Sequence Map section; <b>ChrX:166550223-166648337 bp, - strand</b></li>
     			<li>GBrowse thumbnail, links; <b>GBrowse thumbnail and link should be established using ChrX</b> </li></ul></li>
@@ -163,14 +173,14 @@
     		<li>Verify genetic & genomic chromosome/location, GBrowse links, and Gene Tree link for markers that have assigned location deleted (with gene model)
     		<p concordion:assertTrue="true">PASS jlewis 8/9/2012</p> 
     		<ol>
-    		<li>Test marker where both chromosomes are the same (use existing data in Input File for Build3)
-    		<ul><li>Display <b>Mir24-1</b> Marker Detail page. (use existing data in Input File Build3)</li> 
+    		<li>Test marker where both chromosomes are the same
+    		<ul><li>Display <b>Mir24-1</b> Marker Detail page. <i>deleted assigned values in Build 4</i></li> 
     		    <li>Genetic Map section; <b>Chromosome = 13; location = 32.8 cM</b></li>
                 <li>Sequence Map section; <b>Chr13:63402516-63402583 bp, + strand </b></li>
     			<li>GBrowse links; <b>2 links - both contain ref=13 in URL; thumbnail image - displays 13</b> </li>
     			<li>Gene Tree link; <b>NO gene tree link</b> </li></ul></li>
     		<li>Test marker where chromosomes were different (prior to the delete) (requires a 2nd run)
-    		<ul><li>Display <b>Brca2</b> Marker Detail page. (unable to test until a follow-up "delete" action taken)</li> 
+    		<ul><li>Display <b>Brca2</b> Marker Detail page. <i>assigned values in Build 4; deleted them in Build 5</i></li> 
     		    <li>Genetic Map section; <b>Chromosome = 5; location = 89.52 cM</b></li>
                 <li>Sequence Map section; <b>Chr5:151325205-151372321 bp, + strand  </b></li>
     			<li>GBrowse links; <b>2 links - both contain ref=5 in URL; thumbnail image - displays 5</b> </li>
@@ -182,10 +192,10 @@
     		<p concordion:assertTrue="true">PASS jlewis 8/9/2012</p> 
     		<ol>
     		<li>Test marker with genetic chromosome & cM
-    		<ul><li>Display <b>Aaiq2</b> Marker Detail page (test data from existing test file from Build 3)</li>
+    		<ul><li>Display <b>Aaiq2</b> Marker Detail page <i>deleted assigned values in Build 4</i></li>
     			    <li>Genetic Map section; <b>Chromosome = 4; location = syntenic</b></li>
     			    <li>Sequence Map section; <b>no chromosome/coordinate display</b></ul></li>
-    		<li>Test marker with genetic chromosome of UN (this cannot be tested until a 2nd "delete" run is completed)
+    		<li>Test marker with genetic chromosome of UN <i>assigned values in Build 4; deleted them in Build 5</i>
     		<ul><li>Display <b>Trm1</b> Marker Detail page.</li>
     			    <li>Genetic Map section; <b>Chromosome = Unknown; location = no display</b></li></ul></li>
     		</ol>
@@ -198,10 +208,10 @@
     		<ul><li>Display <b>Pax6</b> Marker Detail page.</li>
     			    <li>Human ortholog section; <b>Location = Human Chr11: 31806340-31839509 bp, - strand</b></li></ul></li>
     		<li>Test marker with a Human Ortholog section and Assigned Location (w/ gene model)
-    		<ul><li>Display <b>Kit</b> Marker Detail page.</li>
+    		<ul><li>Display <b>Kit</b> Marker Detail page.  <i>assigned values in Build 4</i></li>
     			    <li>Human ortholog section; <b>Location = Human Chr4: 55524095-55606881 bp, + strand</b></li></ul></li>
     		<li>Test marker with a Human Ortholog section and Assigned Location (no gene model)
-    		<ul><li>Display <b>Pepc</b> Marker Detail page.</li>
+    		<ul><li>Display <b>Pepc</b> Marker Detail page.  <i>assigned values in Build 4</i></li>
     			    <li>Human ortholog section; <b>Location = Human Chr1</b></li></ul></li>
     		</ol>
     		</li>
