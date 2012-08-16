@@ -76,8 +76,8 @@
     			<li>Display  marker <b>3-209M19-S</b>.  This marker has a marker type of <b>BAC/YAC</b></li>
     			<ul><li>Verify the Sequence Map display: <br><b>chr2:103286918-103286918 bp <br>(From MGI annotation of NCBI Build XX)</b></li></ul>
     			
-    			<li>Display  marker <b>H3093D10</b>.  This marker has a marker type of <b>Other Genome Feature</b></li>
-    			<ul><li>Verify the Sequence Map display: <br><b>chr9:65557564-65558161 bp, - strand<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			<li>Display  marker <b>mt-Olr</b>.  This marker has a marker type of <b>Other Genome Feature</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chrMT:4952-5327 bp, + strand<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
     			
     			<li>Display  marker <b>Snord116</b>.  This marker has a marker type of <b>Complex/Cluster/Region</b></li>
     			<ul><li>Verify the Sequence Map display: <br><b>chr7:66880887-67119801 bp<br>(From MGI annotation of NCBI Build XX)</b></b></li></ul>
@@ -87,12 +87,7 @@
     			
        		</ol>
        		
-    		<li>Verify assignment of coordinates with special cases in re: to chromosomes<ol>
-    		<p concordion:assertTrue="false">new test</p> 
-    		    <li>Display marker <b>mt-Olr</b>. This marker is on the <b>MT chromosome</b>.</li>
-    		    <ul><li>Verify the Sequence Map display: <br><b>chrMT:4952-5327 bp, + strand<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
-    			
-    		</ol>
+    		
     		
     		<li>Markers with no coordinate assignment via the load (or gene models) don't display coordinates or credit/build text. (as-of July 9th - no coordinates on Public WI for the following markers)  The results are the same for each of these - <b>no display of coordinates, provider, or build</b><ol>
     		<p concordion:assertTrue="false">new test</p> 
@@ -229,10 +224,10 @@
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
     		<li>Test marker where both chromosomes are the same
-    		<ul><li>Display <b>Ity2a</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
-    		    <li>Genetic Map section; <b>Chromosome = 11; location = cM position of peak correlated region/marker: 27.9 <i>NEW cM VALUE*</i></b></li>
-                <li>Sequence Map section; <b>Chr11:37691255-60325392 bp, + strand</b></li>
-    			<li>GBrowse links; <b>only GBrowse link, no thumbnail; GBrowse link has chr = 11</b></li></ul></li>	
+    		<ul><li>Display <b>Snord116l3</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = 7; location = 34.02 cM -  <i>NEW cM VALUE*</i></b></li>
+                <li>Sequence Map section; <b>Chr7:67024347-67024436 bp, - strand</b></li>
+    			<li>GBrowse links; <b>2 links - both contain ref=7 in URL; thumbnail image - displays 7</b></li></ul></li>	
     		<li>Test marker where chromosomes are different
     		<ul><li>Display <b>D3Dcr10</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
     		    <li>Genetic Map section; <b>Chromosome = 3; location = <i> 35.38 cM - new cM location displayed; future change to display 'Syntenic'</i></b></li>
