@@ -1,0 +1,301 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 111</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#auto">Automated Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Public WI:  Chr & Coordinate Display on Marker Detail</h1>
+    <ul>
+        <li>User Story 111, Genetic vs. Genomic Chr &amp; Coordinate Display on Marker Detail on the Public WI.</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ul>
+		<li>Display assigned coordinates for any Marker Type on the Marker Detail.
+		    <ul><li>types include: Gene, Pseudogene, DNA segment, Cyto Marker, QTL, BAC/YAC, Other Genome Feature, Complex/Cluster/Region</li>
+		    </ul>
+		<li>Display assigned coordinates for markers with Gene Models
+		    <ul><li>marker types include: gene, pseudogene</li>
+		        <li>gene model providers include: VEGA, Ensembl, NCBI</li></ul>
+		<li>Display Genome Build and Provider text specified in the Curator input file</li>
+		<li>Display Genetic chromosome & location  in Genetic map section of the Marker Detail</li>
+		<li>Display Genomic chromosome & coordinates in Sequence map section of the Marker Detail</li>
+		<li>Update links to Mouse GBrowse (thumbnail & full browser) to use genomic chromosome</li>
+	</ul>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<ol>
+    		<li>Loaded chr, coordinates, provider text, and build text are displayed in the Sequence Map section of the Public WI Marker Detail page for all marker types.  
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display  marker <b>1700016D08Rik</b>.  This marker has a marker type of <b>Gene</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chr16:3908825-3909192 bp, -  strand <br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+    			<li>Display  marker <b>Pou5f1-rs8</b>.  This marker has a marker type of <b>Pseudogene</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chrX:50232039-50233572 bp, + strand <br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+    			<li>Display  marker <b>D12Mit100</b>.  This marker has a marker type of <b>DNA Segment</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chr12:105761460-105761553  bp, + strand <br>(From UniSTS  annotation of NCBI Build XX)</b></li></ul>
+    			
+    			<li>Display  marker <b>Del(5D5Mit73-D5Mit351)1J</b>  This marker has a marker type of <b>Cyto Marker</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chr5:26927527-37410359 bp<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+    			<li>Display  marker <b>Arbq2</b>.  This marker has a marker type of <b>QTL</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chrY:484252-484471 bp<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+    			<li>Display  marker <b>3-209M19-S</b>.  This marker has a marker type of <b>BAC/YAC</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chr2:103286918-103286918 bp <br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+    			<li>Display  marker <b>H3093D10</b>.  This marker has a marker type of <b>Other Genome Feature</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chr9:65557564-65558161 bp, - strand<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+    			<li>Display  marker <b>Snord116</b>.  This marker has a marker type of <b>Complex/Cluster/Region</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chr7:66880887-67119801 bp<br>(From MGI annotation of NCBI Build XX)</b></b></li></ul>
+    			
+    			<li>Display  marker <b>Tg(Ins1-Tag,-luc)1Gcr</b>.  This marker has a marker type of <b>Transgene.</b>  The Allele Detail is displayed because it is a transgene.</li>
+    			<ul><li>Verify the marker coordinate display in the Nomenclature section (Allele Detail):<br><b>chr3:156098318-156098318 bp</b></li></ul>
+    			
+       		</ol>
+       		
+    		<li>Verify assignment of coordinates with special cases in re: to chromosomes<ol>
+    		<p concordion:assertTrue="false">new test</p> 
+    		    <li>Display marker <b>mt-Olr</b>. This marker is on the <b>MT chromosome</b>.</li>
+    		    <ul><li>Verify the Sequence Map display: <br><b>chrMT:4952-5327 bp, + strand<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+    		</ol>
+    		
+    		<li>Markers with no coordinate assignment via the load (or gene models) don't display coordinates or credit/build text. (as-of July 9th - no coordinates on Public WI for the following markers)  The results are the same for each of these - <b>no display of coordinates, provider, or build</b><ol>
+    		<p concordion:assertTrue="false">new test</p> 
+    			<li>Display marker <b>Gm4146</b>. This marker has a marker type of <b>Gene</b>.</li>
+                <li>Display marker <b>412H6</b>.  This marker has a marker type of <b>DNA segment</b></li>
+                <li>Display marker <b>Del(18)20H</b>.  This marker has a marker type of <b>Cyto Marker</b>.</li>
+                <li>Display marker <b>Aasm3</b>.  This marker has a marker type of <b>QTL</b>.</li>
+                <li>Display marker <b>Gm10270</b>. This marker has a marker type of <b>Pseudogene</b>.</li>
+                <li>Display marker <b>51B23</b>. This marker has a marker type of <b>BAC/YAC</b>.</li>
+                <li>Display marker <b>Ap3s1-rs3</b>.  This marker has a marker type of <b>Other Genome Feature</b>.</li>
+                <li>Display marker <b>Mirc18</b>.  This marker has a marker type of <b>Complex/Cluster/Region</b>.</li>
+                <li>Display marker <b>Tn(sb-Tyr)1799B.CA1Ove</b>.  This marker has a marker type of <b>Transgene</b>.</li>
+    		</ol>
+    		
+    		
+    	    <li>Verify that markers from collection TR9601 now display the updated display text. 
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display marker <b>D0Nds1</b>. Marker type is <b>DNA Segment</b>
+    			    <ul><li>Verify the Sequence Map display: <br><b>chr15:76853482-76853646 bp, - strand<br>(From MGI annotation of NCBI Build 37)</b></li></ul>
+    			</ol>
+    			
+    		<li>Loaded chr, coordinates, provider text, and build text are displayed in the Sequence Map section of the Public WI Marker Detail page for markers with Gene Models.  
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display  marker <b>Qk</b>.  This marker has a marker type of <b>Gene</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chr17:10389999-10519999 bp, - strand <br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+    			<li>Display  marker <b>Tnxa</b>.  This marker has a marker type of <b>Pseudogene</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chr17:34899999-34939999 bp, + strand <br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+       		</ol>
+       		
+    		<li>Verify newly assigned coordinates override previous coordinates defined by Gene Model.<ol>
+    		<p concordion:assertTrue="false">new test</p>	
+    			<li>Display  marker <b>Pde1b</b>.  This marker has a gene model provider of <b>VEGA</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chr15:103333465-103360483  bp, + strand <br>(From Ensembl annotation of NCBI Build XX)</b></li></ul>
+    			
+    			<li>Display  marker <b>Zfp53</b>  This marker has a gene model provider of <b>Ensembl</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chr17:21619999-21649999 bp, + strand<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+    			<li>Display  marker <b>Cldn20</b>.  This marker has a gene model provider of <b>NCBI</b></li>
+    			<ul><li>Verify the Sequence Map display: <br><b>chr17:3529999-3539999 bp, + strand<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+    		</ol>
+    		
+    		
+    		<li>Verify assignment of coordinates with special cases in re: to chromosomes<ol>
+    		<p concordion:assertTrue="false">new test</p> 
+    		    <li>Display marker <b>mt-Nd6</b>. This marker is on the <b>MT chromosome</b>.</li>
+    		    <ul><li>Verify the Sequence Map display: <br><b>chrMT:12999-14999 bp, - strand<br>(From MGI annotation of NCBI Build XX)</b></li></ul>
+    			
+    		</ol>
+    		
+    		<li>Markers with no coordinate assignment via the load continue to display gene model coordinates and credit/build text. (as-of 7/11/2012 - coordinates on Public WI for the following markers)<ol>
+    		<p concordion:assertTrue="false">new test</p>
+    			<li>Display marker <b>Trp53</b>. This marker has a marker type of <b>Gene</b> & provider of <b>VEGA</b>.</li>
+    			    <ul><li>Verify the Sequence Map display: <br><b>Chr11:69393861-69405375 bp, + strand <br>(From VEGA annotation of NCBI Build 37)</b></li></ul>
+                <li>Display marker <b>Sry</b>. This marker has a marker type of <b>Gene</b> & provider of <b>NCBI</b>.</li>
+                    <ul><li>Verify the Sequence Map display: <br><b>ChrY:1918381-1919568 bp, - strand <br>(From NCBI annotation of NCBI Build 37)</b></li></ul>
+                <li>Display marker <b>Brca2</b>. This marker has a marker type of <b>Gene</b> & provider of <b>Ensembl</b>.</li>
+                    <ul><li>Verify the Sequence Map display: <br><b>Chr5:151325205-151372321 bp, + strand <br>(From Ensembl annotation of NCBI Build 37)</b></li></ul>
+                <li>Display marker <b>Siah1-ps1</b>. This marker has a marker type of <b>Pseudogene</b> & provider of <b>NCBI</b>.</li>
+                    <ul><li>Verify the Sequence Map display: <br><b>Chr19:49942762-49944633 bp, + strand <br>(From NCBI annotation of NCBI Build 37)</b></li></ul>
+               </ol>	
+    			<li>Verify display of genetic chromsome and location in the Genetic Map section remains the same.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display a marker with chromsome and cM in Genetic Map section and a Gene Model (no coordinate assignment).
+    			<ul><li>Display <b>Pax6</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = 2; location = 55.31 cM</b></li></ul></li>
+    			<li>Display a marker with chromosome and cM in the Genetic Map section and assigned location
+    			<ul><li>Display <b>n-Ta1</b> Marker Detail page. <i>(assigned values in Build4)</i></li>
+    			    <li>Genetic Map section; <b>Chromosome = 11; location = 31.8 cM</b></li></ul></li>
+    			<li>Display a marker with chromosome and syntenic in the Genetic Map section.
+    			<ul><li>Display <b>Gm6329</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = 8; location = syntenic</b></li></ul></li>
+    			<li>Display a marker on chromosome MT. (no GBrowse thumbnail)
+    			<ul><li>Display <b>mt-Atp6</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = MT; location = syntenic</b></li></ul></li>
+    			<li>Display a marker with chromosome UN
+    			<ul><li>Display <b>Bdv1</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = Unknown; location = nothing displayed</b></li></ul></li>
+    			<li>Display a marker with chromosome and cytoband (Thim).
+    			<ul><li>Display <b>Thim</b> Marker Detail page.</li>
+    			    <li>Genetic Map section; <b>Chromosome = 2; location = cytoband F2-G</b></li></ul></li>
+    		</ol>
+    		</li>
+    			
+    		<li>Verify  genetic & genomic chromosome/location, GBrowse links, and Gene Tree link for markers with Gene Models
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		<li>Test marker where both chromosomes are the same
+    		<ul><li>Display <b>Acadl</b> Marker Detail page.</li>
+    			<li>Genetic Map section; <b>Chromosome = 1; location = 33.64 cM</b></li>
+    			<li>Sequence Map section; <b>Chr1:66877413-66909851 bp, - strand</b></li>
+    			<li>GBrowse links; <b>2 links - both contain ref=1 in URL; thumbnail image - displays 1</b> </li>
+    			<li>Gene Tree link; <b>link contains: 1:66877413-66909851</b> </li></ul></li>
+    		<li>Test marker where both chromosomes are MT
+    		<ul><li>Display <b>mt-Atp6</b> Marker Detail page.</li>
+    			<li>Genetic Map section; <b>Chromosome = MT; location = Syntenic</b></li>
+    			<li>Sequence Map section; <b>ChrMT:7927-8607 bp, + strand</b></li>
+    			<li>GBrowse links; <b>only GBrowse link, no thumbnail; GBrowse link has chr = MT</b> <i>note: MT thumbnail does not display on Prod, but does display on Public</i></li>
+    			<li>Gene Tree link; <b>link contains: MT:7927-8607</b> </li></ul></li>
+    		</ol>
+    		</li>
+    		
+    		<li>Verify  genomic chromosome,  location, GBrowse links, and Gene Tree link for markers with an assigned location that overrides a Gene Model.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		<li>Test marker where both chromosomes are the same
+    		<ul><li>Display <b>Kit</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = 5; location = 39.52 cM</b></li>
+                <li>Sequence Map section; <b>Chr5:75000000-76052747 bp, + strand </b></li>
+    			<li>GBrowse links; <b>2 links - both contain ref=5 in URL; thumbnail image - displays 5</b> </li>
+    			<li>Gene Tree link; <b>link contains: 5:75000000-75656722</b> </li></ul></li>
+    		<li>Test marker where chromosomes are different.  
+    		<ul><li>Display <b>Pax3</b> Marker Detail page. <i>assigned values in Build 4 & 5</i> </li> 
+    		    <li>Genetic Map section; <b>Chromosome = 1; location = 11.48 cM</b></li>
+                <li>Sequence Map section; <b>Chr19:31000000-31199999 bp, - strand  </b></li>
+    			<li>GBrowse links; <b>2 links - both contain ref=19 in URL; thumbnail image - displays 19</b> </li>
+    			<li>Gene Tree link; <b>link contains: 19:78000000-78199999</b> </li></ul></li>
+    		<li>Test marker where original chromosome is MT, but is now overridden.
+    		<ul><li>Display <b>mt-Nd1</b> Marker Detail page. <i>assigned values in Build 4</i> </li> 
+    		    <li>Genetic Map section; <b>Chromosome = MT; location = Syntenic</b></li>
+                <li>Sequence Map section; <b>Chr19:270000-379999 bp, + strand  </b></li>
+    			<li>GBrowse links; <b>2 links - both contain ref=19 in URL; thumbnail image - displays 19</b> </li>
+    			<li>Gene Tree link; <b>link contains: Chr19:270000-379999</b> </li></ul></li>
+    		  		
+    		</ol>
+    		</li>
+    		
+    		<li>Verify  genomic chromosome,  location, and GBrowse links for markers with an assigned location (no gene model).
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		<li>Test marker where both chromosomes are the same
+    		<ul><li>Display <b>Ity2a</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = 11; location = cM position of peak correlated region/marker: 27.9 <i>NEW cM VALUE*</i></b></li>
+                <li>Sequence Map section; <b>Chr11:37691255-60325392 bp, + strand</b></li>
+    			<li>GBrowse links; <b>only GBrowse link, no thumbnail; GBrowse link has chr = 11</b></li></ul></li>	
+    		<li>Test marker where chromosomes are different
+    		<ul><li>Display <b>D3Dcr10</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = 3; location = <i> 35.38 cM - new cM location displayed; future change to display 'Syntenic'</i></b></li>
+                <li>Sequence Map section; <b>Chr4:80000000-80000111 bp</b></li>
+    			<li>GBrowse links; <b>no GBrowse thumbnail or link</b> </li>
+    			<li>Display <b>Mir1892</b> Marker Detail page. <i>assigned values in Build 5</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = 12; location = <i>37.15 cM - new cM location; future change to display 'Syntenic'</i></b></li>
+                <li>Sequence Map section; <b>Chr6:82000000-82000100 bp, + strand </b></li>
+    			<li>GBrowse links; <b>no GBrowse thumbnail or link</b> </li></ul></li>
+    		<li>Test marker where both chromosomes are MT
+    			<ul><li>Display <b>mt-Olr</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = MT; location = Syntenic </b></li>
+                <li>Sequence Map section; <b>ChrMT:4952-5327 bp, + strand</b></li>
+    			<li>GBrowse thumbnail, links; <b>No GBrowse links due to Marker Type - Other Genome Feature</b></li></ul></li>
+    		<li>Test marker where genetic chromosome is UN
+    			<ul><li>Display <b>Mir1194</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = Unknown</b></li>
+                <li>Sequence Map section; <b>Chr4:107370439-107370559 bp, - strand</b></li>
+    			<li>GBrowse thumbnail, links; <b>GBrowse thumbnail and link should be established using Chr4</b> </li>
+    			<li>Display <b>Mir199s</b> Marker Detail page. <i>assigned values in Build 4 and Build 5</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = Unknown</b></li>
+                <li>Sequence Map section; <b>Chr2:169141111-169144444 bp, - strand</b></li>
+    			<li>GBrowse thumbnail, links; <b>GBrowse thumbnail and link should be established using Chr2</b> </li>
+    			</ul></li>
+    			 		
+    		<li>Test marker where genetic chromosome is XY and genomic chromosome is X.
+    			<ul><li>Display <b>Sts</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
+    		    <li>Genetic Map section; <b>Chromosome = XY; location = Syntenic</b></li>
+                <li>Sequence Map section; <b>ChrX:166550223-166648337 bp, - strand</b></li>
+    			<li>GBrowse thumbnail, links; <b>GBrowse thumbnail and link should be established using ChrX</b> </li></ul></li>
+    		
+    		</ol>
+    		</li>
+    		
+    		<li>Verify the human ortholog section of the Marker Detail and the Orthology Page is unchanged
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		<li>Test marker with a Human Ortholog section and Gene Model
+    		<ul><li>Display <b>Pax6</b> Marker Detail page.</li>
+    			    <li>Human ortholog section; <b>Location = Human Chr11: 31806340-31839509 bp, - strand</b></li></ul></li>
+    		<li>Test marker with a Human Ortholog section and Assigned Location (w/ gene model)
+    		<ul><li>Display <b>Kit</b> Marker Detail page.  <i>assigned values in Build 4</i></li>
+    			    <li>Human ortholog section; <b>Location = Human Chr4: 55524095-55606881 bp, + strand</b></li></ul></li>
+    		<li>Test marker with a Human Ortholog section and Assigned Location (no gene model)
+    		<ul><li>Display <b>Pepc</b> Marker Detail page.  <i>assigned values in Build 4</i></li>
+    			    <li>Human ortholog section; <b>Location = Human Chr1</b></li></ul></li>
+    		</ol>
+    		</li>
+    		
+    		
+		</ol>
+	</div>
+	<div id="auto">
+
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
