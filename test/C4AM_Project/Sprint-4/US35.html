@@ -1,0 +1,115 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US35</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#auto">Automated Tests</a></p>
+</div>
+
+<div id="maintitle">
+    <h1>US 35 - Load mirBase IDs</h1>
+    <ul>
+        <li>User Story #94 - Load mirBase IDs along with coordinate assignments using the new C4AM format</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+		<li>Modify the C4AM input file format to load mirBase IDs.
+		<ul>
+		    <li>Use column 8 for mirBase IDs</li>
+		    <li>A marker can be associated to just 1 mirBase ID</li>
+		    <li>mirBase IDs can be associated to any marker/marker type</li>
+		    <li>Use load configuration to assign J# and logic DB</li> 
+            <li>mirBase ID assignment may be included in an input file with any other type of coordinate assignment.</li>
+		</ul></li>
+		<li>Add, replace, delete mirBase IDs for any marker
+		<ul>
+		    <li>along with new coordinate assignment</li>
+		    <li>along with updates to coordinate assignment</li>
+		    <li>along with deletes to coordinate assignment</li>
+		    <li>along with no change to coordinate assignment</li>
+		</ul></li>
+		<li>Display mirBase IDs in the "Other database links" section of the Marker Detail (prod & public)</li>
+		<li>ASSUMPTION - the load expects good format and good data in the file.  Any checks (fatal or otherwise) will be added to the QC checks process via a different user story.</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    <p>Skip to <a href="#manual">Manual Tests</a> |  <a href="#auto">Automated Tests</a></p>
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<ol>
+    		<li>Display newly associated mirBase ID in the "Other database links" section of the Marker Detail.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>with newly assigned coordinates</li>
+    			<li>with updated coordinates</li>
+    			<li>with no coordinate change</li>
+    			<li>with deletion of coordinates</li>
+    		</ol>
+    		</li>
+    			
+    		<li>Display modified mirBase ID association in the "Other database links" section of the Marker Detail.
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    			<li>with newly assigned coordinates</li>
+    			<li>with updated coordinates</li>
+    			<li>with no coordinate change</li>
+    			<li>with deletion of coordinates</li>
+    		</ol>
+    		</li>
+    		
+    		<li>Verify deletion of mirBase ID association in the "Other database links" section of the Marker Detail.
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    			<li>with newly assigned coordinates</li>
+    			<li>with updated coordinates</li>
+    			<li>with no coordinate change</li>
+    			<li>with deletion of coordinates</li>
+    		</ol>
+    		</li>
+    		
+    		<li>Verify no change to the mirBase ID association in the "Other database links" section of the Marker Detail.
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    			<li>same id in the input file as is in the database</li>
+    			<li>no mirBase ID for marker in the file or in the database</li>
+    		</ol>
+    		</li>
+    		
+    		<li>Verify J# is associated to a marker with a mirBase ID added via this load.
+    		<p concordion:assertTrue="false">new test</p></li>
+    		
+		</ol>
+	</div>
+	<div id="auto">
+		
+
+ 	</div>
+</div>
+
+</body>
+</html>
