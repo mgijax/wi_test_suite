@@ -56,7 +56,7 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>Loaded chr, coordinates, provider text, and build text are displayed in the Sequence Map section of the Public WI Marker Detail page for all marker types.  
-    		<p concordion:assertTrue="false"><b>FAIL - jlewis 8/20/12; 'strand' text displayed when no strand present; cases 3,4,5,6,8 below</b></p> 
+    		<p concordion:assertTrue="true"><b>PASS - jlewis 8/20/12</b></p> 
     		<ol>
     			<li>Display  marker <b>1700016D08Rik</b>.  This marker has a marker type of <b>Gene</b></li>
     			<ul><li>Verify the Sequence Map display: <br><b>chr16:3908825-3909192 bp, -  strand <br>(From MGI annotation of NCBI Build XX)</b></li></ul>
@@ -221,7 +221,7 @@
     		</li>
     		
     		<li>Verify  genomic chromosome,  location, and GBrowse links for markers with an assigned location (no gene model).
-    		<p concordion:assertTrue="false"><b>FAIL - jlewis 8/12/20; "strand" display when no strand exists - test case 11.2a</b></p> 
+    		<p concordion:assertTrue="false"><b>PASS - jlewis 8/12/20</b></p> 
     		<ol>
     		<li>Test marker where both chromosomes are the same
     		<ul><li>Display <b>Snord116l3</b> Marker Detail page. <i>assigned values in Build 4</i></li> 
