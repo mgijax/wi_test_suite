@@ -46,7 +46,7 @@
 		    <li>along with deletes to coordinate assignment</li>
 		    <li>along with no change to coordinate assignment</li>
 		</ul></li>
-		<li>Display mirBase IDs in the "Other database links" section of the Marker Detail (prod & public)</li>
+		<li>Display mirBase IDs in the "Other database links" section of the Production Marker Detail.</li>
 		<li>ASSUMPTION - the load expects good format and good data in the file.  Any checks (fatal or otherwise) will be added to the QC checks process via a different user story.</ol>
 </div>
 
@@ -65,38 +65,66 @@
     		<li>Display newly associated mirBase ID in the "Other database links" section of the Marker Detail.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>with newly assigned coordinates</li>
-    			<li>with updated coordinates</li>
-    			<li>with no coordinate change</li>
-    			<li>with deletion of coordinates</li>
+    			<li>Display marker <b>Mir122b</b>.  MirBase ID assigned and coordinates too via the load.
+    			<ul><li>Genomic location = <b>Chr1:160000000-160009999 bp, + strand</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<li>Display marker <b>Bmp15</b>.  MirBase ID assigned and coordinates updated via the load.
+    			<ul><li>Genomic location = <b>ChrX:5890000-5899999 bp, - strand</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<li>Display marker <b>Mir199s</b>.  MirBase ID assigned and coordinates left as-is via the load.
+    			<ul><li>Genomic location = <b>Chr1:164147970-164148043 bp, + strand</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<li>Display marker <b>Bmper</b>.  MirBase ID assigned and coordinates deleted via the load.
+    			<ul><li>Genomic location = <b>none</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
     		</ol>
     		</li>
     			
     		<li>Display modified mirBase ID association in the "Other database links" section of the Marker Detail.
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    			<li>with newly assigned coordinates</li>
-    			<li>with updated coordinates</li>
-    			<li>with no coordinate change</li>
-    			<li>with deletion of coordinates</li>
+    			<li>Display marker <b>Mir2182</b>.  MirBase ID modified and coordinates assigned via the load.
+    			<ul><li>Genomic location = <b>Chr1:160000300-160000400 bp, - strand</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<li>Display marker <b>Mir362</b>.  MirBase ID modified and coordinates updated via the load.
+    			<ul><li>Genomic location = <b>ChrX:6810000-6819999 bp, - strand</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<li>Display marker <b>Mir98</b>.  MirBase ID modified and coordinates left as-is via the load.
+    			<ul><li>Genomic location = <b>ChrX:148340000-148349999 bp, + strand</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<li>Display marker <b>Mir1968</b>.  MirBase ID modified and coordinates deleted via the load.
+    			<ul><li>Genomic location = <b>none</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
     		</ol>
     		</li>
     		
     		<li>Verify deletion of mirBase ID association in the "Other database links" section of the Marker Detail.
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    			<li>with newly assigned coordinates</li>
-    			<li>with updated coordinates</li>
-    			<li>with no coordinate change</li>
-    			<li>with deletion of coordinates</li>
+    			<li>Display marker <b>Mir712</b>.  MirBase ID deleted and coordinates assigned via the load.
+    			<ul><li>Genomic location = <b>Chr1:160000500-160000600 bp, - strand</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<li>Display marker <b>Mir107</b>.  MirBase ID deleted and coordinates updated via the load.
+    			<ul><li>Genomic location = <b>Chr18:34890000-34899999 bp, - strand</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<li>Display marker <b>Mir136</b>.  MirBase ID deleted and coordinates left as-is via the load.
+    			<ul><li>Genomic location = <b>Chr12:110833537-110833598 bp, + strand</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<li>Display marker <b>Mir17</b>.  MirBase ID deleted and coordinates deleted via the load.
+    			<ul><li>Genomic location = <b>none</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
     		</ol>
     		</li>
     		
     		<li>Verify no change to the mirBase ID association in the "Other database links" section of the Marker Detail.
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    			<li>same id in the input file as is in the database</li>
-    			<li>no mirBase ID for marker in the file or in the database</li>
+    			<li>Display marker <b>Mir1188</b>.  MirBase ID in file same as database.
+    			<ul><li>Genomic location = <b>Chr12:110850032-110850151 bp, + strand</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<li>Display marker <b>Bambi</b>.  No mirBase ID assigned in the file and none in the database.
+    			<ul><li>Genomic location = <b>Chr18:3507000-3516999 bp, + strand</b></li>
+    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
     		</ol>
     		</li>
     		
