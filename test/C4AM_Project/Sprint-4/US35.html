@@ -61,22 +61,23 @@
 <p concordion:assertTrue="false">testing assertFalse - displays as red</p>
  -->
 		<h3>Manual tests</h3>
+		Test cases per the data in the Build 7 file.
 		<ol>
     		<li>Display newly associated mirBase ID in the "Other database links" section of the Marker Detail.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
     			<li>Display marker <b>Mir122b</b>.  MirBase ID assigned and coordinates too via the load.
     			<ul><li>Genomic location = <b>Chr1:160000000-160009999 bp, + strand</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			    <li>Other database links = <b>miRBase ID: MI0007547</b></li></ul></li>
     			<li>Display marker <b>Bmp15</b>.  MirBase ID assigned and coordinates updated via the load.
     			<ul><li>Genomic location = <b>ChrX:5890000-5899999 bp, - strand</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			    <li>Other database links = <b>miRBase ID: MI0000809</b></li></ul></li>
     			<li>Display marker <b>Mir199s</b>.  MirBase ID assigned and coordinates left as-is via the load.
     			<ul><li>Genomic location = <b>Chr1:164147970-164148043 bp, + strand</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
-    			<li>Display marker <b>Bmper</b>.  MirBase ID assigned and coordinates deleted via the load.
+    			    <li>Other database links = <b>miRBase ID: MI0000242</b></li></ul></li>
+    			<li>Display marker <b>n-Ta2</b>.  MirBase ID assigned and coordinates deleted via the load.
     			<ul><li>Genomic location = <b>none</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			    <li>Other database links = <b>miRBase ID: MI0017448</b></li></ul></li>
     		</ol>
     		</li>
     			
@@ -85,16 +86,16 @@
     		<ol>
     			<li>Display marker <b>Mir2182</b>.  MirBase ID modified and coordinates assigned via the load.
     			<ul><li>Genomic location = <b>Chr1:160000300-160000400 bp, - strand</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			    <li>Other database links = <b>miRBase ID: MI0012182</b></li></ul></li>
     			<li>Display marker <b>Mir362</b>.  MirBase ID modified and coordinates updated via the load.
     			<ul><li>Genomic location = <b>ChrX:6810000-6819999 bp, - strand</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			    <li>Other database links = <b>miRBase ID: MI0016011</b></li></ul></li>
     			<li>Display marker <b>Mir98</b>.  MirBase ID modified and coordinates left as-is via the load.
     			<ul><li>Genomic location = <b>ChrX:148340000-148349999 bp, + strand</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			    <li>Other database links = <b>miRBase ID: MI0000100</b></li></ul></li>
     			<li>Display marker <b>Mir1968</b>.  MirBase ID modified and coordinates deleted via the load.
-    			<ul><li>Genomic location = <b>none</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<ul><li>Genomic location = <b>chr8:13189031-13189098 bp, - strand (Ensembl Gene Model)</b> </li>
+    			    <li>Other database links = <b>miRBase ID: MI0001968</b></li></ul></li>
     		</ol>
     		</li>
     		
@@ -103,16 +104,16 @@
     		<ol>
     			<li>Display marker <b>Mir712</b>.  MirBase ID deleted and coordinates assigned via the load.
     			<ul><li>Genomic location = <b>Chr1:160000500-160000600 bp, - strand</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			    <li>Other database links = <b>miRBase ID - none</b></li></ul></li>
     			<li>Display marker <b>Mir107</b>.  MirBase ID deleted and coordinates updated via the load.
     			<ul><li>Genomic location = <b>Chr18:34890000-34899999 bp, - strand</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			    <li>Other database links = <b>miRBase ID - none</b></li></ul></li>
     			<li>Display marker <b>Mir136</b>.  MirBase ID deleted and coordinates left as-is via the load.
     			<ul><li>Genomic location = <b>Chr12:110833537-110833598 bp, + strand</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			    <li>Other database links = <b>miRBase ID - none</b></li></ul></li>
     			<li>Display marker <b>Mir17</b>.  MirBase ID deleted and coordinates deleted via the load.
-    			<ul><li>Genomic location = <b>none</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			<ul><li>Genomic location = <b>chr14:115442893-115442976 bp, + strand (NCBI Gene Model)</b></li>
+    			    <li>Other database links = <b>miRBase ID - none</b></li></ul></li>
     		</ol>
     		</li>
     		
@@ -121,10 +122,10 @@
     		<ol>
     			<li>Display marker <b>Mir1188</b>.  MirBase ID in file same as database.
     			<ul><li>Genomic location = <b>Chr12:110850032-110850151 bp, + strand</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			    <li>Other database links = <b>miRBase ID: MI0006290</b></li></ul></li>
     			<li>Display marker <b>Bambi</b>.  No mirBase ID assigned in the file and none in the database.
     			<ul><li>Genomic location = <b>Chr18:3507000-3516999 bp, + strand</b></li>
-    			    <li>Other database links = <b>miRBase ID xxx</b></li></ul></li>
+    			    <li>Other database links = <b>miRBase ID - none</b></li></ul></li>
     		</ol>
     		</li>
     		
