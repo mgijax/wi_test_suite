@@ -1,0 +1,108 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US76</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#auto">Automated Tests</a></p>
+</div>
+
+<div id="maintitle">
+    <h1>US 76 - Skip cM computation when chromosomes differ</h1>
+    <ul>
+        <li>User Story #76 - Change cM computation to skip markers whose genetic and genomic chromosomes disagree</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+		<li>Display "syntenic" for those markers where genetic and genomic chromosome differ in the Prod WI</li>
+		<li>Continue to display "syntenic" for markers with a genetic chromosome of MT, Y, or XY</li>
+		<li>Continue to display no genetic location for markers with a genetic chromosome of UN.</li>
+		<li>Continue to display cM locations for markers with coordinates
+		   <ul><li>markers with gene model coordinates</li>
+		       <li>markers with assigned coordinates</li></ul></li>    
+	    <li>Note - This story does not include Public display</li>
+	</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    <p>Skip to <a href="#manual">Manual Tests</a> |  <a href="#auto">Automated Tests</a></p>
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<ol>
+    		<li>Display "syntenic" when genetic and genomic chromosomes differ.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display marker <b>Pax3</b>.  Genetic chr = 1; Genomic chr = 19
+    			<ul><li>Genetic location = <b>Chromosome 1; Syntenic</b></li>
+    			</ul></li>
+    			<li>Display marker <b>Pepc</b>.  Genetic chr = 1; Genomic chr = 19
+    			<ul><li>Genetic location = <b>Chromosome 1; Syntenic</b></li>
+    			</ul></li>
+    		</ol>
+    		</li>
+    		<li>Display "syntenic" markers with genetic chromosomes of MT, Y, XY.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display marker <b>Sts</b>.  Genetic chr = XY; Genomic chr = X
+    			<ul><li>Genetic location = <b>Chromosome XY; Syntenic</b></li>
+    			</ul></li>
+    			<li>Display marker <b>mt-Nd1</b>.  Genetic chr = MT; Genomic chr = 19
+    			<ul><li>Genetic location = <b>Chromosome MT; Syntenic</b></li>
+    			</ul></li>
+    			<li>Display marker <b>DYBish6</b>.  Genetic chr = Y; Genomic chr = Y
+    			<ul><li>Genetic location = <b>Chromosome Y; Syntenic</b></li>
+    			</ul></li>
+    		</ol>
+    		</li>	
+    		<li>Display no genomic location for markers with an UN genetic chromosome.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display marker <b>Mir1194</b>.  Genetic chr = UN; Genomic chr = 4
+    			<ul><li>Genetic location = <b>Chromosome Unknown</b></li>
+    			</ul></li>
+    		</ol>
+    		</li>	
+    		<li>Continue to display cM locations for markers with gene model and/or assigned coordinates.<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display marker <b>Pax6</b>.  Genetic chr = 2; Genomic chr = 2
+    			<ul><li>Genetic location = <b>Chromosome 2; 55.31 cM</b></li>
+    			</ul></li>
+    			<li>Display marker <b>n-Ta1</b>.  Genetic chr = 11; Genomic chr = 11
+    			<ul><li>Genetic location = <b>Chromosome 11; 31.8 cM</b></li>
+    			</ul></li>
+    		</ol>
+    		</li>
+		</ol>
+	</div>
+	<div id="auto">
+		
+
+ 	</div>
+</div>
+
+</body>
+</html>
