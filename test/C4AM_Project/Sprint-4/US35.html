@@ -24,7 +24,7 @@
 <div id="maintitle">
     <h1>US 35 - Load mirBase IDs</h1>
     <ul>
-        <li>User Story #94 - Load mirBase IDs along with coordinate assignments using the new C4AM format</li>
+        <li>User Story #35 - Load mirBase IDs along with coordinate assignments using the new C4AM format</li>
     </ul>
 </div>
 
@@ -61,10 +61,10 @@
 <p concordion:assertTrue="false">testing assertFalse - displays as red</p>
  -->
 		<h3>Manual tests</h3>
-		Test cases per the data in the Build 7 file.
+		Test cases per the data in the Build 8 file.
 		<ol>
     		<li>Display newly associated mirBase ID in the "Other database links" section of the Marker Detail.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 8/24/12</p> 
     		<ol>
     			<li>Display marker <b>Mir122b</b>.  MirBase ID assigned and coordinates too via the load.
     			<ul><li>Genomic location = <b>Chr1:160000000-160009999 bp, + strand</b></li>
@@ -82,7 +82,7 @@
     		</li>
     			
     		<li>Display modified mirBase ID association in the "Other database links" section of the Marker Detail.
-    		<p concordion:assertTrue="false">new test</p>
+    		<p concordion:assertTrue="true">PASS - jlewis 8/24/12</p>
     		<ol>
     			<li>Display marker <b>Mir2182</b>.  MirBase ID modified and coordinates assigned via the load.
     			<ul><li>Genomic location = <b>Chr1:160000300-160000400 bp, - strand</b></li>
@@ -100,7 +100,7 @@
     		</li>
     		
     		<li>Verify deletion of mirBase ID association in the "Other database links" section of the Marker Detail.
-    		<p concordion:assertTrue="false">new test</p>
+    		<p concordion:assertTrue="true">PASS jlewis - 8/24/12</p>
     		<ol>
     			<li>Display marker <b>Mir712</b>.  MirBase ID deleted and coordinates assigned via the load.
     			<ul><li>Genomic location = <b>Chr1:160000500-160000600 bp, - strand</b></li>
@@ -118,7 +118,7 @@
     		</li>
     		
     		<li>Verify no change to the mirBase ID association in the "Other database links" section of the Marker Detail.
-    		<p concordion:assertTrue="false">new test</p>
+    		<p concordion:assertTrue="true">jlewis - PASS 8/24/12</p>
     		<ol>
     			<li>Display marker <b>Mir1188</b>.  MirBase ID in file same as database.
     			<ul><li>Genomic location = <b>Chr12:110850032-110850151 bp, + strand</b></li>
@@ -130,7 +130,7 @@
     		</li>
     		
     		<li>Verify J# is associated to a marker with a mirBase ID added via this load.
-    		<p concordion:assertTrue="false">new test</p>
+    		<p concordion:assertTrue="false">PASS - jlewis - 8/24/12</p>
     		<ol>
                <li>Use the Reference QF and query for the miRBase J#, <b>J:105741</b>
                <ul><li>Verify 5 new markers have been added to this list via the load: <b>Mir122b, Mirlet7h, Bmp15, Mir199s, n-Ta2</b></ul>  		
