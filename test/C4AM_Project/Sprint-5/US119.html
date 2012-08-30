@@ -60,19 +60,61 @@
  -->
 		<h3>Manual tests</h3>
 		<ol>
-    		<li>Test Idea #1  
+    		<li>Verify new markers created for B38 are in the database  
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>Test case 1.1</li>
-    			<ul><li>expected results for case 1.1</li></ul>
-    			
-    			
-    			
-       		</ol>
+    			<li>Get a few of the new markers from Sophia's file and view Marker Detail pages.</li>    			
+       		</ol></li>
        		
+       		<li>Verify gene models are displayed on associated marker pages
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Check a few existing genes</li>
+    			<li>Check a few new genes</li>
+    			<li>Check at least one marker for each provider</li>
+    			<li>Check markers with 1-m associations to gene models</li>
+    			<li>Check gene modesl with 1-n associations to genes</li>    			
+       		</ol></li>
+       		
+    		<li>Verify correct Transcripts/Proteins are displayed and the link goes to B38 data 
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Check genes for each provider</li>    			
+       		</ol></li>
+       		
+       		<li>Verify biotype mismatch identified correctly and displayed 
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Check genes for each provider</li>    			
+       		</ol></li>
+       		
+    		<li>Verify Rep Sequence Algorithm works as expected
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Check genes for each provider</li>    			
+       		</ol></li>
     		
+    		<li>Verify evidence links exist and link to B38
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Check genes for each provider</li>    			
+       		</ol></li>
     		
+    		<li>Verify cM positions unchanged from B37 calculations
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Check existing genes with cM position</li>   
+    			<li>Check new genes</li>
+    			<li>Check genes on special chromosomes: UN, XY, MT, Y</li> 			
+       		</ol></li>
     		
+    		<li>Verify build text has changed to Build 38 in PROD WI and MouseBlast
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Python WI - Marker Summary (web, tab, excel); SNP Summary</li>   
+    			<li>MouseBlast - Query Form</li>
+    			<li>Java WI - Marker, Allele, GXD, GXD Expanded, SNP Query Forms; Marker Detail; Allele Detail; SNP Detail; Batch Query</li> 			
+       		</ol></li>
     		
     		
 		</ol>
