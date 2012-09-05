@@ -53,7 +53,7 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>SNP Query form renders in out of sync mode  
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">new test</p> 
     		<ol>
     			<li>Genome Coordinate Discrepancy text appears at top of query form</li>
     			<li>SNPs Located Near Genes section of query form is disabled 
@@ -80,7 +80,7 @@
     		</ol>
     		</li>
     		<li>Display of SNP associations render correctly on the Marker Detail in out of sync mode  
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/12</p> 
     		<ol>
 	    		<li>View Marker Detail page for <b>Qk</b>
 	    		<ul>
@@ -89,6 +89,19 @@
 	    		</ul>	    	
     		</ol>
     		</li>   		
+    		
+    		<li>SNP Detail renders in out of sync mode  
+    		<p concordion:assertTrue="true">new test</p> 
+    		<ol>
+	    		<li>View SNP Detail for <b>rs33405808</b> and <b>rs27444178</b>
+	    		<ul>
+	    		    <li>Verify out-of-sync message is displayed at the top of the page</li>
+	    			<li>Verify that the build text on the page references Build 37 (in 2 places)</li>
+	    			<li>Verify that markers "within coordinates" or "N bp upstream/downstream" are not listed in Marker association section</li>
+	    		</ul></li>   	
+    		</ol>
+    		</li>   	
+    		
 		</ol>
 	</div>
 	
