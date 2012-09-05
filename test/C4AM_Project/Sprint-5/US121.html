@@ -69,10 +69,17 @@
 	    			<li>No SNPs are returned with a function class of N bp upstream</li>
 	    			<li>No SNPs are returned with a function class of N bp downstream</li>
 	    			<li>No SNPs are returned with a function class of within coordinates</li>
-	    		</ul>	    	
+	    		</ul>	 
+	    		<li>Query for Coordinate range = <b>Chr5:75000000-76052747 and select strain: C57BL/6J</b>
+	    		<ul>
+	    			<li>Genome Coordinate Discrepancy text appears at top of query summary</li>
+	    			<li>No link to the Marker Summary or GBrowse should be present at the top of the SNP Summary</li>
+	    			<li>No SNPs are returned with a function class of within coordinates</li>
+	    		</ul>	 
+	    		   	
     		</ol>
     		</li>
-    		<li>SNP Summary renders in out of sync mode  
+    		<li>Display of SNP associations render correctly on the Marker Detail in out of sync mode  
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
 	    		<li>View Marker Detail page for <b>Qk</b>
