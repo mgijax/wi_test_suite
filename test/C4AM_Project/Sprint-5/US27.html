@@ -53,7 +53,7 @@
     		<li>Controls appear for marker with coordinates from a gene model
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>View Marker Detail page for <b>X</b></li>
+    			<li>View Marker Detail page for <b>Lepr</b></li>
     			<li>Verify Sequence Map section contains Get FASTA controls
     				<ul>
     				<li>Row for controls appears below <i>From X annotation of X</i> 
@@ -80,7 +80,7 @@
     		<li>Controls appear for marker with coordinates assigned by curator load file
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>View Marker Detail page for <b>X</b></li>
+    			<li>View Marker Detail page for <b>Pepc</b></li>
     			<li>Verify Sequence Map section contains Get FASTA controls
     				<ul>
     				<li>Row for controls appears below <i>From X annotation of X</i> 
@@ -102,14 +102,26 @@
 	    			an error message to be returned</li>
 	    			</ul>
 	    		</li>
+	    		<li>View Marker Detail page for <b>mt-Nd6</b>; a mitochondrial gene
+	    		<ul><li>Verify sequence is returned with and without the use of the flanking option</li>
+	    		    <li>Enter a flanking option that goes beyond the end of the MT chr.  Verify sequence is returend without error
+	    		 </ul></li>
+	    		<li>View Marker Detail page for <b>Mir191</b>; a marker with a single point mutation (i.e start coord=end coord)
+	    		<ul><li>Verify sequence is returned with and without the use of the flanking option</li></ul></li>
+	    		
        		</ol>
        		</li>
     		<li>Controls do not appear for marker without coordinates
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>View Marker Detail page for <b>X</b></li>
+    			<li>View Marker Detail page for <b>Asthm1</b>; this is a QTL marker </li>
     			<li>Verify Sequence Map section does not contains Get FASTA controls</li>
        		</ol>
+       		<ol>
+    			<li>View Marker Detail page for <b>n-Ta10</b>; this is a Gene </li>
+    			<li>Verify Sequence Map section does not contains Get FASTA controls</li>
+       		</ol>
+       		
        		</li>  	
 		</ol>
 	</div>
