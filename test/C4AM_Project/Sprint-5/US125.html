@@ -12,7 +12,7 @@
 	p {margin:2px 0px;}
 </style>
 
-    <title>User Story 134</title>
+    <title>User Story 125</title>
 </head>
 
 <body>
@@ -22,17 +22,17 @@
 </div>
 
 <div id="maintitle">
-    <h1>Load tRNA coordinates</h1>
+    <h1>Load miRBase coordinates and IDs</h1>
     <ul>
-        <li>User Story #134 - Load/View B38 coordinates for tRNAs</li>
+        <li>User Story #125 - Load/View B38 coordinates and IDs for miRBase</li>
     </ul>
 </div>
 
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-		<li>Load curator-provided file of tRNA coordinates</li>
-		<li>Display coordinates in the Production WI -- Marker Summary, Marker Detail</li>
+		<li>Load curator-provided file of miRBase coordinates and IDs</li>
+		<li>Display coordinates and IDs in the Production WI -- Marker Summary, Marker Detail</li>
 	</ol>
 </div>
 
@@ -48,38 +48,30 @@
 	 
 		<h3>Manual tests</h3>
 		<ol>
-    		<li>Verify coordinates added for the first time to tRNA markers 
+    		<li>Verify coordinates added for Build 38 
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>Display Marker Detail for <b>n-Td2; MGI:4413753</b>
-    			<ul><li>Expected results: <b>Chr2: 114103367-114103438  bp, + strand; From GtRNAdb annotation of NCBI Build 38</b></li>
+    			<li>Display Marker Detail for <b>Mir206; MGI:2676881</b>
+    			<ul><li>Expected results: <b>Chr1: 20679010-20679082 bp, + strand; From miRBase annotation of NCBI Build 38; id = MI0000249</b>
     			</ul></li>
-    					
+    			
+    			<li>Display Marker Detail for <b>Mir3473; MGI:4441440</b>
+    			<ul><li>Expected results: <b>ChrX: 162874918-162874995 bp, - strand; From miRBase annotation of NCBI Build 38</b>
+    			</ul></li>
+    			
        		</ol>
        		</li>
-    		<li>Verify coordinates updated for tRNA markers that previously had coordinates 
+    		<li>Verify 707 miRNA markers were updated with coordinates and ids. 
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>Display Marker Detail for <b>n-Tc40; MGI:4413807</b>
-    			<ul><li>Expected results: <b>Chr6: 48164101-48164172 bp, + strand; From GtRNAdb annotation of NCBI Build 38</b></li>
-    			</ul></li>
-    			<li>Display Marker Detail for <b>mt-Tl1; MGI:102482</b>
-    			<ul><li>Expected results: <b>ChrMT: 2676-2750 bp, + strand; From GtRNAdb annotation of NCBI Build 38</b></li>
-    			</ul></li>	
-    					
-       		</ol>
-       		</li>
-    		
-    		<li>Verify 435 tRNA markers were updated with coordinates and ids. 
-    		<p concordion:assertTrue="false">new test</p> 
-    		<ol>
-    			<li>Query for <b>J:nnnn</b> on the Reference Query.
-    			<ul><li>Expected results: <b>Genome Features: 435</b> in the Associated Data column
+    			<li>Query for <b>J:105741</b> on the Reference Query.
+    			<ul><li>Expected results: <b>Genome Features: 707</b> in the Associated Data column
     			</ul></li>
     			
     					
        		</ol>
        		</li>
+    		
 		</ol>
 	</div>
 	
@@ -88,4 +80,3 @@
 </div>
 
 </body>
-</html>
