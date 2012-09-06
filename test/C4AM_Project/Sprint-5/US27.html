@@ -1,0 +1,122 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 27</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Acceptance Criteria</a> | <a href="#manual">Manual Tests</a> | <a href="#auto">Automated Tests</a></p>
+</div>
+
+<div id="maintitle">
+    <h1>Add FASTA Download to Marker Detail page</h1>
+    <ul>
+        <li>User Story #27 - Add FASTA Download functionality to Sequence Map 
+        ribbon of Marker Detail page</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+		<li>Able to download FASTA sequence for any marker with coords</li>
+		<li>Functionality added to Sequence Map ribbon of Marker Detail page</li>
+		<li>Controls offer same +/- kb as sequences section</li>	
+	</ol>
+</div>
+
+<div id="tests">
+    <h2>Tests</h2>
+    <p>Skip to <a href="#manual">Manual Tests</a> |  <a href="#auto">Automated Tests</a></p>
+	<div id="manual">
+	
+	<!-- To insert manual test results, use the following:
+	<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+	<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+	 -->
+	 
+		<h3>Manual tests</h3>
+		<ol>
+    		<li>Controls appear for marker with coordinates from a gene model
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>View Marker Detail page for <b>X</b></li>
+    			<li>Verify Sequence Map section contains Get FASTA controls
+    				<ul>
+    				<li>Row for controls appears below <i>From X annotation of X</i> 
+    				build string</li>
+    				<li>Control contains Get FASTA button</li>
+    				<li>Control contains string indicating proper length of sequence</li>
+    				<li>Control contains a field to specify +/- kb flank to to 
+    				return with sequence</li>
+    				</ul>
+    			</li>
+    			<li>Verify clicking Get FASTA button causes appropriate sequence 
+    			to be returned
+	    			<ul>
+	    			<li>Clicking button with no value in flank field causes 
+	    			sequence matching coordinate range of marker to be returned</li>
+	    			<li>Clicking button after entering <b>X</b> in field causes 
+	    			sequence matching coordinate range of marker + and - X,000</li>
+	    			<li>Clicking button after entering <b>foo</b> in field causes 
+	    			an error message to be returned</li>
+	    			</ul>
+	    		</li>
+       		</ol>
+       		</li> 
+    		<li>Controls appear for marker with coordinates assigned by curator load file
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>View Marker Detail page for <b>X</b></li>
+    			<li>Verify Sequence Map section contains Get FASTA controls
+    				<ul>
+    				<li>Row for controls appears below <i>From X annotation of X</i> 
+    				build string</li>
+    				<li>Control contains Get FASTA button</li>
+    				<li>Control contains string indicating proper length of sequence</li>
+    				<li>Control contains a field to specify +/- kb flank to to 
+    				return with sequence</li>
+    				</ul>
+    			</li>
+    			<li>Verify clicking Get FASTA button causes appropriate sequence 
+    			to be returned
+	    			<ul>
+	    			<li>Clicking button with no value in flank field causes 
+	    			sequence matching coordinate range of marker to be returned</li>
+	    			<li>Clicking button after entering <b>X</b> in field causes 
+	    			sequence matching coordinate range of marker + and - X,000</li>
+	    			<li>Clicking button after entering <b>foo</b> in field causes 
+	    			an error message to be returned</li>
+	    			</ul>
+	    		</li>
+       		</ol>
+       		</li>
+    		<li>Controls do not appear for marker without coordinates
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>View Marker Detail page for <b>X</b></li>
+    			<li>Verify Sequence Map section does not contains Get FASTA controls</li>
+       		</ol>
+       		</li>  	
+		</ol>
+	</div>
+	
+	<div id="auto">
+ 	</div>
+</div>
+
+</body>
+</html>
