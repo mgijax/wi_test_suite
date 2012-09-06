@@ -1,0 +1,78 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 123</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Acceptance Criteria</a> | <a href="#manual">Manual Tests</a> | <a href="#auto">Automated Tests</a></p>
+</div>
+
+<div id="maintitle">
+    <h1>Load UniSTS coordinates</h1>
+    <ul>
+        <li>User Story #123 - Load/View B38 coordinates for uniSTS</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+		<li>Load curator-provided file of uniSTS coordinates</li>
+		<li>Display coordinates in the Production WI -- Marker Summary, Marker Detail</li>
+	</ol>
+</div>
+
+<div id="tests">
+    <h2>Tests</h2>
+    <p>Skip to <a href="#manual">Manual Tests</a> |  <a href="#auto">Automated Tests</a></p>
+	<div id="manual">
+	
+	<!-- To insert manual test results, use the following:
+	<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+	<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+	 -->
+	 
+		<h3>Manual tests</h3>
+		<ol>
+    		<li>Verify coordinates added for the various collections in B37 (in B38 they are all in the same collection) 
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display Marker Detail for <b>D12Mit100; MGI:89344</b>; a UniSTS marker
+    			<ul><li>Expected results: <b>Chr12:    104530304-104530397 bp; From UniSTS annotation of NCBI Build 38</b>
+    			</ul></li>
+    			
+    			<li>Display Marker Detail for <b>D11Dcr1; MGI:3764313</b>; a Roopenian marker
+    			<ul><li>Expected results: <b>Chr11: 3315493-3315591 bp; From UniSTS annotation of NCBI Build 38</b>
+    			</ul></li>
+    			
+    			<li>Display Marker Detail for <b>D0Nds1; MGI:88633</b>
+    			<ul><li>Expected results: <b>Chr15: 77023053-77023216 bp, From UniSTS annotation of NCBI Build 38</b>
+    			</ul></li>	
+    					
+       		</ol>
+       		</li>
+    		
+    		
+		</ol>
+	</div>
+	
+	<div id="auto">
+ 	</div>
+</div>
+
+</body>
+</html>
