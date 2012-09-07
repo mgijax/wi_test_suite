@@ -50,8 +50,8 @@
 	 
 		<h3>Manual tests</h3>
 		<ol>
-    		<li>Controls appear for marker with coordinates from a gene model
-    		<p concordion:assertTrue="false">new test</p> 
+    		<li>Controls appear for marker with coordinates from a gene model (test in Firefox and IE)
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/7/12 (test 1.3.3 - error message display is bad)</p> 
     		<ol>
     			<li>View Marker Detail page for <b>Lepr</b></li>
     			<li>Verify Sequence Map section contains Get FASTA controls
@@ -78,7 +78,7 @@
        		</ol>
        		</li> 
     		<li>Controls appear for marker with coordinates assigned by curator load file
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/7/12 (test 2.3.3 - error message display is bad)</p> 
     		<ol>
     			<li>View Marker Detail page for <b>Pepc</b></li>
     			<li>Verify Sequence Map section contains Get FASTA controls
@@ -104,15 +104,15 @@
 	    		</li>
 	    		<li>View Marker Detail page for <b>mt-Nd6</b>; a mitochondrial gene
 	    		<ul><li>Verify sequence is returned with and without the use of the flanking option</li>
-	    		    <li>Enter a flanking option that goes beyond the end of the MT chr.  Verify sequence is returend without error
+	    		    <li>Enter a flanking option that goes beyond the end of the MT chr.  Verify appropriate error message is displayed.
 	    		 </ul></li>
-	    		<li>View Marker Detail page for <b>Mir191</b>; a marker with a single point mutation (i.e start coord=end coord)
+	    		<li>View Marker Detail page for <b>3-209M19-T</b>; a marker with a single point mutation (i.e start coord=end coord)
 	    		<ul><li>Verify sequence is returned with and without the use of the flanking option</li></ul></li>
 	    		
        		</ol>
        		</li>
     		<li>Controls do not appear for marker without coordinates
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/7/12</p> 
     		<ol>
     			<li>View Marker Detail page for <b>Asthm1</b>; this is a QTL marker </li>
     			<li>Verify Sequence Map section does not contains Get FASTA controls</li>
@@ -121,6 +121,11 @@
     			<li>View Marker Detail page for <b>n-Ta10</b>; this is a Gene </li>
     			<li>Verify Sequence Map section does not contains Get FASTA controls</li>
        		</ol>
+       		<ol>
+    			<li>View Marker Detail page for <b>0610006L08Rik</b>; this is a Gene with a Sequence Map section </li>
+    			<li>Verify Sequence Map section does not contains Get FASTA controls</li>
+       		</ol>
+       		
        		
        		</li>  	
 		</ol>
