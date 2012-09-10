@@ -33,6 +33,7 @@
 	<ol>
 		<li>Load curator-provided file of tRNA coordinates</li>
 		<li>Display coordinates in the Production WI -- Marker Summary, Marker Detail</li>
+		<li>Check biological integrity of loaded data</li>
 	</ol>
 </div>
 
@@ -73,7 +74,7 @@
     		<li>Verify 435 tRNA markers were updated with coordinates and ids. 
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>SQL query via collection to check this?</li>
+    			<li>Write SQL query to check this using collection "GtRNAdb".  Group results by "Feature Type" of the marker.</li>
     			   			
     					
        		</ol>
