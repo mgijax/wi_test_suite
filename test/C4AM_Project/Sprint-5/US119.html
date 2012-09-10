@@ -232,65 +232,48 @@
  
     		<ol>
     			<li type=1>VEGA_GM_Report<br>
-    			Backend sybase database (DEV1_MGI..mgd_wi1)</li>
+    			<font size=-1>(sybase database)</font></li>
     			<p concordion:assertTrue="false">PASS 9/9/12 rmb</p>
-    			<blockquote><font size= -1>For each Feature type, the following information is provided:<br/>
-- Total number of markers with or without a gene model association (Markers_Total)<br/>
-- Total number of markers associated with at least one VEGA Gene Model (Markers_VEGA_GM)<br/>
-- Total number of VEGA Gene Models (VEGA_GeneModels)<br/>
-- Total number of markers associated with at least one VEGA Transcirpt (Markers_VEGA_T)<br/>
-- Total number of VEGA Transcripts (VEGA_Transcripts)<br/>
-- Total number of markers associated with at least one VEGA Protein (Markers_VEGA_P)<br/>
-- Total number of VEGA Transcripts (VEGA_Proteins)</font></blockquote>
+    			
     			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
     		 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_SQL_Testing.html#VEGA_GM" TARGET="_new">VEGA_GM_Report Results, SQL</A>
-    			<br>
-    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size= -1>Note: The SQL for this report is included on a separate tab in file US119_VEGA_GM_Report.xlsx</font>
-    			</ul><br>
+    			</ul><p>
     			
     			<li type=1>Ensembl _GM_Report<br>
-    			Backend sybase database (DEV1_MGI..mgd_wi1)</li>
+    			<font size=-1>(sybase database)</font></li>
     			<p concordion:assertTrue="false">PASS 9/9/12 rmb</p>
-    			<blockquote><font size= -1>For each Feature type, the following information is provided:<br>
-- Total number of markers with or without a gene model association (Markers_Total)<br>
-- Total number of markers associated with at least one Ensembl Gene Model (Markers_Ensembl_GM)<br>
-- Total number of Ensembl Gene Models (Ensembl_GeneModels)<br>
-- Total number of markers associated with at least one Ensembl Transcirpt (Markers_Ensembl_T)<br>
-- Total number of Ensembl Transcripts (Ensembl_Transcripts)<br>
-- Total number of markers associated with at least one Ensembl Protein (Markers_Ensembl_P)<br>
-- Total number of Ensembl Transcripts (Ensembl_Proteins)</font></blockquote>
+    			
     			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
     		 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_SQL_Testing.html#Ensembl_GM" TARGET="_new">Ensembl_GM_Report Results, SQL</A>
-    		 	<br>
-    		 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size= -1>Note: The SQL for this report is included on a separate tab in file US119_Ensembl_GM_Report.xlsx</font>
-    		 	</ul><br>
+</ul><p>
 
-<li type=1>NCBI _GM_Report<br>
-Backend sybase database (DEV1_MGI..mgd_wi1)</li>
-  <p concordion:assertTrue="false">FAIL 9/9/12 rmb<br>
-  No NCBI Gene Models were loaded.</p></li>
-<blockquote><font size= -1>For each Feature type, the following information is provided:<br>
-- Total number of markers with or without a gene model association (Markers_Total)<br>
-- Total number of markers associated with at least one NCBI Gene Model (Markers_NCBI_GM)<br>
-- Total number of NCBI Gene Models (NCBI_GeneModels)<br>
-- Total number of markers associated with at least one NCBI RefSeq Transcript (Markers_RefSeq_T)<br>
-- Total number of NCBI RefSeq Transcripts (RefSeq_Transcripts)<br>
-- Total number of markers associated with at least one NCBI RefSeq Protein (Markers_RefSeq_P)<br>
-- Total number of NCBI Transcripts (Ensembl_Proteins)
-</font></blockquote>
-    <ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_SQL_Testing.html#NCBI_GM" TARGET="_new">NCBI_GM_Report Results, SQL</A>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size= -1>Note: The SQL for this report is included on a separate tab in file US119_NCBI_GM_Report.xlsx</font>
-</li>
+    			<li type=1>NCBI _GM_Report<br>
+    			<font size=-1>(sybase database)</font></li>
+      			<p concordion:assertTrue="false">FAIL 9/9/12 rmb &nbsp;&nbsp;&nbsp;<i>No NCBI Gene Models were loaded</i></p>
+
+        		<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_SQL_Testing.html#NCBI_GM" TARGET="_new">NCBI_GM_Report Results, SQL</A>
+</ul><p><p>
 
 <li type=A>Gene Model Cardinality counts
 <ol>
-    			<li type="1">Markers associated with multiple GM IDs<br/>
-    			Backend sybase database (DEV1_MGI..mgd_wi1)</li>
+    			<li type="1">Markers associated with multiple GM IDs (from the same Provider)<br/>
+    			<font size=-1>sybase database</font>
+    			<blockquote><font size=-1>This test counts the number of markers with multiple GM IDS from the same Gene Model Provider (for each Provider), comparing the numbers between DEV_MGI..mgd and the C4AM Test area (DEV1_MGI..mgd_wi1).</font></blockquote></li>
     			<p concordion:assertTrue="false">PASS 9/9/12 rmb</p>
-    			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li></ul>
-    		
+    			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_SQL_Testing.html#NCBI_GM" TARGET="_new"><A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_SQL_Testing.html#Markers_MultipleIDs" TARGET="_new">Markers_Multiple_GM_IDs Results, SQL</A></A>
+</ul><p><p>
+    		<li type=1>Gene Model IDs associated with multiple Markers<br/>
+    		<font size=-1>sybase database</font>
+    		<blockquote><font size=-1>This test counts the number of Gene Models associated with multiple markers (for each provider), comparing the numbers between DEV_MGI..mgd and the C4AM Test area (DEV1_MGI..mgd_wi1).</font></blockquote></li>
+    			<p concordion:assertTrue="false">PASS 9/9/12 rmb</p>
+    			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_SQL_Testing.html#GMIDs_MultipleMarkers" TARGET="_new">GeneModel_IDs_MultipleMarkers Results, SQL</A>
+</ul><p><p>
+       		
+       		
+       		
        		</ol>
        		</ol>
 
