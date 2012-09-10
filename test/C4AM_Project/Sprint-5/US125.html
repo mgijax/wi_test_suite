@@ -64,6 +64,20 @@
     		<li>Verify 707 miRNA markers were updated with coordinates and ids. 
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
+    			<li>SQL query to retrieve the number of markers with miRBase coordinates updated by mrk_coordload:</li>
+			<pre>
+select count(distinct mcf._Object_key)
+from MAP_Coord_Collection mcc,
+  MAP_Coordinate mc,
+  MAP_Coord_Feature mcf,
+  MGI_User mu
+where mcc._Collection_key = mc._Collection_key
+  and mc._Map_key = mcf._Map_key
+  and mcf._MGIType_key = 2
+  and mcc.name = 'miRBase'
+  and mcf._ModifiedBy_key = mu._User_key
+  and mu.login = 'mrk_coordload'
+			</pre>
     			<li>SQL query via collection to check this?</li>
     					
        		</ol>
