@@ -224,11 +224,16 @@
 	
 	<h3>SQL tests</h3>
 		<ol>
-    		<li>Quality/Sanity check of markers associated with gene models from the different gene model providers.
+    	<li>Quality/Sanity check of markers associated with gene models from the different gene model providers.
+    	<ol><li type=A>Counts of markers and associated gene models/transcripts/proteins.
+    	
+    	
     		<blockquote><font size=-1>Comparing counts of markers and associated gene models/transcripts/proteins between DEV_MGI..mgd and the C4AM Test area (DEV1_MGI..mgd_wi1) tests the overall success of the gene model loads and gene model association loads.  The distribution of counts among MGI Feature Types provides a quick check that in general, the appropriate marker types were associated with gene models, and with corresponding transcripts and proteins.  All Feature Types are included, even if there are no markers of that Feature Type associated with gene models.  This assures that all markers with a Feature Type are accounted for.</font></blockquote>
-    		<p concordion:assertTrue="false">new test</p> 
+ 
     		<ol>
-    			<li>VEGA_GM_Report</li>
+    			<li type=1>VEGA_GM_Report<br>
+    			Backend sybase database (DEV1_MGI..mgd_wi1)</li>
+    			<p concordion:assertTrue="false">PASS 9/9/12 rmb</p>
     			<blockquote><font size= -1>For each Feature type, the following information is provided:<br/>
 - Total number of markers with or without a gene model association (Markers_Total)<br/>
 - Total number of markers associated with at least one VEGA Gene Model (Markers_VEGA_GM)<br/>
@@ -237,13 +242,15 @@
 - Total number of VEGA Transcripts (VEGA_Transcripts)<br/>
 - Total number of markers associated with at least one VEGA Protein (Markers_VEGA_P)<br/>
 - Total number of VEGA Transcripts (VEGA_Proteins)</font></blockquote>
-    			<ul><li>expected results for 1.1 are similar to those for B37 on DEV_MGI..mgd</li>
+    			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
     		 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B37 DEV_MGI..mgd Results: <a href="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_VEGA_GM_Report.xlsx">US119_VEGA_GM_Report.xlsx</a>
     			<br>
     			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size= -1>Note: The SQL for this report is included on a separate tab in file US119_VEGA_GM_Report.xlsx</font>
     			</ul><br>
     			
-    			<li>Ensembl _GM_Report</li>
+    			<li type=1>Ensembl _GM_Report<br>
+    			Backend sybase database (DEV1_MGI..mgd_wi1)</li>
+    			<p concordion:assertTrue="false">PASS 9/9/12 rmb</p>
     			<blockquote><font size= -1>For each Feature type, the following information is provided:<br>
 - Total number of markers with or without a gene model association (Markers_Total)<br>
 - Total number of markers associated with at least one Ensembl Gene Model (Markers_Ensembl_GM)<br>
@@ -252,13 +259,16 @@
 - Total number of Ensembl Transcripts (Ensembl_Transcripts)<br>
 - Total number of markers associated with at least one Ensembl Protein (Markers_Ensembl_P)<br>
 - Total number of Ensembl Transcripts (Ensembl_Proteins)</font></blockquote>
-<ul><li>expected results for 1.2 are similar to those for B37 on DEV_MGI..mgd</li>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B37 DEV_MGI..mgd Results: <a href="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_VEGA_GM_Report.xlsx">US119_Ensembl_GM_Report.xlsx</a>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size= -1>Note: The SQL for this report is included on a separate tab in file US119_Ensembl_GM_Report.xlsx</font>
-</ul><br>
+    			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
+    		 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B37 DEV_MGI..mgd Results: <a href="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_VEGA_GM_Report.xlsx">US119_Ensembl_GM_Report.xlsx</a>
+    		 	<br>
+    		 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size= -1>Note: The SQL for this report is included on a separate tab in file US119_Ensembl_GM_Report.xlsx</font>
+    		 	</ul><br>
 
-<li>NCBI _GM_Report</li>
+<li type=1>NCBI _GM_Report<br>
+Backend sybase database (DEV1_MGI..mgd_wi1)</li>
+  <p concordion:assertTrue="false">FAIL 9/9/12 rmb<br>
+  No NCBI Gene Models were loaded.</p></li>
 <blockquote><font size= -1>For each Feature type, the following information is provided:<br>
 - Total number of markers with or without a gene model association (Markers_Total)<br>
 - Total number of markers associated with at least one NCBI Gene Model (Markers_NCBI_GM)<br>
@@ -268,13 +278,20 @@
 - Total number of markers associated with at least one NCBI RefSeq Protein (Markers_RefSeq_P)<br>
 - Total number of NCBI Transcripts (Ensembl_Proteins)
 </font></blockquote>
-    <ul><li>expected results for 1.3 are similar to those for B37 on DEV_MGI..mgd</li>
+    <ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B37 DEV_MGI..mgd Results: <a href="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_VEGA_GM_Report.xlsx">US119_NCBI_GM_Report.xlsx</a>
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size= -1>Note: The SQL for this report is included on a separate tab in file US119_NCBI_GM_Report.xlsx</font>
+</li>
 
-</ul>
+<li type=A>Gene Model Cardinality counts
+<ol>
+    			<li type="1">Markers associated with multiple GM IDs<br/>
+    			Backend sybase database (DEV1_MGI..mgd_wi1)</li>
+    			<p concordion:assertTrue="false">PASS 9/9/12 rmb</p>
+    			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li></ul>
     		
+       		</ol>
        		</ol>
 
  <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
