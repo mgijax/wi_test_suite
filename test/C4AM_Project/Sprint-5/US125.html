@@ -64,22 +64,36 @@
     		<li>Verify 707 miRNA markers were updated with coordinates and ids. 
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>SQL query to retrieve the number of markers with miRBase coordinates updated by mrk_coordload:</li>
-			<pre>
-select count(distinct mcf._Object_key)
+    			<li>SQL query to retrieve the number of markers with miRBase coordinates updated by mrk_coordload, by feature type:</li>
+<pre>
+select mcv.directTerms, count(1) as number_of_coordinates
 from MAP_Coord_Collection mcc,
   MAP_Coordinate mc,
   MAP_Coord_Feature mcf,
-  MGI_User mu
+  MGI_User mu,
+  MRK_MCV_Cache mcv
 where mcc._Collection_key = mc._Collection_key
+  and mcc.name = 'miRBase'
   and mc._Map_key = mcf._Map_key
   and mcf._MGIType_key = 2
-  and mcc.name = 'miRBase'
   and mcf._ModifiedBy_key = mu._User_key
   and mu.login = 'mrk_coordload'
-			</pre>
-    			<li>SQL query via collection to check this?</li>
-    					
+  and mcf._Object_key = mcv._Marker_key
+group by mcv.directTerms
+</pre>
+    			<li>SQL query to retrieve the number of markers with miRBase IDs updated on or after 9/10/2012, by feature type:</li>
+<pre>
+select mcv.directTerms, count(1) as number_of_ids
+from MRK_MCV_Cache mcv,
+  ACC_Accession aa,
+  ACC_LogicalDB ldb
+where mcv._Marker_key = aa._Object_key
+  and aa._MGIType_key = 2
+  and aa._LogicalDB_key = ldb._LogicalDB_key
+  and ldb.name = 'miRBase'
+  and aa.modification_date >= '9/10/2012'
+group by mcv.directTerms
+</pre>
        		</ol>
        		</li>
     		
