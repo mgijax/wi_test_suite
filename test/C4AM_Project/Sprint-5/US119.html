@@ -224,10 +224,9 @@
 	
 	<h3>SQL tests</h3>
 		<ol>
-    	<li>Quality/Sanity check of markers associated with gene models from the different gene model providers.
+    	<li>Quality/Sanity check of markers associated with gene models from the different gene model providers.<p>
     	<ol><li type=A>Counts of markers and associated gene models/transcripts/proteins.
-    	
-    	
+   	
     		<blockquote><font size=-1>Comparing counts of markers and associated gene models/transcripts/proteins between DEV_MGI..mgd and the C4AM Test area (DEV1_MGI..mgd_wi1) tests the overall success of the gene model loads and gene model association loads.  The distribution of counts among MGI Feature Types provides a quick check that in general, the appropriate marker types were associated with gene models, and with corresponding transcripts and proteins.  All Feature Types are included, even if there are no markers of that Feature Type associated with gene models.  This assures that all markers with a Feature Type are accounted for.</font></blockquote>
  
     		<ol>
@@ -253,8 +252,8 @@
 
         		<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
     			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_SQL_Testing.html#NCBI_GM" TARGET="_new">NCBI_GM_Report Results, SQL</A>
-</ul><p><p>
-</li>
+</ul><p><p></ol>
+
 <li type=A>Gene Model Cardinality counts
 <ol>
     			<li type="1">Markers associated with multiple GM IDs (from the same Provider)<br/>
@@ -270,7 +269,7 @@
     			<p concordion:assertTrue="false">PASS 9/9/12 rmb</p>
     			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
     			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_SQL_Testing.html#GMIDs_MultipleMarkers" TARGET="_new">GeneModel_IDs_MultipleMarkers Results, SQL</A>
-</ul><p><p>
+</ul><p><p></ol>
        		
        		
        		
