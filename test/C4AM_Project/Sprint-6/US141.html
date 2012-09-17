@@ -52,7 +52,7 @@
  -->
 		<h3>Manual tests</h3>
 		<ol>
-    		<li>Verify new markers and their gene models are created for B38 in the database  
+    		<li>Verify new markers are created
     		<p concordion:assertTrue="false">new test </p> 
     		<ol>
     			<li>Query for marker <b>21712</b>, this is a new novel pseudogene from Ensembl 
@@ -70,6 +70,20 @@
     			<ul><li>Expected results: <b>Gm20800	predicted gene, 20800	chr:Y	</b></li></ul>
     			    			
        		</ol></li>
+       		
+       		<li>Verify total number of new markers for each provider are created</li>
+       		<p concordion:assertTrue="false">new test </p> 
+    		<ol>
+    			<li>Verify total count of new Ensembl markers from Sophia's input file are created
+    			<ul><li>Expected results:<b>208</b></li> 
+    		    </ul></li>
+    		    
+    		    <li>Verify total count of new NCBI markers from Sophia's input file are created
+    			<ul><li>Expected results:<b>983</b></li> 
+    		    </ul></li>
+    		    			    			
+       		</ol></li>
+       		
        		
        		<li>Verify B37 gene models are deleted</li>
        		<p concordion:assertTrue="false">new test </p> 
