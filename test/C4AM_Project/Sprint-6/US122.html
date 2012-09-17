@@ -53,19 +53,19 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>SNP Query form renders in out of sync mode  
-    		<p concordion:assertTrue="true">FAIL - jlewis 9/17/12 -- User help page not found</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/17/12</p> 
     		<ol>
-    			<li>Genome Coordinate Discrepancy text appears at top of query form</li>
+    			<li>Genome Coordinate Discrepancy text appears at top of query form and links to user help page</li>
     			<li>SNPs Located Near Genes section of query form is disabled 
     			and displays a discrepancy message</li>    			
        		</ol>
        		</li>
     		<li>SNP Summary renders in out of sync mode  
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/17/12</p> 
     		<ol>
 	    		<li>Query for Gene Symbol/Name = <b>Qk</b>
 	    		<ul>
-	    			<li>Genome Coordinate Discrepancy text appears at top of query summary</li>
+	    			<li>Genome Coordinate Discrepancy text appears at top of query summary and links to user help page</li>
 	    			<li>No SNPs are returned with a function class of N bp upstream</li>
 	    			<li>No SNPs are returned with a function class of N bp downstream</li>
 	    			<li>No SNPs are returned with a function class of within coordinates</li>
@@ -80,7 +80,7 @@
     		</ol>
     		</li>
     		<li>Display of SNP associations render correctly on the Marker Detail in out of sync mode  
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/17/12: count is 605 instead of 187</p> 
     		<ol>
 	    		<li>View Marker Detail page for <b>Qk</b>
 	    		<ul>
@@ -91,7 +91,7 @@
     		</li>   		
     		
     		<li>SNP Detail renders in out of sync mode  
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/17/12</p> 
     		<ol>
 	    		<li>View SNP Detail for <b>rs33405808</b> and <b>rs27444178</b> and <b>rs13473272</b> 
 	    		<ul>
