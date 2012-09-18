@@ -52,15 +52,15 @@
  -->
 		<h3>Manual tests</h3>
 		<ol>
-    		<li>Verify new markers are created
-    		<p concordion:assertTrue="false">new test </p> 
+    		<li>Verify new markers are created (using the EI)
+    		<p concordion:assertTrue="true">PASS - jlewis 9/18/12</p> 
     		<ol>
-    			<li>Query for marker <b>21712</b>, this is a new novel pseudogene from Ensembl 
-    			<ul><li>Expected results:<b>Pseudogene	Gm21712	predicted gene, 21712	chr:Y	</b></li> 
+    			<li>Query for marker <b>Gm21726</b>, this is a new novel Gene from Ensembl 
+    			<ul><li>Expected results:<b>Gm21726	predicted gene, 21726	chr:13	</b></li> 
     		    </ul></li>
     		    
-    		    <li>Query for marker <b>21711</b>, this is a new novel pseudogene from Ensembl 
-    			<ul><li>Expected results:<b>Gene	Gm21711	predicted gene, 21711	chr:8	</b></li> 
+    		    <li>Query for marker <b>Gm21728</b>, this is a new novel pseudogene from Ensembl 
+    			<ul><li>Expected results:<b> Gm21728	predicted gene, 21728	chr:Y	</b></li> 
     		    </ul></li>
     			
     			<li>Query for marker <b>Gm20918</b>, this is a new novel gene from NCBI 
@@ -71,22 +71,19 @@
     			    			
        		</ol></li>
        		
-       		<li>Verify total number of new markers for each provider are created</li>
-       		<p concordion:assertTrue="false">new test </p> 
+       		<li>Verify total number of new markers for each provider are created (using EI)
+       		<p concordion:assertTrue="true">PASS - jlewis 9/18/2012 </p> 
     		<ol>
-    			<li>Verify total count of new Ensembl markers from Sophia's input file are created
-    			<ul><li>Expected results:<b>208</b></li> 
+    			<li>Verify total count of new Ensembl & NCBI markers from Sophia's input files are created
+    			<ul><li>Expected results:<b>1191 (Ensembl=208) (NCBI=983)</b></li> 
     		    </ul></li>
     		    
-    		    <li>Verify total count of new NCBI markers from Sophia's input file are created
-    			<ul><li>Expected results:<b>983</b></li> 
-    		    </ul></li>
     		    			    			
        		</ol></li>
        		
        		
-       		<li>Verify B37 gene models are deleted</li>
-       		<p concordion:assertTrue="false">new test </p> 
+       		<li>Verify B37 gene models are deleted
+       		<p concordion:assertTrue="true">PASS - jlewis 9/18/12 </p> 
     		<ol>
     			<li>Query for marker <b>Kit</b>, a gene with B37 coordinates from NCBI, VEGA, and ENSEMBL
     			<ul><li>Expected results:<b>no coordinates displayed</b></li> 
@@ -95,8 +92,8 @@
        		</ol></li>
        		
        		
-       		<li>Verify directly associated B37 coordinates are deleted</li>
-       		<p concordion:assertTrue="false">new test </p> 
+       		<li>Verify directly associated B37 coordinates are deleted
+       		<p concordion:assertTrue="true">PASS - jlewis 9/18/12</p> 
     		<ol>
     			<li>Query for marker <b>Pact1</b>, this is a QTL with B37 coordinates 
     			<ul><li>Expected results:<b>no coordinates displayed</b></li> 
@@ -111,7 +108,7 @@
     		    </ul></li>
     			
     			<li>Query for marker <b>Mir149</b>, this is a miRBase marker with B37 coordinates 
-    			<ul><li>Expected results:<b>no coordinates displayed and no associated miRBase ID</b></li> 
+    			<ul><li>Expected results:<b>no coordinates displayed</b></li> 
     		    </ul></li>
     		    
     		    <li>Query for marker <b>D13Cwr7</b>, this is a TRnnnn marker with B37 coordinates 
