@@ -59,9 +59,9 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>Verify new markers and their gene models are created for B38 in the database  
-    		<p concordion:assertTrue="false">new test </p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/18/2012 </p> 
     		<ol>
-    			<li>Query for marker <b>21712</b>, this is a new novel pseudogene from Ensembl 
+    			<li>Query for marker <b>Gm21712</b>, this is a new novel pseudogene from Ensembl 
     			<ul><li>Expected results (line from Sophia's file):<b>Pseudogene	Gm21712	predicted gene, 21712	Y	In Progress	J:91388			ENSMUSG00000094070</b></li> 
     		    </ul></li>
     			
@@ -71,7 +71,7 @@
        		</ol></li>
        		
        		<li>Verify updated gene models for existing markers for Build 38 are updated in the database
-    		<p concordion:assertTrue="false">new test </p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/18/2012 </p> 
     		<ol>
     		    <li>Query for marker <b>Brca2</b>, this is an existing gene with an updated gene model from Ensembl
     			<ul>Expected results (line from Sophia's file): <b>ENSMUSG00000041147	5	150522630	150569746	+	chr5:150522630-150569746, + strand. ENSEMBL annotation of mouse genome build 38, Gene type: protein_coding; Gene Name: Brca2</b>
@@ -89,7 +89,7 @@
        		</ol></li>
        		
        		<li>Verify gene models deleted for Build 38 are no longer in the database
-    		<p concordion:assertTrue="false">new test </p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/18/12 </p> 
     		<ol>
     		    <li>Use Batch Query to query for gene model <b>ENSMUSG00000072491</b>, this is an existing B37 gene model from Ensembl
     			<ul>Expected results: <b>no associated gene</b>
@@ -100,13 +100,13 @@
     			</ul></li>
     			
     			<li>Use Batch Query to query for gene model <b>100503451</b>, this is an existing B37 gene model from NCBI
-    			<ul>Expected results: <b>Associated gene GM19699 is found -- but no longer has a Sequence Map section.</b>
+    			<ul>Expected results: <b>Associated gene GM19699 is found -- but has only external links in the Sequence Map section.</b>
     			</ul></li>
     				
        		</ol></li>
        		
        		<li>Verify gene models that have associations to more than 1 marker. 
-    		<p concordion:assertTrue="false">new test </p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/18/2012 </p> 
     		<ol>
     		    <li>Use the Batch Query and query for <b>ENSMUSG00000007440</b>; view markers returned for this <b>Ensembl</b> gene model
     			<ul>Expected results: <b>Pcdha1, Pcdha2, Pcdha4, Pcdha5, Pcdha10, Pcdha11, Pcdha12, Pcdhac2, Pcdhac1</b>
@@ -119,7 +119,7 @@
        		</ol></li>
        		
        		<li>Verify markers that are associated to more than 1 gene model.
-    		<p concordion:assertTrue="false">new test </p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/18/12 </p> 
     		<ol>
     		    <li>Display the Marker Detail for marker <b>Qk</b>; view associations to <b>Ensembl</b> gene models. 
     			<ul>Expected results: <b>ENS00000044407, ENS00000062078</b>
@@ -136,7 +136,7 @@
        		</ol></li>
        		
     		<li>Verify "Evidence" links are displayed on Marker Detail page and the link goes to Build 38 data 
-    		<p concordion:assertTrue="false">new test </p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/18/12 (note NCBI URL broken on Public too - create TR)</p> 
     		<ol>
     			<li>Query for marker <b>Pax6</b>, this marker has evidence for all 3 providers: Ensembl, VEGA, and NCBI
     			<ul>Expected results: <b>Links in the "Other database links" section of the Marker Detail page for each provider.  Link works and goes to B38 evidence.</b>
@@ -145,7 +145,7 @@
        		</ol></li>
        		
        		<li>Verify biotype mismatch identified correctly and displayed 
-    		<p concordion:assertTrue="false">new test </p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/18/12 </p> 
     		<ol>
     			<li>Query for marker <b>Tead1</b>; Display Biotype conflict text <i>VEGA biotypes not displayed</i>
     			<ul>Expected results: <b>conflict with Ensembl and VEGA</b>
@@ -155,7 +155,7 @@
        	
     		
     		<li>Verify associated Build 38 Proteins/Transcripts are loaded and associated to the appropriate marker for Ensembl & VEGA
-    		<p concordion:assertTrue="false">new test </p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/18/12</p> 
     		<ol>
     			<li>Query for marker <b>Kit</b>; Display Sequence Summary for Kit;
     			<ul>Expected results: <b>Proteins and Transcripts for VEGA and Ensembl included in the list</b>
@@ -164,7 +164,7 @@
        		</ol></li>
     		
     		<li>Verify cM positions unchanged from B37 calculations
-    		<p concordion:assertTrue="false">new test </p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/18/12 </p> 
     		<ol>
     		    <li>Query for marker <b>Lepr</b> (a marker that existed in B37)
     			<ul>Expected results:  <b>46.96 cM</b>
@@ -184,16 +184,16 @@
        		</ol></li>
     		
     		<li>Verify build text has changed to Build 38 in PUBLIC WI and MouseBlast
-    		<p concordion:assertTrue="false">new test </p> 
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/18/12 - GXD Summary/marker tab displaying B37 </p> 
     		<ol>
     			<li>Python WI - Marker Summary (web, tab, excel)</li>   
     			<li>MouseBlast - Query Form</li>
     			<li>Java WI - Marker, Allele, GXD Expanded Query Forms</li> 
-    			<li>Fewi - Marker Detail, Batch Query</li>			
+    			<li>Fewi - Marker Detail, Batch Query, GXD Summary (Marker tab)</li>			
        		</ol></li>
        		
        		<li>Verify build text continues to display Build 37 in the following PUBLIC WI pages
-    		<p concordion:assertTrue="false">new test </p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/18/12 </p> 
     		<ol>
     			<li>Python WI - SNP Summary</li>   
     			<li>Java WI - SNP Query Form, SNP Detail, Allele Detail</li> 	
