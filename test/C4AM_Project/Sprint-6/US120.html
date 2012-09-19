@@ -205,15 +205,63 @@
 	<div id="sql">
 	
 	<h3>SQL tests</h3>
-		
+	<I>The key for the SQL tests in this User Story is to ensure that the exporter ran correctly and moved the data from DEV1_MGI..mgd_wi1 at the end of Sprint 5 into Postgres database mgi-testdb3..pub_dev.</I><P>
+Raw results are here:
+	<UL>
+	<LI> Sprint-5 : DEV1_MGI..mgd_wi1 (Sybase) : <A HREF="prodwww.informatics.jax.org/all/wts_projects/7100/7106/US119_SQL_Testing.html">US119_SQL_Testing.html</A></LI>
+	<LI> Sprint-6 : mgi-testdb3..pub_dev (Postgres) : <A HREF="prodwww.informatics.jax.org/all/wts_projects/7100/7106/US120_SQL_Testing.html">US120_SQL_Testing.html</A></LI>
+	</UL><P>
+When comparing the counts for the two databases in these two files (above), one can see that the exporter ran faithfully to reproduce the data.  Since that is the case, the general consensus for all SQL tests for this User Story is:<BR>
+<B>PASS - jsb 9/19/2012</B>.<P>
+Details for individual tests are linked below:
+		<ol>
+    	<li>Quality/Sanity check of markers associated with gene models from the different gene model providers.<p>
+    	<ol><li type=A>Counts of markers and associated gene models/transcripts/proteins.
+   	
+    		<blockquote><font size=-1>Comparing counts of markers and associated gene models/transcripts/proteins between DEV_MGI..mgd and the public C4AM Test area (postgres: mgi-testdb3..pub_dev) tests the overall success of the gene model loads and gene model association loads.  The distribution of counts among MGI Feature Types provides a quick check that in general, the appropriate marker types were associated with gene models, and with corresponding transcripts and proteins.  All Feature Types are included, even if there are no markers of that Feature Type associated with gene models.  This assures that all markers with a Feature Type are accounted for.</font></blockquote>
+ 
+    		<ol>
+    			<li type=1>VEGA_GM_Report<br>
+    			<p concordion:assertTrue="true">PASS - jsb 9/19/12</p>
+    			
+    			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
+    		 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US120_SQL_Testing.html#VEGA_GM" TARGET="_new">VEGA_GM_Report Results, SQL</A>
+    			</ul><p>
+    			
+    			<li type=1>Ensembl _GM_Report<br>
+    			<p concordion:assertTrue="true">PASS - jsb 9/19/12</p>
+    			
+    			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
+    		 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US120_SQL_Testing.html#Ensembl_GM" TARGET="_new">Ensembl_GM_Report Results, SQL</A>
+</ul><p>
 
- <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
-     			<li>
-    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
-    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
-    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
-    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
-  -->
+    			<li type=1>NCBI _GM_Report<br>
+      			<p concordion:assertTrue="false">FAIL 9/9/12 rmb &nbsp;&nbsp;&nbsp;<i>No NCBI Gene Models were loaded</i></p>
+
+        		<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US120_SQL_Testing.html#NCBI_GM" TARGET="_new">NCBI_GM_Report Results, SQL</A>
+</ul><p><p></ol>
+
+<li type=A>Gene Model Cardinality counts
+<ol>
+    			<li type="1">Markers associated with multiple GM IDs (from the same Provider)<br/>
+    			<blockquote><font size=-1>This test counts the number of markers with multiple GM IDS from the same Gene Model Provider (for each Provider), comparing the numbers between DEV_MGI..mgd and the C4AM Test area (DEV1_MGI..mgd_wi1).</font></blockquote></li>
+    			<p concordion:assertTrue="true">PASS - jsb 9/19/12</p>
+    			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US120_SQL_Testing.html#NCBI_GM" TARGET="_new"><A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US120_SQL_Testing.html#Markers_MultipleIDs" TARGET="_new">Markers_Multiple_GM_IDs Results, SQL</A></A>
+</ul><p><p>
+    		<li type=1>Gene Model IDs associated with multiple Markers<br/>
+    		<blockquote><font size=-1>This test counts the number of Gene Models associated with multiple markers (for each provider), comparing the numbers between DEV_MGI..mgd and the C4AM Test area (DEV1_MGI..mgd_wi1).</font></blockquote></li>
+    			<p concordion:assertTrue="true">PASS - jsb 9/19/12</p>
+    			<ul><li>expected results for this test are similar to those for B37 on DEV_MGI..mgd</li>
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/US120_SQL_Testing.html#GMIDs_MultipleMarkers" TARGET="_new">GeneModel_IDs_MultipleMarkers Results, SQL</A>
+</ul><p><p></ol>
+       		
+       		
+       		
+       		</ol>
+       		</ol>
+
  	</div>
 </div>
 
