@@ -52,9 +52,8 @@
     		<li>Verify new markers and their gene models are created for B38 in the database  
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>Query for marker <b>Gmxxx</b>, this is a new novel gene with annotations from VEGA
-    			<ul>Expected results (line from Sophia's file): <b>???
-    			</b></ul></li>
+    			<li>Query for marker <b>Gm21817</b>, this is a new novel gene with annotations from VEGA
+    			<ul>Expected results: Associated to VEGA gene model <b>OTTMUSG00000042412</b></ul></li>
     			
        		</ol></li>
        		
@@ -63,7 +62,7 @@
     		<ol>
     		       		
     		    <li>Query for marker <b>Trp53</b>, this is an existing gene with an updated gene model from VEGA
-    			<ul>Expected results (line from Sophia's file): <b>OTTMUSG00000005982	11	69580359	69591873	+	chr11:69580359-69591873, + strand. VEGA annotation of mouse genome build 38, Gene type: _protein_coding; Gene Name: Trp53 </b>
+    			<ul>Expected results: Gene Model <b>OTTMUSG00000005982 </b>; Coordinates <b>chr11:69580359-69591873, + strand</b>
     			</ul></li>
     			
     		
@@ -84,7 +83,7 @@
        		<li>Verify biotype mismatch identified correctly and displayed 
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    			<li>Query for marker <b>Tead1</b>; Display Biotype conflict text <i>VEGA biotypes not displayed</i>
+    			<li>Query for marker <b>Tead1</b>; Display Biotype conflict text
     			<ul>Expected results: <b>conflict with Ensembl and VEGA</b>
     			</ul></li>
     						
