@@ -12,7 +12,7 @@
 	p {margin:2px 0px;}
 </style>
 
-    <title>User Story 160</title>
+    <title>User Story 159</title>
 </head>
 
 <body>
@@ -23,16 +23,17 @@
 
 <div id="maintitle"><h1>Load VEGA B38 gene models & associated data in Prod WI</h1>
     <ul>
-        <li>User Story 160, Load VEGA B38 gene models, coordinates, transcripts, proteins, raw biotypes, marker associations in Prod WI.</li>
+        <li>User Story 159, Load NCBI B38 gene models, coordinates, transcripts, proteins, raw biotypes, marker associations in Prod WI.</li>
     </ul>
 </div>
 
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ul>   
-	    <li>Verify VEGA Gene Models & their coordinates are loaded for existing and new markers.</li>
-	    <li>Verify transcripts and proteins are loaded for the VEGA Gene Models</li>
-	    <li>Verify raw biotypes are loaded and translated properly for the VEGA Gene Models</li>
+	    <li>Verify NCBI Gene Models & their coordinates are loaded for existing and new markers.</li>
+	    <li>Verify transcripts are loaded for the NCBI Gene Models via the Entrez Gene Load</li>
+	    <li>Verify proteins are loaded for the NCBI Gene Models via the UniProt Load</li>
+	    <li>Verify raw biotypes are loaded and translated properly for the NCBI Gene Models</li>
 	    <li>Exclude - links to external genome browsers & gbrowse are not part of this story</li>
 	</ul>
 </div>
@@ -52,8 +53,14 @@
     		<li>Verify new markers and their gene models are created for B38 in the database  
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>Query for marker <b>Gm21817</b>, this is a new novel gene with annotations from VEGA
-    			<ul>Expected results: Associated to VEGA gene model <b>OTTMUSG00000042412</b></ul></li>
+    			<li>Query for marker <b>Gm21716</b>, this is a new novel gene with annotations from NCBI
+    			<ul>Expected results: Associated to NCBI gene model <b>100862407</b>; Chr 10</ul></li>
+    			
+    			<li>Query for marker <b>Gm21654</b>, this is a new novel gene with annotations from NCBI
+    			<ul>Expected results: Associated to NCBI gene model <b>100862336</b>; Chr Y</ul></li>
+    			
+    			<li>Query for marker <b>Gm20733</b>, this is a new novel gene with annotations from NCBI
+    			<ul>Expected results: Associated to NCBI gene model <b>215866</b>; Chr 3</ul></li>
     			
        		</ol></li>
        		
@@ -61,8 +68,8 @@
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		       		
-    		    <li>Query for marker <b>Trp53</b>, this is an existing gene with an updated gene model from VEGA
-    			<ul>Expected results: Gene Model <b>OTTMUSG00000005982 </b>; Coordinates <b>chr11:69580359-69591873, + strand</b>
+    		    <li>Query for marker <b>Sry</b>, this is an existing gene with an updated gene model from NCBI
+    			<ul>Expected results: Gene Model <b>21674 </b> Coordinates: <b>Chr Y; 2662471-2663658, - strand</b>
     			</ul></li>
     			
     		
@@ -73,29 +80,38 @@
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     			
-    			<li>Display the Marker Detail for marker <b>Gm6541</b>; view associations to <b>VEGA</b> gene models.
-    			<ul>Expected results: <b>OTT00000036694, OTT00000036405</b>
+    			<li>Display the Marker Detail for marker <b>Fkbp5</b>; view associations to <b>NCBI</b> gene models.
+    			<ul>Expected results: gene models <b>14229 and 100862287</b>
     			</ul></li>
     			
        		</ol></li>
        		
+       		<li>Verify gene models that are associated to more than 1 gene.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    			
+    			<li>Query for NCBI gene model <b>100504358</b> in the Batch Query
+    			<ul>Expected results: markers <b>Gm17124 and Gm17204</b>
+    			</ul></li>
+    			
+       		</ol></li>
        		
        		<li>Verify biotype mismatch identified correctly and displayed 
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     			<li>Query for marker <b>Tead1</b>; Display Biotype conflict text
-    			<ul>Expected results: <b>conflict with Ensembl and VEGA</b>
+    			<ul>Expected results: <b>conflict with NCBI and MGI (this is a conflict in B37)</b>
     			</ul></li>
     						
        		</ol></li>
        		
     		
     		
-    		<li>Verify associated Build 38 Proteins/Transcripts are loaded and associated to the appropriate marker for VEGA
+    		<li>Verify associated Build 38 Proteins/Transcripts are loaded and associated to the appropriate marker for NCBI
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     			<li>Query for marker <b>Kit</b>; Display Sequence Summary for Kit;
-    			<ul>Expected results: <b>Proteins and Transcripts for VEGA included in the list</b>
+    			<ul>Expected results: <b>Proteins and Transcripts for NCBI included in the list</b>
     			</ul></li>
     			
        		</ol></li>
