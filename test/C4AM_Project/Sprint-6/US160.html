@@ -79,12 +79,21 @@
     			
        		</ol></li>
        		
+       		<li>Verify gene models that are associated to more than 1 marker.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    			
+    			<li>Use the Batch Query and enter VEGA gene model <b>OTTMUSG00000037134</b>; view associations to <b>VEGA</b> gene models.
+    			<ul>Expected results: <b>Moap1 and AK010878</b>
+    			</ul></li>
+    			
+       		</ol></li>
        		
        		<li>Verify biotype mismatch identified correctly and displayed 
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     			<li>Query for marker <b>Tead1</b>; Display Biotype conflict text
-    			<ul>Expected results: <b>conflict with Ensembl and VEGA</b>
+    			<ul>Expected results: <b>conflict with MGI and VEGA</b>
     			</ul></li>
     						
        		</ol></li>
