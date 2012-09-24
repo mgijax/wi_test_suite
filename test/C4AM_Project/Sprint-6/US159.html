@@ -51,7 +51,7 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>Verify new markers and their gene models are created for B38 in the database  
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12 (note that Gm20733 coordinates not loaded due to a chr discrepancy)</p> 
     		<ol>
     			<li>Query for marker <b>Gm21716</b>, this is a new novel gene with annotations from NCBI
     			<ul>Expected results: Associated to NCBI gene model <b>100862407</b>; Chr 10</ul></li>
@@ -65,7 +65,7 @@
        		</ol></li>
        		
        		<li>Verify updated gene models for existing markers for Build 38 are updated in the database
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p>  
     		<ol>
     		       		
     		    <li>Query for marker <b>Sry</b>, this is an existing gene with an updated gene model from NCBI
@@ -77,7 +77,7 @@
        		
        		
        		<li>Verify markers that are associated to more than 1 gene model.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p>  
     		<ol>
     			
     			<li>Display the Marker Detail for marker <b>Fkbp5</b>; view associations to <b>NCBI</b> gene models.
@@ -87,7 +87,7 @@
        		</ol></li>
        		
        		<li>Verify gene models that are associated to more than 1 gene.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p>  
     		<ol>
     			
     			<li>Query for NCBI gene model <b>100504358</b> in the Batch Query
@@ -97,7 +97,7 @@
        		</ol></li>
        		
        		<li>Verify biotype mismatch identified correctly and displayed 
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p>  
     		<ol>
     			<li>Query for marker <b>Tead1</b>; Display Biotype conflict text
     			<ul>Expected results: <b>conflict with NCBI and MGI (this is a conflict in B37)</b>
@@ -108,7 +108,7 @@
     		
     		
     		<li>Verify associated Build 38 Proteins/Transcripts are loaded and associated to the appropriate marker for NCBI
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p>  
     		<ol>
     			<li>Query for marker <b>Kit</b>; Display Sequence Summary for Kit;
     			<ul>Expected results: <b>Proteins and Transcripts for NCBI included in the list</b>
