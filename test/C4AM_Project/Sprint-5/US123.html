@@ -49,7 +49,7 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>Verify coordinates added for the various collections in B37 (in B38 they are all in the same collection) 
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12 <b>WARNING - links to external browser missing for D12Mit100</b></p> 
     		<ol>
     			<li>Display Marker Detail for <b>D12Mit100; MGI:89344</b>; a UniSTS marker
     			<ul><li>Expected results: <b>Chr12:    104530304-104530397 bp; From UniSTS annotation of NCBI Build 38</b>
@@ -66,7 +66,7 @@
        		</ol>
        		</li>
     		<li>Verify 8,608 UniSTS markers were updated with coordinates. 
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">FAILED jlewis 9/24/12 <b>Count was 3x what was expected, 25,824</b></p> 
     		<ol>
 			<li>SQL query to retrieve the number of markers with NCBI UniSTS coordinates updated by mrk_coordload, by feature type:
 <pre>
@@ -77,7 +77,7 @@ from MAP_Coord_Collection mcc,
   MGI_User mu,
   MRK_MCV_Cache mcv
 where mcc._Collection_key = mc._Collection_key
-  and mcc.name = 'NCBI UniSTS'
+  and mcc.name = 'UniSTS'
   and mc._Map_key = mcf._Map_key
   and mcf._MGIType_key = 2
   and mcf._ModifiedBy_key = mu._User_key
