@@ -79,6 +79,7 @@ where mcc._Collection_key = mc._Collection_key
   and mcf._ModifiedBy_key = mu._User_key
   and mu.login = 'mrk_coordload'
   and mcf._Object_key = mcv._Marker_key
+  and mcv.qualifier = 'D'
 group by mcv.directTerms
 </pre>
     			<li>SQL query to retrieve the number of markers with miRBase IDs updated on or after 9/21/2012, by feature type:</li>
@@ -88,6 +89,7 @@ from MRK_MCV_Cache mcv,
   ACC_Accession aa,
   ACC_LogicalDB ldb
 where mcv._Marker_key = aa._Object_key
+  and mcv.qualifier = 'D'
   and aa._MGIType_key = 2
   and aa._LogicalDB_key = ldb._LogicalDB_key
   and ldb.name = 'miRBase'
