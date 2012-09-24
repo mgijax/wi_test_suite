@@ -50,7 +50,7 @@
 	All SQL tests can be done using websql (<a href="http://prodwww.informatics.jax.org/~jsb/websql/">http://prodwww.informatics.jax.org/~jsb/websql/</a>).<P>
 	<ol>
 	<li>Procedure correctly updates the genomic chromosome field of MRK_Location_Cache when genomic and genetic chromosomes match
-    	<p concordion:assertTrue="false">new test</p> 
+    	<p concordion:assertTrue="true">PASS 9/24/2012 jsb</p> 
     	<ol>
     		<li>Test a marker with coordinates from a gene model.
 		<ul><li><b>marker a (marker key 3) has:</b><br>
@@ -141,7 +141,7 @@ where c._Marker_key = m._Marker_Key
        	</ol></li>
 
 	<li>Procedure correctly updates the genomic chromosome field of MRK_Location_Cache when genomic and genetic chromosomes differ
-    	<p concordion:assertTrue="false">new test</p> 
+    	<p concordion:assertTrue="true">PASS 9/24/2012 jsb</p> 
     	<ol>
     		<li>Test a marker with coordinates from a gene model.  (No real example in the database, so we can fake it by using isql as user mgd_dbo and altering the data for Kit...)
 		<ul><li><b>marker Kit (marker key 10603) has:</b><br>
