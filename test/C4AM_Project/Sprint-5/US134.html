@@ -72,7 +72,7 @@
        		</li>
     		
     		<li>Verify 435 tRNA markers were updated with coordinates. 
-    		<p concordion:assertTrue="false">FAILED - jlewis 9/24/12 - SQL returned 1740 (4x expected result)</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p> 
     		<ol>
     			<li>Write SQL query to check this using collection "GtRNAdb".  Group results by "Feature Type" of the marker:</li>
 <pre>
@@ -89,6 +89,7 @@ where mcc._Collection_key = mc._Collection_key
   and mcf._ModifiedBy_key = mu._User_key
   and mu.login = 'mrk_coordload'
   and mcf._Object_key = mcv._Marker_key
+  and mcv.qualifier = 'D'
 group by mcv.directTerms
 </pre>
     			   			
