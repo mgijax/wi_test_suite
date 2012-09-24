@@ -50,7 +50,7 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>Verify new markers and their gene models are created for B38 in the database  
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p> 
     		<ol>
     			<li>Query for marker <b>Gm21817</b>, this is a new novel gene with annotations from VEGA
     			<ul>Expected results: Associated to VEGA gene model <b>OTTMUSG00000042412</b></ul></li>
@@ -58,7 +58,7 @@
        		</ol></li>
        		
        		<li>Verify updated gene models for existing markers for Build 38 are updated in the database
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p>  
     		<ol>
     		       		
     		    <li>Query for marker <b>Trp53</b>, this is an existing gene with an updated gene model from VEGA
@@ -70,7 +70,7 @@
        		
        		
        		<li>Verify markers that are associated to more than 1 gene model.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p>  
     		<ol>
     			
     			<li>Display the Marker Detail for marker <b>Gm6541</b>; view associations to <b>VEGA</b> gene models.
@@ -80,7 +80,7 @@
        		</ol></li>
        		
        		<li>Verify gene models that are associated to more than 1 marker.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p>  
     		<ol>
     			
     			<li>Use the Batch Query and enter VEGA gene model <b>OTTMUSG00000037134</b>; view associations to <b>VEGA</b> gene models.
@@ -90,7 +90,7 @@
        		</ol></li>
        		
        		<li>Verify biotype mismatch identified correctly and displayed 
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p>  
     		<ol>
     			<li>Query for marker <b>Tead1</b>; Display Biotype conflict text
     			<ul>Expected results: <b>conflict with MGI and VEGA</b>
@@ -101,7 +101,7 @@
     		
     		
     		<li>Verify associated Build 38 Proteins/Transcripts are loaded and associated to the appropriate marker for VEGA
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/24/12</p>  
     		<ol>
     			<li>Query for marker <b>Kit</b>; Display Sequence Summary for Kit;
     			<ul>Expected results: <b>Proteins and Transcripts for VEGA included in the list</b>
