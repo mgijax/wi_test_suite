@@ -49,20 +49,20 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>Verify coordinates added for Build 38 
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/21/12</p> 
     		<ol>
     			<li>Display Marker Detail for <b>Mir206; MGI:2676881</b>
     			<ul><li>Expected results: <b>Chr1: 20679010-20679082 bp, + strand; From miRBase annotation of NCBI Build 38; id = MI0000249</b>
     			</ul></li>
     			
     			<li>Display Marker Detail for <b>Mir3473; MGI:4441440</b>
-    			<ul><li>Expected results: <b>ChrX: 162874918-162874995 bp, - strand; From miRBase annotation of NCBI Build 38</b>
+    			<ul><li>Expected results: <b>ChrX: 162874918-162874995 bp, - strand; From miRBase annotation of NCBI Build 38; id = MI0014706</b>
     			</ul></li>
     			
        		</ol>
        		</li>
     		<li>Verify 707 miRNA markers were updated with coordinates and ids. 
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">FAILED - jlewis 9/24/12 <b>SQL#1 returned 2828 - 4x the expected result; SQL#2 returned 2808</b></p> 
     		<ol>
     			<li>SQL query to retrieve the number of markers with miRBase coordinates updated by mrk_coordload, by feature type:</li>
 <pre>
@@ -81,7 +81,7 @@ where mcc._Collection_key = mc._Collection_key
   and mcf._Object_key = mcv._Marker_key
 group by mcv.directTerms
 </pre>
-    			<li>SQL query to retrieve the number of markers with miRBase IDs updated on or after 9/10/2012, by feature type:</li>
+    			<li>SQL query to retrieve the number of markers with miRBase IDs updated on or after 9/21/2012, by feature type:</li>
 <pre>
 select mcv.directTerms, count(1) as number_of_ids
 from MRK_MCV_Cache mcv,
@@ -91,7 +91,7 @@ where mcv._Marker_key = aa._Object_key
   and aa._MGIType_key = 2
   and aa._LogicalDB_key = ldb._LogicalDB_key
   and ldb.name = 'miRBase'
-  and aa.modification_date >= '9/10/2012'
+  and aa.modification_date >= '9/21/2012'
 group by mcv.directTerms
 </pre>
        		</ol>
