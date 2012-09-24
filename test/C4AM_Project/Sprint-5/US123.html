@@ -66,7 +66,7 @@
        		</ol>
        		</li>
     		<li>Verify 8,608 UniSTS markers were updated with coordinates. 
-    		<p concordion:assertTrue="false">FAILED jlewis 9/24/12 <b>Count was 3x what was expected, 25,824</b></p> 
+    		<p concordion:assertTrue="true">PASS jlewis 9/24/12 </p> 
     		<ol>
 			<li>SQL query to retrieve the number of markers with NCBI UniSTS coordinates updated by mrk_coordload, by feature type:
 <pre>
@@ -83,6 +83,7 @@ where mcc._Collection_key = mc._Collection_key
   and mcf._ModifiedBy_key = mu._User_key
   and mu.login = 'mrk_coordload'
   and mcf._Object_key = mcv._Marker_key
+  and mcv.qualifier = 'D'
 group by mcv.directTerms
 </pre>
        		</ol>
