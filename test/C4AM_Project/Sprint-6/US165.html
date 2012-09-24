@@ -1,0 +1,238 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 165</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Acceptance Criteria</a> | <a href="#manual">SQL Tests</a> | <a href="#auto">Automated Tests</a></p>
+</div>
+
+<div id="maintitle">
+    <h1>Update MRK_reloadLocation stored procedure</h1>
+    <ul>
+        <li>User Story #165 - Update MRK_reloadLocation stored procedure to handle new genomicChromosome field</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+		<li>Procedure correctly updates the genomic chromosome field of MRK_Location_Cache when genomic and genetic chromosomes match</li>
+		<li>Procedure correctly updates the genomic chromosome field of MRK_Location_Cache when genomic and genetic chromosomes differ</li>
+	</ol>
+</div>
+
+<div id="tests">
+    <h2>Tests</h2>
+    <p>Skip to <a href="#manual">SQL Tests</a> |  <a href="#auto">Automated Tests</a></p>
+	<div id="manual">
+	
+	<!-- To insert manual test results, use the following:
+	<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+	<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+	 -->
+	 
+	<h3>SQL tests</h3>
+	All SQL tests can be done using websql (<a href="http://prodwww.informatics.jax.org/~jsb/websql/">http://prodwww.informatics.jax.org/~jsb/websql/</a>).<P>
+	<ol>
+	<li>Procedure correctly updates the genomic chromosome field of MRK_Location_Cache when genomic and genetic chromosomes match
+    	<p concordion:assertTrue="false">new test</p> 
+    	<ol>
+    		<li>Test a marker with coordinates from a gene model.
+		<ul><li><b>marker a (marker key 3) has:</b><br>
+			chromosome : 2<br>
+			offset : 76.830000<br>
+			cytogeneticOffset : null<br>
+			genomicChromosome : 2<br>
+			coordinates: 154791402 - 155051012 bp (+)<br>
+			version:  NCBI Build 38<br>
+			provider:  VEGA Gene Model<br>
+			modification date:  9/10/2012<br></li>
+		<li><b>Execute SQL</b> to update the location cache for marker
+			<b>a</b> and then retrieve the updated record:
+<blockquote><pre>
+MRK_reloadLocation 3
+||
+select m._Marker_key, m.symbol, c.chromosome, c.cytogeneticOffset,
+  c.offset, c.genomicChromosome, c.startCoordinate, c.endCoordinate,
+  c.mapUnits, c.strand, c.version, c.provider, c.modification_date 
+from MRK_Location_Cache c, MRK_Marker m
+where c._Marker_key = m._Marker_Key
+  and m._Organism_key = 1
+  and m._Marker_Status_key = 1
+  and m._Marker_key = 3
+</pre></blockquote>
+		</li>
+		<li><b>Ensure that the fields shown above match</b>, except that the
+			modification date is set for today's date.</li>
+		</ul>
+    		<li>Test a marker with directly-associated coordinates
+		<ul><li><b>marker Mir3084 (marker key 405568) has:</b><br>
+			chromosome : 19<br>
+			offset : 19.870000<br>
+			cytogeneticOffset : null<br>
+			genomicChromosome : 19<br>
+			coordinates: 25016725 - 25016793 bp (-)<br>
+			version:  NCBI Build 37<br>
+			provider:  miRBase<br>
+			modification date:  9/10/2012<br></li>
+		<li><b>Execute SQL</b> to update the location cache for marker
+			<b>Mir3084</b> and then retrieve the updated record:
+<blockquote><pre>
+MRK_reloadLocation 405568
+||
+select m._Marker_key, m.symbol, c.chromosome, c.cytogeneticOffset,
+  c.offset, c.genomicChromosome, c.startCoordinate, c.endCoordinate,
+  c.mapUnits, c.strand, c.version, c.provider, c.modification_date 
+from MRK_Location_Cache c, MRK_Marker m
+where c._Marker_key = m._Marker_Key
+  and m._Organism_key = 1
+  and m._Marker_Status_key = 1
+  and m._Marker_key = 405568
+</pre></blockquote>
+		</li>
+		<li><b>Ensure that the fields shown above match</b>, except that the
+			modification date is set for today's date.</li>
+		</ul>
+		</li>
+    		<li>Test a marker with no coordinates
+		<ul><li><b>marker Tcrg-C (marker key 13948) has:</b><br>
+			chromosome : 13<br>
+			offset : 6.890000<br>
+			cytogeneticOffset : null<br>
+			genomicChromosome : null<br>
+			coordinates: null<br>
+			version:  null<br>
+			provider:  null<br>
+			modification date:  9/21/2012<br></li>
+		<li><b>Execute SQL</b> to update the location cache for marker
+			<b>Tcrg-C</b> and then retrieve the updated record:
+<blockquote><pre>
+MRK_reloadLocation 13948
+||
+select m._Marker_key, m.symbol, c.chromosome, c.cytogeneticOffset,
+  c.offset, c.genomicChromosome, c.startCoordinate, c.endCoordinate,
+  c.mapUnits, c.strand, c.version, c.provider, c.modification_date 
+from MRK_Location_Cache c, MRK_Marker m
+where c._Marker_key = m._Marker_Key
+  and m._Organism_key = 1
+  and m._Marker_Status_key = 1
+  and m._Marker_key = 13948
+</pre></blockquote>
+		</li>
+		<li><b>Ensure that the fields shown above match</b>, except that the
+			modification date is set for today's date.</li>
+		</ul>
+		</li>
+       	</ol></li>
+
+	<li>Procedure correctly updates the genomic chromosome field of MRK_Location_Cache when genomic and genetic chromosomes differ
+    	<p concordion:assertTrue="false">new test</p> 
+    	<ol>
+    		<li>Test a marker with coordinates from a gene model.  (No real example in the database, so we can fake it by using isql as user mgd_dbo and altering the data for Kit...)
+		<ul><li><b>marker Kit (marker key 10603) has:</b><br>
+			chromosome : 5<br>
+			offset : 39.550000<br>
+			cytogeneticOffset : null<br>
+			genomicChromosome : 5<br>
+			coordinates: 75574916 - 75656722 bp (+)<br>
+			version:  NCBI Build 38<br>
+			provider:  VEGA Gene Model<br>
+			modification date:  9/21/2012<br></li>
+		<li><b>Execute SQL</b> to update the location cache for marker
+			<b>Kit</b> and then retrieve the updated record:
+<blockquote><pre>
+update seq_coord_cache
+set chromosome = 'X'
+where _Sequence_key = 27554431
+
+MRK_reloadLocation 10603
+
+select m._Marker_key, m.symbol, c.chromosome, c.cytogeneticOffset,
+  c.offset, c.genomicChromosome, c.startCoordinate, c.endCoordinate,
+  c.mapUnits, c.strand, c.version, c.provider, c.modification_date
+from MRK_Location_Cache c, MRK_Marker m
+where c._Marker_key = m._Marker_Key
+  and m._Organism_key = 1
+  and m._Marker_Status_key = 1
+  and m._Marker_key = 10603
+</pre></blockquote>
+		</li>
+		<li><b>Ensure that the fields shown above match</b>, except that the <b>genomicChromosome is now X</b> and the 
+			modification date is set for today's date.</li>
+
+		<li><b>Execute SQL</b> to reset the location cache for marker
+			<b>Kit</b> and then retrieve the updated record:
+<blockquote><pre>
+update seq_coord_cache
+set chromosome = '5'
+where _Sequence_key = 27554431
+
+MRK_reloadLocation 10603
+
+select m._Marker_key, m.symbol, c.chromosome, c.cytogeneticOffset,
+  c.offset, c.genomicChromosome, c.startCoordinate, c.endCoordinate,
+  c.mapUnits, c.strand, c.version, c.provider, c.modification_date
+from MRK_Location_Cache c, MRK_Marker m
+where c._Marker_key = m._Marker_Key
+  and m._Organism_key = 1
+  and m._Marker_Status_key = 1
+  and m._Marker_key = 10603
+</pre></blockquote>
+		</li>
+		<li>Confirm that the <b>genomicChromosome field for Kit has been reset to 5</b>.</li>
+		</ul>
+    		<li>Test a marker with directly-associated coordinates
+		<ul><li><b>marker Crhtaq3 (marker key 155032) has:</b><br>
+			chromosome : 13<br>
+			offset : 30.110000<br>
+			cytogeneticOffset : null<br>
+			genomicChromosome : 11<br>
+			coordinates: 56786703 - 56786834 bp (+)<br>
+			version:  NCBI Build 37<br>
+			provider:  MGI<br>
+			modification date:  9/10/2012<br></li>
+		<li><b>Execute SQL</b> to update the location cache for marker
+			<b>Crhtaq3</b> and then retrieve the updated record:
+<blockquote><pre>
+MRK_reloadLocation 155032
+||
+select m._Marker_key, m.symbol, c.chromosome, c.cytogeneticOffset,
+  c.offset, c.genomicChromosome, c.startCoordinate, c.endCoordinate,
+  c.mapUnits, c.strand, c.version, c.provider, c.modification_date 
+from MRK_Location_Cache c, MRK_Marker m
+where c._Marker_key = m._Marker_Key
+  and m._Organism_key = 1
+  and m._Marker_Status_key = 1
+  and m._Marker_key = 155032
+</pre></blockquote>
+		</li>
+		<li><b>Ensure that the fields shown above match</b>, except that the
+			modification date is set for today's date.</li>
+		</ul>
+		</li>
+       	</ol></li>
+
+	</ol>
+	</div>
+	
+	<div id="auto">
+ 	</div>
+</div>
+
+</body>
+</html>
