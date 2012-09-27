@@ -1,0 +1,102 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 10</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#auto">Automated Tests</a></p>
+</div>
+
+<div id="maintitle">
+    <h1>Add QC checks for miRBase IDs</h1>
+    <ul>
+        <li>User Story #10 - Add QC checks for miRBase IDs to QC check process</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <p>Below is the list of requirements for the original QC Checks user story (US3).  "UPD" notes changes to the original 
+    requirements for miRBase IDs -- the original text is still present, but is struck out.  The "NEW" requirements for miRBase are included.  
+	<ol>
+	<h3>Sanity Checks</h3>
+		<li>Fail the QC check process for files with any of these errors and inform the curator of the error condition
+		<ol><li>Header record does not include the &quot;Build=&quot; parameter</li>
+		    <li>duplicate lines are found in the input file</li>
+		    <li>duplicate MGI IDs are found in the input file</li>
+		    <li><s>lines other than header record have fewer than 7 columns</s></li>
+		    <li><b>UPD </b>lines other than header record have fewer than 8 columns</li>
+		    <li>required columns are blank</li>
+		    <li>first column begins with &quot;MGI:&quot; (except header record)</li>
+		    <li><b>NEW </b>duplicate miRBase IDs found in input file</li>
+		    
+		</ol></li>
+	<h3>Line Rejects</h3>
+		<li>Report the following errors to the curator during the QC check.  Reject on a line-by-line basis for the following conditions.<ol>
+		    <li>MGI ID does not exist in the database</li>
+		    <li>MGI ID is not a mouse marker</li>
+		    <li>MGI ID status is not official or interim</li>
+		    <li>MGI Marker ID is not a primary ID (i.e. secondary IDs not processed)</li>
+		    <li>start coordinate is greater than the end coordinate</li>
+		    <li>chromosome is not a valid chromosome (i.e. 1-19, X, Y, XY are valid)</li>
+	        <li>coordinates are not integer values</li>
+	        <li>strand is not +, -, or blank</li>
+	        <li><b>NEW </b>feature type is not "miRNA gene" for marker with an associated miRBase ID in the input file 
+		</ol></li>
+	<h3>Report and Load</h3>
+		<li>Report the following information to the curator during the QC check.  No data is rejected due to these conditions.
+		<ol>
+		   <li>list the marker when the chromosome in the input file does not match the chromosome for the marker in the database</li>
+		   <li>list the new 'source/display' pairs found in the input file that are not already in database</li>
+		   <li>display the Build text</li>
+		   <ul><li>from input file</li>
+		       <li>all distinct build text for coordinates in database</li></ul>
+		   <li><b>NEW </b>list the miRBase IDs that will be deleted per the input file - display the marker involved too.</li>
+		</ol></li>
+		<li>Accept and correct the following conditions in an input file.
+		<ol>
+		   <li><s>Columns 8-n may be used by curators with no impact to QC or Load</s></li>
+		   <li><b>UPD</b> Columns 9-n may be used by curators with no impact to QC or Load</li> 
+		   <li>Blank lines within the input file are ignored</li>
+		</ol></li>
+	</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    <p>Skip to <a href="#manual">Manual Tests</a> |  <a href="#auto">Automated Tests</a></p>
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<ol>
+		    
+		    
+		</ol>
+	</div>
+	<div id="auto">
+		
+
+ 	</div>
+</div>
+
+</body>
+</html>
