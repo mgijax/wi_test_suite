@@ -50,7 +50,7 @@
 		<h3>Manual tests</h3>
 		<ol>
     		<li>Verify new markers and their gene models are created for B38 in the database  
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/28/12</p> 
     		<ol>
     			<li>Query for marker <b>Gm21903 (MGI:5434067)</b>, this is a new novel gene with annotations from Ensembl
     			<ul>Expected results: Associated to Ensembl gene model <b>ENSMUSG00000094168; chr 17</b></ul></li>
@@ -58,7 +58,7 @@
        		</ol></li>
        		
        		<li>Verify updated gene models for existing markers for Build 38 are updated in the database
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/28/12</p>  
     		<ol>
     		       		
     		    <li>Query for marker <b>Trp53</b>, this is an existing gene with an updated gene model from Ensembl
@@ -70,7 +70,7 @@
        		
        		
        		<li>Verify markers that are associated to more than 1 gene model.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/28/12</p>  
     		<ol>
     			
     			<li>Display the Marker Detail for marker <b>Adora3 (MGI:104847)</b>; view associations to <b>ENSEMBL</b> gene models.
@@ -90,7 +90,7 @@
        		</ol></li>
        		
        		<li>Verify biotype mismatch identified correctly and displayed 
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/28/12</p>  
     		<ol>
     			<li>Query for marker <b>Tead1</b>; Display Biotype conflict text
     			<ul>Expected results: <b>conflict with MGI and Ensembl</b>
@@ -101,7 +101,7 @@
     		
     		
     		<li>Verify associated Build 38 Proteins/Transcripts are loaded and associated to the appropriate marker for Ensembl
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/28/12</p>  
     		<ol>
     			<li>Query for marker <b>Kit</b>; Display Sequence Summary for Kit;
     			<ul>Expected results: <b>Proteins and Transcripts for Ensembl included in the list</b>
@@ -110,9 +110,16 @@
        		</ol></li>
     		
     		<li>Verify 32,548 gene model associations loaded for Build 38.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/28/12</p>  
     		<ol>
-    			<li>SQL query for Ensembl gene models</li>
+    			<li>SQL query for Ensembl gene models using Richard's SQL tests</li>
+    			<PRE>
+                Sophia's Association File - 32,548
+                Richard's SQL results; # of markers with EGM association - 32,384
+                Difference = 164
+                # of duplicate markers in Sophia's File = 164
+    			  			    			
+    			</PRE>
     			
        		</ol></li>
     		
