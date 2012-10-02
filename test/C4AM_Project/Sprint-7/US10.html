@@ -92,21 +92,21 @@
     		<li>Abort processing for input file when the header record does not include the Build parameter
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>QC check test input file, <b>Sanity1_1.txt</b>, that does not have a header record.  This should fail the QC check and report it to the curator.</li>
-    			<li>QC check test input file, <b>Sanity1_2.txt</b>, that has a header record with parameters, but does not include a Build parameter.  This should fail the QC check and report it to the curator.</li>
-    			<li>QC check test input file, <b>Sanity1_3.txt</b>, that has a header record with multiple parameters.  The Build parameter is included at the end of the list.  This should pass the QC.</li>
+    			<li>QC check test input file, <b>US10_Sanity1_1.txt</b>, that does not have a header record.  This should fail the QC check and report it to the curator.</li>
+    			<li>QC check test input file, <b>US10_Sanity1_2.txt</b>, that has a header record with parameters, but does not include a Build parameter.  This should fail the QC check and report it to the curator.</li>
+    			<li>QC check test input file, <b>US10_Sanity1_3.txt</b>, that has a header record with multiple parameters.  The Build parameter is included at the end of the list.  This should pass the QC.</li>
     		</ol></li>
     		<li>Abort processing for input file when duplicate lines are found.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>Sanity2_1.txt</b>, that has 2 consecutive duplicate lines.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check test input file, <b>Sanity2_2.txt</b>, that has 3 non-consecutive duplicate lines.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity2_1.txt</b>, that has 2 consecutive duplicate lines.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity2_2.txt</b>, that has 3 non-consecutive duplicate lines.  This should fail the QC check and report it to the curator.</li>
             </ol></li>
             <li>Abort processing for input file when duplicate MGI IDs are found.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>Sanity3_1.txt</b>, that has 2 matching IDs.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check test input file, <b>Sanity3_2.txt</b>, that has 3 matching IDs.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity3_1.txt</b>, that has 2 matching IDs.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity3_2.txt</b>, that has 3 matching IDs.  This should fail the QC check and report it to the curator.</li>
             </ol></li>
             <li>Abort processing for input file when fewer than 8 columns are found (column is found if a &quot;tab&quot; is present).<p concordion:assertTrue="false">new test</p>
     		
@@ -145,14 +145,14 @@
             <li>Allow curators to add notes in columns 9-n in the input file
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>AcceptCorrect1.txt</b>, that has curator information in column 9 of the first line.  This should pass the QC check.</li>
-                <li>QC check test input file, <b>AcceptCorrect2.txt</b>, that has curator information in column 9 for several lines.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>US10_AcceptCorrect1.txt</b>, that has curator information in column 9 of the first line.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>US10_AcceptCorrect2.txt</b>, that has curator information in column 9 for several lines.  This should pass the QC check.</li>
             </ol></li>
             <li>Accept input files with blank lines.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>AcceptCorrect1.txt</b>, that has a single blank line. This should pass the QC check.</li>
-                <li>QC check test input file, <b>AcceptCorrect2.txt</b>, that has consecutive blank lines.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>US10_AcceptCorrect1.txt</b>, that has a single blank line. This should pass the QC check.</li>
+                <li>QC check test input file, <b>US10_AcceptCorrect2.txt</b>, that has consecutive blank lines.  This should pass the QC check.</li>
             </ol></li>
             
 		    
@@ -160,89 +160,89 @@
 		    <li>Report to the curator when an MGI ID is not in the database.  Reject that line.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has an <b>invalid id - MGI:9999999</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has an <b>invalid id - MGI:9999999</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when an MGI ID is not for a mouse marker.  Reject that line.
             <p concordion:assertTrue="false">new test</p>
     		<ol>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that includes an <b>allele MGI ID- MGI:1856161</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that includes an <b>allele MGI ID- MGI:1856161</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when an MGI ID has a status other than Official or Interim.  Reject that line
             <p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that includes an <b>MGI ID for a withdrawn marker: Gm200, MGI:2685046</b>.  Report discrepancy to curator and reject the line.</li>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that includes an <b>MGI ID for an Interim marker: Ppnr, MGI:1349458</b>.  This passes the QC check.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that includes an <b>MGI ID for a withdrawn marker: Gm200, MGI:2685046</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that includes an <b>MGI ID for an Interim marker: Ppnr, MGI:1349458</b>.  This passes the QC check.</li>
             </ol></li>
             <li>Report to the curator when a secondary MGI ID is included in the file.  Reject the line.
             <p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>secondary MGI ID for a marker: Ren1, MGI:2138723</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>secondary MGI ID for a marker: Ren1, MGI:2138723</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when the start coordinate is greater than the end coordinate.  Reject the line.
             <p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>start coordinate greater than the end coordinate: Brca1, MGI:104537</b>.  Report discrepancy to curator and reject the line.</li>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>start coordinate equal to the end coordinate: MGI:4821094</b>.  This passes the QC check.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>start coordinate greater than the end coordinate: Brca1, MGI:104537</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>start coordinate equal to the end coordinate: MGI:4821094</b>.  This passes the QC check.</li>
             </ol></li>
             <li>Report to the curator when the chromosome is not valid.  Reject the line.
             <p concordion:assertTrue="false">new test</p>
     		<ol>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>chromosome of 20: Pax6, MGI:97490</b>.  Report discrepancy to curator and reject the line.</li>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>chromosome of UN: Gdap4, MGI:1337999</b>.  Report discrepancy to curator and reject the line.</li>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>lower case x: Dach2, MGI:1890446</b>.  This passes the QC check.</li>
-                <li>QC check test input file, <b>LineReject2.txt</b>, that has a <b>space between 1 and 9 in the Chr (1 9)</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>chromosome of 20: Pax6, MGI:97490</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>chromosome of UN: Gdap4, MGI:1337999</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>lower case x: Dach2, MGI:1890446</b>.  This passes the QC check.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>space between 1 and 9 in the Chr (1 9)</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when the coordinates are not integer.  Reject the line.
             <p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has <b>one of the coordinates including an alpha character: Bmp1, MGI:88176</b>.  Report discrepancy to curator and reject the line.</li>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has <b>both of the coordinates including an alpha character: Bmp2, MGI:88177</b>.  Report discrepancy to curator and reject the line.</li>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>coordinate with a decimal place: Bmp3, MGI:88179</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has <b>one of the coordinates including an alpha character: Bmp1, MGI:88176</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has <b>both of the coordinates including an alpha character: Bmp2, MGI:88177</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>coordinate with a decimal place: Bmp3, MGI:88179</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when the strand is something other than +, -, or blank.  Reject the line.
             <p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has an <b>invalid strand: Bmp4, MGI:88180</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has an <b>invalid strand: Bmp4, MGI:88180</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when a marker with a miRBase ID is not annotated with a Feature Type = miRNA.  Reject the line.
             <p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has a <b>marker with feature type = protein coding gene: xxx, MGI:nnnn with an assigned miRBase ID (col 8)</b>.  Report discrepancy to curator and reject the line.</li>
-                <li>QC check test input file, <b>LineReject1.txt</b>, that has a marker with <b>feature type = miRNA: xxx, MGI:nnn with an assigned miRBase ID (col 8)</b>.  Passes QC checks.
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>marker with feature type = protein coding gene: xxx, MGI:nnnn with an assigned miRBase ID (col 8)</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a marker with <b>feature type = miRNA: xxx, MGI:nnn with an assigned miRBase ID (col 8)</b>.  Passes QC checks.
             </ol></li>
                       
              <h4>Report & Load</h4>
             <li>List marker when chromosome in the input file does not match the chromosome in the database.  Line accepted.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>Report_Load18_1.txt</b>, where Chromosomes don't match -- marker has chr and coordinates in database.</li>
-                <li>QC check test input file, <b>Report_Load18_2.txt</b>, where Chromosomes don't match -- marker has only chr in database</li>
-                <li>QC check test input file, <b>Report_Load18_3.txt</b>, where Chromosomes don't match -- marker has UN in database</li>
+                <li>QC check test input file, <b>US10_ReportLoad1.txt</b>, where Chromosomes don't match -- marker has chr and coordinates in database.</li>
+                <li>QC check test input file, <b>US10_ReportLoad1.txt</b>, where Chromosomes don't match -- marker has only chr in database</li>
+                <li>QC check test input file, <b>US10_ReportLoad1.txt</b>, where Chromosomes don't match -- marker has UN in database</li>
           
             </ol></li>
             <li>List new source/display pairs present in the Input File
     		<p concordion:assertTrue="false">new test</p>
     		 
     		<ol>
-                <li>QC check test input file, <b>Report_Load19_1.txt</b>, where input file has a single occurence of a new source/display pair</li>
-                <li>QC check test input file, <b>Report_Load19_2.txt</b>, where input file has multiple occurences of a new source/display pair</li>
-                <li>QC check test input file, <b>Report_Load19_3.txt</b>, where input file has multiple new source/display pairs</li>
-                <li>QC check test input file, <b>Report_Load19_4.txt</b>, where input file has old source/new display</li>
-                <li>QC check test input file, <b>Report_Load19_5.txt</b>, where input file has new source/old display</li>
-                <li>QC check test input file, <b>Report_Load19_6.txt</b>, where input file tests case sensitivity of source/display text</li>
+                <li>QC check test input file, <b>US10_ReportLoad2.txt</b>, where input file has a single occurence of a new source/display pair</li>
+                <li>QC check test input file, <b>US10_ReportLoad2.txt</b>, where input file has multiple occurences of a new source/display pair</li>
+                <li>QC check test input file, <b>US10_ReportLoad2.txt</b>, where input file has multiple new source/display pairs</li>
+                <li>QC check test input file, <b>US10_ReportLoad2.txt</b>, where input file has old source/new display</li>
+                <li>QC check test input file, <b>US10_ReportLoad2.txt</b>, where input file has new source/old display</li>
+                <li>QC check test input file, <b>US10_ReportLoad2.txt</b>, where input file tests case sensitivity of source/display text</li>
             </ol></li>
             <li>List build text from Input File and all unique build texts in the database
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>Report_Load20_1.txt</b>, where input file has build text that is currently in the database (build=NCBI Build 37)</li>
-                <li>QC check test input file, <b>Report_Load20_2.txt</b>, where input file has build text that is new (build=NCBI Build 40)</li>
-                <li>QC check test input file, <b>Report_Load20_3.txt</b>, where input file tests case sensitivity for build text (build=ncbi build 37) [case sensitive]</li>
-                <li>QC check test input file, <b>Report_Load20_4.txt</b>, where input file tests case sensitivity for "build=" (Build=NCBI Build 37) [case insensitive]</li>
+                <li>QC check test input file, <b>US10_ReportLoad3.txt</b>, where input file has build text that is currently in the database (build=NCBI Build 37)</li>
+                <li>QC check test input file, <b>US10_ReportLoad4.txt</b>, where input file has build text that is new (build=NCBI Build 40)</li>
+                <li>QC check test input file, <b>US10_ReportLoad5.txt</b>, where input file tests case sensitivity for build text (build=ncbi build 37) [case sensitive]</li>
+                <li>QC check test input file, <b>US10_ReportLoad5.txt</b>, where input file tests case sensitivity for "build=" (Build=NCBI Build 37) [case insensitive]</li>
             </ol></li>  
 		    <li>Report deletions of miRBase IDs implied by the assignment of that same ID to another marker in the Input file.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>Report_LoadXXX.txt</b>, where input file includes an assignment of a miRBase ID currently in the database to another marker.  Report to the curator - miRBase ID, old marker, new marker.</li>
+                <li>QC check test input file, <b>US10_ReportLoad6.txt</b>, where input file includes an assignment of a miRBase ID currently in the database to another marker.  Report to the curator - miRBase ID, old marker, new marker.</li>
             </ol></li>  
 		</ol>
 	</div>
