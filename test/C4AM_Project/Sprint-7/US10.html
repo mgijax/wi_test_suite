@@ -113,34 +113,34 @@
             <li>Abort processing for input file when fewer than 8 columns are found (column is found if a &quot;tab&quot; is present).<p concordion:assertTrue="false">new test</p>
     		
     		<ol>
-                <li>QC check test input file, <b>xxx.txt</b>, that has columns 1-8 for one record and 1-7 for the other record.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check test input file, <b>xxx.txt</b>, that has columns 1-7 for all records in the file.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check test input file, <b>xxx.txt</b>, that has columns 1-8 for all records in the file.  This should pass the QC check.</li>
-                <li>QC check test input file, <b>xxx.txt</b>, that has columns 1-9 for all records in the file.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>US10_Sanity4_1.txt</b>, that has columns 1-8 for one record and less than 8 columns  for another record.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity4_2.txt</b>, that has columns 1-7 for all records in the file.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity4_3.txt</b>, that has columns 1-8 for all records in the file.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>US10_Sanity4_4.txt</b>, that has columns 1-9 for all records in the file.  This should pass the QC check.</li>
             </ol></li>
             <li>Abort processing for an input file containing blanks in required columns.
     		<p concordion:assertTrue="false">new test</p> 
     		
     		<ol>
-                <li>QC check test input file, <b>Sanity5_1.txt</b>, that has blanks in column 2.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check test input file, <b>Sanity5_2.txt</b>, that has blanks in multiple columns other than strand.  This should fail the QC check and report it to the curator.</li>
-                <li>QC check test input file, <b>Sanity5_3.txt</b>, that has a blank strand column.  This should pass the QC check.</li>
-                <li>QC check test input file, <b>Sanity5_3.txt</b>, that has a valid delete record.  Values in columns 1, 6, 7 and all others blank.  This should pass the QC check.</li>
-                <li>QC check test input file, <b>xxx.txt</b>, that has a valid delete record and a miRBase ID.  Values in columns 1, 6, 7, 8 and all others blank.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>US10_Sanity5_1.txt</b>, that has blanks in column 2.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity5_2.txt</b>, that has blanks in multiple columns other than strand.  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity5_3.txt</b>, that has a blank strand column.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>US10_Sanity5_3.txt</b>, that has a valid delete record.  Values in columns 1, 6, 7 and all others blank.  This should pass the QC check.</li>
+                <li>QC check test input file, <b>US10_Sanity5_3.txt</b>, that has a valid delete record and a miRBase ID.  Values in columns 1, 6, 7, 8 and all others blank.  This should pass the QC check.</li>
         
             </ol></li>
 		    <li>Abort processing for an input file when the first field in lines 2-n do not begin with "MGI:".
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>Sanity6_1a.txt</b>, that has a line that begins with no MGI prefix (just the number).  This should fail the QC check and report it to the curator.</li>
-                <li>QC check test input file, <b>Sanity6_2a.txt</b>, that has a line that begins "MGI3" (i.e. no colon after "MGI").  This should fail the QC check and report it to the curator.</li>
-                <li>QC check test input file, <b>Sanity6_3.txt</b>, that has a line that begins "mgi:".  This should pass the QC check.</li>
+                <li>QC check test input file, <b>US10_Sanity6_1.txt</b>, that has a line that begins with no MGI prefix (just the number).  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity6_2.txt</b>, that has a line that begins "MGI3" (i.e. no colon after "MGI").  This should fail the QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity6_3.txt</b>, that has a line that begins "mgi:".  This should pass the QC check.</li>
             </ol></li>
             <li>Abort processing for an input file that has multiple miRBase IDs".
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>SanityXXX.txt</b>, that includes a single miRBase ID multiple times.  This should fail the Sanity QC check and report it to the curator.</li>
-                <li>QC check test input file, <b>SanityXXX.txt</b>, that includes multiple miRBase IDs multiple times.  This should fail the Sanity QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity7_1.txt</b>, that includes a single miRBase ID multiple times.  This should fail the Sanity QC check and report it to the curator.</li>
+                <li>QC check test input file, <b>US10_Sanity7_2.txt</b>, that includes multiple miRBase IDs multiple times.  This should fail the Sanity QC check and report it to the curator.</li>
             </ol></li>
             
             <h4>Accept & Correct</h4>
