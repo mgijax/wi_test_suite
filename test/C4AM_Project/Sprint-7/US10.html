@@ -192,7 +192,7 @@
                 <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>chromosome of 20: Pax6, MGI:97490</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>chromosome of UN: Gdap4, MGI:1337999</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>lower case x: Dach2, MGI:1890446</b>.  This passes the QC check.</li>
-                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>space between 1 and 9 in the Chr (1 9)</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>space between 1 and 1 in the Chr (1 1)</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
             <li>Report to the curator when the coordinates are not integer.  Reject the line.
             <p concordion:assertTrue="false">new test</p> 
@@ -209,8 +209,8 @@
             <li>Report to the curator when a marker with a miRBase ID is not annotated with a Feature Type = miRNA.  Reject the line.
             <p concordion:assertTrue="false">new test</p> 
     		<ol>
-                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>marker with feature type = protein coding gene: xxx, MGI:nnnn with an assigned miRBase ID (col 8)</b>.  Report discrepancy to curator and reject the line.</li>
-                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a marker with <b>feature type = miRNA: xxx, MGI:nnn with an assigned miRBase ID (col 8)</b>.  Passes QC checks.
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>marker with feature type = protein coding gene: Mir22hg, MGI:1914348 with an assigned miRBase ID (col 8)</b>.  Report discrepancy to curator and reject the line.</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a marker with <b>feature type = miRNA: Mir1194, MGI:3783367 with an assigned miRBase ID (col 8)</b>.  Passes QC checks.
             </ol></li>
                       
              <h4>Report & Load</h4>
