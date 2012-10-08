@@ -1,0 +1,135 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 153</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Update marker detail page to give an error message if non-numeric characters are entered in the Flank field.</h1>
+    <ul>
+        <li>User Story 153, Update marker detail page to give an error message if non-numeric characters are entered in the Flank field.</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	Production marker detail page:
+	<ul>   
+	    <li>Verify that a non-numeric value for Flank results in a helpful error message.</li>
+	    <li>Verify that a float (non-integer) value for Flank results in a helpful error message.</li>
+	</ul>
+	Public marker detail page:
+	<ul>   
+	    <li>Verify that a non-numeric value for Flank in the Sequence Map section results in a helpful error message.</li>
+	    <li>Verify that a float (non-integer) value for Flank in the Sequence Map section results in a helpful error message.</li>
+	    <li>Verify that a non-numeric value for Flank in the Sequences section results in a helpful error message.</li>
+	    <li>Verify that a float (non-integer) value for Flank in the Sequences section results in a helpful error message.</li>
+	</ul>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+	<h3>Manual tests</h3>
+	Production marker detail page:
+	<ol>   
+	    <li>Verify that a non-numeric value for Flank results in a helpful error message.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "Hi" in the Flank box, and click the "Go" button.
+    			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
+       		</ol>
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "2 " (a 2 followed by a space) in the Flank box, and click the "Go" button.
+    			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
+       		</ol></li>
+	    <li>Verify that a float (non-integer) value for Flank results in a helpful error message.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "2.0" in the Flank box, and click the "Go" button.
+    			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
+       		</ol></li>
+	</ol>
+	Public marker detail page:
+	<ol>   
+	    <li>Verify that a non-numeric value for Flank in the Sequence Map section results in a helpful error message.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequence Map section, check the checkbox for the genomic sequence, enter "Hi" in the Flank box, and click the "Get FASTA" button.
+    			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
+       		</ol>
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequence Map section, check the checkbox for the genomic sequence, enter "2 " (a 2 followed by a space) in the Flank box, and click the "Get FASTA" button.
+    			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
+       		</ol></li>
+	    <li>Verify that a float (non-integer) value for Flank in the Sequence Map section results in a helpful error message.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequence Map section, check the checkbox for the genomic sequence, enter "2.0" (a 2 followed by a space) in the Flank box, and click the "Get FASTA" button.
+    			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
+       		</ol></li>
+	    <li>Verify that a non-numeric value for Flank in the Sequences section results in a helpful error message.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "Hi" in the Flank box, and click the "Go" button.
+    			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
+       		</ol>
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "2 " (a 2 followed by a space) in the Flank box, and click the "Go" button.
+    			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
+       		</ol></li>
+	    <li>Verify that a float (non-integer) value for Flank in the Sequences section results in a helpful error message.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "2.0" (a 2 followed by a space) in the Flank box, and click the "Go" button.
+    			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
+       		</ol></li>
+	</ol>
+
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
