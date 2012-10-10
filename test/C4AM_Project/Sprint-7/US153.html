@@ -57,67 +57,90 @@
 	Production marker detail page:
 	<ol>   
 	    <li>Verify that a non-numeric value for Flank results in a helpful error message.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
     		<ol>
     			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
 			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "Hi" in the Flank box, and click the "Go" button.
     			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
        		</ol>
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
     		<ol>
     			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
 			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "2 " (a 2 followed by a space) in the Flank box, and click the "Go" button.
     			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
        		</ol></li>
 	    <li>Verify that a float (non-integer) value for Flank results in a helpful error message.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
     		<ol>
     			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
 			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "2.0" in the Flank box, and click the "Go" button.
     			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
        		</ol></li>
+       	<li>Verify that a valid integer value for Flank results in a successful return of sequence data.
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "2" in the Flank box, and click the "Go" button.
+    			<ul>Expected results: sequence data for Kit with 2 kb extra at the beginning and end of the sequence.</ul></li>
+       		</ol></li>
 	</ol>
 	Public marker detail page:
 	<ol>   
 	    <li>Verify that a non-numeric value for Flank in the Sequence Map section results in a helpful error message.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
     		<ol>
     			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
 			<li>In the Sequence Map section, check the checkbox for the genomic sequence, enter "Hi" in the Flank box, and click the "Get FASTA" button.
     			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
        		</ol>
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
     		<ol>
     			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
 			<li>In the Sequence Map section, check the checkbox for the genomic sequence, enter "2 " (a 2 followed by a space) in the Flank box, and click the "Get FASTA" button.
     			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
        		</ol></li>
 	    <li>Verify that a float (non-integer) value for Flank in the Sequence Map section results in a helpful error message.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
     		<ol>
     			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
 			<li>In the Sequence Map section, check the checkbox for the genomic sequence, enter "2.0" (a 2 followed by a space) in the Flank box, and click the "Get FASTA" button.
     			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
        		</ol></li>
+       		
+       	<li>Verify that a valid integer value for Flank in the Sequence Map section results in a successful return of sequence data.
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "2" in the Flank box, and click the "Go" button.
+    			<ul>Expected results: sequence data for Kit with 2 kb extra at the beginning and end of the sequence.</ul></li>
+       		</ol></li>	
+       	
 	    <li>Verify that a non-numeric value for Flank in the Sequences section results in a helpful error message.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
     		<ol>
     			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
 			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "Hi" in the Flank box, and click the "Go" button.
     			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
        		</ol>
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
     		<ol>
     			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
 			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "2 " (a 2 followed by a space) in the Flank box, and click the "Go" button.
     			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
        		</ol></li>
 	    <li>Verify that a float (non-integer) value for Flank in the Sequences section results in a helpful error message.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
     		<ol>
     			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
 			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "2.0" (a 2 followed by a space) in the Flank box, and click the "Go" button.
     			<ul>Expected results: a box will pop up with a descriptive error message.</ul></li>
+       		</ol></li>
+       	<li>Verify that a valid integer value for Flank in the Sequences section results in a successful return of sequence data.
+    		<p concordion:assertTrue="true">jlewis - 10/10/12</p> 
+    		<ol>
+    			<li>Display the marker detail page for <b>Kit (MGI:96677 )</b>.</li>
+			<li>In the Sequences section, check the checkbox for the genomic sequence, enter "2" in the Flank box, and click the "Go" button.
+    			<ul>Expected results: sequence data for Kit with 2 kb extra at the beginning and end of the sequence.</ul></li>
        		</ol></li>
 	</ol>
 
