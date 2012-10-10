@@ -55,17 +55,18 @@
 		    <li>chromosome is not a valid chromosome (i.e. 1-19, X, Y, XY are valid)</li>
 	        <li>coordinates are not integer values</li>
 	        <li>strand is not +, -, or blank</li>
-	        <li><b>NEW </b>feature type is not "miRNA gene" for marker with an associated miRBase ID in the input file 
 		</ol></li>
 	<h3>Report and Load</h3>
 		<li>Report the following information to the curator during the QC check.  No data is rejected due to these conditions.
 		<ol>
 		   <li>list the marker when the chromosome in the input file does not match the chromosome for the marker in the database</li>
 		   <li>list the new 'source/display' pairs found in the input file that are not already in database</li>
-		   <li>display the Build text</li>
+		   <li>display the Build text
 		   <ul><li>from input file</li>
-		       <li>all distinct build text for coordinates in database</li></ul>
+		       <li>all distinct build text for coordinates in database</li></ul></li>
 		   <li><b>NEW </b>list the miRBase IDs that will be deleted per the input file - display the marker involved too.</li>
+		   <li><b>NEW </b>when feature type is not "miRNA gene" for marker with an associated miRBase ID in the input file 
+		   <ul><li>list report marker id, feature type, and miRBase id</ul></li>
 		</ol></li>
 		<li>Accept and correct the following conditions in an input file.
 		<ol>
@@ -206,12 +207,12 @@
     		<ol>
                 <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has an <b>invalid strand: Bmp4, MGI:88180</b>.  Report discrepancy to curator and reject the line.</li>
             </ol></li>
-            <li>Report to the curator when a marker with a miRBase ID is not annotated with a Feature Type = miRNA.  Reject the line.
+            <s><li>Report to the curator when a marker with a miRBase ID is not annotated with a Feature Type = miRNA.  Reject the line.
             <p concordion:assertTrue="false">new test</p> 
     		<ol>
                 <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a <b>marker with feature type = protein coding gene: Mir22hg, MGI:1914348 with an assigned miRBase ID (col 8)</b>.  Report discrepancy to curator and reject the line.</li>
                 <li>QC check test input file, <b>US10_LineReject1.txt</b>, that has a marker with <b>feature type = miRNA: Mir1194, MGI:3783367 with an assigned miRBase ID (col 8)</b>.  Passes QC checks.
-            </ol></li>
+            </ol></li></s>
                       
              <h4>Report & Load</h4>
             <li>List marker when chromosome in the input file does not match the chromosome in the database.  Line accepted.
@@ -246,6 +247,11 @@
     		<ol>
                 <li>QC check test input file, <b>US10_ReportLoad6.txt</b>, where input file includes an assignment of a miRBase ID currently in the database to another marker.  Report to the curator - miRBase ID, old marker, new marker.</li>
             </ol></li>  
+            <li>Report to the curator when a marker with a miRBase ID is not annotated with a Feature Type = miRNA.  Load the data.<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+                <li>QC check test input file, <b>US10_ReportLoad7.txt</b>, that has a <b>marker with feature type = protein coding gene: Mir22hg, MGI:1914348 with an assigned miRBase ID (col 8)</b>.  Report discrepancy to curator, load data.</li>
+                <li>QC check test input file, <b>US10_ReportLoad7.txt</b>, that has a marker with <b>feature type = miRNA: Mir1194, MGI:3783367 with an assigned miRBase ID (col 8)</b>.  Passes QC checks.
+            </ol></li>
 		</ol>
 	</div>
 	<div id="auto">
