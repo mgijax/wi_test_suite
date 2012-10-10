@@ -1,0 +1,142 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 158</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>View B38 gene trap-to-marker associations in Prod WI</h1>
+    <ul>
+        <li>User Story 129, Compute B38 gene trap-to-marker associations and view in Prod WI.</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ul>
+		<li>Verify alomarker load to looks at genomic chr field.</li>
+		<li>Verify load QC reports in same ballpark as production.</li>
+	    <li>Verify point coords computed correctly.</li>
+	    <li>Verify mixed lines computed correctly.</li>
+	    <li>Verify nomen changes for GTs whose marker associations have changed.</li>
+	    <li>Verify counts of associated GTs are same ballpark as B37.</li>
+	</ul>
+</div>
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<ol>
+		    <li>Verify gene with gene trap associations
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Query for marker <b>Alms1 (MGI:1934606)</b>
+    			<ul>Expected results: Alleles and Phenotypes ribbon contains link for Gene Trapped alleles</ul></li>
+       		</ol></li>
+       		
+    		<li>Verify gene trap with no gene association
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Query for allele <b>Gt(100A12)Cmhd (MGI:4971909)</b>
+    			<ul>Expected results: No Gene information ribbon appears on the Gene Trap detail page</li>
+       		</ol></li>
+       		
+       		<li>Verify mouse line gene trap
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Query for marker <b>Alms1 (MGI:1934606)</b></li>
+    			<li>Click link for: <b>Alms1<sup>Gt(XH152)Byg</sup></b>
+    			<ul>Expected results: ??? <b>???</b></ul></li>
+       		</ol></li>
+       		
+       		<li>Verify cell line gene trap
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Query for marker <b>Alms1 (MGI:1934606)</b></li>
+    			<li>Click link for: <b>Alms1<sup>Gt(A028F08)Wrst</sup></b>
+    			<ul>Expected results: Mutation origin is a mutant cell line</ul></li>
+       		</ol></li>
+       		
+       		<li>Verify mixed cell line gene trap
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Query for allele <b>???</b>
+    			<ul>Expected results: ??? <b>???</b></ul></li>
+       		</ol></li>
+       		
+       		<li>Verify gene trap without cell line or sequence tags
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Query for marker <b>???</b>
+    			<ul>Expected results: ??? <b>???</b></ul></li>
+       		</ol></li>
+       		
+       		<li>Verify gene trap where genotype has no MP annotations
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Query for allele <b>Cd97<sup>Gt(OST208347)Lex</sup> (MGI:3530311)</b>
+    			<ul>Expected results: No Phenotype summary ribbon appears on the Gene Trap detail page</ul></li>
+       		</ol></li>
+       		
+       		<li>Verify gene trap without genotype
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Query for marker <b>Fra10ac1<sup>Gt(OST105486)Lex</sup> (MGI:3531082)</b>
+    			<ul>Expected results: No Phenotype summary or Phenotype by genotype summary ribbons appear on the Gene Trap detail page</ul></li>
+       		</ol></li>
+       		
+       		<li>Verify <i>old</i> TIGM gene trap
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Query for marker <b>Abat<sup>Gt(IST10120F2)Tigm</sup> (MGI:3930452)</b>
+    			<ul>Expected results: Strand is properly displayed as +</ul></li>
+       		</ol></li>
+       		
+       		<li>Verify <i>new</i> TIGM gene trap
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Query for marker <b>Aff1<sup>Gt(IST14663B3)Tigm</sup> (MGI:5251227)</b>
+    			<ul>Expected results: Strand is properly displayed as +</ul></li>
+       		</ol></li>
+
+		</ol>
+	</div>
+	<div id="sql">
+	
+	<h3>SQL tests</h3>
+   		
+
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
