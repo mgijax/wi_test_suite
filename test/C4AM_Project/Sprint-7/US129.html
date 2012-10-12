@@ -50,29 +50,31 @@
 		<h3>Manual tests</h3>
 		<ol>
 		    <li>Verify gene with gene trap associations
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="trua">marka 10/11/12</p> 
     		<ol>
     			<li>Query for marker <b>Alms1 (MGI:1934606)</b>
     			<ul>Expected results: Alleles and Phenotypes ribbon contains link for Gene Trapped alleles</ul></li>
        		</ol></li>
        		
     		<li>Verify gene trap with no gene association
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="trua">marka 10/11/12</p> 
     		<ol>
     			<li>Query for allele <b>Gt(100A12)Cmhd (MGI:4971909)</b>
-    			<ul>Expected results: No Gene information ribbon appears on the Gene Trap detail page</li>
+    			<ul>Expected results: No Gene information ribbon appears on the 
+    			Gene Trap detail page</ul></li>
        		</ol></li>
        		
        		<li>Verify mouse line gene trap
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="trua">marka 10/11/12</p> 
     		<ol>
     			<li>Query for marker <b>Alms1 (MGI:1934606)</b></li>
     			<li>Click link for: <b>Alms1<sup>Gt(XH152)Byg</sup></b>
-    			<ul>Expected results: ??? <b>???</b></ul></li>
+    			<ul>Expected results:Phenotype summary and Phenotype by 
+    				genotype summary ribbons appear on the Gene Trap detail page</ul></li>
        		</ol></li>
        		
        		<li>Verify cell line gene trap
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="trua">marka 10/11/12</p> 
     		<ol>
     			<li>Query for marker <b>Alms1 (MGI:1934606)</b></li>
     			<li>Click link for: <b>Alms1<sup>Gt(A028F08)Wrst</sup></b>
@@ -80,44 +82,59 @@
        		</ol></li>
        		
        		<li>Verify mixed cell line gene trap
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="trua">marka 10/11/12</p> 
     		<ol>
-    			<li>Query for allele <b>???</b>
-    			<ul>Expected results: ??? <b>???</b></ul></li>
+    			<li>Query for allele <b>Atf1<sup>Gt(P102D07)Wrst</sup></b></li>
+    			<ul>
+    				<li>Expected results: message indicating mixed cell line 
+    				appears in Mutation description ribbon</li>
+    			</ul></li>
        		</ol></li>
        		
        		<li>Verify gene trap without cell line or sequence tags
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="trua">marka 10/11/12</p> 
     		<ol>
-    			<li>Query for marker <b>???</b>
-    			<ul>Expected results: ??? <b>???</b></ul></li>
+    			<li>Query for marker <b>ErbB4<sup>Gt(pMS-1)2Jmt</sup></b>
+    			<ul>
+    				<li>Expected results: no mutant cel line specified in Mutation of origin ribbon</li>
+    				<li>Expected results: no sequence tags present in Mutation description ribbon</li>
+    			</ul></li>
        		</ol></li>
        		
        		<li>Verify gene trap where genotype has no MP annotations
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="trua">marka 10/11/12</p> 
     		<ol>
     			<li>Query for allele <b>Cd97<sup>Gt(OST208347)Lex</sup> (MGI:3530311)</b>
     			<ul>Expected results: No Phenotype summary ribbon appears on the Gene Trap detail page</ul></li>
        		</ol></li>
        		
        		<li>Verify gene trap without genotype
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="trua">marka 10/11/12</p> 
     		<ol>
-    			<li>Query for marker <b>Fra10ac1<sup>Gt(OST105486)Lex</sup> (MGI:3531082)</b>
-    			<ul>Expected results: No Phenotype summary or Phenotype by genotype summary ribbons appear on the Gene Trap detail page</ul></li>
+    			<li>Query for allele <b>Gt(EUCJ0001a02)Hmgu (MGI:4873758)</b>
+    			<ul>
+    				<li>Expected results: No Phenotype summary or Phenotype by 
+    				genotype summary ribbons appear on the Gene Trap detail page</li>
+    				<li>Expected results: Gene trap contains duplicate tags, 
+    				each with a unique GenBank ID</li>
+    			</ul></li>
        		</ol></li>
        		
        		<li>Verify <i>old</i> TIGM gene trap
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="trua">marka 10/11/12</p> 
     		<ol>
-    			<li>Query for marker <b>Abat<sup>Gt(IST10120F2)Tigm</sup> (MGI:3930452)</b>
-    			<ul>Expected results: Strand is properly displayed as +</ul></li>
+    			<li>Query for allele <b>St6gal1<sup>Gt(IST11730A6)Tigm</sup> (MGI:4075908)</b>
+    			<ul>
+    				<li>Expected results: Strand is properly displayed as +</li>
+    				<li>Expected results: Gene trap contains duplicate tags, 
+    				each with a unique GenBank ID</li>
+    			</ul></li>
        		</ol></li>
        		
        		<li>Verify <i>new</i> TIGM gene trap
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="trua">marka 10/11/12</p> 
     		<ol>
-    			<li>Query for marker <b>Aff1<sup>Gt(IST14663B3)Tigm</sup> (MGI:5251227)</b>
+    			<li>Query for allele <b>Aff1<sup>Gt(IST14663B3)Tigm</sup> (MGI:5251227)</b>
     			<ul>Expected results: Strand is properly displayed as +</ul></li>
        		</ol></li>
 
