@@ -74,6 +74,8 @@
 		   <li><b>UPD</b> Columns 9-n may be used by curators with no impact to QC or Load</li> 
 		   <li>Blank lines within the input file are ignored</li>
 		</ol></li>
+	<h3>LIVE mode</h3>
+	    <li>During the live mode generate the input file used by the load -- removing the lines that have been rejected.</li>
 	</ol>
 </div>
 
@@ -254,6 +256,16 @@
                 <li>QC check test input file, <b>US10_ReportLoad7.txt</b>, that has a <b>marker with feature type = protein coding gene: Mir22hg, MGI:1914348 with an assigned miRBase ID (col 8)</b>.  Report discrepancy to curator, load data.</li>
                 <li>QC check test input file, <b>US10_ReportLoad7.txt</b>, that has a marker with <b>feature type = miRNA: Mir1194, MGI:3783367 with an assigned miRBase ID (col 8)</b>.  Passes QC checks.
             </ol></li>
+             <h4>LIVE mode</h4>
+            <li>Create the input file for the load, removing the lines to be rejected
+    		<p concordion:assertTrue="true">PASS - jlewis 10/15/12</p> 
+    		<ol>
+                <li>QC check test input file, <b>US10_SanityCheck1_1.txt</b>, process fails, no input file created</li>
+                <li>QC check test input file, <b>US10_LineReject1.txt</b>, several lines are rejected from submitted file verify input file created</li>
+                <li>QC check test input file, <b>US10_ReportLoad6.txt</b>, nothing is rejected input file created includes all lines of file submitted</li>
+          
+            </ol></li>
+            
 		</ol>
 	</div>
 	<div id="auto">
