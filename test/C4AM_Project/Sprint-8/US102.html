@@ -1,0 +1,96 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 102</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Public Reports - Genetic vs. Genomic Chr & Build 38</h1>
+    <ul>
+        <li>User Story 102, Update Public Reports -- Genetic vs Genomic Chr & change to GRCm38</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ul>
+	    <li>Verify all build information is updated to GRCm38</li>
+	    <li>Verify use of genomic chromosome when coordinates are present and displayed</li>
+	</ul>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<ol>
+    		
+    		<li>Verify build text has changed to GRCm38 on Report Index page
+    		<p concordion:assertTrue="true">PASS - jlewis 10/18/12</p> 
+    		
+    		<li>Verify build information with reports has changed to GRCm38.
+    		<p concordion:assertTrue="false">FAIL - jlewis 10/18/12</p> 
+    		<ol>
+    			<li>MGI_Gene_Model_Coord.rpt</li>
+    			<li>MGI_QTLAllele.rpt</li> 
+    			<li>MGI_MRK_Coord.rpt</li>	
+       		</ol></li>
+       		
+       		<li>Verify reports with Genomic vs. Genetic chromosomes display correctly.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>MGI_AllGenes.rpt</li>   
+    			<li>MGI_EntrezGene.rpt</li>
+    			<li>MGI_GTGUP.gff</li>
+    			<li>MGI_IKMC_DNA_GT_info.rpt</li>
+    			<li>MGI_iphone_app.rpt</li>
+    			<li>MGI_MRK_Coord.rpt</li>
+    			<li>MGI_QTLAllele.rpt</li>
+    			<li>MRK_ENSEMBL.rpt</li>
+    			<li>MRK_List1.rpt</li>
+    			<li>MRK_List2.rpt</li>
+    			<li>MRK_Sequence.rpt</li>
+    			<li>MRK_VEGA.rpt</li>	
+       		</ol></li>
+    		
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>

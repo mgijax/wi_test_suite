@@ -1,0 +1,93 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 184</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Change build text 'NCBI Build 38' to 'GRCm38'</h1>
+    <ul>
+        <li>User Story 184, Change build text 'NCBI Build 38' to 'GRCm38' in load files, configs, Prod WI, and Public WI </li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ul>
+	    <li>Verify load configuration settings </li>
+	    <li>Verify input file for directly assigned coordinates</li>
+	    <li>Verify that 'GRCm38' is displayed in Production front-end products (all WIs)</li>
+	    <li>Verify that 'GRCm38' is displayed in Public front-end products (all WIs)</li>
+	    <li>Exception - MouseBlast change will be done as part of the Build Sprint on Firien</li>
+	</ul>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<ol>
+    		
+    		<li>Verify build text has changed to GRCm38 in PROD WI pages
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Python WI - Marker Summary (web, tab, excel); SNP Summary</li>   
+    			<li>Java WI - Marker, Allele, GXD, GXD Expanded, SNP Query Forms; Marker Detail; Allele Detail; SNP Detail; Batch Query</li> 			
+       		</ol></li>
+    		<li>Verify build text has changed to GRCm38 in PUBLIC WI
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Python WI - Marker Summary (web, tab, excel)</li>   
+    			<li>Java WI - Marker, Allele, GXD Expanded Query Forms, Allele Detail</li> 
+    			<li>Fewi - Marker Detail, Batch Query</li>	
+    			<li>Fewi -  GXD Summary (Marker tab) (4 versions - QF, Ref, Marker, Lit) - web and downloadable rpts.</li>
+       		</ol></li>
+       		
+       		<li>Verify build text continues to display Build 37 in the following PUBLIC WI pages
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Python WI - SNP Summary</li>   
+    			<li>Java WI - SNP Query Form, SNP Detail</li> 	
+       		</ol></li>
+    		
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
