@@ -50,26 +50,34 @@
  -->
 		<h3>Manual tests</h3>
 		<ol>
-    		<li>Verify build text has changed to GRCm38 in gene model loads
-    		<p concordion:assertTrue="false">new test</p> 
+    		<li>Verify build text has changed to GRCm38 in gene model loads (PROD okay - waiting on PUBLIC)
+    		<p concordion:assertTrue="true">PASS - jlewis 10/26/12</p> 
     		<ol>
     			<li>Sequence Detail - Prod & Public</li>
        		</ol></li>
        		
        		<li>Verify build text has changed to GRCm38 in directly associated coordinate file
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 10/24/12</p> 
     		<ol>
     			<li>Marker Detail page for markers with directly assigned coordinates - n-Ta18 (MGI:4413691)</li>
        		</ol></li>
        		
     		<li>Verify build text has changed to GRCm38 in PROD WI pages
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 10/26/12</p>
     		<ol>
     			<li>Python WI - Marker Summary (web, tab, excel); SNP Summary</li>   
     			<li>Java WI - Marker, Allele, GXD, GXD Expanded, SNP Query Forms; Marker Detail; Allele Detail; SNP Detail; Batch Query</li> 			
        		</ol></li>
+       		
+       		<li>Verify build text continues to display Build 37 in the following PROD WI pages
+    		<p concordion:assertTrue="true">PASS - jlewis 10/24/12</p> 
+    		<ol>
+    			<li>Python WI - SNP Summary</li>   
+    			<li>Java WI - SNP Query Form, SNP Detail</li> 	
+       		</ol></li>
+       		
     		<li>Verify build text has changed to GRCm38 in PUBLIC WI
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 10/26/12</p> 
     		<ol>
     			<li>Python WI - Marker Summary (web, tab, excel)</li>   
     			<li>Java WI - Marker, Allele, GXD Expanded Query Forms, Allele Detail</li> 
@@ -78,7 +86,7 @@
        		</ol></li>
        		
        		<li>Verify build text continues to display Build 37 in the following PUBLIC WI pages
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 10/26/12</p> 
     		<ol>
     			<li>Python WI - SNP Summary</li>   
     			<li>Java WI - SNP Query Form, SNP Detail</li> 	
