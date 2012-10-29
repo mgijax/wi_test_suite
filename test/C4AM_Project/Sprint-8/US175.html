@@ -110,7 +110,7 @@
  -->
 		<h3>Manual tests</h3>
 		<p>
-		Test input files referenced below can be found here -- ????
+		Test input files referenced below can be found here -- http://prodwww.informatics.jax.org/all/wts_projects/7100/7106/loads/QC_US175/
 		<ol>
 		  <h4>Sanity Checks</h4>
     		<li>Abort processing for input file when the header record does not include the Build parameter
@@ -259,7 +259,7 @@
                 <li>QC check test input file, <b>US175_ReportLoad5.txt</b>, where input file tests case sensitivity for build text (build=ncbi build 37) [case sensitive]</li>
                 <li>QC check test input file, <b>US175_ReportLoad5.txt</b>, where input file tests case sensitivity for "build=" (Build=NCBI Build 37) [case insensitive]</li>
             </ol></li>  
-		    <li>Report deletions of miRBase IDs implied by the assignment of that same ID to another marker in the Input file.
+		    <li>Report deletions of miRBase IDs for a marker implied when that marker is assigned other ids or no ids in the Input file.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
                 <li>QC check test input file, <b>US175_ReportLoad6.txt</b>, where input file includes an assignment of a miRBase ID(s) to a marker.  Report to the curator any miRBase IDs currently present for the marker that are not being re-assigned to this marker (delete/reload process).  Report current  miRBase ID(s), new miRBase ID(s), and marker.</li>
@@ -270,7 +270,25 @@
                 <li>QC check test input file, <b>US175_ReportLoad7.txt</b>, that has a <b>marker with feature type = protein coding gene: Mir22hg, MGI:1914348 with an assigned miRBase ID (col 8)</b>.  Report discrepancy to curator, load data.</li>
                 <li>QC check test input file, <b>US175_ReportLoad7.txt</b>, that has a marker with <b>feature type = miRNA: Mir1194, MGI:3783367 with an assigned miRBase ID (col 8)</b>.  Passes QC checks.
             </ol></li>
-             
+            
+            <h3>Load Tests</h3>
+            <li>A single miRBase id or a list of multiple miRBase ids may be specified for a marker in column 8
+            <ol><li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that comma delimited list of ids is loaded without a space after the comma</li>
+                <li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that comma delimited list of ids is loaded with a space after the comma</li> 
+            </ol></li>
+            <li>A miRBase id already associated to a marker in the database may be included for a different marker(s) in the input file
+            <ol><li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that a previously associated id may be associated to another marker.</li>
+                <li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that a previously associated id may be associated to multiple markers in a single input file.</li>
+            </ol></li>
+            <li>The miRBase ids associated to a marker are treated as a delete/reload process if the marker is in the input file
+            <ol><li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that a marker with a mirbase id in the database can be deleted when specifying no ids for it in the input file</li>
+                <li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that a marker with a mirbase id in the database can be replaced with 1 or more different ids in the input file</li>
+            </ol></li>
+            
+            <h3>Documentation</h3>
+            <li>Verify the curator documentation has been updated per the changes for this user story
+            <ol><li>Update file format, sanity and QC checks.</li>
+                <li>Add section re: n-m mirbase details?</li></ol></li>
             
 		</ol>
 	</div>
