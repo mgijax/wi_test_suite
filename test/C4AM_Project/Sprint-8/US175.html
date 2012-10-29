@@ -38,7 +38,7 @@
     <li>Modify curator QC checks:
     <ul>
         <li>remove the sanity check that did not allow a mirbase id to be present in the input file more than once</li>
-        <li>report when a miRBase id is associated to a marker(s) other than the one in the input file (but still allow to load)</li>
+        <li>report when a miRBase id is associated to multiple marker(s) either in the input file or in the database (but still allow to load)</li>
         <li>modify the "mirbase delete" report to reflect the change to the delete process for mirbase ids -- associations to other markers are no longer deleted</li>
     </ul>
     <h3>QC DETAILS</h3>
@@ -269,6 +269,12 @@
     		<ol>
                 <li>QC check test input file, <b>US175_ReportLoad7.txt</b>, that has a <b>marker with feature type = protein coding gene: Mir22hg, MGI:1914348 with an assigned miRBase ID (col 8)</b>.  Report discrepancy to curator, load data.</li>
                 <li>QC check test input file, <b>US175_ReportLoad7.txt</b>, that has a marker with <b>feature type = miRNA: Mir1194, MGI:3783367 with an assigned miRBase ID (col 8)</b>.  Passes QC checks.
+            </ol></li>
+            
+            <li>Report to the curator when a miRBase ID is associated to multiple markers (either in the input file or in the database).  Load the data.
+            <p concordion:assertTrue="false">new test</p>  
+    		<ol>
+                <li>QC check test input file, <b>US175_miRBase_n2m.txt</b>, report multiples, but still load data.</li>
             </ol></li>
             
             <h3>Load Tests</h3>
