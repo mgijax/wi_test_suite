@@ -1,0 +1,111 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 4</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Revisit Browser links</h1>
+    <ul>
+        <li>User Story 4, Revisit all genome browser link rules on Marker Detail</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+    <li>Display the external Genome Browsers (VEGA, Ensembl, NCBI, UCSC, GBrowse) when coordinates are present for a marker (and only then)</li>
+    <li>Rule for VEGA browser link - URL may include either coordinates or coordinates/ID. Include both values when present for a marker. No further params needed for display. 
+        <ul><li>e.g. http://vega.sanger.ac.uk/Mus_musculus/Location/View?g=OTTMUSG00000016671;r=5:75574916-75656722</li>
+             <li>When a marker has more than 1 ID -- use the first one returned for the URL -- as is done now on Public</li>    
+        </ul></li>
+    <li>Rule for Ensembl browser link - URL may include either coordinates or coordinates/ID. Include both values when present for a marker. No further params needed for display.
+        <ul><li> e.g. http://www.ensembl.org/Mus_musculus/Location/View?g=ENSMUSG00000005672;r=5:75574916-75656722</li>
+            <li>When a marker has more than 1 ID -- use the first one returned for the URL -- as is done now on Public</li>
+        </ul></li>
+        
+    <li>Rules for NCBI map viewer -
+        <ol><li>When coordinates exist and the marker type is NOT dna segment use the following URL pattern - http://www.ncbi.nlm.nih.gov/mapview/maps.cgi?TAXID=10090&CHR=5&MAPS=genes[75574916:75656722]</li>
+            <li>When coordinates exist and the marker type is dna segment use the following URL pattern - http://www.ncbi.nlm.nih.gov/mapview/maps.cgi?TAXID=10090&CHR=5&MAPS=genes,sts[77367509:77367670]</li>
+        </ol></li>
+        
+    <li>Rule for UCSC browser - when coordinates exist use the following URL pattern-http://genome.ucsc.edu/cgi-bin/hgTracks?clade=vertebrate&org=Mouse&db=mm10&position=chr5:75970941-760527</li>
+    <li>Rule for GBrowse - no change from current URL; always display when coordinates are present (i.e. remove any existing limitations)</li>
+    <li>Rule for GBrowse thumbnail - no change from current URL; always display when coordinates are present (i.e. remove existing limitations)</li>
+    </ol>
+    
+    
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<ol>
+    		
+    		<li>Verify display of all browsers for the standard display of genes with coordinates
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol><li>Display the <b>Kit</b> marker detail page (coordinates via gene model) - all browsers links and thumbnail should display.  Verify URL patterns.</li>
+    		    <li>Display the <b>n-Ta32</b> marker detail page (coordinates via direct) - all browsers links and thumbnail should display.  Verify URL patterns.</li>
+    		    <li>Display the <b>2210017I01Rik</b> marker detail page (no coordinates) - no browser links or thumbnail should display.</li>
+    		</ol></li>
+    		    		
+    		<li>Verify display of VEGA and Ensembl browsers when multiple IDs are present
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol><li>Display the <b>Pou2f2</b> marker detail page.  Verify URL patterns and links for VEGA and Ensembl browsers.</li>
+    		</ol></li>
+    		
+    		<li>Verify display of VEGA and Ensembl browsers when no IDs are present
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol><li>Display the <b>Nip7</b> marker detail page.  Verify URL pattern and link for VEGA browser.</li>
+    		    <li>Display the <b>Trav14-3</b> marker detail page.  Verify URL pattern and link for Ensembl browser.</li>
+    		</ol></li>
+    		
+    		<li>Verify display of DNA segments for the NCBI Map Viewer browser.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Display the <b>D2Bwg0161e</b> marker detail page.  Verify URL pattern and link for Map Viewer.</li>
+       		</ol></li>
+       		
+    		
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
