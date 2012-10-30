@@ -279,16 +279,30 @@
             
             <h3>Load Tests</h3>
             <li>A single miRBase id or a list of multiple miRBase ids may be specified for a marker in column 8
+            <p concordion:assertTrue="false">new test</p>
             <ol><li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that comma delimited list of ids is loaded without a space after the comma</li>
                 <li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that comma delimited list of ids is loaded with a space after the comma</li> 
             </ol></li>
             <li>A miRBase id already associated to a marker in the database may be included for a different marker(s) in the input file
+            <p concordion:assertTrue="false">new test</p>
             <ol><li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that a previously associated id may be associated to another marker.</li>
                 <li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that a previously associated id may be associated to multiple markers in a single input file.</li>
             </ol></li>
             <li>The miRBase ids associated to a marker are treated as a delete/reload process if the marker is in the input file
+            <p concordion:assertTrue="false">new test</p>
             <ol><li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that a marker with a mirbase id in the database can be deleted when specifying no ids for it in the input file</li>
                 <li>Load test input file, <b>US175_miRBase_n2m.txt</b>, and verify that a marker with a mirbase id in the database can be replaced with 1 or more different ids in the input file</li>
+            </ol></li>
+            
+            <li>Marker coordinate assignments without miRBase ids should work as before
+            <p concordion:assertTrue="false">new test</p>
+            <ol><li>Load test input file, <b>???.txt</b>, and verify that a marker without a mirbase id in the input file or database updates coordinates as specified</li>
+            </ol></li>
+            
+            <li>Marker coordinate deletions without miRBase ids should work as before
+            <p concordion:assertTrue="false">new test</p>
+            <ol><li>Load test input file, <b>???.txt</b>, and verify that a marker without a mirbase id in the input file or database deletes coordinates as expected</li>
+               
             </ol></li>
             
             <h3>Documentation</h3>
