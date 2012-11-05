@@ -1,0 +1,150 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Stories 71, 69, 28</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Public WI: Genetic/Genomic Chromosome Changes</h1>
+    <ul>
+        <li>User Story 71, 69, 28 : Update public WI for other genetic / genomic chromosome differences</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ul>
+	    <li>Show a genomic chromosome when coordinates are displayed.</li>
+	    <li>Show a genetic chromosome when a genetic position (cM or cytogenetic band) is displayed.</li>
+	    <li>When the user selects to search by chromosome (without also specifying coordinates), match in either the genetic or genomic chromosome field.</li>
+	    <li>When the user selects to search by chromosome and also specifies coordinates, match the chromosome against only the genomic chromosome field.</li>
+	    <li>Use a genomic chromosome when retrieving FASTA sequence from seqfetch.</li>
+	</ul>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+	<h3>Manual tests</h3>
+	<ol>
+    	<li>Marker summary web format changes (search for Symbol/Name = !!!)
+    	<p concordion:assertTrue="false">new test</p> 
+    	<ol>
+		<li>Verify new heading "Genetic Location" appears in leftmost column.</li>
+		<li>Verify data for that column uses the genetic chromosome (!!!).</li>
+		<li>Verify data in existing "Genomic Location" column includes the genomic chromosome (!!!).
+       	</ol></li>
+       		
+       	<li>Marker summary tab-delimited format changes (search for Symbol/Name = !!!, select Tab-delimited output format)
+    	<p concordion:assertTrue="false">new test</p>  
+    	<ol>
+    		<li>Verify heading of first column is now "Genetic Chr" rather than simply "Chr".</li>
+		<li>Verify data in the "Genetic Chr" column uses the genetic chromosome (!!!).</li>
+    		<li>Verify a new column named "Genomic Chr" has been added before the "start" column.</li>
+		<li>Verify data in the "Genomic Chr" column uses the genomic chromosome (!!!).</li>
+       	</ol></li>
+    		
+       	<li>Marker summary Excel format changes (search for Symbol/Name = !!!, select Excel output format)
+    	<p concordion:assertTrue="false">new test</p>  
+    	<ol>
+    		<li>Verify heading of first column is now "Genetic Chr" rather than simply "Chr".</li>
+		<li>Verify data in the "Genetic Chr" column uses the genetic chromosome (!!!).</li>
+    		<li>Verify a new column named "Genomic Chr" has been added before the "start" column.</li>
+		<li>Verify data in the "Genomic Chr" column uses the genomic chromosome (!!!).</li>
+       	</ol></li>
+    		
+    	<li>Searching for markers by chromosome
+    	<p concordion:assertTrue="false">new test</p> 
+    	<ol>
+    		<li>Search for markers on chromosome !!!.  This should return !!!, because of its genetic chromosome !!!.</li>
+    		<li>Search for markers on chromosome !!! with coordinates !!!.  This should not return !!!, because its genomic chromosome is !!!.</li>
+       	</ol></li>
+
+       	<li>Batch query summary change to show genomic chromosome where available (batch query for !!! and )
+    	<p concordion:assertTrue="false">new test</p>  
+    	<ol>
+    		<li>Verify chromosome for !!! is !!!.  This is a genomic chromosome.</li>
+    		<li>Verify chromosome for !!! is !!!.  This is a genetic chromosome.</li>
+       	</ol></li>
+
+	<li>Searching for alleles by chromosome
+    	<p concordion:assertTrue="false">new test</p>  
+    	<ol>
+    		<li>Search for alleles on chromosome !!!.  This should return !!!, because of its genetic chromosome !!!.</li>
+    		<li>Search for alleles on chromosome !!! with coordinates !!!.  This should not return !!!, because its genomic chromosome is !!!.</li>
+       	</ol></li>
+
+       	<li>Allele detail page display of marker coordinates
+    	<p concordion:assertTrue="false">new test</p>  
+    	<ol>
+    		<li>Display allele detail page for !!!.  Verify that !!! is the chromosome in the marker's coordinates.</li>
+       	</ol></li>
+
+	<li>Searching for expression data by chromosome using the expanded GXD query form
+    	<p concordion:assertTrue="false">new test</p>  
+    	<ol>
+    		<li>Search for expression data on chromosome !!!.  This should return !!!, because of its genetic chromosome !!!.</li>
+    		<li>Search for expression data on chromosome !!! with coordinates !!!.  This should not return !!!, because its genomic chromosome is !!!.</li>
+       	</ol></li>
+
+       	<li>SNP summary from the SNP query form
+    	<p concordion:assertTrue="false">new test</p>  
+    	<ol>
+    		<li>Use the 'Marker range' fields to search between !!! and !!!.  Verify that this produces an error message, as their genomic chromsomes differ.</li>
+    		<li>Use the 'Marker range' fields to search between !!! and !!!.  Verify that this produces results, as their genomic chromsomes match.</li>
+    		<li>Use the 'Chromosome' field to search for !!! and 'Gene Symbol/Name' field to search for !!!.  Verify that this produces an error message, as that marker's genomic chromosome is not !!!.</li>
+    		<li>Use the 'Chromosome' field to search for !!! and 'Gene Symbol/Name' field to search for !!!.  Verify that this produces results, as that marker's genomic chromosome matches !!!.</li>
+       	</ol></li>
+
+       	<li>SNP detail page (display SNP !!!) -- can only be tested in in-sync mode
+    	<p concordion:assertTrue="false">new test</p>  
+    	<ol>
+    		<li>Verify that marker !!! is shown, as this marker overlaps because of its genomic chromosome.</li>
+       	</ol></li>
+
+       	<li>Orthology summary
+    	<p concordion:assertTrue="false">new test</p>  
+    	<ol>
+    		<li>View orthology summary page for !!!.  Verify its mouse chromosome is !!!, which is its genomic chromosome.</li>
+    		<li>View orthology summary page for !!!.  Verify its human chromosome build number is !!!.</li>
+    		<li>View orthology summary page for !!!.  Download the FASTA sequences for its VEGA Gene Model sequence and look at the header line.  Confirm that it uses chr!!!.nib, which is its genomic chromosome.</li>
+    		<li>View orthology summary page for !!!.  Verify its mouse chromosome is !!!, which is its genetic chromosome.  (has no genomic chromosome)</li>
+       	</ol></li>
+
+       	<li>Probe detail (view probe detail page for !!!)
+    	<p concordion:assertTrue="false">new test</p>  
+    	<ol>
+    		<li>Verify chromosome for marker !!! is !!!.  This is a genomic chromosome.</li>
+       	</ol></li>
+
+	</ol>
+	</div>
+	<div id="sql">
+ 	</div>
+</div>
+
+</body>
+</html>
