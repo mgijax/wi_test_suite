@@ -50,7 +50,7 @@
  -->
 	<h3>Manual tests</h3>
 	<ol>
-    	<li>Marker summary web format changes (search for Symbol/Name = DXYCbl1)
+    	<li>US69 : Marker summary web format changes (search for Symbol/Name = DXYCbl1)
     	<p concordion:assertTrue="false">new test</p> 
     	<ol>
 		<li>Verify new heading "Genetic Location" appears in leftmost column.</li>
@@ -58,7 +58,7 @@
 		<li>Verify data in existing "Genomic Location" column includes the genomic chromosome (X).
        	</ol></li>
        		
-       	<li>Marker summary tab-delimited format changes (search for Symbol/Name = DXYCbl1, select Tab-delimited output format)
+       	<li>US69 : Marker summary tab-delimited format changes (search for Symbol/Name = DXYCbl1, select Tab-delimited output format)
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Verify heading of first column is now "Genetic Chr" rather than simply "Chr".</li>
@@ -67,7 +67,7 @@
 		<li>Verify data in the "Genomic Chr" column uses the genomic chromosome (X).</li>
        	</ol></li>
     		
-       	<li>Marker summary Excel format changes (search for Symbol/Name = DXYCbl1, select Excel output format)
+       	<li>US69 : Marker summary Excel format changes (search for Symbol/Name = DXYCbl1, select Excel output format)
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Verify heading of first column is now "Genetic Chr" rather than simply "Chr".</li>
@@ -76,7 +76,7 @@
 		<li>Verify data in the "Genomic Chr" column uses the genomic chromosome (X).</li>
        	</ol></li>
     		
-    	<li>Searching for markers by chromosome
+    	<li>US69 : Searching for markers by chromosome
     	<p concordion:assertTrue="false">new test</p> 
     	<ol>
     		<li>Search for markers on chromosome XY.  This should return DXYCbl2, because of its genetic chromosome XY.</li>
@@ -86,7 +86,8 @@
     		<li>Search for markers on chromosome 4 with coordinates 107370439-107370559.  This should return Mir1194 and Tmem48, based on their genomic chromosomes.</li>
        	</ol></li>
 
-       	<li>Batch query summary change to show genomic chromosome where available (batch query for Mir1194, DXYCbl1, and Kit, and show genome locationo)
+	<hr>
+       	<li>US71/28 : Batch query summary change to show genomic chromosome where available (batch query for Mir1194, DXYCbl1, and Kit, and show genome locationo)
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Verify chromosome for Mir1194 is 4.  This is a genomic chromosome.</li>
@@ -94,7 +95,7 @@
     		<li>Verify chromosome for Kit 5.  This is its genomic and genetic chromosome.</li>
        	</ol></li>
 
-	<li>Searching for alleles by chromosome
+	<li>US71/28 : Searching for alleles by chromosome
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Neither of our sample markers with a chromosome difference has alleles, so this cannot be tested now.</li>
@@ -102,19 +103,19 @@
 <li>Search for alleles on chromosome !!! with coordinates !!!.  This should not return !!!, because its genomic chromosome is !!!.</li> -->
        	</ol></li>
 
-       	<li>Allele detail page display of marker coordinates
+       	<li>US71/28 : Allele detail page display of marker coordinates
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Neither of our sample markers with a chromosome difference has alleles, so this cannot be tested now.</li>
        	</ol></li>
 
-	<li>Searching for expression data by chromosome using the expanded GXD query form
+	<li>US71/28 : Searching for expression data by chromosome using the expanded GXD query form
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Neither of our sample markers with a chromosome difference has expression data, so this cannot be tested now.</li>
        	</ol></li>
 
-       	<li>SNP summary from the SNP query form
+       	<li>US71/28 : SNP summary from the SNP query form
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Neither of our sample markers with a chromosome difference has SNP data, so this cannot be tested now.</li>
@@ -126,14 +127,14 @@
 		-->
        	</ol></li>
 
-       	<li>SNP detail page -- can only be tested in in-sync mode
+       	<li>US71/28 : SNP detail page -- can only be tested in in-sync mode
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Neither of our sample markers with a chromosome difference has SNP data, so this cannot be tested now.  (also we are in out-of-sync mode)</li>
 		<!--    		<li>Verify that marker !!! is shown, as this marker overlaps because of its genomic chromosome.</li> -->
        	</ol></li>
 
-       	<li>Orthology summary
+       	<li>US71/28 : Orthology summary
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Neither of our sample markers with chromosome differences have orthology data, so we cannot test the display of the mouse genomic chromosome or its inclusion when retrieving FASTA sequence now.</li>
@@ -143,7 +144,7 @@
 <li>View orthology summary page for !!!.  Verify its mouse chromosome is !!!, which is its genetic chromosome.  (has no genomic chromosome)</li> -->
        	</ol></li>
 
-       	<li>Probe detail
+       	<li>US71/28 : Probe detail
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Neither of our sample markers with a chromosome difference has probe data, so this cannot be tested now.</li>
