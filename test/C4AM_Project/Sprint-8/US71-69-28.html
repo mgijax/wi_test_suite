@@ -50,44 +50,48 @@
  -->
 	<h3>Manual tests</h3>
 	<ol>
-    	<li>Marker summary web format changes (search for Symbol/Name = !!!)
+    	<li>Marker summary web format changes (search for Symbol/Name = DXYCbl1)
     	<p concordion:assertTrue="false">new test</p> 
     	<ol>
 		<li>Verify new heading "Genetic Location" appears in leftmost column.</li>
-		<li>Verify data for that column uses the genetic chromosome (!!!).</li>
-		<li>Verify data in existing "Genomic Location" column includes the genomic chromosome (!!!).
+		<li>Verify data for that column uses the genetic chromosome (XY).</li>
+		<li>Verify data in existing "Genomic Location" column includes the genomic chromosome (X).
        	</ol></li>
        		
-       	<li>Marker summary tab-delimited format changes (search for Symbol/Name = !!!, select Tab-delimited output format)
+       	<li>Marker summary tab-delimited format changes (search for Symbol/Name = DXYCbl1, select Tab-delimited output format)
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Verify heading of first column is now "Genetic Chr" rather than simply "Chr".</li>
-		<li>Verify data in the "Genetic Chr" column uses the genetic chromosome (!!!).</li>
+		<li>Verify data in the "Genetic Chr" column uses the genetic chromosome (XY).</li>
     		<li>Verify a new column named "Genomic Chr" has been added before the "start" column.</li>
-		<li>Verify data in the "Genomic Chr" column uses the genomic chromosome (!!!).</li>
+		<li>Verify data in the "Genomic Chr" column uses the genomic chromosome (X).</li>
        	</ol></li>
     		
-       	<li>Marker summary Excel format changes (search for Symbol/Name = !!!, select Excel output format)
+       	<li>Marker summary Excel format changes (search for Symbol/Name = DXYCbl1, select Excel output format)
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
     		<li>Verify heading of first column is now "Genetic Chr" rather than simply "Chr".</li>
-		<li>Verify data in the "Genetic Chr" column uses the genetic chromosome (!!!).</li>
+		<li>Verify data in the "Genetic Chr" column uses the genetic chromosome (XY).</li>
     		<li>Verify a new column named "Genomic Chr" has been added before the "start" column.</li>
-		<li>Verify data in the "Genomic Chr" column uses the genomic chromosome (!!!).</li>
+		<li>Verify data in the "Genomic Chr" column uses the genomic chromosome (X).</li>
        	</ol></li>
     		
     	<li>Searching for markers by chromosome
     	<p concordion:assertTrue="false">new test</p> 
     	<ol>
-    		<li>Search for markers on chromosome !!!.  This should return !!!, because of its genetic chromosome !!!.</li>
-    		<li>Search for markers on chromosome !!! with coordinates !!!.  This should not return !!!, because its genomic chromosome is !!!.</li>
+    		<li>Search for markers on chromosome XY.  This should return DXYCbl2, because of its genetic chromosome XY.</li>
+    		<li>Search for markers on chromosome XY with coordinates 1-100 Mbp.  This should not return any markers, because its there are no XY genomic chromosomes.</li>
+    		<li>Search for markers on chromosome X with coordinates 169974684-169974964.  This should return DXYCbl1 and Mid1, because their genomic chromosome is X.</li>
+    		<li>Search for markers on chromosome UN with Gene/Marker Symbol/Name begins 'mir'.  This should return 14 markers including Mir1194, because of their genetic chromosome UN.</li>
+    		<li>Search for markers on chromosome 4 with coordinates 107370439-107370559.  This should return Mir1194 and Tmem48, based on their genomic chromosomes.</li>
        	</ol></li>
 
-       	<li>Batch query summary change to show genomic chromosome where available (batch query for !!! and )
+       	<li>Batch query summary change to show genomic chromosome where available (batch query for Mir1194, DXYCbl1, and Kit, and show genome locationo)
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
-    		<li>Verify chromosome for !!! is !!!.  This is a genomic chromosome.</li>
-    		<li>Verify chromosome for !!! is !!!.  This is a genetic chromosome.</li>
+    		<li>Verify chromosome for Mir1194 is 4.  This is a genomic chromosome.</li>
+    		<li>Verify chromosome for DXYCbl1 is X.  This is a genomic chromosome.</li>
+    		<li>Verify chromosome for Kit 5.  This is its genomic and genetic chromosome.</li>
        	</ol></li>
 
 	<li>Searching for alleles by chromosome
@@ -100,44 +104,48 @@
        	<li>Allele detail page display of marker coordinates
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
-    		<li>Display allele detail page for !!!.  Verify that !!! is the chromosome in the marker's coordinates.</li>
+    		<li>Neither of our sample markers with a chromosome difference has alleles, so this cannot be tested now.</li>
        	</ol></li>
 
 	<li>Searching for expression data by chromosome using the expanded GXD query form
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
-    		<li>Search for expression data on chromosome !!!.  This should return !!!, because of its genetic chromosome !!!.</li>
-    		<li>Search for expression data on chromosome !!! with coordinates !!!.  This should not return !!!, because its genomic chromosome is !!!.</li>
+    		<li>Neither of our sample markers with a chromosome difference has expression data, so this cannot be tested now.</li>
        	</ol></li>
 
        	<li>SNP summary from the SNP query form
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
+    		<li>Neither of our sample markers with a chromosome difference has SNP data, so this cannot be tested now.</li>
+		<!--
     		<li>Use the 'Marker range' fields to search between !!! and !!!.  Verify that this produces an error message, as their genomic chromsomes differ.</li>
     		<li>Use the 'Marker range' fields to search between !!! and !!!.  Verify that this produces results, as their genomic chromsomes match.</li>
     		<li>Use the 'Chromosome' field to search for !!! and 'Gene Symbol/Name' field to search for !!!.  Verify that this produces an error message, as that marker's genomic chromosome is not !!!.</li>
     		<li>Use the 'Chromosome' field to search for !!! and 'Gene Symbol/Name' field to search for !!!.  Verify that this produces results, as that marker's genomic chromosome matches !!!.</li>
+		-->
        	</ol></li>
 
-       	<li>SNP detail page (display SNP !!!) -- can only be tested in in-sync mode
+       	<li>SNP detail page -- can only be tested in in-sync mode
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
-    		<li>Verify that marker !!! is shown, as this marker overlaps because of its genomic chromosome.</li>
+    		<li>Neither of our sample markers with a chromosome difference has SNP data, so this cannot be tested now.  (also we are in out-of-sync mode)</li>
+		<!--    		<li>Verify that marker !!! is shown, as this marker overlaps because of its genomic chromosome.</li> -->
        	</ol></li>
 
        	<li>Orthology summary
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
-    		<li>View orthology summary page for !!!.  Verify its mouse chromosome is !!!, which is its genomic chromosome.</li>
-    		<li>View orthology summary page for !!!.  Verify its human chromosome build number is !!!.</li>
-    		<li>View orthology summary page for !!!.  Download the FASTA sequences for its VEGA Gene Model sequence and look at the header line.  Confirm that it uses chr!!!.nib, which is its genomic chromosome.</li>
-    		<li>View orthology summary page for !!!.  Verify its mouse chromosome is !!!, which is its genetic chromosome.  (has no genomic chromosome)</li>
+    		<li>Neither of our sample markers with chromosome differences have orthology data, so we cannot test the display of the mouse genomic chromosome or its inclusion when retrieving FASTA sequence now.</li>
+    		<li>View orthology summary page for Kit.  Verify its human chromosome build number is NCBI Build 37.</li>
+<!--		<li>View orthology summary page for !!!.  Verify its mouse chromosome is !!!, which is its genomic chromosome.</li> 
+<li>View orthology summary page for !!!.  Download the FASTA sequences for its VEGA Gene Model sequence and look at the header line.  Confirm that it uses chr!!!.nib, which is its genomic chromosome.</li>
+<li>View orthology summary page for !!!.  Verify its mouse chromosome is !!!, which is its genetic chromosome.  (has no genomic chromosome)</li> -->
        	</ol></li>
 
-       	<li>Probe detail (view probe detail page for !!!)
+       	<li>Probe detail
     	<p concordion:assertTrue="false">new test</p>  
     	<ol>
-    		<li>Verify chromosome for marker !!! is !!!.  This is a genomic chromosome.</li>
+    		<li>Neither of our sample markers with a chromosome difference has probe data, so this cannot be tested now.</li>
        	</ol></li>
 
 	</ol>
