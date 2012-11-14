@@ -51,7 +51,7 @@
 	<h3>Manual tests</h3>
 	<ol>
     	<li>US69 : Marker summary web format changes (search for Symbol/Name = DXYCbl1)
-    	<p concordion:assertTrue="false">new test</p> 
+    	<p concordion:assertTrue="true">PASS - jlewis 11/6/2012</p> 
     	<ol>
 		<li>Verify new heading "Genetic Location" appears in leftmost column.</li>
 		<li>Verify data for that column uses the genetic chromosome (XY).</li>
@@ -59,7 +59,7 @@
        	</ol></li>
        		
        	<li>US69 : Marker summary tab-delimited format changes (search for Symbol/Name = DXYCbl1, select Tab-delimited output format)
-    	<p concordion:assertTrue="false">new test</p>  
+    	<p concordion:assertTrue="true">PASS - jlewis 11/6/2012</p>  
     	<ol>
     		<li>Verify heading of first column is now "Genetic Chr" rather than simply "Chr".</li>
 		<li>Verify data in the "Genetic Chr" column uses the genetic chromosome (XY).</li>
@@ -68,7 +68,7 @@
        	</ol></li>
     		
        	<li>US69 : Marker summary Excel format changes (search for Symbol/Name = DXYCbl1, select Excel output format)
-    	<p concordion:assertTrue="false">new test</p>  
+    	<p concordion:assertTrue="true">PASS - jlewis 11/6/2012</p>  
     	<ol>
     		<li>Verify heading of first column is now "Genetic Chr" rather than simply "Chr".</li>
 		<li>Verify data in the "Genetic Chr" column uses the genetic chromosome (XY).</li>
@@ -77,7 +77,7 @@
        	</ol></li>
     		
     	<li>US69 : Searching for markers by chromosome
-    	<p concordion:assertTrue="false">new test</p> 
+    	<p concordion:assertTrue="true">PASS - jlewis 11/6/2012</p> 
     	<ol>
     		<li>Search for markers on chromosome XY.  This should return DXYCbl2, because of its genetic chromosome XY.</li>
     		<li>Search for markers on chromosome XY with coordinates 1-100 Mbp.  This should not return any markers, because its there are no XY genomic chromosomes.</li>
@@ -88,7 +88,7 @@
 
 	<hr>
        	<li>US71/28 : Batch query summary change to show genomic chromosome where available (batch query for Mir1194, DXYCbl1, and Kit, and show genome locationo)
-    	<p concordion:assertTrue="false">new test</p>  
+    	<p concordion:assertTrue="true">PASS - jlewis 11/14/2012</p>  
     	<ol>
     		<li>Verify chromosome for Mir1194 is 4.  This is a genomic chromosome.</li>
     		<li>Verify chromosome for DXYCbl1 is X.  This is a genomic chromosome.</li>
@@ -96,35 +96,31 @@
        	</ol></li>
 
 	<li>US71/28 : Searching for alleles by chromosome
-    	<p concordion:assertTrue="false">new test</p>  
+    	<p concordion:assertTrue="true">PASS - jlewis 11/14/2012</p  
     	<ol>
-    		<li>Neither of our sample markers with a chromosome difference has alleles, so this cannot be tested now.</li>
-<!--    		<li>Search for alleles on chromosome !!!.  This should return !!!, because of its genetic chromosome !!!.</li>
-<li>Search for alleles on chromosome !!! with coordinates !!!.  This should not return !!!, because its genomic chromosome is !!!.</li> -->
+    		<li>Search for Chr 13; 4001111-4002222.  This should return alleles for Vamp7 (genomic chr = n1; genetic chr = n2)</li>
+
        	</ol></li>
 
        	<li>US71/28 : Allele detail page display of marker coordinates
-    	<p concordion:assertTrue="false">new test</p>  
+    	<p concordion:assertTrue="true">PASS - jlewis 11/14/2012</p  
     	<ol>
-    		<li>Neither of our sample markers with a chromosome difference has alleles, so this cannot be tested now.</li>
+    		<li>Display allele for Vamp7.  Confirm that chr 13; coordinates 4001111-4002222 are displayed.</li>
        	</ol></li>
 
 	<li>US71/28 : Searching for expression data by chromosome using the expanded GXD query form
-    	<p concordion:assertTrue="false">new test</p>  
+    	<p concordion:assertTrue="true">PASS - jlewis 11/14/2012</p  
     	<ol>
-    		<li>Neither of our sample markers with a chromosome difference has expression data, so this cannot be tested now.</li>
+    		<li>Search for Chr 13; 4001111-4002222.  This should return expression for Vamp7 (genomic chr = 13; genetic chr = X)</li>
        	</ol></li>
 
        	<li>US71/28 : SNP summary from the SNP query form
-    	<p concordion:assertTrue="false">new test</p>  
+    	<p concordion:assertTrue="true">PASS - jlewis 11/14/2012</p  
     	<ol>
-    		<li>Neither of our sample markers with a chromosome difference has SNP data, so this cannot be tested now.</li>
-		<!--
-    		<li>Use the 'Marker range' fields to search between !!! and !!!.  Verify that this produces an error message, as their genomic chromsomes differ.</li>
-    		<li>Use the 'Marker range' fields to search between !!! and !!!.  Verify that this produces results, as their genomic chromsomes match.</li>
-    		<li>Use the 'Chromosome' field to search for !!! and 'Gene Symbol/Name' field to search for !!!.  Verify that this produces an error message, as that marker's genomic chromosome is not !!!.</li>
-    		<li>Use the 'Chromosome' field to search for !!! and 'Gene Symbol/Name' field to search for !!!.  Verify that this produces results, as that marker's genomic chromosome matches !!!.</li>
-		-->
+    		<li>Use the 'Marker range' fields to search between Vamp7 and Ahsp.  Verify that this produces results, as their genomic chromsomes match.</li>
+    		<li>Use the 'Chromosome' field X to with Symbol field 'Vamp7'.  Verify that this produces an error message, as that marker's genomic chromosome is not X.</li>
+    		<li>Use the 'Chromosome' field 13 to with Symbol field 'Vamp7'.  Verify that this does not produce an error message.</li>
+
        	</ol></li>
 
        	<li>US71/28 : SNP detail page -- can only be tested in in-sync mode
@@ -135,19 +131,15 @@
        	</ol></li>
 
        	<li>US71/28 : Orthology summary
-    	<p concordion:assertTrue="false">new test</p>  
+    	<p concordion:assertTrue="true">PASS - jlewis 11/14/2012</p  
     	<ol>
-    		<li>Neither of our sample markers with chromosome differences have orthology data, so we cannot test the display of the mouse genomic chromosome or its inclusion when retrieving FASTA sequence now.</li>
-    		<li>View orthology summary page for Kit.  Verify its human chromosome build number is NCBI Build 37.</li>
-<!--		<li>View orthology summary page for !!!.  Verify its mouse chromosome is !!!, which is its genomic chromosome.</li> 
-<li>View orthology summary page for !!!.  Download the FASTA sequences for its VEGA Gene Model sequence and look at the header line.  Confirm that it uses chr!!!.nib, which is its genomic chromosome.</li>
-<li>View orthology summary page for !!!.  Verify its mouse chromosome is !!!, which is its genetic chromosome.  (has no genomic chromosome)</li> -->
-       	</ol></li>
+    		<li>View orthology summary for Vamp7 or Ahsp.  In both cases the genomic chr is 13.</li>
+    		<li>View orthology summary page for Kit.  Verify its human chromosome build number is NCBI Build 37.</li>	
 
        	<li>US71/28 : Probe detail
-    	<p concordion:assertTrue="false">new test</p>  
+    	<p concordion:assertTrue="true">PASS - jlewis 11/14/2012</p>  
     	<ol>
-    		<li>Neither of our sample markers with a chromosome difference has probe data, so this cannot be tested now.</li>
+    		<li>View a probe associated to Vamp7 (MGI:1206078).  Verify the genomic chr is displayed.  Chr 13.</li>
        	</ol></li>
 
 	</ol>
