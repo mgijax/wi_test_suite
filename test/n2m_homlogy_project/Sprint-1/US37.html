@@ -58,41 +58,33 @@
 		<p>
 		List of mouse markers with associated homologene clusters (test data)
 		<ul><li>C4a & C4b - cluster id: 36030</li>
-		    <li>Tuba3a & Tuba3b - cluster id: 128229</li>
-		    <li>Slx & Slxl1 - cluster id: 86004 (mouse only)</ul>
+		    <li>Slx & Slxl1 & Gm4836 - cluster id: 86004 (mouse only)</ul>
 		</p>
 		<ol>
     		
     		<li>Marker Detail page displays the new link when there's an associated homologene cluster.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 12/5/2012</p> 
     		<ol>
     			<li>Verify that markers C4a and C4b link to cluster 36030.</li>
-    			<li>Verify that markers Tuba3a and Tuba3b link to cluster 128229</li> 
-    			<li>Verify that markers Slx and Slxl1 link to cluster 86004</li>	
-    			<li>Verify that markers Kit and Ahsp do not have new links</li>
+    			<li>Verify that markers Slx and Slxl1 and Gm4836 link to cluster 86004</li>	
+    			<li>Verify that markers Kit and Ahsp do not have working links</li>
        		</ol></li>
     		
     		<li>Marker Detail page no longer displays old link or list of species.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 12/5/2012</p>  
     		<ol>
-    			<li>Verify that markers C4a and Tuba3a no longer have old link or list of species</li>
+    			<li>Verify that markers C4a and C4b no longer have old link or list of species</li>
     			<li>Verify that markers Pax6 and Lep no longer have old link or list of species</li> 
-       		</ol></li>
-       		
-       		<li>New homology page with 1-n relationships displays correct symbol, species, and order
-    		<p concordion:assertTrue="false">new test</p> 
-    		<ol>
-    			<li>View Cluster 128229 - verify 1 human gene, 2 mouse genes, 1 cattle gene, 1 chimp gene, 1 dog gene.</li>
        		</ol></li>
        	
        	    <li>New homology page with n-m relationships display correct symbols, species, and order
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 12/5/2012</p>  
     		<ol>
     			<li>View Cluster 36030 - verify 2 human genes, 2 mouse genes, 2 rat genes, 1 cattle gene, 1 chimp gene, 1 dog gene.</li>
        		</ol></li>
        		
        		<li>New homology page with only mouse markers displays correct symbol, species, and order 
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 12/5/2012</p>  
     		<ol>
     			<li>View Cluster 86004 - verify 2 mouse genes</li>  
        		</ol></li>
