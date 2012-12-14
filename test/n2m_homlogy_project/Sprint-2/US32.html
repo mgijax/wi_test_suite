@@ -1,0 +1,133 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 32</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Homology Ribbon on Marker Detail</h1>
+    <ul>
+        <li>User Story 32, Homology ribbon on Marker Detail supports new HomoloGene data</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Display list of species included in Homology Class this should include mouse
+	    <ol><li>order -- human, mouse, rat, and remaining in alpha order</li>
+	        <li>include count of markers for each species - even when there's only 1</li>
+	        <li>there must be at least one marker for a species in the class to be included</li>
+	        <li>display even if mouse is the only species in the class</li>
+	        <li>display common species name</li>
+	        <li>discussed possibility of listing mouse symbols here and linking to a marker detail -- decided against it</li>
+	    </ol></li>
+	    <li>Link to Homology Class page
+	    <ol><li>Use approved nomenclature for link to new page</li>
+	        <li>Display HomoloGene ID, but do not link anywhere</li>
+	    </ol></li>
+	    <li>Remove link to Comparative Maps</li>
+	    <li>Display links to Protein Superfamily & Gene Tree (use existing requirements)
+	    <ol><li>PIRSF id used for Superfamily link</li>
+	        <li>Ensembl id used for Gene Tree link</li>
+	        <li>When multiple Ensembl ids  exists do not create a Gene Tree link. </li>
+	        <li>Are there cases of mutliple SF ids per gene?</li>
+	    </ol></li>
+	    <li>Change the name of the ribbon to approved nomenclature</li>
+	    <li>Ribbon does not display when there's no Homology class or other links in this section</li>
+	    
+	    
+	    
+	    
+	</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<p>
+		List of mouse markers with associated homologene clusters (test data)
+		<ul><li>C4a & C4b - cluster id: 36030</li>
+		    <li>Slx & Slxl1 & Gm4836 - cluster id: 86004 (mouse only)</ul>
+		</p>
+		<ol>
+    		
+    		<li>Marker Detail page displays the correct species list
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Verify that marker C4a lists - </li>
+    			<li>Verify that marker C4b lists -  </li>
+    			<li>Verify that marker Slx lists - 3 mouse, laboratory </li>	
+    			<li>Verify that marker XX lists nothing (no class associated to this marker)</li>
+       		</ol></li>
+    		
+    		<li>Marker Detail page displays link to Homology Class page and HomoloGene ID for that class
+    		<<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    			<li>Verify that markers C4a and C4b display the link and class ID 36030</li>
+    			<li>Verify that markers Slx, Slxl1, and Gm4836 display a link to the new page and class ID 86004</li> 
+       		</ol></li>
+       	
+       	    <li>Marker Detail page no longer includes link to Comparative Maps
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    			<li>Verify on Marker pages C4a, C4b, Slx, Kit</li>
+       		</ol></li>
+       		
+       		<li>Verify SuperFamily and Gene Tree links
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    			<li>Display C4a where there is just 1 SF id and 1 Ens id</li>  
+    			<li>Gene where there's no SF or Ensembl id</li>
+    			<li>Tead1 has multiple Ensembl ids - verify no Gene Tree link created.</li>
+    			<li>Any case of multiple SF ids?</li>
+       		</ol></li>
+    		
+    		<li>Verify ribbon displays as appropriate and heading uses approved nomenclature
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    			<li>Pax6  with all the data - ribbon displays and heading correct</li>  
+    			<li>Pax6os1 with only Gene Tree link - ribbon displays</li>
+    			<li>Display Ren2 that has no associated homology data - no ribbon displays</li>
+       		</ol></li>
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
