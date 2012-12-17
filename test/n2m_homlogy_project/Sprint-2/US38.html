@@ -1,0 +1,111 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 38</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>HomoloGene Load</h1>
+    <ul>
+        <li>User Story 38, Load HomoloGene data into back-end database</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+       <li>Load Homology Classes for markers that have EG ids in MGI & HomoloGene
+       <ol><li>Match on curated OR loaded EG Ids in the database</li>
+           <li>load classes that have only mouse markers</li>
+           <li>load classes that have no mouse markers (but they should have at least one of the species we are loading)</li>
+           <li>Each MGI_Cluster has a homologene class ID accession ID (ACC_Accession)</li>
+           <li>Each class has a version - not clear what this is</li>
+           <li>Each has a class date - date on the input file?</li>
+           <li>load human, mouse, rat, cattle, chimp, dog</li>
+       </ol></li>
+       <li>Associate 1-n markers to a Homology Class
+       <ol><li>classes may consist of one marker (1-1)</li>
+           <li>classes may consist of 1-n markers per organism</li>
+       </ol></li>
+       <li>Enforce sanity checks before loading data - these are fatal
+       <ol><li>Fewer than n lines in input - what is 'n'?</li>
+           <li>Fewer than 6 columns in each line of the input</li>
+       </ol></li>
+       <li>Create load QC reports during the load
+       <ol><li>Report any markers which participate in > class in the homologene input file. These markers will not be loaded as members of any class (but  create the class if there are other members). This can happen when egID is in homologene input file more than once OR when a marker in MGI is associated with more than one egID.</li>
+           <li>Report any markers in the input file which are  associated with > 1 marker in that database. These markers will not be loaded as members of any class (but  create the class if there are other members)</li>
+           <li>Report genes in a homologene class not included in MGI class for lack of an egID/marker in MGI ( only organisms we are loading) – report and load other  class members</li>
+       </ol>
+       <li>Existing curated and Homologene data is left untouched.
+       <ol><li>The load will not touch the HMD_* tables</li>
+           <li>Look at prod WI and orthology pages come back unchanged</li>
+       </ol></li>
+       <li>Stuff not included in this User Story (i.e. create other user stories)
+       <ol><li>database qc reports (qcreports_db)
+           <ol><li>Classes for which the number of genes from a single organism exceeds some number (20?) since many of these classes are problematic.</li>
+               <li>Report classes with no mouse</li>
+               <li>Report classes with only mouse</li>
+           </ol></li>
+           <li>Remove the set of curated marker/egID associations ONLY for organisms we are loading.- we don't need to do this now that the load knows which organisms to consider.</li>
+           <li>Ordering class members by organism/symbol</li>
+           <li>Should run after non-mouse and mouse entrezgeneload in sundaytasks.csh</li>
+       </ol></li>
+	       
+	</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>test 1.1</li>
+    			
+       		</ol></li>
+    		
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
