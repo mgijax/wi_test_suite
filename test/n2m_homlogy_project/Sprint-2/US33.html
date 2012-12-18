@@ -33,11 +33,12 @@
 	    <li>Display same human data elements as currently on Public plus human genetic location
         <ol><li>Optional fields - disease associations; synonyms -- if they don't exist don't display the line/heading</li>
             <li>Location -- if nothing exists display heading anyway (goal - easy requirement)</li>
+            <li>Genetic location format?
         </ol></li>
         <li>Display human genes based on associated homology class for the mouse marker
         <ol><li>Collapse display only if more than one human gene to reduce vertical impact of more genes</li>
             <li>List human symbols and method to open/close as default display</li>
-            <li>Model labels allignment/format using Other db links ribbon (different than mockup)</li>
+            <li>Model labels alignment/format using Other db links ribbon (different than mockup)</li>
         </ol></li>
         <li>Improve text display - see mockup</li>
         <li>Display human coordinate build text stored in database.  Don't add any extra text to the database value (different than mockup)</li>
@@ -65,13 +66,52 @@
 		</p>
 		<ol>
     		
-    		<li>Test 1
+    		<li>Human data is displayed includes all that is Public now plus genetic location.
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>test 1.1</li>
-    			
+    			<li>Verify when only one human marker is present - Kit</li>
+    			<li>Verify when multiple human markers are present - C4a, C4b</li>
+    			<li>Verify nothing is displayed if no human marker present - Slx</li>
+    			<li>Verify genetic location format - Lep</li>
+       		</ol></li>
+       		
+       		<li>Associated human diseases is an optional field that is only displayed when they exist.
+       		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Verify when diseases are present and there's just a single human marker - Kit</li>
+    			<li>Verify when diseases are present and there are multiple human markers present - C4a, C4b</li>
+    			<li>Verify when diseases are not present and there's a single human marker - Bmp1</li>
+    			<li>Verify when diseases are not present and there are multiple human markers present - Hspa1a (expect test case present once new data is loaded)</li>
+       		</ol></li>
+       		
+       		<li>Human synonyms is an optional field that is only displayed when they exist.
+       		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Verify when synonyms are present and there's just a single human marker - Brca2</li>
+    			<li>Verify when synonyms are present and there are multiple human markers present - C4a, C4b</li>
+    			<li>Verify when synonyms are not present and there's a single human marker - XXX (use SQL to find after data is loaded)</li>
+    			<li>Verify when synonyms are not present and there are multiple human markers present - XXX (use SQL to find after data is loaded)</li>
        		</ol></li>
     		
+    		<li>Location is displayed regardless if there is a genetic or genomic data to display
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Verify when location is present - Pax6</li>
+    			<li>Verify when there's no location data present - XXX (not sure if this case exists?)</li>
+       		</ol></li>
+       		
+       		<li>When more than 1 human marker exists only display 1 as the default and provide a way to show all human markers
+       		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Verify display and show/hide process when there's just one human marker - all supported browsers - Kit</li>
+    			<li>Verify display and show/hide process when there/s multiple human markers - all supported browsers - C4a, C4b</li>
+       		</ol></li>
+       		
+       		<li>Display human build text as stored in the database - C4a</li>
+       		<p concordion:assertTrue="false">new test</p> 
+       		
+       		<li>Format section per mockup, style/alignment from Other database links section, and stakeholder feedback - C4b</li>
+       		<p concordion:assertTrue="false">new test</p> 
     		
 		</ol>
 	</div>
