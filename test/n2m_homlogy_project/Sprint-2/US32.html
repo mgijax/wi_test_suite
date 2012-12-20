@@ -77,38 +77,36 @@
 		<ol>
     		
     		<li>Marker Detail page displays the correct species list
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 12/20/12</p> 
     		<ol>
-    			<li>Verify that marker C4a lists - </li>
-    			<li>Verify that marker C4b lists -  </li>
+    			<li>Verify C4a and C4b lists (compare to Homology Class page or HomoloGene page)</li>
     			<li>Verify that marker Slx lists - 3 mouse, laboratory </li>	
-    			<li>Verify that marker XX lists nothing (no class associated to this marker)</li>
+    			<li>Verify that marker Kit lists nothing (no class associated to this marker)</li>
        		</ol></li>
     		
     		<li>Marker Detail page displays link to Homology Class page and HomoloGene ID for that class
-    		<<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 12/20/12</p>  
     		<ol>
     			<li>Verify that markers C4a and C4b display the link and class ID 36030</li>
     			<li>Verify that markers Slx, Slxl1, and Gm4836 display a link to the new page and class ID 86004</li> 
        		</ol></li>
        	
        	    <li>Marker Detail page no longer includes link to Comparative Maps
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 12/20/12</p>   
     		<ol>
     			<li>Verify on Marker pages C4a, C4b, Slx, Kit</li>
        		</ol></li>
        		
        		<li>Verify SuperFamily and Gene Tree links
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="false">FAIL - Superfamily link missing for Tead1</p>   
     		<ol>
     			<li>Display C4a where there is just 1 SF id and 1 Ens id</li>  
-    			<li>Gene where there's no SF or Ensembl id</li>
-    			<li>Tead1 has multiple Ensembl ids - verify no Gene Tree link created.</li>
-    			<li>Any case of multiple SF ids?</li>
+    			<li>Gene where there's no SF or Ensembl id - Vamp7</li>
+    			<li>Tead1 has multiple Ensembl ids - verify no Gene Tree link created and S-F link displays</li>
        		</ol></li>
     		
     		<li>Verify ribbon displays as appropriate and heading uses approved nomenclature
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 12/20/12</p>   
     		<ol>
     			<li>Pax6  with all the data - ribbon displays and heading correct</li>  
     			<li>Pax6os1 with only Gene Tree link - ribbon displays</li>
