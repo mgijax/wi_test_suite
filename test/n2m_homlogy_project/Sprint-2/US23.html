@@ -12,7 +12,7 @@
 	p {margin:2px 0px;}
 </style>
 
-    <title>User Story 21</title>
+    <title>User Story 23</title>
 </head>
 
 <body>
@@ -21,37 +21,33 @@
 	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
 </div>
 
-<div id="maintitle"><h1>Gene Links column - Homology Class</h1>
+<div id="maintitle"><h1>Sequences column - Homology Class</h1>
     <ul>
-        <li>User Story 21, Gene Links column on new Homology Class page</li>
+        <li>User Story 23, Sequences column on new Homology Class page</li>
     </ul>
 </div>
 
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	    <li>Include links to other resources for each Human Gene displayed when the relevant id is associated to the human marker
-	    <ol><li>HGNC - hgnc id</li>
-	        <li>EntrezGene - entrezgene id</li>
-	        <li>OMIM - omim gene id</li>
-	        <li>Order of links - use order on mockup</li>
+	    <li>Display representative genomic, transcript, and protein sequences associated to displayed mouse markers.
+	    <ol><li>Continue using the existing representative sequence algorithm to determine what sequences to display</li>
+	        <li>Provide a link to the provider of the sequence</li>
+	        <li>Order of sequence display - genomic, transcript, protein</li>
 	    </ol></li>
-	    <li>Include links to other resources for each Mouse Gene displayed when the relevant id or coordinates are associated to the mouse marker
-	    <ol><li>MGI Marker Detail - mgi id</li>
-	        <li>EntrezGene - entrezgene id</li>
-	        <li>GeneTree - Ensembl ID
-	        <ol><li>Use same exception as on Marker Detail page - when multiple Ensembl ids exists don't include a link to Gene Tree</li>
-	        </ol></li>
-	        <li>VISTA-Point - coordinates for marker
-	        <ol><li>Current mockup uses mm9 in URL -- Mary is checking to see if another option is available that would always display the current build</li>
-	        </ol></li>
-	        <li>Order of links - use order on mockup</li>
-	     </ol></li>
-	     <li>Other species - include links when relevant id is associated to the marker.
-	     <ol><li>EntrezGene - entrezgene id</li></ol></li>
-	     <li>Display - use the current mockup for the initial implementation including position of column on page
-	    
-	    
+	    <li>Display representative sequences for non-mouse markers
+	    <ol><li>Continue using the existing representative sequence algorithm to determine what sequences to display</li>
+	        <li>Provide a link to the provider of the sequence</li>
+	        <li>Order of sequence display - genomic, transcript, protein</li>
+	    </ol></li>
+	    <li>Provide FASTA download and MouseBlast forward
+	    <ol><li>Controls in column header: select, deselect, pull-down, go
+	        <ol><li>Jon noted that the mockup text is quite small -- PO responded that the mockup is just a guideline -- okay to make bigger</li></ol></li>
+	        <li>Provide a checkbox for each sequence</li>
+	        <li>Assumption - this mirrors current functionality and expect that these sequences are available via EMBOSS</li>
+	    </ol></li>
+	    <li>Display - use the current mockup for the initial implementation including column location</li>
+	    	    
 	</ol>
 </div>
 
