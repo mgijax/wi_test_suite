@@ -1,0 +1,105 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 39</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Move Data to Public</h1>
+    <ul>
+        <li>User Story 39, Move data from back-end to front-end database</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Load new homologene data into the front-end database
+	    <ol><li>Display the Homologene Class page for any class loaded into the database</li>
+	        <li>Display the list of species for the loaded Homologene class on the Marker Detail page</li>
+	    </ol></li>
+	    <li>Load updated human coordinates and build text into the front-end database
+	    <ol><li>Updated human location data displayed on the Marker Detail page</li>
+	        <li>Updated human location data displayed on the Homologene Class page</li>
+	    </ol></li>
+	    <li>Load test markers that have different genetic v. genomic chromosomes (Vamp7 & Ahsp)</li>
+	       
+	    
+	    	    
+	</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify that the loaded Homologene classes are displayed as expected on the new Homologene Class page and the species list is correct on the Marker Detail page.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Basic 1:1 class - 460 (Trp53) </li>
+    			<li>Class with 1 mouse gene, but multiple human genes - 88429 (Olfr1316) </li>	
+    			<li>Class with multiple mouse genes, but a single human gene - 68183 (Eno1) </li>
+    			<li>Class with multiple mouse genes and multiple human genes - 41961 (Krtap2-4) </li>
+    			<li>Class with many mouse genes - 86332 (Gm4666...)</li>
+    			<li>Class without any mouse genes - 19418 (human, MAGEB1)</li>
+    		    <li>Class with only mouse genes - 86036 (130 mouse genes, Slx)</li>
+    		    <li>Class with loaded species plus zebrafish should not load zebrafish - 123787 (AA987161)</li>
+    		    <li>Class with only zebrafish - should not be loaded - 123788</li>
+    		    <li>Class previously loaded into MGI, but retired at Homologene - should not be loaded - XXXX</li>
+       		</ol></li>
+       		
+    		<li>Verify human coordinates and build text are updated on the Marker Detail page and Homologene Class page.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Verify Marker with updated human coordinates - Klhl17 (human marker - KLHL17); hg id = 27075
+    			<ol><li>End coordinate: prev=901095; new=901099</li>
+    			    <li>Build text: prev=Reference GRCh37.p2 Primary Assembly (marker detail) NCBI Build 37 (orthology page) ; new=GRCh37.p2</ol></li>
+       		</ol></li>
+       		
+       		<li>Verify Genomic/Genetic Chromosomes display as expected on Homologene Class page when they are different
+	        <ol><li>Vamp7 - genetic chr = X; genomic chr = 13</li>
+	        </ol></li>
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
