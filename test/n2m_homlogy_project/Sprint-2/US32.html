@@ -35,7 +35,7 @@
 	        <li>include count of markers for each species - even when there's only 1</li>
 	        <li>there must be at least one marker for a species in the class to be included</li>
 	        <li>display even if mouse is the only species in the class</li>
-	        <li>display common species name</li>
+	        <li>display common species name (except for mouse and dog, display &quot;mouse&quot; and &quot;dog&quot;)</li>
 	        <li>discussed possibility of listing mouse symbols here and linking to a marker detail -- decided against it</li>
 	    </ol></li>
 	    <li>Link to Homology Class page
@@ -47,7 +47,6 @@
 	    <ol><li>PIRSF id used for Superfamily link</li>
 	        <li>Ensembl id used for Gene Tree link</li>
 	        <li>When multiple Ensembl ids  exists do not create a Gene Tree link. </li>
-	        <li>Are there cases of mutliple SF ids per gene?</li>
 	    </ol></li>
 	    <li>Change the name of the ribbon to approved nomenclature</li>
 	    <li>Ribbon does not display when there's no Homology class or other links in this section</li>
@@ -72,7 +71,7 @@
 		<p>
 		List of mouse markers with associated homologene clusters (test data)
 		<ul><li>C4a & C4b - cluster id: 36030</li>
-		    <li>Slx & Slxl1 & Gm4836 - cluster id: 86004 (mouse only)</ul>
+		    <li>Slx & Slxl1 & Gm4836,  etc.  - cluster id: 86036 (mouse only)</ul>
 		</p>
 		<ol>
     		
@@ -80,15 +79,14 @@
     		<p concordion:assertTrue="true">PASS - jlewis 12/20/12</p> 
     		<ol>
     			<li>Verify C4a and C4b lists (compare to Homology Class page or HomoloGene page)</li>
-    			<li>Verify that marker Slx lists - 3 mouse, laboratory </li>	
-    			<li>Verify that marker Kit lists nothing (no class associated to this marker)</li>
+    			<li>Verify that marker Slx lists - 130 mouse</li>
        		</ol></li>
     		
     		<li>Marker Detail page displays link to Homology Class page and HomoloGene ID for that class
     		<p concordion:assertTrue="true">PASS - jlewis 12/20/12</p>  
     		<ol>
     			<li>Verify that markers C4a and C4b display the link and class ID 36030</li>
-    			<li>Verify that markers Slx, Slxl1, and Gm4836 display a link to the new page and class ID 86004</li> 
+    			<li>Verify that markers Slx, Slxl1, and Gm4836 display a link to the new page and class ID 86036</li> 
        		</ol></li>
        	
        	    <li>Marker Detail page no longer includes link to Comparative Maps
@@ -98,7 +96,7 @@
        		</ol></li>
        		
        		<li>Verify SuperFamily and Gene Tree links
-    		<p concordion:assertTrue="false">FAIL - Superfamily link missing for Tead1</p>   
+    		<p concordion:assertTrue="false">PASS 1/4/12</p>   
     		<ol>
     			<li>Display C4a where there is just 1 SF id and 1 Ens id</li>  
     			<li>Gene where there's no SF or Ensembl id - Vamp7</li>

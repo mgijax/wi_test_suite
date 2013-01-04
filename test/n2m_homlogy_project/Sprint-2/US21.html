@@ -66,20 +66,30 @@
 <p concordion:assertTrue="false">testing assertFalse - displays as red</p>
  -->
 		<h3>Manual tests</h3>
-		<p>
-		List of mouse markers with associated homologene clusters (test data)
-		<ul><li>C4a & C4b - cluster id: 36030</li>
-		    <li>Slx & Slxl1 & Gm4836 - cluster id: 86004 (mouse only)</ul>
-		</p>
+		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify human gene links display as expected and go to the correct pages
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>test 1.1</li>
-    			<li>test 1.2 </li>	
+    			<li>Basic 1-1 class with all human links present - 1212 (Pax6)</li>
+    			<li>Class with multiple human genes and all human links present --  36030 (C4a, C4b)</li>
+    			<li>Class with no mouse genes and all human links present -- 19418 (MAGEB1 - human)</li>
+    			<li>Class with multiple human and mouse genes and all human links present -- 86332</li>
        		</ol></li>
-    		
+       		
+    		<li>Verify mouse gene links display as expected and go to the correct pages
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Basic 1-1 class with all mouse links present - 193 (Lep)</li>
+    			<li>Class with just mouse genes and all mouse links present for at least one of the mouse genes -- 86036 </li>
+    			<li>Class with multiple human and mouse genes and all mouse links present -- 128278</li>
+    			<li>Class with mouse markers that have no coordinates - expect no link to VISTA - 86036</li>
+    			<li>Class with a mouse marker that has no Ensembl ID - expect no link to Gene Tree - 4121 (Vamp7)</li>
+       		</ol></li>
+       		
+       		<li>Verify EntrezGene links display as expected for the remaining species (rat, cattle, dog, chimp) - 193, 187
+       		<p concordion:assertTrue="false">new test</p>
     		
 		</ol>
 	</div>

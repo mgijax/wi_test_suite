@@ -33,11 +33,10 @@
 	    <li>Display same human data elements as currently on Public plus human genetic location
         <ol><li>Optional fields - disease associations; synonyms -- if they don't exist don't display the line/heading</li>
             <li>Location -- if nothing exists display heading anyway (goal - easy requirement)</li>
-            <li>Genetic location format?
-        </ol></li>
+            <li>Genetic location format -  e.g 6p21.3</ol></li>
         <li>Display human genes based on associated homology class for the mouse marker
-        <ol><li>Collapse display only if more than one human gene to reduce vertical impact of more genes</li>
-            <li>List human symbols and method to open/close as default display</li>
+        <ol><li>Collapse display only if more than two human genes to reduce vertical impact of more genes</li>
+            <li>List human symbols and method to open/close when three or more human genes</li>
             <li>Model labels alignment/format using Other db links ribbon (different than mockup)</li>
         </ol></li>
         <li>Improve text display - see mockup</li>
@@ -59,11 +58,7 @@
 <p concordion:assertTrue="false">testing assertFalse - displays as red</p>
  -->
 		<h3>Manual tests</h3>
-		<p>
-		List of mouse markers with associated homologene clusters (test data)
-		<ul><li>C4a & C4b - cluster id: 36030</li>
-		    <li>Slx & Slxl1 & Gm4836 - cluster id: 86004 (mouse only)</ul>
-		</p>
+		
 		<ol>
     		
     		<li>Human data is displayed includes all that is Public now plus genetic location.
@@ -90,27 +85,27 @@
     			<li>Verify when synonyms are present and there's just a single human marker - Brca2</li>
     			<li>Verify when synonyms are present and there are multiple human markers present - C4a, C4b</li>
     			<li>Verify when synonyms are not present and there's a single human marker - XXX (use SQL to find after data is loaded)</li>
-    			<li>Verify when synonyms are not present and there are multiple human markers present - XXX (use SQL to find after data is loaded)</li>
+    			<li>Verify when synonyms are not present and there are multiple human markers present - Gm4663</li>
        		</ol></li>
     		
     		<li>Location is displayed regardless if there is a genetic or genomic data to display
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
     			<li>Verify when location is present - Pax6</li>
-    			<li>Verify when there's no location data present - XXX (not sure if this case exists?)</li>
+    			<li>Verify when there's no location data present - Gm4663</li>
        		</ol></li>
        		
        		<li>When more than 1 human marker exists only display 1 as the default and provide a way to show all human markers
        		<p concordion:assertTrue="false">new test</p> 
     		<ol>
     			<li>Verify display and show/hide process when there's just one human marker - all supported browsers - Kit</li>
-    			<li>Verify display and show/hide process when there/s multiple human markers - all supported browsers - C4a, C4b</li>
+    			<li>Verify display and show/hide process when there/s multiple human markers - all supported browsers - AA415398, Hist1h3d</li>
        		</ol></li>
        		
        		<li>Display human build text as stored in the database - C4a</li>
        		<p concordion:assertTrue="false">new test</p> 
        		
-       		<li>Format section per mockup, style/alignment from Other database links section, and stakeholder feedback - C4b</li>
+       		<li>Format section per mockup, style/alignment from Other database links section, and stakeholder feedback - C4b, Kit, Hist1h3d</li>
        		<p concordion:assertTrue="false">new test</p> 
     		
 		</ol>
