@@ -70,7 +70,7 @@
 		<ol>
     		
     		<li>Verify human gene links display as expected and go to the correct pages
-    		<p concordion:assertTrue="false">FAIL - jlewis 1/7/13 - MGI ID broken</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/7/13</p> 
     		<ol>
     			<li>Basic 1-1 class with all human links present - 1212 (Pax6)</li>
     			<li>Class with multiple human genes and all human links present --  36030 (C4a, C4b)</li>
@@ -79,12 +79,12 @@
        		</ol></li>
        		
     		<li>Verify mouse gene links display as expected and go to the correct pages
-    		<p concordion:assertTrue="false">WAITING - jlewis 1/7/13; waiting on eg for test 2.4, all others okay</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/7/13</p> 
     		<ol>
     			<li>Basic 1-1 class with all mouse links present - 193 (Lep)</li>
     			<li>Class with just mouse genes and all mouse links present for at least one of the mouse genes -- 86036 </li>
     			<li>Class with multiple human and mouse genes and all mouse links present -- 128278</li>
-    			<li>Class with mouse markers that have no coordinates - expect no link to VISTA - XXX (waiting on eg from Jon)</li>
+    			<li>Class with mouse markers that have no coordinates - expect no link to VISTA - 86179 (Csprs) </li>
     			<li>Class with a mouse marker that has no Ensembl ID - expect no link to Gene Tree - 4121 (Vamp7)</li>
        		</ol></li>
        		
