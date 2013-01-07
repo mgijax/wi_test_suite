@@ -35,8 +35,8 @@
             <li>Location -- if nothing exists display heading anyway (goal - easy requirement)</li>
             <li>Genetic location format -  e.g 6p21.3</ol></li>
         <li>Display human genes based on associated homology class for the mouse marker
-        <ol><li>Collapse display only if more than two human genes to reduce vertical impact of more genes</li>
-            <li>List human symbols and method to open/close when three or more human genes</li>
+        <ol><li><s>Collapse display only if more than two human genes to reduce vertical impact of more genes</s>12/20/12</li>
+            <li><s>List human symbols and method to open/close when three or more human genes</s> 12/20/12</li>
             <li>Model labels alignment/format using Other db links ribbon (different than mockup)</li>
         </ol></li>
         <li>Improve text display - see mockup</li>
@@ -62,16 +62,16 @@
 		<ol>
     		
     		<li>Human data is displayed includes all that is Public now plus genetic location.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">jlewis - 1/7/13</p> 
     		<ol>
     			<li>Verify when only one human marker is present - Kit</li>
     			<li>Verify when multiple human markers are present - C4a, C4b</li>
     			<li>Verify nothing is displayed if no human marker present - Slx</li>
-    			<li>Verify genetic location format - Lep</li>
+    			<li>Verify genetic location format - Lep - 7q31.3</li>
        		</ol></li>
        		
        		<li>Associated human diseases is an optional field that is only displayed when they exist.
-       		<p concordion:assertTrue="false">new test</p> 
+       		<p concordion:assertTrue="true">jlewis - 1/7/13</p> 
     		<ol>
     			<li>Verify when diseases are present and there's just a single human marker - Kit</li>
     			<li>Verify when diseases are present and there are multiple human markers present - C4a, C4b</li>
@@ -80,33 +80,25 @@
        		</ol></li>
        		
        		<li>Human synonyms is an optional field that is only displayed when they exist.
-       		<p concordion:assertTrue="false">new test</p> 
+       		<p concordion:assertTrue="true">jlewis - 1/7/13</p> 
     		<ol>
     			<li>Verify when synonyms are present and there's just a single human marker - Brca2</li>
     			<li>Verify when synonyms are present and there are multiple human markers present - C4a, C4b</li>
-    			<li>Verify when synonyms are not present and there's a single human marker - XXX (use SQL to find after data is loaded)</li>
     			<li>Verify when synonyms are not present and there are multiple human markers present - Gm4663</li>
        		</ol></li>
     		
     		<li>Location is displayed regardless if there is a genetic or genomic data to display
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">jlewis - 1/7/13</p> 
     		<ol>
     			<li>Verify when location is present - Pax6</li>
     			<li>Verify when there's no location data present - Gm4663</li>
        		</ol></li>
        		
-       		<li>When more than 1 human marker exists only display 1 as the default and provide a way to show all human markers
-       		<p concordion:assertTrue="false">new test</p> 
-    		<ol>
-    			<li>Verify display and show/hide process when there's just one human marker - all supported browsers - Kit</li>
-    			<li>Verify display and show/hide process when there/s multiple human markers - all supported browsers - AA415398, Hist1h3d</li>
-       		</ol></li>
+       		<li>Display human build text as stored in the database - C4a
+       		<p concordion:assertTrue="true">jlewis - 1/7/13</p></li> 
        		
-       		<li>Display human build text as stored in the database - C4a</li>
-       		<p concordion:assertTrue="false">new test</p> 
-       		
-       		<li>Format section per mockup, style/alignment from Other database links section, and stakeholder feedback - C4b, Kit, Hist1h3d</li>
-       		<p concordion:assertTrue="false">new test</p> 
+       		<li>Format section per mockup, style/alignment from Other database links section, and stakeholder feedback - C4b, Kit, Hist1h3d
+       		<p concordion:assertTrue="true">jlewis - 1/7/13</p></li>
     		
 		</ol>
 	</div>

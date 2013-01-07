@@ -38,7 +38,7 @@
 	    <ol><li>Updated human location data displayed on the Marker Detail page</li>
 	        <li>Updated human location data displayed on the Homologene Class page</li>
 	    </ol></li>
-	    <li>Load test markers that have different genetic v. genomic chromosomes (Vamp7 & Ahsp)</li>
+	    <li>Load test markers that have different genetic v. genomic chromosomes (Vamp7)</li>
 	       
 	    
 	    	    
@@ -60,7 +60,7 @@
 		<ol>
     		
     		<li>Verify that the loaded Homologene classes are displayed as expected on the new Homologene Class page and the species list is correct on the Marker Detail page.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/7/13</p> 
     		<ol>
     			<li>Basic 1:1 class - 460 (Trp53) </li>
     			<li>Class with 1 mouse gene, but multiple human genes - 88429 (Olfr1316) </li>	
@@ -71,11 +71,10 @@
     		    <li>Class with only mouse genes - 86036 (130 mouse genes, Slx)</li>
     		    <li>Class with loaded species plus zebrafish should not load zebrafish - 123787 (AA987161)</li>
     		    <li>Class with only zebrafish - should not be loaded - 123788</li>
-    		    <li>Class previously loaded into MGI, but retired at Homologene - should not be loaded - XXXX</li>
        		</ol></li>
        		
     		<li>Verify human coordinates and build text are updated on the Marker Detail page and Homologene Class page.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">FAIL - jlewis 1/7/13; build text updated, but old human coordinates still displayed</p> 
     		<ol>
     			<li>Verify Marker with updated human coordinates - Klhl17 (human marker - KLHL17); hg id = 27075
     			<ol><li>End coordinate: prev=901095; new=901099</li>
@@ -83,6 +82,7 @@
        		</ol></li>
        		
        		<li>Verify Genomic/Genetic Chromosomes display as expected on Homologene Class page when they are different
+       		<p concordion:assertTrue="true">PASS - jlewis 1/7/13</p>
 	        <ol><li>Vamp7 - genetic chr = X; genomic chr = 13</li>
 	        </ol></li>
     		
