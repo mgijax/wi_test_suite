@@ -72,14 +72,65 @@
 		</p>
 		<ol>
     		
-    		<li>Test 1
-    		<p concordion:assertTrue="false">new test</p> 
+    		<li>Verify all providers of representative GENOMIC mouse sequences - display, external link
+    		<p concordion:assertTrue="true">PASS - jlewis 1/16/2013</p> 
     		<ol>
-    			<li>test 1.1</li>
-    			<li>test 1.2 </li>	
+    			<li>VEGA - Kit (187)</li>
+    			<li>Ensembl - Brca2 (41)</li>
+    			<li>NCBI - Tead1 (2418)</li>
+    			<li>GenBank - 1700040F15Rik (86036)</li>
+       		</ol></li>
+       		
+       		<li>Verify all providers of representative TRANSCRIPT mouse sequencs - display, external link
+       		<p concordion:assertTrue="true">PASS - jlewis 1/16/2013</p> 
+    		<ol>
+    			<li>VEGA - Kit (187)</li>
+    			<li>Ensembl - Brca2 (41)</li>
+    			<li>RefSeq - Tead1 (2418)</li>
        		</ol></li>
     		
+    		<li>Verify all providers of representative PROTEIN mouse sequencs - display, external link
+       		<p concordion:assertTrue="true">PASS - jlewis 1/16/2013</p> 
+    		<ol>
+    			<li>VEGA - Kit (187)</li>
+    			<li>Ensembl - Brca2 (41)</li>
+    			<li>RefSeq - Sly (86036)</li>
+    			<li>UniProt - Tead1 (2418)</li> 
+       		</ol></li>
     		
+    		<li>Verify all providers of representative PROTEIN non-mouse (human, rat, cattle, dog, chimp) sequencs - display, external link
+       		<p concordion:assertTrue="true">PASS - jlewis 1/16/2013</p>
+    		<ol>
+    			<li>UniProt - C4a (36030)</li>
+    			<li>RefSeq - C4a (36030)</li>
+       		</ol></li>
+    		
+    		<li>Verify all providers of representative TRANSCRIPT non-mouse (human, rat, cattle, dog, chimp) sequencs - display, external link
+       		<p concordion:assertTrue="true">PASS - jlewis 1/16/2013</p> 
+    		<ol>
+    			<li>RefSeq - C4a (36030)</li>
+       		</ol></li>
+       		
+       		<li>Verify FASTA option returns results and UI works as expected (test supported browsers)
+       		<p concordion:assertTrue="true">PASS - jlewis 1/16/2013 - browser issue Chrome loses checks</p> 
+    		<ol>
+    			<li>Test all sequence providers - use examples above</li>
+    			<li>Select/deselect sequences</li>
+    			<li>Error message when no boxes checked</li>
+    			<li>Test chromosome MT - mt-Atp6 (5012)</li>
+       		</ol></li>
+       		
+       		<li>Verify Forward to MouseBlast option goes to MBlast and UI works as expected (test supported browsers)
+       		<p concordion:assertTrue="true">PASS - jlewis 1/16/2013  browser issue Chrome loses checks</p> 
+    		<ol>
+    			<li>Test all sequence providers</li>
+    			<li>Select/deselect sequences</li>
+    			<li>Error message when no boxes checked</li>
+    			<li>Test chromosome MT</li>
+    			<li>Test long sequence (special message in MBlast)</li>
+       		</ol></li>
+       		
+       		
 		</ol>
 	</div>
 	<div id="sql">
