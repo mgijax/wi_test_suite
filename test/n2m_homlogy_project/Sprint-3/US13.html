@@ -1,0 +1,113 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 13</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Update QFs to new homology</h1>
+    <ul>
+        <li>User Story 13, Update Query Forms to use new n-m homology data</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Update Marker, Allele, and SNP QFs/Summary non-mouse nomenclature queries to use the updated n-m homology associations
+	   <ol>
+	      <li>Non-mouse nomenclature includes: non-mouse symbols (all species); non-mouse names (all species); human and rat synonyms.</li>
+	      <li>A match to a non-mouse marker via nomenclature effectively matches a HomoloGene Class.  So, base returns on all mouse markers in that class.
+	         <ul><li>Example: "RG" is a synonym of human C4A. If the user enters this, they would match both mouse C4a and C4b.  Depending on the QF the objects
+	               returned would include  data for both of those markers.  For the Allele QF - alleles for both of these markers would be returned.</li>
+	         </ul></li>
+	       <li>Nomenclature matches by<u> mouse nomenclature</u> will NOT result in any add'l results due to Homology Class relationships.
+	          <ul><li>Example:  "Slp" is a synonym of mouse C4a, if the user enters "Slp", we'd return results based on C4a because of mouse synonym, but NO results based on C4b</li>
+              </ul></li>
+	       <li>Update Text on Query Forms & Summaries - ortholog v. homolog
+	       <ol><li>Marker QF - change 'orthologs' to 'homologs' in search pull-down in the Gene/Marker ribbon.</li>
+	           <li>Marker Summary - change the matching text labels to remove 'ortholog'
+	           <li>Marker Summary - change 'dog, domestic' to 'dog'
+	           <li>SNP QF - add homologs to the 3rd option in the search pull-down in the Associated Genes ribbon - 'current symbols/names, synonyms & homologs'
+	       </ol></li>
+	   </ol></li>
+	   
+	   <li>Update Batch Query to use new n-m homology associations for non-mouse nomenclature
+	   <ol><li>Non-mouse nomenclature includes: non-mouse symbols (all species); human and rat synonyms. (notice - names not included)</li>   
+	       <li>A match to a non-mouse marker via nomenclature effectively matches a HomoloGene Class.  So, return all mouse markers in that class.
+	         <ul><li>Example: "RG" is a synonym of human C4A. If the user enters this, they would match both mouse C4a and C4b and both should be returned.</li>
+	         </ul>
+	       <li>Nomenclature matches by<u> mouse nomenclature</u> will NOT result in any add'l results due to Homology Class relationships.
+	          <ul><li>Example:  "Slp" is a synonym of mouse C4a, if the user enters "Slp", we'd return results based on C4a because of mouse synonym, but NO results based on C4b</li>
+              </ul></li>
+	   </ol></li>
+	   <li>Update Batch Query to return results for HomoloGene IDs (or other non-mouse marker ids?)
+	   <ol><li>return all mouse markers in the Homology Class when there's a match on HomoloGene ID</li>
+	       <li>do NOT need to add HomoloGene IDs as an additional Input Type (per Judy)</li>
+	       <li>do NOT need to return matches for non-mouse marker ids (eg human entrezgene)</li>
+	   </ol></li>
+	   <li>Update Text on Batch Query (QF/Summary) - ortholog v. homolog
+	    <ol><li>Input Type pull-down list - change 'Orthologs' to 'homologs'</li>
+	           <li>Input Type column in results - change the input type labels to remove 'ortholog'
+	           <li>Input Type column in results - change 'dog, domestic' to 'dog'
+	     </ol></li>
+	   <li>Update Web Services functionality to mirror changes in the Batch Query</li>
+	
+	   
+ </ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>test 1.1</li>
+    			<li>test 1.2 </li>	
+       		</ol></li>
+    		
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
