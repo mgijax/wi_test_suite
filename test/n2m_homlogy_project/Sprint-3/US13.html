@@ -23,17 +23,21 @@
 
 <div id="maintitle"><h1>Update QFs to new homology</h1>
     <ul>
-        <li>User Story 13, Update Query Forms to use new n-m homology data</li>
+        <li>User Story 13, Update Query Forms to use new n-m homology classes</li>
     </ul>
 </div>
 
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	   <li>Update Marker, Allele, and SNP QFs/Summary non-mouse nomenclature queries to use the updated n-m homology associations
-	   <ol>
-	      <li>Non-mouse nomenclature includes: non-mouse symbols (all species); non-mouse names (all species); human and rat synonyms.</li>
-	      <li>A match to a non-mouse marker via nomenclature effectively matches a HomoloGene Class.  So, base returns on all mouse markers in that class.
+	   <li>Update Marker, Allele, and SNP QFs/Summary non-mouse nomenclature queries to use the updated n-m homology associations from HomoloGene<ol>
+	      <li>Non-mouse nomenclature includes: non-mouse symbols (loaded species); non-mouse names (loaded species); human and rat synonyms.  Loaded species: human, rat, cattle, chimpanzee, cow, dog.</li>
+	      <li>Each Query Form determines when to search by homologs in the same way as on Public now.
+	         <ol><li>Marker Query Form - when the search option <i>current & old symbols/names, synonyms, alleles, orthologs</i> is selected in the Gene/Marker ribbon.  This is the default. Note text change to this option below.</li>
+	             <li>Allele Query Form - when a value is entered in the Gene/Marker field - homolog nomenclature is searched.</li>
+	             <li>SNP Query Form - when the search option <i>current symbols/names & synonyms</i> is selected in the Associated Genes ribbon.  Note text change to this option below.</li>
+	         </ol></li>
+	      <li>A match to a non-mouse marker via nomenclature effectively matches a Homology Class.  So, base returns on all mouse markers in that class.
 	         <ul><li>Example: "RG" is a synonym of human C4A. If the user enters this, they would match both mouse C4a and C4b.  Depending on the QF the objects
 	               returned would include  data for both of those markers.  For the Allele QF - alleles for both of these markers would be returned.</li>
 	         </ul></li>
@@ -41,32 +45,32 @@
 	          <ul><li>Example:  "Slp" is a synonym of mouse C4a, if the user enters "Slp", we'd return results based on C4a because of mouse synonym, but NO results based on C4b</li>
               </ul></li>
 	       <li>Update Text on Query Forms & Summaries - ortholog v. homolog
-	       <ol><li>Marker QF - change 'orthologs' to 'homologs' in search pull-down in the Gene/Marker ribbon.</li>
-	           <li>Marker Summary - change the matching text labels to remove 'ortholog'
-	           <li>Marker Summary - change 'dog, domestic' to 'dog'
-	           <li>SNP QF - add homologs to the 3rd option in the search pull-down in the Associated Genes ribbon - 'current symbols/names, synonyms & homologs'
+	       <ol><li>Marker QF - change <i>orthologs</i> to <i>homologs</i> in search pull-down in the Gene/Marker ribbon.</li>
+	           <li>Marker Summary - change the matching text labels to remove <i>ortholog</i>
+	           <li>Marker Summary - change <i>dog, domestic</i> to <i>dog</i>
+	           <li>SNP QF - add homologs to the 3rd option in the search pull-down in the Associated Genes ribbon - <i>current symbols/names, synonyms & homologs</i>
 	       </ol></li>
 	   </ol></li>
 	   
-	   <li>Update Batch Query to use new n-m homology associations for non-mouse nomenclature
-	   <ol><li>Non-mouse nomenclature includes: non-mouse symbols (all species); human and rat synonyms. (notice - names not included)</li>   
+	   <li>Update Batch Query to use new n-m homology associations for non-mouse nomenclature searches
+	   <ol><li>Non-mouse nomenclature includes: non-mouse symbols (loaded species); human and rat synonyms. (notice - names not included)</li>   
 	       <li>A match to a non-mouse marker via nomenclature effectively matches a HomoloGene Class.  So, return all mouse markers in that class.
 	         <ul><li>Example: "RG" is a synonym of human C4A. If the user enters this, they would match both mouse C4a and C4b and both should be returned.</li>
 	         </ul>
 	       <li>Nomenclature matches by<u> mouse nomenclature</u> will NOT result in any add'l results due to Homology Class relationships.
 	          <ul><li>Example:  "Slp" is a synonym of mouse C4a, if the user enters "Slp", we'd return results based on C4a because of mouse synonym, but NO results based on C4b</li>
               </ul></li>
+           <li>Update Text on Batch Query (QF/Summary) - ortholog v. homolog
+	          <ol><li>Input Type pull-down list - change <i>Orthologs</i> to <i>Homologs</i></li>
+	           <li>Input Type column in results - change the input type labels to remove <i>ortholog</i>
+	           <li>Input Type column in results - change <i>dog, domestic</i> to <i>dog</i>
+	       </ol></li>
 	   </ol></li>
-	   <li>Update Batch Query to return results for HomoloGene IDs (or other non-mouse marker ids?)
-	   <ol><li>return all mouse markers in the Homology Class when there's a match on HomoloGene ID</li>
+	   <li>Update Batch Query to return results for HomoloGene IDs<ol><li>return all mouse markers in the Homology Class when there's a match on HomoloGene ID</li>
 	       <li>do NOT need to add HomoloGene IDs as an additional Input Type (per Judy)</li>
 	       <li>do NOT need to return matches for non-mouse marker ids (eg human entrezgene)</li>
 	   </ol></li>
-	   <li>Update Text on Batch Query (QF/Summary) - ortholog v. homolog
-	    <ol><li>Input Type pull-down list - change 'Orthologs' to 'homologs'</li>
-	           <li>Input Type column in results - change the input type labels to remove 'ortholog'
-	           <li>Input Type column in results - change 'dog, domestic' to 'dog'
-	     </ol></li>
+	   
 	   <li>Update Web Services functionality to mirror changes in the Batch Query</li>
 	
 	   

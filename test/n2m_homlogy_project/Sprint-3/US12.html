@@ -30,14 +30,14 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	   <li>The QuickSearch returns mouse markers by matching non-mouse nomenclature.  The results that these matches return are based on associations from newly loaded n-m HomoloGene associations.
-	   <ol><li>Non-mouse nomenclatures includes: non-mouse symbols (all species); non-mouse names (all species); human and rat synonyms.</li>
-	       <li>A match to a non-mouse marker via nomenclature effectively matches a HomoloGene Class.  So, return all mouse markers in that class in the Marker bucket
-	       <ul><li>Example: "RG" is a synonym of human C4A. If the user enters this, they would get both mouse C4a and C4b back with the reason "Human Synonym: RG"</li>
+	   <li>The QuickSearch returns mouse markers by matching non-mouse nomenclature.  The results that these matches return are based on associations from newly loaded n-m homology classes from HomoloGene.
+	   <ol><li>Non-mouse nomenclature includes: non-mouse symbols (loaded species); non-mouse names (loaded species); human and rat synonyms.  Loaded species: human, rat, cattle, chimpanzee, cow, dog.</li>
+	       <li>A match to a non-mouse marker via nomenclature effectively matches a Homology Class.  So, return all mouse markers in that class in the Marker bucket
+	       <ul><li>Example: "RG" is a synonym of human C4A. If the user enters this, they would get both mouse C4a and C4b returned because these genes are in the same Homology Class.  The reason would be "Human Synonym: RG".</li>
 	       </ul></li>
 	       <li>A nomenclature match to a non-mouse marker may result in no matches to mouse markers
-	       <ol><li>A non-mouse Marker may match a HomoloGene Class that has no mouse markers.</li>
-	           <li>If the matching nomen/synonyms only match non-mouse genes not in any Homologene class, then no mouse markers are matched or returned because of Homology</li>
+	       <ol><li>A non-mouse Marker may match a Homology Class that has no mouse markers.</li>
+	           <li>If the matching nomen/synonyms only match non-mouse genes not in a Homology Class, then no mouse markers are matched or returned because of homology</li>
 	       </ol></li>
 	       <li>Nomenclature matches by<u> mouse nomenclature</u> will NOT result in any add'l results due to Homology Class relationships.
 	       <ul><li>Example:  "Slp" is a synonym of mouse C4a, if the user enters "Slp", we'd return C4a because of mouse synonym, but NOT C4b</li>
@@ -52,14 +52,14 @@
        <li>Return results for a match to a HomoloGene ID.
        <ol><li>Return all mouse markers in that class, if any, in the marker bucket with a reason, eg. <i>ID: 36030 (HomoloGene)</i></li>
            <li>Return a single result in the ID bucket with a link to the new Homology Class page
-           <ol><li>Display the 3 columns: Homology; Class with <i>(species list w/ counts)</i>; ID: 36030 (HomoloGene)</li></ol></li>
+           <ol><li>Display the 3 columns: <i>Homology; Class with </i>(species list w/ counts)<i>; ID: 36030 (HomoloGene)</i></li></ol></li>
        </ol></li>
        
        <li>Return results for a match to a non-mouse ID (e.g EntrezGene, HGNC, OMIM gene id, RefSeq, UniProt, etc.)
        <ol><li>A match to a non-mouse ID implies a match to a HomoloGene Class.  Return all mouse markers, if any, included in that class to the marker bucket and display 
                the reason for the match as it is now, eg. <i>ID: 720 (EntrezGene - Human)</i></li>
            <li>In the ID bucket return a link to the Homology Class page.
-           <ol><li>Display the 3 columns: Homology; non-mouse symbol, name; ID: 720 (EntrezGene - Human)</li></ol></li>
+           <ol><li>Display the 3 columns: <i>Homology</i>; (non-mouse symbol, name); <i>ID: 720 (EntrezGene - Human)</i>.</li></ol></li>
 	  </ol>
  </ol>
 </div>
