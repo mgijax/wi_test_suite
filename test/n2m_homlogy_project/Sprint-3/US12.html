@@ -77,11 +77,59 @@
 		<h3>Manual tests</h3>
 		<ol>
     		
-    		<li>Test 1
+    		<li>Search for markers using non-mouse marker symbols (human, rat, cattle, chimpanzee, dog) and verify matches by homology
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>test 1.1</li>
-    			<li>test 1.2 </li>	
+    			<li>Test human symbol - LILRB3; returns matches to the 7 mouse genes in class 124457</li>
+    			<li>Test dog symbol - LOC100855507; returns matches to the 8 mouse genes in class 128278</li>	
+    			<li>Test non-mouse symbol that matches all species - BRCA1; returns a match to 1 mouse gene due to homology; class 5276</li>
+    			<li>Test non-mouse symbol that matches a homology class with no mouse markers - LOC516742; no results returned; class 111024</li>
+    			<li>Test non-mouse symbol that matched a mouse marker previously, but after new load homology association doesn't exist - AHSP; no matches due to homology; compare to Public to see difference</li>
+    		</ol></li>
+    		
+    		<li>Search for markers using non-mouse marker names (human, rat, cattle, chimpanzee, dog) and verify matches by homology
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Test human gene name - Tctex-type 1; returns matches to 4 mouse genes in class 4754 (human marker - DYNLT1)</li>
+    			<li>Test human gene name that has no mouse homology associations - histone H4; no matches to this name; name of cattle marker H4; class 111024</li>	
+       		</ol></li>
+    		
+    		<li>Search for markers using human and rat synonyms and verify matches by homology
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Test human synonym - RG; returns matches to 2 mouse genes (C4a, C4b) due to homology; class 36030</li>
+    			<li>Test rat synonym - DLX5; returns match to 1 mouse gene (Dlx2) due to homology; class 3244</li>	
+    			<li>Test human synonym - DAM10 from a class with no mouse genes; returns 0 matches due to homology; class 19418</li>
+       		</ol></li>
+    		
+    		<li>Search for markers by mouse nomemclature and verify no results due to homology matches
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Test mouse symbol - xxx</li>
+    			<li>test mouse name - xxx </li>	
+    			<li>test mouse synonym - Slp; returns match to C4a but not C4b; class 36030</li>
+       		</ol></li>
+    		
+    		<li>Verify 'ortholog' was removed from reason matched text and 'dog, domestic' was shortened to 'dog'.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for Brca1 -- all loaded species are displayed on All Matches page.</li>
+       		</ol></li>
+    		
+    		<li>Search for markers by HomoloGene ID - mouse markers from class returned in mouse bucket and ID returned in ID bucket.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Test 1:1 class - 460; 1  mouse marker returned due to homology; Trp53.</li>
+    			<li>Test class with multiple mouse markers - 124457; 7 mouse markers returned due to homology; Pira1, etal</li>	
+    			<li>Test class with no mouse markers - 19418; no mouse markers returned.</li>
+       		</ol></li>
+    		
+    		<li>Search for markers by non-mouse ID (gene and sequence ids)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Test human EG ID - 720; 2 mouse markers returned due to homology; C4a, C4b</li>
+    			<li>Test rat RefSeq ID - NP_001171154; 3 mouse markers returned; Mageb1, Mageb2, Mageb3</li>	
+    			<li>Test non-mouse ID w/ no homology - xxxx; </li>
        		</ol></li>
     		
     		
