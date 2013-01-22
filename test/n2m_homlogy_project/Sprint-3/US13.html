@@ -91,137 +91,138 @@
 		<ol>
     		
     		<li>Test Marker QF search of non-mouse nomenclature using the default search option (search of homologs included)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for Human Synonym - xxx; returns xxx</li>
-    			<li>Search for Rat Synonym - xxx; returns xxx</li>
-    			<li>Search for Non-mouse symbol - xxx; returns xxx</li>
-    			<li>Search for Non-mouse name - xxx; returns xxx</li>	
+    			<li>Search for Human Synonym - RG; returns C4a and C4b due to homology (class 36030).</li>
+    			<li>Search for Rat Synonym - Dlx5; returns Dlx2 due to homology (class 3244)</li>
+    			<li>Search for Non-mouse symbol - MAGEB4; returns matches by human symbol to Mageb1, Mageb2, Mageb3 due to homology (class 117952).</li>
+    			<li>Search for Non-mouse name - <i>FSHD region gene 2</i>; returns the 13 mouse genes for class 86332</li>	
        		</ol></li>
     		
     		<li>Test Marker QF search of non-mouse nomenclature using the non-default search option (search of homologs NOT included)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for Human Synonym - xxx; returns no matches </li>
-    			<li>Search for Rat Synonym - xxx; returns no matches</li>
-    			<li>Search for Non-mouse symbol - xxx; returns no matches</li>
-    			<li>Search for Non-mouse name - xxx; returns no matches</li>	
+    			<li>Search for Human Synonym - RG; returns no matches </li>
+    			<li>Search for Rat Synonym - Dlx5; returns no matches</li>
+    			<li>Search for Non-mouse symbol - MAGEB4; returns no matches</li>
+    			<li>Search for Non-mouse name - <i>FSHD region gene 2</i>; returns no matches</li>	
        		</ol></li>
     		
     		<li>Test Marker QF search of mouse nomenclature using the default search option (search of homologs included)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for mouse symbol in a class with other mouse genes - xxx; returns no matches due to homology </li>
-    			<li>Search for mouse synonym in a class with other mouse genes - xxx; returns no matches due to homology</li>
+    			<li>Search for mouse symbol in a class with other mouse genes - Pira1; returns only Pira1 (returns no matches due to homology)</li>
+    			<li>Search for mouse synonym in a class with other mouse genes - Slp; returns only C4a (returns no matches due to homology)</li>
+    			<li>Search for mouse name in a class with other mouse genes - <i>expressed sequence AA415398 </i>; returns only AA415398 (returns no matches due to homology)</li>
        		</ol></li>
        		
        		<li>Verify Marker Query Form/Summary text changes
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">FAIL - jlewis 1/22/2013; QF and Summary still display ortholog</p> 
     		<ol>
     			<li>Marker QF - text change to default search option</li>
     			<li>Marker Summary - text changes to matching text labels</li>
        		</ol></li>
        		
-       		<li>Test Allele QF search by Gene/Marker using non-mouse nomenclature (search field includes non-mouse nomenclature)
-    		<p concordion:assertTrue="false">new test</p> 
+       		<li>Test Allele QF search by Gene/Marker using non-mouse nomenclature (search field includes non-mouse nomenclature) note - use EQ instead of CONTAINS
+    		<p concordion:assertTrue="true">PASS - jlewis 1/21/2013</p> 
     		<ol>
-    			<li>Search for Human Synonym - xxx; returns xxx</li>
-    			<li>Search for Rat Synonym - xxx; returns xxx</li>
-    			<li>Search for Non-mouse symbol - xxx; returns xxx</li>
-    			<li>Search for Non-mouse name - xxx; returns xxx</li>	
+    			<li>Search for Human Synonym = IFN-ALPHA; returns 2 alleles for Ifna6 and Ifnab</li>
+    			<li>Search for Rat Synonym = Dlx5; returns 4 alleles for Dlx2</li>
+    			<li>Search for Non-mouse symbol = MAGEB4; returns 5 alleles for Mageb3</li>
+    			<li>Search for Non-mouse name = <i>IFNA13, interferon, alpha 13</i>; returns 2 alleles for Ifna6 and Ifnab</li>	
        		</ol></li>
     		
     		<li>Test Allele QF search by Allele nomenclature (search of homologs NOT included)
-    		<p concordion:assertTrue="false">new test</p> 
+    		Note - use CONTAINS<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for Human Synonym - xxx; returns no matches </li>
-    			<li>Search for Rat Synonym - xxx; returns no matches</li>
-    			<li>Search for Non-mouse symbol - xxx; returns no matches</li>
-    			<li>Search for Non-mouse name - xxx; returns no matches</li>	
+    			<li>Search for Human Synonym - IFN-ALPHA; returns no matches to alleles for Ifna6 or Ifnab</li>
+    			<li>Search for Rat Synonym - Dlx5; returns no matches to Dlx2</li>
+    			<li>Search for Non-mouse symbol - MAGEB4; returns no matches</li>
+    			<li>Search for Non-mouse name - <i>IFNA13, interferon, alpha 13</i>; returns no matches to alleles for Ifna6 or Ifnab</li>	
        		</ol></li>
     		
     		<li>Test Allele QF search by Gene/Marker using mouse nomenclature
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for mouse symbol in a class with other mouse genes - xxx; returns no matches due to homology </li>
-    			<li>Search for mouse synonym in a class with other mouse genes - xxx; returns no matches due to homology</li>
+    			<li>Search for mouse symbol in a class with other mouse genes - Ifna6; returns a match to Ifna6, but no matches due to homology (Ifnab)</li>
+    			<li>Search for mouse synonym in a class with other mouse genes - Ifna8; returns a match to Ifna6 but no matches due to homology (Ifnab)</li>
        		</ol></li>
        		
        		<li>Test SNP QF search of non-mouse nomenclature using the last search option (search of homologs included)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for Human Synonym - xxx; returns xxx</li>
-    			<li>Search for Rat Synonym - xxx; returns xxx</li>
-    			<li>Search for Non-mouse symbol - xxx; returns xxx</li>
-    			<li>Search for Non-mouse name - xxx; returns xxx</li>	
+    			<li>Search for Human Synonym - RG; returns 203 snps for C4a and C4b</li>
+    			<li>Search for Rat Synonym - Dlx5; returns 11 snps for Dlx2 (in addition to results for Dlx5)</li>
+    			<li>Search for Non-mouse symbol - MAGEB4; returns 18 snps for Mageb2, Mageb3 (plus 1 for Mageb4)</li>
+    			<li>Search for Non-mouse name - <i>FSHD region gene 2</i>; returns 63 snps to genes in homology class 86332 </li>	
        		</ol></li>
     		
     		<li>Test SNP QF search of non-mouse nomenclature using the other search options (search of homologs NOT included)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for Human Synonym - xxx; returns no matches </li>
-    			<li>Search for Rat Synonym - xxx; returns no matches</li>
-    			<li>Search for Non-mouse symbol - xxx; returns no matches</li>
-    			<li>Search for Non-mouse name - xxx; returns no matches</li>	
+    			<li>Search for Human Synonym - RG; returns no matches </li>
+    			<li>Search for Rat Synonym - Dlx5; returns no snps for Dlx2</li>
+    			<li>Search for Non-mouse symbol - MAGEB4; returns no snps for Mageb2 or Mageb3</li>
+    			<li>Search for Non-mouse name - <i>FSHD region gene 2</i>; returns no matches</li>	
        		</ol></li>
     		
     		<li>Test SNP QF search of mouse nomenclature using the non-default search option (search of homologs included)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for mouse symbol in a class with other mouse genes - xxx; returns no matches due to homology </li>
-    			<li>Search for mouse synonym in a class with other mouse genes - xxx; returns no matches due to homology</li>
+    			<li>Search for mouse symbol in a class with other mouse genes - Ifna6; returns no matches due to homology (Ifnab) </li>
+    			<li>Search for mouse synonym in a class with other mouse genes - Ifna8 (synonym for Ifna6); returns no matches due to homology (Ifnab)</li>
        		</ol></li>
        		
        		<li>Verify SNP Query Form/Summary text changes
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">FAIL - jlewis 1/22/2013</p> 
     		<ol>
     			<li>SNP QF - text change to last search option</li>
        		</ol></li>
        		
     		<li>Test Batch QF search of non-mouse nomenclature using the default search option (search of homolog nomenclature included)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for Human Synonym - xxx; returns xxx</li>
-    			<li>Search for Rat Synonym - xxx; returns xxx</li>
-    			<li>Search for Non-mouse symbol - xxx; returns xxx</li>
+    			<li>Search for Human Synonym - RG; returns C4a and C4b</li>
+    			<li>Search for Rat Synonym - Dlx5; returns Dlx2</li>
+    			<li>Search for Non-mouse symbol - MAGEB4; returns Mageb1, Mageb2, Mageb3</li>
        		</ol></li>
     		
     		<li>Test Batch QF search of non-mouse nomenclature using the non-default search option (search of homolog nomenclature NOT included)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for Human Synonym - xxx; returns no matches </li>
-    			<li>Search for Rat Synonym - xxx; returns no matches</li>
-    			<li>Search for Non-mouse symbol - xxx; returns no matches</li>
+    			<li>Search for Human Synonym - RG; returns no homolog matches </li>
+    			<li>Search for Rat Synonym - Dlx5; returns no homolog matches</li>
+    			<li>Search for Non-mouse symbol - MAGEB4; returns no homolog matches</li>
        		</ol></li>
     		
     		<li>Test Batch QF search of mouse nomenclature using the default search option (search of homologs included)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for mouse symbol in a class with other mouse genes - xxx; returns no matches due to homology </li>
-    			<li>Search for mouse synonym in a class with other mouse genes - xxx; returns no matches due to homology</li>
+    			<li>Search for mouse symbol in a class with other mouse genes - Ifna6; returns no matches due to homology class association </li>
+    			<li>Search for mouse synonym in a class with other mouse genes - Ifna8; returns no matches due to homology</li>
        		</ol></li>
        		
        		<li>Verify Batch Query Form/Summary text changes
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="false">FAIL - jlewis 1/22/2013</p> 
     		<ol>
     			<li>Batch QF - text change in Input Type pull-down</li>
-    			<li>Batch Summary - text changes to values in Input Type column</li>
+    			<li>Batch Summary - text changes to values in Input Type column (Ifna6 returns match to dog symbol)</li>
        		</ol></li>
        		
        		<li>Test Batch QF search of HomoloGene IDs using the default search option (search includes all types of IDs)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for HG ID with only 1 mouse gene - xxx; returns xxx</li>
-    			<li>Search for HG ID with multiple mouse genes - xxx; returns xxx</li>
-    			<li>Search for HG ID with no mouse genes - xxx; returns no matches</li>
+    			<li>Search for HG ID with only 1 mouse gene - 187; returns Kit</li>
+    			<li>Search for HG ID with multiple mouse genes - 36030; returns C4a, C4b</li>
+    			<li>Search for HG ID with no mouse genes - 19418; returns no matches to HomoloGene</li>
        		</ol></li>
        		
        		<li>Test Batch QF search of non-mouse gene and sequences IDs using the default search option (search includes all types of IDs) 
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2013</p> 
     		<ol>
-    			<li>Search for non-mouse EntrezGene ID - xxx; returns no matches</li>
-    			<li>Search for non-mouse Sequence ID - xxx; returns no matches</li>
-    			<li>Search for RGD ID - xxx; returns no matches</li>
+    			<li>Search for non-mouse EntrezGene ID - 39; returns no matches to the Human EG ID</li>
+    			<li>Search for non-mouse Sequence ID -  NP_001171154; returns no matches</li>
+    			<li>Search for RGD ID - RGD:708474; returns no matches</li>
        		</ol></li>
     		
 		</ol>
