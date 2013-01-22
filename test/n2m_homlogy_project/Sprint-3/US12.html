@@ -105,8 +105,8 @@
     		<li>Search for markers by mouse nomemclature and verify no results due to homology matches
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>Test mouse symbol - xxx</li>
-    			<li>test mouse name - xxx </li>	
+    			<li>Test mouse symbol - Gm14548; returns match to just this marker gene and not any other mouse genes in its class (124457)</li>
+    			<li>test mouse name - <i>subfamily A (with TM domain), member 6</i>; returns Lilra6 due to name match, but none of the other mouse genes in its class (124457) </li>	
     			<li>test mouse synonym - Slp; returns match to C4a but not C4b; class 36030</li>
        		</ol></li>
     		
@@ -128,8 +128,10 @@
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
     			<li>Test human EG ID - 720; 2 mouse markers returned due to homology; C4a, C4b</li>
-    			<li>Test rat RefSeq ID - NP_001171154; 3 mouse markers returned; Mageb1, Mageb2, Mageb3</li>	
-    			<li>Test non-mouse ID w/ no homology - xxxx; </li>
+    			<li>Test rat RefSeq ID - NP_001171154; 3 mouse markers returned; Mageb1, Mageb2, Mageb3</li>
+    			<li>Test rat RGD ID - RGD:2012; 1 mouse marker returned; Acadm; class 3</li>
+    			<li>Test rat RGD ID - RGD:708474; 2 mouse markers returned; 
+    			Ugt1a9, Ugt1a10: class 133281<li>Test non-mouse ID w/ no homology - RGD:1306725; associated to Ahsp; no homology loaded for Ahsp -- so no matches (I think)</li>
        		</ol></li>
     		
     		
