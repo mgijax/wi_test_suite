@@ -90,13 +90,139 @@
 		<h3>Manual tests</h3>
 		<ol>
     		
-    		<li>Test 1
+    		<li>Test Marker QF search of non-mouse nomenclature using the default search option (search of homologs included)
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>test 1.1</li>
-    			<li>test 1.2 </li>	
+    			<li>Search for Human Synonym - xxx; returns xxx</li>
+    			<li>Search for Rat Synonym - xxx; returns xxx</li>
+    			<li>Search for Non-mouse symbol - xxx; returns xxx</li>
+    			<li>Search for Non-mouse name - xxx; returns xxx</li>	
        		</ol></li>
     		
+    		<li>Test Marker QF search of non-mouse nomenclature using the non-default search option (search of homologs NOT included)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for Human Synonym - xxx; returns no matches </li>
+    			<li>Search for Rat Synonym - xxx; returns no matches</li>
+    			<li>Search for Non-mouse symbol - xxx; returns no matches</li>
+    			<li>Search for Non-mouse name - xxx; returns no matches</li>	
+       		</ol></li>
+    		
+    		<li>Test Marker QF search of mouse nomenclature using the default search option (search of homologs included)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for mouse symbol in a class with other mouse genes - xxx; returns no matches due to homology </li>
+    			<li>Search for mouse synonym in a class with other mouse genes - xxx; returns no matches due to homology</li>
+       		</ol></li>
+       		
+       		<li>Verify Marker Query Form/Summary text changes
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Marker QF - text change to default search option</li>
+    			<li>Marker Summary - text changes to matching text labels</li>
+       		</ol></li>
+       		
+       		<li>Test Allele QF search by Gene/Marker using non-mouse nomenclature (search field includes non-mouse nomenclature)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for Human Synonym - xxx; returns xxx</li>
+    			<li>Search for Rat Synonym - xxx; returns xxx</li>
+    			<li>Search for Non-mouse symbol - xxx; returns xxx</li>
+    			<li>Search for Non-mouse name - xxx; returns xxx</li>	
+       		</ol></li>
+    		
+    		<li>Test Allele QF search by Allele nomenclature (search of homologs NOT included)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for Human Synonym - xxx; returns no matches </li>
+    			<li>Search for Rat Synonym - xxx; returns no matches</li>
+    			<li>Search for Non-mouse symbol - xxx; returns no matches</li>
+    			<li>Search for Non-mouse name - xxx; returns no matches</li>	
+       		</ol></li>
+    		
+    		<li>Test Allele QF search by Gene/Marker using mouse nomenclature
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for mouse symbol in a class with other mouse genes - xxx; returns no matches due to homology </li>
+    			<li>Search for mouse synonym in a class with other mouse genes - xxx; returns no matches due to homology</li>
+       		</ol></li>
+       		
+       		<li>Test SNP QF search of non-mouse nomenclature using the last search option (search of homologs included)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for Human Synonym - xxx; returns xxx</li>
+    			<li>Search for Rat Synonym - xxx; returns xxx</li>
+    			<li>Search for Non-mouse symbol - xxx; returns xxx</li>
+    			<li>Search for Non-mouse name - xxx; returns xxx</li>	
+       		</ol></li>
+    		
+    		<li>Test SNP QF search of non-mouse nomenclature using the other search options (search of homologs NOT included)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for Human Synonym - xxx; returns no matches </li>
+    			<li>Search for Rat Synonym - xxx; returns no matches</li>
+    			<li>Search for Non-mouse symbol - xxx; returns no matches</li>
+    			<li>Search for Non-mouse name - xxx; returns no matches</li>	
+       		</ol></li>
+    		
+    		<li>Test SNP QF search of mouse nomenclature using the non-default search option (search of homologs included)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for mouse symbol in a class with other mouse genes - xxx; returns no matches due to homology </li>
+    			<li>Search for mouse synonym in a class with other mouse genes - xxx; returns no matches due to homology</li>
+       		</ol></li>
+       		
+       		<li>Verify SNP Query Form/Summary text changes
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>SNP QF - text change to last search option</li>
+       		</ol></li>
+       		
+    		<li>Test Batch QF search of non-mouse nomenclature using the default search option (search of homolog nomenclature included)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for Human Synonym - xxx; returns xxx</li>
+    			<li>Search for Rat Synonym - xxx; returns xxx</li>
+    			<li>Search for Non-mouse symbol - xxx; returns xxx</li>
+       		</ol></li>
+    		
+    		<li>Test Batch QF search of non-mouse nomenclature using the non-default search option (search of homolog nomenclature NOT included)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for Human Synonym - xxx; returns no matches </li>
+    			<li>Search for Rat Synonym - xxx; returns no matches</li>
+    			<li>Search for Non-mouse symbol - xxx; returns no matches</li>
+       		</ol></li>
+    		
+    		<li>Test Batch QF search of mouse nomenclature using the default search option (search of homologs included)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for mouse symbol in a class with other mouse genes - xxx; returns no matches due to homology </li>
+    			<li>Search for mouse synonym in a class with other mouse genes - xxx; returns no matches due to homology</li>
+       		</ol></li>
+       		
+       		<li>Verify Batch Query Form/Summary text changes
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Batch QF - text change in Input Type pull-down</li>
+    			<li>Batch Summary - text changes to values in Input Type column</li>
+       		</ol></li>
+       		
+       		<li>Test Batch QF search of HomoloGene IDs using the default search option (search includes all types of IDs)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for HG ID with only 1 mouse gene - xxx; returns xxx</li>
+    			<li>Search for HG ID with multiple mouse genes - xxx; returns xxx</li>
+    			<li>Search for HG ID with no mouse genes - xxx; returns no matches</li>
+       		</ol></li>
+       		
+       		<li>Test Batch QF search of non-mouse gene and sequences IDs using the default search option (search includes all types of IDs) 
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>Search for non-mouse EntrezGene ID - xxx; returns no matches</li>
+    			<li>Search for non-mouse Sequence ID - xxx; returns no matches</li>
+    			<li>Search for RGD ID - xxx; returns no matches</li>
+       		</ol></li>
     		
 		</ol>
 	</div>
