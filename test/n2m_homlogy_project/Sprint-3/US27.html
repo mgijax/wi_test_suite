@@ -35,7 +35,7 @@
 	        <li>Display the title of the disease and link it to the MGI Disease Detail page</li>
 	        <li>Do not display the OMIM id or link to the OMIM site from this page</li>
 	        <li>Only human and mouse markers will have values in this column
-	        <li>Is there an order requirement when multiple diseases exist for a marker?</li>
+	        <li>Is there an order requirement when multiple diseases exist for a marker (alpha)</li>
 	    </ol></li>
 	    <li>Display diseases associated to Human markers
 	    <ol><li>Include all associated diseases</li>
@@ -66,20 +66,41 @@
 <p concordion:assertTrue="false">testing assertFalse - displays as red</p>
  -->
 		<h3>Manual tests</h3>
-		<p>
-		List of mouse markers with associated homologene clusters (test data)
-		<ul><li>C4a & C4b - cluster id: 36030</li>
-		    <li>Slx & Slxl1 & Gm4836 - cluster id: 86004 (mouse only)</ul>
-		</p>
+		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify position, format, links, etc of new Associated Diseases column
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    			<li>test 1.1</li>
-    			<li>test 1.2 </li>	
+    			<li>View Homology Class page for Pten (lots of diseases listed) - class 265; expected results 16 human, 16 mouse</li>
+    			<li>View a non-mouse Homology Class page that has associated diseases - class xxxx</li>
+    			<li>View a mouse only Homology Class page that has associated diseases - class xxxx</li>
+    		    <li>View a Homology Class that has no associated diseases - class 117952</li>	
        		</ol></li>
     		
+    		<li>Verify disease associations to human and mouse 
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>View Homology Class where human and mouse have same diseases - class xxxx</li>
+    			<li>View Homology Class where human and mouse have diseases, but they are different - class 41</li>
+    			<li>View Homology Class where only human disease associations exist - class 115</li>
+    		    <li>View Homology Class where only mouse disease associations exist - class xxxx</li>	
+       		</ol></li>
+       		
+       		<li>Verify mouse disease associations when annotated to a complex genotype
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>View Homology Class where mouse marker is associated to a disease via a complex genotype 
+    			    that IS NOT conditional - class 187; expected results - don't display Lupus/SLE (as is on Marker Detail)</li>
+    			<li>View Homology Class where mouse marker is associated to a disease via a complex genotype that IS conditional - class xxxx; expected results - display disease</li>
+       		</ol></li>
+    		
+    		<li>Verify mouse disease associations when NOT annotations are used 
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>View Homology Class where mouse marker is associated to a disease via a NOT annotation - class xxxx; expected results - don't display disease</li>
+    			<li>View Homology Class where mouse marker is associated to a disease via a NOT annotation, but also a valid annotation - class xxxx; expected results - display disease</li>
+       		</ol></li>
     		
 		</ol>
 	</div>

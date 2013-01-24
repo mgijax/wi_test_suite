@@ -78,7 +78,7 @@
 		<ol>
     		
     		<li>Search for markers using non-mouse marker symbols (human, rat, cattle, chimpanzee, dog) and verify matches by homology
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/24/2013</p> 
     		<ol>
     			<li>Test human symbol - LILRB3; returns matches to the 7 mouse genes in class 124457</li>
     			<li>Test dog symbol - LOC100855507; returns matches to the 8 mouse genes in class 128278</li>	
@@ -88,14 +88,14 @@
     		</ol></li>
     		
     		<li>Search for markers using non-mouse marker names (human, rat, cattle, chimpanzee, dog) and verify matches by homology
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/24/2013</p> 
     		<ol>
     			<li>Test human gene name - Tctex-type 1; returns matches to 4 mouse genes in class 4754 (human marker - DYNLT1)</li>
     			<li>Test human gene name that has no mouse homology associations - histone H4; no matches to this name; name of cattle marker H4; class 111024</li>	
        		</ol></li>
     		
     		<li>Search for markers using human and rat synonyms and verify matches by homology
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/24/2013</p> 
     		<ol>
     			<li>Test human synonym - RG; returns matches to 2 mouse genes (C4a, C4b) due to homology; class 36030</li>
     			<li>Test rat synonym - DLX5; returns match to 1 mouse gene (Dlx2) due to homology; class 3244</li>	
@@ -103,7 +103,7 @@
        		</ol></li>
     		
     		<li>Search for markers by mouse nomemclature and verify no results due to homology matches
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/24/2013</p> 
     		<ol>
     			<li>Test mouse symbol - Gm14548; returns match to just this marker gene and not any other mouse genes in its class (124457)</li>
     			<li>test mouse name - <i>subfamily A (with TM domain), member 6</i>; returns Lilra6 due to name match, but none of the other mouse genes in its class (124457) </li>	
@@ -111,13 +111,13 @@
        		</ol></li>
     		
     		<li>Verify 'ortholog' was removed from reason matched text and 'dog, domestic' was shortened to 'dog'.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/24/2013</p>
     		<ol>
     			<li>Search for Brca1 -- all loaded species are displayed on All Matches page.</li>
        		</ol></li>
     		
     		<li>Search for markers by HomoloGene ID - mouse markers from class returned in mouse bucket and ID returned in ID bucket.
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/24/2013</p> 
     		<ol>
     			<li>Test 1:1 class - 460; 1  mouse marker returned due to homology; Trp53.</li>
     			<li>Test class with multiple mouse markers - 124457; 7 mouse markers returned due to homology; Pira1, etal</li>	
@@ -125,15 +125,19 @@
        		</ol></li>
     		
     		<li>Search for markers by non-mouse ID (gene and sequence ids)
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/24/2013</p> 
     		<ol>
     			<li>Test human EG ID - 720; 2 mouse markers returned due to homology; C4a, C4b</li>
     			<li>Test rat RefSeq ID - NP_001171154; 3 mouse markers returned; Mageb1, Mageb2, Mageb3</li>
-    			<li>Test rat RGD ID - RGD:2012; 1 mouse marker returned; Acadm; class 3</li>
-    			<li>Test rat RGD ID - RGD:708474; 2 mouse markers returned; 
-    			Ugt1a9, Ugt1a10: class 133281<li>Test non-mouse ID w/ no homology - RGD:1306725; associated to Ahsp; no homology loaded for Ahsp -- so no matches (I think)</li>
+    			<li>Test human RefSeq ID - NM_002363 for a class with no mouse markers; return link in ID bucket</li>
        		</ol></li>
     		
+    		<li>Verify display of matches in ID bucket
+    		<p concordion:assertTrue="false">FAIL - jlewis 1/24/2013; description not quite right when match by HG id</p> 
+    		<ol>
+    			<li>Test HG id - 36030 - display per requirements above</li>
+    			<li>Test human EG id 39 - display per requirements above</li>
+       		</ol></li>
     		
 		</ol>
 	</div>
