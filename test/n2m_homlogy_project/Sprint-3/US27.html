@@ -70,16 +70,16 @@
 		<ol>
     		
     		<li>Verify position, format, links, etc of new Associated Diseases column
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/25/2013</p>  
     		<ol>
     			<li>View Homology Class page for Pten (lots of diseases listed) - class 265; expected results 16 human, 16 mouse</li>
     			<li>View a non-mouse Homology Class page that has associated diseases - class 254</li>
-    			<li>View a mouse only Homology Class page that has associated diseases - class xxxx</li>
+    			<li>View a mouse only Homology Class page that has associated diseases - class 10911</li>
     		    <li>View a Homology Class that has no associated diseases - class 117952</li>	
        		</ol></li>
     		
     		<li>Verify disease associations to human and mouse 
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/25/2013</p> 
     		<ol>
     			<li>View Homology Class where human and mouse have same diseases - class 15638</li>
     			<li>View Homology Class where human and mouse have diseases, but they are different - class 41</li>
@@ -88,15 +88,15 @@
        		</ol></li>
        		
        		<li>Verify mouse disease associations when annotated to a complex genotype
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/25/2013</p> 
     		<ol>
     			<li>View Homology Class where mouse marker is associated to a disease via a complex genotype 
     			    that IS NOT conditional - class 187; expected results - don't display Lupus/SLE (as is on Marker Detail)</li>
-    			<li>View Homology Class where mouse marker is associated to a disease via a complex genotype that IS conditional - class xxxx; expected results - display disease</li>
+    			<li>View Homology Class where mouse marker is associated to a disease via a complex genotype that IS conditional - class 21196; expected results - display disease</li>
        		</ol></li>
     		
     		<li>Verify mouse disease associations when NOT annotations are used 
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/25/2013</p> 
     		<ol>
     			<li>View Homology Class where mouse marker is associated to a disease via a NOT annotation - class 7904; expected results - don't display disease for mouse; Huntington/HDL1</li>
     			<li>View Homology Class where mouse marker is associated to a disease via a NOT annotation, but also a valid annotation - class 7904; expected results - display disease for mouse; Fatal Insomnia</li>
