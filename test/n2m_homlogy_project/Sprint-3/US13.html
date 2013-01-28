@@ -117,10 +117,11 @@
        		</ol></li>
        		
        		<li>Verify Marker Query Form/Summary text changes
-    		<p concordion:assertTrue="false">FAIL - jlewis 1/22/2013; QF and Summary still display ortholog</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/28/2013</p> 
     		<ol>
     			<li>Marker QF - text change to default search option</li>
     			<li>Marker Summary - text changes to matching text labels</li>
+    			<li>Marker Summary - You Searched for change to match QF change</li>
        		</ol></li>
        		
        		<li>Test Allele QF search by Gene/Marker using non-mouse nomenclature (search field includes non-mouse nomenclature) note - use EQ instead of CONTAINS
@@ -174,9 +175,10 @@
        		</ol></li>
        		
        		<li>Verify SNP Query Form/Summary text changes
-    		<p concordion:assertTrue="false">FAIL - jlewis 1/22/2013</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/28/2013</p> 
     		<ol>
     			<li>SNP QF - text change to last search option</li>
+    			<li>SNP Summary - You Search For change to match QF change</li>
        		</ol></li>
        		
     		<li>Test Batch QF search of non-mouse nomenclature using the default search option (search of homolog nomenclature included)
@@ -203,7 +205,7 @@
        		</ol></li>
        		
        		<li>Verify Batch Query Form/Summary text changes
-    		<p concordion:assertTrue="false">FAIL - jlewis 1/22/2013</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 1/28/2013</p> 
     		<ol>
     			<li>Batch QF - text change in Input Type pull-down</li>
     			<li>Batch Summary - text changes to values in Input Type column (Ifna6 returns match to dog symbol)</li>
