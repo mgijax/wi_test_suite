@@ -42,12 +42,12 @@
 	        <li>Human markers are associated to diseases via an OMIM id</li>
 	    </ol></li>
 	    <li>Display disease(s) associated to Mouse markers
-	    <ol><li>Associate diseases to mouse markers via alleles in genotypes.</li>
-	        <li>Janan wants to use the new Allele Summary logic for determining when to include the disease annotation (part of scrum-dog release)
-	        <ol><li>Include diseases associated via a standard genotype</li>
-	            <li>Include diseases associated via conditional Genotypes (regardless if standard or complex)</li>
-	            <li>Don't include the disease if the Genotype is complex, but not conditional</li>
-	            <li>Don't include diseases associated via "Not" models, unless a positive annotation also exists</li>
+	    <ol><li>Associate diseases to mouse markers via path: Marker &gt; Allele &gt; Genotype &gt; Disease</li>
+	        <li>Use new rules for which associated diseases to display
+	        <ol><li>Exclude Alleles in the path with a Driver Note</li>
+	            <li>Exclude Genotypes in the path that are Complex (i.e. more than one associated Marker) AND Not Conditional</li>
+	            <li>Include Genotypes in the path that are Complex AND Conditional</li>
+	            <li>Exclude Diseases from the path that have a NOT qualifier</li>
 	        </ol></li>
 	    </ol></li>
 	    <li>Display adjustments - since this is the implementation of the last column, it is time to adjust column widths as needed</li>
