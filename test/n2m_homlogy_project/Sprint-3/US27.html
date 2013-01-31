@@ -87,11 +87,18 @@
     		    <li>View Homology Class where only mouse disease associations exist - class 31147</li>	
        		</ol></li>
        		
+       		<li>Verify that alleles with a "Driver Note", i.e. cre alleles, do not participate in disease associations
+    		<p concordion:assertTrue="true">PASS - 1/31/2013</p> 
+    		<ol>
+    			<li>View Homology Class where mouse marker is associated to a disease via a CRE annotation - class 68168; expected results - don't display disease for mouse; Diaphragmatic Hernia</li>
+       		</ol></li>
+       		
        		<li>Verify mouse disease associations when annotated to a complex genotype
     		<p concordion:assertTrue="true">PASS - jlewis 1/25/2013</p> 
     		<ol>
     			<li>View Homology Class where mouse marker is associated to a disease via a complex genotype 
-    			    that IS NOT conditional - class 187; expected results - don't display Lupus/SLE (as is on Marker Detail)</li>
+    			    that IS NOT conditional - class 187; expected results - don't display Lupus/SLE</li>
+    			<li>View Homology Class where mouse marker is associated to a disease via a complex genotype that IS NOT conditional (involves a transgene) - class 31039; expected results - don't display Teratoma, Ovarian</li>
     			<li>View Homology Class where mouse marker is associated to a disease via a complex genotype that IS conditional - class 21196; expected results - display disease</li>
        		</ol></li>
     		
