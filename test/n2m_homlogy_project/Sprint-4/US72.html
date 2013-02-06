@@ -1,0 +1,126 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 72</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Merge with 5.12 (High-throughput MP Project)</h1>
+    <ul>
+        <li>User Story 72, Merge Scrum-Dog release 5.12 changes</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Plan</h2>
+    <ul>
+    <li>PRODUCTION software
+	<ol>
+	    <li>EI - verify 5.12 version installed - look for sex specificity changes</li>
+	    <li>Prod WI
+	    <ol><li>old Mammalian Ortho page - link to VISTA removed (5.12 change)</li>
+	        <li>Marker QF, Allele QF, SNP QF, Batch QF - use updated data in MRK Label table</li>
+	    </ol></li>
+	    <li>Data / Loads
+	    <ol><li>MRK_Label - verify label name changes in 5.12</li>
+	        <li>new homology tables - verify loaded with data for 5.12</li>
+	    </ol></li>
+	    <li>Schema - anything to check here?</li>
+	</ol></li>
+	<li>PUBLIC software
+	<ol>
+	    <li>Public WI
+	    <ol><li>Marker Detail (fewi) - verify n-m homology changes merged</li>
+	        <li>Allele Detail (javawi/fewi) - verify 5.12 changes merged</li>
+	        <li>GBrowse links - verify various GBrowse links are up-to-date</li>
+	        <li>Allele Summary (python wi) - verify 5.12 changes merged</li>
+	        <li>Homology Class (fewi) - verify new page</li>
+	        <li>Marker QF/Summary (javawi/python wi) - verify n-m homology changes merged</li>
+	        <li>Allele Detail - TR1128 fix (molecular image bug)</li>
+	    </ol></li>
+	    <li>QuickSearch - test search by HomoloGene ID to verify new changes in merge</li>
+	    <li>MGI Home - check for a 5.12 change to verify merge
+	    <ol><li>Home Page - release announcement dated 1/31/13</li>
+	    </ol></li>
+	    <li>User Help - check 2 help docs to verify merge
+	    <ol><li>Allele Detail Help - 5.12</li>
+	        <li>Marker Detail Help - changes for n-m homology</li>
+	    </ol></li>
+	    <li>FAQ - check for a 5.12 change to verify merge
+	    <ol><li>PAD_gene.shtml - updated Allele Summary image for 5.12</li>
+	    </ol></li>
+	    	        
+	</ol></li>
+	</ul>
+	
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		    <li>Production EI
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    			<li>reference 5.12 manual tests</li>
+       		</ol></li>
+    		
+    		<li>Production WI
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    			<li>VISTA link - gone from Mammalian Orthology page</li>
+    			<li>Marker QF/Summary - check that results returned use new homology class data</li>
+       		</ol></li>
+       		
+       		<li>Data
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    			<li>check updates to label name in MRK_Label</li>
+    			<li>check for data in new homology tables</li>
+       		</ol></li>
+    		
+    		
+    		
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
