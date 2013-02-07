@@ -65,7 +65,8 @@
 		
 		<ol>
     		
-    		<li>Verify newly implemented Disease Detail page now in FEWI product - check toolbars, links, heading, user help link<p concordion:assertTrue="false">new test</p>  
+    		<li>Verify newly implemented Disease Detail page now in FEWI product - check toolbars, links, heading, user help link
+    		<p concordion:assertTrue="true">PASS - jlewis 2/7/2013</p>  
     		<ol>
     			<li>Display a Disease Detail page that has associated mouse and human genes - OMIM id 209850; Autism</li>
     			<li>Display a Disease Detail page that has associated mouse genes (no human) - OMIM id 109100; Autoimmune Disease</li>
@@ -74,7 +75,7 @@
        		</ol></li>
        		
        		<li>Verify Human Disease ribbon - text and link
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 2/7/2013</p>  
     		<ol>
     			<li>Disease Detail with associated mouse and human genes - OMIM id 600807; Asthma</li>
     			<li>Disease Detail with associated mouse genes (no human) - OMIM id 600321; Diabetes...IDDM7</li>
@@ -82,11 +83,10 @@
     			<li>Disease Detail with no associated mouse or human genes - OMIM id 605365; Breast Cancer 3</li> 
     			<li>Disease Detail with a long disease name - OMIM id 613913; Lipodystrophy...APLDC3</li>
     			<li>Disease Detail with a name with special characters - OMIM id 141750; Alpha-Thalassemia/Mental...16-Related</li>
-    			<li>	
        		</ol></li>
     		   
     		<li>Verify Synonym ribbon - text
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 2/7/2013</p>  
     		<ol>
     			<li>Disease Detail with multiple synonyms - OMIM id 160980; Carney Complex (5 synonyms)</li>
     			<li>Disease Detail with a single synonym - OMIM id 106280; Ankyloglossia</li>
@@ -96,12 +96,12 @@
        		</ol></li>		
        		
        		<li>Verify URLs to new Human Disease Detail page
-       		<p concordion:assertTrue="false">new test</p>  
+       		<p concordion:assertTrue="true">PASS - jlewis 2/7/2013</p>  
     		<ol>
     			<li>Link using a valid OMIM id - 145500; Hypertension</li>
-    			<li>Link using an invalid OMIM id - 888888; blank page</li>
+    			<li>Link using an invalid OMIM id - 888888; error page</li>
     			<li>Link using a valid key - 852556; Dravet Syndrome</li>
-    			<li>Link using an invalid key - 999999; blank page</li> 	
+    			<li>Link using an invalid key - 999999; error page</li> 	
        		</ol></li>		
     		
 		</ol>
