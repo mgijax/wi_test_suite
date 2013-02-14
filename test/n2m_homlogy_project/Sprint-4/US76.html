@@ -106,14 +106,60 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify Genes/Models ribbon displays 
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    			<li>test 1.1</li>
-    			<li>test 1.2</li>
+    			<li>Disease associated to no genes - OMIM id 604324; display special message</li>
+    			<li>Disease associated to both human and mouse genes - OMIM id 104300; human and mouse genes w/ asterisks</li>
+    			<li>Disease associated to only mouse genes - OMIM id 182250; only mouse genes w/ asterisks</li>
+    			<li>Disease associated to only human genes - OMIM id 308930; only human genes w/ asterisks</li>
+    			<li>Disease associated to only human genes that have no mouse orthologs - OMIM id 609402; only human genes w/ asterisks and no mouse genes</li>
        		</ol></li>
        		
+       		<li>Verify vertical sections in the table display as expected
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    			<li>Disease with only a "both" section - OMIM id 148190; display just this section</li>
+    			<li>Disease with only a "mouse" section - OMIM id 530000; display just this section</li>
+    			<li>Disease with only a "human" section - OMIM id 243400; display just this section</li>
+    			<li>Disease with a "both" and "mouse" section - OMIM id 245200; display these 2 sections</li>
+    			<li>Disease with a "both" and "human" section - OMIM id 214800; display these 2 sections</li>
+    			<li>Disease with a "human" and "mouse" section - OMIM id 605714; display these 2 sections</li>
+    			<li>Disease with a "both", "human", and "mouse section - OMIM id 604219; display these 3 sections</li>
+    			
+       		</ol></li>
        		
+       		<li>Verify homology relationships are displayed correctly
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    			<li>Disease with only 1-1 homology classes - OMIM id 188550</li>
+    			<li>Disease with 1-m homology class - OMIM id  ?????</li>
+    			<li>Disease with n-1 homology class - OMIM id 603903</li>
+    			<li>Disease with n-m homology class - OMIM id 152700</li>
+    			<li>Disease with n-0 homology class - OMIM 166710</li>
+    			<li>Disease with 0-n homology class - OMIM 600807</li> 
+    			<li>Disease with more than 1 gene associated from a class - OMIM id ????</li>
+    			<li>Disease with a mouse gene that has no homology class - OMIM id ????</li>
+    			<li>Disease with a human gene that has no homology class - OMIM id 115650</li>
+       		</ol></li>
+       		
+       		<li>Verify display/links/order of the 2 homolog columns
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    			<li>Disease with 1-1 homology classes - OMIM id 143100</li>
+    			<li>Disease with n-m homology classes - OMIM id 613985</li>
+       		</ol></li>
+       		
+       		<li>Verify "rules" have been used to filter markers included for a disease in the Genes/Models ribbon
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    			<li>Disease with a marker that is not a Gene - OMIM id 142340</li>
+    			<li>Disease associated to a Marker via an allele w/ Driver Note - OMIM id 142340</li>
+    			<li>Disease associated to a Marker via a NOT genotype annotation - OMIM id 143100</li>
+    			<li>Disease associated to a Marker via a Complex Genotype that is NOT also conditional - OMIM id 166950</li>
+    			<li>Disease associated to a Marker via a wild type allele - OMIM id ?????</li>
+    			<li>Disease associated to a Marker via a genotype that includes Gt(ROSA) - OMIM id 114480</li> 
+       		</ol></li>
     		
 		</ol>
 	</div>
