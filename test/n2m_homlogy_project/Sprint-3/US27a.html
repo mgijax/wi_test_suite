@@ -1,0 +1,115 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 27a (new disease display rules)</title>
+</head>
+
+<body>
+
+<div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+<div id="maintitle"><h1>Associated Diseases column - Homology Class</h1>
+    <ul>
+        <li>User Story 27a, Associated Diseases column on new Homology Class page, incorporating new disease display rules as defined in: <a href="http://prodwww.informatics.jax.org/all/wts_projects/6500/6519/US27_Disease_Display.txt">US27_Disease_Display</a>.</li>
+    </ul>
+</div>
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+<OL>
+<LI>Add an "Associated Diseases" column to the new Homology Class page
+	<OL>
+	<LI>Initial implementation - display column, between genome coordinates and sequences columns
+	<LI>Display the title of the disease and link it to the MGI Disease Detail page
+	<LI>Do not display the OMIM id or link to the OMIM site from this page
+	<LI>Only human and mouse markers will have values in this column
+	<LI>Is there an order requirement when multiple diseases exist for a marker?
+	</OL>
+<LI>Display disease(s) associated to Human markers
+	<OL>
+	<LI>Include all associated OMIM diseases (not Gene-based OMIM records)
+	<LI>Human markers are associated to diseases via an OMIM id
+	</OL>
+<LI>Display disease(s) associated to Mouse markers
+	<OL>
+	<LI>Associate diseases to mouse markers via path: Marker > Allele > Genotype > Disease
+	<LI>Use new rules for which associated diseases to display
+		<OL>
+		<LI>Exclude Alleles in the path with a Driver Note
+		<LI>Exclude Genotypes in the path that are Complex (i.e. more than one associated Marker) AND Not Conditional
+		<LI>Include Genotypes in the path that are Complex AND Conditional
+		<LI>Exclude Diseases from the path that have a NOT qualifier
+		</OL>
+	</OL>
+<LI>Display adjustments - since this is the implementation of the last column, it is time to adjust column widths as needed
+</OL>
+</div>
+
+
+
+
+
+
+</OL>
+</OL>
+
+
+
+
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		<p>
+		List of mouse markers with associated homologene clusters (test data)
+		<ul><li>C4a & C4b - cluster id: 36030</li>
+		    <li>Slx & Slxl1 & Gm4836 - cluster id: 86004 (mouse only)</ul>
+		</p>
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    			<li>test 1.1</li>
+    			<li>test 1.2 </li>	
+       		</ol></li>
+    		
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
