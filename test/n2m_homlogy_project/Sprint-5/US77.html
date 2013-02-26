@@ -30,42 +30,45 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	   <li>requirement 1</li>
-	   <li>requirement 2</li>
+	   <li>Include appropriate models for each row of the "Genes and Models" table
+	   <ol><li>Include models that involve at least one mouse of the homology class (i.e. row) with 
+	           the exception of models associated via an allele with a driver note (cre)</li>
+	       <li>Include "NOT" models that involve at least one gene of the homology class, but don't
+	           include in the counts unless it is the only item displayed
+	           <ul><li>The label text for this case is special - display <b>View 1 &quot;NOT&quot; model</b></li>
+	           </ul></li>
+	       <li>Include models associated to mouse orthologs for any row
+	           <ul><li>may apply to "both" or "human only" sections</li>
+	           </ul></li>
+	       <li>A model may be included in more than 1 row (due to complex genotypes)</li>
+	       <li>Do not display or count a model more than once for any row</li>
+	       <li>Every row in the "both" and "mouse only" section should have at least one model</li>
+	   
+	   </ol></li>
+	   <li>Display count of models that links to a pop-up displaying mouse models
+	   <ol><li>Link text is sensitive to 1 vs. plural (model vs. models)</li>
+	       <li>Pop-up is the style that must be closed by user</li>
+	       <li>Pop-up is the style that may be moved by user</li>
+	       <li>Default size - none; Size the window per the data present</li>
+	       <li>Links from the pop-up create a new tab in the same window as the original Disease Detail page is displayed (not a tab in the pop-up)</li>
+	       <li>Style of mockup will copy pop-ups in new Homology Class page
+	   </ol></li>
+	   <li>Display model data in pop-up
+	   <ol><li>Display NOT models, if present, in a separate table below all other models.</li>
+	       <li>Display a sub-heading of "NOT" Models between tables</li>
+	       <li>Display a heading, human disease name, and links to associated mouse genes at the top of the pop-up
+	           <ul><li>Only display mouse genes associated to the disease - there will be cases in the 'human only' section where this field does not apply</li>
+	               <li>Display multiple mouse genes if more than 1 is associated to the disease in the Homology Class (currently no cases of this)</li>
+	           </ul></li>
+	       <li>Display the following fields in the model table:
+	       <ul><li>Allelic Composition: display as we do elsewhere in WI, link alleles to Allele Detail</li>
+	           <li>Genetic Background: display as we do elsewhere in WI</li>
+	           <li>Reference: display list of J numbers; link them to Reference page</li>
+	           <li>Phenotype: link to phenotype details for the genotype</li>
+	       </ul></li>
+	   </ol></li>
 	    
-	1. Display count of gene models for each gene in table.
-1a. Include every model with a genotype that includes this gene/homology class (i.e. total for row)
-1b. Exceptions: NOTs; Alleles w/ driver notes; complex/not conditional genotypes
-1c. Possible for models to be included in counts for multiple genes
-1d. Every row in the "both" and "mouse only" section should have at least one model
-1e. Genes in the "human only" section won't have any models - leave blank.
-1f. Other?
-
-2. Link "Count text" to a pop-up displaying the models
-2a. Pop-up contains all models for a row in the table 
-    -- a model may appear in multiple rows 
-    -- if multiple mouse markers in a class have associations all the models for those markers are shown in the row (does this case exist? NO)
-    -- Exceptions: NOTs; Alleles w/driver notes; complex/not conditional genotypes (models for these cases not included)
-2b. Pop-up is the style that must be closed by user
-2c. Pop-up may be moved by the user
-2d. Default size - per mockup?
-2e. How do we handle links from the pop-up?
-    -- new pop-ups on Allele Detail create a new tab in the same window of the original Allele Detail (makes sense to do the same)
-2f. Model after any other style of pop-up currently in the WI or use style in mockup?
-2g. Other?
-
-3. Display data in Model Pop-up per mockup
-3a. Human Disease Modeled - display disease name as text
-3b.  Associated Mouse Gene - display symbol and link to Marker Detail
-3c.  Allelic Composition
-      -- display per rules currently used for genotypes in WI
-      -- link non-wild type alleles to Allele Detail page
-3d.  Genetic Background (indication of conditional or not? - (NO, per Janan 2/21)
-3e.  Reference - Display J# and link to a Reference page
-       -- multiple J# are possible (see Fas for SLE; 152700)
-       -- can there be zero? (I don't think so)
-3f. Other?    
-	    
+	
 	</ol>
 </div>
 
@@ -83,68 +86,14 @@
 		
 		<ol>
     		
-    		<li>Verify Genes/Models ribbon displays 
-    		<p concordion:assertTrue="true">PASS - jlewis 2/15/2013</p>  
+    		<li>Display Mouse Model associated via a 
+    		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    			<li>Disease associated to no genes - OMIM id 604324; display special message</li>
-    			<li>Disease associated to both human and mouse genes - OMIM id 104300; human and mouse genes w/ asterisks; display 26 genes
-    			<ul><li>mouse Sorl dropped due to cx geno (moved from both to human only)</li>
-    			    <li>11 mouse genes dropped from the mouse only section due to cx genotypes</li>
-    			    <li>5 human genes added to the human only section - bug fix</li>
-    			</ul></li>
-    			<li>Disease associated to only mouse genes - OMIM id 182250; only mouse genes w/ asterisks; display 1 gene</li>
-    			<li>Disease associated to only human genes - OMIM id 308930; only human genes w/ asterisks; display 1 gene</li>
-    			<li>Disease associated to only human genes that have no mouse orthologs - OMIM id 609402; only human genes w/ asterisks and no mouse genes; display 1 gene</li>
-       		</ol></li>
+    			<li>test 1</li>
+    			<li>test 2</li>
+    		</ol></li>
        		
-       		<li>Verify vertical sections in the table display as expected
-    		<p concordion:assertTrue="true">PASS - jlewis 2/18/13</p>  
-    		<ol>
-    			<li>Disease with only a "both" section - OMIM id 148190; display just this section; 1 gene</li>
-    			<li>Disease with only a "mouse" section - OMIM id 530000; display just this section; 1 gene</li>
-    			<li>Disease with only a "human" section - OMIM id 243400; display just this section; 1 gene</li>
-    			<li>Disease with a "both" and "mouse" section - OMIM id 245200; display these 2 sections; 2 genes</li>
-    			<li>Disease with a "both" and "human" section - OMIM id 214800; display these 2 sections; 2 genes</li>
-    			<li>Disease with a "human" and "mouse" section - OMIM id 213300; display these 2 sections; 3 genes</li>
-    			<li>Disease with a "both", "human", and "mouse section - OMIM id 604219; display these 3 sections
-    			<ul><li>both = 2 genes; mouse = 18 genes; human = 1 gene</li></ul></li>
-    			
-       		</ol></li>
        		
-       		<li>Verify homology relationships are displayed correctly
-    		<p concordion:assertTrue="true">PASS - jlewis 2/18/13</p>  
-    		<ol>
-    			<li>Disease with only 1-1 homology classes - OMIM id 188550; 7 human</li>
-    			<li>Disease with 1-m homology class - OMIM id  253550; 1 both; 1:2 homology class</li>
-    			<li>Disease with n-1 homology class - OMIM id 603903; 1 mouse; 1 human</li>
-    			<li>Disease with n-m homology class - OMIM id 152700; 3 both; 20 mouse; 13 human
-    			<ul><li>C4a, C4b moved to "both"; 8 mouse removed due to cx geno; 2 mouse (Cd19, Lyz2) removed due to cre</li></ul></li>
-    			<li>Disease with n-0 homology class - OMIM 166710; 1 both; 3 mouse; 8 human</li>
-    			<li>Disease with 0-n homology class - OMIM 600807; 4 mouse; 13 human<ul><li>Human MUC7 - has 0:1 homology class</li></ul></li> 
-    			<li>Disease with more than 1 gene associated from a class - OMIM id 253400; 1 both (3 genes in class associated to disease)</li>
-    			<li>Disease with a mouse gene that has no homology class - OMIM id 115650; 4 mouse; 1 human</li>
-    			<li>Disease with a human gene that has no homology class - OMIM id 115650; 4 mouse; 1 human</li>
-       		</ol></li>
-       		
-       		<li>Verify display/links/order of the 2 homolog columns
-    		<p concordion:assertTrue="true">PASS - jlewis 2/18/13</p>  
-    		<ol>
-    			<li>Disease with 1-1 homology classes - OMIM id 143100; 1 mouse; 1 human</li>
-    			<li>Disease with n-m homology classes - OMIM id 181500; 2 both; 21 mouse; 24 human</li>
-    			<li>Disease with n-1 homology class - OMIM id 613490; 1 human (with 5 mouse homologs)</li>
-       		</ol></li>
-       		
-       		<li>Verify "rules" have been used to filter markers included for a disease in the Genes/Models ribbon
-    		<p concordion:assertTrue="true">PASS - jlewis 2/18/13</p>  
-    		<ol>
-    			<li>Disease with a marker that is not a Gene - OMIM id 176620; Hba - a complex/cluster/region marker not displayed in gene ribbon</li>
-    			<li>Disease associated to a Marker via an allele w/ Driver Note - OMIM id 142340; 7 mouse; 1 human (Nkx3-2 removed due to Cre)</li>
-    			<li>Disease associated to a Marker via a NOT genotype annotation - OMIM id 143100; 1 both; 2 mouse (Hap1 NOT annotation)</li>
-    			<li>Disease associated to a Marker via a Complex Genotype that is NOT also conditional - OMIM id 166950; no genes (due to complex genotype)</li>
-    			<li>Disease associated to a Marker via a wild type allele - OMIM id 188400 - don't display Nkx2-5</li>
-    			<li>Disease associated to a Marker via a genotype that includes Gt(ROSA) - OMIM id 114480;4 both; 5 mouse; 17 human (gt(rosa) not included)</li> 
-       		</ol></li>
-    		
 		</ol>
 	</div>
 	<div id="sql">
