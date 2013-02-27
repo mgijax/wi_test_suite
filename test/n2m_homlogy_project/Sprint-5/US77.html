@@ -89,35 +89,31 @@
     		<li>Display mouse models for genes in the 'both' category
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    			<li>Gene with multiple non-complex models.  OMIM id xxxx; Gene xxx; Expect: n models</li>
-    			<li>Gene with 1 non-complex model. OMIM id xxxx; Gene xxx; Expect: 1 model </li>
-    			<li>Gene with multiple complex/conditional models. OMIM id xxxx; Gene xxx; Expect n models</li>
-    			<li>Gene with 1 complex/conditional model. OMIM id xxxx; Gene xxx; Expect 1 model</li>
-    			<li>Gene with multiple complex/conditional models. OMIM id xxxx; Gene xxx; Expect n models</li>
-    			<li>Gene with 1 add'l NOT model. OMIM id xxxx; Gene xxx; Expect n models + 1 NOT model</li>
-    			<li>Gene with multiple add'l NOT models.  OMIM id xxxx; Gene xxx; Expect n models + n  NOT models</li>
-    			<li>Gene with Cre model that should be ignored.  OMIM id xxxx; Gene xxx; Expect n models</li>
-    			<li>Row with multiple genes.  OMIM id xxxx; Genes xxx,xxx; Expect n models</li>
-    			<li>Row with multiple genes...any case where there's a complex model for an ortholog?</li>
-    			<li>Genes that are both involved in the same model -- display in each row.  OMIM id xxxx; Genes xxx,xxx</li>
-    			<li>Row with a model that is possible to list twice -- but only count/display once.  OMIM id xxxx; Gene xxx</li>
+    			<li>Gene with multiple non-complex models.  OMIM id 306900; Gene F9; Expect: 3 models</li>
+    			<li>Gene with 1 non-complex model. OMIM id 203100; Gene Tyr; Expect: 1 model </li>
+    			<li>Gene with multiple complex/conditional models. OMIM id 253400; Gene Smn1; Expect 3 models</li>
+    			<li>Gene with multiple complex/conditional models. OMIM id 114500; Gene Apc; Expect 4 models</li>
+    			<li>Gene with 1 add'l NOT model. OMIM id 607822; Gene Psen1; Expect 6 models + 1 NOT model</li>
+    			<li>Gene with multiple add'l NOT models.  OMIM id 123400; Gene Prnp; Expect 7 models + 4  NOT models</li>
+    			<li>Gene with Cre model that should be ignored.  OMIM id 125800; Gene Aqp2; Expect 3 models</li>
+    			<li>Row with multiple genes.  OMIM id 141900; Genes Hbb-b1, Hbb-b2; Expect 2 models</li>
+    			<li>? Row with multiple genes...any case where there's a complex model for an ortholog?</li>
+    			<li>? Genes that are both involved in the same model -- display in each row.  OMIM id xxxx; Genes xxx,xxx</li>
+    			<li>? Row with a model that is possible to list twice -- but only count/display once.  OMIM id xxxx; Gene xxx</li>
     		</ol></li>
        		
        		<li>Display mouse models for genes in the 'mouse only' category
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    			<li>Gene with multiple non-complex models.  OMIM id xxxx; Gene xxx; Expect: n models</li>
-    			<li>Gene with 1 non-complex model. OMIM id xxxx; Gene xxx; Expect: n models</li>
-    			<li>Gene with multiple complex/conditional models. OMIM id xxxx; Gene xxx; Expect n models</li>
-    			<li>Gene with 1 complex/conditional model. OMIM id xxxx; Gene xxx; Expect n models</li>
-    			<li>Gene with multiple complex/conditional models. OMIM id xxxx; Gene xxx; Expect n models</li>
-    			<li>Gene with 1 add'l NOT model. OMIM id xxxx; Gene xxx; Expect n models + 1 NOT model</li>
-    			<li>Gene with multiple add'l NOT models.  OMIM id xxxx; Gene xxx; Expect n models + x NOT models</li>
+    			<li>Gene with multiple non-complex models.  OMIM id 604219; Gene Cat4; Expect: 3 models</li>
+    			<li>Gene with 1 non-complex model. OMIM id 604219; Gene Acc; Expect: 1 model</li>
+    			<li>Gene with 1 complex/conditional model. OMIM id 104300; Gene Lrp1; Expect 1 model</li>
+    			<li>Gene with 1 add'l NOT model. OMIM id 104300; Gene Psen1; Expect 14 models + 1 NOT model</li>
     			<li>Gene with Cre model that should be ignored.  OMIM id xxxx; Gene xxx; Expect n models</li>
-    			<li>Row with multiple genes.  OMIM id xxxx; Genes xxx,xxx; Expect n models</li>
-    			<li>Row with multiple genes...any case where there's a complex model for an ortholog?</li>
-    			<li>Genes that are both involved in the same model -- display in each row.  OMIM id xxxx; Genes xxx,xxx</li>
-    			<li>Row with a model that is possible to list twice -- but only count/display once.  OMIM id xxxx; Gene xxx</li>
+    			<li>Row with multiple genes.  OMIM id 141900; Genes Hba-a1, Hba-a2; Expect 1 model</li>
+    			<li>? Row with multiple genes...any case where there's a complex model for an ortholog?</li>
+    			<li>? Genes that are both involved in the same model -- display in each row.  OMIM id xxxx; Genes xxx,xxx</li>
+    			<li>? Row with a model that is possible to list twice -- but only count/display once.  OMIM id xxxx; Gene xxx</li>
     		</ol></li>
        		
        		<li>Display mouse models for genes in the 'human only' category
@@ -126,7 +122,7 @@
     			<li>Gene with multiple non-complex models.  OMIM id xxxx; Gene xxx; Expect: n models</li>
     			<li>Gene with 1 non-complex model. OMIM id xxxx; Gene xxx; Expect: n models</li>
     			<li>Gene with multiple complex/conditional models. OMIM id xxxx; Gene xxx; Expect n models</li>
-    			<li>Gene with 1 complex/conditional model. OMIM id xxxx; Gene xxx; Expect n models</li>
+    			<li>Gene with 1 complex/conditional model. OMIM id 104300; Gene Sorl1; Expect 1 model</li>
     			<li>Gene with multiple complex/conditional models. OMIM id xxxx; Gene xxx; Expect n models</li>
     			<li>Gene with 1 add'l NOT model. OMIM id xxxx; Gene xxx; Expect n models + 1 NOT model</li>
     			<li>Gene with multiple add'l NOT models.  OMIM id xxxx; Gene xxx; Expect n models + x NOT models</li>
@@ -158,7 +154,8 @@
     		    </ol></li>
     		    <li>Verify display of Allelic Composition and links to Allele Detail
     		    <ol><li>Model pop-up with complex genotype.  OMIM id xxxx; Gene xxxx; Expected results: same display as on Public; alleles link.</li>
-    		        <li>Model pop-up with genotype that contains a wild-type allele.  OMIM id: xxxx; Gene xxx; Expected results: no link for wild type allele</li>
+    		        <li>Model pop-up with genotype that contains a wild-type allele.  OMIM id: 106210; Gene Pax6; Expected results: 6 models; no link for wild type allele</li>
+    		        <li>Model pop-up with genotype that contains '/Y'.  OMIM ID: 306700; Gene F8; Expected results: 4 models; display=Public
     		    </ol></li>
     		    <li>Verify display of Genetic Background
     		    <ol><li>Model pop-up with special case for this field (check with Sue B). OMIM id xxxx; Gene xxxx; Expected results:</li>
