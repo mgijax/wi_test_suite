@@ -135,7 +135,10 @@
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		    <li>Pop-up opens, closes, moves in all browsers</li>
-    		    <li>Pop-up is sized correctly in all browsers</li>
+    		    <li>Pop-up is reasonable size in all browsers
+    		    <ol><li>small pop-up example: OMIM id:114550; Gene: Apc; Expected results: 1 model</li>
+    		        <li>large pop-up example: OMIM id:601665; Gene: Lepr; Expected results: 17 models</li>
+    		    </ol></li>
     		    <li>Pop-up style is as expected in all browsers</li>
     		    <li>links from pop-up open up a new tab in Disease Detail window in all browsers</li>
     		</ol></li>
@@ -143,15 +146,15 @@
        		<li>Verify data displayed in pop-ups
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		    <li>Verify display of heading, NOT sub-heading, human disease name, and links to associated mouse genes.
-    		    <ol><li>Model pop-up with just 1 model.  OMIM id xxxx; Gene xxxx; Expected results:</li>
-    		        <li>Model pop-up with multiple models.  OMIM id xxxx; Gene xxx; Expected results:</li>
-    		        <li>Model pop-up with both regular models and NOT models.  OMIM id xxxx; Gene xxx; Expected results: NOT sub-heading displayed</li>
+    		    <li>Verify display of heading, NOT sub-heading &amp; text, human disease name, and links to associated mouse genes.
+    		    <ol><li>Model pop-up with just 1 model.  OMIM id 606889; Gene Psen2; Expected results 1 model, 0 NOTs</li>
+    		        <li>Model pop-up with multiple models.  OMIM id 114550; Gene Rb1; Expected results: 2 models</li>
+    		        <li>Model pop-up with both regular models and NOT models.  OMIM id 607822; Gene Psen1; Expected results: NOT sub-heading displayed; 5 models + 1 NOT model</li>
     		        <li>Model pop-up with multiple mouse genes in class.  OMIM id xxxx; Gene xxxx; Expected results: only display associated mouse gene</li>
     		        <li>Model pop-up with ONLY NOT models (in human only section).  OMIM id 208230; Gene Wisp3; Expected results: 1 NOT model</li>
     		    </ol></li>
     		    <li>Verify display of Allelic Composition and links to Allele Detail
-    		    <ol><li>Model pop-up with complex genotype.  OMIM id xxxx; Gene xxxx; Expected results: same display as on Public; alleles link.</li>
+    		    <ol><li>Model pop-up with complex genotype.  OMIM id 211980; Gene Fgfr3; Expected results: same display as on Public; alleles link.</li>
     		        <li>Model pop-up with genotype that contains a wild-type allele.  OMIM id: 106210; Gene Pax6; Expected results: 6 models; no link for wild type allele</li>
     		        <li>Model pop-up with genotype that contains '/Y'.  OMIM ID: 306700; Gene F8; Expected results: 4 models; display=Public
     		    </ol></li>
@@ -159,12 +162,13 @@
     		    <ol><li>Model pop-up with superscript in background. OMIM id 163500; Gene Pde6b; Expected results: 14 models - 1 with a superscript in background</li>
     		    </ol></li>
     		    <li>Verify display of Reference field and link to Reference page
-    		    <ol><li>Model pop-up with single J#.  OMIM id xxxx; Gene xxxx; Expected results:</li>
+    		    <ol><li>Model pop-up with single J#.  OMIM id 182280; Gene Trp53; Expected results: 4 models</li>
     		        <li>Model pop-up with multiple J#.  OMIM id 181500; Gene Ppp3r1; Expected results: 1 model with 2 refs</li>
     		    </ol></li>
-    		    <li>Verify link to Phenotype data for a model. OMIM id xxxxx; Gene xxx; Expected results:
-    		    <ol><li>Model pop-up for a non-complex genotype.  OMIM id xxxx; Gene xxxx; Expected results:</li>
-    		        <li>Model pop-up for a NOT model.  OMIM id 136800; Gene Col8a2; Expected results: 1 model, 3 NOTs</li>
+    		    <li>Verify link to Phenotype data for a model.
+    		    <ol><li>Model pop-up for a mouse model.  OMIM id 260350; Gene Brca2; Expected results: link to correct pheno page</li>
+    		        <li>Model pop-up for a mouse model that has a pheno page with an image.  OMIM id 106210; Gene: Pax6; Allele: Pax6[Sey-Dey]; Pheno page has an image</li>
+    		        <li>Model pop-up for a NOT model.  OMIM id 136800; Gene Col8a2; Expected results: NOT model links to correct pheno page</li>
     		    </ol></li>
     		    
     		   
