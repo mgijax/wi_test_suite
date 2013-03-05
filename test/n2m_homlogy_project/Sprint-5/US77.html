@@ -86,8 +86,8 @@
 		
 		<ol>
     		
-    		<li>Display mouse models for genes in the 'both' category
-    		<p concordion:assertTrue="false">new test</p>  
+    		<li>Display mouse models for genes in the 'both' category (use Firefox)
+    		<p concordion:assertTrue="true">PASS - jlewis 3/5/13</p>  
     		<ol>
     			<li>Gene with multiple non-complex models.  OMIM id 306900; Gene F9; Expect: 3 models  <b>pass</b></li>
     			<li>Gene with 1 non-complex model. OMIM id 203100; Gene Tyr; Expect: 1 model <b>pass</b></li>
@@ -97,49 +97,47 @@
     			<li>Gene with multiple add'l NOT models.  OMIM id 123400; Gene Prnp; Expect 4 models + 4  NOT models <b>pass</b></li>
     			<li>Gene with Cre model that should be ignored.  OMIM id 125800; Gene Aqp2; Expect 3 models <b>pass</b></li>
     			<li>Row with multiple genes.  OMIM id 141900; Genes Hbb-b1, Hbb-b2; Expect 2 models <b>pass</b></li>
-    			<li>? Row with multiple genes...any case where there's a complex model for an ortholog?</li>
+    			<li>? Row with multiple genes...any case where there's a complex model for an ortholog? - found no example of this in data for now</li>
     			<li>Genes that are both involved in the same model -- display in each row.  OMIM id 601665; Genes Mc3r, Mc4r; Expected results: 3 models/2 models <b>pass</b> </li>
     		</ol></li>
        		
-       		<li>Display mouse models for genes in the 'mouse only' category
-    		<p concordion:assertTrue="false">new test</p>  
+       		<li>Display mouse models for genes in the 'mouse only' category (use IE)
+    		<p concordion:assertTrue="true">PASS - jlewis 3/4/13</p>  
     		<ol>
     			<li>Gene with multiple non-complex models.  OMIM id 604219; Gene Cat4; Expect: 3 models <b>pass</b></li>
     			<li>Gene with 1 non-complex model. OMIM id 604219; Gene Acc; Expect: 1 model <b>pass</b></li>
     			<li>Gene with 1 complex/conditional model. OMIM id 104300; Gene Lrp1; Expect 1 model <b>pass</b></li>
-    			<li>Gene with 1 add'l NOT model. OMIM id 104300; Gene Psen1; Expect 15 models + 1 NOT model <b>pass</b></li>
+    			<li>Gene with 1 add'l NOT model. OMIM id 104300; Gene Psen1; Expect 15 models + 1 NOT model <b>pass - data okay; IE browser issue; reported for 4.2.2</b></li>
     			<li>Gene with multiple add'l NOT models.  OMIM id:222100; Gene Ighm; Expect 3 models + 3 NOT models <b>pass</b></li>
-    			<li>? Gene with Cre model that should be ignored.  OMIM id xxxx; Gene xxx; Expect n models</li>
     			<li>Row with multiple genes.  OMIM id 141900; Genes Hba-a1, Hba-a2; Expect 1 model <b>pass</b></li>
     			<li>Genes that are both involved in the same model -- display in each row.  OMIM id 222100; Genes Foxo1, Pdpk1; Expected results: 1 model/1 model. <b>pass</b></li>
     		</ol></li>
        		
-       		<li>Display mouse models for genes in the 'human only' category
-    		<p concordion:assertTrue="false">FAIL - jlewis 3/1/12</p>  
+       		<li>Display mouse models for genes in the 'human only' category (use Safari)
+       		<p concordion:assertTrue="true">PASS - jlewis 3/5/13</p>  
     		<ol>
-    			<li>Gene with multiple complex models. OMIM id 155255; Gene Ptch2; Expect 2 models <b>bug: no models displayed</b></li>
-    			<li>Gene with 1 complex model. OMIM id 104300; Gene Sorl1; Expect 1 model <b>bug: no models displayed</b></li>
-    			<li>Gene with 1 add'l NOT model. OMIM id 222100; Gene H2-Ab1; Expect 3 models + 1 NOT model <b>bug: only NOT model displayed</b></li>
-    			<li>Gene with multiple add'l NOT models.  OMIM id 137440; Gene Prnp; Expect 2 models + 3 NOT models <b>bug: only NOT models displayed</b></li>
-    			<li>? Gene with Cre model that should be ignored.  OMIM id xxxx; Gene xxx; Expect n models</li>
-    			<li>? Row with multiple genes.  OMIM id xxxx; Genes xxx,xxx; Expect n models</li>
-    			<li>Genes that are both involved in the same model -- display in each row.  OMIM id 601665; Genes Adrb2, Adrb3; Expected results: 1 model for each gene - same model <b>bug: no models displayed</b></li>
+    			<li>Gene with multiple complex models. OMIM id 155255; Gene Ptch2; Expect 2 models </li>
+    			<li>Gene with 1 complex model. OMIM id 104300; Gene Sorl1; Expect 1 model  </li>
+    			<li>Gene with 1 add'l NOT model. OMIM id 222100; Gene H2-Ab1; Expect 3 models + 1 NOT model  </li>
+    			<li>Gene with multiple add'l NOT models.  OMIM id 137440; Gene Prnp; Expect 1 models + 3 NOT models </li>
+    			<li>Row with multiple genes.  OMIM id xxxx; Genes xxx,xxx; Expect n models - case not found</li>
+    			<li>Genes that are both involved in the same model -- display in each row.  OMIM id 601665; Genes Adrb2, Adrb3; Expected results: 1 model for each gene - same model  </li>
     		</ol></li>
        		
        		<li>Verify pop-up works as expected in supported browsers (Firefox, IE, Safari, Chrome?)
-    		<p concordion:assertTrue="false"><b>FAIL - jlewis 3/1/12; I/E has major issues -- see OMIM id 601665; Safari - asterisks are red </b></p>  
+    		<p concordion:assertTrue="false"><b>FAIL - jlewis 3/5/13; I/E 4.2.2 failed - superscripts move in large pop-up </b></p>  
     		<ol>
-    		    <li>Pop-up opens, closes, moves in all browsers <b>firefox/pass; chrome/pass; safari/pass</b></li>
+    		    <li>Pop-up opens, closes, moves in all browsers <b>all browsers - pass</b></li>
     		    <li>Pop-up is reasonable size in all browsers 
-    		    <ol><li>small pop-up example: OMIM id:114550; Gene: Apc; Expected results: 1 model <b>firefox/pass; </b></li>
-    		        <li>large pop-up example: OMIM id:601665; Gene: Lepr; Expected results: 17 models <b>firefox/pass;</b></li>
+    		    <ol><li>small pop-up example: OMIM id:114550; Gene: Apc; Expected results: 1 model <b>all browsers - pass</b></li>
+    		        <li>large pop-up example: OMIM id:601665; Gene: Lepr; Expected results: 17 models <b>firefox; safari; chrome - pass; IE - fail</b></li>
     		    </ol></li>
-    		    <li>Pop-up style is as expected in all browsers <b>firefox/pass; </b></li>
-    		    <li>links from pop-up open up a new tab in Disease Detail window in all browsers <b>firefox/pass; </b></li>
+    		    <li>Pop-up style is as expected in all browsers <b>all browsers - pass </b></li>
+    		    <li>links from pop-up open up a new tab in Disease Detail window in all browsers <b>all browsers - pass</b></li>
     		</ol></li>
        		
        		<li>Verify data displayed in pop-ups
-    		<p concordion:assertTrue="true">PASS - jlewis 3/1/12</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/1/13 & 3/5/13</p>  
     		<ol>
     		    <li>Verify display of heading, NOT sub-heading and text, human disease name, and links to associated mouse genes.
     		    <ol><li>Model pop-up with just 1 model.  OMIM id 606889; Gene Psen2; Expected results 1 model, 0 NOTs <b>pass</b></li>
