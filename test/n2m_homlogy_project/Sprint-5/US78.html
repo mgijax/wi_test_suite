@@ -87,34 +87,33 @@
 		<ol>
     		
     		<li>Display appropriate markers in Transgene/Other table
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/7/2013</p>  
     		<ol>
-    			<li>Disease with no transgenes or other markers.  OMIM id xxxx; Expected results: no Transgene ribbon displayed</li>
-    			<li>Disease with only NOT transgene/other markers.  OMIM id xxxx; Expected results: no Transgene ribbon displayed</li>
-    			<li>Disease with no markers associated.  OMIM id xxxx; Expected results: no Transgene ribbon displayed</li>
-    			<li>Disease with transgenes/others that are all associated to the disease.  OMIM id xxxx; Expected results: all Transgenes/other in the ribbon.</li>
-    			<li>Disease with transgenes/others where none of them are associated to the disease.  OMIM id xxxx; Expected results:  no ribbon displayed.</li>
-    			<li>Disease with transgenes/others where a marker is not associated due to the complex/not conditional rule.  OMIM id xxxx; Expected results: those failing complex rule not displayed.</li>
-    			<li>Disease with transgenes/others where a marker is not associated due to the Driver Note rule.  OMIM id xxxx; Expected results: marker with Driver Note not displayed</li>
+    			<li>Disease with no transgenes or other markers.  OMIM id 602875; Expected results: no Transgene ribbon displayed</li>
+    			<li>Disease with only NOT transgene/other markers.  OMIM id 603284 or 308230; Expected results: no Transgene ribbon displayed</li>
+    			<li>Disease with no markers associated.  OMIM id 244100; Expected results: no Transgene ribbon displayed</li>
+    			<li>Disease with transgenes/others that are all associated to the disease.  OMIM id 606889; Expected results: 1 marker</li>
+    			<li>Disease with transgenes/others where none of them are associated to the disease.  OMIM id 253400; Expected results:  no ribbon displayed.</li>
+    			<li>Disease with transgenes/others where a marker is not associated due to the complex/not conditional rule.  OMIM id 607822; Expected results: 4 markers (2 less than public)</li>
+    			<li>Disease with transgenes/others where a marker is not associated due to the Driver Note rule.  OMIM id 222100; Expected results: Tg(ins2-cre)25Mgn/0 not displayed</li>
     		</ol></li>
        		
        		<li>Verify Transgene ribbon/table headings, column headings, text, links
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - 3/7/2013</p>  
     		<ol>
-    		    <li>Disease with a transgene marker in table.  OMIM id xxxx; Expected results: link to Transgene Detail page.</li>
-    		    <li>Disease with a complex/cluster/region in table.  OMIM id xxxx; Expected results: link to Marker Detail page.</li>
-    		    <li>Disease with a marker that has a superscript.  OMIM id xxxx; Expected results: superscript displays</li>
+    		    <li>Disease with a transgene marker in table.  OMIM id 254500; Expected results: link to Tg(Igh-Maf)68Staka Transgene Detail page.</li>
+    		    <li>Disease with a complex/cluster/region in table.  OMIM id 113970 ; Expected results: link to Igh Marker Detail page.</li>
+    		    <li>Disease with a marker that has a superscript.  OMIM id 222100; Expected results: superscript displays for Tg(H2-Ea<sup>d</sup>)12Lt</li>
     	    </ol></li>
        		
        		<li>Display mouse models for transgenes/others
-       		<p concordion:assertTrue="false">new test</p>    
+       		<p concordion:assertTrue="true">PASS - jlewis 3/7/2013</p>    
     		<ol>
-    			<li>Marker with non-complex models.  OMIM id xxxxx; Marker xxxxx; Expected results: </li>
-    			<li>Marker with complex/conditional models. OMIM id xxxxx; Marker xxxxx; Expected results:  </li>
-    			<li>Marker with complex/not conditional models included.  OMIM id xxxxx; Marker xxxxx; Expected results:  </li>
-    			<li>Marker with 1 add'l NOT model. OMIM id xxxx; Marker xxxx; Expect n models + 1 NOT model  </li>
-    			<li>Marker with multiple add'l NOT models.  OMIM id nnnnn; Marker xxxxx; Expect n models + n NOT models </li>
-    			<li>Markers that are both involved in the same model -- display in each row.  OMIM id xxxxx; Markers xxxx, xxxx; Expected results: </li>
+    			<li>Marker with non-complex models.  OMIM id 607136; Expected results: 1 model/marker (4 markers) </li>
+    			<li>Marker with complex/conditional models. OMIM id 176270; Marker Snord116; Expected results: 2 models (1 complex/cond) </li>
+    			<li>Marker with complex/not conditional models included.  OMIM id 152700; Marker Igh-J; Expected results: 4 models (3 are complex/not cond.)  </li>
+    			<li>Marker with 1 add'l NOT model. OMIM id 614266; Marker: Tg(ED-L2-IL1RN/IL1B)#Tcw; Expect 1 model + 1 NOT model  </li>
+    			<li>Markers that are both involved in the same model -- display in each row.  OMIM id 176807; Markers Ar, Tg(TRAMP)8247Ng; Expected results: 3 models displayed for both markers </li>
     		</ol></li>
        		
        		<li>Verify pop-up works as expected in supported browsers (Firefox, IE, Safari, Chrome?)
@@ -122,8 +121,8 @@
     		<ol>
     		    <li>Pop-up opens, closes, moves in all browsers</li>
     		    <li>Pop-up is reasonable size in all browsers 
-    		    <ol><li>small pop-up example: OMIM id: xxxx; Marker: xxxx</li>
-    		        <li>large pop-up example: OMIM id: xxxx; Marker: xxxx</li>
+    		    <ol><li>small pop-up example: OMIM id: 104300; Marker: Tg(Thy1-APPon)2Vln; 4 models</li>
+    		        <li>large pop-up example: OMIM id: 104300; Marker: Tg(APPSWE)2576Kha; 11 models</li>
     		    </ol></li>
     		    <li>Pop-up style is as expected in all browsers </li>
     		    <li>links from pop-up open up a new tab in Disease Detail window in all browsers </li>
@@ -150,7 +149,7 @@
     		    </ol></li>
     		    <li>Verify display of Reference field and link to Reference page
     		    <ol><li>Model pop-up with single J#.  OMIM id xxxx; Marker xxxx; Expected results: </li>
-    		        <li>Model pop-up with multiple J#.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		        <li>Model pop-up with multiple J#.  OMIM id 152700; Marker Yaa; Expected results: 3 references</li>
     		    </ol></li>
     		    <li>Verify link to Phenotype data for a model.
     		    <ol><li>Model pop-up for a mouse model.  OMIM id xxxx; Marker xxxx; Expected results: </li>
