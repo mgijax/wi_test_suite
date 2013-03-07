@@ -1,0 +1,179 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 78</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Disease Detail - Transgenes</h1>
+    <ul>
+        <li>User Story 78, Disease Detail - Transgene Ribbon (markers & models)</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Use the following rules to determine what markers are in the Transgene table.
+	   <ol><li>Marker Type is not equal to "Gene"</li>
+	       <li>Use the complex/not conditional rule</li>
+	       <li>Allele used does not have a Driver note (e.g. cre)</li>
+	       <li>Gt(Rosa) rule - not applicable</li>
+	       <li>Exclude markers with only NOTs</li>
+	   </ol></li>
+	   <li>Title of ribbon, marker column, and label text in model pop-up
+	   <ol><li>"Transgenes and other genome features"</li>
+	   <ol></li>
+	   <li>Link symbol in first column to Marker Detail or Transgene Detail</li>
+	   <li>Include appropriate models for each row of the "Transgene" table
+	   <ol><li>homology class relationships do not apply to this table</li>
+	       <li>Include "NOT" models that involve the marker, but don't
+	           include in the counts.
+	       <li>Include all models in the display and count that involve the marker (regardless of the complex/not conditional rule)
+	       <li>A model may be included in more than 1 row (due to complex genotypes)</li>
+	   </ol></li>
+	   
+	   <li>Display count of models that links to a pop-up displaying mouse models
+	   <ol><li>Link text is sensitive to 1 vs. plural (model vs. models)</li>
+	       <li>Use the same pop-up style as what was used in the Genes table
+	       <ol><li>close, move, external links, size, style</li></ol>
+	   </ol></li>
+	   <li>Display model data in pop-up
+	   <ol><li>Display NOT models, if present, in a separate table below all other models.</li>
+	       <li>Display a sub-heading of "NOT" Models and add'l text between tables - same as Genes table</li>
+	       <li>Display a heading, human disease name, and links to associated markers at the top of the pop-up
+	           <ul><li>Insert marker type into associated marker label text.</li>
+	           </ul></li>
+	       <li>Display the following fields in the model table:
+	       <ul><li>Allelic Composition: display as we do in Genes table, link alleles to Allele Detail</li>
+	           <li>Genetic Background: display as we do in Genes table</li>
+	           <li>Reference: display list of J numbers; link them to Reference page</li>
+	           <li>Phenotypes: link to phenotype details for the genotype</li>
+	       </ul></li>
+	   </ol></li>
+	    
+	
+	</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Display appropriate markers in Transgene/Other table
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    			<li>Disease with no transgenes or other markers.  OMIM id xxxx; Expected results: no Transgene ribbon displayed</li>
+    			<li>Disease with only NOT transgene/other markers.  OMIM id xxxx; Expected results: no Transgene ribbon displayed</li>
+    			<li>Disease with no markers associated.  OMIM id xxxx; Expected results: no Transgene ribbon displayed</li>
+    			<li>Disease with transgenes/others that are all associated to the disease.  OMIM id xxxx; Expected results: all Transgenes/other in the ribbon.</li>
+    			<li>Disease with transgenes/others where none of them are associated to the disease.  OMIM id xxxx; Expected results:  no ribbon displayed.</li>
+    			<li>Disease with transgenes/others where a marker is not associated due to the complex/not conditional rule.  OMIM id xxxx; Expected results: those failing complex rule not displayed.</li>
+    			<li>Disease with transgenes/others where a marker is not associated due to the Driver Note rule.  OMIM id xxxx; Expected results: marker with Driver Note not displayed</li>
+    		</ol></li>
+       		
+       		<li>Verify Transgene ribbon/table headings, column headings, text, links
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>Disease with a transgene marker in table.  OMIM id xxxx; Expected results: link to Transgene Detail page.</li>
+    		    <li>Disease with a complex/cluster/region in table.  OMIM id xxxx; Expected results: link to Marker Detail page.</li>
+    		    <li>Disease with a marker that has a superscript.  OMIM id xxxx; Expected results: superscript displays</li>
+    	    </ol></li>
+       		
+       		<li>Display mouse models for transgenes/others
+       		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    			<li>Marker with non-complex models.  OMIM id xxxxx; Marker xxxxx; Expected results: </li>
+    			<li>Marker with complex/conditional models. OMIM id xxxxx; Marker xxxxx; Expected results:  </li>
+    			<li>Marker with complex/not conditional models included.  OMIM id xxxxx; Marker xxxxx; Expected results:  </li>
+    			<li>Marker with 1 add'l NOT model. OMIM id xxxx; Marker xxxx; Expect n models + 1 NOT model  </li>
+    			<li>Marker with multiple add'l NOT models.  OMIM id nnnnn; Marker xxxxx; Expect n models + n NOT models </li>
+    			<li>Markers that are both involved in the same model -- display in each row.  OMIM id xxxxx; Markers xxxx, xxxx; Expected results: </li>
+    		</ol></li>
+       		
+       		<li>Verify pop-up works as expected in supported browsers (Firefox, IE, Safari, Chrome?)
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		    <li>Pop-up opens, closes, moves in all browsers</li>
+    		    <li>Pop-up is reasonable size in all browsers 
+    		    <ol><li>small pop-up example: OMIM id: xxxx; Marker: xxxx</li>
+    		        <li>large pop-up example: OMIM id: xxxx; Marker: xxxx</li>
+    		    </ol></li>
+    		    <li>Pop-up style is as expected in all browsers </li>
+    		    <li>links from pop-up open up a new tab in Disease Detail window in all browsers </li>
+    		</ol></li>
+       		
+       		<li>Verify data displayed in pop-ups
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>Verify display of heading, NOT sub-heading and text, human disease name, and link to associated mouse marker.
+    		    <ol><li>Model pop-up with just 1 model.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		        <li>Model pop-up with multiple models.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		        <li>Model pop-up with both regular models and NOT models.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		    </ol></li>
+    		    <li>Verify display of Allelic Composition and links to Allele Detail
+    		    <ol><li>Model pop-up with complex genotype.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		        <li>Model pop-up with genotype that contains a wild-type allele.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		        <li>Model pop-up with genotype that contains '/Y'.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		        <li>Model pop-up with a marker in the genotype that has a superscript. OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		        <li>Model pop-up with a genotype that is wide.  OMIM id xxxx; Marker xxx; </li>
+    		    </ol></li>
+    		    <li>Verify display of Genetic Background
+    		    <ol><li>Model pop-up with superscript in background. OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		        <li>Model pop-up with a long backgroup. OMIM id xxxx; Marker xxxxx; </li>
+    		    </ol></li>
+    		    <li>Verify display of Reference field and link to Reference page
+    		    <ol><li>Model pop-up with single J#.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		        <li>Model pop-up with multiple J#.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		    </ol></li>
+    		    <li>Verify link to Phenotype data for a model.
+    		    <ol><li>Model pop-up for a mouse model.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		        <li>Model pop-up for a mouse model that has a pheno page with an image.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		        <li>Model pop-up for a NOT model.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		    </ol></li>
+    		   
+    		</ol></li>
+       		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
