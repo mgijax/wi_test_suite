@@ -116,8 +116,8 @@
     			<li>Markers that are both involved in the same model -- display in each row.  OMIM id 176807; Markers Ar, Tg(TRAMP)8247Ng; Expected results: 3 models displayed for both markers </li>
     		</ol></li>
        		
-       		<li>Verify pop-up works as expected in supported browsers (Firefox, IE, Safari, Chrome?)
-    		<p concordion:assertTrue="false">new test</p>   
+       		<li>Verify pop-up works as expected in supported browsers (Firefox, IE, Safari, Chrome)
+    		<p concordion:assertTrue="false">PASS - jlewis 3/8/2013 - remaining issue - missing border on large pop-ups; PO/SME okay with this</p>   
     		<ol>
     		    <li>Pop-up opens, closes, moves in all browsers</li>
     		    <li>Pop-up is reasonable size in all browsers 
@@ -129,33 +129,27 @@
     		</ol></li>
        		
        		<li>Verify data displayed in pop-ups
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">PASS - jlewis 3/8/2013</p>  
     		<ol>
     		    <li>Verify display of heading, NOT sub-heading and text, human disease name, and link to associated mouse marker.
-    		    <ol><li>Model pop-up with just 1 model.  OMIM id xxxx; Marker xxxx; Expected results: </li>
-    		        <li>Model pop-up with multiple models.  OMIM id xxxx; Marker xxxx; Expected results: </li>
-    		        <li>Model pop-up with both regular models and NOT models.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		    <ol><li>Model pop-up with just 1 model.  OMIM id 104300</li>
+    		        <li>Model pop-up with multiple models.  OMIM id 152700</li>
+    		        <li>Model pop-up with both regular models and NOT models.  OMIM id 614266; Marker: Tg(ED-L2-IL1RN/IL1B)#Tcw; Expect 1 model + 1 NOT model </li>
     		    </ol></li>
     		    <li>Verify display of Allelic Composition and links to Allele Detail
-    		    <ol><li>Model pop-up with complex genotype.  OMIM id xxxx; Marker xxxx; Expected results: </li>
-    		        <li>Model pop-up with genotype that contains a wild-type allele.  OMIM id xxxx; Marker xxxx; Expected results: </li>
-    		        <li>Model pop-up with genotype that contains '/Y'.  OMIM id xxxx; Marker xxxx; Expected results: </li>
-    		        <li>Model pop-up with a marker in the genotype that has a superscript. OMIM id xxxx; Marker xxxx; Expected results: </li>
-    		        <li>Model pop-up with a genotype that is wide.  OMIM id xxxx; Marker xxx; </li>
+    		    <ol>
+    		        <li>Model pop-up with a marker in the genotype that has a superscript. OMIM id 222100; Expected results: superscript displays for Tg(H2-Ea<sup>d</sup>)12Lt </li>
+    		        
     		    </ol></li>
     		    <li>Verify display of Genetic Background
-    		    <ol><li>Model pop-up with superscript in background. OMIM id xxxx; Marker xxxx; Expected results: </li>
-    		        <li>Model pop-up with a long backgroup. OMIM id xxxx; Marker xxxxx; </li>
+    		    <ol><li>Model pop-up with superscript in background. OMIM id 222100; Expected results: superscript displays for Tg(H2-Ea<sup>d</sup>)12Lt  </li>
+    		        
     		    </ol></li>
     		    <li>Verify display of Reference field and link to Reference page
-    		    <ol><li>Model pop-up with single J#.  OMIM id xxxx; Marker xxxx; Expected results: </li>
+    		    <ol>
     		        <li>Model pop-up with multiple J#.  OMIM id 152700; Marker Yaa; Expected results: 3 references</li>
     		    </ol></li>
-    		    <li>Verify link to Phenotype data for a model.
-    		    <ol><li>Model pop-up for a mouse model.  OMIM id xxxx; Marker xxxx; Expected results: </li>
-    		        <li>Model pop-up for a mouse model that has a pheno page with an image.  OMIM id xxxx; Marker xxxx; Expected results: </li>
-    		        <li>Model pop-up for a NOT model.  OMIM id xxxx; Marker xxxx; Expected results: </li>
-    		    </ol></li>
+    		    <li>Verify link to Phenotype data for a model. Check from any pop-up.</li>
     		   
     		</ol></li>
        		
