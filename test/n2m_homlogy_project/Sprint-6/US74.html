@@ -99,13 +99,69 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify new All Models ribbon displays correctly on the Disease Detail page
+    		<p concordion:assertTrue="false">FAIL - jlewis 3/13/2013; test 1.4 - 45 models found instead of 46</p>  
+    		<ol>
+    		   <li>Verify no section is displayed when no models are present.  OMIM 103285. <b>pass</b></li>
+    		   <li>Verify count of NOTs is displayed and special text when only NOT models are present.  OMIM 208230; Expect 1 NOT models <b>fail</b></li>
+    		   <li>Verify count of models when models exist for all 5 positive model sections (no NOTs).  OMIM 155255; Expect 31 models <b>pass</b></li>
+    		   <li>Verify count of models when models exists for all 6 sections (incl NOTs).  OMIM 152700; Expect 46 models <b>fail</b></li>
+    		   <li>Verify count of models when Cre models exist.  OMIM 125800; Expect 8 models <b>pass</b></li>
+    		   <li>Verify count of models when Gt(Rosa) models exist.  OMIM 302060; Expect 4 models <b>pass</b></li>
+    		   <li>Verify count of models when models are displayed in more than 1 section.  OMIM 155255; Expect 31 models; 7 dups in mouse section <b>pass</b></li>
+    		</ol></li>
+    		
+    		<li>Verify the bones of the new Mouse Models page (toolbar, doc link, heading, ribbon headings, section icons/text, text display, etc)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Test 1.1</li>
-    		   <li>Test 1.2</li>
+    		   <li>Verify the general standard features of this page in all browsers (IE, Firefox, Safari, Chrome).  OMIM xxxx.</li>
+    		   <li>Verify sections on page with a disease that has only positive models.  OMIM xxxx. Expect n models</li>
+    		   <li>Verify sections on page with a disease that has both positive and NOT models.  OMIM xxxx. Expect n models; n NOT models.</li>
+    		   <li>Verify special message when only NOT models exists for a disease.  OMIM xxxx.  Expect n NOT models</li>
+    		</ol></li>
+    		
+    		<li>Verify models in the BOTH section
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
     		</ol></li>
     			
+    		<li>Verify models in the Mouse Only section
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		</ol></li>
+    		
+    		<li>Verify models in the Human Only section
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		</ol></li>
+    		
+    		<li>Verify models in the Transgenes/Other section
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		</ol></li>	
+    			
+    		<li>Verify models in the ADDITIONAL section
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		</ol></li>
+    		
+    		<li>Verify models in the NOTs section
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		</ol></li>
+    		
+    		<li>Verify data and links in the tables for all sections
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		</ol></li>
+    		
 		</ol>
 	</div>
 	<div id="sql">
