@@ -1,0 +1,125 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 74</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>All Mouse Models Page</h1>
+    <ul>
+        <li>User Story 74, All Models Page: Disease Detail</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Add new "all models" ribbon to the Disease Detail page - "View all models"
+	   <ol><li>Add ribbon when there's at least one model to display</li>
+	       <li>Count is the positive number of models (matching QuickSearch and OMIM Browser)</li>
+	       <li>If NOTs are the only models present -- use that number as the count</li>
+	       <li>Display text and link:
+	       <ul><li>"View ALL (nn) mouse models for this human disease"</li>
+	           <li>"View ALL (nn) "NOT" mouse models for this human disease.  No mouse models with similarity to the expected human disease phenotype are reported in MGI.</li>
+	       </ul></li>
+       </ol></li>
+       
+       <li>Create new page in fewi -- Mouse Models of <i>'disease name'</i>
+       <ol><li>Use standard toolbar at top of page</li>
+           <li>Link to a new user doc - get name from David S.</li>
+           <li>Display text and link to OMIM at top of first ribbon, Mouse Models.</li>
+           <li>Display the first ribbon and the link to OMIM even if no positive models exist.</li>
+           <li>When no models exist include in italics, <i>No mouse models with similarity to the expected human disease phenotype are reported in MGI.</i></li>
+       </ol></li>
+       
+       <li>The new Mouse Models page has 2 sections - 'Mouse models' & 'Disease phenotype not observed'</li>
+       
+       <li>The Mouse models ribbon contains all models (i.e. genotypes) associated to the disease organized in 6 sections. Only include section if there's an applicable model.
+       <ol><li>Both human/mouse</li>
+           <li>Mouse only</li>
+           <li>Human only</li>
+           <li>Transgenes/others</li>
+           <li>Additional complex
+           <ol><li>Distinct list of models not included in the above sections.</li>
+               <li>Includes Cre and Gt(ROSA) models that were excluded by the new rules</li>
+           </ol></li>
+           <li>General rules for all both, mouse, human and transgene sections
+           <ol><li>Display distinct list of models included in same section on Disease Detail page. (no dups)</li>
+               <li>Okay for a model to be displayed in multiple sections if applicable (just like DD page)</li>
+               <li>Order - leave as is currently working; each section replicates the pop-up order, but without duplicates</li>
+                <li>Striping - stripe each section instead of by row</li>
+           </ol></li>
+       </ol></li>
+       
+       <li>The NOT models ribbon contains a list of all NOT models
+       <ol><li>If there are no NOT models - don't display this ribbon.</li>
+      </ol></li>
+       
+       <li>Both ribbons display the same table with the same columns/same data as the model pop-ups on the Disease Detail page
+       <ol><li>Allelic Composition</li>
+           <li>Genetic Background</li>
+           <li>Reference</li>
+           <li>Phenotype</li>
+           <li>Links bring up the new page in the same window (standard MGI convention)</li>
+       </ol></li>
+       
+       
+	   
+	
+	</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Test 1.1</li>
+    		   <li>Test 1.2</li>
+    		</ol></li>
+    			
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
