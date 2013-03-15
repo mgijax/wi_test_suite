@@ -75,8 +75,7 @@
        <ol><li>Allelic Composition</li>
            <li>Genetic Background</li>
            <li>Reference</li>
-           <li>Phenotype</li>
-           <li>Links bring up the new page in the same window (standard MGI convention)</li>
+           <li>Phenotype (link should bring up new tab sense there is no toolbar on this page)</li>
        </ol></li>
        
        
@@ -100,66 +99,88 @@
 		<ol>
     		
     		<li>Verify new All Models ribbon displays correctly on the Disease Detail page
-    		<p concordion:assertTrue="false">FAIL - jlewis 3/13/2013; test 1.4 - 45 models found instead of 46</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/14/13</p>  
     		<ol>
     		   <li>Verify no section is displayed when no models are present.  OMIM 103285. <b>pass</b></li>
-    		   <li>Verify count of NOTs is displayed and special text when only NOT models are present.  OMIM 208230; Expect 1 NOT models <b>fail</b></li>
+    		   <li>Verify count of NOTs is displayed and special text when only NOT models are present.  OMIM 208230; Expect 1 NOT models <b>pass</b></li>
     		   <li>Verify count of models when models exist for all 5 positive model sections (no NOTs).  OMIM 155255; Expect 31 models <b>pass</b></li>
-    		   <li>Verify count of models when models exists for all 6 sections (incl NOTs).  OMIM 152700; Expect 46 models <b>fail</b></li>
+    		   <li>Verify count of models when models exists for all 6 sections (incl NOTs).  OMIM 152700; Expect 45 models <b>pass</b></li>
     		   <li>Verify count of models when Cre models exist.  OMIM 125800; Expect 8 models <b>pass</b></li>
     		   <li>Verify count of models when Gt(Rosa) models exist.  OMIM 302060; Expect 4 models <b>pass</b></li>
     		   <li>Verify count of models when models are displayed in more than 1 section.  OMIM 155255; Expect 31 models; 7 dups in mouse section <b>pass</b></li>
     		</ol></li>
     		
     		<li>Verify the bones of the new Mouse Models page (toolbar, doc link, heading, ribbon headings, section icons/text, text display, etc)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/14/13</p>  
     		<ol>
-    		   <li>Verify the general standard features of this page in all browsers (IE, Firefox, Safari, Chrome).  OMIM xxxx.</li>
-    		   <li>Verify sections on page with a disease that has only positive models.  OMIM xxxx. Expect n models</li>
-    		   <li>Verify sections on page with a disease that has both positive and NOT models.  OMIM xxxx. Expect n models; n NOT models.</li>
-    		   <li>Verify special message when only NOT models exists for a disease.  OMIM xxxx.  Expect n NOT models</li>
+    		   <li>Verify the general standard features of this page in all browsers (IE, Firefox, Safari, Chrome).  OMIM 167000. Expect 14 models</li>
+    		   <li>Verify sections on page with a disease that has only positive models.  OMIM 155255. Expect 31 models</li>
+    		   <li>Verify sections on page with a disease that has both positive and NOT models.  OMIM 222100. Expect 75 models; 22 NOT models.</li>
+    		   <li>Verify special message when only NOT models exists for a disease.  OMIM 208230.  Expect 1 NOT models</li>
     		</ol></li>
     		
     		<li>Verify models in the BOTH section
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/15/13</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Verify model list when the BOTH section is the only section.  OMIM 253400; Expect 2 models</li>
+    		   <li>Verify model list in the BOTH section that is limited to only models that passed the rules. OMIM 103470; Expected results 14 models.</li>
+    		   <li>Verify model list in the BOTH section that excludes a Cre model.  OMIM 125800; Expected results 8 models; 3 models in both; cre model in add'l.</li>
+    		   <li>Verify model list in the BOTH section that had a model that was valid for more than 1 gene in the both section.  OMIM 601665; Expect: 59 models; 7 in both section.</li>
+    		   <li>Verify model list in the BOTH section that had NOT models associated.  OMIM 100800; Expect: 6 both models; 1 NOT model.</li>
+    		   <li>Verify model list in the BOTH section that includes complex models that did not pass the rules.  OMIM 300755; Expected results: 8 models (2 complex/not cond)</li>
     		</ol></li>
     			
     		<li>Verify models in the Mouse Only section
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/15/13</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <ol>
+    		   <li>Verify model list when the MOUSE section is the only section.  OMIM 607834; Expect 2 models</li>
+    		   <li>Verify model list in the MOUSE section that is limited to only models that passed the rules. OMIM 206500; Expected results 5 models + 1 NOT model.</li>
+    		   <li>Verify model list in the MOUSE section that had a model that was valid for more than 1 gene in the mouse section.  OMIM 109800; Expect: 5 models; 2 models in mouse section.</li>
+    		   <li>Verify model list in the MOUSE section that had NOT models associated.  OMIM 222100 / Ins2; Expect: NOT models listed in bottom section</li>
+    		   <li>Verify model list in the MOUSE section that includes complex models that did not pass the rules.  OMIM 613985; Expected results: 15 models; 10 models in mouse section</li>
     		</ol></li>
+    	
     		
     		<li>Verify models in the Human Only section
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/15/13 (checking if there's a case for test 5.1)</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Verify model list when the HUMAN section is the only section.  OMIM xxxx; Expect n models</li>
+    		   <li>Verify model list in the HUMAN section that had NOT models associated.  OMIM 222100; Expect: NOT models not included and listed below.</li>
+    		   <li>Verify model list in the HUMAN section that includes complex models that did not pass the rules.  OMIM 222100; Expected results: 3 models in human section</li>
     		</ol></li>
     		
     		<li>Verify models in the Transgenes/Other section
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/15/13</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Verify model list when the Transgene/Other section is the only section.  OMIM 604131; Expect 7 models</li>
+    		   <li>Verify model list in the TG/other section that is limited to only models that passed the rules. OMIM 607136; Expected results 4 models.</li>
+    		   <li>Verify model list in the TG/other section that had NOT models associated.  OMIM 614266; Expect: NOT models not included and listed below.</li>
+    		   <li>Verify model list in the TG/other section that includes complex models that did not pass the rules.  OMIM 222100; Expected results: complex model included in list</li>
     		</ol></li>	
     			
     		<li>Verify models in the ADDITIONAL section
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/14/2013</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Verify model list when the Additional section is the only section.  OMIM 300813; Expected results: 3 models</li>
+    		   <li>Verify model list that includes a Cre model in the Additional section.  OMIM 119540; Expected results: 1 model & display Cre model</li>
+    		   <li>Verify model list that includes a Gt(ROSA) model in the Additional section.  OMIM 302060; Expected results: 4 models & display 2 Gt(ROSA) models</li>
+    		   <li>verify model list that includes a complex model in the Add'l section.  OMIM 101200; Expected results: 6 models; 1 model in Add'l section.</li>
     		</ol></li>
     		
     		<li>Verify models in the NOTs section
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/15/2013</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Verify model list when the NOT section is the only section.  OMIM 614097; 1 NOT model</li>
+    		   <li>Verify model list with just 1 NOT model.  OMIM 208230; 1 NOT model</li>
+    		   <li>Verify model list with multiple NOT models.  OMIM 208050; 1 model + 2 NOT models</li>
     		</ol></li>
     		
     		<li>Verify data and links in the tables for all sections
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - 3/15/2013</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Verify display and links of all fields in the table.</li>
+    		   <li>Verify display of superscripts in alleles and background.</li>
     		</ol></li>
     		
 		</ol>
