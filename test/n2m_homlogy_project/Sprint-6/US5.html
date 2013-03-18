@@ -1,0 +1,164 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 5</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Display Chicken, Zebrafish, Monkey in Public WI and Quick Search</h1>
+    <ul>
+        <li>User Story 5, Move new organisms to Public WI and QS</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Display new organisms on Marker Detail page
+	    <ol><li>Add to species list in Homology ribbon with counts</li>
+	        <li>Same order rules (human, mouse, rat, then alpha order) - human; mouse; rat; cattle; chicken; chimpanzee; dog; rhesus macaque; zebrafish</li>
+	    </ol></li>
+	    <li>Display new organisms and attributes on Homology Class page - same order rules as above</li>
+	    <li>QuickSearch returns matches to new organisms symbols and names in the Marker Bucket.</li>
+	    <li>QuickSearch returns matches to new organisms IDs in the ID bucket.</li>
+	    <li>Search by new organism symbols and names on Marker, Allele, and SNP Query Forms</li>
+	    <li>Search by new organism symbols using Batch Query</li>
+	</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify new organisms included in list for homology class members on Marker Detail page
+    		<p concordion:assertTrue="true">PASS - jlewis 3/18/2013</p>  
+    		<ol>
+    		   <li>Display Brca2 Marker Detail.  Expect species list to include all those represented in MGI in correct order..</li>
+    		   <li>Display Hoxa5 Marker Detail with multiple chicken genes in class.  Expect 3 chicken genes.</li>
+    		   <li>Display Timm9 Marker Detail with multiple rhesus genes in class.  Expect 2 rhesus genes.</li>
+    		   <li>Display Kit Marker Detail with multiple z-fish genes in class. Expect 2 z-fish genes.</li>
+    		</ol></li>
+    		
+    		<li>Verify new organisms on Homology Class page with appropriate attributes (symbol, EG id, genetic location, sequences)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display 36030 Homology Class.  Expect species list to include all those represented in MGI in correct order.  12 class members.</li>
+    		   <li>Display xxx Homology Class with multiple chicken genes in class.  Expect n chicken genes.</li>
+    		   <li>Display xxx Homology Class with multiple rhesus genes in class.  Expect n rhesus genes.</li>
+    		   <li>Display xxx Homology Class with multiple z-fish genes in class. Expect n z-fish genes.</li>
+    		   <li>Display xxx Homology Class with only chicken genes in class.  Expect n chicken genes.</li>
+    		   <li>Display xxx Homology Class with only rhesus genes in class.  Expect n rhesus genes.</li>
+    		   <li>Display xxx Homology Class with only z-fish genes in class.  Expect n z-fish genes.</li>
+    		</ol></li>
+
+    		
+    		<li>Verify new organisms' symbol and name return correct results in QuickSearch marker bucket.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for Chicken symbol xxxx.  Expected results: returns link to mouse symbol: xxxx</li>
+    		   <li>Search for Chicken name xxxx.  Expected results: returns link to mouse symbol: xxxx.</li>
+    		   <li>Search for Rhesus symbol ABCA15.  Expected results: returns link to mouse symbol: ABCA14.</li>
+    		   <li>Search for Rhesus name xxxx.  Expected results: returns link to mouse symbol: xxxx.</li>
+    		   <li>Search for Z-fish symbol xxxx.  Expected results: returns link to mouse symbol: xxxx.</li>
+    		   <li>Search for Z-fish name xxxx.  Expected results: returns link to mouse symbol: xxxx.</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify new organisms' IDs return correct results in QuickSearch ID bucket and marker bucket.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for Chicken EG id xxxx.  Expect: returns link to Homology Class xxxx and mouse marker(s): xxx</li>
+    		   <li>Search for Rhesus EG id xxxx.  Expect: returns link to Homology Class xxxx and mouse marker(s): xxx</li>
+    		   <li>Search for Z-fish EG id xxxx.  Expect: returns link to Homology Class xxxx and mouse marker(s): xxx</li>
+    		   <li>Search for Chicken EG id xxxx in a Class with no Mouse Markers.  Expect: link to Homology Class xxxx</li>
+    		   <li>Search for Rhesus EG id xxxx in a Class with no Mouse Markers.  Expect: link to Homology Class xxxx</li>
+    		   <li>Search for Zebrafish EG id xxxx in a Class with no Mouse Markers.  Expect: link to Homology Class xxxx</li>
+    		   <li>Search for Chicken seq id xxxx.  Expect: link to Homology Class xxxx</li>
+    		   <li>Search for Rhesus seq id xxxx.  Expect: link to Homology Class xxxx</li>
+    		   <li>Search for Zebrafish seq id xxxx.  Expect: link to Homology Class xxxx</li>
+    		</ol></li>
+    		
+    		<li>Verify new organism symbols and names return correct results in Marker Query Form.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for Chicken symbol xxxx.  Expect: mouse symbol: xxxx in Marker Summary results</li>
+    		   <li>Search for Chicken name xxxx.  Expect: mouse symbol: xxxx in Marker Summary results.</li>
+    		   <li>Search for Rhesus symbol ABCA15.  Expect: mouse symbol: ABCA14 in Marker Summary results.</li>
+    		   <li>Search for Rhesus name xxxx.  Expect: mouse symbol: xxxx in Marker Summary results.</li>
+    		   <li>Search for Z-fish symbol xxxx.  Expect: mouse symbol: xxxx in Marker Summary results.</li>
+    		   <li>Search for Z-fish name xxxx.  Expect: mouse symbol: xxxx in Marker Summary results.</li>
+    		</ol></li>
+    		
+    		<li>Verify new organism symbols and names return correct results in Allele Query Form.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for Chicken symbol xxxx.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
+    		   <li>Search for Chicken name xxxx.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
+    		   <li>Search for Rhesus symbol ABCA15.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
+    		   <li>Search for Rhesus name xxxx.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
+    		   <li>Search for Z-fish symbol xxxx.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
+    		   <li>Search for Z-fish name xxxx.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
+    		</ol></li>
+    		
+    		<li>Verify new organism symbols and names return correct results in SNP Query Form.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for Chicken symbol xxxx.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
+    		   <li>Search for Chicken name xxxx.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
+    		   <li>Search for Rhesus symbol ABCA15.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
+    		   <li>Search for Rhesus name xxxx.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
+    		   <li>Search for Z-fish symbol xxxx.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
+    		   <li>Search for Z-fish name xxxx.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
+    		</ol></li>
+    		
+    		<li>Verify new organism symbols return correct results in Batch Query Form.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for Chicken symbol xxxx.  Expect: mouse gene: xxxx in Summary results</li>
+    		   <li>Search for Rhesus symbol ABCA15.  Expect:  mouse gene: xxxx in Summary results</li>
+    		   <li>Search for Z-fish symbol xxxx.  Expect:  mouse gene: xxxx in Summary results</li>
+    		 </ol></li>
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
