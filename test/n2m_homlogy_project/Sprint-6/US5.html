@@ -66,84 +66,94 @@
     		</ol></li>
     		
     		<li>Verify new organisms on Homology Class page with appropriate attributes (symbol, EG id, genetic location, sequences)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/18/2013</p>  
     		<ol>
     		   <li>Display 36030 Homology Class.  Expect species list to include all those represented in MGI in correct order.  12 class members.</li>
-    		   <li>Display xxx Homology Class with multiple chicken genes in class.  Expect n chicken genes.</li>
-    		   <li>Display xxx Homology Class with multiple rhesus genes in class.  Expect n rhesus genes.</li>
-    		   <li>Display xxx Homology Class with multiple z-fish genes in class. Expect n z-fish genes.</li>
-    		   <li>Display xxx Homology Class with only chicken genes in class.  Expect n chicken genes.</li>
-    		   <li>Display xxx Homology Class with only rhesus genes in class.  Expect n rhesus genes.</li>
-    		   <li>Display xxx Homology Class with only z-fish genes in class.  Expect n z-fish genes.</li>
+    		   <li>Display 51273 Homology Class with multiple chicken genes in class.  Expect 5 chicken genes; 11 members</li>
+    		   <li>Display 51057 Homology Class with multiple rhesus genes in class.  Expect 2 rhesus genes; 4 members.</li>
+    		   <li>Display 36098 Homology Class with multiple z-fish genes in class. Expect 16 z-fish genes; 22 members.</li>
+    		   <li>Display 112596 Homology Class with only chicken genes in class.  Expect 1 chicken genes.</li>
+    		   <li>Display 113185 Homology Class with only rhesus genes in class.  Expect 1 rhesus genes.</li>
+    		   <li>Display 112620 Homology Class with only z-fish genes in class.  Expect 1 z-fish genes.</li>
     		</ol></li>
 
     		
     		<li>Verify new organisms' symbol and name return correct results in QuickSearch marker bucket.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 3/18/2013 - no matches to non-mouse names found as expected for monkey, chicken & zfish.</p>  
     		<ol>
-    		   <li>Search for Chicken symbol xxxx.  Expected results: returns link to mouse symbol: xxxx</li>
-    		   <li>Search for Chicken name xxxx.  Expected results: returns link to mouse symbol: xxxx.</li>
-    		   <li>Search for Rhesus symbol ABCA15.  Expected results: returns link to mouse symbol: ABCA14.</li>
-    		   <li>Search for Rhesus name xxxx.  Expected results: returns link to mouse symbol: xxxx.</li>
-    		   <li>Search for Z-fish symbol xxxx.  Expected results: returns link to mouse symbol: xxxx.</li>
-    		   <li>Search for Z-fish name xxxx.  Expected results: returns link to mouse symbol: xxxx.</li>
+    		   <li>Search for Chicken symbol NHS.  Expected results: returns link to mouse symbol: Nhs</li>
+    		   <li>Search for Chicken name 'lung lectin'.  Expected results: returns link to mouse symbol: Sftpa1.</li>
+    		   <li>Search for Rhesus symbol ABCA15.  Expected results: returns link to mouse symbol: Abca14.</li>
+    		   <li>Search for Rhesus name 'erythrocyte membrane protein band 4.2-like'.  Expect: link to mouse symbol: Epb4.2</li>
+    		   <li>Search for Z-fish symbol im:7165146.  Expected results: returns link to mouse symbol: Sgca.</li>
+    		   <li>Search for Z-fish name 'adenosine monophosphate deaminase 1 (isoform M)'.  Expect: link to mouse symbol: Ampd1.</li>
     		   
     		</ol></li>
     		
     		<li>Verify new organisms' IDs return correct results in QuickSearch ID bucket and marker bucket.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/18/2013</p>  
     		<ol>
-    		   <li>Search for Chicken EG id xxxx.  Expect: returns link to Homology Class xxxx and mouse marker(s): xxx</li>
-    		   <li>Search for Rhesus EG id xxxx.  Expect: returns link to Homology Class xxxx and mouse marker(s): xxx</li>
-    		   <li>Search for Z-fish EG id xxxx.  Expect: returns link to Homology Class xxxx and mouse marker(s): xxx</li>
-    		   <li>Search for Chicken EG id xxxx in a Class with no Mouse Markers.  Expect: link to Homology Class xxxx</li>
-    		   <li>Search for Rhesus EG id xxxx in a Class with no Mouse Markers.  Expect: link to Homology Class xxxx</li>
-    		   <li>Search for Zebrafish EG id xxxx in a Class with no Mouse Markers.  Expect: link to Homology Class xxxx</li>
-    		   <li>Search for Chicken seq id xxxx.  Expect: link to Homology Class xxxx</li>
-    		   <li>Search for Rhesus seq id xxxx.  Expect: link to Homology Class xxxx</li>
-    		   <li>Search for Zebrafish seq id xxxx.  Expect: link to Homology Class xxxx</li>
+    		   <li>Search for Chicken EG id 420969.  Expect: returns link to Homology Class 115 and mouse marker(s): Fh1</li>
+    		   <li>Search for Rhesus EG id 695675.  Expect: returns link to Homology Class 132 and mouse marker(s): Gch1</li>
+    		   <li>Search for Z-fish EG id 560030.  Expect: returns link to Homology Class 56843 and mouse marker(s): Arl15</li>
+    		   <li>Search for Chicken EG id 100857458 in a Class with no Mouse Markers.  Expect: link to Homology Class 133532</li>
+    		   <li>Search for Rhesus EG id 709836 in a Class with no Mouse Markers.  Expect: link to Homology Class 133511</li>
+    		   <li>Search for Zebrafish EG id 794617 in a Class with no Mouse Markers.  Expect: link to Homology Class 115755</li>
+    		   <li>Search for Chicken seq id Q7T0B1.  Expect: link to Homology Class 12542; mouse gene Stk40. </li>
+    		   <li>Search for Rhesus seq id  XP_001091431.  Expect: link to Homology Class 12560; mouse gene Tc2n.</li>
+    		   <li>Search for Zebrafish seq id NM_001146304.  Expect: link to Homology Class 84805; mouse gene Ralgapa1.</li>
     		</ol></li>
     		
     		<li>Verify new organism symbols and names return correct results in Marker Query Form.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 3/18/2013 - names don't return a match</p>  
     		<ol>
-    		   <li>Search for Chicken symbol xxxx.  Expect: mouse symbol: xxxx in Marker Summary results</li>
-    		   <li>Search for Chicken name xxxx.  Expect: mouse symbol: xxxx in Marker Summary results.</li>
+    		   <li>Search for Chicken symbol LL.  Expect: mouse symbol: Sftpa1 in Marker Summary results</li>
+    		   <li>Search for Chicken name 'lung lectin'.  Expect: mouse symbol: Sftpa1 in Marker Summary results.</li>
     		   <li>Search for Rhesus symbol ABCA15.  Expect: mouse symbol: ABCA14 in Marker Summary results.</li>
-    		   <li>Search for Rhesus name xxxx.  Expect: mouse symbol: xxxx in Marker Summary results.</li>
-    		   <li>Search for Z-fish symbol xxxx.  Expect: mouse symbol: xxxx in Marker Summary results.</li>
-    		   <li>Search for Z-fish name xxxx.  Expect: mouse symbol: xxxx in Marker Summary results.</li>
+    		   <li>Search for Rhesus name '60S ribosomal protein L22-like'.  Expect: mouse symbol: Gm9457 in Marker Summary results.</li>
+    		   <li>Search for Z-fish symbol kita.  Expect: mouse symbol: Kit in Marker Summary results.</li>
+    		   <li>Search for Z-fish name syntaxin-19-like.  Expect: mouse symbol: Stx19 in Marker Summary results.</li>
     		</ol></li>
     		
     		<li>Verify new organism symbols and names return correct results in Allele Query Form.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 3/18/2013 - non-mouse symbol names don't return a match</p>  
     		<ol>
-    		   <li>Search for Chicken symbol xxxx.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
-    		   <li>Search for Chicken name xxxx.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
-    		   <li>Search for Rhesus symbol ABCA15.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
+    		   <li>Search for Chicken symbol LL.  Expect: alleles for mouse gene: Sftpa1 in Allele Summary results</li>
+    		   <li>Search for Chicken name 'lung lectin'.  Expect: alleles for mouse gene: Sftpa1 in Allele Summary results</li>
+    		   <li>Search for Rhesus symbol ABCA15.  Expect: alleles for mouse gene: Abca14 in Allele Summary results</li>
     		   <li>Search for Rhesus name xxxx.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
-    		   <li>Search for Z-fish symbol xxxx.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
+    		   <li>Search for Z-fish symbol kita.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
     		   <li>Search for Z-fish name xxxx.  Expect: alleles for mouse gene: xxxx in Allele Summary results</li>
     		</ol></li>
     		
     		<li>Verify new organism symbols and names return correct results in SNP Query Form.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Search for Chicken symbol xxxx.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
-    		   <li>Search for Chicken name xxxx.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
-    		   <li>Search for Rhesus symbol ABCA15.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
+    		   <li>Search for Chicken symbol LL.  Expect: SNPs for mouse gene: Sftpa1 in Summary results</li>
+    		   <li>Search for Chicken name 'lung lectin'.  Expect: SNPs for mouse gene: Sftpa1 in Summary results</li>
+    		   <li>Search for Rhesus symbol ABCA15.  Expect: SNPs for mouse gene: Abca14 in Summary results</li>
     		   <li>Search for Rhesus name xxxx.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
-    		   <li>Search for Z-fish symbol xxxx.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
+    		   <li>Search for Z-fish symbol kita.  Expect: SNPs for mouse gene: Kit in Summary results</li>
     		   <li>Search for Z-fish name xxxx.  Expect: SNPs for mouse gene: xxxx in Summary results</li>
     		</ol></li>
     		
     		<li>Verify new organism symbols return correct results in Batch Query Form.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">PASS - jlewis 3/18/2013</p>  
     		<ol>
-    		   <li>Search for Chicken symbol xxxx.  Expect: mouse gene: xxxx in Summary results</li>
-    		   <li>Search for Rhesus symbol ABCA15.  Expect:  mouse gene: xxxx in Summary results</li>
-    		   <li>Search for Z-fish symbol xxxx.  Expect:  mouse gene: xxxx in Summary results</li>
+    		   <li>Search for Chicken symbol LL.  Expect: mouse gene: Sftpa1 in Summary results</li>
+    		   <li>Search for Rhesus symbol ABCA15.  Expect:  mouse gene: Abca14 in Summary results</li>
+    		   <li>Search for Z-fish symbol kita.  Expect:  mouse gene: Kit in Summary results</li>
     		 </ol></li>
+    		
+    		<li>Verify FASTA return for chicken, monkey, zebrafish sequences
+    		<p concordion:assertTrue="false">FAIL - jlewis 3/19/2013 - RefSeq sequences for Chicken & Zfish not in EMBOSS</p>  
+    		<ol>
+    		   <li>Verify FASTA for UniProt sequences.  Chicken: Q7T0B1; Monkey  P56424; Zfish  Q8JFR5.</li>
+    		   <li>Verify FASTA for nucleotide RefSeqs. Chicken:  NM_205066; Monkey  NM_001266095; Zfish  NM_131641.</li>
+    		   <li>Search FASTA for protein RefSeqs.  Chicken:  NP_989500; Monkey  NP_001253024 ; Zfish  NP_571716.</li>
+    		 </ol></li>
+    		
+    		
     		
 		</ol>
 	</div>
