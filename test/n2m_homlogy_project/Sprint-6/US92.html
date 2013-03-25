@@ -59,9 +59,9 @@
     		<li>Verify disease list for mouse markers using the new rules
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display Marker Detail for gene xxxx with a Cre allele associated to a disease; Expect disease xxxx no longer included.</li>
+    		   <li>Display Marker Detail for gene Nkx3-2 with a Cre allele associated to a disease; Expect disease 142340 no longer included.</li>
     		   <li>Display Marker Detail for Gt(Rosa); Expect there to no longer be a list of associated diseases in Pheno ribbon.</li>
-    		   <li>wild type allele case - exist?</li>
+    		   <li>Display Marker Detail for Nkx2-5; Expect there to be no association to disease 188400 via a wild type allele.</li>
     		   <li>Display Marker Detail for gene Prnp with a non-transgene complex/not conditional genotype associated to a disease; Expect disease xxx no longer included.</li>
     		   <li>Display Marker Detail for gene xxx with a transgene complex/not conditional genotype associated to a disease; expect disease xxx no longer included.</li>
     		   <li>Display Marker Detail for gene Brca2 where the new rules should not change the disease list; Expect disease list to be the same as Public</li>
@@ -85,7 +85,7 @@
     		<li>Verify NOTs are ignored and not included in either of these links.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display Marker Detail page for gene xxx that has diseases associated via a NOT annotation.  Expect Allele count/link to not include NOTs.</li>
+    		   <li>Display Marker Detail page for gene Hap1 that has diseases associated via a NOT annotation.  Expect Allele count/link to not include NOT annotations to 143100.</li>
     		</ol></li>
     		
     		
