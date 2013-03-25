@@ -1,0 +1,108 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 92</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Support external links to new pages</h1>
+    <ul>
+        <li>User Story 92 - Change mouse marker-disease association rules on Marker Detail</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Modify the "Human Diseases Modeled Using Mouse xxx" on the Marker Detail page/Alleles & Phenotypes ribbon to use new rules
+	    <ol><li>Don't associate disease to mouse marker via a recombinases allele (i.e. one that has a Driver note)</li>
+	        <li>Don't associate disease to mouse marker via a wild type allele</li>
+	        <li>Don't associate disease to mouse marker via a complex genotype that is not conditional</li>
+	        <li>if a genotype has a transgene and is complex & not conditional, treat it as complex & not conditional (instead of as a TG) and DON'T follow it as a path between mouse markers and human diseases (is this a dup of #3?)</li>
+	        <li>Don't associate disease to mouse marker Gt(Rosa)</li>
+	    </ol></li>
+	    <li>No change to "Alleles Annotated to Human Diseases" on the Marker Detail page/Alleles & Phenotypes ribbon (rules same; count same)</li>
+	    <li>No change to "Disease Associations" on the Marker Detail page/Human homologs ribbon </li>
+	</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify disease list for mouse markers using the new rules
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display Marker Detail for gene xxxx with a Cre allele associated to a disease; Expect disease xxxx no longer included.</li>
+    		   <li>Display Marker Detail for Gt(Rosa); Expect there to no longer be a list of associated diseases in Pheno ribbon.</li>
+    		   <li>wild type allele case - exist?</li>
+    		   <li>Display Marker Detail for gene Prnp with a non-transgene complex/not conditional genotype associated to a disease; Expect disease xxx no longer included.</li>
+    		   <li>Display Marker Detail for gene xxx with a transgene complex/not conditional genotype associated to a disease; expect disease xxx no longer included.</li>
+    		   <li>Display Marker Detail for gene Brca2 where the new rules should not change the disease list; Expect disease list to be the same as Public</li>
+    		</ol></li>
+    		
+    		<li>Verify disease list for human markers have not changed
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display Marker Detail for gene C4a that has multiple human homologs with disease associations.  Expect lists unchanged.</li>
+    		   <li>Display Marker Detail for gene Pax6 that has 1 human homolog with disease associations.  Expect list unchanged.</li>
+    		</ol></li>
+    		
+    		<li>Verify allele count/list for alleles with associated disease unchanged from Marker Detail
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display Marker Detail page for gene Kit.  Expect Allele count with associated diseases to be unchanged.</li>
+    		   <li>Display Marker Detail page for gene Hmga1.  Expect an Allele count of n. Removed homolog rule to maintain appropriate count/link.</li>
+    		   <li>Display Marker Detail page for gene Hbb-b1.  Expect an Allele count of 4 due to change removing homolog rule</li>
+    		</ol></li>
+    		
+    		<li>Verify NOTs are ignored and not included in either of these links.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display Marker Detail page for gene xxx that has diseases associated via a NOT annotation.  Expect Allele count/link to not include NOTs.</li>
+    		</ol></li>
+    		
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
