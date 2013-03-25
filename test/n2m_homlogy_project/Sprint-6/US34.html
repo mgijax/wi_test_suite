@@ -67,43 +67,44 @@
 		<ol>
     		
     		<li>Verify forward of old Disease page URLs with OMIM id and internal disease key parameters
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/25/2013</p>  
     		<ol>
-    		   <li>Can we test prior to going Public??</li>
+    		   <li>Enter URL using internal disease key - mgi-testweb3.jax.org:8080/fewi/mgi/disease/172800?page=humanDisease&key=848681</li>
+    		   <li>Enter URL using OMIM disease id - rohan.informatics.jax.org:6789/javawi2_pg/servlet/WIFetch?page=humanDisease&id=172800</li>
     		</ol></li>
     		
     		<li>Verify forward of old Orthology page URLs with MGI Marker id and internal marker key parameters
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/25/2013</p>  
     		<ol>
-    		   <li>Can we test prior to going Public??</li>
+    		   <li>Enter URL using internal marker key -- rohan.informatics.jax.org/usrlocalmgi/scrum-bob-pub/wi_pg/www/searches/homology_report.cgi?_Marker_key=10603 ; expect Kit homology page</li>
+    		   <li>Enter URL using MGI marker id - rohan.informatics.jax.org/usrlocalmgi/scrum-bob-pub/wi_pg/www/searches/homology_report.cgi?id=MGI:96677
     		</ol></li>
     		
     		<li>Verify use of Accession with non-mouse IDs
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/25/2013</p>  
     		<ol>
-    		   <li>Link using non-mouse EntrezGene ID: xxxx; Expect link to Homology page</li>
-    		   <li>Link using non-mouse HGNC ID: xxxx; Expect link to Homology page</li>
-    		   <li>Link using non-mouse OMIM ID: xxxx; Expect link to Homology page</li>
-    		   <li>Link using non-mouse ID:xxxx that has no duplicate ID in the database; Expect direct link to Homology page</li>
-    		   <li>Link using non-mouse ID:xxxx that matches an id of another object; Expect display of Accession Report with multiple options</li>
+    		   <li>Link using non-mouse EntrezGene ID: 426611; Expect direct link to Homology page 36030</li>
+    		   <li>Link using non-mouse HGNC ID: HGNC:1323; Expect direct link to Homology page 36030</li>
+    		   <li>Link using non-mouse OMIM ID: 164920; Expect direct link to Homology page 187</li>
+    		   <li>Link using non-mouse ID: 187 that matches an id of another object; Expect display of Accession Report with multiple options (Kit, etc)</li>
     		</ol></li>
     		
     		<li>Verify use of Accession with HomoloGene IDs
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/25/2013</p>  
     		<ol>
-    		   <li>Link using HomoloGene ID:xxxx that has no duplicate ID in the database; Expect direct link to Homology page</li>
-    		   <li>Link using HomoloGene ID:xxxx that matches an id of another object; Expect display of Accession Report with multiple options</li>
+    		   <li>Link using HomoloGene ID:85511 that has no duplicate ID in the database; Expect direct link to Homology page 85511</li>
+    		   <li>Link using HomoloGene ID:721 that matches an id of another object; Expect display of Accession Report with multiple options (721, 36030)</li>
     		</ol></li>
     		
     		<li>Verify use of Accession with OMIM Disease IDs
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/25/2013</p>  
     		<ol>
-    		   <li>Link using OMIM disease ID:xxxx that has no duplicate ID in the database; Expect direct link to Disease Detail page</li>
-    		   <li>Link using OMIM disease ID:xxxx that matches an id of another object; Expect display of Accession Report with multiple options</li>
+    		   <li>Link using OMIM disease ID:152700 that has no duplicate ID in the database; Expect direct link to Disease Detail page</li>
+    		   <li>Link using OMIM disease ID:120820 that matches an id of another object; Expect display of Accession Report with multiple options</li>
     		</ol></li>
     		
     		<li>Verify changes on the Creating Links to MGI page
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/25/2013</p>  
     		<ol>
     		   <li>Updates to Homology and Disease URLs</li>
     		   <li>Updates to text for TR 11319</li>
