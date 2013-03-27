@@ -61,14 +61,14 @@
 		<ol>
     		
     		<li>Verify disease list for mouse markers using the new rules
-    		<p concordion:assertTrue="false">FAIL - jlewis 3/26/2013</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/27/2013</p>  
     		<ol>
     		   <li>Display Marker Detail for gene Nkx3-2 with a Cre allele associated to a disease; Expect disease 142340 no longer included.<b>pass</b></li>
     		   <li>Display Marker Detail for Gt(Rosa); Expect there to no longer be a list of associated diseases in Pheno ribbon. <b>pass</b></li>
     		   <li>Display Marker Detail for Nkx2-5; Expect there to be no association to disease 188400 via a wild type allele. <b>pass</b></li>
     		   <li>Display Marker Detail for gene Prnp with a non-transgene complex/not conditional genotype associated to a disease; Expect 2 disease listed: 123400, 600072. <b>pass</b></li>
     		   <li>Display Marker Detail for gene xxx with a transgene complex/not conditional genotype associated to a disease; expect disease xxx no longer included.</li>
-    		   <li>Display Marker Detail for gene Brca2 where the new rules should not change the disease list; Expect disease list to be the same as Public <b>fail - missing text/asterisks in pop-up for pheno disease list</b></li>
+    		   <li>Display Marker Detail for gene Brca2 where the new rules should not change the disease list; Expect disease list to be the same as Public <b>pass</b></li>
     		</ol></li>
     		
     		<li>Verify the "asterisk" displays using new rules for the disease list for human markers
