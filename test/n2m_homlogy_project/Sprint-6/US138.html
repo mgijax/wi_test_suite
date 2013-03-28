@@ -1,0 +1,96 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 138</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Bug fix - GO Marker page - qualifiers are not displayed</h1>
+    <ul>
+        <li>User Story 138 - GO Marker page - qualifiers are not displayed</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Display all annotated qualifiers on the GO Marker page.
+	    <ol><li>Valid qualifiers include: NOT, Colocalizes with, Contributes to, NOT Colocalizes, NOT Contributes </li>
+	        <li>Display in bold in front of term on page</li>
+	    </ol></li>
+	    <li>Display all annotated qualifiers on the GO Annotations page.
+	    <ol><li>Valid qualifiers include: NOT, Colocalizes with, Contributes to, NOT Colocalizes, NOT Contributes</li>
+	        <li>Display in bold in front of term on page</li>
+	    </ol></li>
+	</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify qualifiers are displayed on the GO Marker page (NOT, COL, CON, NCOL, NCON)
+    		<p concordion:assertTrue="true">PASS - 3/28/2013</p>  
+    		<ol>
+    		   <li>NOT: Display GO Marker page for Ank2; Expect 1 case of "NOT" qualifier.</li>
+    		   <li>COL: Display GO Marker page for Gng12; Expect 1 case of "colocalizes with"</li>
+    		   <li>CON: Display GO Marker page for Msh3; Expect 5 cases of "contributes to"</li>
+    		   <li>NCOL: no example found</li>
+    		   <li>NCON: Display GO Marker page for Pcgf2; Expect 1 case of "NOT contributes to"</li>
+    		</ol></li>
+    		
+    	    <li>Verify qualifiers are displayed on the GO Annotations page (NOT, COL, CON, NCOL, NCON)
+    		<p concordion:assertTrue="true">PASS - 3/28/2013</p>  
+    		<ol>
+    		   <li>NOT: Display GO Annotations page for term - somatic hypermutation of immunoglobulin genes (GO:0016446); Expect 2 cases of "NOT" annotations</li>
+    		   <li>COL: Display GO Annotations page for term - Actin Filament (GO:0005884); Expect 25 cases of "colocalizes with"</li>
+    		   <li>CON: Display GO Annotations page for term - mismatched DNA binding (GO:0030983); Expect 16 cases of "contributes to"</li>
+    		   <li>NCOL: no example found</li>
+    		   <li>NCON: Display GO Annotations page for term - ubiquitin-protein ligase activity (GO:0004842); Expect 1 case of "NOT contributes to"</li>
+    		   
+    		</ol></li>
+    		
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
