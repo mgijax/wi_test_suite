@@ -1,0 +1,108 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 103</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>GO Refs - annotations on a new page</h1>
+    <ul>
+        <li>User Story 103 - GO for a reference - annotations on a new page</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Display the standard reference header on the new page
+	    <ol><li>Page title & Page heading = </li>
+	        <li>User Doc link = </li>
+	        <li>Reference bar = J# with link; Reference style ?</li>
+	    </ol></li>
+	    <li>Display all GO annotations for a single reference (J#)
+	    <ol><li>Only show GO terms that specified J# directly (i.e. do not go down the DAG)</li>
+	        <li>No exceptions - all J numbers are valid and included</li>
+	        <li>Include annotations with qualifiers (NOTs, etc) and show the qualifier in bold preceding term (as is done on Annotation page)</li>
+	        <li>Columns include: 
+	        <ul><li>Symbol, Name (symbol links to Marker Detail)</li>
+	            <li>Chr (genetic chromosome?)</li>
+	            <li>Annotated Term (the term name links to GO Term Detail)</li>
+	            <li>Category (F,  C, P)</li>
+	            <li>Evidence</li>
+	        </ul></li>
+	        <li>Sort order: Primary - symbol (smart alpha?); Secondary/Tertiary - do these exist?</li>
+	    </ol></li>
+	    <li>Include standard pagination controls
+	    <ol><li>List of page size options = 10, 25, 50, 100 (default = 100) (this is what the GO marker page uses)
+	    </ol></li>
+	    <li>Include "Text File" and "Excel File" download options</li>
+	    <li>Do NOT include column sorting or filters</li>
+	    <li>Use standard formating (assuming that is easiest) - this is low priority for Judy</li>
+	</ol>
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   <li>test 1.2</li>
+    	    </ol></li>
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
