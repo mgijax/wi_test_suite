@@ -30,11 +30,15 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	    <li>req 1</li>
-	    <li>req 2</li>
+	    <li>Add count of GO annotations for a reference
+	    <ol><li>includes all annotations (even those with NOT qualifier)</li>
+	        <li>there can be multiple annotations to the same term -- each are counted as 1</li>
+	    </ol></li>
+	    <li>Display GO annotations using label "Functional annotations (GO): nn"</li>
+	    <li>Link the count to the new GO refs for a reference page</li>
+	    <li>Insert GO count after "Expression" and before "Genome features"</li>
 	</ol>
 </div>
-
 
 
 <div id="tests">
@@ -49,13 +53,24 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify addition of GO annotation counts in the Curated Data column.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
+    		   <li>Verify count for J:nnnnn that has just 1 GO annotation; Expected results: count=1.</li>
+    		   <li>Verify count for J:nnnnn that has multiple GO annotations for multiple markers; Expected results: count = n.</li>
+    		   <li>Verify count for J:nnnnn that has GO annotations with qualifiers; Expected results: count = n.</li>
+    		   <li>Verify count of 0 for J:nnnnn that has no GO annotations; Expected results: count = 0</li>
     	    </ol></li>
-    		
+    	    
+    	    <li>Verify label text and placement of label in list of Curated Data
+    	    <p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify new link when GO is the only type of curated data.  J:nnnnn.  Expected results: count = n</li>
+    		   <li>Verify new link when Expression and Genome Features are included in curated data.  Expected results: GO listed between them.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify link to new page
+    		<p concordion:assertTrue="false">new test</p>  </li>
 		</ol>
 	</div>
 	<div id="sql">

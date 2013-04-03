@@ -30,8 +30,8 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	    <li>req 1</li>
-	    <li>req 2</li>
+	    <li>Add "Functional annotations (GO)" to the Data filter after the "Expression: assay results" option when GO exists in returned results</li>
+	    <li>The "No curated data" option should now recognize GO as curated data</li>
 	</ol>
 </div>
 
@@ -49,11 +49,17 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify GO included in Data filter when appropriate
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
+    		   <li>Verify GO option included in Data Filter when reference returned includes GO. J:nnnnn.</li>
+    		   <li>Verify GO option not included in Data Filter when reference returned does not include GO.  J:nnnnn</li>
+    	    </ol></li>
+    		
+    		<li>Verify reference with GO annotations not returned when "No Data" is selected in the Data Filter
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify results including a reference with only GO data is not returned when the "No data" filter is selected.</li>
     	    </ol></li>
     		
 		</ol>
