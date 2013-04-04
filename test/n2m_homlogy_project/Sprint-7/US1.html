@@ -54,19 +54,19 @@
 		<ol>
     		
     		<li>Verify addition of GO annotation counts in the Curated Data column.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 4/4/13; test 1.3 has a count of 28</p>  
     		<ol>
-    		   <li>Verify count for J:nnnnn that has just 1 GO annotation; Expected results: count=1.</li>
-    		   <li>Verify count for J:nnnnn that has multiple GO annotations for multiple markers; Expected results: count = n.</li>
-    		   <li>Verify count for J:nnnnn that has GO annotations with qualifiers; Expected results: count = n.</li>
-    		   <li>Verify count of 0 for J:nnnnn that has no GO annotations; Expected results: count = 0</li>
+    		   <li>Verify count for J:91422 that has just 1 GO annotation; Expected results: 1 annotation/1 marker</li>
+    		   <li>Verify count for J:46886 that has multiple GO annotations for multiple markers; Expected results: 12 annotations/5 markers</li>
+    		   <li>Verify count for J:104662 that has GO annotations with qualifiers; Expected results: 26 annotations/6 markers/3 qualified annotations</li>
+    		   <li>Verify count of 0 for J:103320 that has no GO annotations; Expected results: count = 0</li>
     	    </ol></li>
     	    
     	    <li>Verify label text and placement of label in list of Curated Data
-    	    <p concordion:assertTrue="false">new test</p>  
+    	    <p concordion:assertTrue="false">PASS - jlewis 4/4/13</p>  
     		<ol>
-    		   <li>Verify new link when GO is the only type of curated data.  J:nnnnn.  Expected results: count = n</li>
-    		   <li>Verify new link when Expression and Genome Features are included in curated data.  Expected results: GO listed between them.</li>
+    		   <li>Verify new link when GO is the only type of curated data.  J:nnnnn.  Expected results: count = n <b>case does not exist in MGI</b></li>
+    		   <li>Verify new link when Expression and Genome Features are included in curated data.  J:68210.  Expected results: GO listed between them.  1 annotation/1 marker</li>
     	    </ol></li>
     	    
     	    <li>Verify link to new page
