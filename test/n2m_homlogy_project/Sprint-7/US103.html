@@ -84,7 +84,7 @@
 		<ol>
     		
     		<li>Verify report heading, page title, reference bar, user doc link, pagination, column headings
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 4/15/2013; bottom/top pagination controls react differently when changing size of browser window</p>  
     		<ol>
     		   <li>Verify report that has just 1 GO annotation.  J:91422.</li>
     		   <li>Verify report that has more than 100 GO annotations.  J:164563</li>
@@ -92,40 +92,40 @@
     		
     		
     		<li>Verify report contains correct GO annotations
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 4/15/2013</p>  
     		<ol>
-    		   <li>Select reference J:104662, a reference with GO annotations to all categories and multiple markers.  Expect 26 annotations/6 markers.</li>
-    		   <li>Select reference J:104662, a reference with qualified GO annotations.  Expect 26 annotations/6 markers/3 qualified annotations.</li>
-    		   <li>Select reference J:73796, a reference with annotations to the ND case (no data).</li>
+    		   <li>Select reference J:104662, a reference with GO annotations to all categories and multiple markers.  Expect 28 annotations/7 markers.</li>
+    		   <li>Select reference J:104662, a reference with qualified GO annotations.  Expect 28 annotations/7 markers/4 qualified annotations.</li>
+    		   <li>Select reference J:73796, a reference with annotations to the ND case (no data).  26,634 annotations.</li>
     	    </ol></li>
     	    
     	    <li>Verify columns in report correct
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 4/15/2013</p>  
     		<ol>
     		   <li>Select reference J:nnnn, a reference with GO annotations for a marker with a superscript in the symbol and/or name. Verify display. <b>no test case found</b></li>
     		   <li>Select reference J:18679, a reference with GO annotations for a marker with an UN chromosome.  Verify display in Chr column</li>
-    		   <li>Select reference J:99578, a reference with GO annotations for a marker with an XY chromosome.  Verify display in Chr column</li>
-    		   <li>Select reference J:151002, a reference with GO annotations for a marker with an MT chromosome.  Verify display in Chr column</li>
-               <li>Select reference J:60285, a reference with qualified GO annotations.  Verify display in term column.</li>
+    		   <li>Select reference J:99578, a reference with GO annotations for a marker with an XY chromosome.  Verify display in Chr column for marker Sts.</li>
+    		   <li>Select reference J:151002, a reference with GO annotations for a marker with an MT chromosome.  Verify display in Chr column for mt- markers.</li>
+               <li>Select reference J:60285, a reference with qualified GO annotations.  Verify display in term column for marker Msh3.</li>
     	    </ol></li>
     	    
     	    <li>Verify Text File and Excel File options
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 4/15/2013</p>  
     		<ol>
     		   <li>Select reference J:119178, a reference with just 1 GO annotations.  Download both types of files. # of rows = 1</li>
-    		   <li>Select reference J:164563, a reference with many GO annotations.  Download both types of files.  # of rows = 39,279</li>
+    		   <li>Select reference J:164563, a reference with many GO annotations.  Download both types of files.  # of rows = 43,509</li>
     	    </ol></li>
     	    
     	    <li>Verify primary and secondary sorts
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 4/15/2013</p>  
     		<ol>
     		   <li>Select reference J:104662.  Verify 6 markers displayed in correct order.</li>
-    		   <li>Select reference J:164563.  Verify smart alpha sort.</li>
-    		   <li>Select reference J:104662.  Verify category sort for marker Bmi1.  Expect C - F - P
+    		   <li>Select reference J:164563.  Verify smart alpha sort. Pdcd*, Epha*</li>
+    		   <li>Select reference J:104662.  Verify category sort for marker Bmi1.  Expect F-C-P
     	    </ol></li>
     	    
     	     <li>Verify display in supported browsers (IE, Firefox, Safari, Chrome)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 4/15/2013</p 
     		<ol>
     		   <li>Verify display of table.</li>
     		   <li>Verify pagination display and controls.</li>
