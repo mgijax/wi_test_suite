@@ -1,0 +1,121 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 107</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Update MGI_PhenoOMIM.rpt</h1>
+    <ul>
+        <li>User Story 107 - Update MGI_PhenoOMIM.rpt</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>rename report to MGI_OMIM.rpt</li>
+	    <li>report has one line per human or mouse gene associated with an OMIM disease term</li>
+	    <li>report includes all types of mouse markers (genes, transgenes, etc) that have disease associations</li>
+	    <li>Sort order: OMIM disease term, HomoloGene ID, taxon ID</li>
+	    <li>Report columns:
+	    <ol><li>OMIM Disease ID</li>
+	        <li>OMIM Disease Name</li>
+	        <li>HomoloGene ID - this may be blank if gene not associated to a HomoloGene class</li>
+	        <li>Common Organism Name</li>
+	        <li>NCBI Taxon ID</li>
+	        <li>Symbol - may be either a human or mouse symbol</li>
+	        <li>Entrez Gene ID - this may be blank if the symbol does not have an EG ID</li>
+	        <li>Mouse MGI ID - this will be blank for human genes</li>
+	    </ol></li>
+	    <li>report uses new rules for associating a mouse marker w/ a disease (should reflect same markers on Disease Detail page)
+	    <ol><li>Mouse marker must not be associated via an allele that is has a Driver Note (Cre)</li>
+	        <li>Mouse marker must not be associated via a genotype that has a NOT qualifier</li>
+	        <li>Mouse marker must not be associated via a Complex genotype that is NOT also conditional</li>
+	        <li>Mouse marker must not be associated via a wild type allele</li>
+	        <li>Mouse marker must not be associated via a Genotype that includes Gt(ROSA)26Sor</li> 
+	    </ol></li>
+	    <li>report uses human gene - disease associations loaded from OMIM/NCBI</li>
+	    <li>report uses homology relationships and homologs loaded from homologene</li>
+	    
+	</ol>
+</div>
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify Report Index Page is updated with new name, report columns, link</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 4/22/2013</p>  
+    		
+    		<li>Verify report column headings and sort order</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 4/22/2013</p>  
+    		
+    		<li>Verify all Marker Types are included in report and have the correct number of associations
+    		<p concordion:assertTrue="true">PASS - jlewis 4/22/2013</p>  
+    		<ol><li>Search for Kit (marker type = gene) and verify it is included for n diseases.</li>
+    		    <li>Search for Hba (marker type = complex/cluster/region) and verify it is included with 3 diseases</li>
+    		</ol></li>
+    		
+    		<li>Verify human/mouse gene relationships use the new homology relationships from HomoloGene when present
+    		<p concordion:assertTrue="true">PASS - jlewis 4/22/2013</p>  
+    		<ol><li>Search for HomoloGene ID 36030 (C4a, C4b) and verify multiple rows with same HG ID - same diseases as on Homology Class page</li>
+    		    <li>Search for HomoloGene ID 68066 and verify relationship of mouse Hbb-b1 to human HBB (relationship not in old report)</li>
+    		    <li>Search for mouse marker Hbb and verify no HG id present and is associated to 2 disease ids.</li>
+    		</ol></li>
+    		
+    		<li>Search file for Gt(ROSA) and verify there it is not included</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 4/22/2013</p>  
+    		
+    		<li>Verify a mouse marker is not associated to a disease via a cre allele.  142340/Nkx3-2 should no longer be in report.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 4/22/2013</p>  
+    		
+    		<li>Verify a mouse marker is not associated to a disease via complex/not conditional genotype.  155720/Cdkn2a should no longer be in report.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 4/22/2013</p>  
+    		
+    		<li>Verify a mouse marker is not associated to a disease via a NOT genotype annotations.  143100/Hap1 should not be in the report.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 4/22/2013</p>
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
