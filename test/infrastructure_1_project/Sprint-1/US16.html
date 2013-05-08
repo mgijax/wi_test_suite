@@ -1,0 +1,129 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 16</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Add Acc ID query box to Prod WI</h1>
+    <ul>
+        <li>User Story 16  - Add Acc ID query box to Prod WI toolbar</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Add Acc ID query box next to Quick Search box on Prod WI toolbar
+	   <ol><li>This is the Python WI version that has been in place for curators in the Curator Webtools product</li>
+	       <li>Existing limitations of the Acc ID Query will continue...</li>
+	       <li>No plan to include recent changes to the fewi "Accession" functionality made in 5.13</li>
+	   
+	   </ol></li>
+	   <li>Maintain existing Acc ID query functionality that is now available on Curator Webtools page
+	   <ol><li>Results returned for public and private MGI ids (but not ones in nomenclature table)</li>
+	       <li>Results returned for objects just entered into the database by curator (no waiting)</li>
+	       <li>List of comma delimited IDs accepted</li>
+	       <li>Direct links to web page when only a single object is matched</li>
+	       <li>Results returned for MGI id of withdrawn markers</li>
+	   </ol></li>
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify new query box in the toolbar at the top of all web pages
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Check web pages for all front end products: fewi, python wi, javawi, mgihome</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify public MGI Ids return results
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for marker id MGI:xxxxx; Verify match and direct link</li>
+    		   <li>Search for allele id MGI:xxxxx; Verify match and direct link</li>
+    		   <li>Search for assay id MGI:xxxxx; Verify match and direct link</li>
+    		   <li>Search for reference J:xxxxx; Verify match and direct link</li>
+    		   <li>Search for GO term GO:xxxxx;  Verify match and direct link</li>
+    		</ol></li>    	   
+    	    
+            <li>Verify private MGI Ids return results
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for reserved allele id MGI:xxxxx; Verify match to direct link</li>
+    		   <li>Search for in progress allele id MGI:xxxxx; Verify match and direct link</li>
+    		   <li>Search for reserved marker id MGI:xxxx;  Verify no match</li>
+    		</ol></li>    	    
+
+            <li>Verify newly entered MGI Ids return results
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for newly entered Marker MGI:xxxxx; Verify match to direct link</li>
+    		   <li>Search for newly entered Assay MGI:xxxxx; Verify match and direct link</li>
+    		   <li>Search for newly entered Allele MGI:xxxxx; Verify match and direct link</li>
+    		</ol></li>    	    
+    		 
+    		<li>Verify non-MGI IDs return results
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for Sequence id; Verify match</li>
+    		   <li>Search for OMIM id; Verify match</li>
+    		   <li>Search for HomoloGene id associated to multiple markers; Verify match</li>
+    		   <li>Search for SNP id xxxxx; Verify match</li>
+    		   <li>Search for PubMed id xxxx; Verify match</li>
+    		</ol></li>    	  
+    		
+    		<li>Verify comma delimited list of ids return results  
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for list of MGI ids; Verify match</li>
+    		   <li>Search for list of J numbers; Verify match</li>
+    		   <li>Search for list of mixed ids; Verify match</li>
+    		</ol></li>    	    	    
+    	    
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
