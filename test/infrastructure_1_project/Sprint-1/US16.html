@@ -43,6 +43,7 @@
 	       <li>Direct links to web page when only a single object is matched</li>
 	       <li>Results returned for MGI id of withdrawn markers</li>
 	   </ol></li>
+	   <li>Verify display okay on supported browsers (Firefox, IE, Chrome, Safari)</li>
 	   
 	</ol>
 </div>
@@ -61,13 +62,14 @@
 		<ol>
     		
     		<li>Verify new query box in the toolbar at the top of all web pages
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - minor IE bug- - jlewis 5/9/2013</p>  
     		<ol>
-    		   <li>Check web pages for all front end products: fewi (marker detail), python wi (marker summary), javawi (allele detail), quicksearch WI, mgihome (mini-home)</li>
+    		   <li>Check web pages for all front end products: python wi (marker summary), javawi (marker detail), quicksearch WI, mgihome (mini-home)</li>
+    		   <li>Check display on all supported browsers: IE/PC; Firefox/PC; Chrome/PC; Firefox/Mac; Safari/Mac</li>
     	    </ol></li>
     	    
     	    <li>Verify public MGI Ids return results
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/9/2013</p>  
     		<ol>
     		   <li>Search for marker id MGI:96677; Verify match and direct link to Kit Marker Detail</li>
     		   <li>Search for allele id MGI:1856798; Verify match and direct link to agouti yellow Allele Detail</li>
@@ -78,7 +80,7 @@
     		</ol></li>    	   
     	    
             <li>Verify private MGI Ids return results
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - 5/9/2013</p>  
     		<ol>
     		   <li>Search for reserved allele id MGI:3526707; Verify match and direct link to Allele Detail</li>
     		   <li>Search for in progress allele id MGI:1856553; Verify match and direct link to Allele Detail</li>
@@ -86,30 +88,37 @@
     		</ol></li>    	    
 
             <li>Verify newly entered MGI Ids return results
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/9/2013</p>  
     		<ol>
     		   <li>Search for newly entered Marker MGI:5479512; Verify match to direct link</li>
-    		   <li>Search for newly entered Assay MGI:xxxxx; Verify match and direct link</li>
-    		   <li>Search for newly entered Allele MGI:xxxxx; Verify match and direct link</li>
+    		   <li>Search for newly entered Assay MGI:5479515; Verify match and direct link</li>
+    		   <li>Search for newly entered Allele MGI:5479514; Verify match and direct link</li>
     		</ol></li>    	    
     		 
     		<li>Verify non-MGI IDs return results
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/9/2013</p>  
     		<ol>
     		   <li>Search for Sequence id NM_013627; Verify match to sequence for Pax6</li>
     		   <li>Search for OMIM id 222100; Verify match to Diabetes Disease Detail</li>
     		   <li>Search for HomoloGene id 36030 associated to multiple markers; Verify match to C4a and C4b.</li>
     		   <li>Search for SNP id rs32868365; Verify match to snp for Pax6</li>
     		   <li>Search for PubMed id 9655799; Verify match to J:49251</li>
-    		</ol></li>    	  
+    		</ol></li>    
+    		
+    		<li>Verify an MGI id for a withdrawn marker will return a result  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/9/2013</p>  
+    		<ol>
+    		   <li>Search for withdrawn marker MGI:3781977; Verify match to Gm3804</li>
+    		</ol></li>    	 	  
     		
     		<li>Verify comma delimited list of ids return results  
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/9/2013</p>  
     		<ol>
     		   <li>Search for list of MGI ids; Verify match</li>
     		   <li>Search for list of J numbers; Verify match</li>
     		   <li>Search for list of mixed ids; Verify match</li>
-    		</ol></li>    	    	    
+    		</ol></li>    	 
+    		   	    
     	    
 		</ol>
 	</div>
