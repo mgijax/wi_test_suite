@@ -17,7 +17,7 @@
 
 <body>
 
-<div id="maintitle"><h1>Convert MGI BioMart to use Postgres</h1>
+<div id="maintitle"><h1>Convert MGI BioMart (Genes & Genome Features) to use Postgres</h1>
     <ul>
         <li>User Story 3 - Convert MGI BioMart to stop using hobbiton's Sybase (use Postgres)</li>
     </ul>
@@ -30,12 +30,26 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	   <li>Req 1
-	   <ol><li>Req 1.1</li>
-	       <li>Req 1.2</li>
-	       <li>Req 1.3</li>
-	   
+	   <li>Maintain same functionality of filters in BioMart - Genes and Genome Features dataset.
+	   <ol><li>Genome Features</li>
+	       <li>Genome Location</li>
+	       <li>Allele Features</li>
 	   </ol></li>
+	   <li>Maintain same list of attributes in BioMart - Genes dataset
+	   <ol><li>Features</li>
+	       <li>Genome Location</li>
+	       <li>Alleles</li>
+	       <li>Orthologs</li>
+	   </ol></li>
+	   <li>Update ortholog data to use new N-M Homology tables
+	   <ol>
+	       <li>old data out - new data in</li>
+	       <li>need to change wording in BioMart?  Orthologs to Homologs if easy</li>
+	   </ol></li>
+	   <li>Update list of feature types to include latest ones added
+	   <ol><li>endogenous retroviral region - should be added to the end of the feature type list (it was added in Dec 2012)</li>
+	   </ol></li>
+	   
 	   
 	</ol>
 </div>
@@ -53,13 +67,73 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify Genome Feature filters work as before
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
+    		   <li>Verify Identifiers filter of MGI:96677; expected results Kit</li>
+    		   <li>Verify Identifiers filter for withdrawn marker - MGI:3781977; expect 0 results
+    		   <li>Verify Identifiers filter with gene symbols: T, a, Tyr, Pax6; Expected results 5 markers returned (T and t)</li>
+    		   <li>Verify Identifiers filter with gene symbols: Bmp1, Bmp2, Bmp4, Bmp10; Expected results 4 markers returned (note - NOT in a smart alpha order)</li>
+    		   <li>Verify Feature Name filter with feature name: leptin; Expected results: returns Lep.  Try again with LEPTIN which should have same results.</li>
+    		   <li>Verify Feature Type filter by selecting snoRNA gene; Expected results: 1600 markers</li>
     	    </ol></li>
     	    
+    	    <li>Verify Genome Location filters work as before
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify Chromosome filter by selecting Chromosome 14.  Expected results: 3307 markers returned.</li>
+    		   <li>Verify Chromosome filter by selecting Chromosome XY.  Expected results: 21 markers returned.</li>
+    		   <li>Verify Coordinate Range filter by selecting Chr MT, 4900-5300.  Expected results 6 markers returned (include markers with +/- strand)</li>
+    		   <li>Verify Coordinate Range filter for markers with no strand.  Chr 11, 3200000-3600000.  Expected results 23 markers returned (incl markers w/no strand)</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Allele filters work as before
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify Allele Identifier filter by selecting MGI:1856798.  Expected results: 1 allele returned - agouti yellow.</li>
+    		   <li>Verify verify private data not returned by filtering on a private allele, MGI:3526707.  Expected results: private allele not found.</li>
+    		   <li>Verify Allele Identifier filter by entering allele symbol a&lt;y&gt;  Expected results: nonagouti marker returned.</li>
+    		   <li>Verify Allele Name filter by entering agouti yellow; Expected results: 1 allele returned - a&lt;y&gt;  Try again with AGOUTI YELLOW</li>
+    		   <li>Verify Allele Type filter by selecting QTL and Chromosome 19; Expected results: 113 markers</li>
+    	    </ol></li>
+    	    
+    	     <li>Verify Feature attributes display as before
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Select all the Feature attributes and filter for marker Pax7 that has all features.  Expected results - all columns have a value - verify with Marker Detail/Marker GO page.</li>
+    		   <li>Select all feature attributes and filter for markers with a feature type of 'Telomere'.  Expected results - no associated GO or IDs; 47 markers.</li>
+    	    </ol></li>
+    	    
+    	     <li>Verify Genome Location attributes work as before
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Select all location attributes and filter for gene Brca2, a gene with + strand; Expect results to match Marker Detail display </li>
+    		   <li>Select all location attributes and filter for gene Pax7, a gene with - strand; Expect results to match Marker Detail display </li>
+    		   <li>Select all location attributes and filter for gene Rn18s, a gene with no strand and coords; Expect results to match Marker Detail display</li>
+    		   <li>Select all location attributes and filter for gene Hbb, a gene with no strand and no coords; Expect results to match Marker Detail display</li>
+    		   <li>Select all location attributes and filter for gene Ahsp, a gene with UN chr and no coords; Expect results to match Marker Detail display</li>
+    		   <li>Select all location attributes and filter for gene Sry, a gene with Y chr and coords; Expect results to match Marker Detail display</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Allele attributes work as before
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Select all the allele attributes and filter for gene Msh3 that has alleles with and without MP terms; Expected results: match the Batch Query results for this gene.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Ortholog attributes display the new Homology relationship data loaded in 5.13
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Select all the ortholog attributes and filter for gene Ahsp.  Expected results - no orthologs displayed</li>
+    		   <li>Select all the ortholog attributes and filter for gene C4a.  Expected results - 2 human and 2 rat homologs displayed</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify the Feature Types pick list displays recently added feature types
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify that the pick list includes recently entered feature type: endogenous retroviral region</li>
+    		   <li>Filter by feature type endogenous retroviral region.  Expected results - nnn markers returned (should match Marker QF)</li>
+    	    </ol></li>
     	    
 		</ol>
 	</div>
