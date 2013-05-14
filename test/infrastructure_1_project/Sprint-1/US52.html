@@ -10,6 +10,9 @@
 	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
 	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
 	p {margin:2px 0px;}
+body{
+font: 11px Verdana, sans-serif;
+}
 </style>
 
     <title>User Story 52</title>
@@ -30,12 +33,24 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	   <li>Req 1
-	   <ol><li>Req 1.1</li>
-	       <li>Req 1.2</li>
-	       <li>Req 1.3</li>
-	   
+	   <li>Maintain GXD Filter Functions<br>
+	   Filters will be tested separately and in combination (to limit result counts)
+	   <ol><li>Gene Symbol</li>
+	       <li>MGI Gene ID</li>
+	       <li>Theiler Stage</li>
+	       <li>Anatomical Structure</li>
+	       <li>Expression</li>
+	       <li>Level</li>
+	       <li>Specimen Mutated In: Gene Symbol</li>
+	       <li>Assay Type</li>
+	       <li>Reference ID</li>
+	       <li>MGI Probe ID</li>  	   
 	   </ol></li>
+	   
+	   <li>Maintain GXD Attributes<br>
+	   Attributes will be tested simultaneously with Filter tests
+	   	    
+	   
 	   
 	</ol>
 </div>
@@ -53,11 +68,252 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify GXD Filter Functions and Attribute Display<br><br>
+    		   		<ol>
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
+ 
+    		   <li>Gene Symbol</li><p>
+    		   Test Case1: Current Symbol = Actr3 - Expected Results: 28 / 1563146 Entries<p>
+    		   Note: All Attributes displayed with this query.<br><br>
+    		   
+    		   Test Case2: Withdrawn Symbol = Ity - Expected Results: 0 / 1563146 Entries<p>
+    		   Note: Current Symbol = Slc11a1 - Expected Results: 47 / 1563146 Entries
+    		   <br><br>
+    		   
+    		  
+    		<p concordion:assertTrue="false">new test</p>  
+	             
+	       <li>MGI Gene ID</li><p>
+    		   Test Case1: Primary MGI ID = MGI:87893 (Chrnd) - Expected Results: 51 / 1563146 Entries<br><br>
+    		   
+    		   Test Case2: Secondary MGI ID = MGI:2138724 - Expected Results: 0 / 1563146 Entries<p>
+    		   Note: This is a secondary MGI ID for Marker Chrnd
+    		  <br><br>
+    		   
+    		<p concordion:assertTrue="false">new test</p>
+	       
+	       
+	       <li>Theiler Stage</li><p>
+	       Test Case: Pou5f1 (This is the only marker in MGI that has expression data for all Theiler Stages)<br>
+	       Expected Results for all Stages:  867 / 1563146 Entries<p>
+	       Expected Results for select Stages:<br>
+	       <table WIDTH="!">
+<tr>
+<td bgcolor="#D0E0F0" align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1><b>Stage</b></font></td>
+<td bgcolor="#D0E0F0" align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1><b>Expected</b></font></td>
+<td bgcolor="#D0E0F0" align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1><b>Observed</b></font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>9</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>5</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>68</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>10</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>13</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>15</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>18</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>20</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>18</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>25</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>2</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>28</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>244</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+</table><br><br>
+	       
+    		   
+    		<p concordion:assertTrue="false">new test</p>
+	       
+	       
+	       <li>Anatomical Structure</li><p>
+    		   Test Case: Anatomical Structure: branchial arch; Gene Symbol: Msx1; Theiler Stage: 15 - Expected Results: 17 / 1563146 Entries<p>
+    		   Note: Compare with results from section: "Specimen Mutated In: Gene Symbol"<br><br>
+    		   
+    		<p concordion:assertTrue="false">new test</p>
+    		
+	       <li>Expression</li><p>
+	       Test Case: The "Expression" paramater will be combined with "Level" for testing using Gene: Pou5f1
+	       Expected Results (total):  867 / 1563146 Entries<p>
+	       Expected Results for select Expression/Level values for Pou5f1:<br>
+	       <table WIDTH="!">
+<tr>
+<td bgcolor="#D0E0F0" align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1><b>Expression</b></font></td>
+<td bgcolor="#D0E0F0" align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1><b>Level</b></font></td>
+<td bgcolor="#D0E0F0" align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1><b>Expected</b></font></td>
+<td bgcolor="#D0E0F0" align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1><b>Observed</b></font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>705</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>Absent</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>0</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>All except "Absent"</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>705</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>Ambiguous</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>2</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>Moderate</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>9</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>Not Applicable</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>2</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>Not Specified</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>36</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>Present</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>592</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>Strong</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>28</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>Trace</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>3</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>Very strong</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>19</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>1</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>Weak</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>14</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>0</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>162</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>0</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>Absent</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>162</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+
+<tr>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>0</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>All except "Absent"</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>0</font></td>
+<td align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font size=-1>&nbsp;</font></td>
+</tr>
+</table><br><br>
+	       
+	       
+
+    		   
+    		<p concordion:assertTrue="false">new test</p>
+	       <li>Level</li><p>
+	       See section: Expression
+	       
+	       <br><br>
+    		   
+    		<p concordion:assertTrue="false">new test</p>
+	       <li>Specimen Mutated In: Gene Symbol</li><p>
+	       
+	       
+	       <br><br>
+    		   
+    		<p concordion:assertTrue="false">new test</p>
+	       <li>Assay Type</li><p>
+	       
+	       
+	       
+	       <br><br>
+    		   
+    		<p concordion:assertTrue="false">new test</p>
+	       <li>Reference ID</li><p>
+	       
+	       
+	       <br><br>
+    		   
+    		<p concordion:assertTrue="false">new test</p>
+	       <li>MGI Probe ID</li> 
     	    </ol></li>
     	    
     	    
