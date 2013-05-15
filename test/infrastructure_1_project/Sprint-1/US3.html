@@ -94,7 +94,7 @@
     		   <li>Verify verify private data not returned by filtering on a private allele, MGI:3526707.  Expected results: private allele not found.</li>
     		   <li>Verify Allele Identifier filter by entering allele symbol a&lt;y&gt;  Expected results: nonagouti marker returned.</li>
     		   <li>Verify Allele Name filter by entering agouti yellow; Expected results: 1 allele returned - a&lt;y&gt;  Try again with AGOUTI YELLOW</li>
-    		   <li>Verify Allele Type filter by selecting QTL and Chromosome 19; Expected results: 113 markers</li>
+    		   <li>Verify Allele Type filter by selecting QTL and Chromosome 19; Expected results: 113 markers (Prod WI Allele Summary returned 114 - may be due to a reserved allele).</li>
     	    </ol></li>
     	    
     	     <li>Verify Feature attributes display as before
@@ -110,9 +110,9 @@
     		   <li>Select all location attributes and filter for gene Brca2, a gene with + strand; Expect results to match Marker Detail display </li>
     		   <li>Select all location attributes and filter for gene Pax7, a gene with - strand; Expect results to match Marker Detail display </li>
     		   <li>Select all location attributes and filter for gene Rn18s, a gene with no strand and coords; Expect results to match Marker Detail display</li>
-    		   <li>Select all location attributes and filter for gene Hbb, a gene with no strand and no coords; Expect results to match Marker Detail display</li>
+    		   <li>Select all location attributes and filter for gene Hbb, a gene with no strand and no coords and syntenic cM; Expect results to match Marker Detail display</li>
     		   <li>Select all location attributes and filter for gene Ahsp, a gene with UN chr and no coords; Expect results to match Marker Detail display</li>
-    		   <li>Select all location attributes and filter for gene Sry, a gene with Y chr and coords; Expect results to match Marker Detail display</li>
+    		   <li>Select all location attributes and filter for gene Sry, a gene with Y chr and coords and blank cM; Expect results to match Marker Detail display</li>
     	    </ol></li>
     	    
     	    <li>Verify Allele attributes work as before
@@ -132,7 +132,7 @@
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Verify that the pick list includes recently entered feature type: endogenous retroviral region</li>
-    		   <li>Filter by feature type endogenous retroviral region.  Expected results - 607 markers returned (should match Marker QF)</li>
+    		   <li>Filter by feature type endogenous retroviral region.  Expected results - 606 markers returned (should match Marker QF)</li>
     	    </ol></li>
     	    
 		</ol>
