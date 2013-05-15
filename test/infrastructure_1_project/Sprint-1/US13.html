@@ -1,0 +1,229 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 13</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Convert Public QS Indexer to use PostGres</h1>
+    <ul>
+        <li>User Story 13 - Convert Public QS Indexer to use Postgres</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Maintain same functionality for Genome Features (Marker Bucket) QS indexes
+	   <ol><li>Inexact - contains all small tokens; stemmed and unstemmed
+	       <ul><li>marker symbol, name, synonym</li>
+	           <li>Allele symbol, name, synonym</li>
+	           <li>Ortholog symbol, name, synonym (symbol - all; name, synonym - human and rat)</li>
+	           <li>Vocab term, synonym, definition</li>
+	       </ul></li>
+	       <li>Exact - contains large tokens; unstemmed
+	       <ul><li>marker name, synonym</li>
+	           <li>allele name, synonym</li>
+	           <li>ortholog name, synonym (human and rat)</li>
+	           <li>no symbols in this index</li>
+	       </ul></li>
+	       <li>Symbol - contains marker, allele, and ortholog symbols; unstemmed</li>
+	       <li>Acc ID - contains Marker, Ortholog (all species), Allele, and ES Cell Line ids</li>
+	       <li>Vocab Acc ID - contains GO, OMIM, MP, InterPro, PIRSF, (MA and PRO??)</li>
+	       <li>Vocab Exact - contains term, synonym, definition; unstemmed</li>
+	       <li>Marker Display - all display fields for Marker bucket</li>
+	   </ol></li>
+	   
+	   <li>Maintain same functionality for Vocabulary (Vocab Bucket) QS indexes
+	   <ol><li>Inexact - contains all small tokens for term, synonym, and definition; stemmed and unstemmed</li>
+	       <li>Exact - contains large tokens for term, synonym, and definition; unstemmed</li>
+	       <li>Acc ID - contains GO, OMIM, MP, InterPro, PIRSF, (MA and PRO??)</li>
+	       <li>Vocabulary Display - all display fields for Vocab bucket</li>
+	   </ol></li>
+	   
+	   <li>Maintain same functionality for Other Bucket (IDs) QS indexes
+	   <ol><li>Exact - ids for objects other than markers and vocabulary terms
+	       <ul><li>Sequences</li>
+	           <li>Probes/Clones</li>
+	           <li>AMA</li>
+	           <li>Antigen</li>
+	           <li>Antibody</li>
+	           <li>Mapping Experiment</li>
+	           <li>Images</li>
+	           <li>Assays</li>
+	           <li>Alleles</li>
+	           <li>Homolog</li>
+	           <li>Homology</li>
+	           <li>ES Cell Lines</li>
+	           <li>SNPs + Sub-SNPs - removed in 5.14</li>
+	       </ul></li>
+	       <li>Other Display - fields displayed in the ID Bucket</li>
+	   </ol></li>
+	   
+	   <li>Maintain special input options
+	   <ol><li>wildcards</li>
+	       <li>double quotes</li>
+	       <li>superscript search</li>
+	       <li>case insensitive</li>
+	       <li>multiple tokens - order insensitive</li>
+	   </ol></li>
+	       
+	   
+	 
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Validate results returned for AND/OR searches in MARKER BUCKET with Marker Nomenclature (symbol, name, synonym)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	   
+    	   <li>Validate results returned for AND/OR searches in MARKER BUCKET with Allele Nomenclature (symbol, name, synonym)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	   
+    	   <li>Validate results returned for AND/OR searches in MARKER BUCKET with Homology Nomenclature (symbol (all species), name (human,rat), synonym (human,rat))
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	   
+    	   <li>Validate results returned for AND/OR searches in MARKER BUCKET with Vocabulary Terms (term, synonym, definition)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned with exact matches in MARKER BUCKET to Marker Nomenclature (name, synonym)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned with exact matches in MARKER BUCKET to Allele Nomenclature (name, synonym)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	   
+    	   <li>Validate results returned with exact matches in MARKER BUCKET to Human/Rat Nomenclature (name, synonym)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	   
+    	   <li>Validate results returned with exact matches in MARKER BUCKET to marker, allele, and homolog symbols
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	   
+    	   <li>Validate results returned in MARKER BUCKET with exact matches to Marker, Homolog, Allele, and ES Cell Line IDs.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned in MARKER BUCKET with exact matches to Vocab IDs (GO, OMIM, MP, InterPro, PIRSF)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned with exact matches in MARKER BUCKET to Vocab terms, synonyms, and definitions
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned for AND/OR searches in VOCAB BUCKET matching vocabulary terms, synonyms, and definitions
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned with exact matches in VOCAB BUCKET matching vocabulary terms, synonyms, and definitions
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned with exact matches in VOCAB BUCKET matching vocabulary accession ids (TO, OMIM, MP, InterPro, PIRSF)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned with exact matches in OTHER BUCKET matching accession ids for objects other than Markers, Alleles, and Vocabulary
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
