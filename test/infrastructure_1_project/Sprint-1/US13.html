@@ -103,32 +103,53 @@
 		
 		<ol>
     		
-    		<li>Validate results returned for AND/OR searches in MARKER BUCKET with Marker Nomenclature (symbol, name, synonym)
+    		<li>Validate results returned for AND/OR searches in MARKER BUCKET with Marker Nomenclature (symbol, name, synonym) (3,2,1 star matches)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Search for marker symbol with multiple tokens, AGT 5Afu (search for a subset of the  tokens).  Expected result: return Tg(AGT)2-5Afu with 3 stars; match to marker symbol.</li>
+    		   <li>Search for marker name with multiple tokens, Dopey Family (search for a subset of the tokens).    Expected result: return  Dopey1, Dopey2 each with 3 stars; match to marker name</li>
+    		   <li>Search for marker name with multiple tokens, Dopey family member 1 (search for all tokens).  Expected result: return Dopey1 with 4 stars and Dopey2 with 1 star; match to marker name.</li>
+    		   <li>Search for marker synonym with multiple tokens, 6 Pax (search for tokens out of order).  Expected result: return  Pax6 with 3 stars match to synonym.</li>
+    		   <li>Search for marker name with tokens that have stems, transform relate protein (search for tokens by stem).  Expected result: return  Trp53 with 3 stars</li>
+    		   <li>Search for marker synonym with multiple tokens, Pax 6 football (search for tokens, but add the token 'football').  Expected result: return  Pax6 with 1 star and Pxn with 2 stars.</li>
     		   
     	    </ol></li>
     	    
     	   
-    	   <li>Validate results returned for AND/OR searches in MARKER BUCKET with Allele Nomenclature (symbol, name, synonym)
+    	   <li>Validate results returned for AND/OR searches in MARKER BUCKET with Allele Nomenclature (symbol, name, synonym) (3,2,1 star matches)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Search for allele symbol with multiple tokens, xxxx (search for a subset of the  tokens).  Expected result: return xxxxxx with 3 stars; match to allele symbol.</li>
+    		   <li>Search for allele name with multiple tokens, xxxxxx (search for a subset of the tokens).    Expected result: return  xxxxx with 3 stars; match to allele name</li>
+    		   <li>Search for allele name with multiple tokens, xxxxxx (search for all tokens).  Expected result: return xxxx with 4 stars and xxxxx with 1 star; match to allele name.</li>
+    		   <li>Search for allele synonym with multiple tokens, xxxxx (search for tokens out of order).  Expected result: return xxxx with 3 stars match to synonym.</li>
+    		   <li>Search for allele name with tokens that have stems, xxxxx (search for tokens by stem).  Expected result: return  xxxx with 3 star match to name</li>
+    		   <li>Search for allele synonym with multiple tokens, xxxxxx football (search for tokens, but add the token 'football').  Expected result: return  xxxxxx with 1 star.</li>
     		   
     	    </ol></li>
     	   
     	   <li>Validate results returned for AND/OR searches in MARKER BUCKET with Homology Nomenclature (symbol (all species), name (human,rat), synonym (human,rat))
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Search for ortholog symbol with multiple tokens, xxxx (search for a subset of the  tokens).  Expected result: return xxxxxx with 3 stars; match to symbol.</li>
+    		   <li>Search for ortholog name with multiple tokens, xxxxxx (search for a subset of the tokens).    Expected result: return  xxxxx with 3 stars; match to name</li>
+    		   <li>Search for ortholog name with multiple tokens, xxxxxx (search for all tokens).  Expected result: return xxxx with 4 stars and xxxxx with 1 star; match to name.</li>
+    		   <li>Search for ortholog synonym with multiple tokens, xxxxx (search for tokens out of order).  Expected result: return xxxx with 3 stars match to synonym.</li>
+    		   <li>Search for ortholog name with tokens that have stems, xxxxx (search for tokens by stem).  Expected result: return  xxxx with 3 star match to name</li>
+    		   <li>Search for ortholog synonym with multiple tokens, xxxxxx football (search for tokens, but add the token 'football').  Expected result: return  xxxxxx with 1 star.</li>
     		   
     	    </ol></li>
     	   
     	   <li>Validate results returned for AND/OR searches in MARKER BUCKET with Vocabulary Terms (term, synonym, definition)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Search for vocab term with multiple tokens, xxxx (search for a subset of the  tokens).  Expected result: return xxxxxx with 3 stars; match to term.</li>
+    		   <li>Search for vocab definition with multiple tokens, xxxxxx (search for a subset of the tokens).    Expected result: return  xxxxx with 3 stars; match to definition</li>
+    		   <li>Search for vocab synonym with multiple tokens, xxxxxx (search for all tokens).  Expected result: return xxxx with 4 stars and xxxxx with 1 star; match to synonym.</li>
+    		   <li>Search for vocab term with multiple tokens, xxxxx (search for tokens out of order).  Expected result: return xxxx with 3 stars match to term.</li>
+    		   <li>Search for vocab term with tokens that have stems, xxxxx (search for tokens by stem).  Expected result: return  xxxx with 3 star match to term</li>
+    		   <li>Search for vocab synonym with multiple tokens, xxxxxx football (search for tokens, but add the token 'football').  Expected result: return  xxxxxx with 1 star.</li>
+    		   
     		   
     	    </ol></li>
     	    
