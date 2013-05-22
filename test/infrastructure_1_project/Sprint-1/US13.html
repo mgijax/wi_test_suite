@@ -192,7 +192,7 @@
     	    </ol></li>
     	   
     	   <li>Validate results returned in MARKER BUCKET with exact matches to Marker, Homolog, Allele, and ES Cell Line IDs.
-    		<p concordion:assertTrue="false">FAIL - jlewis 5/20/2013; display issues in best match column for tests 2 and 10.</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/22/2013</p>  
     		<ol>
     		   <li>Search for marker MGI id, MGI:96677.  Expected result: 4 star match to Kit</li>
     		   <li>Search for marker EG id, 20595.  Expected result: 4 star match to Smn1</li>
@@ -274,13 +274,13 @@
     		</ol></li>
     	    
     	    <li>Validate results returned with exact matches in OTHER BUCKET matching accession ids for objects other than Markers, Alleles, and Vocabulary
-    		<p concordion:assertTrue="false">FAIL - jlewis 5/21/2013</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/22/2013</p>  
     		<ol>
     		   <li>Verify reference IDs:
     		   <ul><li>J:62345</li>
-    		       <li>8825637 - PubMed ID <b>broken reference link</b></li>
-    		       <li>MGI:1858784 - MGI <b>broken reference link</b></li>
-    		       <li>10.1006/bbrc.1999.1563 - DOI (Broken on PUBLIC - TR?)</li>
+    		       <li>8825637 - PubMed ID </li>
+    		       <li>MGI:1858784 - MGI </li>
+    		       <li>10.1006/bbrc.1999.1563 - DOI (Broken on PUBLIC - TR 11313)</li>
     		   </ul></li>
     		   
     		   <li>Verify expression IDs:
@@ -293,7 +293,7 @@
     		   
     		   <li>Verify sequence IDs:
     		   <ul><li>OTTMUSG00000015949 - return Oip5 in marker bucket; seq link in other bucket</li>
-    		       <li>14894 - NCBI gene model - return Gtl3 in marker bucket; seq link in other bucket <b>LABEL issue</b></li>
+    		       <li>14894 - NCBI gene model - return Gtl3 in marker bucket; seq link in other bucket</li>
     		       <li>NM_001122899 - Lepr/seq link</li>
     		       <li>P05532 - Kit/seq link</li>
     		       <li>AA212080 - genbank - 1 seq/1 clone</li>
