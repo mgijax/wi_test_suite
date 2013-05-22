@@ -44,7 +44,7 @@
 	   <ol>
 	       <li>Genotype display = recognize rules for line breaks set by the curators</li>
 	       <li>Genotypes are listed just once and may include multiple annotations to the term (and/or child terms) if present</li>
-	       <li>Sort order = Alphanumeric by the genotype</li>
+	       <li>Sort order = Primary: alphanumeric by the genotype; Secondary: alphanumeric by term</li>
 	   </ol>
 	   <li>Update links to this page in MP Browser & Quick Search</li>
 	   <li>Add URL to list of forwarded pages</li>
@@ -67,14 +67,51 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify the correct MP Annotation data is included on the page
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
+    		   <li>Display MP Annotation page for a term with annotated subterms, MP:nnnnn.  Expected results: nnnn</li>
+    		   <li>Display MP Annotation page for a term with no annotated subterms, MP:nnnnn.  Expected results: nnnn</li>
+    		   <li>Display MP Annotation page for a term with multiple annotations for a genotype, MP:nnnnn.  Expected results: nnnn</li>
+    		   <li>Display MP Annotation page for a term that includes normal annotations, MP:nnnnn.  Expected results: nnnn</li>
+    		   <li>Display MP Annotation page for a term with only single annotations for all genotypes, MP:nnnnn.  Expected results: nnnn</li>
+    		   <li>Display MP Annotation page for a term with only 1 annotation, MP:nnnnn.  Expected results: nnnnn</li>
+    		   <li>Verify terms with no annotations display as expected.  MP:nnnnn</li>
     	    </ol></li>
     	    
-    		   	    
+    		<li>Verify the correct data and links are displayed on the page
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify links to Allele Detail, Term Detail, and Reference.</li>
+    		   <li>Verify counts when genotypes and annotations are equal, MP:nnnnnn.  Expected results:</li>
+    		   <li>Verify counts when genotypes and annotations are not equal, MP:nnnnnn.  Expected results:</li>
+    		   <li>Verify display of Allelic Composition column for a simple genotype, MP:nnnnnnn.  Expected results:</li>
+    		   <li>Verify display of Allelic Composition column for a complex genotype, MP:nnnnnn.  Expected results:</li>
+    		   <li>Verify display of Allelic Composition column for a special case genotypes, MP:nnnnnn.  Expected results:</li>
+    		   <li>Verify display of references when multiple references exist, MP:nnnnn.  Expected results: </li>
+    		   <li>Verify display of annotated term when it is a child of the selected term, MP:nnnnn.  Expected results:</li>
+    	    </ol></li> 	    
+    	    
+    	    <li>Verify sort order
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify primary and secondary sort order, MP:nnnnnn.</li>
+    	    </ol></li>
+    	    
+    		<li>Verify display on supported browsers
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify annotation page with single annotations per genotype, MP:nnnnnn.  Check in IE, Firefox, Safari, and Chrome. Mac and PC.</li>
+    		   <li>Verify annotation page with multiple annotations per genotype, MP:nnnnnn.  Check in IE, Firefox, Safari, and Chrome.  Mac and PC.</li>
+    	    </ol></li> 	    
+    	    
+    	    <li>Verify MP Browser, Quick Search, and old URL link to new page 
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify link in VOCAB BUCKET Associated Data column </li>
+    		   <li>Verify link from MP Browser</li>
+    		   <li>Verify old URL links to new page</li>
+    	    </ol></li> 
     	    
 		</ol>
 	</div>
