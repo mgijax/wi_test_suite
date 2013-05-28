@@ -1,0 +1,135 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 24</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Rewrite MP Annotation Page</h1>
+    <ul>
+        <li>User Story 24  - Rewrite MP Annotation Page</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>The report keeps the same rules for what data is included on the page
+	   <ol><li>Data = MP annotations for the selected term and its sub-terms. </li>
+	       <li>Data = normal annotations are included</li>
+	   </ol></li>
+	   <li>The report displays the same data and links on the page
+	   <ol>
+	       <li>Headings = title; genotype/annotation count; searched term</li>
+	       <li>Columns displayed = Allelic Composition (Genetic Background), Annotated Term, Reference (may be more than 1)</li>
+	       <li>Links = alleles, MP terms, references</li>
+	   </ol></li>
+	   <li>The report uses the same display rules on the page
+	   <ol>
+	       <li>Genotype display = recognize rules for line breaks set by the curators</li>
+	       <li>Genotypes are listed just once and may include multiple annotations to the term (and/or child terms) if present</li>
+	       <li>Sort order = Primary: alphanumeric by the genotype; Secondary: alphanumeric by term</li>
+	   </ol>
+	   <li>Update links to this page in MP Browser & Quick Search</li>
+	   <li>Add URL to list of forwarded pages</li>
+	   <li>Display correctly on all supported browsers (IE, firefox, chrome, safari)</li>
+	   <li>Add pagination?</li>
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify the correct MP Annotation data is included on the page
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display MP Annotation page for a term with annotated subterms, MP:0011698.  Expected results: 9 genos/9 annots</li>
+    		   <li>Display MP Annotation page for a term with annotated subterms, multiple annotations for a genotype, and complex genotypes, MP:0011396.  Expected Results: 73 genos/89 annots</li>
+    		   <li>Display MP Annotation page for a term with no annotated subterms, MP:0009883.  Expected results: 14 genos/14 annots.</li>
+    		   <li>Display MP Annotation page for a term with multiple annotations for a genotype, MP:0008797 (facial cleft).  Expected results: 59 genos/63 annots</li>
+    		   <li>Display MP Annotation page for a term that includes normal annotations, MP:0005394.  Expected results: 195 genos/246 annots</li>
+    		   <li>Display MP Annotation page for a Normal phenotype term, MP:0003171 (phenotypic reversion).  Expected results: 20 genos/22 annots</li>
+    		   <li>Display MP Annotation page for a term with only single annotations for all genotypes, MP:0001277 (tangled vibrissae).  Expected results: 5 genos/5 annots</li>
+    		   <li>Display MP Annotation page for a term with only 1 annotation, MP:0000327 (hemosiderinuria).  Expected results: 1 geno/1 annot</li>
+    		   <li>Verify terms with no annotations, MP:0011173.  Expected results: 0 geno/0 annot.</li>
+    	    </ol></li>
+    	    
+    		<li>Verify the correct data and links are displayed on the page
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify links to Allele Detail, Term Detail, and Reference.</li>
+    		   <li>Verify display of Allelic Composition column for a simple genotype, MP:0001274.  Expected results: Verify several simple genotypes on this page.</li>
+    		   <li>Verify display of Allelic Composition column for a complex genotype, MP:0011110.  Expected results: Verify display of the several complex genotypes on this page</li>
+    		   <li>Verify display of Allelic Composition column for genotypes with wild type allele, MP:0001278 (kinked vibrissae).  Expected results: 13 genos/13 annots</li>
+    		   <li>Verify display of references when multiple references exist, MP:0003408.  Expected results: annotation with 3 references all link correctly.</li>
+    	    </ol></li> 	    
+    	    
+    	    <li>Verify sort order
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify primary and secondary sort order, MP:0005390.  Expected Results: 4401 genos/16496 annots. 
+    		   <ol><li>order: 1) genotypes that start with numbers, 2) genotypes that start with lower case, and 3) genotypes thtat start with upper case</li>
+    		       <li>issue: for this MP term public has 5 genotype rows at the beginning of this page that are out of order -- check if this also happens when converted to fewi</li>
+    		   </ol></li>
+    	    </ol></li>
+    	    
+    		<li>Verify display on supported browsers
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify annotation page with single annotations per genotype, MP:0001300 (ocular hypertelorism).  Check in IE, Firefox, Safari, and Chrome. Mac and PC.</li>
+    		   <li>Verify annotation page with multiple annotations per genotype, MP:0010875 (increased bone volume).  Check in IE, Firefox, Safari, and Chrome.  Mac and PC.</li>
+    		   <li>Verify page with large number of annotations display in all browsers, MP:0005391.  Expected results: 3355 genos/8666 annots</li>
+    	    </ol></li> 	    
+    	    
+    	    <li>Verify MP Browser, Quick Search, and old URL link to new page 
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify link in VOCAB BUCKET Associated Data column </li>
+    		   <li>Verify link from MP Browser</li>
+    		   <li>Verify old URL links to new page</li>
+    	    </ol></li> 
+    	    
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
