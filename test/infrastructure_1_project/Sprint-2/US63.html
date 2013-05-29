@@ -1,0 +1,93 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 63</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Adjust UniProt DBs in public MouseBlast</h1>
+    <ul>
+        <li>User Story 63 - Remove/add UniProt databases in public MouseBlast</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Modify list of UniProt databases to use in MouseBlast (due to performance issue with full UniProt db)
+	   <ol><li>UniProt Mouse, Rat, Human - add these 3 dbs</li>
+	       <li>UniProt - remove</li>
+	   </ol></li>
+	   <li>Update ftp site with new databases and remove full UniProt database</li>
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify updated sequence database pull-down list
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Check list on MouseBlast QF - 8 databases (3 uniprots now)</li>
+    		   <li>Check list on Forward to MouseBlast page - same as above</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify FTP site has 7 databases listed
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify file size of databases close to current ones</li>
+    		   <li>Verify index page in the ftp directory lists the 7 databases available</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify the 3 new UniProt databases work for blasts
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Blast small protein sequence using UniProt Mouse</li>
+    		   <li>Blast small protein sequence using UniProt Rat</li>
+    		   <li>Blast small protein sequence using UniProt Human</li>
+    	    </ol></li>
+    	    
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
