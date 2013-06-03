@@ -71,14 +71,74 @@
 		
 		<ol>
     		
-    		<li>test 1
+    		<li>Verify SNP counts no longer present on the Marker Detail page
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
+    		   <li>Test marker  a,  that has associated SNPS.  Expected results: none displayed</li>
+    		   <li>Test marker cw that has no SNPs.  Expected results: none displayed.</li>
+    		   <li>Test marker Gm13280 that has associated SNPs, but no Polymorphism data.  Expected results: Poly ribbon not displayed</li>
     	    </ol></li>
     	    
-    	  
+    	    <li>Verify SNP QF, Summary, Detail pages no longer on Production
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Test SNP QF URL.  Expected results: no page found
+    		   <ul><li>http://prodwww.informatics.jax.org/javawi2/servlet/WIFetch?page=snpQF  </li></ul></li>
+    		   <li>Test SNP Summary URL.  Expected results: no page found
+    		   <ul><li>http://prodwww.informatics.jax.org/wi/searches/snp_report.cgi?id=MGI:96677</li></ul></li>
+    		   <li>Test SNP Detail URL.  Expected results: no page found
+    		   <ul><li>http://prodwww.informatics.jax.org/javawi2/servlet/WIFetch?page=snpDetail&key=2943491  </li></ul></li>
+    	    </ol></li>
+    	      	  
+    	    <li>Verify SNP stats are removed
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Check SNP/Strain mini-home.  Expected results: SNPs stats no longer displayed</li>
+    		   <li>Check All Stats page.  Expected results:  SNPs stats no longer displayed</li>
+    		   <li>How can we verify that the Public stats are not impacted by this change?</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Batch Query no longer includes RefSNP options
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Enter a refsnp id, rs29678366.  Expected results: no match found (previously associated to Kit)</li>
+    		   <li>Enter a refsnp id using the file upload feature.  Expected results: no match found</li>
+    		   <li>Verify that the refsnp output option has been removed.</li>
+    		   <li>Verify all output formats to verify none have been broken by the change.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Summary of SNP Data page no longer exists
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Test Summary of SNP Data URL.  Expected results: no page found
+    		   <ul><li> http://prodwww.informatics.jax.org/wi/reports/snpSummary.shtml</li></ul></li>
+    		   <li>The full install of the Prod WI should verify that this page is no longer created at install time</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify the Production Quick Search Indexer no longer supports refsnps
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Query for a valid rs29678366.  Expected results: no match.</li>
+    		   <li>Query for a valid subsnp, ss45850817.  Expected results: no match.</li>
+    		   <li>Do we need to install a Production QS for this project?</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify the Accession Query no longer queries snps
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Query for a valid rs29678366.  Expected results: no match.</li>
+    		   <li>Query for a valid subsnp, ss45850817.  Expected results: no match.</li>
+    		   <li>Query for a list of refsnp ids, rs6253434, rs27341957, rs29678366.  Expected results: no match.</li>
+    		   <li>Query for a list of ids - include a refsnp id: MGI:96677, rs29678366.  Expected results: other ids return in summary report, but not refsnp.</li>
+    		</ol></li>
+    		
+    		<li>Verify links removed from menus
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify 2 SNP links removed from Search pull-down menu.</li>
+    		   <li>Verify 2 SNP links removed from All Search menu.</li>
+    		</ol></li>
+    	    
 		</ol>
 	</div>
 	<div id="sql">
