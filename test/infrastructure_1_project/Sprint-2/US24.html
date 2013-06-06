@@ -68,7 +68,7 @@
 		<ol>
     		
     		<li>Verify the correct MP Annotation data is included on the page
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/4/2013</p>  
     		<ol>
     		   <li>Display MP Annotation page for a term with annotated subterms, MP:0011698.  Expected results: 9 genos/9 annots</li>
     		   <li>Display MP Annotation page for a term with annotated subterms, multiple annotations for a genotype, and complex genotypes, MP:0011396.  Expected Results: 73 genos/89 annots</li>
@@ -82,7 +82,7 @@
     	    </ol></li>
     	    
     		<li>Verify the correct data and links are displayed on the page
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/4/2013</p>  
     		<ol>
     		   <li>Verify links to Allele Detail, Term Detail, and Reference.</li>
     		   <li>Verify display of Allelic Composition column for a simple genotype, MP:0001274.  Expected results: Verify several simple genotypes on this page.</li>
@@ -92,7 +92,7 @@
     	    </ol></li> 	    
     	    
     	    <li>Verify sort order
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 6/4/2013 - counts on Annotation Page not consistent with counts in QS or MP Browser</p>  
     		<ol>
     		   <li>Verify primary and secondary sort order, MP:0005390.  Expected Results: 4401 genos/16496 annots. 
     		   <ol><li>order: 1) genotypes that start with numbers, 2) genotypes that start with lower case, and 3) genotypes thtat start with upper case</li>
@@ -101,7 +101,7 @@
     	    </ol></li>
     	    
     		<li>Verify display on supported browsers
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/4/2013</p>  
     		<ol>
     		   <li>Verify annotation page with single annotations per genotype, MP:0001300 (ocular hypertelorism).  Check in IE, Firefox, Safari, and Chrome. Mac and PC.</li>
     		   <li>Verify annotation page with multiple annotations per genotype, MP:0010875 (increased bone volume).  Check in IE, Firefox, Safari, and Chrome.  Mac and PC.</li>
