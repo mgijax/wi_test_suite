@@ -1,0 +1,119 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 66</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Allele Detail - requirements & tests</h1>
+    <ul>
+        <li>User Story 66  - Allele Detail - requirements & tests</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Nomenclature Ribbon
+	   <ol><li>Symbol
+	       <ul><li>for QTL alleles this heading = QTL Variant</li>
+	       </ul></li>
+	       <li>Name
+	       <ul><li>name = gene name, allele name</li>
+	           <li>when gene and allele names are the same only display one</li>
+	       </ul></li>
+	       <li>MGI id</li>
+	       <li>Synonyms
+	       <ul><li>only display this section if synonyms exist</li>
+	       </ul></li>
+	       <li>Gene
+	       <ul><li>transgene markers are not linked to</li>
+	       </ul></li>
+	   </ol></li>
+	   <li>Mutation Origin
+	   <ol><li>mutant cell line</li>
+	       <li>germline transmission</li>
+	       <li>parent cell line</li>
+	       <li>strain of origin</li>
+	   </ol></li>
+	   <li>Mutation Description
+	   <ol><li>allele type</li>
+	       <li>mutation</li>
+	       <li>inheritance</li>
+	       <li>sequence tags</li>
+	       <li>genome context</li>
+	   </ol></li>
+	   <li>Recombinase Activity - fewi</li>
+	   <li>Phenotypes - fewi</li>
+	   <li>Disease Models - fewi</li>
+	   <li>Expression
+	   <ol><li>In Mice Carrying this Mutation - link to Assay Results</li>
+	   </ol></li>
+	   <li>Find IMSR
+	   <ol><li>Carrying this mutation</li>
+	       <li>Carrying any Xxx mutation</li>
+	   </ol></li>
+	   <li>Notes</li>
+	   <li>References
+	   <ol><li>Original</li>
+	       <li>All</li>
+	   </ol></li>
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Test 1.1</li>
+    		   <li>Test 1.2</li>
+    		   
+    	    </ol></li>
+    	    
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
