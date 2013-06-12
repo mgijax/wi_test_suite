@@ -32,7 +32,7 @@
     <p>
     The conversion of the Allele Detail page from the Java WI to the fewi is intended to maintain the same functionality.  There are 3 recently implemented "ribbons"
     on this page that have already been implemented in the fewi and the intent is to leave those as-is.  The requirements below are organized by "ribbon".  
-    If no data for a ribbon exists then do not display the ribbon.</p>
+    If no data for a ribbon exists then do not display the ribbon with the exception of the Find Mice ribbon -- which is displayed even if nothing is found in IMSR.</p>
     <h3>Allele Page Ribbons</h3>
 	<ol>
 	   <li>NOMENCLATURE
@@ -108,7 +108,7 @@
 	   </ol></li>
 	   
 	   <li>FIND MICE (IMSR)
-	   <ul><li>List of fields (disply even if counts are zero)
+	   <ul><li>List of fields (display even if counts are zero)
 	       <ol><li>Carrying this mutation
 	            <ul><li>Mouse Strains - count and link if non-zero</li>
 	            <li>Cell Lines - count and link if non-zero</li>
@@ -157,22 +157,22 @@
     		<li>Verify fields/links displayed in the Nomenclature Ribbon with what is displayed on Public.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Allele with all fields (incl synonyms) - MGI:nnnn</li>
-    		   <li>Allele with all fields except synonyms - MGI:nnnn</li>
-    		   <li>QTL Allele - MGI:nnnn</li>
-    		   <li>Transgene Allele - MGI:nnnn</li>
-    		   <li>Allele with no associated marker - MGI:nnnn</li>
-    		   <li>Allele name with superscript - MGI:nnnn</li>
-    		   <li>Allele name with special chars - MGI:nnnn</li>
-    		   <li>Allele symbol with special chars - MGI:nnnn</li>
-    		   <li>Synonyms with superscripts - MGI:nnnn</li>
-    		   <li>Synonyms with special chars - MGI:nnnn</li>
-    		   <li>Allele associated to syntenic marker - MGI:nnnn</li>
-    		   <li>Allele associated to marker with UN chromosome - MGI:nnnn</li>
-    		   <li>Allele with no images - MGI:nnnn</li>
-    		   <li>Allele with a single image that is the primary one - MGI:nnnn</li>
-    		   <li>Allele with multiple images and a primary image - MGI:nnnn</li>
-    		   <li>Allele with images but none that are primary - MGI:nnnn</li>
+    		   <li>Allele with all fields (incl synonyms) - MGI:1856155; Pax6<sup>Sey</sup></li>
+    		   <li>Allele with all fields except synonyms - MGI:2680557; Pax6<sup>1Jrt</sup></li>
+    		   <li>QTL Allele - MGI:3032996; Asthm1<sup>BALB/c</sup></li>
+    		   <li>Transgene Allele - MGI:4819620; Tg(TRP53*R72P)7Dgj</li>
+    		   <li>Allele with no associated marker - MGI:4971894</li>
+    		   <li>Allele name with special chars - MGI:1856264; Kit<sup>W-s</sup></li>
+    		   <li>Allele symbol with special chars - MGI:5287502; Cript<sup>Tn(sb-rtTA)2427.SB1Ove</sup></li>
+    		   <li>Synonyms with superscripts - MGI:3590153; Bach1<sup>tm1Igar</sup></li>
+    		   <li>Synonyms with special chars - MGI:2678261; Cops3<sup>tm1Jrl</sup></li>
+    		   <li>Allele associated to syntenic marker - MGI:1856476; cw</li>
+    		   <li>Allele associated to marker with UN chromosome - MGI:2449154; Ahsp<sup>tm1Mjwe</sup></li>
+    		   <li>Allele with cytoband - MGI:1930612; Brca1<sup>tm1Cxd</sup></li>
+    		   <li>Allele with a single image that is the primary one - MGI:1855930; A<sup>vy</sup></li>
+    		   <li>Allele with multiple images and a primary image - MGI:1856798; A<sup>y</sup></li>
+    		   <li>Allele with images but none that are primary - MGI:2176228; Tg(Alb-cre)21Mgn</li>
+    		   <li>Allele with images that include movies - MGI:5285080</li>
     		   
     	    </ol></li>
     	    
