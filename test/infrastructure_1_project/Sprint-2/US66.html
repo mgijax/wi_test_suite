@@ -17,9 +17,9 @@
 
 <body>
 
-<div id="maintitle"><h1>Allele Detail - requirements & tests</h1>
+<div id="maintitle"><h1>Allele Detail - requirements and tests</h1>
     <ul>
-        <li>User Story 66  - Allele Detail - requirements & tests</li>
+        <li>User Story 66  - Allele Detail - requirements and tests</li>
     </ul>
 </div><div id="TOC">
 	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
@@ -29,51 +29,114 @@
 
 <div id="acceptance">
     <h2>Test Requirements</h2>
+    <p>
+    The conversion of the Allele Detail page from the Java WI to the fewi is intended to maintain the same functionality.  There are 3 recently implemented "ribbons"
+    on this page that have already been implemented in the fewi and the intent is to leave those as-is.  The requirements below are organized by "ribbon".  
+    If no data for a ribbon exists then do not display the ribbon.</p>
+    <h3>Allele Page Ribbons</h3>
 	<ol>
-	   <li>Nomenclature Ribbon
-	   <ol><li>Symbol
-	       <ul><li>for QTL alleles this heading = QTL Variant</li>
-	       </ul></li>
-	       <li>Name
-	       <ul><li>name = gene name, allele name</li>
-	           <li>when gene and allele names are the same only display one</li>
-	       </ul></li>
-	       <li>MGI id</li>
-	       <li>Synonyms
-	       <ul><li>only display this section if synonyms exist</li>
-	       </ul></li>
-	       <li>Gene
-	       <ul><li>transgene markers are not linked to</li>
-	       </ul></li>
+	   <li>NOMENCLATURE
+	   <ul><li>List of fields (only display fields that have data)
+	       <ol><li>Symbol / QTL Variant
+	           <li>Name
+	           <ul><li>name = "gene name, allele name"</li>
+	               <li>when gene and allele names are the same - only display the allele name</li>
+	           </ul></li>
+	           <li>MGI id</li>
+	           <li>Synonyms</li>
+	           <li>Gene / QTL / Transgene
+	           <ul><li>Link gene symbol to Marker Detail - transgenes are an exception (no link)</li>
+	               <li>possible to have alleles with no associated marker (loaded GTs) - so this section not included for those alleles</li>
+	           </ul></li>
+	           <li>Allele Images
+	           <ul><li>Display primary image for allele</li>
+	               <li>Display a link to all images for an allele</li>
+	           </ul></li>
+	      </ol></li>
+	   </ul></li>
+	   
+	   <li>MUTATION / VARIANT / TRANSGENE ORIGIN
+	   <ul><li>List of fields (only display fields that have data)
+	           <ol><li>mutant cell line
+	                  <ul><li>EUCOMM/Velocigene alleles include links to provider</li></ul></li>
+	               <li>germline transmission
+	                  <ul><li>includes link to J#</li>
+	                      <li>chimera case</li>
+	                  </ul></li>
+	               <li>parent cell line - ES cell vs. spermatogonial cell</li>
+	               <li>strain of origin/strain of specimen (QTL)</li>
+	           </ol>
+	       <li>Gene trapped alleles - all these fields may be present</li>
+	       <li>Many alleles only display the Strain of Origin</li>
+	       <li>Targeted alleles may list Germline Transmission, Parent Cell Line, and Strain</li>
+	   </ul></li>
+	   
+	   <li>MUTATION / VARIANT / TRANSGENE DESCRIPTION
+	   <ul><li>List of fields (only display fields that have data)
+	       <ol><li>allele type (20 types)</li>
+	           <li>mutation (list of mutation types,  vector, and mutation description)
+	               <ul><li>description includes link to J# (molecular notes and molecular reference)</li>
+	                   <li>long mutations include show/hide with default of hide</li>
+	                   <li>is HTML markup valid in mutation description (aka molecular notes)?</li>
+	               </ul></li>
+	           <li>inheritance</li>
+	           <li>sequence tags (show/hide option; default=hide)
+	               <ol><li>Tag ID; link to provider</li>
+	                   <li>GenBank ID - link to Sequence Detail</li>
+	                   <li>Method</li>
+	                   <li>Tag Location - chr, start, end, strand</li>
+	                   <li>Select button for FASTA, Blast options</li>
+	               </ol></li>
+	           <li>genome context (show/hide option; default=hide)
+	               <ol><li>thumbnail of gbrowse with blue line of location and link</li>
+	                   <li>count of gene traps in gene with link</li>
+	               </ol></li>
+	       </ol></li>
+	       <li>sequence tags and genome context fields are only present for gene trapped alleles</li>  
+	       <li>multiple sequence tags are valid for an allele</li>
+	   </ul></li>
+	   
+	   <li>RECOMBINASE ACTIVITY
+	   <ul><li>currently in the fewi</li></ul></li>
+	   <li>PHENOTYPES
+	   <ul><li>currently in the fewi</li></ul></li>
+	   <li>DISEASE MODELS
+	   <ul><li>currently in the fewi</li></ul></li>
+	   
+	   <li>EXPRESSION
+	   <ol><li>In Mice Carrying this Mutation - count of assay results; link to Assay Summary and display Results tab</li>
 	   </ol></li>
-	   <li>Mutation Origin
-	   <ol><li>mutant cell line</li>
-	       <li>germline transmission</li>
-	       <li>parent cell line</li>
-	       <li>strain of origin</li>
-	   </ol></li>
-	   <li>Mutation Description
-	   <ol><li>allele type</li>
-	       <li>mutation</li>
-	       <li>inheritance</li>
-	       <li>sequence tags</li>
-	       <li>genome context</li>
-	   </ol></li>
-	   <li>Recombinase Activity - fewi</li>
-	   <li>Phenotypes - fewi</li>
-	   <li>Disease Models - fewi</li>
-	   <li>Expression
-	   <ol><li>In Mice Carrying this Mutation - link to Assay Results</li>
-	   </ol></li>
-	   <li>Find IMSR
-	   <ol><li>Carrying this mutation</li>
-	       <li>Carrying any Xxx mutation</li>
-	   </ol></li>
-	   <li>Notes</li>
-	   <li>References
-	   <ol><li>Original</li>
-	       <li>All</li>
-	   </ol></li>
+	   
+	   <li>FIND MICE (IMSR)
+	   <ul><li>List of fields (only display fields that have data)
+	       <ol><li>Carrying this mutation
+	            <ul><li>Mouse Strains - count and link if non-zero</li>
+	            <li>Cell Lines - count and link if non-zero</li>
+	            </ul></li>
+	           <li>Carrying any Xxx mutation
+	            <ul><li>Strains or lines - count and link if non-zero
+	            </ul></li>
+	       </ol></li>
+	   </ul></li>
+	   
+	   <li>NOTES
+	   <ul><li>List of types of notes displayed in this section
+	        <ol><li>General Notes (for an allele) - display here and recognize HTML mark-up 
+	            <li>QTLs - display Mapping Notes with a special heading and link to J# (associated via QTL marker)</li> 
+	            <li>Deltagen and Lexicon alleles include text and a link to a specific page in this section</li>
+	        </ol></li>
+	   </ul></li>
+	   
+	   <li>REFERENCES
+	   <ul><li>List of fields in this section:
+	       <ol><li>Original - citation display - use the fewi standard format that is closest to current display.  Link to Reference</li>
+	           <li>All - count of references and link to Reference Summary</li>
+	       </ol></li>
+	   </ul></li>
+	   
+	   
+	   
+	   
 	   
 	</ol>
 </div>
@@ -91,15 +154,137 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify fields/links displayed in the Nomenclature Ribbon with what is displayed on Public.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Test 1.1</li>
-    		   <li>Test 1.2</li>
+    		   <li>Allele with all fields (incl synonyms) - MGI:nnnn</li>
+    		   <li>Allele with all fields except synonyms - MGI:nnnn</li>
+    		   <li>QTL Allele - MGI:nnnn</li>
+    		   <li>Transgene Allele - MGI:nnnn</li>
+    		   <li>Allele with no associated marker - MGI:nnnn</li>
+    		   <li>Allele name with superscript - MGI:nnnn</li>
+    		   <li>Allele name with special chars - MGI:nnnn</li>
+    		   <li>Allele symbol with special chars - MGI:nnnn</li>
+    		   <li>Synonyms with superscripts - MGI:nnnn</li>
+    		   <li>Synonyms with special chars - MGI:nnnn</li>
+    		   <li>Allele associated to syntenic marker - MGI:nnnn</li>
+    		   <li>Allele associated to marker with UN chromosome - MGI:nnnn</li>
+    		   <li>Allele with no images - MGI:nnnn</li>
+    		   <li>Allele with a single image that is the primary one - MGI:nnnn</li>
+    		   <li>Allele with multiple images and a primary image - MGI:nnnn</li>
+    		   <li>Allele with images but none that are primary - MGI:nnnn</li>
     		   
     	    </ol></li>
     	    
-    		
+    		<li>Verify fields/links displayed in the Mutation Origin Ribbon with what is displayed on Public.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with only SOO - MGI:nnnn</li>
+    		   <li>QTL Allele - MGI:nnnn</li>
+    		   <li>Transgene Allele - MGI:nnnn</li>
+    		   <li>Gene trapped allele - MGI:nnnn</li>
+    		   <li>Allele with chimera germline - MGI:nnnn</li>
+    		   <li>Alleles with other germline options - MGI:nnnn</li>
+    		   <li>EUCOMM allele with link to MCL provider - MGI:nnnn</li>
+    		   <li>Velocigene allele - MGI:nnnn</li>
+    		   <li>Allele with no associated marker - MGI:nnnn</li>
+    		   <li>Strain with superscript - MGI:nnnn</li>
+    		   <li>Strain with special chars - MGI:nnnn</li>
+    		   <li>Allele with PCL from Spermatogonial Cell Line (vs ES Cell) - MGI:nnnn</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links displayed in the Mutation Description (other than sequence tags and genome context) with what is displayed on Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Alleles for each allele type
+    		   <ol><li>Spontaneous - MGI:nnnn</li>
+    		       <li>Targeted KO - MGI:nnnn</li>
+    		       <li>Targeted KI - MGI:nnnn</li>
+    		       <li>Targeted Floxed/Frt - MGI:nnnn</li>
+    		       <li>Targeted Reporter - MGI:nnnn</li>
+    		       <li>Targeted Other - MGI:nnnn</li>
+    		       <li>Gene trapped - MGI:nnnn</li>
+    		       <li>Chemically induced ENU - MGI:nnnn</li>
+    		       <li>Chemically induced other - MGI:nnnn</li>
+    		       <li>Chemically and radiation induced - MGI:nnnn</li>
+    		       <li>Radiation induced - MGI:nnnn</li>
+    		       <li>Transposon induced - MGI:nnnn</li>
+    		       <li>Transgenic random, expressed - MGI:nnnn</li>
+    		       <li>Transgenic random, gene disruption - MGI:nnnn</li>
+    		       <li>Transgenic Cre/Flp - MGI:nnnn</li>
+    		       <li>Transgenic Transposase - MGI:nnnn</li>
+    		       <li>Transgenic Reporter - MGI:nnnn</li>
+    		       <li>QTL - MGI:nnnn</li>
+    		       <li>Not Applicable - MGI:nnnn</li>
+    		       <li>Not Specified - MGI:nnnn</li>    		       
+    		   </ol></li>
+    		   <li>Allele with short Molecular Note - MGI:nnnnn</li>
+    		   <li>Allele with long Molecular Note - MGI:nnnn</li>
+    		   <li>Allele with HTML markup in Molecular Note - MGI:nnnn</li>
+    		   <li>Allele without a Molecular Note - MGI:nnnn</li>
+    		   <li>Allele with inheritance specified - MGI:nnnn</li>
+    		   <li>Allele with inheritance of Other (see notes) - MGI:nnnn</li>
+    		   <li>Allele with inheritance not specified - MGI:nnnn</li>
+    		   <li>Allele with vector  - MGI:nnnn</li>
+    		   <li>Allele with multiple mutation types - MGI:nnnn</li>
+    		   <li>Allele with single mutation type - MGI:nnnn</li>
+    		   <li>Allele with no mutation type - MGI:nnnn</li>
+    		   
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links for Sequence Tags and Genome Context displayed in the Mutation Description ribbon with what is displayed on Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Gene trapped allele with single seq tag - MGI:nnnn</li>
+    		   <li>Gene trapped allele with multiple seq tag - MGI:nnnn</li>
+    		   <li>Gene trapped alleles - various providers - should I check each one?</li>
+    		   <li>Download to FASTA a single seq taq - MGI:nnnn</li>
+    		   <li>Download to FASTA multiple seq tags - MGI:nnnnn</li>
+    		   <li>Forward to Blast a single seq tag - MGI:nnnn</li>
+    		   <li>Forward to Blast multiple seq tags - MGI:nnnn</li>
+    		   <li>Gene trapped allele with Genome Context section - MGI:nnnn</li>
+    	    </ol></li>
+    	    
+    	   
+    	    <li>Verify fields/links for Expression Ribbon - compare to Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with associated expression results - MGI:nnnn</li>
+    		   <li>Allele without associated expression results - MGI:nnnn</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links for the Find Mice (IMSR) Ribbon - compare to Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with associated strains and cell lines in IMSR - MGI:nnnn</li>
+    		   <li>Allele with associated strains and no cell lines in IMSR - MGI:nnnn</li>
+    		   <li>Allele with associated cell lines but no strains in IMSR - MGI:nnnn</li>
+    		   <li>Allele with no association strains/cell lines in IMSR - MGI:nnnn</li>
+    		   <li>Allele with strains/cell lines associated to marker of allele - MGI:nnnn</li>
+    		   <li>Allele with no strains/cell lines associated to marker of allele - MGI:nnnn</li>
+    	    </ol></li>
+    	    
+    	     <li>Verify fields/links for Notes Ribbon - compare to Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with General notes - MGI:nnnn</li>
+    		   <li>Allele with General notes that include HTML mark-up - MGI:nnnn</li>
+    		   <li>QTL allele with Mapping notes - MGI:nnnn</li>
+    		   <li>QTL allele with General notes and Mapping notes - MGI:nnnn</li>
+    		   <li>Deltagen allele - MGI:nnnnn</li>
+    		   <li>Lexicon allele - MGI:nnnn</li>
+    		   <li>Deltagen allele with General Notes - MGI:nnnn</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links for Reference Ribbon - compare to Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele  with only 1 reference - MGI:nnnn</li>
+    		   <li>Allele with many references  - MGI:nnnn</li>
+    	    </ol></li>
+    	    
 		</ol>
 	</div>
 	<div id="sql">
