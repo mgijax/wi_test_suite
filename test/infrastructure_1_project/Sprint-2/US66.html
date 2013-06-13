@@ -48,7 +48,7 @@
 	           <ul><li>Link gene symbol to Marker Detail - transgenes are an exception (no link)</li>
 	               <li>possible to have alleles with no associated marker (loaded GTs) - so this section not included for those alleles</li>
 	           </ul></li>
-	           <li>Allele Images
+	           <li>Allele Images (those images associated to the Allele in the EI; not genotype or molecular images)
 	           <ul><li>Display primary image for allele</li>
 	               <li>Display a link to all images for an allele</li>
 	           </ul></li>
@@ -241,52 +241,64 @@
     	    <li>Verify fields/links for Sequence Tags and Genome Context displayed in the Mutation Description ribbon with what is displayed on Public
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Gene trapped allele with single seq tag - MGI:nnnn</li>
-    		   <li>Gene trapped allele with multiple seq tag - MGI:nnnn</li>
-    		   <li>Gene trapped alleles - various providers - should I check each one?</li>
-    		   <li>Download to FASTA a single seq taq - MGI:nnnn</li>
-    		   <li>Download to FASTA multiple seq tags - MGI:nnnnn</li>
-    		   <li>Forward to Blast a single seq tag - MGI:nnnn</li>
-    		   <li>Forward to Blast multiple seq tags - MGI:nnnn</li>
-    		   <li>Gene trapped allele with Genome Context section - MGI:nnnn</li>
+    		   <li>Gene trapped allele with single seq tag - MGI:4127340; Epcam<sup>Gt(RST412)Byg</sup></li>
+    		   <li>Gene trapped allele with multiple seq tag - MGI:3873923; Tpx2<sup>Gt(D028B03)Wrst</sup></li>
+    		   <li>Gene trapped allele with no sequence tags - MGI:2388061; Ltbp4<sup>Gt(U3Cre)1Vmel</sup>
+    		   <li>Gene trapped alleles - various providers - MGI:3871767 (Wtsi);  </li>
+    		   <li>Download to FASTA a single seq taq - use allele above</li>
+    		   <li>Download to FASTA multiple seq tags - use allele above</li>
+    		   <li>Forward to Blast a single seq tag - use allele above</li>
+    		   <li>Forward to Blast multiple seq tags- use allele above</li>
+    		   <li>Gene trapped allele with Genome Context section - use alleles above</li>
     	    </ol></li>
     	    
     	   
     	    <li>Verify fields/links for Expression Ribbon - compare to Public
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Allele with associated expression results - MGI:nnnn</li>
-    		   <li>Allele without associated expression results - MGI:nnnn</li>
+    		   <li>Allele with associated expression results - MGI:2429759; Disp1<sup>tm1Ptch</sup></li>
+    		   <li>Allele without associated expression results - MGI:1856251; Kit<sup>W-55J</sup></li>
     	    </ol></li>
     	    
     	    <li>Verify fields/links for the Find Mice (IMSR) Ribbon - compare to Public
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Allele with associated strains and cell lines in IMSR - MGI:nnnn</li>
-    		   <li>Allele with associated strains and no cell lines in IMSR - MGI:nnnn</li>
-    		   <li>Allele with associated cell lines but no strains in IMSR - MGI:nnnn</li>
-    		   <li>Allele with no association strains/cell lines in IMSR - MGI:nnnn</li>
-    		   <li>Allele with strains/cell lines associated to marker of allele - MGI:nnnn</li>
-    		   <li>Allele with no strains/cell lines associated to marker of allele - MGI:nnnn</li>
+    		   <li>Allele with associated strains and cell lines in IMSR - MGI:4820320; Trp53rk<sup>tm1a(EUCOMM)Wtsi</sup></li>
+    		   <li>Allele with associated strains and no cell lines in IMSR - MGI:1934384; Cxcl12<sup>tm1Tng</sup></li>
+    		   <li>Allele with associated cell lines but no strains in IMSR - MGI:5428562; Prss30<sup>tm1e(KOMP)Wtsi</sup></li>
+    		   <li>Allele with no association strains/cell lines in IMSR - MGI:1857894; Bmp2<sup>tm1Brd</sup></li>
+    		   <li>Allele with strains/cell lines associated to marker of allele - MGI:1859780; Kit<sup>Ssm</sup></li>
+    		   <li>Allele with no strains/cell lines associated to marker of allele - MGI:4944524; Sri<sup>tm1a(EUCOMM)Wtsi</sup></li>
     	    </ol></li>
     	    
     	     <li>Verify fields/links for Notes Ribbon - compare to Public
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Allele with General notes - MGI:nnnn</li>
-    		   <li>Allele with General notes that include HTML mark-up - MGI:nnnn</li>
-    		   <li>QTL allele with Mapping notes - MGI:nnnn</li>
-    		   <li>QTL allele with General notes and Mapping notes - MGI:nnnn</li>
-    		   <li>Deltagen allele - MGI:nnnnn</li>
-    		   <li>Lexicon allele - MGI:nnnn</li>
-    		   <li>Deltagen allele with General Notes - MGI:nnnn</li>
+    		   <li>Allele with General notes - MGI:1856300; Hal<sup>his</sup></li>
+    		   <li>Allele with General notes that include HTML mark-up - MGI:2157909; Uox<sup>in</sup></li>
+    		   <li>QTL allele with Mapping notes - MGI:3032995; Asthm1<sup>BP2</sup></li>
+    		   <li>QTL allele with General notes and Mapping notes - MGI:3036102; Pas2<sup>A/J</sup></li>
+    		   <li>Deltagen allele - MGI:3604589; Grik5<sup>tm1Dgen</sup></li>
+    		   <li>Lexicon allele - MGI:3529167; Pzp<sup>tm1Lex</sup></li>
     	    </ol></li>
     	    
     	    <li>Verify fields/links for Reference Ribbon - compare to Public
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Allele  with only 1 reference - MGI:nnnn</li>
-    		   <li>Allele with many references  - MGI:nnnn</li>
+    		   <li>Allele  with only 1 reference - MGI:1856137; Krt25<sup>Re</sup></li>
+    		   <li>Allele with many references  - MGI:1859958; a<sup>4J</sup></li>
+    	    </ol></li>
+    	    
+    	    <li>Verify ribbons already in the Fewi display as expected in the new framework
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with Recombinase section (but not phenotypes or disease) - MGI:4818775; Tg(ACTA1-rtTA,tetO-cre)102Monk</li>
+    		   <li>Allele with Phenotypes section (but not recombinase or disease) - MGI:2182470; Brca1<sup>tm2.1Cxd</sup></li>
+    		   <li>Allele with Disease section (but not recombinase or phenotypes) - MGI:nnn</li>
+    		   <li>Allele with Recomb & Pheno (no Disease) - MGI:5314932; Aicda<sup>tm1(cre)Njen</sup></li>
+    		   <li>Allele with Pheno & Disease (no Recom) - MGI:3696057; Brca1<sup>tm1Brn</sup></li>
+    		   <li>Allele with Recomb, Pheno, and Disease - MGI:1934631; Lyz2<sup>tm1(cre)Ifo</sup></li>
+    		   <li>Allele with none of these sections - MGI:4159004; Brca1<sup>Gt(OST44235)Lex</sup>
     	    </ol></li>
     	    
 		</ol>
