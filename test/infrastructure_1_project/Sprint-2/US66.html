@@ -179,18 +179,19 @@
     		<li>Verify fields/links displayed in the Mutation Origin Ribbon with what is displayed on Public.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Allele with only SOO - MGI:nnnn</li>
-    		   <li>QTL Allele - MGI:nnnn</li>
-    		   <li>Transgene Allele - MGI:nnnn</li>
-    		   <li>Gene trapped allele - MGI:nnnn</li>
-    		   <li>Allele with chimera germline - MGI:nnnn</li>
-    		   <li>Alleles with other germline options - MGI:nnnn</li>
-    		   <li>EUCOMM allele with link to MCL provider - MGI:nnnn</li>
-    		   <li>Velocigene allele - MGI:nnnn</li>
-    		   <li>Allele with no associated marker - MGI:nnnn</li>
-    		   <li>Strain with superscript - MGI:nnnn</li>
-    		   <li>Strain with special chars - MGI:nnnn</li>
-    		   <li>Allele with PCL from Spermatogonial Cell Line (vs ES Cell) - MGI:nnnn</li>
+    		   <li>Allele with only SOO - MGI:1855976; Tyr<sup>c</sup></li>
+    		   <li>QTL Allele - MGI:3525662; Dbts<sup>SM/J</sup></li>
+    		   <li>Transgene Allele - MGI:3057119</li>
+    		   <li>Gene trapped allele - MGI:3794786</li>
+    		   <li>Allele with chimera germline - MGI:2388704; Trp53<sup>tm1Mok</sup></li>
+    		   <li>Alleles with cell line germline - MGI:4880505; Abca9<sup>tm1(NCOM)Mfgc</sup></li>
+    		   <li>EUCOMM allele with link to MCL provider - MGI:5002962; Abo<sup>tm1a(EUCOMM)Hmgu</sup></li>
+    		   <li>Velocigene allele - MGI:5051075; Brk1<sup>tm1(KOMP)Vlcg</sup></li>
+    		   <li>Allele with no associated marker - MGI:3888734; Gt(D033B02)Wrst</li>
+    		   <li>Strain with superscript - MGI:1856424; Lep<sup>ob</sup></li>
+    		   <li>Strain with special chars - MGI:1855977; Tyr<sup>c-ch</sup></li>
+    		   <li>Allele with PCL from Spermatogonial Cell Line (vs ES Cell) - MGI:3641043; Ocln<sup>tm1Tshi</sup></li>
+    		   <li>Allele with PCL of Other (see notes) - MGI:4127920; Atad5<sup>Gt(RRF055)Byg</sup>
     		   
     	    </ol></li>
     	    
@@ -198,38 +199,41 @@
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Alleles for each allele type
-    		   <ol><li>Spontaneous - MGI:nnnn</li>
-    		       <li>Targeted KO - MGI:nnnn</li>
-    		       <li>Targeted KI - MGI:nnnn</li>
-    		       <li>Targeted Floxed/Frt - MGI:nnnn</li>
-    		       <li>Targeted Reporter - MGI:nnnn</li>
-    		       <li>Targeted Other - MGI:nnnn</li>
-    		       <li>Gene trapped - MGI:nnnn</li>
-    		       <li>Chemically induced ENU - MGI:nnnn</li>
-    		       <li>Chemically induced other - MGI:nnnn</li>
-    		       <li>Chemically and radiation induced - MGI:nnnn</li>
-    		       <li>Radiation induced - MGI:nnnn</li>
-    		       <li>Transposon induced - MGI:nnnn</li>
-    		       <li>Transgenic random, expressed - MGI:nnnn</li>
-    		       <li>Transgenic random, gene disruption - MGI:nnnn</li>
-    		       <li>Transgenic Cre/Flp - MGI:nnnn</li>
-    		       <li>Transgenic Transposase - MGI:nnnn</li>
-    		       <li>Transgenic Reporter - MGI:nnnn</li>
-    		       <li>QTL - MGI:nnnn</li>
-    		       <li>Not Applicable - MGI:nnnn</li>
-    		       <li>Not Specified - MGI:nnnn</li>    		       
+    		   <ol><li>Spontaneous - MGI:1856819; Rab38<sup>cht</sup></li>
+    		       <li>Targeted KO - MGI:3528234; Bag1<sup>tm1Msd</sup></li>
+    		       <li>Targeted KI - MGI:4459318; Il13<sup>tm1(YFP/cre)Lky</sup></li>
+    		       <li>Targeted Floxed/Frt - MGI:3803178; Arx<sup>tm1Gldn</sup></li>
+    		       <li>Targeted Reporter - MGI:5319862; Bod1<sup>tm2e(KOMP)Wtsi</sup></li>
+    		       <li>Targeted Other - MGI:5085999; Shank3<sup>tm1.1Pfw</sup></li>
+    		       <li>Gene trapped (autoload) - MGI:4139198; 1700012C14Rik<sup>Gt(OST13273)Lex</sup></li>
+    		       <li>Gene trapped - MGI:3848025; Timm23<sup>Gt(W023C08)Wrst</sup>
+    		       <li>Chemically induced ENU - MGI:2671869; bhe</li>
+    		       <li>Chemically induced other - MGI:2156821; Pax6<sup>9Neu</sup></li>
+    		       <li>Chemically and radiation induced - MGI:1856404; a<sup>18H</sup></li>
+    		       <li>Radiation induced - MGI:3032981; T(X;16)16H</li>
+    		       <li>Transposon induced - MGI:3526109; Car12<sup>Tn(sb-T2/GT2/tTA)4563.1Dla</sup></li>
+    		       <li>Transgenic random, expressed - MGI:3036319; Tg(Bc12)Acap</li>
+    		       <li>Transgenic random, gene disruption - MGI:1856421; Dst<sup>Tg4</sup></li>
+    		       <li>Transgenic Cre/Flp - MGI:2651403; Tg(Dach1-cre)1Krs</li>
+    		       <li>Transgenic Cre/Flp - MGI:5440432; Tg(Ins2-flpe)25Arte</li>
+    		       <li>Transgenic Transposase - MGI:3719409; Tg(Prm1-pb)1Mrc</li>
+    		       <li>Transgenic Reporter - MGI:3768427; Tg(Neurog3-lacZ)1Ggr</li>
+    		       <li>QTL - MGI:2159319; Chab1<sup>DBA/2J</sup></li>
+    		       <li>Not Applicable/Not Specified - this is the allele type for wild type alleles and/or non-public alleles; not applicable  case for the Public WI</li>
+    		        		       
     		   </ol></li>
-    		   <li>Allele with short Molecular Note - MGI:nnnnn</li>
-    		   <li>Allele with long Molecular Note - MGI:nnnn</li>
-    		   <li>Allele with HTML markup in Molecular Note - MGI:nnnn</li>
-    		   <li>Allele without a Molecular Note - MGI:nnnn</li>
-    		   <li>Allele with inheritance specified - MGI:nnnn</li>
-    		   <li>Allele with inheritance of Other (see notes) - MGI:nnnn</li>
-    		   <li>Allele with inheritance not specified - MGI:nnnn</li>
-    		   <li>Allele with vector  - MGI:nnnn</li>
-    		   <li>Allele with multiple mutation types - MGI:nnnn</li>
-    		   <li>Allele with single mutation type - MGI:nnnn</li>
-    		   <li>Allele with no mutation type - MGI:nnnn</li>
+    		   <li>Allele with short Molecular Note - MGI:3576635; chtl<sup>2J</sup></li>
+    		   <li>Allele with long Molecular Note - MGI:2447068; Cst6<sup>ichq</sup></li>
+    		   <li>Allele with HTML markup in Molecular Note - MGI:3622350; In(7)4Rl</li>
+    		   <li>Allele without a Molecular Note - MGI:1856836; crz</li>
+    		   <li>Allele with inheritance specified - MGI:3764995; Gpi1<sup>a-m1J</sup></li>
+    		   <li>Allele with inheritance of Other (see notes) - MGI:3717789; Pbwg1.8<sup>M.m.castaneus</sup></li>
+    		   <li>Allele with inheritance not specified - MGI:1856748; t<sup>Lub1</sup></li>
+    		   <li>Allele with vector  - MGI:4456631; Sumo3<sup>tm1(KOMP)Mbp</sup></li>
+    		   <li>Gene trapped allele with 2 MGI IDs - MGI:4966623, MGI:3883228; Gt(320D1)Cmhd
+    		   <li>Allele with multiple mutation types - MGI:4399355; Cbr3<sup>tm1(KOMP)Vlcg</sup></li>
+    		   <li>Allele with single mutation type - MGI:5007045; Cbln4<sup>tm1Lex</sup></li>
+    		   <li>Allele with no mutation type - MGI:4454664; Adamts4<sup>tm1Dqp</sup></li>
     		   
     		   
     	    </ol></li>
