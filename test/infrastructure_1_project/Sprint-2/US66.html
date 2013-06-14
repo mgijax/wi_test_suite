@@ -30,107 +30,184 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
     <p>
-    The conversion of the Allele Detail page from the Java WI to the fewi is intended to maintain the same functionality.  There are 3 recently implemented "ribbons"
-    on this page that have already been implemented in the fewi and the intent is to leave those as-is.  The requirements below are organized by "ribbon".  
-    If no data for a ribbon exists then do not display the ribbon with the exception of the Find Mice ribbon -- which is displayed even if nothing is found in IMSR.</p>
+    The conversion of the Allele Detail page from the Java WI to the fewi is intended to maintain the same functionality and display.  See the Public WI for display details such as font style, size, positioning, etc.</p>
+    <p>
+    There are 3 recently implemented "ribbons" on this page that have already been implemented in the fewi and the intent is 
+    to leave those as-is.  This document does not include functionality or tests for those ribbons.  The plan is to use any existing automated tests for those ribbons to verify nothing has been broken. </p>
+    <p>
+    The requirements below are organized by "ribbon". If no data for a ribbon exists then do not display the ribbon with the 
+    exception of the Find Mice ribbon -- which is displayed even if nothing is found in IMSR.
+    </p>
     <h3>Allele Page Ribbons</h3>
 	<ol>
 	   <li>NOMENCLATURE
-	   <ul><li>List of fields (only display fields that have data)
+	   <ul><li><u>List of fields</u>
 	       <ol><li>Symbol / QTL Variant
+	           <ul><li>The label of this field is "Symbol" for all allele types except QTL.  For QTLs display "QTL Variant".</li>
+	               <li>Superscripts and special characters may be displayed in this field.</li>
+	           </ul></li>
 	           <li>Name
-	           <ul><li>name = "gene name, allele name"</li>
-	               <li>when gene and allele names are the same - only display the allele name</li>
+	           <ul><li>The name displayed is a combination of gene and allele names.  "gene name; allele name"</li>
+	               <li>When gene and allele names are the same - only display one of the names.</li>
+	               <li>Superscripts and special characters may be displayed in this field.</li>
 	           </ul></li>
-	           <li>MGI id</li>
-	           <li>Synonyms</li>
+	           <li>MGI ID</li>
+	           <li>Synonyms
+	           <ul><li>When multiple synonyms exist display as a comma delimited list</li>
+	               <li>Superscripts and special characters may be displayed in this field.</li>
+	           </ul></li>
 	           <li>Gene / QTL / Transgene
-	           <ul><li>Link gene symbol to Marker Detail - transgenes are an exception (no link)</li>
-	               <li>possible to have alleles with no associated marker (loaded GTs) - so this section not included for those alleles</li>
+	           <ul><li>Data displayed for this field: marker symbol, location (chr, coords, strand), genetic position (chr, cM, cytoband)</li>
+	               <li>Label for this field is "Gene" with two exceptions: QTL markers display "QTL" and Transgene Markers display "Transgene"</li>
+	               <li>Link symbol to Marker Detail except transgene markers that are not linked</li>
+	               <li>When alleles with no associated marker (loaded GTs) are displayed, this section is not included.</li>
 	           </ul></li>
-	           <li>Allele Images (those images associated to the Allele in the EI; not genotype or molecular images)
-	           <ul><li>Display primary image for allele</li>
-	               <li>Display a link to all images for an allele</li>
+	           <li>Allele Images 
+	           <ul><li>These images are associated to the Allele in the EI (these are not genotype or molecular images)</li>
+	               <li>Display primary image for allele - designated by the curators in the EI.  There may be alleles that have images where none are designated as primary.</li>
+	               <li>Display the image caption, count of allele images, and link to all allele images.</li>
+	               <li>Superscripts and special characters may be displayed in the image caption field.</li>
 	           </ul></li>
 	      </ol></li>
 	   </ul></li>
 	   
 	   <li>MUTATION / VARIANT / TRANSGENE ORIGIN
-	   <ul><li>List of fields (only display fields that have data)
-	           <ol><li>mutant cell line
-	                  <ul><li>EUCOMM/Velocigene alleles include links to provider</li></ul></li>
-	               <li>germline transmission
-	                  <ul><li>includes link to J#</li>
-	                      <li>chimera case</li>
+	   <ul><li><u>List of fields </u>
+	           <ol><li>Mutant Cell Line
+	                  <ul><li>Display: mutant cell lines in bold followed by the provider in parens</li>
+	                      <li>EUCOMM/Velocigene alleles link the provider name displayed to provider page for the MCLs
+	                         - what triggers this display?  Existence of a particular ID (e.g. Regeneron ID for Velocigene)? (questions for Jon)</li>
+	                      <li>Multiple cell lines are displayed in comma-delimited list and the label is changed to plural, Mutant Cell Lines</li>
 	                  </ul></li>
-	               <li>parent cell line - ES cell vs. spermatogonial cell</li>
-	               <li>strain of origin/strain of specimen (QTL)</li>
+	               <li>Germline Transmission
+	                  <ul><li>This field is included when a Mutant Cell Line is displayed - when there is no Germline reference, display "Unknown". (not sure about this)</li>
+	                      <li>When a Germline Transmission reference is present for the allele and Germline Transmission has been curated: 
+	                         <ul><li>display text: "Earliest citation of germline transmission:" and J# (with link to Reference).</li>
+	                         </ul></li>
+	                      <li>When a Germline Transmission reference is present for the allele and Chimera has been curated
+	                         <ul><li>display "Earliest citation of chimera generation:" and J# (with link to Reference)  </li>
+	                             <li>Label of field is changed from "Germline Transmission" to "Mouse Generated"</li>
+	                         </ul> </li>
+	                  </ul></li>
+	               <li>Parent Cell Line
+	               <ul><li>The type of parent cell line is displayed in parens following the field.  e.g. ES Cell vs. Spermatogonial Cell</li>
+	               </ul></li>
+	               <li>Strain of Origin / Strain of Specimen 
+	               <ul><li>The label of this field is "Strain of Origin" except for QTLs when it is "Strain of Specimen".</li>
+	                   <li>Superscripts and special characters are supported for this field.</li>
+	               </ul></li>
 	           </ol>
-	       <li>Gene trapped alleles - all these fields may be present</li>
-	       <li>Many alleles only display the Strain of Origin</li>
-	       <li>Targeted alleles may list Germline Transmission, Parent Cell Line, and Strain</li>
-	   </ul></li>
+	       <li><u>Rules for this ribbon</u>
+	           <ol>
+	              <li>Label of ribbon is "Mutation Origin" for most alleles.  Exceptions include 1) QTLs-display "Variant Origin" 
+	                  and 2) Transgenes - display "Transgene Origin".</li>
+	              <li>Additional rules may exist regarding how to handle "Not Specified" and/or "Not Applicable" values for the fields in this ribbon.</li>
+	           </ol></li>
+	    </ul></li>
 	   
 	   <li>MUTATION / VARIANT / TRANSGENE DESCRIPTION
-	   <ul><li>List of fields (only display fields that have data)
-	       <ol><li>allele type (20 types)</li>
-	           <li>mutation (list of mutation types,  vector, and mutation description)
-	               <ul><li>description includes link to J# (molecular notes and molecular reference)</li>
-	                   <li>long mutations include show/hide with default of hide</li>
-	                   <li>is HTML markup valid in mutation description (aka molecular notes)?</li>
+	   <ul><li><u>List of fields</u>
+	       <ol><li>Allele Type (20 types - see tests below for list)</li>
+	           <li>Mutation
+	               <ul><li>Data displayed for this field: mutation types, vector,  vector type, and mutation description.
+	                   <li>The description is the Molecular Notes field in the Allele EI.</li>
+	                   <li>The J# at the end of the description is the molecular reference and is linked to the Reference page</li>
+	                   <li>Long mutations include show/hide with default of hide - what length triggers this?</li>
+	                   <li>Is HTML markup valid in mutation description (aka molecular notes)?</li>
 	               </ul></li>
-	           <li>inheritance</li>
-	           <li>sequence tags (show/hide option; default=hide)
-	               <ol><li>Tag ID; link to provider</li>
-	                   <li>GenBank ID - link to Sequence Detail</li>
-	                   <li>Method</li>
-	                   <li>Tag Location - chr, start, end, strand</li>
-	                   <li>Select button for FASTA, Blast options</li>
-	               </ol></li>
-	           <li>genome context (show/hide option; default=hide)
-	               <ol><li>thumbnail of gbrowse with blue line of location and link</li>
-	                   <li>count of gene traps in gene with link</li>
+	           <li>Inheritance</li>
+	           <li>Sequence Tags
+	               <ul><li>This field includes a show/hide option where the default is hide when the page is rendered</li>
+	                   <li>A count of the tags is displayed in text at the top of the table in either show or hide mode</li>
+	                   <li>The sequence tag table includes the following data for each sequence:
+	                   <ol><li>Tag ID; Provider; link to provider</li>
+	                       <li>GenBank ID; link to Sequence Detail</li>
+	                       <li>Method</li>
+	                       <li>Tag Location: chr, start, end, strand</li>
+	                       <li>Radio button for FASTA, Blast (can only select one sequence at a time)</li>
+	                    </ol></li>
+	                    <li>Include controls for FASTA/Forward option in pulldown menu.</li>
+	                    <li>Display the current Genome Build</li>
+	               </ul></li>
+	           <li>Genome Context
+	               <ol><li>This field includes a show/hide option where the default is hide when the page is rendered</li>
+	                   <li>Display a thumbnail of gbrowse with a blue line of the gene trap location.  Link the image to GBrowse.</li>
+	                   <li>Display a count of all gene traps for the gene.  Link the count to GBrowse.</li>
 	               </ol></li>
 	       </ol></li>
-	       <li>sequence tags and genome context fields are only present for gene trapped alleles</li>  
-	       <li>multiple sequence tags are valid for an allele</li>
+	       
+	       <li><u>Rules for this ribbon</u>
+	       <ol><li>Label of ribbon is "Mutation Description" for most alleles.  Exceptions include: 1) QTLs- display "Variant Description" 
+	                  and 2) Transgenes - display "Transgene Description".</li>
+	           <li>Are there add'l display rules driven by Allele Type?</li>
+	           <li>Additional rules may exist regarding how to handle "Not Specified" and/or "Not Applicable" values for the fields in this ribbon.</li>
+	       </ol></li>
 	   </ul></li>
 	   
 	   <li>RECOMBINASE ACTIVITY
-	   <ul><li>currently in the fewi</li></ul></li>
+	   <ul><li>currently implemented in the fewi using an ajax call - no plan to change this</li></ul></li>
 	   <li>PHENOTYPES
-	   <ul><li>currently in the fewi</li></ul></li>
+	   <ul><li>currently implemented in the fewi using an ajax call - no plan to change this</li></ul></li>
 	   <li>DISEASE MODELS
-	   <ul><li>currently in the fewi</li></ul></li>
+	   <ul><li>currently implemented in the fewi using an ajax call - no plan to change this</li></ul></li>
 	   
 	   <li>EXPRESSION
-	   <ol><li>In Mice Carrying this Mutation - count of assay results; link to Assay Summary and display Results tab</li>
-	   </ol></li>
-	   
-	   <li>FIND MICE (IMSR)
-	   <ul><li>List of fields (display even if counts are zero)
-	       <ol><li>Carrying this mutation
-	            <ul><li>Mouse Strains - count and link if non-zero</li>
-	            <li>Cell Lines - count and link if non-zero</li>
-	            </ul></li>
-	           <li>Carrying any Xxx mutation
-	            <ul><li>Strains or lines - count and link if non-zero
-	            </ul></li>
+	   <ul><li><u>List of fields:</u>
+	       <ol><li>In Mice Carrying this Mutation
+	           <ul><li>Display count of assay results</li>
+	               <li>Link to Assay Summary and display Results tab</li>
+	           </ul> </li>
 	       </ol></li>
 	   </ul></li>
 	   
+	   <li>FIND MICE (IMSR)
+	   <ul><li><u>List of fields</u>
+	       <ol><li>Carrying this mutation
+	            <ul><li>Mouse Strains - count and link if non-zero</li>
+	            <li>Cell Lines - count and link if non-zero</li>
+	            <li>If either/both of the counts are zero - display without a link</li>
+	            </ul></li>
+	           <li>Carrying any Xxx mutation
+	            <ul><li>Xxx represents the applicable gene symbol displayed here</Xxx>
+	                <li>Strains or lines - count and link if non-zero</li>
+	                <li>If count is zero - display without a link</li>
+	                <li>This field is not displayed for Transgenes</li>
+	            </ul></li>
+	       </ol></li>
+	       <li><u>Rules for this ribbon</u>
+	       <ol><li>These counts are found in a report.... (more info here)</li>
+	           <li>This ribbon is displayed even when the counts found are zero</li>
+	           <li>Is this section is not displayed for QTL alleles.  Any other types an exception?</li>
+	       </ol>
+	   </ul></li>
+	   
 	   <li>NOTES
-	   <ul><li>List of types of notes displayed in this section
-	        <ol><li>General Notes (for an allele) - display here and recognize HTML mark-up 
-	            <li>QTLs - display Mapping Notes with a special heading and link to J# (associated via QTL marker)</li> 
-	            <li>Deltagen and Lexicon alleles include text and a link to a specific page in this section</li>
+	   <ul><li>List of note types displayed in this section
+	        <ol><li>General Notes (for an allele)
+	            <ul><li>This is the first type of notes to display (if present).</li>
+	                <li>Recognize HTML mark-up</li>
+	            </ul></li> 
+	            <li>Mapping Notes (for a marker)
+	            <ul><li>For QTL alleles look for mapping notes via the QTL marker and display.</li>
+	                <li>Display a special heading for these notes</li>
+	                <li>Display/link the associated J# (associated via QTL marker)</li> 
+	            </ul></li>
+	            <li>Special note and link for Deltagen and Lexicon alleles 
+	            <ul><li>Not sure what drives this - all alleles on the Deltagen/Lexicon KO page have this link</li>
+	            </ul></li>
 	        </ol></li>
 	   </ul></li>
 	   
 	   <li>REFERENCES
-	   <ul><li>List of fields in this section:
-	       <ol><li>Original - citation display - use the fewi standard format that is closest to current display.  Link to Reference</li>
-	           <li>All - count of references and link to Reference Summary</li>
+	   <ul><li><u>List of fields:</u>
+	       <ol><li>Original
+	           <ul><li>Display the citation using the "Short" option (one of the fewi standards - same as Marker Detail).</li>
+	               <li>Link the J# to the Reference</li>
+	           </ul></li>
+	           <li>All
+	           <ul><li>Count of all references for the allele and linked to the Reference Summary for an Allele</li>
+	               <li>Display "reference(s)" so that the label does not need tweaking if there's just one reference.</li>
+	           </ul></li>
 	       </ol></li>
 	   </ul></li>
 	   
