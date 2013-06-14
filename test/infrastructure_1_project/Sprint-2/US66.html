@@ -30,9 +30,9 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
     <p>
-    The conversion of the Allele Detail page from the Java WI to the fewi is intended to maintain the same functionality and display.  See the Public WI for display details such as font style, size, positioning, etc.</p>
+    The conversion of the Allele Detail page from the java wi to the fewi is intended to maintain the same functionality and display.  See the Public WI for display details such as font style, size, positioning, etc.</p>
     <p>
-    There are 3 recently implemented "ribbons" on this page that have already been implemented in the fewi and the intent is 
+    There are 3 recently completed "ribbons" on this page that have already been implemented in the fewi and the intent is 
     to leave those as-is.  This document does not include functionality or tests for those ribbons.  The plan is to use any existing automated tests for those ribbons to verify nothing has been broken. </p>
     <p>
     The requirements below are organized by "ribbon". If no data for a ribbon exists then do not display the ribbon with the 
@@ -47,7 +47,7 @@
 	               <li>Superscripts and special characters may be displayed in this field.</li>
 	           </ul></li>
 	           <li>Name
-	           <ul><li>The name displayed is a combination of gene and allele names.  "gene name; allele name"</li>
+	           <ul><li>The name displayed is a concatenation of gene and allele names.  "gene name; allele name"</li>
 	               <li>When gene and allele names are the same - only display one of the names.</li>
 	               <li>Superscripts and special characters may be displayed in this field.</li>
 	           </ul></li>
@@ -75,12 +75,12 @@
 	   <ul><li><u>List of fields </u>
 	           <ol><li>Mutant Cell Line
 	                  <ul><li>Display: mutant cell lines in bold followed by the provider in parens</li>
-	                      <li>EUCOMM/Velocigene alleles link the provider name displayed to provider page for the MCLs
+	                      <li>EUCOMM/Velocigene alleles link the provider name to the provider page for the MCLs
 	                         - what triggers this display?  Existence of a particular ID (e.g. Regeneron ID for Velocigene)? (questions for Jon)</li>
 	                      <li>Multiple cell lines are displayed in comma-delimited list and the label is changed to plural, Mutant Cell Lines</li>
 	                  </ul></li>
-	               <li>Germline Transmission
-	                  <ul><li>This field is included when a Mutant Cell Line is displayed - when there is no Germline reference, display "Unknown". (not sure about this)</li>
+	               <li>Germline Transmission / Mouse Generated
+	                  <ul><li>Not sure what determines when this field is displayed/not displayed.  Maybe when a MCL is present? "Unknown" is a valid display.</li>
 	                      <li>When a Germline Transmission reference is present for the allele and Germline Transmission has been curated: 
 	                         <ul><li>display text: "Earliest citation of germline transmission:" and J# (with link to Reference).</li>
 	                         </ul></li>
@@ -165,35 +165,37 @@
 	       <ol><li>Carrying this mutation
 	            <ul><li>Mouse Strains - count and link if non-zero</li>
 	            <li>Cell Lines - count and link if non-zero</li>
-	            <li>If either/both of the counts are zero - display without a link</li>
+	            <li>If either/both of the counts are zero - display 0 without a link</li>
 	            </ul></li>
 	           <li>Carrying any Xxx mutation
 	            <ul><li>Xxx represents the applicable gene symbol displayed here</Xxx>
 	                <li>Strains or lines - count and link if non-zero</li>
-	                <li>If count is zero - display without a link</li>
+	                <li>If count is zero - display 0 without a link</li>
 	                <li>This field is not displayed for Transgenes</li>
 	            </ul></li>
 	       </ol></li>
 	       <li><u>Rules for this ribbon</u>
 	       <ol><li>These counts are found in a report.... (more info here)</li>
 	           <li>This ribbon is displayed even when the counts found are zero</li>
-	           <li>Is this section is not displayed for QTL alleles.  Any other types an exception?</li>
+	           <li>Do not display this ribbon for QTL alleles.  Are there any other exceptions?</li>
 	       </ol>
 	   </ul></li>
 	   
 	   <li>NOTES
 	   <ul><li>List of note types displayed in this section
 	        <ol><li>General Notes (for an allele)
-	            <ul><li>This is the first type of notes to display (if present).</li>
+	            <ul>
 	                <li>Recognize HTML mark-up</li>
 	            </ul></li> 
 	            <li>Mapping Notes (for a marker)
 	            <ul><li>For QTL alleles look for mapping notes via the QTL marker and display.</li>
 	                <li>Display a special heading for these notes</li>
 	                <li>Display/link the associated J# (associated via QTL marker)</li> 
+	                <li>If General Notes also exist for a QTL those are displayed first.</li>
 	            </ul></li>
 	            <li>Special note and link for Deltagen and Lexicon alleles 
 	            <ul><li>Not sure what drives this - all alleles on the Deltagen/Lexicon KO page have this link</li>
+	                <li>Link to the corresponding Deltagen or Lexicon data page for the allele.</li>
 	            </ul></li>
 	        </ol></li>
 	   </ul></li>
