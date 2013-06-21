@@ -1,0 +1,320 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 33</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Allele Detail - convert to fewi</h1>
+    <ul>
+        <li>User Story 33  - Allele Detail - convert to fewi</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <p>
+    The conversion of the Allele Detail page from the Java WI to the fewi is intended to maintain the same functionality.  There are 3 recently implemented "ribbons"
+    on this page that have already been implemented in the fewi and the intent is to leave those as-is.  The requirements below are organized by "ribbon".  
+    If no data for a ribbon exists then do not display the ribbon with the exception of the Find Mice ribbon -- which is displayed even if nothing is found in IMSR.</p>
+    <h3>Allele Page Ribbons</h3>
+	<ol>
+	   <li>NOMENCLATURE
+	   <ul><li>List of fields (only display fields that have data)
+	       <ol><li>Symbol / QTL Variant
+	           <li>Name
+	           <ul><li>name = "gene name, allele name"</li>
+	               <li>when gene and allele names are the same - only display the allele name</li>
+	           </ul></li>
+	           <li>MGI id</li>
+	           <li>Synonyms</li>
+	           <li>Gene / QTL / Transgene
+	           <ul><li>Link gene symbol to Marker Detail - transgenes are an exception (no link)</li>
+	               <li>possible to have alleles with no associated marker (loaded GTs) - so this section not included for those alleles</li>
+	           </ul></li>
+	           <li>Allele Images (those images associated to the Allele in the EI; not genotype or molecular images)
+	           <ul><li>Display primary image for allele</li>
+	               <li>Display a link to all images for an allele</li>
+	           </ul></li>
+	      </ol></li>
+	   </ul></li>
+	   
+	   <li>MUTATION / VARIANT / TRANSGENE ORIGIN
+	   <ul><li>List of fields (only display fields that have data)
+	           <ol><li>mutant cell line
+	                  <ul><li>EUCOMM/Velocigene alleles include links to provider</li></ul></li>
+	               <li>germline transmission
+	                  <ul><li>includes link to J#</li>
+	                      <li>chimera case</li>
+	                  </ul></li>
+	               <li>parent cell line - ES cell vs. spermatogonial cell</li>
+	               <li>strain of origin/strain of specimen (QTL)</li>
+	           </ol>
+	       <li>Gene trapped alleles - all these fields may be present</li>
+	       <li>Many alleles only display the Strain of Origin</li>
+	       <li>Targeted alleles may list Germline Transmission, Parent Cell Line, and Strain</li>
+	   </ul></li>
+	   
+	   <li>MUTATION / VARIANT / TRANSGENE DESCRIPTION
+	   <ul><li>List of fields (only display fields that have data)
+	       <ol><li>allele type (20 types)</li>
+	           <li>mutation (list of mutation types,  vector, and mutation description)
+	               <ul><li>description includes link to J# (molecular notes and molecular reference)</li>
+	                   <li>long mutations include show/hide with default of hide</li>
+	                   <li>is HTML markup valid in mutation description (aka molecular notes)?</li>
+	               </ul></li>
+	           <li>inheritance</li>
+	           <li>sequence tags (show/hide option; default=hide)
+	               <ol><li>Tag ID; link to provider</li>
+	                   <li>GenBank ID - link to Sequence Detail</li>
+	                   <li>Method</li>
+	                   <li>Tag Location - chr, start, end, strand</li>
+	                   <li>Select button for FASTA, Blast options</li>
+	               </ol></li>
+	           <li>genome context (show/hide option; default=hide)
+	               <ol><li>thumbnail of gbrowse with blue line of location and link</li>
+	                   <li>count of gene traps in gene with link</li>
+	               </ol></li>
+	       </ol></li>
+	       <li>sequence tags and genome context fields are only present for gene trapped alleles</li>  
+	       <li>multiple sequence tags are valid for an allele</li>
+	   </ul></li>
+	   
+	   <li>RECOMBINASE ACTIVITY
+	   <ul><li>currently in the fewi</li></ul></li>
+	   <li>PHENOTYPES
+	   <ul><li>currently in the fewi</li></ul></li>
+	   <li>DISEASE MODELS
+	   <ul><li>currently in the fewi</li></ul></li>
+	   
+	   <li>EXPRESSION
+	   <ol><li>In Mice Carrying this Mutation - count of assay results; link to Assay Summary and display Results tab</li>
+	   </ol></li>
+	   
+	   <li>FIND MICE (IMSR)
+	   <ul><li>List of fields (display even if counts are zero)
+	       <ol><li>Carrying this mutation
+	            <ul><li>Mouse Strains - count and link if non-zero</li>
+	            <li>Cell Lines - count and link if non-zero</li>
+	            </ul></li>
+	           <li>Carrying any Xxx mutation
+	            <ul><li>Strains or lines - count and link if non-zero
+	            </ul></li>
+	       </ol></li>
+	   </ul></li>
+	   
+	   <li>NOTES
+	   <ul><li>List of types of notes displayed in this section
+	        <ol><li>General Notes (for an allele) - display here and recognize HTML mark-up 
+	            <li>QTLs - display Mapping Notes with a special heading and link to J# (associated via QTL marker)</li> 
+	            <li>Deltagen and Lexicon alleles include text and a link to a specific page in this section</li>
+	        </ol></li>
+	   </ul></li>
+	   
+	   <li>REFERENCES
+	   <ul><li>List of fields in this section:
+	       <ol><li>Original - citation display - use the fewi standard format that is closest to current display.  Link to Reference</li>
+	           <li>All - count of references and link to Reference Summary</li>
+	       </ol></li>
+	   </ul></li>
+	   
+	   
+	   
+	   
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify fields/links displayed in the Nomenclature Ribbon with what is displayed on Public.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with all fields (incl synonyms) - MGI:1856155; Pax6<sup>Sey</sup></li>
+    		   <li>Allele with all fields except synonyms - MGI:2680557; Pax6<sup>1Jrt</sup></li>
+    		   <li>QTL Allele - MGI:3032996; Asthm1<sup>BALB/c</sup></li>
+    		   <li>Transgene Allele - MGI:4819620; Tg(TRP53*R72P)7Dgj</li>
+    		   <li>Allele with no associated marker - MGI:4971894</li>
+    		   <li>Allele name with special chars - MGI:1856264; Kit<sup>W-s</sup></li>
+    		   <li>Allele symbol with special chars - MGI:5287502; Cript<sup>Tn(sb-rtTA)2427.SB1Ove</sup></li>
+    		   <li>Synonyms with superscripts - MGI:3590153; Bach1<sup>tm1Igar</sup></li>
+    		   <li>Synonyms with special chars - MGI:2678261; Cops3<sup>tm1Jrl</sup></li>
+    		   <li>Allele associated to syntenic marker - MGI:1856476; cw</li>
+    		   <li>Allele associated to marker with UN chromosome - MGI:2449154; Ahsp<sup>tm1Mjwe</sup></li>
+    		   <li>Allele with cytoband - MGI:1930612; Brca1<sup>tm1Cxd</sup></li>
+    		   <li>Allele with a single image that is the primary one - MGI:1855930; A<sup>vy</sup></li>
+    		   <li>Allele with multiple images and a primary image - MGI:1856798; A<sup>y</sup></li>
+    		   <li>Allele with images but none that are primary - MGI:2176228; Tg(Alb-cre)21Mgn</li>
+    		   <li>Allele with images that include movies - MGI:5285080</li>
+    		   
+    	    </ol></li>
+    	    
+    		<li>Verify fields/links displayed in the Mutation Origin Ribbon with what is displayed on Public.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with only SOO - MGI:1855976; Tyr<sup>c</sup></li>
+    		   <li>QTL Allele - MGI:3525662; Dbts<sup>SM/J</sup></li>
+    		   <li>Transgene Allele - MGI:3057119</li>
+    		   <li>Gene trapped allele - MGI:3794786</li>
+    		   <li>Allele with chimera germline - MGI:2388704; Trp53<sup>tm1Mok</sup></li>
+    		   <li>Alleles with cell line germline - MGI:4880505; Abca9<sup>tm1(NCOM)Mfgc</sup></li>
+    		   <li>EUCOMM allele with link to MCL provider - MGI:5002962; Abo<sup>tm1a(EUCOMM)Hmgu</sup></li>
+    		   <li>Velocigene allele - MGI:5051075; Brk1<sup>tm1(KOMP)Vlcg</sup></li>
+    		   <li>Allele with no associated marker - MGI:3888734; Gt(D033B02)Wrst</li>
+    		   <li>Strain with superscript - MGI:1856424; Lep<sup>ob</sup></li>
+    		   <li>Strain with special chars - MGI:1855977; Tyr<sup>c-ch</sup></li>
+    		   <li>Allele with PCL from Spermatogonial Cell Line (vs ES Cell) - MGI:3641043; Ocln<sup>tm1Tshi</sup></li>
+    		   <li>Allele with PCL of Other (see notes) - MGI:4127920; Atad5<sup>Gt(RRF055)Byg</sup>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links displayed in the Mutation Description (other than sequence tags and genome context) with what is displayed on Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Alleles for each allele type
+    		   <ol><li>Spontaneous - MGI:1856819; Rab38<sup>cht</sup></li>
+    		       <li>Targeted KO - MGI:3528234; Bag1<sup>tm1Msd</sup></li>
+    		       <li>Targeted KI - MGI:4459318; Il13<sup>tm1(YFP/cre)Lky</sup></li>
+    		       <li>Targeted Floxed/Frt - MGI:3803178; Arx<sup>tm1Gldn</sup></li>
+    		       <li>Targeted Reporter - MGI:5319862; Bod1<sup>tm2e(KOMP)Wtsi</sup></li>
+    		       <li>Targeted Other - MGI:5085999; Shank3<sup>tm1.1Pfw</sup></li>
+    		       <li>Gene trapped (autoload) - MGI:4139198; 1700012C14Rik<sup>Gt(OST13273)Lex</sup></li>
+    		       <li>Gene trapped - MGI:3848025; Timm23<sup>Gt(W023C08)Wrst</sup>
+    		       <li>Chemically induced ENU - MGI:2671869; bhe</li>
+    		       <li>Chemically induced other - MGI:2156821; Pax6<sup>9Neu</sup></li>
+    		       <li>Chemically and radiation induced - MGI:1856404; a<sup>18H</sup></li>
+    		       <li>Radiation induced - MGI:3032981; T(X;16)16H</li>
+    		       <li>Transposon induced - MGI:3526109; Car12<sup>Tn(sb-T2/GT2/tTA)4563.1Dla</sup></li>
+    		       <li>Transgenic random, expressed - MGI:3036319; Tg(Bc12)Acap</li>
+    		       <li>Transgenic random, gene disruption - MGI:1856421; Dst<sup>Tg4</sup></li>
+    		       <li>Transgenic Cre/Flp - MGI:2651403; Tg(Dach1-cre)1Krs</li>
+    		       <li>Transgenic Cre/Flp - MGI:5440432; Tg(Ins2-flpe)25Arte</li>
+    		       <li>Transgenic Transposase - MGI:3719409; Tg(Prm1-pb)1Mrc</li>
+    		       <li>Transgenic Reporter - MGI:3768427; Tg(Neurog3-lacZ)1Ggr</li>
+    		       <li>QTL - MGI:2159319; Chab1<sup>DBA/2J</sup></li>
+    		       <li>Not Applicable/Not Specified - this is the allele type for wild type alleles and/or non-public alleles; not applicable  case for the Public WI</li>
+    		        		       
+    		   </ol></li>
+    		   <li>Allele with short Molecular Note - MGI:3576635; chtl<sup>2J</sup></li>
+    		   <li>Allele with long Molecular Note - MGI:2447068; Cst6<sup>ichq</sup></li>
+    		   <li>Allele with HTML markup in Molecular Note - MGI:3622350; In(7)4Rl</li>
+    		   <li>Allele without a Molecular Note - MGI:1856836; crz</li>
+    		   <li>Allele with inheritance specified - MGI:3764995; Gpi1<sup>a-m1J</sup></li>
+    		   <li>Allele with inheritance of Other (see notes) - MGI:3717789; Pbwg1.8<sup>M.m.castaneus</sup></li>
+    		   <li>Allele with inheritance not specified - MGI:1856748; t<sup>Lub1</sup></li>
+    		   <li>Allele with vector  - MGI:4456631; Sumo3<sup>tm1(KOMP)Mbp</sup></li>
+    		   <li>Gene trapped allele with 2 MGI IDs - MGI:4966623, MGI:3883228; Gt(320D1)Cmhd
+    		   <li>Allele with multiple mutation types - MGI:4399355; Cbr3<sup>tm1(KOMP)Vlcg</sup></li>
+    		   <li>Allele with single mutation type - MGI:5007045; Cbln4<sup>tm1Lex</sup></li>
+    		   <li>Allele with no mutation type - MGI:4454664; Adamts4<sup>tm1Dqp</sup></li>
+    		   
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links for Sequence Tags and Genome Context displayed in the Mutation Description ribbon with what is displayed on Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Gene trapped allele with single seq tag - MGI:4127340; Epcam<sup>Gt(RST412)Byg</sup></li>
+    		   <li>Gene trapped allele with multiple seq tag - MGI:3873923; Tpx2<sup>Gt(D028B03)Wrst</sup></li>
+    		   <li>Gene trapped allele with no sequence tags - MGI:2388061; Ltbp4<sup>Gt(U3Cre)1Vmel</sup>
+    		   <li>Gene trapped alleles - various providers - MGI:3871767 (Wtsi);  </li>
+    		   <li>Download to FASTA a single seq taq - use allele above</li>
+    		   <li>Download to FASTA multiple seq tags - use allele above</li>
+    		   <li>Forward to Blast a single seq tag - use allele above</li>
+    		   <li>Forward to Blast multiple seq tags- use allele above</li>
+    		   <li>Gene trapped allele with Genome Context section - use alleles above</li>
+    	    </ol></li>
+    	    
+    	   
+    	    <li>Verify fields/links for Expression Ribbon - compare to Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with associated expression results - MGI:2429759; Disp1<sup>tm1Ptch</sup></li>
+    		   <li>Allele without associated expression results - MGI:1856251; Kit<sup>W-55J</sup></li>
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links for the Find Mice (IMSR) Ribbon - compare to Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with associated strains and cell lines in IMSR - MGI:4820320; Trp53rk<sup>tm1a(EUCOMM)Wtsi</sup></li>
+    		   <li>Allele with associated strains and no cell lines in IMSR - MGI:1934384; Cxcl12<sup>tm1Tng</sup></li>
+    		   <li>Allele with associated cell lines but no strains in IMSR - MGI:5428562; Prss30<sup>tm1e(KOMP)Wtsi</sup></li>
+    		   <li>Allele with no association strains/cell lines in IMSR - MGI:1857894; Bmp2<sup>tm1Brd</sup></li>
+    		   <li>Allele with strains/cell lines associated to marker of allele - MGI:1859780; Kit<sup>Ssm</sup></li>
+    		   <li>Allele with no strains/cell lines associated to marker of allele - MGI:4944524; Sri<sup>tm1a(EUCOMM)Wtsi</sup></li>
+    	    </ol></li>
+    	    
+    	     <li>Verify fields/links for Notes Ribbon - compare to Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with General notes - MGI:1856300; Hal<sup>his</sup></li>
+    		   <li>Allele with General notes that include HTML mark-up - MGI:2157909; Uox<sup>in</sup></li>
+    		   <li>QTL allele with Mapping notes - MGI:3032995; Asthm1<sup>BP2</sup></li>
+    		   <li>QTL allele with General notes and Mapping notes - MGI:3036102; Pas2<sup>A/J</sup></li>
+    		   <li>Deltagen allele - MGI:3604589; Grik5<sup>tm1Dgen</sup></li>
+    		   <li>Lexicon allele - MGI:3529167; Pzp<sup>tm1Lex</sup></li>
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links for Reference Ribbon - compare to Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele  with only 1 reference - MGI:1856137; Krt25<sup>Re</sup></li>
+    		   <li>Allele with many references  - MGI:1859958; a<sup>4J</sup></li>
+    	    </ol></li>
+    	    
+    	    <li>Verify ribbons already in the Fewi display as expected in the new framework
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with Recombinase section (but not phenotypes or disease) - MGI:4818775; Tg(ACTA1-rtTA,tetO-cre)102Monk</li>
+    		   <li>Allele with Phenotypes section (but not recombinase or disease) - MGI:2182470; Brca1<sup>tm2.1Cxd</sup></li>
+    		   <li>Allele with Disease section (but not recombinase or phenotypes) - MGI:nnn</li>
+    		   <li>Allele with Recomb & Pheno (no Disease) - MGI:5314932; Aicda<sup>tm1(cre)Njen</sup></li>
+    		   <li>Allele with Pheno & Disease (no Recom) - MGI:3696057; Brca1<sup>tm1Brn</sup></li>
+    		   <li>Allele with Recomb, Pheno, and Disease - MGI:1934631; Lyz2<sup>tm1(cre)Ifo</sup></li>
+    		   <li>Allele with none of these sections - MGI:4159004; Brca1<sup>Gt(OST44235)Lex</sup>
+    	    </ol></li>
+    	    
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
