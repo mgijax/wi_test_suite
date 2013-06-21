@@ -38,7 +38,7 @@
     The requirements below are organized by "ribbon". If no data for a ribbon exists then do not display the ribbon with the 
     exception of the Find Mice ribbon -- which is displayed even if nothing is found in IMSR.
     </p>
-    <h3>Allele Page</h3>
+    <h3>Allele Page Header Area</h3>
     <ol>
        <li>PAGE HEADING
        <ol><li>Display the Allele symbol as the primary title of the page.  The text in &lt;&gt; is displayed as a superscript.</li>
@@ -110,19 +110,29 @@
 	   <li>MUTATION / VARIANT / TRANSGENE ORIGIN
 	   <ul><li><u>List of fields </u>
 	           <ol><li>Mutant Cell Line
-	                  <ul><li>Display: mutant cell lines in bold followed by the provider in parens</li>
-	                      <li>EUCOMM/Velocigene alleles link the provider name to the provider page for the MCLs
-	                         - what triggers this display?  Existence of a particular ID (e.g. Regeneron ID for Velocigene)? (questions for Jon)</li>
+	                  <ul><li>Display: mutant cell lines in bold followed by the provider in parens - provider not linked except for the following
+	                      <ul>
+	                          <li>KOMP alleles link to the KOMP website via an ID
+	                          <ol><li>A KOMP allele is defined as any allele with either a EUCOMM, NorCOMM, or CSD id associated to it</li>
+	                              <li>The provider text displayed is a link to the KOMP website whatever ID is present for the allele</li>
+	                          </ol></li>
+	                          <li>Velocigene alleles link to the Velocigene website using the first mutant cell line ID in the list for the allele (question - how do we identify Velocigene alleles? existence of a Regeneron id?)</li>
+	                      </ul></li>
 	                      <li>Multiple cell lines are displayed in comma-delimited list and the label is changed to plural, Mutant Cell Lines</li>
 	                  </ul></li>
 	               <li>Germline Transmission / Mouse Generated
-	                  <ul><li>Not sure what determines when this field is displayed/not displayed.  Maybe when a MCL is present? "Unknown" is a valid display.</li>
-	                      <li>When a Germline Transmission reference is present for the allele and Germline Transmission has been curated: 
-	                         <ul><li>display text: "Earliest citation of germline transmission:" and J# (with link to Reference).</li>
+	                  <ul><li>Transmission is displayed if the value is not "Not Applicable".</li>
+	                      <li>When a Germ Line Transmission = Germline: 
+	                         <ul><li>display text: "Earliest citation of germline transmission:" and J# link (use Transmission Reference).</li>
+	                             <li>Is it possible for there to be no Transmission reference?</li>
 	                         </ul></li>
-	                      <li>When a Germline Transmission reference is present for the allele and Chimera has been curated
-	                         <ul><li>display "Earliest citation of chimera generation:" and J# (with link to Reference)  </li>
+	                      <li>When a Germline Transmission = Chimera:
+	                         <ul><li>display "Earliest citation of chimera generation:" and J# link (use Transmission Reference)  </li>
 	                             <li>Label of field is changed from "Germline Transmission" to "Mouse Generated"</li>
+	                         </ul> </li>
+	                      <li>When a Germline Transmission = cell line:
+	                         <ul><li>If IMSR reports strains exist for this allele, display "Germline transmission reported".  No reference.</li>
+	                             <li>If IMSR does not report any strains - display "Unknown".
 	                         </ul> </li>
 	                  </ul></li>
 	               <li>Parent Cell Line
@@ -131,27 +141,39 @@
 	               <li>Strain of Origin / Strain of Specimen 
 	               <ul><li>The label of this field is "Strain of Origin" except for QTLs when it is "Strain of Specimen".</li>
 	                   <li>Superscripts and special characters are supported for this field.</li>
+	                   <li>If this field is null - do not display</li>
 	               </ul></li>
 	           </ol>
 	       <li><u>Rules for this ribbon</u>
 	           <ol>
 	              <li>Label of ribbon is "Mutation Origin" for most alleles.  Exceptions include 1) QTLs-display "Variant Origin" 
 	                  and 2) Transgenes - display "Transgene Origin".</li>
-	              <li>Additional rules may exist regarding how to handle "Not Specified" and/or "Not Applicable" values for the fields in this ribbon.</li>
+	              <li>Label of section should match TOC</li>
+	              <li>Show this ribbon if: 1) ES Cell line is not null; OR 2) Strain of Origin is not null; or 3) Mutant ES cell lines
+	                                          is not null and there is at least one mutant ES Cell line.</li>
 	           </ol></li>
 	    </ul></li>
 	   
 	   <li>MUTATION / VARIANT / TRANSGENE DESCRIPTION
 	   <ul><li><u>List of fields</u>
-	       <ol><li>Allele Type (20 types - see tests below for list)</li>
+	       <ol><li>Allele Type 
+	           <ul><li>For transgenes this label is "Transgene Type"</li>
+	               <li>There are 20 allele types (list included in test cases below)</li>
+	           </ul></li>
 	           <li>Mutation
 	               <ul><li>Data displayed for this field: mutation types, vector,  vector type, and mutation description.
+	                   <ul><li>there can be multiple mutation types displayed in a comma-delimited list</li>
+	                       <li>Mutation can be "Undefined" if the allele does not have a defined mutations</li>
+	                       <li>If multiple vectors exist we just display the first one</li>
+	                   </ul></li>
 	                   <li>The description is the Molecular Notes field in the Allele EI.</li>
 	                   <li>The J# at the end of the description is the molecular reference and is linked to the Reference page</li>
-	                   <li>Long mutations include show/hide with default of hide - what length triggers this?</li>
-	                   <li>Is HTML markup valid in mutation description (aka molecular notes)?</li>
+	                   <li>There can be multiple references displayed in a comma-delimited list</li>
+	                   <li>Long mutations include show/hide with default of hide - triggered if length is > 100 characters</li>
+	                   <li>HTML markup is valid in mutation description (aka molecular notes)</li>
 	               </ul></li>
-	           <li>Inheritance</li>
+	           <li>Inheritance
+	           <ul><li>If mode is "Not Applicable" then do not display this field</li></ul></li>
 	           <li>Sequence Tags
 	               <ul><li>This field includes a show/hide option where the default is hide when the page is rendered</li>
 	                   <li>A count of the tags is displayed in text at the top of the table in either show or hide mode</li>
@@ -159,7 +181,10 @@
 	                   <ol><li>Tag ID; Provider; link to provider</li>
 	                       <li>GenBank ID; link to Sequence Detail</li>
 	                       <li>Method</li>
-	                       <li>Tag Location: chr, start, end, strand</li>
+	                       <li>Tag Location: chr, start, end, strand
+	                       <ul><li>A sequence with multiple good hits to the genome should display "multiple" for location</li>
+	                           <li>A sequence with no good hits to the genome should display "unknown" for location</li>
+	                       </ul></li>
 	                       <li>Radio button for FASTA, Blast (can only select one sequence at a time)</li>
 	                    </ol></li>
 	                    <li>Include controls for FASTA/Forward option in pulldown menu.</li>
@@ -167,7 +192,8 @@
 	               </ul></li>
 	           <li>Genome Context
 	               <ol><li>This field includes a show/hide option where the default is hide when the page is rendered</li>
-	                   <li>Display a thumbnail of gbrowse with a blue line of the gene trap location.  Link the image to GBrowse.</li>
+	                   <li>Display a thumbnail of gbrowse with a blue line of the gene trap location.  Link the image to GBrowse.
+	                   <ul><li>include a 5kb buffer around the coordinates for gbrowse thumbnail and link</li></ul></li>
 	                   <li>Display a count of all gene traps for the gene.  Link the count to GBrowse.</li>
 	               </ol></li>
 	       </ol></li>
@@ -175,8 +201,6 @@
 	       <li><u>Rules for this ribbon</u>
 	       <ol><li>Label of ribbon is "Mutation Description" for most alleles.  Exceptions include: 1) QTLs- display "Variant Description" 
 	                  and 2) Transgenes - display "Transgene Description".</li>
-	           <li>Are there add'l display rules driven by Allele Type?</li>
-	           <li>Additional rules may exist regarding how to handle "Not Specified" and/or "Not Applicable" values for the fields in this ribbon.</li>
 	       </ol></li>
 	   </ul></li>
 	   
@@ -213,13 +237,17 @@
 	       <li><u>Rules for this ribbon</u>
 	       <ol><li>These counts are found in a report.... (more info here)</li>
 	           <li>This ribbon is displayed even when the counts found are zero</li>
-	           <li>Do not display this ribbon for QTL alleles.  Are there any other exceptions?</li>
+	           <li>Do not display this ribbon for QTL alleles or alleles with no associated marker.</li>
 	       </ol>
 	   </ul></li>
 	   
 	   <li>NOTES
 	   <ul><li>List of note types displayed in this section
-	        <ol><li>General Notes (for an allele)
+	        <ol><li>Derivation Notes (for cell lines)
+	            <ul><li>recognize HTML mark-up?</li>
+	            </ul>
+	        
+	            <li>General Notes (for an allele)
 	            <ul>
 	                <li>Recognize HTML mark-up</li>
 	            </ul></li> 
@@ -230,7 +258,7 @@
 	                <li>If General Notes also exist for a QTL those are displayed first.</li>
 	            </ul></li>
 	            <li>Special note and link for Deltagen and Lexicon alleles 
-	            <ul><li>Not sure what drives this - all alleles on the Deltagen/Lexicon KO page have this link</li>
+	            <ul><li>all alleles on the Deltagen/Lexicon KO page have this link (currently driven by a cache table)</li>
 	                <li>Link to the corresponding Deltagen or Lexicon data page for the allele.</li>
 	            </ul></li>
 	        </ol></li>
@@ -253,6 +281,32 @@
 	   
 	   
 	   
+	</ol>
+	<h3>SEO - search engine optimization</h3>
+	
+	<ol>
+	    <li>KEYWORDS
+	    <ol><li>For all alleles, include: mouse, mice, murine, Mus, allele</li>
+	        <li>For “Targeted (knock-out)” alleles, add:  null, KO, knock out, knockout</li>
+            <li>For “Targeted (Floxed/Frt)” alleles, add:  floxed, loxP, frt</li>
+            <li>For “Cre” or “Flp” alleles, add:  recombinase, flp, cre, flpe</li>
+            <li>For “Transposase” alleles, add:  transposase</li>
+            <li>For alleles other than QTL or “Not Applicable”, add:  mutant, mutation</li>
+            <li>For all alleles, add the allele symbol – including  &lt;&gt; notation but not &lt;sup&gt; HTML  tags.</li>
+            <li>For all alleles, add synonyms.</li>
+            <li>For transgene alleles, add: transgenic</li>
+            <li>For alleles with allele types other than Not Applicable and Not Specified, add:  value of allele type</li>	    
+	    </ol></li>
+	    <li>DESCRIPTION
+	    <ol><li>For all alleles, begin with “View” then the allele symbol (including   &lt;&gt; notation but not HTML  &lt;sup&gt; tags) then “ allele: origin “</li>
+            <li>If the allele has molecular notes, add “, molecular description”</li>
+            <li>If the allele has disease models, add “ and human disease models”</li>
+            <li>If the allele has images, add “, images”</li>
+            <li>For all alleles, end with “, gene associations, and references.”</li>
+	    </ol></li>
+	    <li>ROBOTS
+	    <ol><li>Add the NOODP and NOYDIR tags for control of robots.</li>
+	    </ol></li>
 	</ol>
 </div>
 
