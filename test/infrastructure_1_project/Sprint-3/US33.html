@@ -327,29 +327,29 @@
     		<ol>
     		   <li>QTL Allele - MGI:3817480; Azdm1<sup>A/J</sup>
     		       <ul><li>Expected results: QTL page subtitle; QTL browser title, special QTL TOC text</li></ul> </li>
-    		   <li>Transgene Allele (allele type starts Transgenic/marker type = Transgene) - MGI:nnnn; symbol
+    		   <li>Transgene Allele (allele type starts Transgenic/marker type = Transgene) - MGI:4942357; symbol
     		       <ul><li>Expected results: Transgene page subtitle; Trangene browser title, special Transgene TOC text</li></ul> </li>
-    		   <li>Transgenic Allele (allele type starts Transgenic/marker type is not Transgene) - MGI:nnnn; symbol
+    		   <li>Transgenic Allele (allele type starts Transgenic/marker type is not Transgene) - MGI:2447997; symbol
     		       <ul><li>Expected results: Transgenic page subtitle; Trangene browser title, special Transgene TOC text</li></ul> </li>    
-    		   <li>Not Specified and Not Applicable Alleles - MGI:nnn, MGI:nnnn.
+    		   <li>Not Applicable Allele - MGI:4421553 and Not Specified Allele - MGI:3773077.
     		   <ul><li>Expected results: Allele Detail page subtitle; browser title; standard TOC</li></ul>
     		   </li>
-    		   <li>Targeted (knock-in) Allele - MGI:nnnnn; symbol
+    		   <li>Targeted (knock-in) Allele - MGI:4442339; symbol
     		   <ul><li>Expected results: Targeted Detail page subtitle; browser title; standard TOC</li></ul>
     		   </li>
-    		   <li>Gene trapped Allele - MGI:nnnn; symbol
+    		   <li>Gene trapped Allele - MGI:4380645; 1110001A16Rik<sup>Gt(EUCE00138c02)Hmgu</sup>
     		   <ul><li>Expected results: Gene trapped Detail page subtitle; browser title; standard TOC</li></ul>
     		   </li>
-    		   <li>Allele without a superscript - MGI:nnnn; symbol   Expected results:  page heading and browser title display as on Public.</li>
-    		   <li>Allele with a superscript - MGI:nnnn; symbol   Expected results:  page heading and browser title display as on Public.</li>
-    		   <li>Allele with all ribbons present - MGI:nnnn; symbol   Expected results:  TOC contains all sections/links</li>
+    		   <li>Allele without a superscript - MGI:1855937; a   Expected results:  page heading and browser title display as on Public.</li>
+    		   <li>Allele with a superscript - MGI:2450287; symbol   Expected results:  page heading and browser title display as on Public.</li>
+    		   <li>Allele with most ribbons present - MGI:3042214; Amhr2<sup>tm3(cre)Bhr</sup>   Expected results:  TOC contains most sections/links</li>
     	    </ol></li>
     	    
     	    <li>Verify Help and Your Input Welcome links
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Allele with a superscript - MGI:nnnn; symbol</li>
-    		   <li>Allele without a superscript - MGI:nnnn; symbol</li>
+    		   <li>Allele with a superscript - MGI:1856424; Lep<sup>ob</sup></li>
+    		   <li>Allele without a superscript - MGI:1889606; wfd</li>
     	    </ol></li>
     		
     		<li>Verify fields/links displayed in the Nomenclature Ribbon with what is displayed on Public.
@@ -369,12 +369,12 @@
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Allele with no associated marker - MGI:4971894; Expect: Gene field not to be included.</li>
-    		   <li>Allele associated to a marker with a location and genetic position - MGI:nnnnn; Expect all values displayed for Gene</li>
-    		   <li>Allele associated to a marker with a null strand - MGI:nnnnn; Expect: no strand or strand label to be displayed</li>
+    		   <li>Allele associated to a marker with a location and genetic position - MGI:2181391; Expect all values displayed for Gene</li>
+    		   <li>Allele associated to a marker with a null strand - MGI:3664544; Expect: no strand or strand label to be displayed</li>
     		   <li>Allele associated to a marker with no cM (syntenic)- MGI:1856476; cw    Expect: syntenic</li>
     		   <li>Allele associated to marker with UN chr/no coordinates - MGI:2449154; Ahsp<sup>tm1Mjwe</sup>   Expect:Location: unknown  </li>
     		   <li>Allele with cytoband - MGI:1930612; Brca1<sup>tm1Cxd</sup></li>
-    		   <li>QTL Allele with cM position - MGI:nnnnn;  Expect: special text displayed with cM</li>
+    		   <li>QTL Allele with cM position - MGI:2386541;  Expect: special text displayed with cM</li>
     		   <li>Transgene allele associated to a non-Transgene marker - MGI:2447997; Expect: no link to Marker Detail page</li>
     	    </ol></li>
     	    
@@ -403,11 +403,11 @@
     	    <li>Verify fields/links for the Mutation Origin Ribbon - Mutant Cell Line field
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Non-KOMP allele with an MCL - MGI:nnnnn; Expect: MCL and provider displayed - no links</li>
+    		   <li>Gene trapped allele with an MCL - MGI:4128812; Expect: MCL and provider displayed - no links</li>
     		   <li>KOMP alleles - EUCOMM, NorCOMM, and CSD.  Displays MCLs and provider. Links provider to KOMP website.
     		   <ul><li>EUCOMM allele - MGI:5002962; Abo<sup>tm1a(EUCOMM)Hmgu</sup></li>
-    		       <li>NorCOMM allele - MGI:nnnn</li>
-    		       <li>CSD allele - MGI:nnnnn</li>
+    		       <li>NorCOMM allele - MGI:4880118; Adcy1<sup>tm1(NCOM)Cmhd</sup></li>
+    		       <li>CSD allele - MGI:5287737; Akap12<sup>tm1(KOMP)Mbp</sup> </li>
     		   </ul></li>
     		   <li>Velocigene allele - MGI:5051075; Brk1<sup>tm1(KOMP)Vlcg</sup>.  Expect: Provider link to VelociGene using the first MCL in the list</li>
     	    </ol></li>
@@ -429,7 +429,7 @@
     		   <li>Allele with inheritance specified - MGI:3764995; Gpi1<sup>a-m1J</sup></li>
     		   <li>Allele with inheritance of Other (see notes) - MGI:3717789; Pbwg1.8<sup>M.m.castaneus</sup></li>
     		   <li>Allele with inheritance not specified - MGI:1856748; t<sup>Lub1</sup></li>
-    		   <li>Allele with inheritance not applicable - MGI:nnnnn; symbol. Expect: Inheritance field not displayed</li>
+    		   <li>Allele with inheritance not applicable - MGI:1931734; symbol. Expect: Inheritance field not displayed</li>
     		   <li>Gene trapped allele with 2 MGI IDs - MGI:4966623, MGI:3883228; Gt(320D1)Cmhd
     	    </ol></li>
     	    
@@ -552,6 +552,57 @@
     		   <li>Allele with Pheno & Disease (no Recom) - MGI:3696057; Brca1<sup>tm1Brn</sup></li>
     		   <li>Allele with Recomb, Pheno, and Disease - MGI:1934631; Lyz2<sup>tm1(cre)Ifo</sup></li>
     		   <li>Allele with none of these sections - MGI:4159004; Brca1<sup>Gt(OST44235)Lex</sup>
+    	    </ol></li>
+    	    
+    	    <li>Verify page display/links in all supported browsers - I/E, Firefox, Safari, Chrome (not officially supported, but gaining)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with ajax sections: Recomb, Pheno, and Disease - MGI:1934631; Lyz2<sup>tm1(cre)Ifo</sup></li>
+    		   <li>Allele with sequence tags, genome context sections - MGI:nnnnn; symbol</li>
+    		   <li>Allele with a long description in the Mutation Description ribbon - MGI:nnnnn; symbol</li>
+    		   <li>Allele with multiple images - MGI:nnnnn; symbol</li>
+    		   <li>Allele with data in all ribbons - MGI:nnnnn; symbol</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Allele Detail KEYWORDS meta data - used for Search Engine Optimization (SEO)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Spontaneous allele w/ superscript and synonyms - MGI:nnnnnn.
+    		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, mutant, mutation, spontaneous, {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
+    		   <li>Spontaneous allele w/o superscript or synonyms - MGI:nnnnnn.
+    		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, mutant, mutation, spontaneous, {allele symbol}</li></ul></li>
+    		   <li>Targeted (knock-out) allele w/ superscript and synonyms - MGI:nnnnnn.
+    		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, null, KO, knock out, knockout, mutant, mutation, targeted (knock-out), {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
+    		   <li>Targeted (Floxed/Frt) allele w/ superscript and synonyms - MGI:nnnnnn.
+    		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, floxed, loxP, frt, mutant, mutation, targeted (floxed/frt), {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
+    		   <li>Cre allele w/ superscript and synonyms - MGI:nnnnnn.
+    		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, recombinase, flp, cre, flpe, mutant, mutation, {allele type}, {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
+    		   <li>Flp allele w/o synonyms - MGI:nnnnnn.
+    		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, recombinase, flp, cre, flpe, mutant, mutation, {allele type}, {allele symbol w/ pointy brackets}</li></ul></li>
+    		   <li>Transposase allele - MGI:nnnnn.
+    		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, transposase, mutant, mutation, transposase, {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
+    		   <li>QTL allele - MGI:nnnnn.
+    		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, QTL, {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
+    		   <li>Transgenic allele - MGI:nnnnn.
+    		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, transgenic, mutant, mutation, {allele type}, {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Allele Detail DESCRIPTION meta data - used for Search Engine Optimization (SEO)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with molecular notes, disease models, and images - MGI:nnnnnn.
+    		   <ul><li>Expected result: View {allele symbol} allele: origin, molecular description, images, human disease models, gene associations, and references</li></ul></li>
+    		   <li>Allele with molecular notes (no models or images) - MGI:nnnnnn.
+    		   <ul><li>Expected result: View {allele symbol} allele: origin, molecular description, gene associations, and references</li></ul></li>
+    		   <li>Allele with no molecular notes, disease models, or images - MGI:nnnnnn.
+    		   <ul><li>Expected result: View {allele symbol} allele: origin, gene associations, and references</li></ul></li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Allele Detail ROBOTS meta data - used for Search Engine Optimization (SEO)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Any allele - MGI:nnnnnnn
+    		   <ul><li>Expected result: NOODP and NOYDIR tags</li></ul></li>
     	    </ol></li>
     	    
 		</ol>
