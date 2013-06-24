@@ -124,7 +124,6 @@
 	                  <ul><li>Transmission is displayed if the value is not "Not Applicable".</li>
 	                      <li>When a Germ Line Transmission = Germline: 
 	                         <ul><li>display text: "Earliest citation of germline transmission:" and J# link (use Transmission Reference).</li>
-	                             <li>Is it possible for there to be no Transmission reference?</li>
 	                         </ul></li>
 	                      <li>When a Germline Transmission = Chimera:
 	                         <ul><li>display "Earliest citation of chimera generation:" and J# link (use Transmission Reference)  </li>
@@ -322,6 +321,36 @@
 		<h3>Manual tests</h3>
 		
 		<ol>
+		
+		    <li>Verify display for page subtitles; browser titles; table of contents
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>QTL Allele - MGI:3817480; Azdm1<sup>A/J</sup>
+    		       <ul><li>Expected results: QTL page subtitle; QTL browser title, special QTL TOC text</li></ul> </li>
+    		   <li>Transgene Allele (allele type starts Transgenic/marker type = Transgene) - MGI:nnnn; symbol
+    		       <ul><li>Expected results: Transgene page subtitle; Trangene browser title, special Transgene TOC text</li></ul> </li>
+    		   <li>Transgenic Allele (allele type starts Transgenic/marker type is not Transgene) - MGI:nnnn; symbol
+    		       <ul><li>Expected results: Transgenic page subtitle; Trangene browser title, special Transgene TOC text</li></ul> </li>    
+    		   <li>Not Specified and Not Applicable Alleles - MGI:nnn, MGI:nnnn.
+    		   <ul><li>Expected results: Allele Detail page subtitle; browser title; standard TOC</li></ul>
+    		   </li>
+    		   <li>Targeted (knock-in) Allele - MGI:nnnnn; symbol
+    		   <ul><li>Expected results: Targeted Detail page subtitle; browser title; standard TOC</li></ul>
+    		   </li>
+    		   <li>Gene trapped Allele - MGI:nnnn; symbol
+    		   <ul><li>Expected results: Gene trapped Detail page subtitle; browser title; standard TOC</li></ul>
+    		   </li>
+    		   <li>Allele without a superscript - MGI:nnnn; symbol   Expected results:  page heading and browser title display as on Public.</li>
+    		   <li>Allele with a superscript - MGI:nnnn; symbol   Expected results:  page heading and browser title display as on Public.</li>
+    		   <li>Allele with all ribbons present - MGI:nnnn; symbol   Expected results:  TOC contains all sections/links</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Help and Your Input Welcome links
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with a superscript - MGI:nnnn; symbol</li>
+    		   <li>Allele without a superscript - MGI:nnnn; symbol</li>
+    	    </ol></li>
     		
     		<li>Verify fields/links displayed in the Nomenclature Ribbon with what is displayed on Public.
     		<p concordion:assertTrue="false">new test</p>  
@@ -330,44 +359,84 @@
     		   <li>Allele with all fields except synonyms - MGI:2680557; Pax6<sup>1Jrt</sup></li>
     		   <li>QTL Allele - MGI:3032996; Asthm1<sup>BALB/c</sup></li>
     		   <li>Transgene Allele - MGI:4819620; Tg(TRP53*R72P)7Dgj</li>
-    		   <li>Allele with no associated marker - MGI:4971894</li>
     		   <li>Allele name with special chars - MGI:1856264; Kit<sup>W-s</sup></li>
     		   <li>Allele symbol with special chars - MGI:5287502; Cript<sup>Tn(sb-rtTA)2427.SB1Ove</sup></li>
     		   <li>Synonyms with superscripts - MGI:3590153; Bach1<sup>tm1Igar</sup></li>
     		   <li>Synonyms with special chars - MGI:2678261; Cops3<sup>tm1Jrl</sup></li>
-    		   <li>Allele associated to syntenic marker - MGI:1856476; cw</li>
-    		   <li>Allele associated to marker with UN chromosome - MGI:2449154; Ahsp<sup>tm1Mjwe</sup></li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Nomenclature Ribbon/Gene section - marker symbol, location (chr, coords, strand), genetic position (chr, cM, cytoband)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with no associated marker - MGI:4971894; Expect: Gene field not to be included.</li>
+    		   <li>Allele associated to a marker with a location and genetic position - MGI:nnnnn; Expect all values displayed for Gene</li>
+    		   <li>Allele associated to a marker with a null strand - MGI:nnnnn; Expect: no strand or strand label to be displayed</li>
+    		   <li>Allele associated to a marker with no cM (syntenic)- MGI:1856476; cw    Expect: syntenic</li>
+    		   <li>Allele associated to marker with UN chr/no coordinates - MGI:2449154; Ahsp<sup>tm1Mjwe</sup>   Expect:Location: unknown  </li>
     		   <li>Allele with cytoband - MGI:1930612; Brca1<sup>tm1Cxd</sup></li>
+    		   <li>QTL Allele with cM position - MGI:nnnnn;  Expect: special text displayed with cM</li>
+    		   <li>Transgene allele associated to a non-Transgene marker - MGI:2447997; Expect: no link to Marker Detail page</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Nomenclature Ribbon/Images - display the same as Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
     		   <li>Allele with a single image that is the primary one - MGI:1855930; A<sup>vy</sup></li>
     		   <li>Allele with multiple images and a primary image - MGI:1856798; A<sup>y</sup></li>
     		   <li>Allele with images but none that are primary - MGI:2176228; Tg(Alb-cre)21Mgn</li>
     		   <li>Allele with images that include movies - MGI:5285080</li>
-    		   
     	    </ol></li>
     	    
     		<li>Verify fields/links displayed in the Mutation Origin Ribbon with what is displayed on Public.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Allele with only SOO - MGI:1855976; Tyr<sup>c</sup></li>
-    		   <li>QTL Allele - MGI:3525662; Dbts<sup>SM/J</sup></li>
-    		   <li>Transgene Allele - MGI:3057119</li>
-    		   <li>Gene trapped allele - MGI:3794786</li>
-    		   <li>Allele with chimera germline - MGI:2388704; Trp53<sup>tm1Mok</sup></li>
-    		   <li>Alleles with cell line germline - MGI:4880505; Abca9<sup>tm1(NCOM)Mfgc</sup></li>
-    		   <li>EUCOMM allele with link to MCL provider - MGI:5002962; Abo<sup>tm1a(EUCOMM)Hmgu</sup></li>
-    		   <li>Velocigene allele - MGI:5051075; Brk1<sup>tm1(KOMP)Vlcg</sup></li>
-    		   <li>Allele with no associated marker - MGI:3888734; Gt(D033B02)Wrst</li>
+    		   <li>QTL Allele - MGI:3525662; Dbts<sup>SM/J</sup>.  Expect: Special labels for QTL</li>
+    		   <li>Transgene Allele - MGI:3057119.  Expect: Special labels for transgenes.</li>
     		   <li>Strain with superscript - MGI:1856424; Lep<sup>ob</sup></li>
     		   <li>Strain with special chars - MGI:1855977; Tyr<sup>c-ch</sup></li>
     		   <li>Allele with PCL from Spermatogonial Cell Line (vs ES Cell) - MGI:3641043; Ocln<sup>tm1Tshi</sup></li>
     		   <li>Allele with PCL of Other (see notes) - MGI:4127920; Atad5<sup>Gt(RRF055)Byg</sup>
-    		   
+    		   <li>Allele with a null Strain of Origin - MGI:nnnnn - Expect SOO not displayed</li>
     	    </ol></li>
     	    
-    	    <li>Verify fields/links displayed in the Mutation Description (other than sequence tags and genome context) with what is displayed on Public
+    	    <li>Verify fields/links for the Mutation Origin Ribbon - Mutant Cell Line field
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Alleles for each allele type
+    		   <li>Non-KOMP allele with an MCL - MGI:nnnnn; Expect: MCL and provider displayed - no links</li>
+    		   <li>KOMP alleles - EUCOMM, NorCOMM, and CSD.  Displays MCLs and provider. Links provider to KOMP website.
+    		   <ul><li>EUCOMM allele - MGI:5002962; Abo<sup>tm1a(EUCOMM)Hmgu</sup></li>
+    		       <li>NorCOMM allele - MGI:nnnn</li>
+    		       <li>CSD allele - MGI:nnnnn</li>
+    		   </ul></li>
+    		   <li>Velocigene allele - MGI:5051075; Brk1<sup>tm1(KOMP)Vlcg</sup>.  Expect: Provider link to VelociGene using the first MCL in the list</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links for the Mutation Origin Ribbon - Germline Transmission field
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol> 
+    		   <li>Gene trapped allele - MGI:3794786; Expect: Germline transmission text displayed with link to J#</li>
+    		   <li>Allele with no associated marker - MGI:3888734; Gt(D033B02)Wrst;  Expect:  Germline transmission Unknown.</li>
+    		   <li>Allele with chimera germline - MGI:2388704; Trp53<sup>tm1Mok</sup>.  Expect: special chimera text and transmission label.</li>
+    		   <li>Alleles with cell line germline - MGI:4880505; Abca9<sup>tm1(NCOM)Mfgc</sup>.  Expect Germline transmission Unknown.</li>
+    		   <li>Allele with cell line germline that have strains in IMSR. - MGI:nnnnn.  Expect: Germline transmission reported. text with no J# links</li>
+    	    </ol></li>
+    	    
+    	    
+    	    <li>Verify fields/links displayed in the Mutation Description - same as Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with inheritance specified - MGI:3764995; Gpi1<sup>a-m1J</sup></li>
+    		   <li>Allele with inheritance of Other (see notes) - MGI:3717789; Pbwg1.8<sup>M.m.castaneus</sup></li>
+    		   <li>Allele with inheritance not specified - MGI:1856748; t<sup>Lub1</sup></li>
+    		   <li>Allele with inheritance not applicable - MGI:nnnnn; symbol. Expect: Inheritance field not displayed</li>
+    		   <li>Gene trapped allele with 2 MGI IDs - MGI:4966623, MGI:3883228; Gt(320D1)Cmhd
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links for Mutation Description Ribbon - Allele Type field
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Alleles for each allele type. Expect: display the same as Public
     		   <ol><li>Spontaneous - MGI:1856819; Rab38<sup>cht</sup></li>
     		       <li>Targeted KO - MGI:3528234; Bag1<sup>tm1Msd</sup></li>
     		       <li>Targeted KI - MGI:4459318; Il13<sup>tm1(YFP/cre)Lky</sup></li>
@@ -381,44 +450,55 @@
     		       <li>Chemically and radiation induced - MGI:1856404; a<sup>18H</sup></li>
     		       <li>Radiation induced - MGI:3032981; T(X;16)16H</li>
     		       <li>Transposon induced - MGI:3526109; Car12<sup>Tn(sb-T2/GT2/tTA)4563.1Dla</sup></li>
-    		       <li>Transgenic random, expressed - MGI:3036319; Tg(Bc12)Acap</li>
-    		       <li>Transgenic random, gene disruption - MGI:1856421; Dst<sup>Tg4</sup></li>
-    		       <li>Transgenic Cre/Flp - MGI:2651403; Tg(Dach1-cre)1Krs</li>
-    		       <li>Transgenic Cre/Flp - MGI:5440432; Tg(Ins2-flpe)25Arte</li>
-    		       <li>Transgenic Transposase - MGI:3719409; Tg(Prm1-pb)1Mrc</li>
-    		       <li>Transgenic Reporter - MGI:3768427; Tg(Neurog3-lacZ)1Ggr</li>
-    		       <li>QTL - MGI:2159319; Chab1<sup>DBA/2J</sup></li>
+    		       <li>Transgenic random, expressed - MGI:3036319; Tg(Bc12)Acap. Expect: Transgene Type, ribbon labels.</li>
+    		       <li>Transgenic random, gene disruption - MGI:1856421; Dst<sup>Tg4</sup>. Expect: Transgene Type, ribbon labels.</li>
+    		       <li>Transgenic Cre/Flp - MGI:2651403; Tg(Dach1-cre)1Krs. Expect: Transgene Type, ribbon labels.</li>
+    		       <li>Transgenic Cre/Flp - MGI:5440432; Tg(Ins2-flpe)25Arte. Expect: Transgene Type, ribbon labels.</li>
+    		       <li>Transgenic Transposase - MGI:3719409; Tg(Prm1-pb)1Mrc. Expect: Transgene Type, ribbon labels.</li>
+    		       <li>Transgenic Reporter - MGI:3768427; Tg(Neurog3-lacZ)1Ggr. Expect: Transgene Type, ribbon labels.</li>
+    		       <li>QTL - MGI:2159319; Chab1<sup>DBA/2J</sup>. QTL ribbon label.</li>
     		       <li>Not Applicable/Not Specified - this is the allele type for wild type alleles and/or non-public alleles; not applicable  case for the Public WI</li>
     		        		       
     		   </ol></li>
-    		   <li>Allele with short Molecular Note - MGI:3576635; chtl<sup>2J</sup></li>
-    		   <li>Allele with long Molecular Note - MGI:2447068; Cst6<sup>ichq</sup></li>
-    		   <li>Allele with HTML markup in Molecular Note - MGI:3622350; In(7)4Rl</li>
-    		   <li>Allele without a Molecular Note - MGI:1856836; crz</li>
-    		   <li>Allele with inheritance specified - MGI:3764995; Gpi1<sup>a-m1J</sup></li>
-    		   <li>Allele with inheritance of Other (see notes) - MGI:3717789; Pbwg1.8<sup>M.m.castaneus</sup></li>
-    		   <li>Allele with inheritance not specified - MGI:1856748; t<sup>Lub1</sup></li>
-    		   <li>Allele with vector  - MGI:4456631; Sumo3<sup>tm1(KOMP)Mbp</sup></li>
-    		   <li>Gene trapped allele with 2 MGI IDs - MGI:4966623, MGI:3883228; Gt(320D1)Cmhd
-    		   <li>Allele with multiple mutation types - MGI:4399355; Cbr3<sup>tm1(KOMP)Vlcg</sup></li>
-    		   <li>Allele with single mutation type - MGI:5007045; Cbln4<sup>tm1Lex</sup></li>
-    		   <li>Allele with no mutation type - MGI:4454664; Adamts4<sup>tm1Dqp</sup></li>
-    		   
-    		   
     	    </ol></li>
     	    
-    	    <li>Verify fields/links for Sequence Tags and Genome Context displayed in the Mutation Description ribbon with what is displayed on Public
+    	    <li>Verify fields/links for Mutation Description Ribbon - Mutation field.  Compare to Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with multiple mutation types - MGI:4399355; Cbr3<sup>tm1(KOMP)Vlcg</sup>. Expect: comma-delimited list of types</li>
+    		   <li>Allele with single mutation type - MGI:5007045; Cbln4<sup>tm1Lex</sup></li>
+    		   <li>Allele with no mutation type - MGI:4454664; Adamts4<sup>tm1Dqp</sup>.  Expect: Undefined.</li>
+    		   <li>Allele with vector  - MGI:4456631; Sumo3<sup>tm1(KOMP)Mbp</sup></li>
+    		   <li>Allele with vector type - MGI:nnnnn; symbol.  </li>
+    		   <li>Allele with multiple vectors - MGI:nnnnn; symbol.  Expect:  Only display 1 vector</li>
+    		   <li>Allele with short Molecular Note - MGI:3576635; chtl<sup>2J</sup>.  Expect: Note field displayed</li>
+    		   <li>Allele with long Molecular Note - MGI:2447068; Cst6<sup>ichq</sup>.  Expect: Note field hidden by default.</li>
+    		   <li>Allele with HTML markup in Molecular Note - MGI:3622350; In(7)4Rl.  Expect: HTML mark up to work okay.</li>
+    		   <li>Allele with multiple molecular references - MGI:nnnnn; symbol.  Expect: comma delimited list of J# that link</li>
+    		   <li>Allele without a Molecular Note - MGI:1856836; crz</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links for Mutation Description Ribbon - Sequence Tags field
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Gene trapped allele with single seq tag - MGI:4127340; Epcam<sup>Gt(RST412)Byg</sup></li>
     		   <li>Gene trapped allele with multiple seq tag - MGI:3873923; Tpx2<sup>Gt(D028B03)Wrst</sup></li>
     		   <li>Gene trapped allele with no sequence tags - MGI:2388061; Ltbp4<sup>Gt(U3Cre)1Vmel</sup>
     		   <li>Gene trapped alleles - various providers - MGI:3871767 (Wtsi);  </li>
+    		   <li>Gene trapped allele with a seq tag with multiple good hits - MGI:nnnnn.  Expect: "multiple" displayed for location</li>
+    		   <li>Gene trapped allele with a seq tag with no good hits - MGI:nnnnn.  Expect: "unknown" displayed for location</li>
     		   <li>Download to FASTA a single seq taq - use allele above</li>
     		   <li>Download to FASTA multiple seq tags - use allele above</li>
     		   <li>Forward to Blast a single seq tag - use allele above</li>
     		   <li>Forward to Blast multiple seq tags- use allele above</li>
-    		   <li>Gene trapped allele with Genome Context section - use alleles above</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify fields/links for Mutation Description Ribbon - Genome Context field
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Gene trapped allele with a valid location - MGI:nnnnn.  Expect: thumbnails and links using a 5kb buffer. </li>
+    		   <li>Gene trapped allele with multiple locations - MGI:nnnnn.  Expect: ? </li>
+    		   <li>Gene trapped allele with unknown location - MGI:nnnnn.  Expect: ? </li>
     	    </ol></li>
     	    
     	   
@@ -438,6 +518,8 @@
     		   <li>Allele with no association strains/cell lines in IMSR - MGI:1857894; Bmp2<sup>tm1Brd</sup></li>
     		   <li>Allele with strains/cell lines associated to marker of allele - MGI:1859780; Kit<sup>Ssm</sup></li>
     		   <li>Allele with no strains/cell lines associated to marker of allele - MGI:4944524; Sri<sup>tm1a(EUCOMM)Wtsi</sup></li>
+    		   <li>Allele with no associated marker - MGI:nnnnn.  Expect: this ribbon not displayed.</li>
+    		   <li>QTL allele - MGI:nnnnn.  Expect: this ribbon not displayed</li>
     	    </ol></li>
     	    
     	     <li>Verify fields/links for Notes Ribbon - compare to Public
@@ -449,6 +531,8 @@
     		   <li>QTL allele with General notes and Mapping notes - MGI:3036102; Pas2<sup>A/J</sup></li>
     		   <li>Deltagen allele - MGI:3604589; Grik5<sup>tm1Dgen</sup></li>
     		   <li>Lexicon allele - MGI:3529167; Pzp<sup>tm1Lex</sup></li>
+    		   <li>Allele with Derivation notes - MGI:nnnn; symbol</li>
+    		   <li>Allele with Derivation and General notes - MGI:nnnn; symbol</li>
     	    </ol></li>
     	    
     	    <li>Verify fields/links for Reference Ribbon - compare to Public
