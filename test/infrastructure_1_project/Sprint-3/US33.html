@@ -30,14 +30,17 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
     <p>
-    The conversion of the Allele Detail page from the java wi to the fewi is intended to maintain the same functionality and display.  See the Public WI for display details such as font style, size, positioning, etc.</p>
+    The conversion of the Allele Detail page from the java wi to the fewi is intended to maintain the same functionality and display.  
+    See the Public WI for display details such as font style, size, positioning, etc.</p>
     <p>
     There are 3 recently completed "ribbons" on this page that have already been implemented in the fewi and the intent is 
-    to leave those as-is.  This document does not include functionality or tests for those ribbons.  The plan is to use any existing automated tests for those ribbons to verify nothing has been broken. </p>
+    to leave those as-is.  This document does not include functionality or tests for those ribbons.  The plan is to use any 
+    existing automated tests for those ribbons to verify nothing has been broken. </p>
     <p>
     The requirements below are organized by "ribbon". If no data for a ribbon exists then do not display the ribbon with the 
     exception of the Find Mice ribbon -- which is displayed even if nothing is found in IMSR.
     </p>
+    <p>Page should display/function correctly for all supported browsers:  I/E, Firefox, Safari.</p>
     <h3>Allele Page Header Area</h3>
     <ol>
        <li>PAGE HEADING
@@ -230,13 +233,13 @@
 	            <ul><li>Xxx represents the applicable gene symbol displayed here</Xxx>
 	                <li>Strains or lines - count and link if non-zero</li>
 	                <li>If count is zero - display 0 without a link</li>
-	                <li>This field is not displayed for Transgenes</li>
+	                <li>This field is not displayed for Transgenes or Alleles with no associated Marker</li>
 	            </ul></li>
 	       </ol></li>
 	       <li><u>Rules for this ribbon</u>
 	       <ol><li>These counts are found in a report.... (more info here)</li>
 	           <li>This ribbon is displayed even when the counts found are zero</li>
-	           <li>Do not display this ribbon for QTL alleles or alleles with no associated marker.</li>
+	           <li>Do not display this ribbon for QTL alleles.</li>
 	       </ol>
 	   </ul></li>
 	   
@@ -419,7 +422,7 @@
     		   <li>Allele with no associated marker - MGI:3888734; Gt(D033B02)Wrst;  Expect:  Germline transmission Unknown.</li>
     		   <li>Allele with chimera germline - MGI:2388704; Trp53<sup>tm1Mok</sup>.  Expect: special chimera text and transmission label.</li>
     		   <li>Alleles with cell line germline - MGI:4880505; Abca9<sup>tm1(NCOM)Mfgc</sup>.  Expect Germline transmission Unknown.</li>
-    		   <li>Allele with cell line germline that have strains in IMSR. - MGI:nnnnn.  Expect: Germline transmission reported. text with no J# links</li>
+    		   <li>Allele with cell line germline that have strains in IMSR. - MGI:4399381.  Expect: Germline transmission reported. text with no J# links</li>
     	    </ol></li>
     	    
     	    
@@ -457,8 +460,8 @@
     		       <li>Transgenic Transposase - MGI:3719409; Tg(Prm1-pb)1Mrc. Expect: Transgene Type, ribbon labels.</li>
     		       <li>Transgenic Reporter - MGI:3768427; Tg(Neurog3-lacZ)1Ggr. Expect: Transgene Type, ribbon labels.</li>
     		       <li>QTL - MGI:2159319; Chab1<sup>DBA/2J</sup>. QTL ribbon label.</li>
-    		       <li>Not Applicable/Not Specified - this is the allele type for wild type alleles and/or non-public alleles; not applicable  case for the Public WI</li>
-    		        		       
+    		       <li>Not Applicable - MGI:5305463; TgTn(sb-SBlac)CFsp.</li>
+    		       <li>Not Specified - MGI:1856085; Mitf<sup>Mi</sup>.</li>
     		   </ol></li>
     	    </ol></li>
     	    
@@ -469,12 +472,12 @@
     		   <li>Allele with single mutation type - MGI:5007045; Cbln4<sup>tm1Lex</sup></li>
     		   <li>Allele with no mutation type - MGI:4454664; Adamts4<sup>tm1Dqp</sup>.  Expect: Undefined.</li>
     		   <li>Allele with vector  - MGI:4456631; Sumo3<sup>tm1(KOMP)Mbp</sup></li>
-    		   <li>Allele with vector type - MGI:nnnnn; symbol.  </li>
+    		   <li>Allele with vector type - MGI:4049566; Sp1<sup>Gt(IST12127D8)Tigm</sup>.  </li>
     		   <li>Allele with multiple vectors - MGI:nnnnn; symbol.  Expect:  Only display 1 vector</li>
     		   <li>Allele with short Molecular Note - MGI:3576635; chtl<sup>2J</sup>.  Expect: Note field displayed</li>
     		   <li>Allele with long Molecular Note - MGI:2447068; Cst6<sup>ichq</sup>.  Expect: Note field hidden by default.</li>
     		   <li>Allele with HTML markup in Molecular Note - MGI:3622350; In(7)4Rl.  Expect: HTML mark up to work okay.</li>
-    		   <li>Allele with multiple molecular references - MGI:nnnnn; symbol.  Expect: comma delimited list of J# that link</li>
+    		   <li>Allele with multiple molecular references - MGI:5008775; Acat2<sup>tm1a(KOMP)Wtsi</sup> .  Expect: comma delimited list of J# that link</li>
     		   <li>Allele without a Molecular Note - MGI:1856836; crz</li>
     	    </ol></li>
     	    
@@ -485,20 +488,23 @@
     		   <li>Gene trapped allele with multiple seq tag - MGI:3873923; Tpx2<sup>Gt(D028B03)Wrst</sup></li>
     		   <li>Gene trapped allele with no sequence tags - MGI:2388061; Ltbp4<sup>Gt(U3Cre)1Vmel</sup>
     		   <li>Gene trapped alleles - various providers - MGI:3871767 (Wtsi);  </li>
-    		   <li>Gene trapped allele with a seq tag with multiple good hits - MGI:nnnnn.  Expect: "multiple" displayed for location</li>
-    		   <li>Gene trapped allele with a seq tag with no good hits - MGI:nnnnn.  Expect: "unknown" displayed for location</li>
-    		   <li>Download to FASTA a single seq taq - use allele above</li>
-    		   <li>Download to FASTA multiple seq tags - use allele above</li>
-    		   <li>Forward to Blast a single seq tag - use allele above</li>
-    		   <li>Forward to Blast multiple seq tags- use allele above</li>
+    		   <li>Gene trapped allele with a seq tag with multiple good hits - MGI:4331065.  Expect: "multiple" displayed for location</li>
+    		   <li>Gene trapped allele with a seq tag with no good hits - MGI:4123002.  Expect: "unknown" displayed for location</li>
+    		   <li>Download to FASTA a single seq taq - use allele above, MGI:4127340</li>
+    		   <li>Download to FASTA multiple seq tags - use allele above, MGI:3873923 </li>
+    		   <li>Forward to Blast a single seq tag - use allele above, MGI:4127340</li>
+    		   <li>Forward to Blast multiple seq tags- use allele above, MGI:3873923</li>
     	    </ol></li>
     	    
     	    <li>Verify fields/links for Mutation Description Ribbon - Genome Context field
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Gene trapped allele with a valid location - MGI:nnnnn.  Expect: thumbnails and links using a 5kb buffer. </li>
-    		   <li>Gene trapped allele with multiple locations - MGI:nnnnn.  Expect: ? </li>
-    		   <li>Gene trapped allele with unknown location - MGI:nnnnn.  Expect: ? </li>
+    		   <li>Gene trapped allele with a valid location, but not associated to a marker - MGI:4123240.  Expect: thumbnails and links using a 5kb buffer. 
+    		      <ul><li>http://gbrowse.informatics.jax.org/cgi-bin/gb2/gbrowse/mouse38/?start=26968205;stop=26978313;ref=17;label=GeneTraps_Per_Gene-Gene_Traps_RNA_Tags-Gene_Traps_DNA_Tags-UCSC_CYTOBAND:overview  </li></ul></li>
+    		   <li>Gene trapped allele with a valid location, associated to a marker - MGI:4314880.  Expect: thumbnails and links using a 5kb buffer. 
+    		      <ul><li>http://gbrowse.informatics.jax.org/cgi-bin/gb2/gbrowse/mouse38/?start=8046078;stop=8069379;ref=5;label=GeneTraps_Per_Gene-Gene_Traps_RNA_Tags-Gene_Traps_DNA_Tags-UCSC_CYTOBAND:overview </li></ul></li>   
+    		   <li>Gene trapped allele with multiple locations - MGI:4331065.  Expect: Genome Context field to NOT be displayed </li>
+    		   <li>Gene trapped allele with unknown location - MGI:4123002.  Expect: Genome Context field to NOT be displayed </li>
     	    </ol></li>
     	    
     	   
@@ -518,8 +524,8 @@
     		   <li>Allele with no association strains/cell lines in IMSR - MGI:1857894; Bmp2<sup>tm1Brd</sup></li>
     		   <li>Allele with strains/cell lines associated to marker of allele - MGI:1859780; Kit<sup>Ssm</sup></li>
     		   <li>Allele with no strains/cell lines associated to marker of allele - MGI:4944524; Sri<sup>tm1a(EUCOMM)Wtsi</sup></li>
-    		   <li>Allele with no associated marker - MGI:nnnnn.  Expect: this ribbon not displayed.</li>
-    		   <li>QTL allele - MGI:nnnnn.  Expect: this ribbon not displayed</li>
+    		   <li>Allele with no associated marker - MGI:4831701.  Expect: Field "Carrying any Xxxx Mutation" to not be displayed</li>
+    		   <li>QTL allele -MGI:3032995.  Expect: IMSR ribbon not displayed</li>
     	    </ol></li>
     	    
     	     <li>Verify fields/links for Notes Ribbon - compare to Public
@@ -531,8 +537,8 @@
     		   <li>QTL allele with General notes and Mapping notes - MGI:3036102; Pas2<sup>A/J</sup></li>
     		   <li>Deltagen allele - MGI:3604589; Grik5<sup>tm1Dgen</sup></li>
     		   <li>Lexicon allele - MGI:3529167; Pzp<sup>tm1Lex</sup></li>
-    		   <li>Allele with Derivation notes - MGI:nnnn; symbol</li>
-    		   <li>Allele with Derivation and General notes - MGI:nnnn; symbol</li>
+    		   <li>Allele with Derivation notes - MGI:3576051; Alms1<sup>Gt(XH152)Byg</sup></li>
+    		   <li>Allele with Derivation and General notes - MGI:3877998; Atp6ap1<sup>Gt(CSG104)Byg</sup></li>
     	    </ol></li>
     	    
     	    <li>Verify fields/links for Reference Ribbon - compare to Public
@@ -547,7 +553,7 @@
     		<ol>
     		   <li>Allele with Recombinase section (but not phenotypes or disease) - MGI:4818775; Tg(ACTA1-rtTA,tetO-cre)102Monk</li>
     		   <li>Allele with Phenotypes section (but not recombinase or disease) - MGI:2182470; Brca1<sup>tm2.1Cxd</sup></li>
-    		   <li>Allele with Disease section (but not recombinase or phenotypes) - MGI:nnn</li>
+    		   <li>Allele with Disease section (but not recombinase or phenotypes) - per Sue Bello this is not allowed per curatorial policy</li>
     		   <li>Allele with Recomb & Pheno (no Disease) - MGI:5314932; Aicda<sup>tm1(cre)Njen</sup></li>
     		   <li>Allele with Pheno & Disease (no Recom) - MGI:3696057; Brca1<sup>tm1Brn</sup></li>
     		   <li>Allele with Recomb, Pheno, and Disease - MGI:1934631; Lyz2<sup>tm1(cre)Ifo</sup></li>
@@ -558,50 +564,50 @@
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Allele with ajax sections: Recomb, Pheno, and Disease - MGI:1934631; Lyz2<sup>tm1(cre)Ifo</sup></li>
-    		   <li>Allele with sequence tags, genome context sections - MGI:nnnnn; symbol</li>
-    		   <li>Allele with a long description in the Mutation Description ribbon - MGI:nnnnn; symbol</li>
-    		   <li>Allele with multiple images - MGI:nnnnn; symbol</li>
-    		   <li>Allele with data in all ribbons - MGI:nnnnn; symbol</li>
+    		   <li>Allele with sequence tags, genome context sections - MGI:4123896; Lama5<sup>Gt(LST031)Byg</sup></li>
+    		   <li>Allele with a long description in the Mutation Description ribbon - MGI:3584133; Ccne1<sup>tm1Jro</sup></li>
+    		   <li>Allele with multiple images - MGI:2158390; Bmpr1a<sup>tm2.1Bhr</sup></li>
+    		   <li>Allele with data in all ribbons - MGI:1932522; Foxg1<sup>tm1(cre)Skm</sup></li>
     	    </ol></li>
     	    
     	    <li>Verify Allele Detail KEYWORDS meta data - used for Search Engine Optimization (SEO)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Spontaneous allele w/ superscript and synonyms - MGI:nnnnnn.
+    		   <li>Spontaneous allele w/ superscript and synonyms - MGI:1856150, Bmp5<sup>se</sup>.
     		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, mutant, mutation, spontaneous, {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
-    		   <li>Spontaneous allele w/o superscript or synonyms - MGI:nnnnnn.
+    		   <li>Spontaneous allele w/o superscript or synonyms - MGI:1856589, Aft.
     		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, mutant, mutation, spontaneous, {allele symbol}</li></ul></li>
-    		   <li>Targeted (knock-out) allele w/ superscript and synonyms - MGI:nnnnnn.
+    		   <li>Targeted (knock-out) allele w/ superscript and synonyms - MGI:2152217.
     		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, null, KO, knock out, knockout, mutant, mutation, targeted (knock-out), {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
-    		   <li>Targeted (Floxed/Frt) allele w/ superscript and synonyms - MGI:nnnnnn.
+    		   <li>Targeted (Floxed/Frt) allele w/ superscript and synonyms - MGI:3828307.
     		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, floxed, loxP, frt, mutant, mutation, targeted (floxed/frt), {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
-    		   <li>Cre allele w/ superscript and synonyms - MGI:nnnnnn.
+    		   <li>Flp  allele w/ superscript and synonyms - MGI:2158498.
     		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, recombinase, flp, cre, flpe, mutant, mutation, {allele type}, {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
-    		   <li>Flp allele w/o synonyms - MGI:nnnnnn.
+    		   <li>Cre allele w/o synonyms - MGI:5443915.
     		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, recombinase, flp, cre, flpe, mutant, mutation, {allele type}, {allele symbol w/ pointy brackets}</li></ul></li>
-    		   <li>Transposase allele - MGI:nnnnn.
+    		   <li>Transposase allele - MGI:5473270.
     		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, transposase, mutant, mutation, transposase, {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
-    		   <li>QTL allele - MGI:nnnnn.
+    		   <li>QTL allele - MGI:3618098.
     		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, QTL, {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
-    		   <li>Transgenic allele - MGI:nnnnn.
+    		   <li>Transgenic allele - MGI:3037035, Celf4<sup>Ff</sup>.
     		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, transgenic, mutant, mutation, {allele type}, {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
     	    </ol></li>
     	    
     	    <li>Verify Allele Detail DESCRIPTION meta data - used for Search Engine Optimization (SEO)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Allele with molecular notes, disease models, and images - MGI:nnnnnn.
+    		   <li>Allele with molecular notes, disease models, and images - MGI:1928768, Crebbp<sup>tm1Sis</sup>
     		   <ul><li>Expected result: View {allele symbol} allele: origin, molecular description, images, human disease models, gene associations, and references</li></ul></li>
-    		   <li>Allele with molecular notes (no models or images) - MGI:nnnnnn.
+    		   <li>Allele with molecular notes (no models or images) - MGI:4819952, Comt<sup>B2i</sup>.
     		   <ul><li>Expected result: View {allele symbol} allele: origin, molecular description, gene associations, and references</li></ul></li>
-    		   <li>Allele with no molecular notes, disease models, or images - MGI:nnnnnn.
+    		   <li>Allele with no molecular notes, disease models, or images - MGI:1856234.
     		   <ul><li>Expected result: View {allele symbol} allele: origin, gene associations, and references</li></ul></li>
     	    </ol></li>
     	    
     	    <li>Verify Allele Detail ROBOTS meta data - used for Search Engine Optimization (SEO)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Any allele - MGI:nnnnnnn
+    		   <li>Any allele - MGI:1855976, Tyr<sup>c</sup>
     		   <ul><li>Expected result: NOODP and NOYDIR tags</li></ul></li>
     	    </ol></li>
     	    
