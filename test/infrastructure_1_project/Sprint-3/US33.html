@@ -59,10 +59,18 @@
 	               </ol></li>
     </ol>
     
-    <h3>Questions - Summary</h3>
+    <h3>Questions/Requests - Summary</h3>
     <ol>
-        <li></li>
-        <li></li>
+        <li>How does the software identify Velocigene alleles?  an associated Regeneron id?</li>
+        <li>How does the software distinquish between Tag ID sequences and GenBank sequences - both are associated to the Allele</li>
+        <li>Lexicon sequence tags link to GenBank - is there special logic for this or is it handled via Logical/Actual DB settings?</li>
+        <li>Is HTML mark-up recognized for Derivation Notes?</li>
+        <li>Looking for the following test cases:
+        <ul><li>Allele with a null Strain of Origin</li>
+            <li>Allele with multiple vectors</li>
+            <li>Allele with a derivation note that includes HTML mark-up</li>
+            
+            </ul>
     </ol>
     
     <h3>Allele Page Header Area</h3>
@@ -413,7 +421,7 @@
     		   <li>Allele associated to marker with UN chr/no coordinates - MGI:2449154; Ahsp<sup>tm1Mjwe</sup>   Expect:Location: unknown  </li>
     		   <li>Allele with cytoband - MGI:1930612; Brca1<sup>tm1Cxd</sup></li>
     		   <li>QTL Allele with cM position - MGI:2386541; Ath9<sup>C57BL/6J</sup>. Expect: special text displayed with cM</li>
-    		   <li>Transgene allele associated to a non-Transgene marker - MGI:2447997; Tsil<sup>Tg(Myc)12ALvn</sup>. Expect: no link to Marker Detail page</li>
+    		   <li>Transgene allele associated to a non-Transgene marker - MGI:2447997; Tsil<sup>Tg(Myc)12ALvn</sup>. Expect: link to Marker Detail page (requirement change)</li>
     	    </ol></li>
     	    
     	    <li>Verify Nomenclature Ribbon/Images - display the same as Public
@@ -561,7 +569,7 @@
     		   <li>Allele with strains/cell lines associated to marker of allele - MGI:1859780; Kit<sup>Ssm</sup></li>
     		   <li>Allele with no strains/cell lines associated to marker of allele - MGI:4944524; Sri<sup>tm1a(EUCOMM)Wtsi</sup></li>
     		   <li>Allele with no associated marker - MGI:4831701, Gt(J13)Rul.  Expect: Field "Carrying any Xxxx Mutation" to not be displayed</li>
-    		   <li>Transgene allele - MGI:3057263, Tg(CSF2)2Ygy.  Expect: Field "Carrying any Xxxxx Mutation" to not b displayed</li>
+    		   <li>Transgene allele - MGI:3057263, Tg(CSF2)2Ygy.  Expect: Field "Carrying any Xxxxx Mutation" to be displayed (requirement chg)</li>
     		   <li>QTL allele - MGI:3032995, Asthm1<sup>BP2</sup>.  Expect: IMSR ribbon not displayed</li>
     	    </ol></li>
     	    
