@@ -45,13 +45,33 @@
     
     <p>Page should display/function correctly for all supported browsers:  I/E, Firefox, Safari.</p>
     
+    <h3>Requirement Changes - Summary</h3>
+    <ol>
+        <li>Transgenes - clarified special cases for transgenes in several places on the Allele Detail page.  Currently on Public 
+            this logic is driven by Allele Types.  Per a bug report (TRnnnnn) the requirements change in the Nomenclature section to be driven 
+            by Marker Type = Transgene instead.</li>
+            <ul><li>Do not link to the Marker when Marker Type = Transgene.</li>
+                <li>Display "Transgene" instead of "Gene" for the label when Marker Type = Transgene.</li></ul>
+        <li>IMSR ribbon - eliminate the Transgene requirement that removes the display of the 2nd line, "Carrying any Xxx mutation"</li>
+        <li>The remaining Transgene logic will continue to be Allele Type driven.  There are 2 ways we determine if it's a transgene:
+	               <ol><li>A transgene allele is the only allele for a marker</li>
+	                   <li>The allele type starts with "Transgenic"</li>
+	               </ol></li>
+    </ol>
+    
+    <h3>Questions - Summary</h3>
+    <ol>
+        <li></li>
+        <li></li>
+    </ol>
+    
     <h3>Allele Page Header Area</h3>
     <ol>
        <li>PAGE HEADING
        <ol><li>Display the Allele symbol as the primary title of the page.  The text in &lt;&gt; is displayed as a superscript.</li>
            <li>The subtitle of the page is, generally speaking, the Allele Type, but special rules exist:
            <ol><li>Allele Type = QTL; Display "QTL Variant Detail" </li>
-               <li>For transgenes (Marker type = Transgene); Display "Transgene Detail"</li>
+               <li>For transgenes (driven by Allele Type); Display "Transgene Detail"</li>
                <li>Allele Type = Not Specified or Not Applicable; Display "Allele Detail"</li>
                <li>Allele Types that have parens, e.g. Targeted (knock-out); Display "Targeted Allele Detail"</li>
                <li>Allele Type that do NOT have parens, e.g. Spontaneous; Display "Spontaneous Allele Detail"</li>
@@ -70,7 +90,7 @@
        </ol></li>
        <li>TABLE OF CONTENTS
        <ol><li>Build a table of contents that includes anchor tags for the existing ribbons on the page</li>
-           <li>The names in the TOC should match the ribbon text even if they vary for QTLs or Transgenes</li>
+           <li>The names in the TOC should match the ribbon text even if they vary for QTLs or Transgenes (driven by Allele Type)</li>
        </ol></li>
     </ol>
     
@@ -112,11 +132,8 @@
 	               <li>Markers with no coordinates will appear with an "unknown" genomic location</li>
 	               <li>A marker with no cM position (-1.0) or cytogenetic band will display a "Syntenic" genetic position.</li>
 	               <li>QTL cM offsets are prefixed by: "cM position of peak correlated region/allele"</li>
-	               <li>Label for this field is "Gene" with two exceptions: QTL markers display "QTL" and Transgene Markers display "Transgene"</li>
-	               <li>Link symbol to Marker Detail except transgene markers that are not linked.  There are 2 ways we determine if it's a transgene marker
-	               <ol><li>A transgene allele is the only allele for a marker</li>
-	                   <li>The allele type starts with "Transgenic"</li>
-	               </ol></li>
+	               <li>Label for this field is "Gene" with two exceptions: QTL alleles display "QTL" and display "Transgene" when Marker Type = Transgene regardless of Allele Type. (requirement change)</li>
+	               <li>Link symbol to Marker Detail except when the Marker has a Marker Type = Transgene (marker type driven).  (requirement change).
 	               <li>When alleles with no associated marker (e.g. loaded GTs) are displayed, this section is not included.</li>
 	           </ul></li>
 	           <li>Allele Images 
@@ -167,7 +184,7 @@
 	       <li><u>Rules for this ribbon</u>
 	           <ol>
 	              <li>Label of ribbon is "Mutation Origin" for most alleles.  Exceptions include 1) QTLs-display "Variant Origin" 
-	                  and 2) Transgenes - display "Transgene Origin".</li>
+	                  and 2) Transgenes - display "Transgene Origin". (allele type driven)</li>
 	              <li>Label of section should match TOC</li>
 	              <li>Show this ribbon if: 1) ES Cell line is not null; OR 2) Strain of Origin is not null; or 3) Mutant ES cell lines
 	                                          is not null and there is at least one mutant ES Cell line.</li>
@@ -177,7 +194,7 @@
 	   <li>MUTATION / VARIANT / TRANSGENE DESCRIPTION
 	   <ul><li><u>List of fields</u>
 	       <ol><li>Allele Type 
-	           <ul><li>For transgenes this label is "Transgene Type"</li>
+	           <ul><li>For transgenes this label is "Transgene Type" (allele type driven)</li>
 	               <li>There are 20 allele types (list included in test cases below)</li>
 	           </ul></li>
 	           <li>Mutation
@@ -198,7 +215,8 @@
 	               <ul><li>This field includes a show/hide option where the default is hide when the page is rendered</li>
 	                   <li>A count of the tags is displayed in text at the top of the table in either show or hide mode</li>
 	                   <li>The sequence tag table includes the following data for each sequence:
-	                   <ol><li>Tag ID; Provider; link to provider</li>
+	                   <ol><li>Tag ID; Provider; link to provider
+	                       <ul><li>Provider Lexicon links to GenBank</li></ul></li>
 	                       <li>GenBank ID; link to Sequence Detail</li>
 	                       <li>Method</li>
 	                       <li>Tag Location: chr, start, end, strand
@@ -220,7 +238,7 @@
 	       
 	       <li><u>Rules for this ribbon</u>
 	       <ol><li>Label of ribbon is "Mutation Description" for most alleles.  Exceptions include: 1) QTLs- display "Variant Description" 
-	                  and 2) Transgenes - display "Transgene Description".</li>
+	                  and 2) Transgenes - display "Transgene Description" (allele type driven).</li>
 	       </ol></li>
 	   </ul></li>
 	   
@@ -251,7 +269,8 @@
 	            <ul><li>Xxx represents the applicable gene symbol displayed here</Xxx>
 	                <li>Strains or lines - count and link if non-zero</li>
 	                <li>If count is zero - display 0 without a link</li>
-	                <li>This field is not displayed for Transgenes or Alleles with no associated Marker</li>
+	                <li>This field is not displayed for Alleles with no associated Marker</li>
+	                <li>Remove the current logic that removes this field for Transgenes (requirement change)</li>
 	            </ul></li>
 	       </ol></li>
 	       <li><u>Rules for this ribbon</u>
@@ -298,10 +317,7 @@
 	       </ol></li>
 	   </ul></li>
 	   
-	   
-	   
-	   
-	   
+	
 	</ol>
 	<h3>SEO - search engine optimization</h3>
 	
@@ -315,7 +331,7 @@
             <li>For alleles other than QTL or “Not Applicable”, add:  mutant, mutation</li>
             <li>For all alleles, add the allele symbol – including  &lt;&gt; notation but not &lt;sup&gt; HTML  tags.</li>
             <li>For all alleles, add synonyms.</li>
-            <li>For transgene alleles, add: transgenic</li>
+            <li>For transgene alleles, add: transgenic (driven by Allele Type)</li>
             <li>For alleles with allele types other than Not Applicable and Not Specified, add:  value of allele type</li>	    
 	    </ol></li>
 	    <li>DESCRIPTION
@@ -506,7 +522,8 @@
     		   <li>Gene trapped allele with single seq tag - MGI:4127340; Epcam<sup>Gt(RST412)Byg</sup></li>
     		   <li>Gene trapped allele with multiple seq tag - MGI:3873923; Tpx2<sup>Gt(D028B03)Wrst</sup></li>
     		   <li>Gene trapped allele with no sequence tags - MGI:2388061; Ltbp4<sup>Gt(U3Cre)1Vmel</sup>
-    		   <li>Gene trapped alleles - various providers - MGI:3871767, Aebp2<sup>Gt(BC0681)Wtsi</sup>;  </li>
+    		   <li>Gene trapped alleles - provider other than Lexicon - MGI:3871767, Aebp2<sup>Gt(BC0681)Wtsi</sup>;  Expect: provider link to Welcome Trust</li>
+    		   <li>Gene trapped allele - Lexicon - MGI:4264311, Kit<sup>Gt(OST284713); Expect: provider link to GenBank (not Lexicon) </sup>
     		   <li>Gene trapped allele with a seq tag with multiple good hits - MGI:4331065, Gt(AA0081)Wtsi.  Expect: "multiple" displayed for location</li>
     		   <li>Gene trapped allele with a seq tag with no good hits - MGI:4123002, Gt(A001A04)Wrst.  Expect: "unknown" displayed for location</li>
     		   <li>Download to FASTA a single seq taq - use allele above, MGI:4127340, Epcam<sup>Gt(RST412)Byg</sup></li>
@@ -544,6 +561,7 @@
     		   <li>Allele with strains/cell lines associated to marker of allele - MGI:1859780; Kit<sup>Ssm</sup></li>
     		   <li>Allele with no strains/cell lines associated to marker of allele - MGI:4944524; Sri<sup>tm1a(EUCOMM)Wtsi</sup></li>
     		   <li>Allele with no associated marker - MGI:4831701, Gt(J13)Rul.  Expect: Field "Carrying any Xxxx Mutation" to not be displayed</li>
+    		   <li>Transgene allele - MGI:3057263, Tg(CSF2)2Ygy.  Expect: Field "Carrying any Xxxxx Mutation" to not b displayed</li>
     		   <li>QTL allele - MGI:3032995, Asthm1<sup>BP2</sup>.  Expect: IMSR ribbon not displayed</li>
     	    </ol></li>
     	    
