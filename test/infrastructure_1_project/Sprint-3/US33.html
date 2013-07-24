@@ -49,12 +49,15 @@
     <ol>
         <li>Transgenes - clarified special cases for transgenes in several places on the Allele Detail page.  Currently on Public 
             this logic is driven by Allele Types.  Per a bug report (TR11146, TR11064) the requirements change in the Nomenclature section to be driven 
-            by Marker Type = Transgene instead.</li>
+            by Marker Type = Transgene instead.
             <ul><li>Do not link to the Marker when Marker Type = Transgene.</li>
-                <li>Display "Transgene" instead of "Gene" for the label when Marker Type = Transgene.</li></ul>
-        <li>IMSR ribbon - eliminate the Transgene requirement that removes the display of the 2nd line, "Carrying any Xxx mutation"</li>
+                <li>Display "Transgene" instead of "Gene" for the label when Marker Type = Transgene.</li></ul></li>
+        <li>IMSR ribbon - "Carrying any Xxx mutation" field
+            <ul><li>Do not display this field if Marker Type = Transgene</li>
+                <li>This is a requirement change, previously checked allele type</li>
+            </ul></li>
         <li>The remaining Transgene logic will continue to be Allele Type driven.  
-        <ol><li><s>A transgene allele is the only allele for a marker</s> - no longer applicable I believe, but this should be confirmed</li>
+        <ol><li><s>A transgene allele is the only allele for a marker</s></li>
 	        <li>The allele type starts with "Transgenic"</li>
 	               </ol></li>
     </ol>
@@ -251,7 +254,25 @@
 	   </ul></li>
 	   
 	   <li>RECOMBINASE ACTIVITY
-	   <ul><li>currently implemented in the fewi using an ajax call - no plan to change this</li></ul></li>
+	   <ul><li><u>List of fields:</u>
+	       <ol><li>Activity
+	           <ul><li>currently implemented in the fewi using an ajax call - no plan to change this</li>
+	               <li>Default display: "show" this table when linking from Cre pages (summary or detail)</li>
+	               <li>Default display: "hide" this table when linking from anywhere else</li>
+	           </ul> </li>
+	           <li>Driver
+	           <ul><li>Display Driver (text entered in Driver Note field)</li>
+	               <li>Link to all recombinase alleles for this driver</li>
+	           </ul></li>
+	           <li>User Notes
+	           <ul><li>Display standard message and hide the actual user note as the default</li>
+	           </ul></li>
+	           <li>Observation button
+	           <ul><li>Display tool tip on roll over</li>
+	               <li>Link to standard "Your Input Welcome" form with Subject line of Allele symbol and MGI id</li>
+	           </ul></li>
+	       </ol></li>
+	   </ul></li>
 	   <li>PHENOTYPES
 	   <ul><li>currently implemented in the fewi using an ajax call - no plan to change this</li></ul></li>
 	   <li>DISEASE MODELS
@@ -278,7 +299,7 @@
 	                <li>Strains or lines - count and link if non-zero</li>
 	                <li>If count is zero - display 0 without a link</li>
 	                <li>This field is not displayed for Alleles with no associated Marker</li>
-	                <li>Remove the current logic that removes this field for Transgenes (requirement change)</li>
+	                <li>Do not display this field when Marker Type = Transgene (requirement change - previously driven off allele type)</li>
 	            </ul></li>
 	       </ol></li>
 	       <li><u>Rules for this ribbon</u>
@@ -551,6 +572,14 @@
     		   <li>Gene trapped allele with unknown location - MGI:4123002, Gt(A001A04)Wrst.  Expect: Genome Context field to NOT be displayed </li>
     	    </ol></li>
     	    
+    	    
+    	    <li>Verify fields/links for Recombinase activity ribbon - compare to Public
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Allele with a driver, activity and user notes - MGI:2176055. Link from QS; Expect activity table hidden.</li>
+    		   <li>Allele with a driver, but no Activity - MGI:2177210.  Link from Cre page.  Expect Activity section open with special no data message</li>
+    		   <li>Allele with a driver and activity, no notes - MGI:1932522.  Link from Allele Summary.  Expect Activity field hidden</li>
+    	    </ol></li>
     	   
     	    <li>Verify fields/links for Expression Ribbon - compare to Public
     		<p concordion:assertTrue="false">new test</p>  
@@ -569,7 +598,9 @@
     		   <li>Allele with strains/cell lines associated to marker of allele - MGI:1859780; Kit<sup>Ssm</sup></li>
     		   <li>Allele with no strains/cell lines associated to marker of allele - MGI:4944524; Sri<sup>tm1a(EUCOMM)Wtsi</sup></li>
     		   <li>Allele with no associated marker - MGI:4831701, Gt(J13)Rul.  Expect: Field "Carrying any Xxxx Mutation" to not be displayed</li>
-    		   <li>Transgene allele - MGI:3057263, Tg(CSF2)2Ygy.  Expect: Field "Carrying any Xxxxx Mutation" to be displayed (requirement chg)</li>
+    		   <li>Transgene allele/Transgene marker - MGI:3057263, Tg(CSF2)2Ygy.  Expect: Field "Carrying any Xxxxx Mutation" to NOT be displayed</li>
+    		   <li>Not Applicable allele/Transgene marker - MGI:5305461, TgTn(sb-SBlac)AFsp.  Expect field "Carrying any Xxx Mutation" to NOT be displayed</li>
+    		   <li>Transgene allele/non-Transgene marker - MGI:2447997, Tsil<sup>Tg(Myc)12Alvn</sup>.  Expect field "Carrying any Xxx Mutation" to be displayed</li>
     		   <li>QTL allele - MGI:3032995, Asthm1<sup>BP2</sup>.  Expect: IMSR ribbon not displayed</li>
     	    </ol></li>
     	    
