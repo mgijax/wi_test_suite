@@ -60,6 +60,8 @@
         <ol><li><s>A transgene allele is the only allele for a marker</s></li>
 	        <li>The allele type starts with "Transgenic"</li>
 	               </ol></li>
+	    <li>QTL special text in Nomenclature ribbon/Genetic Position field no longer displayed when cM = syntenic (req change)
+	    <ol><li>The text "cM position of peak correlated region/allele" is displayed next to the cM when it has a value.</li>
     </ol>
     
     <h3>Questions/Requests - Summary</h3>
@@ -211,7 +213,7 @@
 	           <li>Mutation
 	               <ul><li>Data displayed for this field: mutation types, vector,  vector type, and mutation description.
 	                   <ul><li>there can be multiple mutation types displayed in a comma-delimited list</li>
-	                       <li>Mutation can be "Undefined" if the allele does not have a defined mutations</li>
+	                       <li>Mutation is displayed as "Undefined" if the allele does not have a defined mutation and a mutation note exists.</li>
 	                       <li>If multiple vectors exist we just display the first one</li>
 	                   </ul></li>
 	                   <li>The description is the Molecular Notes field in the Allele EI.</li>
@@ -242,7 +244,9 @@
 	           <li>Genome Context
 	               <ol><li>This field includes a show/hide option where the default is hide when the page is rendered</li>
 	                   <li>Display a thumbnail of gbrowse with a blue line of the gene trap location.  Link the image to GBrowse.
-	                   <ul><li>include a 5kb buffer around the coordinates for gbrowse thumbnail and link</li></ul></li>
+	                   <ul><li>include a 5kb buffer around the coordinates for gbrowse thumbnail and link</li>
+	                       <li>text within the thumbnail differs for gene traps associated to a marker vs. those with no associated marker.</li>
+	                   </ul></li>
 	                   <li>Display a count of all gene traps for the gene.  Link the count to GBrowse.</li>
 	               </ol></li>
 	       </ol></li>
@@ -256,7 +260,7 @@
 	   <li>RECOMBINASE ACTIVITY
 	   <ul><li><u>List of fields:</u>
 	       <ol><li>Activity
-	           <ul><li>currently implemented in the fewi using an ajax call - no plan to change this</li>
+	           <ul><li>currently implemented in the fewi using an ajax call - had to update this due to the YUI reset</li>
 	               <li>Default display: "show" this table when linking from Cre pages (summary or detail)</li>
 	               <li>Default display: "hide" this table when linking from anywhere else</li>
 	           </ul> </li>
@@ -274,9 +278,9 @@
 	       </ol></li>
 	   </ul></li>
 	   <li>PHENOTYPES
-	   <ul><li>currently implemented in the fewi using an ajax call - no plan to change this</li></ul></li>
+	   <ul><li>currently implemented in the fewi using an ajax call - had to update this due to the YUI reset</li></ul></li>
 	   <li>DISEASE MODELS
-	   <ul><li>currently implemented in the fewi using an ajax call - no plan to change this</li></ul></li>
+	   <ul><li>currently implemented in the fewi using an ajax call - had to update this due to the YUI reset</li></ul></li>
 	   
 	   <li>EXPRESSION
 	   <ul><li><u>List of fields:</u>
@@ -534,7 +538,7 @@
     		<ol>
     		   <li>Allele with multiple mutation types - MGI:4399355; Cbr3<sup>tm1(KOMP)Vlcg</sup>. Expect: comma-delimited list of types</li>
     		   <li>Allele with single mutation type - MGI:5007045; Cbln4<sup>tm1Lex</sup></li>
-    		   <li>Allele with no mutation type - MGI:4454664; Adamts4<sup>tm1Dqp</sup>.  Expect: Undefined.</li>
+    		   <li>Allele with no mutation type - MGI:4454664; Adamts4<sup>tm1Dqp</sup>.  Expect: Not Specified.</li>
     		   <li>Allele with vector  - MGI:4456631; Sumo3<sup>tm1(KOMP)Mbp</sup></li>
     		   <li>Allele with vector type - MGI:4049566; Sp1<sup>Gt(IST12127D8)Tigm</sup>.  </li>
     		   <li>Allele with multiple vectors - MGI:nnnnn; symbol.  Expect:  Only display 1 vector</li>
@@ -556,9 +560,7 @@
     		   <li>Gene trapped allele with a seq tag with multiple good hits - MGI:4331065, Gt(AA0081)Wtsi.  Expect: "multiple" displayed for location</li>
     		   <li>Gene trapped allele with a seq tag with no good hits - MGI:4123002, Gt(A001A04)Wrst.  Expect: "unknown" displayed for location</li>
     		   <li>Download to FASTA a single seq taq - use allele above, MGI:4127340, Epcam<sup>Gt(RST412)Byg</sup></li>
-    		   <li>Download to FASTA multiple seq tags - use allele above, MGI:3873923, Tpx2<sup>Gt(D028B03)Wrst</sup> </li>
     		   <li>Forward to Blast a single seq tag - use allele above, MGI:4127340, Epcam<sup>Gt(RST412)Byg</sup></li>
-    		   <li>Forward to Blast multiple seq tags- use allele above, MGI:3873923, Tpx2<sup>Gt(D028B03)Wrst</sup></li>
     	    </ol></li>
     	    
     	    <li>Verify fields/links for Mutation Description Ribbon - Genome Context field
@@ -620,8 +622,8 @@
     	    <li>Verify fields/links for Reference Ribbon - compare to Public
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Allele  with only 1 reference - MGI:1856137; Krt25<sup>Re</sup></li>
-    		   <li>Allele with many references  - MGI:1859958; a<sup>4J</sup></li>
+    		   <li>Allele with many references - MGI:1856137; Krt25<sup>Re</sup></li>
+    		   <li>Allele with only 1 reference  - MGI:1859958; a<sup>4J</sup></li>
     	    </ol></li>
     	    
     	    <li>Verify ribbons already in the Fewi display as expected in the new framework
