@@ -384,7 +384,7 @@
 		<ol>
 		
 		    <li>Verify display for page subtitles; browser titles; table of contents
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 8/2/2013 - test 1.4 for Not Applicable allele failed</p>  
     		<ol>
     		   <li>QTL Allele - MGI:3817480; Azdm1<sup>A/J</sup>
     		       <ul><li>Expected results: QTL page subtitle; QTL browser title, special QTL TOC text</li></ul> </li>
@@ -407,14 +407,14 @@
     	    </ol></li>
     	    
     	    <li>Verify Help and Your Input Welcome links
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>  
     		<ol>
     		   <li>Allele with a superscript - MGI:1856424; Lep<sup>ob</sup></li>
     		   <li>Allele without a superscript - MGI:1889606; wfd</li>
     	    </ol></li>
     		
     		<li>Verify fields/links displayed in the Nomenclature Ribbon with what is displayed on Public.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>  
     		<ol>
     		   <li>Allele with all fields (incl synonyms) - MGI:1856155; Pax6<sup>Sey</sup></li>
     		   <li>Allele with all fields except synonyms - MGI:2680557; Pax6<sup>1Jrt</sup></li>
@@ -427,7 +427,7 @@
     	    </ol></li>
     	    
     	    <li>Verify Nomenclature Ribbon/Gene section - marker symbol, location (chr, coords, strand), genetic position (chr, cM, cytoband)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>  
     		<ol>
     		   <li>Allele with no associated marker - MGI:4971894, Gt(100A10)Cmhd. Expect: Gene field not to be included.</li>
     		   <li>Allele associated to a marker with a location and genetic position - MGI:2181391, Crem<sup>tm1Gsc</sup>.  Expect all values displayed for Gene</li>
@@ -440,7 +440,7 @@
     	    </ol></li>
     	    
     	    <li>Verify Nomenclature Ribbon/Images - display the same as Public
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>  
     		<ol>
     		   <li>Allele with a single image that is the primary one - MGI:1855930; A<sup>vy</sup></li>
     		   <li>Allele with multiple images and a primary image - MGI:1856798; A<sup>y</sup></li>
@@ -449,20 +449,20 @@
     	    </ol></li>
     	    
     		<li>Verify fields/links displayed in the Mutation Origin Ribbon with what is displayed on Public.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>  
     		<ol>
     		   <li>Allele with only SOO - MGI:1855976; Tyr<sup>c</sup></li>
-    		   <li>QTL Allele - MGI:3525662; Dbts<sup>SM/J</sup>.  Expect: Special labels for QTL</li>
+    		   <li>QTL Allele - MGI:3525662; Dbts1<sup>SM/J</sup>.  Expect: Special labels for QTL</li>
     		   <li>Transgene Allele - MGI:3057119, Tg(Igk-C/Igk-V125)1Jwt.  Expect: Special labels for transgenes.</li>
     		   <li>Strain with superscript - MGI:1856424; Lep<sup>ob</sup></li>
     		   <li>Strain with special chars - MGI:1855977; Tyr<sup>c-ch</sup></li>
     		   <li>Allele with PCL from Spermatogonial Cell Line (vs ES Cell) - MGI:3641043; Ocln<sup>tm1Tshi</sup></li>
     		   <li>Allele with PCL of Other (see notes) - MGI:4127920; Atad5<sup>Gt(RRF055)Byg</sup>
-    		   <li>Allele with a null Strain of Origin - MGI:nnnnn - Expect SOO not displayed</li>
+    		  
     	    </ol></li>
     	    
     	    <li>Verify fields/links for the Mutation Origin Ribbon - Mutant Cell Line field
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>  
     		<ol>
     		   <li>Gene trapped allele with an MCL - MGI:4128812; Paxip1<sup>Gt(RRH211)Byg</sup>.  Expect: MCL and provider displayed - no links</li>
     		   <li>KOMP alleles - EUCOMM, NorCOMM, and CSD.  Displays MCLs and provider. Links provider to KOMP website.
@@ -474,7 +474,7 @@
     	    </ol></li>
     	    
     	    <li>Verify fields/links for the Mutation Origin Ribbon - Germline Transmission field
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>   
     		<ol> 
     		   <li>Gene trapped allele - MGI:3794786; Akt1<sup>Gt1Pnt</sup>.  Expect: Germline transmission text displayed with link to J#</li>
     		   <li>Allele with no associated marker - MGI:3888734; Gt(D033B02)Wrst.  Expect:  Germline transmission Unknown.</li>
@@ -485,7 +485,7 @@
     	    
     	    
     	    <li>Verify fields/links displayed in the Mutation Description - same as Public
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>  
     		<ol>
     		   <li>Allele with inheritance specified - MGI:3764995; Gpi1<sup>a-m1J</sup></li>
     		   <li>Allele with inheritance of Other (see notes) - MGI:3717789; Pbwg1.8<sup>M.m.castaneus</sup></li>
@@ -495,7 +495,7 @@
     	    </ol></li>
     	    
     	    <li>Verify fields/links for Mutation Description Ribbon - Allele Type field
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>  
     		<ol>
     		   <li>Alleles for each allele type. Expect: display the same as Public
     		   <ol><li>Spontaneous - MGI:1856819; Rab38<sup>cht</sup></li>
@@ -524,29 +524,30 @@
     	    </ol></li>
     	    
     	    <li>Verify fields/links for Mutation Description Ribbon - Mutation field.  Compare to Public
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>  
     		<ol>
     		   <li>Allele with multiple mutation types - MGI:4399355; Cbr3<sup>tm1(KOMP)Vlcg</sup>. Expect: comma-delimited list of types</li>
     		   <li>Allele with single mutation type - MGI:5007045; Cbln4<sup>tm1Lex</sup></li>
     		   <li>Allele with no mutation type - MGI:4454664; Adamts4<sup>tm1Dqp</sup>.  Expect: Not Specified.</li>
     		   <li>Allele with vector  - MGI:4456631; Sumo3<sup>tm1(KOMP)Mbp</sup></li>
     		   <li>Allele with vector type - MGI:4049566; Sp1<sup>Gt(IST12127D8)Tigm</sup>.  </li>
-    		   <li>Allele with multiple vectors - MGI:nnnnn; symbol.  Expect:  Only display 1 vector</li>
+    		   <li>Allele with multiple vectors - MGI:4880145; symbol.  Expect:  Only display 1 vector</li>
     		   <li>Allele with short Molecular Note - MGI:3576635; chtl<sup>2J</sup>.  Expect: Note field displayed</li>
     		   <li>Allele with long Molecular Note - MGI:2447068; Cst6<sup>ichq</sup>.  Expect: Note field hidden by default.</li>
     		   <li>Allele with HTML markup in Molecular Note - MGI:3622350; In(7)4Rl.  Expect: HTML mark up to work okay.</li>
     		   <li>Allele with multiple molecular references - MGI:5008775; Acat2<sup>tm1a(KOMP)Wtsi</sup> .  Expect: comma delimited list of J# that link</li>
     		   <li>Allele without a Molecular Note - MGI:1856836; crz</li>
+    		   <li>Allele with a Molecular Note, but no Mutation Type - MGI:2671869; bhe.  Expect: Mutation Type displayed as "Undefined".</li>
     	    </ol></li>
     	    
     	    <li>Verify fields/links for Mutation Description Ribbon - Sequence Tags field
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p> 
     		<ol>
     		   <li>Gene trapped allele with single seq tag - MGI:4127340; Epcam<sup>Gt(RST412)Byg</sup></li>
     		   <li>Gene trapped allele with multiple seq tag - MGI:3873923; Tpx2<sup>Gt(D028B03)Wrst</sup></li>
-    		   <li>Gene trapped allele with no sequence tags - MGI:2388061; Ltbp4<sup>Gt(U3Cre)1Vmel</sup>
-    		   <li>Gene trapped alleles - provider other than Lexicon - MGI:3871767, Aebp2<sup>Gt(BC0681)Wtsi</sup>;  Expect: provider link to Welcome Trust</li>
-    		   <li>Gene trapped allele - Lexicon - MGI:4264311, Kit<sup>Gt(OST284713); Expect: provider link to GenBank (not Lexicon) </sup>
+    		   <li>Gene trapped allele with no sequence tags - MGI:2388061; Ltbp4<sup>Gt(U3Cre)1Vmel</sup></li>
+    		   <li>Gene trapped alleles - provider other than Lexicon - MGI:3871767, Aebp2<sup>Gt(BC0681)Wtsi</sup>. Expect: provider link to IGTC.</li>
+    		   <li>Gene trapped allele - Lexicon - MGI:4264311, Kit<sup>Gt(OST284713)</sup>; Expect: provider link to GenBank (not Lexicon)</li>
     		   <li>Gene trapped allele with a seq tag with multiple good hits - MGI:4331065, Gt(AA0081)Wtsi.  Expect: "multiple" displayed for location</li>
     		   <li>Gene trapped allele with a seq tag with no good hits - MGI:4123002, Gt(A001A04)Wrst.  Expect: "unknown" displayed for location</li>
     		   <li>Download to FASTA a single seq taq - use allele above, MGI:4127340, Epcam<sup>Gt(RST412)Byg</sup></li>
@@ -554,7 +555,7 @@
     	    </ol></li>
     	    
     	    <li>Verify fields/links for Mutation Description Ribbon - Genome Context field
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>   
     		<ol>
     		   <li>Gene trapped allele with a valid location, but not associated to a marker - MGI:4123240, Gt(A001E10)Wrst.  Expect: thumbnails and links using a 5kb buffer. 
     		      <ul><li>http://gbrowse.informatics.jax.org/cgi-bin/gb2/gbrowse/mouse38/?start=26968205;stop=26978313;ref=17;label=GeneTraps_Per_Gene-Gene_Traps_RNA_Tags-Gene_Traps_DNA_Tags-UCSC_CYTOBAND:overview  </li></ul></li>
@@ -566,7 +567,7 @@
     	    
     	    
     	    <li>Verify fields/links for Recombinase activity ribbon - compare to Public
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>   
     		<ol>
     		   <li>Allele with a driver, activity and user notes - MGI:2176055. Link from QS; Expect activity table hidden.</li>
     		   <li>Allele with a driver, but no Activity - MGI:2177210.  Link from Cre page.  Expect Activity section open with special no data message</li>
@@ -574,14 +575,14 @@
     	    </ol></li>
     	   
     	    <li>Verify fields/links for Expression Ribbon - compare to Public
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>   
     		<ol>
     		   <li>Allele with associated expression results - MGI:2429759; Disp1<sup>tm1Ptch</sup></li>
     		   <li>Allele without associated expression results - MGI:1856251; Kit<sup>W-55J</sup></li>
     	    </ol></li>
     	    
     	    <li>Verify fields/links for the Find Mice (IMSR) Ribbon - compare to Public
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 8/2/2013; IMSR links broken.</p>  
     		<ol>
     		   <li>Allele with associated strains and cell lines in IMSR - MGI:4820320; Trp53rk<sup>tm1a(EUCOMM)Wtsi</sup></li>
     		   <li>Allele with associated strains and no cell lines in IMSR - MGI:1934384; Cxcl12<sup>tm1Tng</sup></li>
@@ -597,7 +598,7 @@
     	    </ol></li>
     	    
     	     <li>Verify fields/links for Notes Ribbon - compare to Public
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>   
     		<ol>
     		   <li>Allele with General notes - MGI:1856300; Hal<sup>his</sup></li>
     		   <li>Allele with General notes that include HTML mark-up - MGI:2157909; Uox<sup>in</sup></li>
@@ -610,14 +611,14 @@
     	    </ol></li>
     	    
     	    <li>Verify fields/links for Reference Ribbon - compare to Public
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>  
     		<ol>
     		   <li>Allele with many references - MGI:1856137; Krt25<sup>Re</sup></li>
     		   <li>Allele with only 1 reference  - MGI:1859958; a<sup>4J</sup></li>
     	    </ol></li>
     	    
     	    <li>Verify ribbons already in the Fewi display as expected in the new framework
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 8/2/2013; styling issues.</p>  
     		<ol>
     		   <li>Allele with Recombinase section (but not phenotypes or disease) - MGI:4818775; Tg(ACTA1-rtTA,tetO-cre)102Monk</li>
     		   <li>Allele with Phenotypes section (but not recombinase or disease) - MGI:2182470; Brca1<sup>tm2.1Cxd</sup></li>
@@ -629,7 +630,7 @@
     	    </ol></li>
     	    
     	    <li>Verify page display/links in all supported browsers - I/E, Firefox, Safari, Chrome (not officially supported, but gaining)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 8/2/2013; I/E issues.</p>  
     		<ol>
     		   <li>Allele with ajax sections: Recomb, Pheno, and Disease - MGI:1934631; Lyz2<sup>tm1(cre)Ifo</sup></li>
     		   <li>Allele with sequence tags, genome context sections - MGI:4123896; Lama5<sup>Gt(LST031)Byg</sup></li>
@@ -639,7 +640,7 @@
     	    </ol></li>
     	    
     	    <li>Verify Allele Detail KEYWORDS meta data - used for Search Engine Optimization (SEO)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013; keywords in different order than Public, per Kim this is okay.</p>  
     		<ol>
     		   <li>Spontaneous allele w/ superscript and synonyms - MGI:1856150, Bmp5<sup>se</sup>.
     		   <ul><li>Expected result: mouse, mice, murine, Mus, allele, mutant, mutation, spontaneous, {list of synonyms}, {allele symbol w/ pointy brackets}</li></ul></li>
@@ -662,7 +663,7 @@
     	    </ol></li>
     	    
     	    <li>Verify Allele Detail DESCRIPTION meta data - used for Search Engine Optimization (SEO)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p> 
     		<ol>
     		   <li>Allele with molecular notes, disease models, and images - MGI:1928768, Crebbp<sup>tm1Sis</sup>
     		   <ul><li>Expected result: View {allele symbol} allele: origin, molecular description, images, human disease models, gene associations, and references</li></ul></li>
@@ -673,7 +674,7 @@
     	    </ol></li>
     	    
     	    <li>Verify Allele Detail ROBOTS meta data - used for Search Engine Optimization (SEO)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/2/2013</p>  
     		<ol>
     		   <li>Any allele - MGI:1855976, Tyr<sup>c</sup>
     		   <ul><li>Expected result: NOODP and NOYDIR tags</li></ul></li>
