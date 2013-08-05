@@ -34,9 +34,10 @@
     See the Public WI for display details such as font style, size, positioning, etc.</p>
     
     <p>
-    There are 3 recently completed "ribbons" on this page that have already been implemented in the fewi and the intent is 
-    to leave those as-is.  This document does not include functionality or tests for those ribbons.  The plan is to use any 
-    existing automated tests for those ribbons to verify nothing has been broken. </p>
+    There are 3 recently completed sectionson this page that have already been implemented in the fewi and the intent is 
+    to leave those as-is.  This document does not include functionality for those ribbons.  Testing has been included
+    to verify the display and links in those sections (Recombinase Activity table, Phenotypes ribbon, Disease Models
+    ribbon).  The plan is to use any existing automated tests for those ribbons to verify nothing has been broken. </p>
     
     <p>
     The requirements below are organized by "ribbon". If no data for a ribbon exists then do not display the ribbon with the 
@@ -64,18 +65,8 @@
 	    <ol><li>The text "cM position of peak correlated region/allele" is displayed next to the cM when it has a value.</li>
     </ol>
     
-    <h3>Questions/Requests - Summary</h3>
-    <ol>
-        <li>How does the software identify Velocigene alleles?  an associated Regeneron id?</li>
-        <li>How does the software distinquish between Tag ID sequences and GenBank sequences - both are associated to the Allele</li>
-        <li>Lexicon sequence tags link to GenBank - is there special logic for this or is it handled via Logical/Actual DB settings?</li>
-        <li>Is HTML mark-up recognized for Derivation Notes?</li>
-        <li>Looking for the following test cases:
-        <ul><li>Allele with a null Strain of Origin</li>
-            <li>Allele with multiple vectors</li>
-            <li>Allele with a derivation note that includes HTML mark-up</li>
-            
-            </ul>
+    
+           
     </ol>
     
     <h3>Allele Page Header Area</h3>
@@ -167,7 +158,7 @@
 	                          <ol><li>A KOMP allele is defined as any allele with either a EUCOMM, NorCOMM, or CSD id associated to it</li>
 	                              <li>The provider text displayed is a link to the KOMP website using whichever ID is present for the allele</li>
 	                          </ol></li>
-	                          <li>Velocigene alleles link to the Velocigene website using the first mutant cell line ID in the list for the allele (question - how do we identify Velocigene alleles? existence of a Regeneron id?)</li>
+	                          <li>Velocigene alleles link to the Velocigene website using the first mutant cell line ID in the list for the allele.  When the MCL creator for an allele is Velocigene this link is created.</li>
 	                      </ul></li>
 	                      <li>Multiple cell lines are displayed in a comma-delimited list and the label is changed to plural, Mutant Cell Lines</li>
 	                  </ul></li>
@@ -191,7 +182,6 @@
 	               <li>Strain of Origin / Strain of Specimen 
 	               <ul><li>The label of this field is "Strain of Origin" except for QTLs when it is "Strain of Specimen".</li>
 	                   <li>Superscripts and special characters are supported for this field.</li>
-	                   <li>If this field is null - do not display</li>
 	               </ul></li>
 	           </ol>
 	       <li><u>Rules for this ribbon</u>
@@ -214,7 +204,7 @@
 	               <ul><li>Data displayed for this field: mutation types, vector,  vector type, and mutation description.
 	                   <ul><li>there can be multiple mutation types displayed in a comma-delimited list</li>
 	                       <li>Mutation is displayed as "Undefined" if the allele does not have a defined mutation and a mutation note exists.</li>
-	                       <li>If multiple vectors exist we just display the first one</li>
+	                       <li>If multiple vectors exist we just display the first one (only 1 example of this as-of Aug 2013, MGI:4880145)</li>
 	                   </ul></li>
 	                   <li>The description is the Molecular Notes field in the Allele EI.</li>
 	                   <li>The J# at the end of the description is the molecular reference and is linked to the Reference page</li>
@@ -228,8 +218,8 @@
 	               <ul><li>This field includes a show/hide option where the default is hide when the page is rendered</li>
 	                   <li>A count of the tags is displayed in text at the top of the table in either show or hide mode</li>
 	                   <li>The sequence tag table includes the following data for each sequence:
-	                   <ol><li>Tag ID; Provider; link to provider
-	                       <ul><li>Provider Lexicon links to GenBank</li></ul></li>
+	                   <ol><li>Tag ID; Provider; link to GenBank or provider
+	                       <ul><li>If a sequence tag has a GenBank ID then link to GenBank (this is the case for Lexicon seq tags) otherwise link to the Provider website.</li></ul></li>
 	                       <li>GenBank ID; link to Sequence Detail</li>
 	                       <li>Method</li>
 	                       <li>Tag Location: chr, start, end, strand
@@ -316,7 +306,7 @@
 	   <li>NOTES
 	   <ul><li>List of note types displayed in this section
 	        <ol><li>Derivation Notes (for cell lines)
-	            <ul><li>recognize HTML mark-up?</li>
+	            <ul><li>HTML mark-up will render appropriately if present.  Currently there are no examples of HTML markup in these notes.</li>
 	                <li>If General Notes also exist display them after the Derivation Notes</li>
 	            </ul>
 	        
