@@ -1,0 +1,357 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 11</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Split Production and Public QS WI into separate products</h1>
+    <ul>
+        <li>User Story 11 - Split Production/Public QS into separate products</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Maintain same functionality for Genome Features (Marker Bucket) QS indexes
+	   <ol><li>Inexact - contains all small tokens; stemmed and unstemmed
+	       <ul><li>marker symbol, name, synonym</li>
+	           <li>Allele symbol, name, synonym</li>
+	           <li>Ortholog symbol, name, synonym (symbol - all; name, synonym - human and rat)</li>
+	           <li>Vocab term, synonym, definition</li>
+	       </ul></li>
+	       <li>Exact - contains large tokens; unstemmed
+	       <ul><li>marker name, synonym</li>
+	           <li>allele name, synonym</li>
+	           <li>ortholog name, synonym (human and rat)</li>
+	           <li>no symbols in this index</li>
+	       </ul></li>
+	       <li>Symbol - contains marker, allele, and ortholog symbols; unstemmed</li>
+	       <li>Acc ID - contains Marker, Ortholog (all species), Allele, and ES Cell Line ids</li>
+	       <li>Vocab Acc ID - contains GO, OMIM, MP, InterPro, PIRSF, (MA and PRO??)</li>
+	       <li>Vocab Exact - contains term, synonym, definition; unstemmed</li>
+	       <li>Marker Display - all display fields for Marker bucket</li>
+	   </ol></li>
+	   
+	   <li>Maintain same functionality for Vocabulary (Vocab Bucket) QS indexes
+	   <ol><li>Inexact - contains all small tokens for term, synonym, and definition; stemmed and unstemmed</li>
+	       <li>Exact - contains large tokens for term, synonym, and definition; unstemmed</li>
+	       <li>Acc ID - contains GO, OMIM, MP, InterPro, PIRSF, (MA and PRO??)</li>
+	       <li>Vocabulary Display - all display fields for Vocab bucket</li>
+	   </ol></li>
+	   
+	   <li>Maintain same functionality for Other Bucket (IDs) QS indexes
+	   <ol><li>Exact - ids for objects other than markers and vocabulary terms
+	       <ul><li>Sequences</li>
+	           <li>Probes/Clones</li>
+	           <li>AMA</li>
+	           <li>Antigen</li>
+	           <li>Antibody</li>
+	           <li>Mapping Experiment</li>
+	           <li>Images</li>
+	           <li>Assays</li>
+	           <li>Alleles</li>
+	           <li>Homolog</li>
+	           <li>Homology</li>
+	           <li>ES Cell Lines</li>
+	           <li>SNPs + Sub-SNPs - removed in 5.14</li>
+	       </ul></li>
+	       <li>Other Display - fields displayed in the ID Bucket</li>
+	   </ol></li>
+	   
+	   <li>Maintain special input options
+	   <ol><li>wildcards</li>
+	       <li>double quotes</li>
+	       <li>superscript search</li>
+	       <li>case insensitive</li>
+	       <li>multiple tokens - order insensitive</li>
+	   </ol></li>
+	       
+	   
+	 
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Validate results returned for AND/OR searches in MARKER BUCKET with Marker Nomenclature (symbol, name, synonym) (3,2,1 star matches)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for marker symbol with multiple tokens, mt atp6.  Expected result: return mt-Atp6 with 3 stars; match to marker symbol.</li>
+    		   <li>Search for marker name with multiple tokens, Dopey Family (search for a subset of the tokens).    Expected result: return  Dopey1, Dopey2 each with 3 stars; match to marker name</li>
+    		   <li>Search for marker name with multiple tokens, Dopey family member 1 (search for all tokens).  Expected result: return Dopey1 with 4 stars and Dopey2 with 1 star; match to marker name.</li>
+    		   <li>Search for marker synonym with multiple tokens, 6 Pax (search for tokens out of order).  Expected result: return  Pax6 with 3 stars match to synonym.</li>
+    		   <li>Search for marker name with tokens that have stems, transform relate protein (search for tokens by stem).  Expected result: return  Trp53 with 3 stars</li>
+    		   <li>Search for marker synonym with multiple tokens, Pax 6 football (search for tokens, but add the token 'football').  Expected result: return  Pax6 with 1 star and Pxn with 2 stars.</li>
+    		   
+    	    </ol></li>
+    	    
+    	   
+    	   <li>Validate results returned for AND/OR searches in MARKER BUCKET with Allele Nomenclature (symbol, name, synonym) (3,2,1 star matches)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		   <li>Search for marker symbol with multiple tokens, AGT 5Afu (search for a subset of the  tokens).  Expected result: return Tg(AGT)2-5Afu with 3 stars; match to allele symbol.</li>
+    		   <li>Search for allele name with multiple tokens, white bellied agouti (search for a subset of the tokens).    Expected result: return  20 alleles  with 3 stars; match to allele name</li>
+    		   <li>Search for allele name with multiple tokens, white bellied agouti 27 jackson  (search for all tokens).  Expected result: return a&lt;w-27J&gt;  with 4 stars; match to allele name.</li>
+    		   <li>Search for allele synonym with multiple tokens, chinchilla intense   (search for tokens out of order).  Expected result: return Tyr&lt;c-i&gt;  with 3 stars match to synonym.</li>
+    		   <li>Search for allele name with tokens that have stems, white belly agouti (search for tokens by stem).  Expected result: return  20 alleles with 3 star match to name</li>
+    		   <li>Search for allele synonym with multiple tokens, chinchilla intense  football (search for tokens, but add the token 'football').  Expected result: return  Tyr&lt;c-i&gt; with 1 star.</li>
+    		   
+    	    </ol></li>
+    	   
+    	   <li>Validate results returned for AND/OR searches in MARKER BUCKET with Homology Nomenclature (symbol (all species), name (human,rat), synonym (human,rat))
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		   <li>Search for ortholog symbol with multiple tokens, RPS10 NUDT3.  Expected result: return Rps10 with 3 stars; match to human symbol.</li>
+    		   <li>Search for ortholog name with multiple tokens, NUDT3 readthrough (search for a subset of the tokens).    Expected result: return  Rps10 with 3 stars; match to human name</li>
+    		   <li>Search for ortholog name with multiple tokens, RPS10-NUDT3 readthrough (search for all tokens with hyphen).  Expected result: return Rps10 with 4 stars.</li>
+    		   <li>Search for ortholog synonym with multiple tokens,  BCD541-T (search for tokens out of order).  Expected result: return Smn1 with 3 stars match to human synonym.</li>
+    		   <li>Search for ortholog name with tokens that have stems, motor neuron survives (search for tokens by stem).  Expected result: return  Smn1 with 3 star match to human name</li>
+    		   <li>Search for ortholog synonym with multiple tokens, BCD541-T football (search for tokens, but add the token 'football').  Expected result: return  Smn1 with 1 star match to human synonym.</li>
+    		   
+    	    </ol></li>
+    	   
+    	   <li>Validate results returned for AND/OR searches in MARKER BUCKET with Vocabulary Terms (term, synonym, definition)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		   <li>Search for GO vocab term with multiple tokens, left right asymmetry lateral mesoderm (search for a subset of the  tokens).  Expected result: return 7 markers with 3 stars; matching GO term:  determination of left/right asymmetry in lateral mesoderm</li>
+    		   <li>Search for GO vocab definition with multiple tokens, establish lateral mesoderm to left and right halves (search for a subset of the tokens).    Expected result: return 7 markers with 3 stars; match to definition of GO Term</li>
+    		   <li>Search for MP vocab synonym with multiple tokens, decreased ACE activity (search for all tokens).  Expected result: return 2 alleles with 4 stars to MP synonym.</li>
+    		   <li>Search for OMIM vocab term with multiple tokens, Primary Nodular Pigmented Adrenocortical (search for tokens out of order).  Expected result: return 1 allele with 3 stars match to Disease Model.</li>
+    		   <li>Search for OMIM vocab term with tokens that have stems, Nodular Pigment Adrenocortical (search for tokens by stem).  Expected result: return  return 1 allele with 3 star match to Disease Model.</li>
+    		   <li>Search for MP vocab synonym with multiple tokens, ACE decreased activity football (search for tokens, but add the token 'football').  Expected result: return 2 alleles with 1 star.</li>
+    		   <li>Search for InterPro vocab term with multiple tokens, Short hematopoietin receptor conserved (search for a subset of the  tokens).  Expected result: return 15 markers with 3 stars; matching InterPro term.</li>
+    		   <li>Search for PIRSF vocab term with multiple tokens, interleukin receptor gamma chain (search for a subset of the  tokens).  Expected result: return Il2rg marker with 3 stars; matching term.</li>
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned with exact matches in MARKER BUCKET to Marker Nomenclature (name, synonym)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		   <li>Search for marker name, leptin receptor.  Expect 4 star match to Lepr.</li>
+    		   <li>Search for marker synomym, Pax-1.  Expect 4 star match to Pax1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned with exact matches in MARKER BUCKET to Allele Nomenclature (name, synonym)
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		   <li>Search for allele name, agouti yellow.  Expect 4 star match to a&lt;y&gt;.</li>
+    		   <li>Search for allele synonym, mg.  Expect 4 star match to Atrn&lt;mg&gt;</li>
+    		   
+    	    </ol></li>
+    	    
+    	   
+    	   <li>Validate results returned with exact matches in MARKER BUCKET to Human/Rat Nomenclature (human name, human synonym, rat synonym)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for human name, KIT ligand.  Expect 4 star match to Kitl</li>
+    		   <li>Search for human synonym, RG.  Expect 4 star match to C4a and C4b</li>
+    		   <li>Search for rat synonym, Dlx5. Expect 4 star match to Dlx2</li>
+    		   
+    	    </ol></li>
+    	   
+    	   <li>Validate results returned with exact matches in MARKER BUCKET to marker, allele, and homolog symbols
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		   <li>Search for marker symbol, Bmp2  Expected result: 4 star match to Bmp2</li>
+    		   <li>Search for allele symbol, Lep&lt;db&gt;  Expected result: 4 star match to that allele</li>
+    		   <li>Search for homolog symbol, C4A  Expected result: 4 star match to C4a and C4b</li>
+    		   <li>Search for human homolog symbol, SMN2  Expected result: 4 star match to Smn1 </li>
+    		   <li>Search for rat symbol, RT1-A3.  Expected result: 4 star match to 10 markers</li>
+    		   <li>Search for chimp symbol, LOC741789.  Expected result: 4 star match to Cox5b</li>
+    		   <li>Search for chicken symbol, LOC417953. Expected result: 4 star match to 8 markers</li>
+    	    </ol></li>
+    	   
+    	   <li>Validate results returned in MARKER BUCKET with exact matches to Marker, Homolog, Allele, and ES Cell Line IDs.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		   <li>Search for marker MGI id, MGI:96677.  Expected result: 4 star match to Kit</li>
+    		   <li>Search for marker EG id, 20595.  Expected result: 4 star match to Smn1</li>
+    		   <li>Search for Refseq id, NM_010704.  Expected result: 4 star match to Lepr</li>
+    		   <li>Search for allele mgi id, MGI:1856009.  Expected result: 4 star match to Lepr&lt;db&gt;</li>
+    		   <li>Search for velocigene id, 13372A-C3.  Expected result: 4 star match to Arhgdig allele</li>
+    		   <li>Search for es cell line id, 10094A-C10.  Expected result: 4 star match to 1 allele for Bmper</li>
+    		   <li>Search for human homolog EG id, 6607.  Expected result: 4 star match to Smn1</li>
+    		    <li>Search for human homolog EG id, HGNC:6342.  Expected result: 4 star match to Kit</li>
+    		   <li>Search for homologene id, 36030.  Expected result: 4 star match to C4a and C4b</li>
+    		   <li>Search for rat homolog uniprot id,  Q62959.  Expected result: 4 star match to Lepr</li>
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned in MARKER BUCKET with exact matches to Vocab IDs (GO, OMIM, MP, InterPro, PIRSF)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for markers associated to a GO id, GO:0008579.  Expected result: 4 star match to 1 marker</li>
+    		   <li>Search for markers associate to a MP id, MP:0001277.  Expected result: 4 star match to 5 alleles</li>
+    		   <li>Search for alleles associated to an OMIM id, 125700.  Expected result:  4 star match to 2 alleles</li>
+    		   <li>Search for markers associated to an InterPro id, IPR009073.  Expected result: 4 star match to 1 marker</li>
+    		   <li>Search for markers associated to a PIRSF id, PIRSF037272.  Expected result: 4 star match to 14 markers</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned with exact matches in MARKER BUCKET and VOCAB BUCKET to Vocab terms, synonyms, and definitions
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for exact GO vocab term, cell proliferation in forebrain.  Expect 4 star match to 28 markers and 1 vocab term.</li>
+    		   <li>Search for exact OMIM synonym, Mount-Reback Syndrome. Expect 4 star match to 1 disease ortholog and 1 vocab term</li>
+    		   <li>Search for exact MP definition, few and widely spaced stiff hairs that project from the face around the nose of most mammals, and which act as touch receptors .  Expect 4 star match to 10 alleles and 1 vocab term</li>
+    		   <li>Search for exact PIRSF term,  interferon gamma receptor. Expect 4 star match to 1 marker and 1 vocab term</li>
+    		   <li>Search for exact InterPro term,  Interferon gamma receptor, poxvirus/mammal.  Expect 4 star match to 1 marker and 1 vocab term</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results returned for AND/OR searches in VOCAB BUCKET matching vocabulary terms, synonyms, and definitions
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Search for GO vocab term with multiple tokens, left right asymmetry lateral mesoderm (search for a subset of the  tokens).  Expected result: 3 star matches to 6 GO terms</li>
+    		   <li>Search for GO vocab definition with multiple tokens, establish lateral mesoderm to left and right halves (search for a subset of the tokens). Expected result: 3 star match to 2 GO terms via definition</li>
+    		   <li>Search for OMIM vocab term with multiple tokens, Primary Nodular Pigmented Adrenocortical (search for tokens out of order).  Expected result: 3 star match to 3 OMIM terms</li>
+    		   <li>Search for OMIM vocab term with tokens that have stems, Nodular Pigment Adrenocortical (search for tokens by stem). Expected result: 3 star match to 3 OMIM terms</li>
+    		   <li>Search for MP vocab synonym with multiple tokens, ACE decreased activity football (search for tokens, but add the token 'football').  Expected result: 1 star match to the MP term with a synonym of ACE decreased activity</li>
+    		   <li>Search for InterPro vocab term with multiple tokens, Short hematopoietin receptor conserved (search for a subset of the  tokens).  Expected result: 3 star matches to 2 interpro terms</li>
+    		   <li>Search for PIRSF vocab term with multiple tokens, interleukin receptor gamma chain (search for a subset of the  tokens). Expected result: 3 star match to 1 protein family term</li>
+    		   
+    	    </ol></li>
+    	    
+    	   
+    	    
+    	    <li>Validate results returned with exact matches in VOCAB BUCKET matching vocabulary accession ids (TO, OMIM, MP, InterPro, PIRSF)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for markers associated to a GO id, GO:0008579.  Expected result: 4 star match to term/ 1 marker/1 annotation</li>
+    		   <li>Search for markers associate to a MP id, MP:0001277.  Expected result: 4 star match to term/ 5 genos/5 annotations</li>
+    		   <li>Search for alleles associated to an OMIM id, 125700.  Expected result:  4 star match to term/ 2 models</li>
+    		   <li>Search for markers associated to an InterPro id, IPR009073.  Expected result: 4 star match to term/ 1 gene/1 annotation</li>
+    		   <li>Search for markers associated to a PIRSF id, PIRSF037272.  Expected result: 4 star match to term/ 14 genes</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results when using special UI features (wildcard, double quotes, comma delim list)
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		   <li>Search using wild cards for 1 token, pax*.  Expect results: 4 star match to 12 genes; 4 star matches to alleles for all those genes in marker bucket</li>
+    		   <li>Search using wild cards for multiple tokens, diab* Insip*.  Expect results: 3 star matches to 8 diseases in vocab bucket</li>
+    		   <li>Search using double quotes for 1 token, "diabetes" (another e.g. "obese").  Expect results: 4 star matches to 1 gene, 1 allele (same result without quotes)</li>
+    		   <li>Search using double quotes for multiple tokens, "curly whiskers".  Expect results: 4 star match to MP term</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Validate results when special display cases exist 
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for marker with UN chromosome and no location, Ahsp.  Expect results: Display marker with UN and blank location</li>
+    		   <li>Search for marker with Syntenic location, Sox4as.  Expect results: Display marker with Syntenic in location</li>
+    		   <li>Search for marker with MT chromosome with and w/o coordinates -- mt-Atp6 and mt-Att.  Expect results: mt-Atp6 displays coordinates; mt-Att displays Syntenic.</li>
+    		   <li>Search for marker with XY chromosome -- Sts.  Expect results: Syntenic location.
+    		</ol></li>
+    	    
+    	    <li>Validate results returned with exact matches in OTHER BUCKET matching accession ids for objects other than Markers, Alleles, and Vocabulary
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify reference IDs:
+    		   <ul><li>J:62345</li>
+    		       <li>8825637 - PubMed ID </li>
+    		       <li>MGI:1858784 - MGI </li>
+    		       <li>10.1006/bbrc.1999.1563 - DOI (Broken on PUBLIC - TR 11313)</li>
+    		   </ul></li>
+    		   
+    		   <li>Verify expression IDs:
+    		   <ul><li>MA:0002769</li>
+    		       <li>MGI:1339360 - Antibody</li>
+    		       <li>MGI:1339359 - Antigen</li>
+    		       <li>MGI:1934267 - Assay</li>
+    		       <li>MGI:3501363 - GXD Image</li>
+    		   </ul></li>
+    		   
+    		   <li>Verify sequence IDs:
+    		   <ul><li>OTTMUSG00000015949 - return Oip5 in marker bucket; seq link in other bucket</li>
+    		       <li>14894 - NCBI gene model - return Gtl3 in marker bucket; seq link in other bucket</li>
+    		       <li>NM_001122899 - Lepr/seq link</li>
+    		       <li>P05532 - Kit/seq link</li>
+    		       <li>AA212080 - genbank - 1 seq/1 clone</li>
+    		       <li>TC1572427 - DFCI - Kit/seq link</li>
+    		       <li>DT.529646 - DoTS - Kit/seq link</li>
+    		       <li>U041021 - NIA - seq link</li>
+    		       <li>ENSMUST00000171247 - Ensembl Transcript - Trp53/seq link</li>
+    		       <li> - seq for Trp53</li>
+    		       <li>EUCE0060g02.q1k5SPK - GT allele/seq link</li>
+    		   </ul></li>
+    		   
+    		   <li>Verify gene trap IDs (match to sequence in Other Bucket & Allele in Marker Bucket):
+    		   <ul>
+    		       <li>LST083 - BayGenomics - gt allele/seq link</li>
+    		       <li>OST284713 - Lexicon - gt allele/seq link</li>
+    		       <li>GC0196 - TIGEM/IGTC - gt allele/seq link</li>
+    		       <li>IST10185G1BBF1 - TIGM - gt allele/seq link</li>
+    		   </ul></li>
+    		   
+    		   <li>Verify probes/clones:
+    		   <ul><li>MGI:200469 - clone and associate seq</li>
+    		       <li>14049 - clone and 2 assoc seqs</li>
+    		       <li>D11Mit10 - BROAD - clone</li>
+    		       <li>30026443 - IMAGE - clone and assoc seq</li>
+    		       <li>RP24-107E24 - clone and assoc seq</li>
+    		       <li>ma05h07.r1 - clone and assoc seq</li>
+    		   </ul></li>
+    		   
+    		   <li>Verify homology/homologs:
+    		   <ul><li>710 - human EG</li>
+    		       <li>36030 - HomoloGene (also matches clones/seq)</li>
+    		       <li>P05813 - human sequence</li>
+    		       <li>NM_005208 - human sequence</li>
+    		   </ul></li>
+    		   
+    		   <li>Verify miscellaneous ids:
+    		   <ul>
+    		       <li>MGD-CREX-2231 - Mapping experiment</li>
+    		       <li>rs36867304 - SNP id - no longer returned</li>
+    		       <li>ss51633180 - sub-SNP id - no longer returned</li>
+    		   </ul></li>
+    		   
+    	    </ol></li>
+    	    
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
