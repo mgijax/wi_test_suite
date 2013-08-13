@@ -140,6 +140,15 @@
 	               <li>Link symbol to Marker Detail except when the Marker has a Marker Type = Transgene (marker type driven).  (requirement change).
 	               <li>When alleles with no associated marker (e.g. loaded GTs) are displayed, this section is not included.</li>
 	           </ul></li>
+	           <li>QTL Note
+	           <ul><li>This note describes the method by which the coordinates were determined.</li>
+	               <li>QTLs with coordinates will optionally display this note.  Sequence curators determine when/if to display this note.</li>
+	               <li>This note is entered during the QTL coordinates load process using a file created by the sequence curators.</li>
+	               <li>There are currently 2 flavors of notes used:
+	                   <ol><li>genome coordinates based on the boundaries of the QTL region</li>
+	                       <li>genome coordinates based on the marker associated with the peak LOD score</li>
+	                   </ol></li>
+	           </ul></li>
 	           <li>Allele Images 
 	           <ul><li>These images are associated to the Allele in the EI (these are not genotype or molecular images)</li>
 	               <li>Display primary image for allele - designated by the curators in the EI.  There may be alleles that have images where none are designated as primary.</li>
@@ -437,6 +446,7 @@
     		   <li>Allele with cytoband - MGI:1930612; Brca1<sup>tm1Cxd</sup></li>
     		   <li>QTL Allele with cM position - MGI:2386541; Ath9<sup>C57BL/6J</sup>. Expect: special text displayed with cM</li>
     		   <li>Transgene allele associated to a non-Transgene marker - MGI:2447997; Tsil<sup>Tg(Myc)12ALvn</sup>. Expect: link to Marker Detail page (requirement change)</li>
+    		   <li>QTL Allele with coordinates & QTL note - MGI:3707212; Expect: QTL note displayed under QTL location info.</li>
     	    </ol></li>
     	    
     	    <li>Verify Nomenclature Ribbon/Images - display the same as Public
