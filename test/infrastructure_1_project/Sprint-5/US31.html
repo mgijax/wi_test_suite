@@ -38,6 +38,9 @@
 	       <li>text blurb - see mockup for details</li>
 	       <li>MGI Superfamily Information - button that triggers a pop-up with text - see mockup for text.  Same style as Homology Class page.</li>
 	       <li>Download/Blast button controls - use standard found elsewhere</li>
+	       <li>Add mouse-over tag to the Counts column
+	       <ul><li>"The number of mouse, human, and rat genes present in a cooresponding Homology Class are indicated."
+	       </ul></li>
 	    </ul></li>
 	    <li>Table of PIRSF mouse members
 	    <ul>
@@ -46,7 +49,7 @@
 	      <li>Display table of PIRSF mouse members
 	      <ol>
 	         <li>Mouse PIRSF Members
-	            <ul><li>List markers in smart alpha order</li>
+	            <ul><li>List markers in alpha order (dumb order okay, but smart preferred if easy to do)</li>
 	                <li>Link marker symbol to Marker Detail page</li>
 	            </ul></li>
 	         
@@ -92,14 +95,54 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify page heading area: text, pop-ups, links
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
+    		   <li>Display PIRSFnnnnnnn.  Verify links, pop-ups, and text using mockup.</li>
     	    </ol></li>
     	    
-    	   
+    	    <li>Verify PIRSF Members and Homology Class columns - display and links
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display PIRSF page with only 1 member with a homology class, PIRSFnnnnn.</li>
+    		   <li>Display PIRSF page with only 1 member that is not in a homology class, PIRSFnnnnn.</li>
+    		   <li>Display PIRSF page with multiple members all with a homology class, PIRSFnnnnn.</li>
+    		   <li>Display PIRSF page with multiple members and at least one without a homology class, PIRSFnnnnn</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Chromosome column
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display PIRSF page with a member that has UN chromosome, PIRSFnnnnn</li>
+    		   <li>Display PIRSF page with a member that has coordinates, PIRSFnnnnn</li>
+    		   <li>Display PIRSF page with a member that has no coordinates, PIRSFnnnnnn</li>
+    		   <li>Display PIRSF page with a member that has no coordinates and no cM position, but has a cytoband position, PIRSFnnnnnn</li>
+    		   <li>Display PIRSF page with a member that is on MT chromosome, PIRSFnnnnn</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Homology Class counts column
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display a PIRSF page with a member that has 1 marker in each organism, PIRSFnnnnnn.</li>
+    		   <li>Display a PIRSF page with a member that has multiple non-mouse markers in its homology class, PIRSFnnnnn.</li>
+    		   <li>Display a PIRSF page with a member that has multiple mouse markers in its homology class, PIRSFnnnnn.</li>
+    		   <li>Display a PIRSF page with a member that has 0 human markers in its homology class, PIRSFnnnnn.</li>
+    		   <li>Display a PIRSF page with a member that has 0 rat markers in its homology class, PIRSFnnnnn.</li>
+    		   <li>Display a PIRSF page with a member that has only mouse markers in its homology class, PIRSFnnnnn.</li>
+    		   <li>Display a PIRSF page with a member that has no homology class and therefore no counts, PIRSFnnnnn.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify download of protein sequences
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify the select all, invert, reset, and GO buttons.</li>
+    		   <li>Download a single row for a family with more than one member and one that has sequences for all 3 organisms, PIRSFnnnnnn.</li>
+    		   <li>Download 2 rows of a family page with more than 2 rows, PIRSFnnnnn.</li>
+    		   <li>Download all rows for a family with 3 or more members, PIRSFnnnnn.</li>
+    		   <li>Download all rows for a family with just 1 member, PIRSFnnnnn.</li>
+    		   <li>Download all rows for a family with a member that has no select box, PIRSFnnnnn.</li>
+    		   <li>test 1.2</li>
+    	    </ol></li>
 		</ol>
 	</div>
 	<div id="sql">
