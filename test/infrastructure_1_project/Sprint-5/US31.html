@@ -41,32 +41,36 @@
 	    </ul></li>
 	    <li>Table of PIRSF mouse members
 	    <ul>
-	      <li>PIRSF mouse members are determined as follows....</li>
-	      <li>PIRSF mouse members may be part of a HomoloGene Class or not</li>
+	      <li>PIRSF mouse members are determined via an association load of PIRSF ids to MGI ids.</li>
+	      <li>PIRSF mouse members may be part of a HomoloGene Class or not.</li>
 	      <li>Display table of PIRSF mouse members
 	      <ol>
-	         <li>PIRSF Members mouse
-	            <ul><li>List markers in Alpha (smart alpha?) order</li>
-	                <li>Link marker to Marker Detail page</li>
-	                <li>Do we list multiple markers here when others are in the Homology class?</li>
+	         <li>Mouse PIRSF Members
+	            <ul><li>List markers in smart alpha order</li>
+	                <li>Link marker symbol to Marker Detail page</li>
 	            </ul></li>
 	         
-	         <li>Chr - mouse marker genetic or genomic chromosome?</li>
-	         <li>HomoloGene Class
-	            <ul><li>If the mouse marker in the PIRSF class is also in a HomloGene class - display the class ID</li>
-	                <li>If the mouse marker in the PIRSF class is NOT in a HomoloGene class - display "none"</li>
+	         <li>Chr - the front end database is different than MGD -- chromosome is stored in several places.  Use the following hierarchy to find the chromosome
+	            <ul><li>Chromosome stored with coordinates, if it exists</li>
+	                <li>Chromosome stored with cM, if it exists</li>
+	                <li>Chromosome stored with Cytoband, if it exists</li>
+	                <li>then what?  (Jon?)
+	            </ul> </li>
+	         <li>Homology Class
+	            <ul><li>If the mouse marker in the PIRSF class is also in a Homlogy class - display the class ID</li>
+	                <li>If the mouse marker in the PIRSF class is NOT in a Homology class - display "none"</li>
 	                <li>Link ID to the MGI Homology Class page</li>           
 	            </ul></li>
-	         <li>HomoloGene Class Homologs
-	            <ul><li>list the number of markers in the HomoloGene class for mouse, human, and rat (no other organisms).</li>
+	         <li>Homology Class, Mouse : Human : Rat
+	            <ul><li>list the number of markers in the Homology class for mouse, human, and rat (no other organisms).</li>
 	                <li>display 0 if there are none for a particular organism.</li>
-	                <li>when the PIRSF mouse member is not in a HomoloGene Class -- seems like this should be blank (but isn't on the mockup)??</li>
+	                <li>when the PIRSF mouse member is not in a Homology Class -- leave this field blank</li>
 	            </ul></li>
 	         <li>Select button for dowload/forward
 	         <ul><li>multiple members can be selected for download</li>
-	             <li>selecting a mouse member results in proteins being downloaded for mouse, human, and rat</li>
-	             <li>are they downloaded for all members of the HomoloGene class - including other mouse markers?</li>
-	             <li>protein sequences = all sequences marked as protein and associated to the markers regardless of provider?</li>
+	             <li>selecting a mouse member results in REPRESENTATIVE proteins being downloaded for mouse, human, and rat</li>
+	             <li>protein sequences are downloaded for all members of the Homology class - including other mouse markers</li>
+	             <li>if there are no representative proteins for a particular row of the table -- don't display the checkbox (yes, this cases exists)</li>
 	         </ul></li>
 	      </ol>
 	    </ul>
