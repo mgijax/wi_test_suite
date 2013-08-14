@@ -38,7 +38,7 @@
 	       <li>text blurb - see mockup for details</li>
 	       <li>MGI Superfamily Information - button that triggers a pop-up with text - see mockup for text.  Same style as Homology Class page.</li>
 	       <li>Download/Blast button controls - use standard found elsewhere</li>
-	       <li>Add mouse-over tag to the Counts column
+	       <li>Add mouse-over tag to the Counts column (just like found on Disease Detail page)
 	       <ul><li>"The number of mouse, human, and rat genes present in a cooresponding Homology Class are indicated."
 	       </ul></li>
 	    </ul></li>
@@ -141,7 +141,30 @@
     		   <li>Download all rows for a family with 3 or more members, PIRSFnnnnn.</li>
     		   <li>Download all rows for a family with just 1 member, PIRSFnnnnn.</li>
     		   <li>Download all rows for a family with a member that has no select box, PIRSFnnnnn.</li>
-    		   <li>test 1.2</li>
+    		   <li>Download a Uniprot sequence, PIRSFnnnnn</li>
+    		   <li>Download a RefSeq protein sequence, PIRSFnnnnn</li>
+    		   <li>Download a VEGA protein sequence, PIRSFnnnn</li>
+    		   <li>Download an Ensembl protein sequence, PIRSFnnnn</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify forward to MouseBlast of protein sequences
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Forward a single row for a family with more than one member and one that has sequences for all 3 organisms, PIRSFnnnnnn.</li>
+    		   <li>Forward 2 rows of a family page with more than 2 rows, PIRSFnnnnn.</li>
+    		   <li>Forward all rows for a family with 3 or more members, PIRSFnnnnn.</li>
+    		   <li>Forward all rows for a family with just 1 member, PIRSFnnnnn.</li>
+    		   <li>Forward all rows for a family with a member that has no select box, PIRSFnnnnn.</li>
+    		   <li>Forward a Uniprot sequence, PIRSFnnnnn</li>
+    		   <li>Forward a RefSeq protein sequence, PIRSFnnnnn</li>
+    		   <li>Forward a VEGA protein sequence, PIRSFnnnn</li>
+    		   <li>Forward an Ensembl protein sequence, PIRSFnnnn</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify page display, links, pop-ups, etc for all supported browsers (IE, firefox, safari, chrome)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display PIRSFnnnnnnn.  Verify display, links, pop-ups, etc.</li>
     	    </ol></li>
 		</ol>
 	</div>
