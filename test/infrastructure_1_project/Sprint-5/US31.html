@@ -98,73 +98,69 @@
     		<li>Verify page heading area: text, pop-ups, links
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display PIRSFnnnnnnn.  Verify links, pop-ups, and text using mockup.</li>
+    		   <li>Display PIRSF038172.  Verify links, pop-ups, and text using mockup.</li>
     	    </ol></li>
     	    
     	    <li>Verify PIRSF Members and Homology Class columns - display and links
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display PIRSF page with only 1 member with a homology class, PIRSFnnnnn.</li>
-    		   <li>Display PIRSF page with only 1 member that is not in a homology class, PIRSFnnnnn.</li>
-    		   <li>Display PIRSF page with multiple members all with a homology class, PIRSFnnnnn.</li>
-    		   <li>Display PIRSF page with multiple members and at least one without a homology class, PIRSFnnnnn</li>
+    		   <li>Display PIRSF page with only 1 member with a homology class, PIRSF000546.</li>
+    		   <li>Display PIRSF page with only 1 member that is not in a homology class, PIRSF002466.</li>
+    		   <li>Display PIRSF page with multiple members all with a homology class, PIRSF038195.</li>
+    		   <li>Display PIRSF page with multiple members and at least one without a homology class, PIRSF023714</li>
+    		   <li>Display PIRSF page to verify smart alpha sort, PIRSF001015.</li>
     	    </ol></li>
     	    
     	    <li>Verify Chromosome column
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display PIRSF page with a member that has UN chromosome, PIRSFnnnnn</li>
-    		   <li>Display PIRSF page with a member that has coordinates, PIRSFnnnnn</li>
-    		   <li>Display PIRSF page with a member that has no coordinates, PIRSFnnnnnn</li>
-    		   <li>Display PIRSF page with a member that has no coordinates and no cM position, but has a cytoband position, PIRSFnnnnnn</li>
-    		   <li>Display PIRSF page with a member that is on MT chromosome, PIRSFnnnnn</li>
+    		   <li>Display PIRSF page with a member that has UN chromosome, PIRSF001015</li>
+    		   <li>Display PIRSF page with a member that has coordinates, PIRSF009400</li>
+    		   <li>Display PIRSF page with a member that has no coordinates, PIRSF016410 and PIRSF005608</li>
+    		   <li>Display PIRSF page with a member that has no coordinates and no cM position, but has a cytoband position, PIRSF037964</li>
+    		   <li>Display PIRSF page with a member that is on MT chromosome, PIRSF001283</li>
     	    </ol></li>
     	    
     	    <li>Verify Homology Class counts column
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display a PIRSF page with a member that has 1 marker in each organism, PIRSFnnnnnn.</li>
-    		   <li>Display a PIRSF page with a member that has multiple non-mouse markers in its homology class, PIRSFnnnnn.</li>
-    		   <li>Display a PIRSF page with a member that has multiple mouse markers in its homology class, PIRSFnnnnn.</li>
-    		   <li>Display a PIRSF page with a member that has 0 human markers in its homology class, PIRSFnnnnn.</li>
-    		   <li>Display a PIRSF page with a member that has 0 rat markers in its homology class, PIRSFnnnnn.</li>
-    		   <li>Display a PIRSF page with a member that has only mouse markers in its homology class, PIRSFnnnnn.</li>
-    		   <li>Display a PIRSF page with a member that has no homology class and therefore no counts, PIRSFnnnnn.</li>
+    		   <li>Display a PIRSF page with a member that has 1 marker in each organism, PIRSF001734.</li>
+    		   <li>Display a PIRSF page with a member that has multiple non-mouse markers in its homology class, PIRSF001635.</li>
+    		   <li>Display a PIRSF page with a member that has multiple mouse markers in its homology class, PIRSF005491.</li>
+    		   <li>Display a PIRSF page with a member that has 0 human markers in its homology class, PIRSF006060.</li>
+    		   <li>Display a PIRSF page with a member that has 0 rat markers in its homology class, PIRSF037272.</li>
+    		   <li>Display a PIRSF page with a member that has only mouse markers in its homology class, PIRSF001015.</li>
+    		   <li>Display a PIRSF page with a member that has no homology class and therefore no counts, PIRSF003110.</li>
     	    </ol></li>
     	    
     	    <li>Verify download of protein sequences
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Verify the select all, invert, reset, and GO buttons.</li>
-    		   <li>Download a single row for a family with more than one member and one that has sequences for all 3 organisms, PIRSFnnnnnn.</li>
-    		   <li>Download 2 rows of a family page with more than 2 rows, PIRSFnnnnn.</li>
-    		   <li>Download all rows for a family with 3 or more members, PIRSFnnnnn.</li>
-    		   <li>Download all rows for a family with just 1 member, PIRSFnnnnn.</li>
-    		   <li>Download all rows for a family with a member that has no select box, PIRSFnnnnn.</li>
-    		   <li>Download a Uniprot sequence, PIRSFnnnnn</li>
-    		   <li>Download a RefSeq protein sequence, PIRSFnnnnn</li>
-    		   <li>Download a VEGA protein sequence, PIRSFnnnn</li>
-    		   <li>Download an Ensembl protein sequence, PIRSFnnnn</li>
+    		   <li>Download a single row for a family with more than one member and one that has sequences for all 3 organisms, PIRSF001199.</li>
+    		   <li>Download 2 rows of a family page with more than 2 rows, PIRSF001873.</li>
+    		   <li>Download all rows for a family with 3 or more members, PIRSF002051.</li>
+    		   <li>Download all rows for a family with just 1 member, PIRSF002089.</li>
+    		   <li>Download all rows for a family with a member that has no select box, PIRSF005491.</li>
+    		   <li>Download an Ensembl protein sequence, PIRSF006060</li>
     	    </ol></li>
     	    
     	    <li>Verify forward to MouseBlast of protein sequences
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Forward a single row for a family with more than one member and one that has sequences for all 3 organisms, PIRSFnnnnnn.</li>
-    		   <li>Forward 2 rows of a family page with more than 2 rows, PIRSFnnnnn.</li>
-    		   <li>Forward all rows for a family with 3 or more members, PIRSFnnnnn.</li>
-    		   <li>Forward all rows for a family with just 1 member, PIRSFnnnnn.</li>
-    		   <li>Forward all rows for a family with a member that has no select box, PIRSFnnnnn.</li>
-    		   <li>Forward a Uniprot sequence, PIRSFnnnnn</li>
-    		   <li>Forward a RefSeq protein sequence, PIRSFnnnnn</li>
-    		   <li>Forward a VEGA protein sequence, PIRSFnnnn</li>
-    		   <li>Forward an Ensembl protein sequence, PIRSFnnnn</li>
+    		   <li>Forward a single row for a family with more than one member and one that has sequences for all 3 organisms, PIRSF001199.</li>
+    		   <li>Forward 2 rows of a family page with more than 2 rows, PIRSF001873.</li>
+    		   <li>Forward all rows for a family with 3 or more members, PIRSF002051.</li>
+    		   <li>Forward all rows for a family with just 1 member, PIRSF002089.</li>
+    		   <li>Forward all rows for a family with a member that has no select box, PIRSF005491.</li>
+    		   
+    		   <li>Forward an Ensembl protein sequence, PIRSF006060</li>
     	    </ol></li>
     	    
     	    <li>Verify page display, links, pop-ups, etc for all supported browsers (IE, firefox, safari, chrome)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display PIRSFnnnnnnn.  Verify display, links, pop-ups, etc.</li>
+    		   <li>Display PIRSF001015.  Verify display, links, pop-ups, etc.</li>
     	    </ol></li>
 		</ol>
 	</div>
