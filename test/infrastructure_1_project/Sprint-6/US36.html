@@ -1,0 +1,201 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 36</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Convert Marker QF to fewi</h1>
+    <ul>
+        <li>User Story 36 - Convert Marker QF from javawi to fewi</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Re-implement the Marker QF in the fewi product (from java wi).  The Marker Summary is not part of this work.
+	   <ol><li>Headings, links, intro text
+	       <ul><li>heading = Genes and Markers Query Form</li>
+	           <li>user help link from ? - GENE_help.shtml</li>
+	           <li>text and anchor tag to output options</li>
+	           <li>Search and Reset buttons - top and bottom of page</li>
+	           
+	       </ul></li>
+	       <li>Gene/Marker ribbon
+	       <ol><li>Gene/Marker symbol/Name field
+	           <ol><li>operators
+	               <ul><li>contains (default)</li>
+	                   <li>equals</li>
+	                   <li>begins</li>
+	               </ul></li>
+	               <li>fields to search
+	               <ul><li>current & old symbols/names, synonyms, alleles, homologs (default)
+	                      <ul><li>homologs = what?; synonyms = just marker synonyms?; alleles = symbols and names and synonyms?</li></ul></li>
+	                   
+	                   <li>current symbols/names</li>
+	               </ul></li>
+	           </ol></li>
+	            <li>user help link on field label</li>
+	           
+	       </ol></li>
+	       <li>Feature Type ribbon
+	       <ol><li>list with counts</li>
+	           <li>check boxes</li>
+	           <li>Show/Hide</li>
+	           <li>Reset checks button</li>
+	           <li>Tool tip with term definition</li>
+	           <li>Text blurb and link to User Help</li>
+	       </ol></li>
+	       <li>Map position ribbon
+	       <ol><li>Chromosome
+	           <ol><li>Display multi-select box with all possible chromosomes (Any, 1-19, X, Y, XY, UN, MT)</li>
+	               <li>Default = Any</li>
+	           </ol></li>
+	           <li>Genome Coordinates
+	           <ol><li>Operator: between (remove pull-down with other choices)</li>
+	               <li>input box for coordinates</li>
+	               <li>display current mouse build from database</li>
+	               <li>pull down with bp or Mbp; default is bp</li>
+	               <li>display hints</li>
+	           </ol></li>
+	           <li>cM Position
+	           <ol><li>Operator: between (remove pull-down with other choices)</li>
+	               <li>location on page - since we are removing Cytoband should we move cM up next to Coordinate field?</li>
+	               <li>input box for cM values</li>
+	               <li>display hints</li>
+	           </ol></li>
+	           <li>Cytogenetic Band - Remove</li>
+	           <li>Marker Range
+	           <ol><li>Operator: between</li>
+	               <li>2 input boxes</li>
+	               <li>display hint</li>
+	           </ol></li>
+	       </ol></li>
+	       <li>Gene Ontology classifications ribbon
+	       <ol><li>GO classifications
+	           <ol><li>Operator: contains (remove pull-down with other choices)</li>
+	               <li>Input box for terms or IDs</li>
+	           </ol></li>
+	           <li>Ontology check boxes
+	           <ol><li>List 3 GO Ontologies with check boxes</li>
+	               <li>Default - all boxes checked</li>
+	           </ol></li>
+	           <li>Link to GO Browser</li>
+	       </ol></li>
+	       <li>Protein domains ribbon
+	       <ol><li>InterPro Protein Domains
+	           <ol><li>Input box for terms or IDs</li>
+	               <li>Operator - no operator is displayed - is this a contains search?</li>
+	           </ol></li>
+	           <li>Link to InterPro Public Report</li>
+	       </ol></li>
+	       <li>Mouse phenotypes & mouse models of human disease ribbon
+	       <ol><li>Phenotype box - search MP and OMIM terms and IDs
+	           <ul><li>AND and OR recognized</li>
+	               <li>quotes recognized</li>
+	               <li>partial word matching (contains?)</li>
+	           </ul></li>
+	           <li>Pop-up high-level System box
+	           <ul><li>Multi-select box with the MP high level terms</li>
+	               <li>Enter custom text into Pheno box for each selected term</li>
+	               <li>Pop-up - new window and small</li>
+	               <li>Text heading</li>
+	               <li>Help link - ? - ALLELE_phenotype_highlevel_help.shtml (not currently using the FAQ style pop-up for this help page - change?)</li>
+	               <li>Add to Query button - adds text and closes pop-up</li>
+	               <li>Cancel button - closes pop-up</li>
+	           </ul></li>
+	           <li>Link to MP Browser</li>
+	           <li>Link to OMIM Browser</li>
+	       </ol></li>
+	       <li>Clone Collection - Remove</li>
+	       <li>Sorting and output format ribbon
+	       <ol><li>Sort by
+	           <ol><li>Nomenclature - default</li>
+	               <li>Genome Coordinates</li>
+	               <li>cM Position - remove</li>
+	           </ol></li>
+	           <li>Maximum returned
+	           <ol><li>500 - default</li>
+	               <li>Input box to specify a custom return - remove</li>
+	               <li>no limit checkbox</li>
+	           </ol></li>
+	           <li>Output
+	           <ol><li>Web - default</li>
+	               <li>Excel</li>
+	               <li>Tab-delimited</li>
+	               <li>Tab-delimited to ftp site - remove</li>
+	           </ol></li>
+	       </ol></li>
+	   </ol></li>
+	   <li>Update links to Marker Query Form in MGI
+	   <ol><li>toolbar pull-down (webshare)</li>
+	       <li>All Search menu (python wi)</li>
+	       <li>No Results page for Marker Summary (python wi)</li>
+	       <li>Submission CGIs (mgi home)</li>
+	       <li>Mini homes, User Help, FAQ</li>
+	   </ol></li>
+	   <li>Forward old URL to new URL</li>
+	   <li>Display correctly in all supported browsers (IE, Firefox, Safari, Chrome)</li>
+	   
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   <li>test 1.2</li>
+    		   
+    	    </ol></li>
+    	    
+    	   
+    	  
+    	    
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
