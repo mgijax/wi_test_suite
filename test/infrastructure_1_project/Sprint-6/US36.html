@@ -34,64 +34,79 @@
 	   <ol><li>Headings, links, intro text
 	       <ul><li>heading = Genes and Markers Query Form</li>
 	           <li>user help link from ? - GENE_help.shtml</li>
-	           <li>text and anchor tag to output options</li>
+	           <li>text and anchor tag to output options ribbon</li>
 	           <li>Search and Reset buttons - top and bottom of page</li>
 	           
 	       </ul></li>
 	       <li>Gene/Marker ribbon
-	       <ol><li>Gene/Marker symbol/Name field
+	       <ol><li>Gene/Marker symbol/Name field (linked to User Help)
 	           <ol><li>operators
 	               <ul><li>contains (default)</li>
 	                   <li>equals</li>
 	                   <li>begins</li>
 	               </ul></li>
-	               <li>fields to search
+	               <li>Input box
+	               <ul><li>alpha string(s) valid -- ids are not accepted</li>
+	                   <li>comma-delimited lists accepted</li>
+	                   <li>quotation marks used for exact matching</li>
+	               </ul></li>
+	               <li>Search scope
 	               <ul><li>current & old symbols/names, synonyms, alleles, homologs (default)
-	                      <ul><li>homologs = what?; synonyms = just marker synonyms?; alleles = symbols and names and synonyms?</li></ul></li>
+	                      <ul><li>markers = marker names, symbols, synonyms</li>
+	                          <li>alleles = allele names</li>
+	                          <li>homologs = non-mouse symbols, names & human/rat synonyms</li>
+	                      </ul></li>
 	                   
-	                   <li>current symbols/names</li>
+	                   <li>current symbols/names (markers only)</li>
 	               </ul></li>
 	           </ol></li>
-	            <li>user help link on field label</li>
+	            
 	           
 	       </ol></li>
 	       <li>Feature Type ribbon
-	       <ol><li>list with counts</li>
-	           <li>check boxes</li>
-	           <li>Show/Hide</li>
-	           <li>Reset checks button</li>
-	           <li>Tool tip with term definition</li>
+	       <ol><li>Display the hierarchical list of Feature Types with counts</li>
+	           <li>Default - none checked which is the same as all checked</li>
+	           <li>check boxes - clicking a parent term also checks children terms</li>
+	           <li>minus signs - indicates discrete items at a lower level have been selected</li>
+	           <li>Show/Hide - Show: display all; Hide: display only single highest term; Default: custom, see Public </li>
+	           <li>Reset checks button - blanks out all boxes</li>
+	           <li>Tool tip with term definition - displays with mouse over; includes close option; displays for n secs</li>
 	           <li>Text blurb and link to User Help</li>
 	       </ol></li>
 	       <li>Map position ribbon
-	       <ol><li>Chromosome
+	       <ol><li>Genome Coordinates and cM position cannot be combined in one search</li>
+	           <li>Chromosome field (linked to User Help)
 	           <ol><li>Display multi-select box with all possible chromosomes (Any, 1-19, X, Y, XY, UN, MT)</li>
 	               <li>Default = Any</li>
 	           </ol></li>
-	           <li>Genome Coordinates
+	           <li>Genome Coordinates field (linked to User Help)
 	           <ol><li>Operator: between (remove pull-down with other choices)</li>
 	               <li>input box for coordinates</li>
-	               <li>display current mouse build from database</li>
-	               <li>pull down with bp or Mbp; default is bp</li>
+	               <li>formats for coordinates - hyphen or AND (e.g. nnn-nnn; nnn AND nnn)
+	               
+	               <li>pull down with bp or Mbp - default is bp</li>
 	               <li>display hints</li>
 	           </ol></li>
-	           <li>cM Position
+	           <li>cM Position field (linked to User Help)
 	           <ol><li>Operator: between (remove pull-down with other choices)</li>
 	               <li>location on page - since we are removing Cytoband should we move cM up next to Coordinate field?</li>
-	               <li>input box for cM values</li>
+	               <li>input box for cM values - hyphen or AND (e.g. nn-nn; nn AND nn)</li>
 	               <li>display hints</li>
 	           </ol></li>
 	           <li>Cytogenetic Band - Remove</li>
-	           <li>Marker Range
+	           <li>Marker Range field (linked to User Help)
 	           <ol><li>Operator: between</li>
-	               <li>2 input boxes</li>
+	               <li>2 input boxes - only current markers with coordinates</li>
+	               <li>QTLs not allowed</li>
+	               <li>Markers must be on same chromosome</li>
 	               <li>display hint</li>
 	           </ol></li>
 	       </ol></li>
 	       <li>Gene Ontology classifications ribbon
-	       <ol><li>GO classifications
+	       <ol><li>Gene Ontology (GO) Classifications field (linked to User Help) 
 	           <ol><li>Operator: contains (remove pull-down with other choices)</li>
 	               <li>Input box for terms or IDs</li>
+	               <li>AND valid for either terms or IDs -- markers returned must match both</li>
 	           </ol></li>
 	           <li>Ontology check boxes
 	           <ol><li>List 3 GO Ontologies with check boxes</li>
@@ -100,15 +115,16 @@
 	           <li>Link to GO Browser</li>
 	       </ol></li>
 	       <li>Protein domains ribbon
-	       <ol><li>InterPro Protein Domains
+	       <ol><li>InterPro Protein Domains field (linked to User Help)
 	           <ol><li>Input box for terms or IDs</li>
-	               <li>Operator - no operator is displayed - is this a contains search?</li>
+	               <li>Operator - this is a contains search -- change to display "contains" to match GO search??</li>
 	           </ol></li>
 	           <li>Link to InterPro Public Report</li>
 	       </ol></li>
 	       <li>Mouse phenotypes & mouse models of human disease ribbon
-	       <ol><li>Phenotype box - search MP and OMIM terms and IDs
-	           <ul><li>AND and OR recognized</li>
+	       <ol><li>Phenotype/Human Disease box (linked to User Help)
+	           <ul><li>search MP and OMIM terms and IDs</li>
+	               <li>AND and OR recognized</li>
 	               <li>quotes recognized</li>
 	               <li>partial word matching (contains?)</li>
 	           </ul></li>
@@ -126,17 +142,17 @@
 	       </ol></li>
 	       <li>Clone Collection - Remove</li>
 	       <li>Sorting and output format ribbon
-	       <ol><li>Sort by
+	       <ol><li>Sort by field (linked to User Help)
 	           <ol><li>Nomenclature - default</li>
 	               <li>Genome Coordinates</li>
 	               <li>cM Position - remove</li>
 	           </ol></li>
-	           <li>Maximum returned
+	           <li>Maximum returned field (linked to User Help)
 	           <ol><li>500 - default</li>
 	               <li>Input box to specify a custom return - remove</li>
 	               <li>no limit checkbox</li>
 	           </ol></li>
-	           <li>Output
+	           <li>Output field (linked to User Help)
 	           <ol><li>Web - default</li>
 	               <li>Excel</li>
 	               <li>Tab-delimited</li>
@@ -153,6 +169,8 @@
 	   </ol></li>
 	   <li>Forward old URL to new URL</li>
 	   <li>Display correctly in all supported browsers (IE, Firefox, Safari, Chrome)</li>
+	   <li>Verify "You searched for" display on Marker Summary has not changed</li>
+	   <li>Verify Marker Summary results are the same</li>
 	   
 	   
 	</ol>
