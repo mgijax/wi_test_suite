@@ -71,7 +71,8 @@
 	           <li>Show/Hide - Show: display all; Hide: display only single highest term; Default: custom, see Public </li>
 	           <li>Reset checks button - blanks out all boxes</li>
 	           <li>Tool tip with term definition - displays with mouse over; includes close option; displays for n secs</li>
-	           <li>Text blurb and link to User Help</li>
+	           <li>Text blurb and link to User Help - included for javascript and non-javascript versions</li>
+	           <li>Provide a display of this table for javascript disabled browsers.</li>
 	       </ol></li>
 	       <li>Map position ribbon
 	       <ol><li>Genome Coordinates and cM position cannot be combined in one search</li>
@@ -189,16 +190,127 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify headings, links, buttons at top of page and buttons at bottom of page
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
+    		   <li>Verify visual display - all browsers</li>
+    		   <li>Verify buttons, links - all browsers</li>
     		   
     	    </ol></li>
     	    
-    	   
+    	   <li>Verify the Gene/Marker Ribbon
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify visual display - all browsers</li>
+    		   <li>Verify buttons, links, defaults, options - all browsers</li>
+    		   <li>Search marker nomenclature text: CONTAINS xxxxx in CURRENT & OLD...  Expect: nn results.</li>
+    		   <li>Search allele name text: BEGINS xxxxx in CURRENT & OLD...  Expect: nn results.</li>
+    		   <li>Search homolog nomenclature: EQUALS xxxx in CURRENT & OLD...  Expect: nn results.</li>
+    		   <li>Search marker nomenclature:  CONTAINS xxxx in CURRENT SYMBOLS/NAMES.  Expect:  nn results</li>
+    		   
+    	    </ol></li>
     	  
+    	  <li>Verify the Feature Type Ribbon - javascript enabled
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify visual display - all browsers</li>
+    		   <li>Verify buttons, links, defaults, options - all browsers</li>
+    		   <li>Search using the default (all feature types valid for return).</li>
+    		   <li>Search after selecting all boxes.  Expect same results as if checking no boxes.</li>
+    		   <li>Search selecting just one child feature type.  Expect only markers of that feature type returned</li>
+    		   <li>Search selecting a parent feature type.  Expect markers with feature types that match parent and also children to be returned.</li>
+    		   <li>Search selecting multiple child feature types.  Expect only those specific types to be returned.</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify the Feature Type Ribbon - javascript disabled
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify visual display - all browsers</li>
+    		   <li>Verify buttons, links, defaults, options - all browsers</li>
+    		   <li>Search using the default (all feature types valid for return).</li>
+    		   <li>Search after selecting all boxes.  Expect same results as if checking no boxes.</li>
+    		   <li>Search selecting just one child feature type.  Expect only markers of that feature type returned</li>
+    		   <li>Search selecting a parent feature type.  Expect markers with feature types that match parent and also children to be returned. (I'm not sure how this works when javascript disabled)</li>
+    		   <li>Search selecting multiple child feature types.  Expect only those specific types to be returned.</li>
+    		   
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify the Map Position Ribbon
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify visual display - all browsers</li>
+    		   <li>Verify buttons, links, defaults, options - all browsers</li>
+    		   <li>Search by Chromosome nn only.  Expect nn results.</li>
+    		   <li>Search for multiple chromosomes: nn and nn.  Expect nn results.</li>
+    		   <li>Search by Chr and Coordinates: nn and nnn-nnn bp.  Expect nn results.</li>
+    		   <li>Search by Chr and Coordinates: nn and nnn AND nnn bp.  Expect nn results.</li>
+    		   <li>Search by Chr and Coordinates: nn and nn.n-nn.n Mbp.  Expect nn results.</li>
+    		   <li>Search by Chr and cM:  nn and between nn-nn.  Expect nn results.</li>
+    		   <li>Search by Chr and cM:  nn and between nn AND nn.  Expect nn results.</li>
+    		   <li>Search by Marker range:  between nn and nn.  Expect nn results.</li>
+    		   <li>Search by Chr, Coordinates, and cM.  Expect error message - not a valid search.</li>
+    		</ol></li>
+    		
+
+    	    <li>Verify the GO classifications Ribbon
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify visual display - all browsers</li>
+    		   <li>Verify buttons, links, defaults, options - all browsers</li>
+    		   <li>Search for a single GO ID, GO:nnn -- all ontologies.  Expect all markers associated to GO id.</li>
+    		   <li>Search for a single GO ID, GO:nnn -- deselect valid ontology.  Expect 0 results.</li>
+    		   <li>Search for multiple GO IDs, GO:nnn GO:nnn -- all ontologies.  Expect nn results.</li>
+    		   <li>Search for a single token, xxxx -- all ontologies.  Expect nn results.</li>
+    		   <li>Search for multiple tokens, xxx xxx -- all ontologies.  Expect nnn results.</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify the Protein domains Ribbon
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify visual display - all browsers</li>
+    		   <li>Verify buttons, links, defaults, options - all browsers</li>
+    		   <li>Search for a single InterPro ID, IPRnnn -- all ontologies.  Expect all markers associated to GO id.</li>
+    		   <li>Search for a single InterPro ID, IPRnnn -- deselect valid ontology.  Expect 0 results.</li>
+    		   <li>Search for multiple InterPro IDs, IPRnnn IPRnnn -- all ontologies.  Expect nn results.</li>
+    		   <li>Search for a single token, xxxx -- all ontologies.  Expect nn results.</li>
+    		   <li>Search for multiple tokens, xxx xxx -- all ontologies.  Expect nnn results.</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify the Phenotype Ribbon
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify visual display - all browsers</li>
+    		   <li>Verify buttons, links, defaults, options - all browsers</li>
+    		   <li>Search for a single MP id, MP:nnnn.</li>
+    		   <li>Search for a single OMIM id, nnnn</li>
+    		   <li>Search for multiple MP ids, MP:nnnn, MP:nnnn</li>
+    		   <li>Search for multiple OMIM ids, nnnnnn, nnnnn</li>
+    		   <li>Search for a single text token, xxxxxx</li>
+    		   <li>Search for multiple text tokens, xxxxx xxxxx</li>
+    		   <li>Search with text entered using the High-level pheno pop-up.  Select 1 high level term, xxxx.</li>
+    		   <li>Search with text entered using the High-level pheno pop-up.  Select 2 high level terms, xxxx and xxxx.</li>
+    		   <li>Search with text entered manually, xxxxxx, and using the pheno pop-up, term xxxxx.  Expect nn results.</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify the Sorting and Output Format Ribbon
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify visual display - all browsers</li>
+    		   <li>Verify buttons, links, defaults, options - all browsers</li>
+    		   <li>Verify Sort by default of Nomenclature.  Expect results sorted by Marker Symbol (smart alpha)</li>
+    		   <li>Modify Sort by to Genome Coordinates.  Expect results sorted by Chr/Coords.</li>
+    		   <li>Verify Maximum returned default of 500.  Expect limit of 500 results.</li>
+    		   <li>Modify Maximum returned to no limit.  Expect all search results returned.</li>
+    		   <li>Verify Output default of Web.  Expect results in Web format.</li>
+    		   <li>Modify Output to Excel.  Expect results in Excel format.</li>
+    		   <li>Modify Output to Tab-delimited.  Expect results in Tab format.</li>
+    		   
+    	    </ol></li>
     	    
 		</ol>
 	</div>
