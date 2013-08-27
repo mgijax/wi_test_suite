@@ -203,10 +203,10 @@
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
-    		   <li>Search marker nomenclature text: CONTAINS xxxxx in CURRENT & OLD...  Expect: nn results.</li>
-    		   <li>Search allele name text: BEGINS xxxxx in CURRENT & OLD...  Expect: nn results.</li>
-    		   <li>Search homolog nomenclature: EQUALS xxxx in CURRENT & OLD...  Expect: nn results.</li>
-    		   <li>Search marker nomenclature:  CONTAINS xxxx in CURRENT SYMBOLS/NAMES.  Expect:  nn results</li>
+    		   <li>Search marker nomenclature text: CONTAINS <i>pax</i> in CURRENT & OLD...  Expect: 58 results.</li>
+    		   <li>Search allele name text: BEGINS <i>yellow</i> in CURRENT & OLD...  Expect: 4 results.</li>
+    		   <li>Search homolog nomenclature: EQUALS <i>Dlx5</i> in CURRENT & OLD...  Expect: 2 results.</li>
+    		   <li>Search marker nomenclature:  CONTAINS <i>Trp53</i> in CURRENT SYMBOLS/NAMES.  Expect:  28 results</li>
     		   
     	    </ol></li>
     	  
@@ -242,14 +242,14 @@
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
-    		   <li>Search by Chromosome nn only.  Expect nn results.</li>
-    		   <li>Search for multiple chromosomes: nn and nn.  Expect nn results.</li>
-    		   <li>Search by Chr and Coordinates: nn and nnn-nnn bp.  Expect nn results.</li>
-    		   <li>Search by Chr and Coordinates: nn and nnn AND nnn bp.  Expect nn results.</li>
-    		   <li>Search by Chr and Coordinates: nn and nn.n-nn.n Mbp.  Expect nn results.</li>
-    		   <li>Search by Chr and cM:  nn and between nn-nn.  Expect nn results.</li>
-    		   <li>Search by Chr and cM:  nn and between nn AND nn.  Expect nn results.</li>
-    		   <li>Search by Marker range:  between nn and nn.  Expect nn results.</li>
+    		   <li>Search by Chromosome MT only.  Expect 42 results.</li>
+    		   <li>Search for multiple chromosomes: nn and nn.  Expect nn results. (broken on public - entered a TR)</li>
+    		   <li>Search by Chr and Coordinates: chr=5 and coords=28440000-28470000 bp.  Expect 4 results.</li>
+    		   <li>Search by Chr and Coordinates: chr=5 and coords=28440000 AND 28470000 bp.  Expect 4 results.</li>
+    		   <li>Search by Chr and Coordinates: chr=2 and Coords=125.0-126.0 Mbp.  Expect 33 results.</li>
+    		   <li>Search by Chr and cM:  chr=6 and between 12.2-15.5.  Expect 162 results.</li>
+    		   <li>Search by Chr and cM:  chr=6 and between 12.2 and 15.5.  Expect 162 results. (fyi-Public WI requires AND be in lower case)</li> 
+    		   <li>Search by Marker range:  between Vat1 and Nbr1.  Expect 14 results.</li>
     		   <li>Search by Chr, Coordinates, and cM.  Expect error message - not a valid search.</li>
     		</ol></li>
     		
