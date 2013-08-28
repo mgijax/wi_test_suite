@@ -259,11 +259,13 @@
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
-    		   <li>Search for a single GO ID, GO:nnn -- all ontologies.  Expect all markers associated to GO id.</li>
-    		   <li>Search for a single GO ID, GO:nnn -- deselect valid ontology.  Expect 0 results.</li>
-    		   <li>Search for multiple GO IDs, GO:nnn GO:nnn -- all ontologies.  Expect nn results.</li>
-    		   <li>Search for a single token, xxxx -- all ontologies.  Expect nn results.</li>
-    		   <li>Search for multiple tokens, xxx xxx -- all ontologies.  Expect nnn results.</li>
+    		   <li>Search for a single GO ID, GO:0030375 -- all ontologies.  Expect 5 markers associated to GO id.</li>
+    		   <li>Search for a single GO ID, GO:0030375 -- deselect Molecular Function ontology.  Expect 0 results.</li>
+    		   <li>Search for multiple GO IDs, GO:0030375 and GO:0030518 -- all ontologies.  Expect 3 results.</li>
+    		   <li>Search for multiple GO IDs, GO:0030375 and GO:0030518 and GO:001659 -- all ontologies.  Expect 2 results.</li>
+    		   <li>Search for a single token, deaminase -- all ontologies.  Expect 31 results.</li>
+    		   <li>Search for multiple tokens, <i>AMP deaminase activity</i> -- all ontologies.  Expect 3 results.</li>
+    		   <li>Search for multiple terms using the AND operator, <i>cadherin binding AND Kit signaling pathway</i> -- all ontologies.  Expect 1 result.</li>
     		   
     	    </ol></li>
     	    
@@ -272,11 +274,11 @@
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
-    		   <li>Search for a single InterPro ID, IPRnnn -- all ontologies.  Expect all markers associated to GO id.</li>
-    		   <li>Search for a single InterPro ID, IPRnnn -- deselect valid ontology.  Expect 0 results.</li>
-    		   <li>Search for multiple InterPro IDs, IPRnnn IPRnnn -- all ontologies.  Expect nn results.</li>
-    		   <li>Search for a single token, xxxx -- all ontologies.  Expect nn results.</li>
-    		   <li>Search for multiple tokens, xxx xxx -- all ontologies.  Expect nnn results.</li>
+    		   <li>Search for a single InterPro ID, IPR000007.  Expect 5 results.</li>
+    		   <li>Search for an invalid InterPro ID, IPR0000xx.  Expect 0 results.</li>
+    		   <li>Search for multiple InterPro IDs IPR000007 AND IPR005398.  Expect 3 results.</li>
+    		   <li>Search for a single token, <i>tubby</i>.  Expect 6 results.</li>
+    		   <li>Search for multiple tokens, <i>tubby AND scramblase</i>.  Expect 1 result.</li>
     		   
     	    </ol></li>
     	    
@@ -285,15 +287,25 @@
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
-    		   <li>Search for a single MP id, MP:nnnn.</li>
-    		   <li>Search for a single OMIM id, nnnn</li>
-    		   <li>Search for multiple MP ids, MP:nnnn, MP:nnnn</li>
-    		   <li>Search for multiple OMIM ids, nnnnnn, nnnnn</li>
-    		   <li>Search for a single text token, xxxxxx</li>
-    		   <li>Search for multiple text tokens, xxxxx xxxxx</li>
-    		   <li>Search with text entered using the High-level pheno pop-up.  Select 1 high level term, xxxx.</li>
-    		   <li>Search with text entered using the High-level pheno pop-up.  Select 2 high level terms, xxxx and xxxx.</li>
-    		   <li>Search with text entered manually, xxxxxx, and using the pheno pop-up, term xxxxx.  Expect nn results.</li>
+    		   <li>Search for a single MP id, MP:0000588. Expect 21 results.</li>
+    		   <li>Search for a single MP id, MP:0004412.  Expect 14 results.</li>
+    		   <li>Search for multiple MP ids - using AND: MP:0000588 AND MP:000007. Expect 8 results.</li>
+    		   <li>Search for multiple MP ids - using OR:   MP:0000588 OR MP:0004412.  Expect 35 results.</li>
+    		   <li>Search for a single OMIM id, 125800.  Expect 7 results.</li>
+    		   <li>Search for a single OMIM id, 613282.  Expect 4 results.</li>
+    		   <li>Search for multiple OMIM ids - AND: 125800 AND 613282.  Expect 1 result. -- Doesn't work on Public (no results returned)</li>
+    		   <li>Search for multiple OMIM ids - OR: 125800 OR 613282.  Expect 10 results.</li>
+    		   <li>Search for a single text token, <i>albino</i>.  Expect 82 results.</li>
+    		   <li>Search for a single text token, <i>alzheimer</i>.  Expect 98 results.</li>
+    		   <li>Search for multiple text tokens, <i>Alstrom Syndrome</i>.  Expect 1 result.</li>
+    		   <li>Search for multiple text tokens, <i>Curly whiskers</i>.  Expect 95 results.</li>
+    		   <li>Search using quotes, "curly whiskers".  Expect 80 results.</li>
+    		   <li>Search using quotes, "Curly whiskers" AND "eyelids open at birth" .  Expect 15 results.</li>
+    		   <li>Search using quotes, "Curly whiskers" OR "eyelids open at birth" .  Expect 181 results.</li>
+    		   <li>Search with text entered using the High-level pheno pop-up.  Select 1 high level term, <i>Other Phenotype</i>. Expect 442 results.</li>
+    		   <li>Search with text entered using the High-level pheno pop-up.  Select 2 high level terms, <i>Craniofacial</i> and <i>Pigmentation</i>. Expect 182 results</li>
+    		   <li>Search with text entered manually, <i>albino</i>, and using the pheno pop-up, term <i>Vision/Eye</i>.  Expect 37 results.</li>
+    		   <li>Select every term on the pop-up to verify the text generated matches Public.</li> 
     		   
     	    </ol></li>
     	    
