@@ -90,7 +90,7 @@
 	           </ol></li>
 	           <li>cM Position field (linked to User Help)
 	           <ol><li>Operator: between (remove pull-down with other choices)</li>
-	               <li>location on page - since we are removing Cytoband should we move cM up next to Coordinate field?</li>
+	               <li>location on page - since we are removing Cytoband move cM up next to Coordinate field</li>
 	               <li>input box for cM values - hyphen or AND (e.g. nn-nn; nn AND nn)</li>
 	               <li>display hints</li>
 	           </ol></li>
@@ -118,7 +118,7 @@
 	       <li>Protein domains ribbon
 	       <ol><li>InterPro Protein Domains field (linked to User Help)
 	           <ol><li>Input box for terms or IDs</li>
-	               <li>Operator - this is a contains search -- change to display "contains" to match GO search??</li>
+	               <li>Operator - this is a contains search -- change to display "contains" to match GO search.</li>
 	           </ol></li>
 	           <li>Link to InterPro Public Report</li>
 	       </ol></li>
@@ -164,7 +164,7 @@
 	   <li>Update links to Marker Query Form in MGI
 	   <ol><li>toolbar pull-down (webshare)</li>
 	       <li>All Search menu (python wi)</li>
-	       <li>No Results page for Marker Summary (python wi)</li>
+	       <li>Marker Summary (Modify Search link) (python wi)</li>
 	       <li>Submission CGIs (mgi home)</li>
 	       <li>Mini homes, User Help, FAQ</li>
 	   </ol></li>
@@ -191,15 +191,15 @@
 		<ol>
     		
     		<li>Verify headings, links, buttons at top of page and buttons at bottom of page
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/4/2013 - Browser back button clears some fields</p>  
     		<ol>
-    		   <li>Verify visual display - all browsers</li>
+    		   <li>Verify visual display - all browsers - Safari/MAC, Firefox/MAC, IE/PC, Firefox/PC</li>
     		   <li>Verify buttons, links - all browsers</li>
     		   
     	    </ol></li>
     	    
     	   <li>Verify the Gene/Marker Ribbon
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/4/2013</p>    
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
@@ -211,7 +211,7 @@
     	    </ol></li>
     	  
     	  <li>Verify the Feature Type Ribbon - javascript enabled
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/4/2013</p>    
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
@@ -224,7 +224,7 @@
     	    </ol></li>
     	    
     	    <li>Verify the Feature Type Ribbon - javascript disabled
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/4/2013 - link to User Help broken</p>    
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
@@ -238,7 +238,7 @@
     	    </ol></li>
     	    
     	    <li>Verify the Map Position Ribbon
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/4/2013</p>    
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
@@ -255,14 +255,14 @@
     		
 
     	    <li>Verify the GO classifications Ribbon
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/4/2013</p>    
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
     		   <li>Search for a single GO ID, GO:0030375 -- all ontologies.  Expect 5 markers associated to GO id.</li>
     		   <li>Search for a single GO ID, GO:0030375 -- deselect Molecular Function ontology.  Expect 0 results.</li>
     		   <li>Search for multiple GO IDs, GO:0030375 and GO:0030518 -- all ontologies.  Expect 3 results.</li>
-    		   <li>Search for multiple GO IDs, GO:0030375 and GO:0030518 and GO:001659 -- all ontologies.  Expect 2 results.</li>
+    		   <li>Search for multiple GO IDs, GO:0030375 and GO:0030518 and GO:0016922 -- all ontologies.  Expect 2 results.</li>
     		   <li>Search for a single token, deaminase -- all ontologies.  Expect 31 results.</li>
     		   <li>Search for multiple tokens, <i>AMP deaminase activity</i> -- all ontologies.  Expect 3 results.</li>
     		   <li>Search for multiple terms using the AND operator, <i>cadherin binding AND Kit signaling pathway</i> -- all ontologies.  Expect 1 result.</li>
@@ -270,7 +270,7 @@
     	    </ol></li>
     	    
     	    <li>Verify the Protein domains Ribbon
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/4/2013</p>   
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
@@ -283,7 +283,7 @@
     	    </ol></li>
     	    
     	    <li>Verify the Phenotype Ribbon
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/4/2013 - user help link broken in High level term pop-up</p>  
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
@@ -312,11 +312,11 @@
     	    </ol></li>
     	    
     	    <li>Verify the Sorting and Output Format Ribbon
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/4/2013</p>    
     		<ol>
     		   <li>Verify visual display - all browsers</li>
     		   <li>Verify buttons, links, defaults, options - all browsers</li>
-    		   <li>Verify Sort by default of Nomenclature.  Expect results sorted by Marker Symbol (smart alpha)</li>
+    		   <li>Verify Sort by default of Nomenclature.  Expect results sorted by matching text</li>
     		   <li>Modify Sort by to Genome Coordinates.  Expect results sorted by Chr/Coords.</li>
     		   <li>Verify Maximum returned default of 500.  Expect limit of 500 results.</li>
     		   <li>Modify Maximum returned to no limit.  Expect all search results returned.</li>
@@ -325,6 +325,12 @@
     		   <li>Modify Output to Tab-delimited.  Expect results in Tab format.</li>
     		   
     	    </ol></li>
+    	    
+    	    <li>Verify links to Marker QF
+    	    <p concordion:assertTrue="false">FAIL - jlewis 9/4/2013 - Allele Submission form broken; waiting to check mini homes, user help, faqs</p>    
+    		<ol>
+    		   <li>Check toolbar, menus, Marker Summary, Submission CGIs, Minihomes, User Help, FAQ</li>
+    		</ol></li>
     	    
 		</ol>
 	</div>
