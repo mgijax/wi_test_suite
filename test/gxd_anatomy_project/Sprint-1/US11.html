@@ -34,25 +34,34 @@
 	    <li>Display information about an EMAPA term on the new EMAPA Term Detail page.
 	    <ol><li>Anatomy Term - display as found in OBO file</li>
 	        <li>applicable Theiler Stages - display stages in range from OBO file</li>
-	        <li>EMAPA id - displays as found in OBO file, EMAPA:nnnnn</li>
+	        <li>EMAPA id - displays as found in OBO file, EMAPA:nnnnn (primary id only)</li>
 	        <li>Synonym(s) - display synonyms from OBO file, if present, in comma-delimited list.</li>
-	        <li>Definition - display definition from OBO file, if present.  What is the max length?</li>
+	        <li>Definition - display definition from OBO file, if present.  Max length = 2048.</li>
 	        <li>Parent(s) - display edge and term of each parent from OBO file</li>
 	    </ol></li>
 	    <li>Display page heading and sub-heading as defined by GXD - see PPT mockup.</li>
 	    <li>See PPT EMAPA mockup for LAF (static text, field order, page layout vision).</li>
 	    <li>Provide user a means to link to the stage-dependent term for a specific Theiler stage
 	    <ol><li>Use a pull down list that includes TS # and dpc values - see PPT mockup</li>
-	        <li>Only allow a single selection that acts as a link to the EMAPS term</li>
-	        <li><s>Provide mouse over text with dpc info that matches what is done on the GXD QF</s></li>
+	        <li>List of Theiler stages is limited to the valid range of stages for this term and each link to an EMAPS page</li>
+	        <li>Only allow a single selection</li>
+	        <li>Provide mouse over text with dpc info that matches what is done on the GXD QF</li>
 	        <li>Provide help text next to pull-down as defined by GXD.</li>
+	        <li>Theiler stages in pull-downs and pop-ups do not display a leading zero when a single digit.</li>
 	    </ol></li>
-	    <li>Provide user a link to browse Stage Descriptions at www.emouseatlas.org (should link bring up a new tab or what?)</li>
+	    <li>Provide user a link to browse Stage Descriptions at www.emouseatlas.org (bring up a new tab)</li>
 	    <li>Provide user a means to link to the EMAPA parent term or terms for the displayed EMAPA child term.
 	    <ol><li>List each parent on it's own line</li>
-	        <li>List is-a parents before part-of parents (any secondary order?)</li>
+	        <li>List is-a parents before part-of parents (no secondary order)</li>
 	        <li>Link to the EMAPA parent term</li>
 	    </ol></li>
+	    <li>Include meta data values for Search Engine Optimization (SEO) -- proposal in review.
+	    <ol><li>Title</li>
+	        <li>Description</li>
+	        <li>Keywords</li>
+	        <li>Robot - NOODP and NOYDIR</li>
+	    </ol></li>
+	    <li>Display should be useable in all supported Browsers (IE, Firefox, Safari)</li>
 	    
 	   
 	   
