@@ -35,34 +35,37 @@
 	    <ol><li>Anatomy Term - display as found in OBO file</li>
 	        <li>Theiler Stage - display stage of the term</li>
 	        <li>EMAPS id - displays the generated EMAPS ID derived by adding a 2 digit TS at the end of an EMAPA id -- EMAPS:nnnnnSS (primary id only)</li>
-	        <li>Synonym(s) - display synonyms found in OBO file, if present, in comma-delimited list.</li>
-	        <li>Definition - display definition found in OBO file, if present.  Length - same as other OBO Vocabs - NN characters.</li>
+	        <li>Synonym(s) - display synonyms from OBO file, if present, in comma-delimited list.</li>
+	        <li>Definition - display definition from OBO file, if present.  Length - same as other OBO Vocabs - 2048 characters.</li>
 	        <li>Parent(s) - display edge and term of each parent from OBO file</li>
 	    </ol></li>
 	    <li>Display page heading and sub-heading as defined by GXD - see PPT mockup.</li>
-	    <li>See PPT EMAPA mockup for LAF (static text, field order, page layout vision).</li>
+	    <li>See PPT EMAPS mockup for LAF (static text, field order, page layout vision).</li>
 	    <li>Provide user a means to link to the other related pages for this term
 	    <ol><li>Use a pull down list that includes TS # and dpc values - see PPT mockup</li>
-	        <li>List of Theiler stages is limited to the valid range of stages for this term and  each link to a EMAPS page</li>
-	        <li>Include an option for the user to link to the corresponding EMAPA page for this term</li>
+	        <li>List of Theiler stages is limited to the valid range of stages for this term and each one links to a EMAPS page</li>
 	        <li>Only allow a single selection</li>
 	        <li>Provide mouse over text with dpc info that matches what is done on the GXD QF</li>
 	        <li>Provide help text next to pull-down as defined by GXD.</li>
 	        <li>Theiler stages in pull-downs and pop-ups do not display a leading zero when a single digit.</li>
+	        <li>Include an option for the user to link to the corresponding EMAPA page for this term</li>
 	    </ol></li>
-	    <li>Provide user a link to browse Stage Descriptions at www.emouseatlas.org (bring up a new tab)</li>
+	    <li>Provide user a link to browse Stage Descriptions at www.emouseatlas.org (bring up a new window)</li>
 	    <li>Provide user a means to link to the EMAPS parent term or terms for the displayed EMAPS child term.
-	    <ol><li>List each parent on it's own line</li>
+	    <ol><li>List each parent on its own line</li>
 	        <li>List is-a parents before part-of parents (no secondary order)</li>
 	        <li>Link to the EMAPS parent term</li>
 	    </ol></li>
-	    <li>Include meta data values for Search Engine Optimization (SEO) -- proposal in review.
-	    <ol><li>Title</li>
-	        <li>Description</li>
-	        <li>Keywords</li>
-	        <li>Robot - NOODP and NOYDIR</li>
-	    </ol></li>
 	    <li>Display should be useable in all supported Browsers (IE, Firefox, Safari)</li>
+	    <li>Include meta data values for Search Engine Optimization (SEO).
+	    <ol><li>Title
+	        <ul><li>{term} + “Anatomy Term GXD Mouse  (” +  {emapa id} + ")" </li></ul></li>
+	        <li>Description
+	        <ul><li>“View ” +  {term}  +  “ anatomical term: Theiler stages, synonyms, definition, parent terms, and tree structure.”  </li></ul></li>
+	        <li>Keywords
+	        <ul><li> “mouse, mice, murine, Mus, anatomical, anatomy, term, tree " +  {term}</li></ul></li>
+	        <li>Robot - NOODP and NOYDIR (see Allele Detail page for syntax)</li>
+	    </ol></li>
 	   
 	   
 	</ol>
