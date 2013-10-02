@@ -30,8 +30,30 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	    <li>Req 1</li>
-	    <li>Req 2
+	    <li>Display EMAPA terms/ids that are part of the stage-independent Mouse Anatomy vocabulary</li>
+	    <li>Display information about an EMAPA term on the new EMAPA Term Detail page.
+	    <ol><li>Anatomy Term - display as found in OBO file</li>
+	        <li>applicable Theiler Stages - display stages in range from OBO file</li>
+	        <li>EMAPA id - displays as found in OBO file, EMAPA:nnnnn</li>
+	        <li>Synonym(s) - display synonyms from OBO file, if present, in comma-delimited list.</li>
+	        <li>Definition - display definition from OBO file, if present.  What is the max length?</li>
+	        <li>Parent(s) - display edge and term of each parent from OBO file</li>
+	    </ol></li>
+	    <li>Display page heading and sub-heading as defined by GXD - see PPT mockup.</li>
+	    <li>See PPT EMAPA mockup for LAF (static text, field order, page layout vision).</li>
+	    <li>Provide user a means to link to the stage-dependent term for a specific Theiler stage
+	    <ol><li>Use a pull down list that includes TS # and dpc values - see PPT mockup</li>
+	        <li>Only allow a single selection that acts as a link to the EMAPS term</li>
+	        <li><s>Provide mouse over text with dpc info that matches what is done on the GXD QF</s></li>
+	        <li>Provide help text next to pull-down as defined by GXD.</li>
+	    </ol></li>
+	    <li>Provide user a link to browse Stage Descriptions at www.emouseatlas.org (should link bring up a new tab or what?)</li>
+	    <li>Provide user a means to link to the EMAPA parent term or terms for the displayed EMAPA child term.
+	    <ol><li>List each parent on it's own line</li>
+	        <li>List Is-a parents before part-of parents (any secondary order?)</li>
+	        <li>Link to the EMAPA parent term</li>
+	    </ol></li>
+	    
 	   
 	   
 	</ol>
