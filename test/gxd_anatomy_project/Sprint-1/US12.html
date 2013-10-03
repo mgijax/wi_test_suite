@@ -84,12 +84,67 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify EMAPS term and id displayed correctly - labels, LAF, data.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
+    		   <li>Display term with parents and children, EMAPS:2837321.  Expect term, renal artery - stage 21.</li>
+    		   <li>Display term with no children, EMAPS:3000328.  Expect term, smooth muscle layer of renal artery - stage 28.</li>
+    		   <li>Display term with no parents, EMAPS:001.  Expect term, Anatomical Structure - stage 1.</li>
+    		   <li>Display long term, EMAPS:3156323.  Expect term, developing vasculature of urinary system GROUP - stage 23.</li>
+    		   <li>Attemp to display a term with an invalid stage, EMAPS:1610309.  Expect no term returned.</li>
     	    </ol></li>
+    	    
+    	    <li>Verify Synonyms and Definition are displayed correctly - labels, LAF, data.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display term with synonyms and definition, EMAPS:1605106.  Expect term, primitive endoderm - stage 6</li>
+    		   <li>Display term with only 1 synonym and no definition, EMAPS:3000327.  Expect term, smooth muscle layer of renal artery - stage 27</li>
+    		   <li>Display term with many synonyms and no definition, EMAPS:2999521.  Expect term, endothelium of renal artery - stage 21</li>
+    		   <li>Display term with no synonyms and a definition, EMAPS:1603201.  Expect term, first polar body - stage 01</li>
+    		   <li>Display term with no synonyms and no definition, EMAPS:1736622.  Expect term, urinary system - stage 22</li>
+    		   <li>Display term with a long definition, EMAPS:2845728.  Expect term, renal vasculature - stage 28</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Theiler stage range (Present at) and pull down list include correct stages.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display term with a stage range of 1, EMAPS:3185901.  Expect term, polar body group - stage 1</li>
+    		   <li>Display term with all 28 stages, EMAPS:2576511.  Expect term, Mouse - stage 11</li>
+    		   <li>Display term with 2 stages, EMAPS:1605107.  Expect term, primitive endoderm - stage 7</li>
+    		   <li>Display term with 6 stages, EMAPS:3143625.  Expect term, renal arterial system - stage 25</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify parents (display, order, links)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display term with no parents, EMAPS:011.  Expect term, Anatomical Structure - stage 11</li>
+    		   <li>Display term with 1 parent, EMAPS:1736619.  Expect term, urinary system - stage 19</li>
+    		   <li>Display term with multiple part-of parents, EMAPS:1610313.  Expect term, organ system - stage 13</li>
+    		   <li>Display term with both is-a and part-of parents, EMAPS:2837326.  Expect term, renal artery - stage 26</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Theiler stage pull-down UI (display, order, links, static text, scrollbar)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display term with a stage range of 1, EMAPS:3185901.  Expect term, polar body group - stage 1.</li>
+    		   <li>Display term with all 28 stages, EMAPS:2576503.  Expect term, Mouse - stage 3; link to stage 15.</li>
+    		   <li>Display term with 2 stages, EMAPS:1605107.  Expect term, primitive endoderm - stage 7; link to stage 6; link to EMAPA term.</li>
+    		   <li>Display term with 6 stages, EMAPS:3143624.  Expect term, renal arterial system - stage 24; link to stage 23</li>
+    		   <li>Display term, EMAPS:1610304.  Expect term, embryo - stage 4; link to stage 26; link to EMAPA term</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify general page features - headings, labels, help text, term highlighting.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display term with all fields, EMAPS:1605106.  Expect term, primitive endoderm - stage 6</li>
+    		   <li>Display term with minimal fields, EMAPS:028.  Expect term, Anatomical Structure - stage 28</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify SEO meta tags and Title tag
+    		<p concordion:assertTrue="false">new test</p>  
+    		
+    		<li>Verify page works on all supported browsers.
+    		<p concordion:assertTrue="false">new test</p>  
     	    
     	  
 		</ol>

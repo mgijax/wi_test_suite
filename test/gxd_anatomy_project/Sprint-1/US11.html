@@ -91,18 +91,19 @@
     		   <li>Display term with parents and children, EMAPA:28373.  Expect term, renal artery.</li>
     		   <li>Display term with no children, EMAPA:30003.  Expect term, smooth muscle layer of renal artery.</li>
     		   <li>Display term with no parents, EMAPA:0.  Expect term, Anatomical Structure.</li>
-    		   <li>Display long term, EMAPA:31563.  Expect term, developing vasculature of urinary system GROUP.</li>.
+    		   <li>Display long term, EMAPA:31563.  Expect term, developing vasculature of urinary system GROUP.</li>
+    		   <li>Attempt to display an invalid term, EMAPA:99999.  Expect no valid term displayed.</li>
     	    </ol></li>
     	    
     	    <li>Verify Synonyms and Definition are displayed correctly - labels, LAF, data.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Display term with synonyms and definition, EMAPA:16051.  Expect term, primitive endoderm</li>
-    		   <li>Display term with only 1 synonym and no definition, EMAPA:nnnnn.  Expect term, nnnn</li>
-    		   <li>Display term with many synonyms and no definition, EMAPA:nnnnn.  Expect term, nnnn</li>
+    		   <li>Display term with only 1 synonym and no definition, EMAPA:30003.  Expect term, smooth muscle layer of renal artery</li>
+    		   <li>Display term with many synonyms and no definition, EMAPA:29995.  Expect term, endothelium of renal artery</li>
     		   <li>Display term with no synonyms and a definition, EMAPA:16032.  Expect term, first polar body</li>
     		   <li>Display term with no synonyms and no definition, EMAPA:17366.  Expect term, urinary system</li>
-    		   <li>Display term with a long definition, EMAPA:nnnnn.  Expect term, nnnnn</li>
+    		   <li>Display term with a long definition, EMAPA:28457.  Expect term, renal vasculature</li>
     	    </ol></li>
     	    
     	    <li>Verify Theiler stage range (Present at) and pull down list include correct stages.
@@ -119,17 +120,17 @@
     		<ol>
     		   <li>Display term with no parents, EMAPA:0.  Expect term, Anatomical Structure</li>
     		   <li>Display term with 1 parent, EMAPA:17366.  Expect term, urinary system</li>
-    		   <li>Display term with multiple part-of parents, EMAPA:28373.  Expect term, renal artery</li>
-    		   <li>Display term with both is-a and part-of parents, EMAPA:nnnnn.  Expect term, nnnnn</li>
+    		   <li>Display term with multiple part-of parents, EMAPA:16103.  Expect term, organ system</li>
+    		   <li>Display term with both is-a and part-of parents, EMAPA:28373.  Expect term, renal artery</li>
     	    </ol></li>
     	    
     	    <li>Verify Theiler stage pull-down UI (display, order, links, static text, scrollbar)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display term with a stage range of 1, EMAPA:31859.  Expect term, polar body group</li>
-    		   <li>Display term with all 28 stages, EMAPA:25765.  Expect term, Mouse</li>
-    		   <li>Display term with 2 stages, EMAPA:16051.  Expect term, primitive endoderm</li>
-    		   <li>Display term with 6 stages, EMAPA:31436.  Expect term, renal arterial system</li>
+    		   <li>Display term with a stage range of 1, EMAPA:31859.  Expect term, polar body group; link to EMAPS - stage 1</li>
+    		   <li>Display term with all 28 stages, EMAPA:25765.  Expect term, Mouse; link to EMAPS - stages 1, 28, 11</li>
+    		   <li>Display term with 2 stages, EMAPA:16051.  Expect term, primitive endoderm; link to EMAPS - stages 6, 7</li>
+    		   <li>Display term with 6 stages, EMAPA:31436.  Expect term, renal arterial system; link to EMAPS - stages 23, 25, 28</li>
     	    </ol></li>
     	    
     	    <li>Verify general page features - headings, labels, help text, term highlighting.
