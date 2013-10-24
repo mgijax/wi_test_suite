@@ -45,13 +45,13 @@
 	    <li>Provide OPEN and CLOSE controls for all terms with children - using them does not alter the selected term </li>
 	    <li>All ancestors of the "selected term" are displayed in the Open mode -- including all generations up to the top most term, Mouse.</li>
 	    <li>Child terms are listed in alphanumeric order</li>
-	    <li>The Browser's back button uses default behavior</li>
 	    <li>Scroll bars
-	    <ol><li>Provide vertical and horizontal scroll bars as needed.</li>
+	    <ul><li>Provide vertical and horizontal scroll bars as needed.</li>
 	        <li>Only scroll the Tree portion of the page - the Term Detail stays in place</li>
 	        <li>Position the scroll bars so that the selected term can be seen by the user when the default view is generated.</li>
-	    </ol></li>
-	    <li>Display the Tree View as expected in all supported browsers (IE, Firefox, Safari)</li>
+	    </ul></li>
+	    <li>Display the Tree View as expected in all supported browsers (IE, Firefox, Safari)
+	    <ul><li>The Browser's back button uses default behavior</li></ul></li>
 	    
 	    
 	   
@@ -72,7 +72,7 @@
 		
 		<ol>
     		
-    		<li>Verify Tree View default display for EMAPA terms (indents, open/close icons, open/close defaults)
+    		<li>Verify Tree View default display for EMAPA terms (indents, term detail, default path, open/close rules, child order, headings)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>EMAPA term with single parent and children, EMAPA:nnnnn.</li>
@@ -82,20 +82,82 @@
     		   <li>EMAPA term with multiple parents, no children, EMAPA:nnnnn.</li>
     		   <li>EMAPA term with parent(s), children, no grandchildren, EMAPA:nnnnn.</li>
     		   <li>EMAPA term with parent(s), children, grandchildren, EMAPA:nnnnn.</li>
+    		   <li>Invalid EMAPA term, EMAPA:X</li>
     	    </ol></li>
     	    
-    	   <li>Verify Tree View default display for EMAPS terms (indents, open/close icons, open/close defaults)
+    	   <li>Verify Tree View default display for EMAPS terms (indents, term detail, default path, open/close rules, child order, headings)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>EMAPA term with single parent and children, EMAPS:nnnnn.</li>
-    		   <li>EMAPA term with no parent, EMAPS:nnnnn (mouse).</li>
-    		   <li>EMAPA term with single parent, no children, EMAPS:nnnnn.</li>
-    		   <li>EMAPA term with multiple parents, children, EMAPS:nnnnn.</li>
-    		   <li>EMAPA term with multiple parents, no children, EMAPS:nnnnn.</li>
-    		   <li>EMAPA term with parent(s), children, no grandchildren, EMAPS:nnnnn.</li>
-    		   <li>EMAPA term with parent(s), children, grandchildren, EMAPS:nnnnn.</li>
+    		   <li>EMAPS term with single parent and children, EMAPS:nnnnn.</li>
+    		   <li>EMAPS term with no parent, EMAPS:nnnnn (mouse).</li>
+    		   <li>EMAPS term with single parent, no children, EMAPS:nnnnn.</li>
+    		   <li>EMAPS term with multiple parents, children, EMAPS:nnnnn.</li>
+    		   <li>EMAPS term with multiple parents, no children, EMAPS:nnnnn.</li>
+    		   <li>EMAPS term with parent(s), children, no grandchildren, EMAPS:nnnnn.</li>
+    		   <li>EMAPS term with parent(s), children, grandchildren, EMAPS:nnnnn.</li>
+    		   <li>Invalid EMAPS term, EMAPS:XXX</li>
+    		   <li>EMAPS term with fewer children than corresponding EMAPA term, EMAPS:nnnnn.</li>
+    		   <li>EMAPS term with fewer parents than corresponding EMAPA term, EMAPS:nnnnn</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify display of selected term - Tree & Term Detail should match (highlight, bold)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>EMAPA term with a single instance in Tree, EMAPA:nnnnn.</li>
+    		   <li>EMAPS term with a single instance in Tree, EMAPS:nnnnn.</li>
+    		   <li>EMAPA term with multiple instances in Tree, EMAPA:nnnnn.</li>
+    		   <li>EMAPS term with multiple instances in Tree, EMAPS:nnnnn.</li>
     	    </ol></li>
     	  
+    	     <li>Verify no wrap and links for all terms.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Click on any EMAPA term in the tree.  Expect Tree and Term Detail to reset display to this term.</li>
+    		   <li>Display and then click on EMAPS term with a long term name, EMAPS:nnnnn.</li>
+    		   <li>EMAPA term with special characters, EMAPA:nnnnn.</li>
+    		   <li>EMAPS term with special characters, EMAPS:nnnnn.</li>
+    	    </ol></li>
+    	    
+    	    <li>Display the appropriate default path for the selected term.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>EMAPA term with multiple parents, EMAPA:nnnnn.  Expect parent = xxxxxxx.</li>
+    		   <li>EMAPS term with multiple parents, EMAPS:nnnnn.  Expect parent = xxxxxxx.</li>
+    		   <li>EMAPS term with different default parent than EMAPA, EMAPS:nnnnn.  Expect parent = xxxxxx</li>
+    	    </ol></li>
+    	    
+    	    <li>Provide open/close widget for terms with children (display and operate)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Select EMAPA term with children that all have children, EMAPA:nnnnn.  Expect: widgets for all children.</li>
+    		   <li>Select EMAPS term with children that all have children, EMAPS:nnnnn.  Expect: widgets for all children</li>
+    		   <li>Select EMAPA term with children with a mix of child/not child, EMAPA:nnnnn.  Expect: no widgets for children without children.</li>
+    		   <li>Select EMAPS term with children with a mix of child/not child, EMAPS:nnnnn.  Expect: no widgets for children without children.</li>
+    		   <li>Select EMAPA term with children that have no children, EMAPA:nnnnn.  Expect: no widgets for child terms</li>
+    		   <li>Select EMAPS term with children that have no children, EMAPS:nnnnn.  Expect: no widgets for child terms</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify vertical and horizontal scroll bars display as needed and selected term moves into view
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display term that will force a vertical scroll bar, EMAPA:nnnnn.</li>
+    		   <li>Display term that will force a horizontal scroll bar, EMAPA:nnnnn</li>
+    		   <li>Display term that will force both vertical and horizontal scroll bars, EMAPA:nnnnn</li>
+    		   <li>Display term that does not require either scroll bar, EMAPA:nnnnn</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify display, interactivity, and browser back button in all supported browsers.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display a term that has several parents and children -- open/close terms.</li>
+    		   <li>Display a term that will force scroll bars - verify scroll bars work.</li>
+    		   <li>Perform several actions within the Tree View -- then use Browser back button</li>
+    		   <li>Click on terms within the Tree -- verify display resets as expected</li>
+    		   
+    		   
+    	    </ol></li>
+    	    
 		</ol>
 	</div>
 	<div id="sql">
