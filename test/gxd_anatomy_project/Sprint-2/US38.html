@@ -1,0 +1,115 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 38</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Basic Anatomy Tree View</h1>
+    <ul>
+        <li>User Story 38 - Basic Anatomy Tree View</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Display a selected EMAPA or EMAPS term in a Tree View layout
+	    <ul><li>EMAPA tree - displays all terms in EMAPA regardless of stage range</li>
+	        <li>EMAPS tree - displays only terms in the specific Theiler Stage of the term</li>
+	        <li>Display page heading and sub-heading -- sub-headings differ EMAPA vs. EMAPS.</li>
+	        <li>The selected term is also displayed in the Term Detail portion of the page</li>
+	    </ul></li>
+	    <li>Highlight and bold all instances of the selected term in the Tree View</li>
+	    <li>Do not wrap terms in the Tree View</li>
+	    <li>All terms are links and if clicked on by the user updates the Tree View and Term Detail</li>
+	    <li>Display just one path to the selected term
+	    <ul><li>Terms with multiple parents/paths select the default parent using alphanumeric order</li>
+	    </ul></li>
+	    <li>Provide OPEN and CLOSE controls for all terms with children - using them does not alter the selected term </li>
+	    <li>All ancestors of the "selected term" are displayed in the Open mode -- including all generations up to the top most term, Mouse.</li>
+	    <li>Child terms are listed in alphanumeric order</li>
+	    <li>The Browser's back button uses default behavior</li>
+	    <li>Scroll bars
+	    <ol><li>Provide vertical and horizontal scroll bars as needed.</li>
+	        <li>Only scroll the Tree portion of the page - the Term Detail stays in place</li>
+	        <li>Position the scroll bars so that the selected term can be seen by the user when the default view is generated.</li>
+	    </ol></li>
+	    <li>Display the Tree View as expected in all supported browsers (IE, Firefox, Safari)</li>
+	    
+	    
+	   
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify Tree View default display for EMAPA terms (indents, open/close icons, open/close defaults)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>EMAPA term with single parent and children, EMAPA:nnnnn.</li>
+    		   <li>EMAPA term with no parent, EMAPA:nnnnn (mouse).</li>
+    		   <li>EMAPA term with single parent, no children, EMAPA:nnnnn.</li>
+    		   <li>EMAPA term with multiple parents, children, EMAPA:nnnnn.</li>
+    		   <li>EMAPA term with multiple parents, no children, EMAPA:nnnnn.</li>
+    		   <li>EMAPA term with parent(s), children, no grandchildren, EMAPA:nnnnn.</li>
+    		   <li>EMAPA term with parent(s), children, grandchildren, EMAPA:nnnnn.</li>
+    	    </ol></li>
+    	    
+    	   <li>Verify Tree View default display for EMAPS terms (indents, open/close icons, open/close defaults)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>EMAPA term with single parent and children, EMAPS:nnnnn.</li>
+    		   <li>EMAPA term with no parent, EMAPS:nnnnn (mouse).</li>
+    		   <li>EMAPA term with single parent, no children, EMAPS:nnnnn.</li>
+    		   <li>EMAPA term with multiple parents, children, EMAPS:nnnnn.</li>
+    		   <li>EMAPA term with multiple parents, no children, EMAPS:nnnnn.</li>
+    		   <li>EMAPA term with parent(s), children, no grandchildren, EMAPS:nnnnn.</li>
+    		   <li>EMAPA term with parent(s), children, grandchildren, EMAPS:nnnnn.</li>
+    	    </ol></li>
+    	  
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
