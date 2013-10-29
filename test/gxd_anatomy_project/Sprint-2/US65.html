@@ -62,14 +62,42 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify an update file with no issues updates the OBO file as expected.  The file contains only the 3 required fields.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Test 1.1</li>
-    		   <li>Test 1.2</li>
+    		   <li>Update both stage values for a term to 1-28.</li>
+    		   <li>Update both stage values for a term to 2-2.</li>
+    		   <li>Update only the starts_at value - ends_at same as OBO.</li>
+    		   <li>Update only the ends_at value - starts_at same as OBO.</li>
+    		   <li>Update only the starts_at value - ends_at blank in update file</li>
+    		   <li>Update only the ends_at value - starts_at blank in update file</li>
+    		   <li>Include a row where the stage range is the same as the OBO file.</li>
+    		   <li>Include a term twice in the update file. Expect last occurrence to be in the OBO file.</li>
     	    </ol></li>
     	    
-    	   
+    	    <li>Verify an update file with no issues updates the OBO file as expected.  The file contains the 3 required fields -- plus fields to ignore.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Update both stage values for a term to 1-28.</li>
+    		   <li>Update both stage values for a term to 2-2.</li>
+    		   <li>Update only the starts_at value - ends_at same as OBO.</li>
+    		   <li>Update only the ends_at value - starts_at same as OBO.</li>
+    		   <li>Update only the starts_at value - ends_at blank in update file</li>
+    		   <li>Update only the ends_at value - starts_at blank in update file</li>
+    		   <li>Include a row where the stage range is the same as the OBO file.</li>
+    		   <li>Include a term twice in the update file. Expect last occurrence to be in the OBO file.</li>
+    	    </ol></li>
+    	    
+    	   <li>Verify an update file with several issues plus good data updates the OBO file as expected.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Include a row where starts_at is greater than ends_at.  2-1.</li>
+    		   <li>Include a row where starts_at is 0.</li>
+    		   <li>Include a row where ends_at is 29.</li>
+    		   <li>Include a row for an EMAPA id that is not in the OBO file</li>
+    		   <li>Include valid updates from test 2.</li>
+    	    </ol></li>
+    	    
     	    
 		</ol>
 	</div>
