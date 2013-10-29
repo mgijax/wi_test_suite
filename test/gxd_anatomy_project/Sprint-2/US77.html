@@ -1,0 +1,97 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 77</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Basic Search Pane for Anatomy Browser</h1>
+    <ul>
+        <li>User Story 38 - Basic Anatomy Search Pane</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Provide the user with a single search box and button in the Search Pane of the Anatomy Browser</li>
+	   <li>Query the EMAPA ontology (i.e. not EMAPS) for each user search</li>
+	   <li>Query EMAPA terms and synonyms (not ids or definitions)</li>
+	   <li>Perform contains search in same way as Anatomy Search on GXD QF
+	   <ol><li>Match to full word by prefix.</li>
+	       <li>Match all tokens of a multiple token query.</li>
+	   </ol></li>
+	   <li>Return a term just once even when the term and/or its synonyms are matched multiple times.</li>
+	   <li>Return results in Solr "best match" order</li>
+	   <li>Limit results to 500.</li>
+	   <li>Provide a count of results to the user.  If over 500 display 500+.</li>
+       <li>Display matching text in bold for applicable terms.</li>
+	   <li>For each result display the term and its Theiler Stage range</li>
+	   <li>Clicking on one of the result terms should update the Term Detail and Tree View portion of the page.</li>
+	   <li>This user story does not include:
+	   <ol><li>autocomplete</li>
+	       <li>wildcards</li>
+	       <li>stemming</li>
+       </ol></li>
+       <li>See mockup for headings, text, spacing, general layout guidelines</li>
+       <li>Provide these features on all supported browsers - IE, Firefox, and Safari.</li>
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Test 1.1</li>
+    		   <li>Test 1.2</li>
+    		   
+    	    </ol></li>
+    	    
+    	   
+    	    
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
