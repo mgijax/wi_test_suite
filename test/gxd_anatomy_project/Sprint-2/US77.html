@@ -49,7 +49,7 @@
 	   
 	   <li>Clicking on one of the result terms should update the Term Detail and Tree View portion of the page.</li>
        <li>Verify Search works okay on all supported browsers - IE, Firefox, and Safari.</li>
-       <li>Requirements not able to verify with limited test data
+       <li>Requirements not able to test for this user story due to the limited data set.
        <ol>
           <li>Limit results to 500.</li>
 	      <li>Provide a count of results to the user.  If over 500 display 500+.</li>
@@ -73,62 +73,62 @@
     		<li>Verify search by EMAPA terms.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Search by single token, full word - xxxxx.  Expect n matches to terms.</li>
-    		   <li>Search by multiple tokens, full words - xxxxx xxxxx.  Expect n matches to terms.</li>
-    		   <li>Search by single token, prefix - xxx.  Expect n matches to terms.</li>
-    		   <li>Search by multiple tokens, prefixes - xxx xxx.  Expect n matches to terms.</li>
-    		   <li>Search by multiple tokens that are out of order with matched term, xxx xxx.  Expect match to xxxxx term.</li>
-    		   <li>Search by single token that is not in vocabulary - football.  Expect 0 matches.</li>
-    		   <li>Search by multiple tokens, where one token is not in vocabulary - renal football.  Expect 0 matches.</li>
-    		   <li>Search for multiple tokens that include a special character; xxx-xxx.  Expect match to xxxxx</li>
-    		   <li>Search for multiple tokens without a special character; xxxx xxxx.  Expect same match returned as previous test.</li>
-    		   <li>Search by 1, 2, and 3 character prefix tokens.  Expect: ??</li>
-    		   <li>Search by common small word token - of.  Expect: ???</li>
-    		   <li>Search by multiple tokens where one is a common small word; xxxx of.  Expect: ??</li>
+    		   <li>Search by single token, full word; <i>system</i>.  Expect 4 matching terms.</li>
+    		   <li>Search by multiple tokens, full words; <i>renal artery</i> .  Expect 4 matching terms.</li>
+    		   <li>Search by single token, prefix; <i>art</i>.  Expect 5 matching terms.</li>
+    		   <li>Search by multiple tokens, prefixes; <i>pol bod</i>.  Expect 2 matching terms.</li>
+    		   <li>Search by multiple tokens that are out of order with matched term; <i>artery muscle</i>.  Expect 1 matching term.</li>
+    		   <li>Search by single token that is not in vocabulary; <i>football</i>.  Expect 0 matches.</li>
+    		   <li>Search by multiple tokens, where one token is not in vocabulary; <i>renal football</i>.  Expect 0 matches.</li>
+    		   <li>Search for multiple tokens that include a special character; <i>one-cell</i>.  Expect 1 matching term.</li>
+    		   <li>Search for multiple tokens without a special character; <i>one cell</i>.  Expect 1 matching term.</li>
+    		   <li>Search by 1 character token; <i>e</i>.  Expect: No result?</li>
+    		   <li>Search by 2 character token; <i>en</i>. Expect: 3 matching terms.</li>
+    		   <li>Search by common small word token - of.  Expect: 3 matching terms.</li>
+    		   <li>Search by multiple tokens where one is a common small word; <i>renal of</i>.  Expect: 3 matching terms.</li>
     		   <li>Search by numeric token(s).  NOTE - no case of this in test data set.</li>
     	    </ol></li>
     	    
     	   <li>Verify search by EMAPA synonyms.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Search by single token, full word - xxxxx.  Expect n matches to synonyms.</li>
-    		   <li>Search by multiple tokens, full words - xxxxx xxxxx.  Expect n matches to synonyms.</li>
-    		   <li>Search by single token, prefix - xxx.  Expect n matches to synonyms.</li>
-    		   <li>Search by multiple tokens, prefixes - xxx xxx.  Expect n matches to synonyms.</li>
-    		   <li>Search by multiple tokens that are out of order with matched term, xxx xxx.  Expect match to xxxxx synonym.</li>
-    		   <li>Search by token found in both term and associated synonym - xxxx.  Expect term to be returned just once.</li>
-    		   <li>Search by token found in multiple synonyms for a term - xxxx.  Expect term to be returned just once.</li>
+    		   <li>Search by single token, full word - <i>hypoblast</i>.  Expect 1 matching term.</li>
+    		   <li>Search by multiple tokens, full words - <i>primary endoderm</i>.  Expect 1 matching term.</li>
+    		   <li>Search by single token, prefix - <i>prox</i>.  Expect 1 matching term.</li>
+    		   <li>Search by multiple tokens, prefixes; <i>vis end</i>.  Expect 1 matching term.</li>
+    		   <li>Search by multiple tokens that are out of order with matched term, <i>endoderm prox</i>.  Expect 1 matching term.</li>
+    		   <li>Search by token found in both term and associated synonym; <i>endoderm</i>.  Expect term to be returned just once.</li>
+    		   <li>Search by token found in multiple synonyms for a term; <i>fak</i>.  Expect term to be returned just once.</li>
     	    </ol></li>
     	    
     	    <li>Verify number of search results, count, and their links
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Search by token that returns a single result; xxxxx.</li>
-    		   <li>Search by token that returns 2 terms that are the same; renal artery.</li>
-    		   <li>Search by token(s) that returns matches to terms by term and by synonym; xxxx.  Expect n matches.</li>
-    		   <li>Search by token(s) that returns matches to terms by synonym only; xxxx.  Expect n matches.</li>
-    		   <li>Search by token(s) that returns matches to terms by term only; xxxx.  Expect n matches.</li>
+    		   <li>Search by token that returns a single result; <i>embryo</i>.</li>
+    		   <li>Search by token(s) that returns matches to terms by term and by synonym; <i>visceral</i>.  Expect 2 matching terms.</li>
+    		   <li>Search by token(s) that returns matches to terms by synonym only; <i>fake</i>.  Expect 2 matching terms.</li>
+    		   <li>Search by token(s) that returns matches to terms by term only; <i>system</i>.  Expect 4 matching terms.</li>
     		   
     	    </ol></li>
     	    
     	    <li>Verify bolding of matching text in search results
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Search by single prefix token; xxxx.  Expect bold of partial word or complete word??</li>
-    		   <li>Search by single full word token; xxxxx.  Expect bold of complete word.</li>
-    		   <li>Search by multiple prefix tokens; xxx xxx.  Expect bold of partial words or complete words?</li>
-    		   <li>Search by consecutive multiple full word tokens; xxx xxx.  Expect bold of complete word</li>
-    		   <li>Search by non-consecutive multiple tokens; xxx xxx xxx.  Expect bold of just words in query string.</li>
-    		   <li>Search by token present in synonym, but not in term.  Expect term to have no bolded text.</li>
+    		   <li>Search by single prefix token; <i>dev</i>.  Expect bold of partial word or complete word??</li>
+    		   <li>Search by single full word token; <i>mouse</i>.  Expect bold of complete word.</li>
+    		   <li>Search by multiple prefix tokens; <i>ren art</i>.  Expect bold of partial words or complete words?</li>
+    		   <li>Search by consecutive multiple full word tokens; <i>cell stage</i>.  Expect bold of complete word</li>
+    		   <li>Search by non-consecutive multiple tokens; <i>sys develop urinary</i>.  Expect bold of just words in query string.</li>
+    		   <li>Search by token present in synonym, but not in term; <i>fake</i>.  Expect 2 terms returned to have no bolded text.</li>
     		   
     	    </ol></li>
     	    
     	     <li>Verify Theiler Stage display in results
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Search for term that has a single TS; xxxxx.</li>
-    		   <li>Search for term that has Theiler Stages that are both 1 digit; xxxxx. </li>
-    		   <li>Search for term that has Theiler Stages that are both 2 digits; xxxxx. </li> 
+    		   <li>Search for term that has a single TS; <i>first polar</i>.</li>
+    		   <li>Search for term that has Theiler Stages that are both 1 digit; <i>primitive</i>. </li>
+    		   <li>Search for term that has Theiler Stages that are both 2 digits; <i>vascul</i>. </li> 
     		   
     	    </ol></li>
     	    
