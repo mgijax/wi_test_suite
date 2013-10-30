@@ -30,28 +30,30 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	   <li>Provide the user with a single search box and button in the Search Pane of the Anatomy Browser</li>
-	   <li>Query the EMAPA ontology (i.e. not EMAPS) for each user search</li>
-	   <li>Query EMAPA terms and synonyms (not ids or definitions)</li>
-	   <li>Perform contains search in same way as Anatomy Search on GXD QF
+	   <li>Search for EMAPA terms using a single search box by looking for matches to EMAPA terms and synonyms.</li>
+	   <li>Perform a prefix search in same way as Anatomy Search on GXD QF
 	   <ol><li>Match to full word by prefix.</li>
 	       <li>Match all tokens of a multiple token query.</li>
+	       <li>Autocomplete is NOT included in this user story</li>
+	       <li>wildcards and stemming do not make sense in this paradigm and are not features of the search</li>
 	   </ol></li>
-	   <li>Return a term just once even when the term and/or its synonyms are matched multiple times.</li>
-	   <li>Return results in Solr "best match" order</li>
-	   <li>Limit results to 500.</li>
-	   <li>Provide a count of results to the user.  If over 500 display 500+.</li>
-       <li>Display matching text in bold for applicable terms.</li>
-	   <li>For each result display the term and its Theiler Stage range</li>
-	   <li>Clicking on one of the result terms should update the Term Detail and Tree View portion of the page.</li>
-	   <li>This user story does not include:
-	   <ol><li>autocomplete</li>
-	       <li>wildcards</li>
-	       <li>stemming</li>
-       </ol></li>
-       <li>See mockup for headings, text, spacing, general layout guidelines</li>
-       <li>Provide these features on all supported browsers - IE, Firefox, and Safari.</li>
+	   <li>Return EMAPA terms as links in the Search Pane.
+	   <ol><li>Display in Solr "best match" order</li>
+	       <li>Return a term just once even when the term and/or its synonyms are matched multiple times.</li>
+            <li>Display matching text in bold when applicable for returned terms.
+            <ul><li>A term may be returned due to a synonym and in this case the term would have no matching text in bold</li>
+            </ul></li>
+	        <li>For each term display its Theiler Stage range</li>
+	        <li>See mockup for headings, text, spacing, general layout guidelines</li>
+	   </ol></li>
 	   
+	   <li>Clicking on one of the result terms should update the Term Detail and Tree View portion of the page.</li>
+       <li>Verify Search works okay on all supported browsers - IE, Firefox, and Safari.</li>
+       <li>Requirements not able to verify with limited test data
+       <ol>
+          <li>Limit results to 500.</li>
+	      <li>Provide a count of results to the user.  If over 500 display 500+.</li>
+	   </ol></li>
 	</ol>
 </div>
 
@@ -68,15 +70,82 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify search by EMAPA terms.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Test 1.1</li>
-    		   <li>Test 1.2</li>
+    		   <li>Search by single token, full word - xxxxx.  Expect n matches to terms.</li>
+    		   <li>Search by multiple tokens, full words - xxxxx xxxxx.  Expect n matches to terms.</li>
+    		   <li>Search by single token, prefix - xxx.  Expect n matches to terms.</li>
+    		   <li>Search by multiple tokens, prefixes - xxx xxx.  Expect n matches to terms.</li>
+    		   <li>Search by multiple tokens that are out of order with matched term, xxx xxx.  Expect match to xxxxx term.</li>
+    		   <li>Search by single token that is not in vocabulary - football.  Expect 0 matches.</li>
+    		   <li>Search by multiple tokens, where one token is not in vocabulary - renal football.  Expect 0 matches.</li>
+    		   <li>Search for multiple tokens that include a special character; xxx-xxx.  Expect match to xxxxx</li>
+    		   <li>Search for multiple tokens without a special character; xxxx xxxx.  Expect same match returned as previous test.</li>
+    		   <li>Search by 1, 2, and 3 character prefix tokens.  Expect: ??</li>
+    		   <li>Search by common small word token - of.  Expect: ???</li>
+    		   <li>Search by multiple tokens where one is a common small word; xxxx of.  Expect: ??</li>
+    		   <li>Search by numeric token(s).  NOTE - no case of this in test data set.</li>
+    	    </ol></li>
+    	    
+    	   <li>Verify search by EMAPA synonyms.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search by single token, full word - xxxxx.  Expect n matches to synonyms.</li>
+    		   <li>Search by multiple tokens, full words - xxxxx xxxxx.  Expect n matches to synonyms.</li>
+    		   <li>Search by single token, prefix - xxx.  Expect n matches to synonyms.</li>
+    		   <li>Search by multiple tokens, prefixes - xxx xxx.  Expect n matches to synonyms.</li>
+    		   <li>Search by multiple tokens that are out of order with matched term, xxx xxx.  Expect match to xxxxx synonym.</li>
+    		   <li>Search by token found in both term and associated synonym - xxxx.  Expect term to be returned just once.</li>
+    		   <li>Search by token found in multiple synonyms for a term - xxxx.  Expect term to be returned just once.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify number of search results, count, and their links
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search by token that returns a single result; xxxxx.</li>
+    		   <li>Search by token that returns 2 terms that are the same; renal artery.</li>
+    		   <li>Search by token(s) that returns matches to terms by term and by synonym; xxxx.  Expect n matches.</li>
+    		   <li>Search by token(s) that returns matches to terms by synonym only; xxxx.  Expect n matches.</li>
+    		   <li>Search by token(s) that returns matches to terms by term only; xxxx.  Expect n matches.</li>
     		   
     	    </ol></li>
     	    
-    	   
+    	    <li>Verify bolding of matching text in search results
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search by single prefix token; xxxx.  Expect bold of partial word or complete word??</li>
+    		   <li>Search by single full word token; xxxxx.  Expect bold of complete word.</li>
+    		   <li>Search by multiple prefix tokens; xxx xxx.  Expect bold of partial words or complete words?</li>
+    		   <li>Search by consecutive multiple full word tokens; xxx xxx.  Expect bold of complete word</li>
+    		   <li>Search by non-consecutive multiple tokens; xxx xxx xxx.  Expect bold of just words in query string.</li>
+    		   <li>Search by token present in synonym, but not in term.  Expect term to have no bolded text.</li>
+    		   
+    	    </ol></li>
+    	    
+    	     <li>Verify Theiler Stage display in results
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for term that has a single TS; xxxxx.</li>
+    		   <li>Search for term that has Theiler Stages that are both 1 digit; xxxxx. </li>
+    		   <li>Search for term that has Theiler Stages that are both 2 digits; xxxxx. </li> 
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify interactivity between the 3 sections of the page
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for a term.  Expect: Term Detail and Tree View to not change.</li>
+    		   <li>Perform multiple searches.  Expect: Term Detail and Tree View to not change.</li>
+    		   <li>Click on term in search results.  Expect: Term Detail and Tree View are updated to that term.</li>
+    		   <li>Click on term in Tree View after a search is performed.  Expect: Search Pane unchanged.</li>
+    		   <li>Click on term in Term Detail after a search is performed.  Expect: Search Pane unchanged.</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify display and interactivity on all supported browsers - IE, Firefox, Safari</li>
+    		<p concordion:assertTrue="false">new test</p>  
+    		
     	    
 		</ol>
 	</div>
