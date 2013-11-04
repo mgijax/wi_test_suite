@@ -1,0 +1,116 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 63</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>EMAPA vocab browser in Prod WI</h1>
+    <ul>
+        <li>User Story 63 - EMAPA Vocabulary Browser (python WI) in Prod WI</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Assumptions
+	   <ol><li>This is a tool for MGI staff to review the new vocabs on Production</li>
+           <li>General LAF of pages will be patterned after existing MP Browser</li>
+           <li>Some customization for EMAPA needed (stage ranges)</li>
+           <li>This does NOT include EMAPS; the stage specific vocabularies</li>
+       </ol></li>
+
+       <li>EMAPA Term Detail section
+       <ol><li>Term – same as MP</li>
+	       <li>Synonyms – same as MP</li>
+           <li>ID – same as MP</li>
+           <li>Definition – same as MP</li>
+           <li>Alt-ID – none for EMAPA</li>
+           <li># of paths – same as MP</li> 
+           <li>Theiler Stages – specific to EMAPA vocab – not in MP</li>
+       </ol></li>
+
+       <li>EMAPA Tree View section
+       <ol><li>Show all paths to term – same as MP</li>
+           <li>Order of paths shown – same as MP</li>
+           <li>Link all terms displayed to the EMAPA Term Detail page.</li>  
+           <li>No associated annotations are displayed (not in this user story)</li>
+           <li>Part-of and Is-a edges icons – same as MP</li>
+           <li>Include link to “entry page” at the bottom of the Tree View – same as MP</li>
+       </ol></li>
+
+       <li>Search Box and Results pages
+       <ol><li>Search box that executes a “contains” search – same as MP</li>
+           <li>Query EMAPA terms, synonyms, and IDs and return EMAPA terms</li> 
+           <li>Results are a list of terms that are linked to EMAPA.</li>
+           <li>Matching text is bolded in the results – same as MP.</li>
+       </ol></li>
+
+       <li>EMAPA Entry Page
+       <ol><li>Only page with Search Box – same as MP</li>
+           <li>Display Tree View for EMAPA “embryo” (no Term Detail display) – similar to MP</li>
+           <li>No Help link “?”</li>
+       </ol></li>
+
+       <li>Add to Prod WI interface
+       <ol><li>Add link to this browser to the tool bar Search pull-down – Expression and Vocabularies options.</li>
+           <li>Add link to this browser from the All Search Tools menu – Expression and Vocabularies sections.</li>
+       </ol></li> 
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   <li>test 1.2</li>
+    		   
+    	    </ol></li>
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
