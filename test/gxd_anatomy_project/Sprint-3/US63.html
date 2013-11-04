@@ -31,7 +31,7 @@
     <h2>Test Requirements</h2>
 	<ol>
 	   <li>Assumptions
-	   <ol><li>This is a tool for MGI staff to review the new vocabs on Production</li>
+	   <ol><li>This is a tool for MGI staff to review the new vocabs on Production </li>
            <li>General LAF of pages will be patterned after existing MP Browser</li>
            <li>Some customization for EMAPA needed (stage ranges)</li>
            <li>This does NOT include EMAPS; the stage specific vocabularies</li>
@@ -89,11 +89,58 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify Term Detail section of page
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
+    		   <li>Display the top level term, EMAPA:nnnnn (mouse).</li>
+    		   <li>Display term with no children, EMAPA:nnnnn (xxxx).</li>
+    		   <li>Display term with no synonyms, EMAPA:nnnnn (xxxxx)</li>
+    		   <li>Display term with multiple synonyms, EMAPA:nnnnn (xxxxx)</li>
+    		   <li>Display term with 1 synonym, EMAPA:nnnnn (xxxxx)</li>
+    		   <li>Display term with 1 path, EMAPA:nnnnn (xxxxx)</li>
+    		   <li>Display term with multiple pathes, EMAPA:nnnnn  (xxxxx)</li>
+    		   <li>Display term with a TS range of 1, EMAPA:nnnnn  (xxxxx)</li>
+    		   <li>Display term with a TS range gt 1, EMAPA:nnnnn  (xxxxx)</li>
+    		   <li>Display a term that has a long name, EMAPA:nnnnnn  (xxxxxx)</li>
+    		   <li>Display a term that has a definition, EMAPA:nnnnn (xxxxx).  No example in current EMAPA file</li>
+    		</ol></li>
+    		
+    		<li>Verify Tree View section of page (paths, links)
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		   <li>Display term with a single path, EMAPA:nnnnn (xxxxx).</li>
+    		   <li>Display term with multiple paths, EMAPA:nnnnn (xxxxx).</li>
+    		   <li>Display term with a part-of edge, EMAPA:nnnnn (xxxxx).  No example in current EMAPA file.</li>
+    		   <li>Display term with an is-a edge.  EMAPA:nnnnn (xxxxx).</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify Search Box and Result pages
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for a valid 1 token term; xxxxx  Expect match to that term returned in results.</li>
+    		   <li>Search for a multiple token term; xxx xxx.  Expect match to tath term returned in results.</li>
+    		   <li>Search for a valid 1 token synonym; xxxxx.</li>
+    		   <li>Search for a valid multiple token synonym; xxx xxx.</li>
+    		   <li>Search for EMAPA:nnnnn; Expect xxxx returned.</li>
+    		   <li>Search for invalid EMAPA id; Expect no matches</li>
+    		   <li>Search for football.  Expect no matches</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify EMAPA entry page
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display entry page - verify the term Embryo is the default display.</li>
+    		   <li>Verify links to the Entry Page exist and work on Term Detail pages</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify Prod WI links to EMAPA browser
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Check links in Search pull-down -- under Expression and Vocabularies</li>
+    		   <li>Check links on All Search Tools menu -- in Expression and Vocabularies sections</li>
     		   
     	    </ol></li>
     		
