@@ -90,26 +90,27 @@
 		<ol>
     		
     		<li>Verify Term Detail section of page
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/6/2013</p>  
     		<ol>
     		   <li>Display the top level term, EMAPA:25765 (mouse).</li>
     		   <li>Display term with no children, EMAPA:16035 (zona pellucida).</li>
     		   <li>Display term with no synonyms, EMAPA:25528 (T8 vertebral canal)</li>
     		   <li>Display term with multiple synonyms, EMAPA:16263 (stomatodaeum). Expect: 5 synonyms</li>
     		   <li>Display term with 1 synonym, EMAPA:nnnnn (xxxxx).  No example in current EMAPA.</li>
-    		   <li>Display term with 1 path, EMAPA:17420 (radius-ulna pre-cartilage condensation)</li>
-    		   <li>Display term with multiple paths, EMAPA:28373  (renal artery).  Expect 3 paths.</li>
+    		   <li>Display term with 1 path, EMAPA:16047 (mural trophectoderm)</li>
+    		   <li>Display term with multiple paths, EMAPA:28373  (renal artery).  Expect 8 paths.</li>
     		   <li>Display term with a TS range of 1, EMAPA:16045  (second polar body)</li>
     		   <li>Display term with a TS range GT 1, EMAPA:28500  (early tubule)</li>
     		   <li>Display a term that has a long name, EMAPA:17035  (hindgut diverticulum preanal component vascular element)</li>
     		   <li>Display a term that has a long synonym, EMAPA:32294 (lamina propria of ventral pelvic urethra of male)
     		   <li>Display a term that has a definition, EMAPA:nnnnn (xxxxx).  No example in current EMAPA file</li>
+    		   <li>Display an ID that is invalid, EMAPA:11111.  Expect: error page.
     		</ol></li>
     		
     		<li>Verify Tree View section of page (paths, links)
-    		<p concordion:assertTrue="false">new test</p>
+    		<p concordion:assertTrue="true">PASS - jlewis 11/6/2013</p>
     		<ol>
-    		   <li>Display term with a single path, EMAPA:17847 (naris).</li>
+    		   <li>Display term with a single path, EMAPA:16037 (4-8 cell stage embryo).</li>
     		   <li>Display term with multiple paths, EMAPA:16103 (organ system). Expect 2 paths.</li>
     		   <li>Display term with a is-a edge, EMAPA:nnnnn (xxxxx).  No example in current EMAPA file.</li>
     		   <li>Display term with an part-of edge.  EMAPA:16542 (nose).</li>
@@ -117,12 +118,12 @@
     	    </ol></li>
     	    
     	    <li>Verify Search Box and Result pages
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/6/2013</p>  
     		<ol>
     		   <li>Search for a valid 1 token term; nose  Expect match to that term returned in results.</li>
     		   <li>Search for a multiple token term; pancreas tail.  Expect match to tath term returned in results.</li>
     		   <li>Search for a valid 1 token synonym; vein.</li>
-    		   <li>Search for a valid multiple token synonym; pancreatic duct.</li>
+    		   <li>Search for a valid multiple token synonym; of Santorini.</li>
     		   <li>Search for EMAPA:16680; Expect nasal process returned.</li>
     		   <li>Search for invalid EMAPA id; Expect no matches</li>
     		   <li>Search for football.  Expect no matches</li>
@@ -130,7 +131,7 @@
     	    </ol></li>
     	    
     	    <li>Verify EMAPA entry page
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/6/2013</p>  
     		<ol>
     		   <li>Display entry page - verify the top-most term Mouse is the default display.</li>
     		   <li>Verify links to the Entry Page exist and work on Term Detail pages</li>
