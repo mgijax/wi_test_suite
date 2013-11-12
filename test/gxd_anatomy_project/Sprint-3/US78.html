@@ -57,22 +57,24 @@
 		<ol>
 		
 		    <li>Display synonyms when appropriate in matching text
-    		<p concordion:assertTrue="false">new test</p>
+    		<p concordion:assertTrue="true">PASS - jlewis 11/12/2013</p>
     		<ol>
                <li>Search for text that matches both term and a single synonym; <i>prim</i> .  Expect: no synonym display</li>
                <li>Search for text that matches both term and multiple synonyms; <i>endoderm</i> .  Expect no synonym display</li>
                <li>Search for text that matches a single synonym for a term; <i>another</i>.  Expect: synonym to display</li>
                <li>Search for text that matches multiple synonyms for a term; <i>fake</i>.  Expect:  1 of the synonyms to display</li>  
                <li>Search with text that does not match any synonyms, but returns results; <i>renal</i>.  Expect: no synonyms displayed in results</li>
-    		   <li>Search with text that does not match any synonyms and doesn't return any results; football.  Expect: no results</li>  		
+    		   <li>Search with text that does not match any synonyms and doesn't return any results; football.  Expect: no results</li> 
+    		   <li>Search for a synonym with special characters; xxxxx.  No example for this test case in test data. 		
     		</ol>
     		
     		<li>Return synonyms with matching text in bold, in parens, and not part of link for all supported browsers
-    		<p concordion:assertTrue="false">new test</p>
+    		<p concordion:assertTrue="true">PASS - jlewis 11/12/2013</p>
     		<ol>
     		   <li>Search with a single token that matches a synonym for a term; <i>hypoblast</i>.  Expect: primitive endoderm returned</li>
     		   <li>Search with multiple tokens that match a synonym for a term; <i>another fake</i>.  Expect: smooth muscle layer of renal artery returned</li>
     		   <li>Search with text that matches a synonym and only returns 1 result; <i>fake1</i>.  Expect: endothelium of renal artery returned</li>
+    		   <li>Search with multiple tokens that match a synonym and partially match the term; <i>primary endo</i>.  Expect: synonym displayed with matching text in bold</li>
     		   
     	    </ol></li>
     	    

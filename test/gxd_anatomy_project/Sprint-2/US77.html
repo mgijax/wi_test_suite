@@ -49,7 +49,7 @@
 	   
 	   <li>Clicking on one of the result terms should update the Term Detail and Tree View portion of the page.</li>
        <li>Verify Search works okay on all supported browsers - IE, Firefox, and Safari.</li>
-       <li>Requirements not able to test for this user story due to the limited data set.
+       <li>Requirements not able to test for this user story due to the limited data set (moved to another user story)
        <ol>
           <li>Limit results to 500.</li>
 	      <li>Provide a count of results to the user.  If over 500 display 500+.</li>
@@ -71,7 +71,7 @@
 		<ol>
     		
     		<li>Verify search by EMAPA terms.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - special chars need special handling in indexes</p>  
     		<ol>
     		   <li>Search by single token, full word; <i>system</i>.  Expect 4 matching terms.</li>
     		   <li>Search by multiple tokens, full words; <i>renal artery</i> .  Expect 4 matching terms.</li>
@@ -82,7 +82,7 @@
     		   <li>Search by multiple tokens, where one token is not in vocabulary; <i>renal football</i>.  Expect 0 matches.</li>
     		   <li>Search for multiple tokens that include a special character; <i>one-cell</i>.  Expect 1 matching term.</li>
     		   <li>Search for multiple tokens without a special character; <i>one cell</i>.  Expect 1 matching term.</li>
-    		   <li>Search by 1 character token; <i>e</i>.  Expect: No result?</li>
+    		   <li>Search by 1 character token; <i>e</i>.  Expect: No result.</li>
     		   <li>Search by 2 character token; <i>en</i>. Expect: 3 matching terms.</li>
     		   <li>Search by common small word token - of.  Expect: 3 matching terms.</li>
     		   <li>Search by multiple tokens where one is a common small word; <i>renal of</i>.  Expect: 3 matching terms.</li>
@@ -90,7 +90,7 @@
     	    </ol></li>
     	    
     	   <li>Verify search by EMAPA synonyms.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/12/13</p>  
     		<ol>
     		   <li>Search by single token, full word - <i>hypoblast</i>.  Expect 1 matching term.</li>
     		   <li>Search by multiple tokens, full words - <i>primary endoderm</i>.  Expect 1 matching term.</li>
@@ -102,9 +102,9 @@
     	    </ol></li>
     	    
     	    <li>Verify number of search results, count, and their links
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/12/13</p>  
     		<ol>
-    		   <li>Search by token that returns a single result; <i>embryo</i>.</li>
+    		   <li>Search by token that returns a single result; <i>mouse</i>.</li>
     		   <li>Search by token(s) that returns matches to terms by term and by synonym; <i>visceral</i>.  Expect 2 matching terms.</li>
     		   <li>Search by token(s) that returns matches to terms by synonym only; <i>fake</i>.  Expect 2 matching terms.</li>
     		   <li>Search by token(s) that returns matches to terms by term only; <i>system</i>.  Expect 4 matching terms.</li>
@@ -112,19 +112,19 @@
     	    </ol></li>
     	    
     	    <li>Verify bolding of matching text in search results
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/12/13</p>  
     		<ol>
-    		   <li>Search by single prefix token; <i>dev</i>.  Expect bold of partial word or complete word??</li>
+    		   <li>Search by single prefix token; <i>dev</i>.  Expect bold of partial word</li>
     		   <li>Search by single full word token; <i>mouse</i>.  Expect bold of complete word.</li>
-    		   <li>Search by multiple prefix tokens; <i>ren art</i>.  Expect bold of partial words or complete words?</li>
-    		   <li>Search by consecutive multiple full word tokens; <i>cell stage</i>.  Expect bold of complete word</li>
-    		   <li>Search by non-consecutive multiple tokens; <i>sys develop urinary</i>.  Expect bold of just words in query string.</li>
+    		   <li>Search by multiple prefix tokens; <i>ren art</i>.  Expect bold of partial words</li>
+    		   <li>Search by consecutive multiple full word tokens; <i>stage embryo</i>.  Expect bold of complete word</li>
+    		   <li>Search by non-consecutive multiple tokens; <i>sys develop urinary</i>.  Expect bold of just tokens in query string.</li>
     		   <li>Search by token present in synonym, but not in term; <i>fake</i>.  Expect 2 terms returned to have no bolded text.</li>
     		   
     	    </ol></li>
     	    
     	     <li>Verify Theiler Stage display in results
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/12/13</p>  
     		<ol>
     		   <li>Search for term that has a single TS; <i>first polar</i>.</li>
     		   <li>Search for term that has Theiler Stages that are both 1 digit; <i>primitive</i>. </li>
@@ -133,7 +133,7 @@
     	    </ol></li>
     	    
     	    <li>Verify interactivity between the 3 sections of the page
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/12/13</p>  
     		<ol>
     		   <li>Search for a term.  Expect: Term Detail and Tree View to not change.</li>
     		   <li>Perform multiple searches.  Expect: Term Detail and Tree View to not change.</li>
@@ -144,7 +144,7 @@
     	    </ol></li>
     	    
     	    <li>Verify display and interactivity on all supported browsers - IE, Firefox, Safari</li>
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/12/13</p>  
     		
     	    
 		</ol>
