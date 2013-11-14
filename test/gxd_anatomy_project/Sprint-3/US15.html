@@ -1,0 +1,108 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 15</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Move EMAPA/EMAPS from back-end to front-end</h1>
+    <ul>
+        <li>User Story 15 - Move EMAPA/EMAPS from back-end to front-end</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+        <li>New Anatomy Browser works as expected with the full set of EMAPA and EMAPS vocabularies
+        <ol><li>Term Detail works per requirements - US 11 & US 12</li>
+            <li>Tree View works per requirements - US 38</li>
+            <li>Search Pane works per requirements - US 77 & US 78</li>
+        </ol></li>
+        <li>Support search with special characters present in terms and synonyms
+        <ol><li>comma, hyphen, apostrophe</li>
+        </ol></li>
+        <li>Support search of single character tokens in synonyms and terms</li>
+        <li>Handle tree view display when the tree exceeds the viewable window
+        <ol><li>Do not wrap terms - use horizontal scroll bar</li>
+            <li>Move selected term to the window automatically</li>
+            <li>Provide user with a vertical scroll bar when tree exceeds viewing window</li>
+        </ol></li>
+        <li>Anatomy Browser works in all supported browsers - IE, Safari, Firefox</li>
+	   
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify Term Detail page
+    		<p concordion:assertTrue="true">new test</p>  
+    		<ol>
+    		   <li>Re-run test cases for US 11 (EMAPA term detail)</li>
+    		   <li>Re-run test cases for US 12 (EMAPS term detail)</li>
+    		   <li>more...</li>
+   		    </ol></li>
+    		
+    		<li>Verify Tree View 
+    		<p concordion:assertTrue="true">new test</p>  
+    		<ol>
+    		   <li>Re-run test cases for US 38</li>
+    		   <li>more...</li>
+   		    </ol></li>
+    		
+    		<li>Verify Search page
+    		<p concordion:assertTrue="true">new test</p>  
+    		<ol>
+    		   <li>Re-run test cases for US 77 (basic search)</li>
+    		   <li>Re-run test cases for US 78 (matching synonyms)</li>
+    		   <li>more...</li>
+   		    </ol></li>
+    	   
+    	   
+    	   
+    	   
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
