@@ -68,14 +68,12 @@
     		<ol>
     		   <li>Re-run test cases for US 11 (EMAPA term detail)</li>
     		   <li>Re-run test cases for US 12 (EMAPS term detail)</li>
-    		   <li>more...</li>
    		    </ol></li>
     		
     		<li>Verify Tree View 
     		<p concordion:assertTrue="true">new test</p>  
     		<ol>
     		   <li>Re-run test cases for US 38</li>
-    		   <li>more...</li>
    		    </ol></li>
     		
     		<li>Verify Search page
@@ -83,46 +81,48 @@
     		<ol>
     		   <li>Re-run test cases for US 77 (basic search)</li>
     		   <li>Re-run test cases for US 78 (matching synonyms)</li>
-    		   <li>more...</li>
+    		   <li>Search for a string that returns multiple terms that have the same name.  3rd Ventricle.</li>
+    		   <li>Search with a string that has multiple tokens that partially matches 2 synonyms for a term. xxx xxx xxx.  Expect no match found.</li>
    		    </ol></li>
     	   
     	    <li>Verify search and display of special characters in terms
     		<p concordion:assertTrue="true">new test</p>  
     		<ol>
-    		   <li>Search for a term with a comma.  Single token query string.  xxx,xxx</li>
-    		   <li>Search for a term with a comma.  Multi token query string.  xxx, xxx</li>
-    		   <li>Search for a term with a comma.  Tokens without a comma.  xxx xxx</li>
-    		   <li>Search for a term with a hyphen.  Single token query string.  xxx-xxx</li>
-    		   <li>Search for a term with a hyphen.  Multi token query string.  xxx- xxx</li>
-    		   <li>Search for a term with a hyphen.  Tokens without a comma.  xxx xxx</li>
-    		   <li>Search for a term with a apostrophe.  Single token query string.  xxx's</li>
-    		   <li>Search for a term with a apostrophe.  Multi token query string.  xxx's xxx</li>
-    		   <li>Search for a term with a apostrophe.  Tokens without a comma.  xxxs xxx</li>
+    		   <li>Search for a term with a comma.  Single token query string.  duct,mes</li>
+    		   <li>Search for a term with a comma.  Multi token query string.  Henle, inner</li>
+    		   <li>Search for a term with a comma.  Tokens without a comma.  loop of Henle</li>
+    		   <li>Search for a term with a hyphen.  Single token query string.  pro-rhomb</li>
+    		   <li>Search for a term with a hyphen.  Multi token query string.  pro -rhomb</li>
+    		   <li>Search for a term with a hyphen.  Tokens without a comma.  pro rhomb</li>
+    		   <li>Search for a term with a apostrophe.  Single token query string.  rathke's</li>
+    		   <li>Search for a term with a apostrophe.  Multi token query string.  rathke's pouch/li>
+    		   <li>Search for a term with a apostrophe.  Tokens without a comma.  rathke pouch</li>
    		    </ol></li>
     	   
     	    <li>Verify search and display of special characters in synonyms
     		<p concordion:assertTrue="true">new test</p>  
     		<ol>
-    		   <li>Search for a synonym with a comma.  Single token query string.  xxx,xxx</li>
-    		   <li>Search for a synonym with a comma.  Multi token query string.  xxx, xxx</li>
-    		   <li>Search for a synonym with a comma.  Tokens without a comma.  xxx xxx</li>
-    		   <li>Search for a synonym with a hyphen.  Single token query string.  xxx-xxx</li>
-    		   <li>Search for a synonym with a hyphen.  Multi token query string.  xxx- xxx</li>
-    		   <li>Search for a synonym with a hyphen.  Tokens without a comma.  xxx xxx</li>
-    		   <li>Search for a synonym with a apostrophe.  Single token query string.  xxx's</li>
-    		   <li>Search for a synonym with a apostrophe.  Multi token query string.  xxx's xxx</li>
-    		   <li>Search for a synonym with a apostrophe.  Tokens without a comma.  xxxs xxx</li>
+    		   <li>Search for a synonym with a comma.  Single token query string.  duct,meta</li>
+    		   <li>Search for a synonym with a comma.  Multi token query string.  duct, meta</li>
+    		   <li>Search for a synonym with a comma.  Tokens without a comma.  duct meta</li>
+    		   <li>Search for a synonym with a hyphen.  Single token query string.  bulbo-vent</li>
+    		   <li>Search for a synonym with a hyphen.  Multi token query string.  bulbo- sulcus</li>
+    		   <li>Search for a synonym with a hyphen.  Tokens without a hyphen.  bul vent</li>
+    		   <li>Search for a synonym with a apostrophe.  Single token query string.  Hilton's</li>
+    		   <li>Search for a synonym with a apostrophe.  Multi token query string.  Hilton's 'white line'</li>
+    		   <li>Search for a synonym with a apostrophe.  Tokens without an apostrophe.  hiltons white line</li>
    		    </ol></li>
    		    
    		    <li>Verify search and display of 1 character tokens in terms and synonyms
     		<p concordion:assertTrue="true">new test</p>  
     		<ol>
-    		   <li>Search for a term that ends with a 1 character token.  xxxx x</li>
-    		   <li>Search for a synonym that ends with a 1 character token.  xxxx x</li>
+    		   <li>Search for a term that ends with a 1 character token.  digits 4 and 5</li>
+    		   <li>Search for a synonym that ends with a 1 character token.  pro B</li>
     		   <li>Search for a term that begins with a 1 character token.  x xxxx</li>
     		   <li>Search for a synonym that begins with a 1 character token.   xxxx</li>
-    		   <li>Search for a term that contains a 1 character token.  xxxx x xxxx</li>
-    		   <li>Search for a synonym that contains a 1 character token.  xxxx x xxxx</li>
+    		   <li>Search for a term that contains a 1 character token.  hind 5 cart</li>
+    		   <li>Search for a synonym that contains a 1 character token.  seg 3 prox</li>
+    		   <li>Search for a term that contains 1 character tokens with a special char.  4-8</li>
    		    </ol></li>
    		    
    		    <li>Verify Tree View scrolling
@@ -132,8 +132,8 @@
     		   <li>Display term well down the tree that has no children; EMAPA:xxxxx.  Expect the term to display in window</li>
     		   <li>Display term well down the tree that has parents and children; EMAPS:xxxxx.  Expect the term to display in window.</li>
     		   <li>Display term well down the tree that has no children; EMAPS:xxxxx.  Expect the term to display in window</li>
-    		   <li>Display long term that is wider than Tree pane; EMAPA:xxxxx.  Expect horizontal scroll bar and no wrapping of term.</li>
-               <li>Display long term that is wider than Tree pane; EMAPS:xxxxx.  Expect horizontal scroll bar and no wrapping of term.</li>
+    		   <li>Display long term that is wider than Tree pane; EMAPA:16772.  Expect horizontal scroll bar and no wrapping of term.</li>
+               <li>Display long term that is wider than Tree pane; EMAPS:1772221.  Expect horizontal scroll bar and no wrapping of term.</li>
                <li>Display tree view that is contained in tree pane; EMAPA:xxxxx.  Expect no scroll bars.
    		    </ol></li>
     	   
