@@ -86,8 +86,56 @@
     		   <li>more...</li>
    		    </ol></li>
     	   
+    	    <li>Verify search and display of special characters in terms
+    		<p concordion:assertTrue="true">new test</p>  
+    		<ol>
+    		   <li>Search for a term with a comma.  Single token query string.  xxx,xxx</li>
+    		   <li>Search for a term with a comma.  Multi token query string.  xxx, xxx</li>
+    		   <li>Search for a term with a comma.  Tokens without a comma.  xxx xxx</li>
+    		   <li>Search for a term with a hyphen.  Single token query string.  xxx-xxx</li>
+    		   <li>Search for a term with a hyphen.  Multi token query string.  xxx- xxx</li>
+    		   <li>Search for a term with a hyphen.  Tokens without a comma.  xxx xxx</li>
+    		   <li>Search for a term with a apostrophe.  Single token query string.  xxx's</li>
+    		   <li>Search for a term with a apostrophe.  Multi token query string.  xxx's xxx</li>
+    		   <li>Search for a term with a apostrophe.  Tokens without a comma.  xxxs xxx</li>
+   		    </ol></li>
     	   
-    	   
+    	    <li>Verify search and display of special characters in synonyms
+    		<p concordion:assertTrue="true">new test</p>  
+    		<ol>
+    		   <li>Search for a synonym with a comma.  Single token query string.  xxx,xxx</li>
+    		   <li>Search for a synonym with a comma.  Multi token query string.  xxx, xxx</li>
+    		   <li>Search for a synonym with a comma.  Tokens without a comma.  xxx xxx</li>
+    		   <li>Search for a synonym with a hyphen.  Single token query string.  xxx-xxx</li>
+    		   <li>Search for a synonym with a hyphen.  Multi token query string.  xxx- xxx</li>
+    		   <li>Search for a synonym with a hyphen.  Tokens without a comma.  xxx xxx</li>
+    		   <li>Search for a synonym with a apostrophe.  Single token query string.  xxx's</li>
+    		   <li>Search for a synonym with a apostrophe.  Multi token query string.  xxx's xxx</li>
+    		   <li>Search for a synonym with a apostrophe.  Tokens without a comma.  xxxs xxx</li>
+   		    </ol></li>
+   		    
+   		    <li>Verify search and display of 1 character tokens in terms and synonyms
+    		<p concordion:assertTrue="true">new test</p>  
+    		<ol>
+    		   <li>Search for a term that ends with a 1 character token.  xxxx x</li>
+    		   <li>Search for a synonym that ends with a 1 character token.  xxxx x</li>
+    		   <li>Search for a term that begins with a 1 character token.  x xxxx</li>
+    		   <li>Search for a synonym that begins with a 1 character token.   xxxx</li>
+    		   <li>Search for a term that contains a 1 character token.  xxxx x xxxx</li>
+    		   <li>Search for a synonym that contains a 1 character token.  xxxx x xxxx</li>
+   		    </ol></li>
+   		    
+   		    <li>Verify Tree View scrolling
+    		<p concordion:assertTrue="true">new test</p>  
+    		<ol>
+    		   <li>Display term well down the tree that has parents and children; EMAPA:xxxxx.  Expect the term to display in window.</li>
+    		   <li>Display term well down the tree that has no children; EMAPA:xxxxx.  Expect the term to display in window</li>
+    		   <li>Display term well down the tree that has parents and children; EMAPS:xxxxx.  Expect the term to display in window.</li>
+    		   <li>Display term well down the tree that has no children; EMAPS:xxxxx.  Expect the term to display in window</li>
+    		   <li>Display long term that is wider than Tree pane; EMAPA:xxxxx.  Expect horizontal scroll bar and no wrapping of term.</li>
+               <li>Display long term that is wider than Tree pane; EMAPS:xxxxx.  Expect horizontal scroll bar and no wrapping of term.</li>
+               <li>Display tree view that is contained in tree pane; EMAPA:xxxxx.  Expect no scroll bars.
+   		    </ol></li>
     	   
 		</ol>
 	</div>
