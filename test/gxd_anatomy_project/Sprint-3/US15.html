@@ -77,16 +77,16 @@
    		    </ol></li>
     		
     		<li>Verify Search page
-    		<p concordion:assertTrue="true">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 11/15/2013; 3.4 test returns a match</p>  
     		<ol>
     		   <li>Re-run test cases for US 77 (basic search)</li>
     		   <li>Re-run test cases for US 78 (matching synonyms)</li>
     		   <li>Search for a string that returns multiple terms that have the same name.  3rd Ventricle.</li>
-    		   <li>Search with a string that has multiple tokens that partially matches 2 synonyms for a term. xxx xxx xxx.  Expect no match found.</li>
+    		   <li>Search with a string that has multiple tokens that partially matches 2 synonyms for a term; <i>alar plate lip</i>.  Expect no match found.</li>
    		    </ol></li>
     	   
     	    <li>Verify search and display of special characters in terms
-    		<p concordion:assertTrue="true">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 11/15/2013; apostrophe tests failed</p>  
     		<ol>
     		   <li>Search for a term with a comma.  Single token query string.  duct,mes</li>
     		   <li>Search for a term with a comma.  Multi token query string.  Henle, inner</li>
@@ -100,7 +100,7 @@
    		    </ol></li>
     	   
     	    <li>Verify search and display of special characters in synonyms
-    		<p concordion:assertTrue="true">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 11/15/2013; apostrophe's failed</p>  
     		<ol>
     		   <li>Search for a synonym with a comma.  Single token query string.  duct,meta</li>
     		   <li>Search for a synonym with a comma.  Multi token query string.  duct, meta</li>
@@ -114,27 +114,27 @@
    		    </ol></li>
    		    
    		    <li>Verify search and display of 1 character tokens in terms and synonyms
-    		<p concordion:assertTrue="true">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 11/15/2013; test 6.2 - synonym not displayed</p>  
     		<ol>
     		   <li>Search for a term that ends with a 1 character token.  digits 4 and 5</li>
     		   <li>Search for a synonym that ends with a 1 character token.  pro B</li>
-    		   <li>Search for a term that begins with a 1 character token.  x xxxx</li>
-    		   <li>Search for a synonym that begins with a 1 character token.   xxxx</li>
+    		   <li>Search for a term that begins with a 1 character token.  x xxxx - no case in EMAPA</li>
+    		   <li>Search for a synonym that begins with a 1 character token.   x xxxx - no case in EMAPA</li>
     		   <li>Search for a term that contains a 1 character token.  hind 5 cart</li>
     		   <li>Search for a synonym that contains a 1 character token.  seg 3 prox</li>
     		   <li>Search for a term that contains 1 character tokens with a special char.  4-8</li>
    		    </ol></li>
    		    
    		    <li>Verify Tree View scrolling
-    		<p concordion:assertTrue="true">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 11/15/2013 - TS picklist out of order for long terms</p>  
     		<ol>
-    		   <li>Display term well down the tree that has parents and children; EMAPA:xxxxx.  Expect the term to display in window.</li>
-    		   <li>Display term well down the tree that has no children; EMAPA:xxxxx.  Expect the term to display in window</li>
-    		   <li>Display term well down the tree that has parents and children; EMAPS:xxxxx.  Expect the term to display in window.</li>
-    		   <li>Display term well down the tree that has no children; EMAPS:xxxxx.  Expect the term to display in window</li>
-    		   <li>Display long term that is wider than Tree pane; EMAPA:16772.  Expect horizontal scroll bar and no wrapping of term.</li>
-               <li>Display long term that is wider than Tree pane; EMAPS:1772221.  Expect horizontal scroll bar and no wrapping of term.</li>
-               <li>Display tree view that is contained in tree pane; EMAPA:xxxxx.  Expect no scroll bars.
+    		   <li>Display term well down the tree that has parents and children; EMAPA:32782; bone.  Expect the term to display in window.</li>
+    		   <li>Display term well down the tree that has no children; EMAPA:32721; body wall.  Expect the term to display in window</li>
+    		   <li>Display term well down the tree that has parents and children; EMAPS:1741324 - arm TS24.  Expect the term to display in window.</li>
+    		   <li>Display term well down the tree that has no children; EMAPS:1760224 - cornea stroma TS24.  Expect the term to display in window</li>
+    		   <li>Display long term that is wider than Tree pane; EMAPA:16386.  Expect horizontal scroll bar and no wrapping of term.</li>
+               <li>Display long term that is wider than Tree pane; EMAPS:1638618.  Expect horizontal scroll bar and no wrapping of term.</li>
+               <li>Display tree view that is contained in tree pane; EMAPS:1604104.  Expect no scroll bars.
    		    </ol></li>
     	   
 		</ol>
