@@ -1,0 +1,176 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 15 - US 38 using full EMAPA</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Basic Anatomy Tree View</h1>
+    <ul>
+        <li>User Story 15/ US38 - Basic Anatomy Tree View tests with full EMAPA</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Display a selected EMAPA or EMAPS term in a Tree View layout
+	    <ul><li>EMAPA tree - displays all terms in EMAPA regardless of stage range</li>
+	        <li>EMAPS tree - displays only terms in the specific Theiler Stage of the term</li>
+	        <li>Display page heading and sub-heading -- sub-headings differ EMAPA vs. EMAPS.</li>
+	        <li>The selected term is also displayed in the Term Detail portion of the page</li>
+	    </ul></li>
+	    <li>Highlight and bold all instances of the selected term in the Tree View</li>
+	    <li>Do not wrap terms in the Tree View</li>
+	    <li>All terms are links and if clicked on by the user updates the Tree View and Term Detail</li>
+	    <li>Display just one path to the selected term
+	    <ul><li>Terms with multiple parents/paths select the default parent using alphanumeric order</li>
+	    </ul></li>
+	    <li>Provide OPEN and CLOSE controls for all terms with children - using them does not alter the selected term </li>
+	    <li>All ancestors of the "selected term" are displayed in the Open mode -- including all generations up to the top most term, Mouse.</li>
+	    <li>Child terms are listed in alphanumeric order</li>
+	    <li>Scroll bars
+	    <ul><li>Provide vertical and horizontal scroll bars as needed.</li>
+	        <li>Only scroll the Tree portion of the page - the Term Detail stays in place</li>
+	        <li>Position the scroll bars so that the selected term can be seen by the user when the default view is generated.</li>
+	    </ul></li>
+	    <li>Display the Tree View as expected in all supported browsers (IE, Firefox, Safari)
+	    <ul><li>The Browser's back button uses default behavior</li></ul></li>
+	    
+	    
+	   
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify Tree View default display for EMAPA terms (indents, term detail, default path, open/close rules, child order, headings)
+    		<p concordion:assertTrue="true">PASS - jlewis 11/18/2013</p>  
+    		<ol>
+    		   <li>EMAPA term with single parent and children, EMAPA:16039 (embryo).</li>
+    		   <li>EMAPA term with no parent, EMAPA:25765.</li>
+    		   <li>EMAPA term with single parent, no children, EMAPA:16033 (one-cell stage embryo).</li>
+    		   <li>EMAPA term with multiple parents, children, EMAPA:28373 (renal artery).</li>
+    		   <li>EMAPA term with multiple parents, no children, EMAPA:16051 (primitive endoderm).</li>
+    		   <li>EMAPA term with parent(s), children, no grandchildren, EMAPA:28373 (renal artery).</li>
+    		   <li>EMAPA term with parent(s), children, grandchildren, EMAPA:28457 (renal vasculature).</li>
+    		   <li>Invalid EMAPA term, EMAPA:X</li>
+    	    </ol></li>
+    	    
+    	   <li>Verify Tree View default display for EMAPS terms (indents, term detail, default path, open/close rules, child order, headings)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>EMAPS term with single parent and children, EMAPS:1603703 (4-8 cell stage embryo - TS3).</li>
+    		   <li>EMAPS term with no parent, EMAPS:2576509 (mouse - TS9).</li>
+    		   <li>EMAPS term with single parent, no children, EMAPS:3000328 (smooth muscle layer of renal artery - TS28).</li>
+    		   <li>EMAPS term with multiple parents, children, EMAPS:1610319 (organ system-TS19).</li>
+    		   <li>EMAPS term with multiple parents, no children, EMAPS:1603201 (first polar body-TS1).</li>
+    		   <li>EMAPS term with parent(s), children, no grandchildren, EMAPS:3185901 (polar body group-TS1).</li>
+    		   <li>EMAPS term with parent(s), children, grandchildren, EMAPS:1736627 (urinary system-TS27).</li>
+    		   <li>Invalid EMAPS term, EMAPS:1111101</li>
+    		   <li>EMAPS term with fewer children than corresponding EMAPA term, EMAPS:1603908 (embryo-TS8).</li>
+    		   <li>EMAPS term with fewer parents than corresponding EMAPA term, EMAPS:2837321 (renal artery-TS21)</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify display of selected term - Tree & Term Detail should match (highlight, bold)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>EMAPA term with a single instance in Tree, EMAPA:25765</li>
+    		   <li>EMAPS term with a single instance in Tree, EMAPS:1603301.</li>
+    		   <li>EMAPA term with multiple instances in Tree, EMAPA:28373.  Expect 8 instances</li>
+    		   <li>EMAPS term with multiple instances in Tree, EMAPS:3156326.  Expect 2 instances</li>
+    	    </ol></li>
+    	  
+    	     <li>Verify no wrap and links for all terms.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Click on any EMAPA term in the tree.  Expect Tree and Term Detail to reset display to this term.</li>
+    		   <li>Display and then click on EMAPS term with a long term name, EMAPS:3156320.</li>
+    		   <li>EMAPA term with special characters, EMAPA:16033.</li>
+    		   <li>EMAPS term with special characters, EMAPS:1603301.</li>
+    	    </ol></li>
+    	    
+    	    <li>Display the appropriate default path for the selected term.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>EMAPA term with multiple parents, EMAPA:16103 (organ system).  Expect parent = embryo.</li>
+    		   <li>EMAPS term with multiple parents, EMAPS:2837321 (renal artery).  Expect parent = renal vasculature.</li>
+    	    </ol></li>
+    	    
+    	    <li>Provide open/close widget for terms with children (display and operate)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Select EMAPA term with children that all have children, EMAPA:31436 (renal arterial system).  Expect: widgets for all children.</li>
+    		   <li>Select EMAPS term with children that all have children, EMAPS:3143624.  Expect: widgets for all children</li>
+    		   <li>Select EMAPA term with children with a mix of child/not child, EMAPA:25765 (mouse).  Expect: no widgets for children without children.</li>
+    		   <li>Select EMAPS term with children with a mix of child/not child, EMAPS:2576511.  Expect: no widgets for children without children.</li>
+    		   <li>Select EMAPA term with children that have no children, EMAPA:28373 (renal artery).  Expect: no widgets for child terms</li>
+    		   <li>Select EMAPS term with children that have no children, EMAPS:2837326.  Expect: no widgets for child terms</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify vertical and horizontal scroll bars display as needed and selected term moves into view
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display term that will force a vertical scroll bar, EMAPA:30003</li>
+    		   <li>Display term that will force a horizontal scroll bar, EMAPA:nnnnn (no test case in this data)</li>
+    		   <li>Display term that will force both vertical and horizontal scroll bars, EMAPA:nnnnn (no test case in this data)</li>
+    		   <li>Display term that does not require either scroll bar, EMAPA:16039 (embryo)</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify display, interactivity, and browser back button in all supported browsers.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display a term that has several parents and children -- open/close terms.</li>
+    		   <li>Display a term that will force scroll bars - verify scroll bars work.</li>
+    		   <li>Perform several actions within the Tree View -- then use Browser back button</li>
+    		   <li>Click on terms within the Tree -- verify display resets as expected</li>
+    		   
+    		   
+    	    </ol></li>
+    	    
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
