@@ -36,18 +36,21 @@
             <li>An AD term mapped to multiple EMAPS terms will result in random association to one of the EMAPS terms</li>
             <li>Invalid mappings are ignored and the GXD annotations for that mapping will not be available on Public</li>
         </ol></li>
-        <li>The GXD Summary tabs: Genes, Assays, Assay Results, and Images will reflect updated counts using the new EMAPS mapping</li>
-        <li>Display EMAPS term in the "Structure" column instead of the AD term
-        <ol>
-           <li>GXD Summaries - Assay Results tab</li>
-           <li>Batch Query</li>
-           <li>Marker Tissue</li>
-        </ol></li>
+        <li>The GXD Summary tabs: Genes, Assays, Assay Results, and Images will reflect updated counts using the new EMAPS mapping
+        <ul><li>If all annotations are mapped correctly these counts will be the same as the counts using the AD</li>
+        </ul></li>
+        
         <li>GXD result counts that are displayed and used as links will reflect the number of results using the EMAPS associations.  The links will work.
         <ol><li>Marker Detail - Expression ribbon - GXD result counts (several flavors), Marker Tissue count, Image count</li>
             <li>Allele Detail - Expression ribbon - GXD result count</li>
             <li>GXD Literature Detail - GXD result count</li>
             <li>Reference - Curated Data column - GXD result count</li>
+        </ol></li>
+        <li>Display EMAPS term in the "Structure" column instead of the AD term
+        <ol>
+           <li>GXD Summaries - Assay Results tab</li>
+           <li>Batch Query</li>
+           <li>Marker Tissue</li>
         </ol></li>
         <li>Note -- The following user stories address other facets of converting to EMAPS and are not included in US 94 testing.
         <ol><li>US87 - GXD assay detail pages use EMAPS</li>
@@ -55,15 +58,13 @@
             <li>US86 & 98 - GXD Diff QF/Results - query by anatomical structure and sort of results</li>
             <li>US83 & 84 - autocomplete for structure on both QFs</li>
             <li>US 112 & 113 - Quick Search
-            
-        </ol></li>
+</ol></li>
         <li>US 88 & 89 - Marker Tissue and Batch Query -- I think this work has been included in this US -- delete them from back-log?  Check with Jon.</li>
 	   
 	</ol>
 </div>
-
-
-<div id="tests">
+ 
+ <div id="tests">
     <h2>Tests</h2>
     
 	<div id="manual">
@@ -75,14 +76,60 @@
 		
 		<ol>
     		
-    		<li>Test 1
-    		<p concordion:assertTrue="false">new test</p>  
+    		<li>Verify mapping of GXD Annotations to EMAPS terms (instead of AD terms)
+    		<p concordion:assertTrue="true">PASS - jlewis 12/6/2013</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
+    		   <li>Verify results of a 1:1 mapping. AD-MGI:4850337 to EMAPS:1605807 for gene Bmp2.  Expect: 1 result for structure- TS07:visceral endoderm.</li>
+    		   <li>Verify results of a 2:1 mapping. AD-MGI:4999866 & MGI:5050741 to EMAPS:3153320 for gene Vip.  Expect: 2 results for structure- TS20:nerves of urogenital sinus. </li>
+    		   <li>Verify there are no results when the AD term is not in the table.  AD-MGI:4856398; "TS21:lower jaw epithelium" for gene Traf.  Expect: this annotation missing from the TS21 annotations on Marker Detail.</li>
+    		   <li>Verify that a bad mapping record is just dropped on the floor.  Confirmed with Jon that the MGI id that is for a Probe instead of AD term was dropped.</li>
+    		   <li>No case exists for a 1:n mapping in this test run</li>
    		    </ol></li>
     		
+    		<li>Verify GXD result counts on the Marker Detail page
+    		<p concordion:assertTrue="false">FAIL - jlewis 12/6/2013 - image counts are wrong - all others okay</p>  
+    		<ol>
+    		   <li>Verify GXD results count for Kit.  Expect this count and count on linked summary page to match.</li>
+    		   <li>Verify GXD tissue count for Pax6.  Expect this count and count on linked summary page to match.</li>
+    		   <li>Verify GXD image count for Lep.  Expect this count and count on linked summary page to match.</li>
+    		   <li>Verify GXD Assay result counts for Brca1.  Expect these counts and counts on linked summary page to match.</li>
+   		    </ol></li>
     		
+    		<li>Verify GXD result counts on the Allele Detail page
+    		<p concordion:assertTrue="false">FAIL - jlewis 12/6/2013 - counts don't match</p>  
+    		<ol>
+    		   <li>Verify GXD results count for A&lt;y&gt;.  Expect this count and count on linked summary page to match.</li>
+   		    </ol></li>
+    	   
+    	   <li>Verify GXD result counts on the Reference Detail page
+    		<p concordion:assertTrue="false">FAIL - jlewis 12/6/2013 - counts don't match</p>  
+    		<ol>
+    		   <li>Verify GXD results count for J:125220.  Expect this count and count on linked summary page to match.</li>
+   		    </ol></li>
+   		    
+   		    <li>Verify GXD result counts on the GXD Literature Detail page
+    		<p concordion:assertTrue="false">FAIL - jlewis 12/6/2013 - counts don't match</p>  
+    		<ol>
+    		   <li>Verify GXD results count for Kit / J:93300.  Expect this count and count on linked summary page to match.</li>
+   		    </ol></li>
+    	   
+    	   <li>Verify updated structure name on GXD Assay Results Summary tab
+    		<p concordion:assertTrue="true">PASS - jlewis 12/6/2013</p>  
+    		<ol>
+    		   <li>Verify results for Kit now include "TS1:mouse" instead of "TS1:conceptus"</li>
+   		    </ol></li>
+    	   
+    	   <li>Verify updated structure name on Batch Query.
+    		<p concordion:assertTrue="true">PASS - jlewis 12/6/2013 - do we care about the leading zero?</p>  
+    		<ol>
+    		   <li>Verify results for Kit now include "01:mouse" instead of "1:conceptus"</li>
+   		    </ol></li>
+    	   
+    	   <li>Verify updated structure name and link on Marker Tissue Summary.
+    		<p concordion:assertTrue="true">PASS - jlewis 12/6/2013 - do we care about the leading zero in TS?</p>  
+    		<ol>
+    		   <li>Verify results for Trp53 now include "TS01:mouse" instead of "TS1:conceptus"</li>
+   		    </ol></li>
     	   
 		</ol>
 	</div>
@@ -100,4 +147,6 @@
 </div>
 
 </body>
-</html>
+</html>           
+
+
