@@ -1,0 +1,103 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 94</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Move GXD data from back-end to front-end using EMAPS mapping</h1>
+    <ul>
+        <li>User Story 94 - Move GXD data from back-end to front-end using EMAPS mapping</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+        <li>Associate GXD annotations with EMAPS terms via mappings to the appropriate AD term(s).
+        <ol><li>Missing AD translation in mapping table will result in those annotations unavailable on Public</li>
+            <li>Multiple AD terms may be associated to a single EMAPS term</li>
+            <li>An AD term mapped to multiple EMAPS terms will result in random association to one of the EMAPS terms</li>
+            <li>Invalid mappings are ignored and the GXD annotations for that mapping will not be available on Public</li>
+        </ol></li>
+        <li>The GXD Summary tabs: Genes, Assays, Assay Results, and Images will reflect updated counts using the new EMAPS mapping</li>
+        <li>Display EMAPS term in the "Structure" column instead of the AD term
+        <ol>
+           <li>GXD Summaries - Assay Results tab</li>
+           <li>Batch Query</li>
+           <li>Marker Tissue</li>
+        </ol></li>
+        <li>GXD result counts that are displayed and used as links will reflect the number of results using the EMAPS associations.  The links will work.
+        <ol><li>Marker Detail - Expression ribbon - GXD result counts (several flavors), Marker Tissue count, Image count</li>
+            <li>Allele Detail - Expression ribbon - GXD result count</li>
+            <li>GXD Literature Detail - GXD result count</li>
+            <li>Reference - Curated Data column - GXD result count</li>
+        </ol></li>
+        <li>Note -- The following user stories address other facets of converting to EMAPS and are not included in US 94 testing.
+        <ol><li>US87 - GXD assay detail pages use EMAPS</li>
+            <li>US85 - GXD QF/Results - query by anatomical structure and sort of results</li>
+            <li>US86 & 98 - GXD Diff QF/Results - query by anatomical structure and sort of results</li>
+            <li>US83 & 84 - autocomplete for structure on both QFs</li>
+            <li>US 112 & 113 - Quick Search
+            
+        </ol></li>
+        <li>US 88 & 89 - Marker Tissue and Batch Query -- I think this work has been included in this US -- delete them from back-log?  Check with Jon.</li>
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   <li>test 1.2</li>
+   		    </ol></li>
+    		
+    		
+    	   
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
