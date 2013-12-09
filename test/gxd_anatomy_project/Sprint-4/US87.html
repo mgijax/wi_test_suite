@@ -70,21 +70,22 @@
    		    </ol></li>
    		    
    		    <li>Verify all structures link to new EMAPS pages
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 12/9/2013</p>  
     		<ol>
-    		   <li>Display Assay Detail-Blot with many structure links; MGI:nnnnn</li>
-    		   <li>Display Assay Detail-In Situ with many structure links; MGI:nnnnn</li>
-    		   <li>Display Assay Detail with just one link; MGI:nnnnn</li>
-    		   <li>Display Assay Detail with multiple links to the same structure; MGI:nnnnn</li>
-    		   <li>Display Assay Detail with links to single digit EMAPS terms; MGI:nnnnn</li>
+    		   <li>Display Assay Detail-Blot with many structure links; MGI:1329700 </li>
+    		   <li>Display Assay Detail-In Situ with many structure links; MGI:5491632 </li>
+    		   <li>Display Assay Detail with just one link; MGI:5494284; MGI:5003256   </li>
+    		   <li>Display Assay Detail with multiple links to the same structure; MGI:2684129</li>
+    		   <li>Display Assay Detail with links to single digit EMAPS terms; MGI:5289542 </li>
     		   
    		    </ol></li>
    		    
    		    <li>Verify order of structures listed on both types of Assay Detail pages
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 12/9/2013; test 4.3 order is different; created a user story for this (140) and there's a req change (if we do anything)</p>  
     		<ol>
-    		   <li>Display Assay Detail-Blot with many structure links; MGI:nnnnn</li>
-    		   <li>Display Assay Detail-In Situ with many structure links; MGI:nnnnn</li>
+    		   <li>Display Assay Detail-Blot with many structure links; MGI:3706549 </li>
+    		   <li>Display Assay Detail-In Situ with many structure links; MGI:5052585 </li>
+    		   <li>Display Assay Detail that has structures that share an EI "result key"; MGI:3691489</li>
     		   
    		    </ol></li>
     	   
