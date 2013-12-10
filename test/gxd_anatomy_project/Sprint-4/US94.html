@@ -52,15 +52,22 @@
            <li>Batch Query</li>
            <li>Marker Tissue</li>
         </ol></li>
+        
+        <li>Update term links on Marker Tissue page to go to new anatomy browser</li>
+        
+        <li>Include fixes to bugs currently on Public - see TR 11552
+        <ol><li>Count on Marker Tissue page does not factor out cre - see Pax3</li>
+            <li>Image count on Marker Detail; expression ribbon does not factor out cre - see Pax3</li>
+        </ol></li>
+        
         <li>Note -- The following user stories address other facets of converting to EMAPS and are not included in US 94 testing.
         <ol><li>US87 - GXD assay detail pages use EMAPS</li>
             <li>US85 - GXD QF/Results - query by anatomical structure and sort of results</li>
             <li>US86 & 98 - GXD Diff QF/Results - query by anatomical structure and sort of results</li>
             <li>US83 & 84 - autocomplete for structure on both QFs</li>
             <li>US 112 & 113 - Quick Search
-</ol></li>
-        <li>US 88 & 89 - Marker Tissue and Batch Query -- I think this work has been included in this US -- delete them from back-log?  Check with Jon.</li>
-	   
+        </ol></li>
+        
 	</ol>
 </div>
  
@@ -87,7 +94,7 @@
    		    </ol></li>
     		
     		<li>Verify GXD result counts on the Marker Detail page
-    		<p concordion:assertTrue="false">FAIL - jlewis 12/6/2013 - image counts are wrong - all others okay</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 12/9/2013 </p>  
     		<ol>
     		   <li>Verify GXD results count for Kit.  Expect this count and count on linked summary page to match.</li>
     		   <li>Verify GXD tissue count for Pax6.  Expect this count and count on linked summary page to match.</li>
@@ -96,19 +103,19 @@
    		    </ol></li>
     		
     		<li>Verify GXD result counts on the Allele Detail page
-    		<p concordion:assertTrue="false">FAIL - jlewis 12/6/2013 - counts don't match</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 12/9/2013</p>  
     		<ol>
     		   <li>Verify GXD results count for A&lt;y&gt;.  Expect this count and count on linked summary page to match.</li>
    		    </ol></li>
     	   
     	   <li>Verify GXD result counts on the Reference Detail page
-    		<p concordion:assertTrue="false">FAIL - jlewis 12/6/2013 - counts don't match</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 12/9/2013</p>  
     		<ol>
     		   <li>Verify GXD results count for J:125220.  Expect this count and count on linked summary page to match.</li>
    		    </ol></li>
    		    
    		    <li>Verify GXD result counts on the GXD Literature Detail page
-    		<p concordion:assertTrue="false">FAIL - jlewis 12/6/2013 - counts don't match</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 12/9/2013</p>  
     		<ol>
     		   <li>Verify GXD results count for Kit / J:93300.  Expect this count and count on linked summary page to match.</li>
    		    </ol></li>
@@ -129,6 +136,12 @@
     		<p concordion:assertTrue="true">PASS - jlewis 12/6/2013 - do we care about the leading zero in TS?</p>  
     		<ol>
     		   <li>Verify results for Trp53 now include "TS01:mouse" instead of "TS1:conceptus"</li>
+   		    </ol></li>
+   		    
+   		    <li>Verify bug fixes to Image Count (Marker Detail) and Tissue Count (Marker Tissue) - TR11552
+    		<p concordion:assertTrue="true">PASS - jlewis 12/9/2013</p>  
+    		<ol>
+    		   <li>Verify counts on the Pax3 Marker Detail page match the counts on the Tissue page and the Image tab for GXD results</li>
    		    </ol></li>
     	   
 		</ol>
