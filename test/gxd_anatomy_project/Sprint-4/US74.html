@@ -1,0 +1,107 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 74</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>AD/EMAPS EI Module</h1>
+    <ul>
+        <li>User Story 74 - AD/EMAPS EI Module</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+       <li>Provide new EI module to edit the new EMAPS-AD mapping table.</li>
+       <li>After the initial load of the mappings - this will be the only way for curators to modify the mapping translations.</li>
+       <li>Validation of fields is not required or desired - verification of the mappings will be done by a QC report.</li>
+       <li>EMAPS terms may have multiple AD terms mapped to it -- each row of the Acc ID table represents an AD term</li>
+       <li>Provide a Search function
+       <ol><li>Fields with search enabled: EMAPS ID, EMAPS term, Acc ID (i.e. AD term)</li>
+           <li>Fields without search: Structure, Stage, Created by/Modified by fields</li>
+           <li>Accept a wildcard in all search fields</li>
+           <li>To search by Acc ID the user must enter a value in the first row of the Acc ID table.</li>
+           <li>Multiple field search??</li>
+       </ol></li>
+       <li>Provide a Clear function - clears all fields</li>
+       <li>Provide a Delete function
+       <ol><li>Deletes entry for an EMAPS id</li>
+           <li>Warn user before executing the delete</li>
+       </ol></li>
+       <li>Provide an Add function
+       <ol><li>Required fields:  EMAPS id, ...</li>
+           <li>Fields not allowed during an Add: ....</li>
+           <li>Optional fields: .....</li>
+           <li>If a user adds a mapping for an EMAPS id that is already in the table, but to a different AD term....</li>
+           <li>If a user adds a mapping for an EMAPS id/AD term combo that is already in the table...</li>
+           <li>If a user adds a mapping for an AD term that is already in the table, but mapped to another EMAPS id....</li>
+           <li>Allow a user to map an EMAPS id to 1 or more AD terms</li>
+           <li>Validation: a user may enter any type of text in the ID fields - no validation is performed.</li>
+        </ol></li>
+        <li>Provide a Modify function
+        <ol><li>Fields that can be modified directly: EMAPS id, ...</li>
+            <li>Fields that cannot be modified: ....</li>
+            <li>Use the "Add row" function to map a new AD term to an EMAPS id</li>
+            <li>Use the "Delete row" function to remove an AD term mapping</li>
+            <li>Use the Delete row and Add row functions to change the mapping from one AD term to another.</li>
+            <li>What happens if I delete all rows of AD term mappings - is it allowed?  If so, is it treated like a Delete?</li>
+        </ol></li>
+        <li>Use traditional EI interfaces; defaults; search limits; etc</li>
+          
+	</ol>
+</div>
+ 
+ <div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Test 1.1</li>
+    		 
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>           
+
+
