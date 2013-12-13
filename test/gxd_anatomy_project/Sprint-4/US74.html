@@ -30,8 +30,8 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-       <li>Provide new EI module to edit the new EMAPS-AD mapping table.</li>
-       <li>After the initial load of the mappings - this will be the only way for curators to modify the mapping translations.</li>
+       <li>Provide new EI module to edit the new EMAPS-AD mapping table.
+       <ul><li>After the initial load of the mappings - this will be the only way for curators to modify the mapping translations.</li></ul></li>
        <li>Validation of fields is not required or desired - verification of the mappings will be done by a QC report.</li>
        <li>EMAPS terms may have multiple AD terms mapped to it -- each row of the Acc ID table represents an AD term</li>
        <li>Provide a Search function
@@ -81,11 +81,88 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Search by EMAPS id - exact match, no match, wildcards - use Clear function between queries.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Test 1.1</li>
+    		   <li>Search for a valid EMAPS id that has a 1:1 mapping - EMAPS:1603904. Expect match with mapping.</li>
+    		   <li>Search for a valid EMAPS id that has no mapping - EMAPS:nnnnnnn.  Expect no match.</li>
+    		   <li>Search for a valid EMAPS id that has a 1:2 mapping - EMAPS:3153321.  Expect match with mapping.</li>
+    		   <li>Search for an EMAPS id that is invalid and not in the table - EMAPS:1111100.  Expect no match.</li>
+    		   <li>Search for an EMAPS id that is in the table using a wildcard - %16058%.  Expect matches to <i>visceral endoderm.</i></li>
+    		</ol></li>
+    		
+    		<li>Search by EMAPS term - exact match, no match, wildcards - use Clear function between queries.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for a valid EMAPS term that has a 1:1 mapping - <i>embryo</i>. Expect match with mapping.</li>
+    		   <li>Search for a valid EMAPS term that has no mapping - <i>xxxxx</i>  Expect no match.</li>
+    		   <li>Search for a valid EMAPS term that has a 1:2 mapping - <i>renal proximal straight tubule</i>  Expect match with mapping.</li>
+    		   <li>Search for an EMAPS term that is invalid and not in the table - <i>football</i>  Expect no match.</li>
+    		   <li>Search for an EMAPS term that is in the table using a wildcard - %renal artery%.  Expect matches to several terms</li>
+    		</ol></li>
     		 
+    		<li>Search by AD term id - exact match, no match, wildcards - use Clear function between queries.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for a valid AD term id that has a 1:1 mapping - MGI:nnnnn. Expect match with mapping.</li>
+    		   <li>Search for a valid AD term id that has no mapping - MGI:4855499.  Expect no match.</li>
+    		   <li>Search for a valid AD term id that is part of a 1:2 mapping - MGI:5004819.  Expect match with mapping.</li>
+    		   <li>Search for an AD term id that is invalid and not in the table - MGI:11111.  Expect no match.</li>
+    		   <li>Search for an AD term id that is in the table using a wildcard - MGI:48509%.  Expect several matches.</li>
+    		</ol></li> 
+    		
+    		<li>Search by multiple fields
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search for a valid EMAPS id and AD term id that has a mapping - EMAPS:1626721 and MGI:4864448. Expect match with mapping.</li>
+    		   <li>Search for a valid EMAPS term and AD term with wildcards - %renal% and MGI:nnnnn.  Expect match.</li>
+    		</ol></li>
+    		
+    		<li>Attempt to search by fields not enabled for searching
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Search a structure; <i>brain</i>.  Expect search to ignore entered value - return first 2000 records</li>
+    		   <li>Search for a stage; <i>28</i>.  Expect search to ignore entered value - return first 2000 records.</li>
+    		   <li>Search for each of the created by/mod by fields.  Expect search to ignore entered value - return first 2000 records.</li>
+    		   <li>Search for a field that is enabled for searching along with a field that is not.  Expect field not enabled to be ignored.</li>
+    		</ol></li>
+    		
+    		<li>Use the Add function to enter a mapping for an EMAPS id
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Add a 1:1 entry using valid EMAPS/AD term ids that do not currently have a mapping.</li>
+    		   <li>Add a 1:2 entry using valid EMAPS/AD term ids that do not currently have a mapping.</li>
+    		   <li>Add a 1:2 entry using all invalid ids that do not have a mapping.</li>
+    		   <li>Add a 1:3 entry using valid EMAPS/AD term ids that do not currently have a mapping</li>
+    		   <li>Add a 1:1 entry using valid EMAPS/AD term ids where the EMAPS id already has a mapping.</li>
+    		   <li>Add a 1:1 entry using valid EMAPS/AD term ids where the AD term id is already part of a mapping.</li>
+    		   <li>Add a 1:1 entry using valid EMAPS/AD term ids where both already are mapped to each other.</li>
+    		   <li>Add a 1:1 entry using valid EMAPS/AD term ids where both already are mapped, but not to each other.</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Use the Modify function to change existing mapping entries
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Modify an existing 1:1 entry - change the EMAPS id.</li>
+    		   <li>Modify an existing 1:2 entry - change the EMAPS id.</li>
+    		   <li>Modify an existing 1:1 entry - change the AD term id (must delete row/add row)</li>
+    		   <li>Modify an existing 1:2 entry - change one of the AD term ids (must delete row/add row)</li>
+    		   <li>Modify an existing 1:2 entry - change both of the AD term ids (delete both rows/add 2 rows)</li>
+    		   <li>Attempt to modify term names and stages.  Expect this not to be allowed.</li>
+    		   <li>Modify an existing 1:1 entry - delete the AD term id and don't replace it.  Expect: ?</li>
+    		   
+    		   
+    		</ol></li>
+    		
+    		<li>Delete the mapping for an EMAPS id
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Delete an EMAPS id mapping record that was entered via the load.  EMAPS:nnnnn.  Expect it to be deleted.</li>
+    		   <li>Delete an EMAPS id mapping record that was entered via the EI.  EMAPS:jilltest.  Expect it to be deleted.</li>
+    		   
+    		</ol></li>
+    		
 		</ol>
 	</div>
 	<div id="sql">
