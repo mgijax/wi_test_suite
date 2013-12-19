@@ -30,16 +30,16 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-       <li>Display the number of GXD results for an EMAPA or EMAPS term in the tree view of the new Anatomy Browser
+       <li>Display the number of GXD results for an EMAPS term in the tree view of the new Anatomy Browser
        <ul><li>Annotations to the EMAPS term are driven by the AD/EMAPS mapping table.</li>
-           <li>Annotation counts for an EMAPA term is inferred from the associated EMAPS terms</li>
        </ul></li>
-       <li>Link the number to the GXD Summary page; Results tab.</li>
+       <li>Display the number of GXD results for an EMAPA term in the tree view of the new Anatomy Browser
+       <ul><li>Annotation counts for an EMAPA term is inferred from the associated EMAPS terms</li>
+       </ul></li>
        <li>The count of GXD results includes the annotations to each term plus all of its children.</li>
+       <li>Link the count to the GXD Summary page; Results tab - annotations to the term and all its children.</li>
        <li>When zero results are associated to a term - display a 0 count -- but don't make it a link.</li>
        <li>When 1 result is associated to a term - remove pluralization in the text associated to the link.</li>
-       
-      
 	</ol>
 </div>
  
@@ -55,14 +55,47 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify counts/results for EMAPS terms
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
-    		   
+    		   <li>Select a 1:1 mapped term that has no children; EMAPS:nnn.  Expect N results.</li>
+    		   <li>Select a 1:1 mapped term that has 1 generation of children; EMAPS:nnn.  Expect N results.</li>
+    		   <li>Select a 1:1 mapped term that has multiple generation of children; EMAPS:nnn.  Expect N results.</li>
+    		   <li>Select a 1:1 mapped term that has a single child; EMAPS:nnn.  Expect N results.</li>
+    		   <li>Select a 2:1 mapped term; EMAPS:nnn.  Expect N results.</li>
+    		   <li>Select a 1:1 mapped term that has a 2:1 mapped child; EMAPS:nnn.  Expect N results.</li>
+    		   <li>Select a mapped term that has both GXD and Cre results; EMAPS:nnn.  Expect N GXD results (no cre)</li>
     		</ol></li>
     		
+    		<li>Verify counts/results for EMAPA terms
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Select a 1:1 mapped term that has no children; EMAPA:nnn.  Expect N results.</li>
+    		   <li>Select a 1:1 mapped term that has 1 generation of children; EMAPA:nnn.  Expect N results.</li>
+    		   <li>Select a 1:1 mapped term that has multiple generation of children; EMAPA:nnn.  Expect N results.</li>
+    		   <li>Select a 1:1 mapped term that has a single child; EMAPA:nnn.  Expect N results.</li>
+    		   <li>Select a 2:1 mapped term; EMAPA:nnn.  Expect N results.</li>
+    		   <li>Select a 1:1 mapped term that has a 2:1 mapped child; EMAPA:nnn.  Expect N results.</li>
+    		   <li>Select a mapped term that has both GXD and Cre results; EMAPA:nnn.  Expect N GXD results (no cre)</li>
+    		</ol></li>
+    		
+    		<li>Verify counts/results for terms with 1 or 0 results
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Select an EMAPA term with only 1 result; EMAPA:nnn.  Expect 1 result - text modified.</li>
+    		  <li>Select an EMAPS term with only 1 result; EMAPS:nnn.  Expect 1 result - text modified.</li>
+    		  <li>Select an EMAPA term with zero results; EMAPA:nnn.  Expect 0 results - no link.</li>
+    		  <li>Select an EMAPS term with zero results; EMAPS:nnn.  Expect 0 result - no link.</li>
+    		</ol></li>
+    		
+    		<li>Verify display for a long term that exceeds the width of the tree window does not wrap.
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol><li>Display a long EMAPA term; EMAPA:nnn.  Expect no wrap - horizontal scroll bar.</li>
+    		    <li>Display a long EMAPS term; EMAPS:nnn.  Expect no wrap - horizontal scroll bar.</li>
+    		</ol></li> 
+    		
+    		<li>Verify counts/results for terms in all supported browsers (firefox, safari, IE)</li>
+    		<p concordion:assertTrue="false">new test</p>  
     		
     		
 		</ol>
