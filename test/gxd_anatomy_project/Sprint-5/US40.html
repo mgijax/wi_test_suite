@@ -56,42 +56,42 @@
 		<ol>
     		
     		<li>Verify counts/results for EMAPS terms
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 12/20/2013</p>  
     		<ol>
-    		   <li>Select a 1:1 mapped term that has no children; EMAPS:nnn.  Expect N results.</li>
-    		   <li>Select a 1:1 mapped term that has 1 generation of children; EMAPS:nnn.  Expect N results.</li>
-    		   <li>Select a 1:1 mapped term that has multiple generation of children; EMAPS:nnn.  Expect N results.</li>
-    		   <li>Select a 1:1 mapped term that has a single child; EMAPS:nnn.  Expect N results.</li>
-    		   <li>Select a 2:1 mapped term; EMAPS:nnn.  Expect N results.</li>
-    		   <li>Select a 1:1 mapped term that has a 2:1 mapped child; EMAPS:nnn.  Expect N results.</li>
-    		   <li>Select a mapped term that has both GXD and Cre results; EMAPS:nnn.  Expect N GXD results (no cre)</li>
+    		   <li>Select a 1:1 mapped term that has no children; EMAPS:3280628 (snout-TS28).  Expect 14 results.</li>
+    		   <li>Select a 1:1 mapped term that has 1 generation of children; EMAPS:17316 (left atrium auricular region - TS16).  Expect 3 results.</li>
+    		   <li>Select a 1:1 mapped term that has multiple generation of children; EMAPS:1818423 (pelvic girdle muscle - TS23).  Expect 100 results.</li>
+    		   <li>Select a 1:1 mapped term that has a single child; EMAPS:1604305 (extraebryonic cavities and their linings - TS 5).  Expect 8 results.</li>
+    		   <li>Select a 2:1 mapped term; EMAPS:3153321 (nerves of urogenital sinus - TS 21).  Expect 44 results; 29 direct results (14 from AD term "urogenital sinus nerve" and 15 from AD term "urogenital sinus nerves")</li>
+    		   <li>Select a 1:1 mapped term that has a 2:1 mapped child; EMAPS:1737821 (urogenital sinus).  Expect 29 direct annotations to &quot;nerves of urogenital sinus&quot;.</li>
+    		   <li>Select a mapped term that has both GXD and Cre results; EMAPS:1668116.  Expect 11 GXD results (no cre)</li>
     		</ol></li>
     		
     		<li>Verify counts/results for EMAPA terms
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 12/20/2013</p>  
     		<ol>
-    		   <li>Select a 1:1 mapped term that has no children; EMAPA:nnn.  Expect N results.</li>
-    		   <li>Select a 1:1 mapped term that has 1 generation of children; EMAPA:nnn.  Expect N results.</li>
-    		   <li>Select a 1:1 mapped term that has multiple generation of children; EMAPA:nnn.  Expect N results.</li>
-    		   <li>Select a 1:1 mapped term that has a single child; EMAPA:nnn.  Expect N results.</li>
-    		   <li>Select a 2:1 mapped term; EMAPA:nnn.  Expect N results.</li>
-    		   <li>Select a 1:1 mapped term that has a 2:1 mapped child; EMAPA:nnn.  Expect N results.</li>
-    		   <li>Select a mapped term that has both GXD and Cre results; EMAPA:nnn.  Expect N GXD results (no cre)</li>
+    		   <li>Select a 1:1 mapped term that has no children; EMAPA:32806 (snout).  Expect 17 results.</li>
+    		   <li>Select a 1:1 mapped term that has 1 generation of children; EMAPA:17316 (left atrium auricular region).  Expect 8 results.</li>
+    		   <li>Select a 1:1 mapped term that has multiple generation of children; EMAPA:18184 (pelvic girdle muscle).  Expect 103 results (70 direct; 17 child; 16 grandchild).</li>
+    		   <li>Select a 1:1 mapped term that has a single child; EMAPA:16043 (extraembryonic cavities and their linings) .  Expect 9 results.</li>
+    		   <li>Select a 2:1 mapped term; EMAPA:31533 (nerves of urogenital sinus).  Expect 44 results; 29 direct results (14 from AD term "urogenital sinus nerve" and 15 from AD term "urogenital sinus nerves")</li>
+    		   <li>Select a 1:1 mapped term that has a 2:1 mapped child; EMAPA:17378 (urogenital sinus).  Expect 29 direct annotations to &quot;nerves of urogenital sinus&quot;.</li>
+    		   <li>Select a mapped term that has both GXD and Cre results; EMAPA:16681.  Expect 566 GXD results (no cre)</li>
     		</ol></li>
     		
     		<li>Verify counts/results for terms with 1 or 0 results
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 12/20/2013</p>  
     		<ol>
-    		  <li>Select an EMAPA term with only 1 result; EMAPA:nnn.  Expect 1 result - text modified.</li>
-    		  <li>Select an EMAPS term with only 1 result; EMAPS:nnn.  Expect 1 result - text modified.</li>
-    		  <li>Select an EMAPA term with zero results; EMAPA:nnn.  Expect 0 results - no link.</li>
-    		  <li>Select an EMAPS term with zero results; EMAPS:nnn.  Expect 0 result - no link.</li>
+    		  <li>Select an EMAPA term with only 1 result; EMAPA:17749 (deltoid pre-muscle mass).  Expect 1 result - text modified.</li>
+    		  <li>Select an EMAPS term with only 1 result; EMAPS:2513722 (sterno-mastoid).  Expect 1 result - text modified.</li>
+    		  <li>Select an EMAPA term with zero results; EMAPA:18186 (gluteal).  Expect 0 results - no link.</li>
+    		  <li>Select an EMAPS term with zero results; EMAPS:1818426 (pelvic girdle muscle).  Expect 0 result - no link.</li>
     		</ol></li>
     		
     		<li>Verify display for a long term that exceeds the width of the tree window does not wrap.
-    		<p concordion:assertTrue="false">new test</p> 
-    		<ol><li>Display a long EMAPA term; EMAPA:nnn.  Expect no wrap - horizontal scroll bar.</li>
-    		    <li>Display a long EMAPS term; EMAPS:nnn.  Expect no wrap - horizontal scroll bar.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 12/20/2013</p> 
+    		<ol><li>Display a long EMAPA term; EMAPA:28937.  Expect no wrap - horizontal scroll bar.</li>
+    		    <li>Display a long EMAPS term; EMAPS:2920223.  Expect no wrap - horizontal scroll bar.</li>
     		</ol></li> 
     		
     		<li>Verify counts/results for terms in all supported browsers (firefox, safari, IE)</li>
