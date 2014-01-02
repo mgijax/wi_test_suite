@@ -34,10 +34,11 @@
        <ol><li>Include terms in the autocomplete regardless of whether they have associated GXD results</li>
            <li>Include Theiler Stage range for each item listed</li>
            <li>Include text to identify an item that is a synonym</li>
-           <li>Order of list uses software default</li>
+           <li>Order of list uses logic currently in place - Solr score</li>
+           <li>Limit of list is 200 items - this limit is currently in place on public</li>
        </ol></li>
        <li>Match by terms or synonyms
-       <ol><li>A minimum of 2 characters is needed to activate autocomplete list</li>
+       <ol><li>A minimum of 2 characters is needed to activate autocomplete list - a blank is a valid character</li>
            <li>Prefix searching only</li>
            <li>A match to a term and its synonym should return only the match to the term in the autocomplete list.</li>
        </ol></li>
