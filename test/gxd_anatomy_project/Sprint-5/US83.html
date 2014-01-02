@@ -1,0 +1,158 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 83</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Anatomy autocomplete uses EMAPA - Std QF</h1>
+    <ul>
+        <li>User Story 83 - Anatomy autocomplete uses EMAPA - Standard GXD Query Form</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+       <li>Use EMAPA terms and synonyms for the anatomy autocomplete on the GXD QF
+       <ol><li>Include terms in the autocomplete regardless of whether they have associated GXD results</li>
+           <li>Include Theiler Stage range for each item listed</li>
+           <li>Include text to identify an item that is a synonym</li>
+           <li>Order of list uses software default</li>
+       </ol></li>
+       <li>Match by terms or synonyms
+       <ol><li>A minimum of 2 characters is needed to activate autocomplete list</li>
+           <li>Prefix searching only</li>
+           <li>A match to a term and its synonym should return only the match to the term in the autocomplete list.</li>
+       </ol></li>
+       <li>Match by multiple tokens
+       <ol><li>All tokens must match a term/synonym for that item to be included in the autocomplete list</li>
+           <li>Order of tokens entered not significant to matching</li>
+       </ol></li>
+       
+       <li>Give the user the option to select a specific term from the returned list or allow a search by the text entered.
+       <ol><li>Selecting a specific term indicates that the term and its children be one of the fields included in the query for GXD results.</li>
+           <li>Text entered in the anatomy field indicates a prefix search for terms/synonyms be included in the query for GXD results.  Child terms are included for any matched terms.</li>
+       </ol></li>
+       <li>Autocomplete list should work properly in all supported browsers (IE, Firefox, Safari)</li>
+       
+	</ol>
+</div>
+ 
+ <div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify EMAPA terms returned in autocomplete list
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Enter complete term name for an EMAPA term that returns multiple matches in the A/C list.  Term = xxx.</li>
+    		   <li>Enter complete term name for an EMAPA term that returns a single match in the A/C list.  Term = xxx.</li>
+    		   <li>Enter term name that matches multiple EMAPA terms exactly.  Term = xxxx.</li>
+    		   <li>Enter term name that has no GXD annotations - should still be in A/C list.  Term = xxxx</li>
+    		   <li>Enter term name that has a single TS.  Term = xxx</li>
+    		   <li>Enter term name that has a TS range of single digits.  Term = xxxx</li>
+    		   <li>Enter term name that has a TS range of double digits.  Term = xxxx</li>
+    		   <li>Enter long term name.  Term = xxx xxx xxx </li>
+    		   <li>Enter synonym for an EMAPA term that returns multiple matches in the A/C list.  Synonym = xxx</li>
+    		   <li>Enter synonym for an EMAPA term that returns a single match in the A/C list.  Synonym = heart rudiment.</li>
+    		</ol></li>
+    		
+    		<li>Verify prefix search matching
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Verify 2 characters are required to activate auto-complete.  Enter 1, 2, and 3 characters.</li>
+    		   <li>Verify a prefix search is being used (vs. contains)</li>
+    		</ol></li>
+    		
+    		<li>Verify autocomplete list works okay with special characters and numerics
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Enter text w/o special characters that matches a term with special characters</li>
+    		   <li>Enter text w/ special characters that matches a term with special characters.</li>
+    		   <li>Enter text w/o numerics that matches a term with numerics</li>
+    		   <li>Enter text w/ numerics that matches a term with numerics</li>
+    		</ol></li>
+ 
+    		<li>Verify text that matches both the term name and synonym(s) for an EMAPA term is listed once in A/C list
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Enter text that matches both the term name and a single synonym; text = xxxx</li>
+    		   <li>Enter text that matches the term name and multiple synonyms for a single EMAPA term; text = xxxx</li>
+    		   <li>Enter text that matches multiple synonyms for a single EMAPA term; text = xxxx</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify use of multiple tokens
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Enter multiple tokens and verify all items in list match all tokens.  Text = xxx xx xxx</li>
+    		   <li>Enter the same tokens in a different order to verify match still made.</li>
+    		   <li>Include an add'l token that does not match the term returned - term no longer returned.  Text = xxx xx xxx zz</li>
+    		</ol></li>
+    		
+    		<li>Verify selection of term from autocomplete
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Select first item in list with mouse click, return or tab. Verify display.</li>
+    		   <li>Select last item in list with mouse click.  Verify display.</li>
+    		   <li>Select item in middle of list with mouse click.  Verify display.</li>
+    		</ol></li>
+    		
+    		<li>Verify entry of just text for anatomy search
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Enter a single full word that will match EMAPA; xxxxxx</li>
+    		   <li>Enter a single prefix that will match EMAPA; xxx</li>
+    		   <li>Enter a single word that will not match EMAPA; football</li>
+    		   <li>Enter multiple full words that will match EMAPA; xxxxxx xxxxxx</li>
+    		   <li>Enter multiple tokens that will match EMAPA via prefix; xxx xxx xxx</li>
+    		   <li>Enter multiple tokens that will have no match to EMAPA; xxx xxx football</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify anatomy autocomplete in all supported browsers
+    		<p concordion:assertTrue="false">new test</p>  
+    		</li>
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
