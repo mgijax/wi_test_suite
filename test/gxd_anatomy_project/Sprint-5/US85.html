@@ -1,0 +1,171 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 85</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Anatomy search uses EMAPS - Std QF</h1>
+    <ul>
+        <li>User Story 85 - Anatomy search uses EMAPS - Standard GXD Query Form</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+       <li>Query by the "selected" EMAPA term to return GXD results by EMAPS
+       <ol><li>Include results for all children of the matched EMAPA term</li>
+           <li>Work in conjunction with other fields on the query form</li>
+       </ol></li>
+       <li>Query by the text entered against EMAPA terms/synonyms to return GXD results by EMAPS
+       <ol><li>A minimum of 2 characters required for search. NOTE: a space is a valid character.  E.g. a character plus a space is a valid search parameter.</li>
+           <li>Match is by Prefix only - this is not a "contains" search</li>
+           <li>Ignore special characters when matching terms/synonyms</li>
+           <li>Include results for all children of every matched EMAPA term</li>
+           <li>Work in conjunction with other fields on the query form</li>
+       </ol></li>
+       <li>Update "you searched for" text on the Summary Results for the Anatomy search to indicate different search methods</li>
+       
+       <li>GXD Summary result tabs (gene, assay, results, images) should return the appropriate results for both types of Anatomy searches.</li>
+       
+       <li>Search should work properly in all supported browsers (IE, Firefox, Safari)</li>
+       
+	</ol>
+</div>
+ 
+ <div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Query by the Anatomy field using the "select" method.  Leave all other query fields as the default.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>Query by EMAPA term with direct annotations; no children.  EMAPA:</li>
+    		    <li>Query by EMAPA term with direct anntations + child annotations.  EMAPA:</li>
+    		    <li>Query by EMAPA term with annotations to multiple stages.  EMAPA:</li>
+    		    <li>Query by EMAPA term with annotations to a single stage.  EMAPA:</li>
+    		    
+    		</ol></li>
+    		
+    		<li>Query by the Anatomy field using the "select" method.  Modify other query fields.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Use test case 1.1 and change query for expression to "detected".</li>
+    		   <li>Use test case 1.2 and change query for expression to "not detected".</li>
+    		   <li>Use test case 1.3 and select a single stage.  Test again using a single age.</li>
+    		   <li>Use test case 1.4 and select a single gene.</li>
+    		</ol></li>
+    		
+    		<li>Query by the Anatomy field using the "text" method.  Leave all other query fields as the default.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>Query by text that will match an EMAPA term(s) with direct annotations; no children.  Text:</li>
+    		    <li>Query by text that will match an EMAPA term(s) with direct anntations + child annotations.  Text:</li>
+    		    <li>Query by text that will match an EMAPA term(s) with annotations to multiple stages.  Text:</li>
+    		    <li>Query by text that will match an EMAPA term(s) with annotations to a single stage.  Text:</li>
+    		    
+    		</ol></li>
+    		
+    		<li>Query by the Anatomy field using the "text" method.  Modify other query fields.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Use test case 3.1 and change query for expression to "detected".</li>
+    		   <li>Use test case 3.2 and change query for expression to "not detected".</li>
+    		   <li>Use test case 3.3 and select a single stage.  Test again using a single age.</li>
+    		   <li>Use test case 3.4 and select a single gene.</li>
+    		   <li>Use test case 3.2 and select a vocabulary term</li>
+    		   <li>Use test case 3.3 and select a specific assay type</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Query by the Anatomy field using the "text" method. Verify terms with special characters are included.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 5.1</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Query by the Anatomy field using the "text" method.  Verify that "200 item" limit not applied to search. Text = xxx.
+    		<p concordion:assertTrue="false">new test</p>  
+    		
+    		
+    		<li>Verify "You searched for" text using the "select" method.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Perform tests defined in #2 above.</li>
+    		   <li>Perform a test where all query fields remain at the default.</li>
+    		   <li>Perform a test where all query fields have been modified.</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify "you searched for" text using the "text" method.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Perform tests defined in #4 above.</li>
+    		   <li>Perform a test where all query fields remain at the default.</li>
+    		   <li>Perform a test where all query fields have been modified.</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify GXD result tabs for "select" method.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Perform tests defined in #2 above.</li>
+    		   <li>Perform a test where the Image tab is 0</li>
+    		   <li>Perform a test where the Gene tab is 1</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify GXD result tabs for "text" method.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Perform tests defined in #2 above.</li>
+    		   <li>Perform a test where the Image tab is 0</li>
+    		   <li>Perform a test where the Gene tab is 1</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify anatomy search works in all supported browsers
+    		<p concordion:assertTrue="false">new test</p>  
+    		</li>
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>

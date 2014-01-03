@@ -34,20 +34,25 @@
        <ol><li>Include terms in the autocomplete regardless of whether they have associated GXD results</li>
            <li>Include Theiler Stage range for each item listed</li>
            <li>Include text to identify an item that is a synonym</li>
-           <li>Order of list uses logic currently in place - Solr score</li>
-           <li>Limit of list is 200 items - this limit is currently in place on public</li>
+           <li>Order of list is Solr score - order currently in place on public</li>
+           <li>Limit of list is 200 items - limit currently in place on public</li>
        </ol></li>
        <li>Match by terms or synonyms
-       <ol><li>A minimum of 2 characters is needed to activate autocomplete list - a blank is a valid character</li>
-           <li>Prefix searching only</li>
-           <li>A match to a term and its synonym should return only the match to the term in the autocomplete list.</li>
+       <ol><li>A minimum of 2 characters is needed to activate autocomplete list.  NOTE: a space is a valid character.  E.g. a character plus a space will activate A/C.</li>
+           <li>Match is by Prefix only - this is not a "contains" search</li>
+           <li>A match to a term and its synonym(s) should return only 1 match in the autocomplete list.  The term/synonym returned is the one with the best Solr score.</li>
        </ol></li>
        <li>Match by multiple tokens
        <ol><li>All tokens must match a term/synonym for that item to be included in the autocomplete list</li>
            <li>Order of tokens entered not significant to matching</li>
        </ol></li>
        
-       <li>Give the user the option to select a specific term from the returned list or allow a search by the text entered.
+       <li>Ignore special characters
+       <ol><li>Special characters entered by the user are ignored when matching to terms/synonyms</li>
+           <li>Special characters included in terms/synonyms are ignored when matching</li>
+       </ol></li>
+       
+       <li>Give the user the option to select a specific item from the returned list or allow a search by the text entered.
        <ol><li>Selecting a specific term indicates that the term and its children be one of the fields included in the query for GXD results.</li>
            <li>Text entered in the anatomy field indicates a prefix search for terms/synonyms be included in the query for GXD results.  Child terms are included for any matched terms.</li>
        </ol></li>
@@ -70,50 +75,54 @@
     		
     		<li>Verify EMAPA terms returned in autocomplete list
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol>
-    		   <li>Enter complete term name for an EMAPA term that returns multiple matches in the A/C list.  Term = xxx.</li>
-    		   <li>Enter complete term name for an EMAPA term that returns a single match in the A/C list.  Term = xxx.</li>
-    		   <li>Enter term name that matches multiple EMAPA terms exactly.  Term = xxxx.</li>
-    		   <li>Enter term name that has no GXD annotations - should still be in A/C list.  Term = xxxx</li>
-    		   <li>Enter term name that has a single TS.  Term = xxx</li>
-    		   <li>Enter term name that has a TS range of single digits.  Term = xxxx</li>
-    		   <li>Enter term name that has a TS range of double digits.  Term = xxxx</li>
-    		   <li>Enter long term name.  Term = xxx xxx xxx </li>
-    		   <li>Enter synonym for an EMAPA term that returns multiple matches in the A/C list.  Synonym = xxx</li>
+    		   <li>Enter complete term name for an EMAPA term taht returns multiple matches inthe A/C list.  Term - aorta</li>
+    		   <li>Enter complete term name for an EMAPA term that returns a single match in the A/C list.  Term = left dorsal aorta.</li>
+    		   <li>Enter term name that matches multiple EMAPA terms exactly.  Term = upper leg skeletal muscle.</li>
+    		   <li>Enter term name that has no GXD annotations - should still be in A/C list.  Term = plantar pads</li>
+    		   <li>Enter term name that has a single TS.  Term = first polar body</li>
+    		   <li>Enter term name that has a TS range of single digits.  Term = zona pellucida</li>
+    		   <li>Enter term name that has a TS range of double digits.  Term = smooth muscle layer of renal artery</li>
+    		   <li>Enter long term name that wraps in A/C list.  Term = epithelium of degenerating rest of paramesonephric duct of male</li>
+    		   <li>Enter synonym for an EMAPA term that returns multiple matches in the A/C list.  Synonym = pit</li>
     		   <li>Enter synonym for an EMAPA term that returns a single match in the A/C list.  Synonym = heart rudiment.</li>
-    		</ol></li>
+    		</li>
     		
     		<li>Verify prefix search matching
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Verify 2 characters are required to activate auto-complete.  Enter 1, 2, and 3 characters.</li>
-    		   <li>Verify a prefix search is being used (vs. contains)</li>
+    		   <li>Verify a prefix search is being used (vs. contains). Text = im (limb terms should not be present)</li>
     		</ol></li>
     		
-    		<li>Verify autocomplete list works okay with special characters and numerics
+    		<li>Verify autocomplete list accepts numerics as valid characters and ignores special characters
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Enter text w/o special characters that matches a term with special characters</li>
-    		   <li>Enter text w/ special characters that matches a term with special characters.</li>
-    		   <li>Enter text w/o numerics that matches a term with numerics</li>
-    		   <li>Enter text w/ numerics that matches a term with numerics</li>
+    		   <li>Enter text with special characters that matches a term with special characters
+    		   <ol><li>hyphen: lumbo-sacral plexus</li>
+    		       <li>apostrophe: hilton's 'white line' (synonym); rathke's pouch (term)</li>
+    		       <li>comma: loop of Henle, outer med por</li>
+    		       <li>slash: thymus/parathyroid prim</li>
+    		   </ol></li>
+    		   <li>Enter text without special characters that matches a term with special characters. Use previous examples.</li>
+    		   <li>Enter text with numerics that matches a term with numerics.  Term = digit 1</li>
+    		   <li>Enter text without numerics that matches a term with numerics. Term = digit</li>
     		</ol></li>
  
     		<li>Verify text that matches both the term name and synonym(s) for an EMAPA term is listed once in A/C list
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Enter text that matches both the term name and a single synonym; text = xxxx</li>
-    		   <li>Enter text that matches the term name and multiple synonyms for a single EMAPA term; text = xxxx</li>
-    		   <li>Enter text that matches multiple synonyms for a single EMAPA term; text = xxxx</li>
+    		   <li>Enter text that matches both the term name and a single synonym; text = stomat</li>
+    		   <li>Enter text that matches the term name and multiple synonyms for a single EMAPA term; text = cister</li>
+    		   <li>Enter text that matches multiple synonyms for a single EMAPA term; text = pit</li>
     		   
     		</ol></li>
     		
     		<li>Verify use of multiple tokens
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Enter multiple tokens and verify all items in list match all tokens.  Text = xxx xx xxx</li>
-    		   <li>Enter the same tokens in a different order to verify match still made.</li>
-    		   <li>Include an add'l token that does not match the term returned - term no longer returned.  Text = xxx xx xxx zz</li>
+    		   <li>Enter multiple tokens and verify all items in list match all tokens.  Text = thy para prim</li>
+    		   <li>Enter the same tokens in a different order to verify match still made.  Text = prim para thy</li>
+    		   <li>Include an add'l token that does not match the term returned - term no longer returned.  Text = thy para prim zz</li>
     		</ol></li>
     		
     		<li>Verify selection of term from autocomplete
@@ -127,12 +136,12 @@
     		<li>Verify entry of just text for anatomy search
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Enter a single full word that will match EMAPA; xxxxxx</li>
-    		   <li>Enter a single prefix that will match EMAPA; xxx</li>
+    		   <li>Enter a single full word that will match EMAPA; embryo</li>
+    		   <li>Enter a single prefix that will match EMAPA; ren</li>
     		   <li>Enter a single word that will not match EMAPA; football</li>
-    		   <li>Enter multiple full words that will match EMAPA; xxxxxx xxxxxx</li>
-    		   <li>Enter multiple tokens that will match EMAPA via prefix; xxx xxx xxx</li>
-    		   <li>Enter multiple tokens that will have no match to EMAPA; xxx xxx football</li>
+    		   <li>Enter multiple full words that will match EMAPA; organ system</li>
+    		   <li>Enter multiple tokens that will match EMAPA via prefix; car jel</li>
+    		   <li>Enter multiple tokens that will have no match to EMAPA; car jel football</li>
     		   
     		</ol></li>
     		
