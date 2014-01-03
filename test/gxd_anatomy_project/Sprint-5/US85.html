@@ -65,7 +65,8 @@
     		<li>Query by the Anatomy field using the "select" method.  Leave all other query fields as the default.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol><li>Query by EMAPA term with direct annotations; no children.  EMAPA:</li>
-    		    <li>Query by EMAPA term with direct anntations + child annotations.  EMAPA:</li>
+    		    <li>Query by EMAPA term with direct annotations + child annotations.  EMAPA:</li>
+    		    <li>Query by EMAPA term with no direct annotations but has child annotations.  EMAPA:</li>
     		    <li>Query by EMAPA term with annotations to multiple stages.  EMAPA:</li>
     		    <li>Query by EMAPA term with annotations to a single stage.  EMAPA:</li>
     		    
@@ -83,7 +84,8 @@
     		<li>Query by the Anatomy field using the "text" method.  Leave all other query fields as the default.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol><li>Query by text that will match an EMAPA term(s) with direct annotations; no children.  Text:</li>
-    		    <li>Query by text that will match an EMAPA term(s) with direct anntations + child annotations.  Text:</li>
+    		    <li>Query by text that will match an EMAPA term(s) with direct annotations + child annotations.  Text:</li>
+    		    <li>Query by text that will match an EMAPA term(s) with no direct annotations but has child annotations.  Text:</li>
     		    <li>Query by text that will match an EMAPA term(s) with annotations to multiple stages.  Text:</li>
     		    <li>Query by text that will match an EMAPA term(s) with annotations to a single stage.  Text:</li>
     		    
@@ -104,7 +106,14 @@
     		<li>Query by the Anatomy field using the "text" method. Verify terms with special characters are included.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 5.1</li>
+    		   <li>Query with text that includes special characters that match terms with and without the special characters.  All should be in the results.  Text:
+    		   <ol>
+    		       <li>hyphen: lumbo-sacral plexus</li>
+    		       <li>apostrophe: hilton's 'white line' (synonym); rathke's pouch (term)</li>
+    		       <li>comma: loop of Henle, outer med por</li>
+    		       <li>slash: thymus/parathyroid prim</li>
+    		   </ol></li>
+    		   <li>Query with text that does not include special characters but should match terms with those characters.  All should be in the results.  Text:</li>
     		   
     		</ol></li>
     		
