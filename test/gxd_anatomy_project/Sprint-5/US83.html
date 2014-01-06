@@ -74,7 +74,7 @@
 		<ol>
     		
     		<li>Verify EMAPA terms returned in autocomplete list
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/3/2014</p>  
     		   <li>Enter complete term name for an EMAPA term taht returns multiple matches inthe A/C list.  Term - aorta</li>
     		   <li>Enter complete term name for an EMAPA term that returns a single match in the A/C list.  Term = left dorsal aorta.</li>
     		   <li>Enter term name that matches multiple EMAPA terms exactly.  Term = upper leg skeletal muscle.</li>
@@ -88,14 +88,14 @@
     		</li>
     		
     		<li>Verify prefix search matching
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/3/2014</p>    
     		<ol>
     		   <li>Verify 2 characters are required to activate auto-complete.  Enter 1, 2, and 3 characters.</li>
     		   <li>Verify a prefix search is being used (vs. contains). Text = im (limb terms should not be present)</li>
     		</ol></li>
     		
     		<li>Verify autocomplete list accepts numerics as valid characters and ignores special characters
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/3/2014</p>  
     		<ol>
     		   <li>Enter text with special characters that matches a term with special characters
     		   <ol><li>hyphen: lumbo-sacral plexus</li>
@@ -109,7 +109,7 @@
     		</ol></li>
  
     		<li>Verify text that matches both the term name and synonym(s) for an EMAPA term is listed once in A/C list
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/3/2014</p>  
     		<ol>
     		   <li>Enter text that matches both the term name and a single synonym; text = stomat</li>
     		   <li>Enter text that matches the term name and multiple synonyms for a single EMAPA term; text = cister</li>
@@ -118,7 +118,7 @@
     		</ol></li>
     		
     		<li>Verify use of multiple tokens
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/3/2014</p>  
     		<ol>
     		   <li>Enter multiple tokens and verify all items in list match all tokens.  Text = thy para prim</li>
     		   <li>Enter the same tokens in a different order to verify match still made.  Text = prim para thy</li>
@@ -126,7 +126,7 @@
     		</ol></li>
     		
     		<li>Verify selection of term from autocomplete
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/3/2014</p>  
     		<ol>
     		   <li>Select first item in list with mouse click, return or tab. Verify display.</li>
     		   <li>Select last item in list with mouse click.  Verify display.</li>
@@ -134,7 +134,7 @@
     		</ol></li>
     		
     		<li>Verify entry of just text for anatomy search
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/3/2014</p>  
     		<ol>
     		   <li>Enter a single full word that will match EMAPA; embryo</li>
     		   <li>Enter a single prefix that will match EMAPA; ren</li>
