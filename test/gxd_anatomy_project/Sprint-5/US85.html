@@ -63,43 +63,43 @@
 		<ol>
     		
     		<li>Query by the Anatomy field using the "select" method.  Leave all other query fields as the default.
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Query by EMAPA term with direct annotations; no children.  EMAPA:</li>
-    		    <li>Query by EMAPA term with direct annotations + child annotations.  EMAPA:</li>
-    		    <li>Query by EMAPA term with no direct annotations but has child annotations.  EMAPA:</li>
-    		    <li>Query by EMAPA term with annotations to multiple stages.  EMAPA:</li>
-    		    <li>Query by EMAPA term with annotations to a single stage.  EMAPA:</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 1/3/2014</p>  
+    		<ol><li>Query by EMAPA term with direct annotations; no children.  EMAPA:35262; costal cartilage; TS28; 2 results</li>
+    		    <li>Query by EMAPA term with direct annotations + child annotations.  EMAPA:18606; dorsal aorta; TS23-26; 13 results</li>
+    		    <li>Query by EMAPA term with no direct annotations has only child annotations.  EMAPA:35414; hyaline cartilage; TS 28; 30 results</li>
+    		    <li>Query by EMAPA term with annotations to multiple stages.  EMAPA:32738; epithelium; TS 14-26; 22 results</li>
+    		    <li>Query by EMAPA term with annotations to a single stage.  EMAPA:16032; first polar body; TS 1; 10 results</li>
     		    
     		</ol></li>
     		
     		<li>Query by the Anatomy field using the "select" method.  Modify other query fields.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/3/2014</p>  
     		<ol>
     		   <li>Use test case 1.1 and change query for expression to "detected".</li>
-    		   <li>Use test case 1.2 and change query for expression to "not detected".</li>
-    		   <li>Use test case 1.3 and select a single stage.  Test again using a single age.</li>
-    		   <li>Use test case 1.4 and select a single gene.</li>
+    		   <li>Use test case 1.4 and change query for expression to "not detected".</li>
+    		   <li>Use test case 1.2 and select a single stage.  Test again using a single age.</li>
+    		   <li>Use test case 1.3 and select a single gene.</li>
     		</ol></li>
     		
     		<li>Query by the Anatomy field using the "text" method.  Leave all other query fields as the default.
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Query by text that will match an EMAPA term(s) with direct annotations; no children.  Text:</li>
-    		    <li>Query by text that will match an EMAPA term(s) with direct annotations + child annotations.  Text:</li>
-    		    <li>Query by text that will match an EMAPA term(s) with no direct annotations but has child annotations.  Text:</li>
-    		    <li>Query by text that will match an EMAPA term(s) with annotations to multiple stages.  Text:</li>
-    		    <li>Query by text that will match an EMAPA term(s) with annotations to a single stage.  Text:</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 1/6/2014</p>  
+    		<ol><li>Query by text that will match an EMAPA term(s) with direct annotations; no children.  Text: notochord; match to 3 terms; 1,124 results</li>
+    		    <li>Query by text that will match an EMAPA term(s) with direct annotations + child annotations.  Text: rathke; match 5 terms; 319 results</li>
+    		    <li>Query by text that will match an EMAPA term(s) with no direct annotations but has child annotations.  Text: hylaline; match 1 term; 30 results</li>
+    		    <li>Query by text that will match an EMAPA term(s) with annotations to multiple stages.  Text: polar bod; match to 4 terms; 3825 results</li>
+    		    <li>Query by text that will match an EMAPA term(s) with annotations to a single stage.  Text: cuticle; match to 1 term; 18 results</li>
     		    
     		</ol></li>
     		
     		<li>Query by the Anatomy field using the "text" method.  Modify other query fields.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/6/2014</p>  
     		<ol>
-    		   <li>Use test case 3.1 and change query for expression to "detected".</li>
-    		   <li>Use test case 3.2 and change query for expression to "not detected".</li>
-    		   <li>Use test case 3.3 and select a single stage.  Test again using a single age.</li>
-    		   <li>Use test case 3.4 and select a single gene.</li>
-    		   <li>Use test case 3.2 and select a vocabulary term</li>
-    		   <li>Use test case 3.3 and select a specific assay type</li>
+    		   <li>Use test case 3.1 and change query for expression to "detected".  Expect 977 results.</li>
+    		   <li>Use test case 3.1 and change query for expression to "not detected".  Expect 147 results.</li>
+    		   <li>Use test case 3.2 and select a single stage; TS14 - expect 5 results.  Test again using age - 9.0/9.5 - 37 results.</li>
+    		   <li>Use test case 3.4 and add a gene nomenclature search - Act*; expect 149 results.</li>
+    		   <li>Use test case 3.3 and select a vocabulary term; Function: bone development; expect 9 results </li>
+    		   <li>Use test case 3.5 and select a specific assay type</li>
     		   
     		</ol></li>
     		
