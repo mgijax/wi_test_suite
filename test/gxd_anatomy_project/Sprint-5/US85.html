@@ -104,25 +104,25 @@
     		</ol></li>
     		
     		<li>Query by the Anatomy field using the "text" method. Verify terms with special characters are included.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/6/2014</p>  
     		<ol>
-    		   <li>Query with text that includes special characters that match terms with and without the special characters.  All should be in the results.  Text:
+    		   <li>Query with text that includes special characters that match terms with and without the special characters.  All should be in the results.  Text: as follows
     		   <ol>
     		       <li>hyphen: lumbo-sacral plexus</li>
     		       <li>apostrophe: hilton's 'white line' (synonym); rathke's pouch (term)</li>
     		       <li>comma: loop of Henle, outer med por</li>
     		       <li>slash: thymus/parathyroid prim</li>
     		   </ol></li>
-    		   <li>Query with text that does not include special characters but should match terms with those characters.  All should be in the results.  Text:</li>
+    		   <li>Query with text that does not include special characters but should match terms with those characters.  All should be in the results.  Text: as above</li>
     		   
     		</ol></li>
     		
-    		<li>Query by the Anatomy field using the "text" method.  Verify that "200 item" limit not applied to search. Text = xxx.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<li>Query by the Anatomy field using the "text" method.  Verify that "200 item" limit not applied to search. Text = di.  Expect matches to "interdigital region between forelimb digits 3 and 4".
+    		<p concordion:assertTrue="true">PASS - jlewis 1/6/2014</p>  
     		
     		
     		<li>Verify "You searched for" text using the "select" method.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/6/2014 (question posted)</p>  
     		<ol>
     		   <li>Perform tests defined in #2 above.</li>
     		   <li>Perform a test where all query fields remain at the default.</li>
@@ -131,7 +131,7 @@
     		</ol></li>
     		
     		<li>Verify "you searched for" text using the "text" method.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/6/2014</p>  
     		<ol>
     		   <li>Perform tests defined in #4 above.</li>
     		   <li>Perform a test where all query fields remain at the default.</li>
@@ -140,20 +140,20 @@
     		</ol></li>
     		
     		<li>Verify GXD result tabs for "select" method.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/6/2014</p>  
     		<ol>
     		   <li>Perform tests defined in #2 above.</li>
-    		   <li>Perform a test where the Image tab is 0</li>
-    		   <li>Perform a test where the Gene tab is 1</li>
+    		   <li>Perform a test where the Image tab is 0 - term: autopod skin</li>
+    		   <li>Perform a test where the Gene tab is 1 - term: tail myotome</li>
     		   
     		</ol></li>
     		
     		<li>Verify GXD result tabs for "text" method.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/6/2014</p>  
     		<ol>
     		   <li>Perform tests defined in #2 above.</li>
-    		   <li>Perform a test where the Image tab is 0</li>
-    		   <li>Perform a test where the Gene tab is 1</li>
+    		   <li>Perform a test where the Image tab is 0 - text autopod sk</li>
+    		   <li>Perform a test where the Gene tab is 1 - text tail myoto</li>
     		   
     		</ol></li>
     		
