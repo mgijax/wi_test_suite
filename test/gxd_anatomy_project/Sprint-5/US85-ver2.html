@@ -1,0 +1,155 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 85</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Anatomy search uses EMAPS - Std QF - VER 2</h1>
+    <ul>
+        <li>User Story 85 - Anatomy search uses EMAPS - Standard GXD Query Form</li>
+        <li>- per 1/8/2014 meeting - return to Public paradigm for this user story</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+       <li>Use the "selected" item from the Autocomplete list to match EMAPS terms and return GXD results.</li>
+       <li>Match EMAPA terms/synonyms using the words of the selected item on the QF
+       <ol><li>Full word matching - no prefix matching, no stemming</li>
+           <li>When more than 1 word is present in the "selected" item -- all those words must be present for a match to occur.</li>
+           <li>Order of words not significant when matching</li>
+           <li>Ignore special characters when matching terms/synonyms</li>
+           <li>Include results for all children of every matched EMAPA term</li>
+           <li>Work in conjunction with other fields on the query form</li>
+           <li>Continue the use of stop words (as is done now on Public) - and, from, of, or, the, their, to</li>
+       </ol></li>
+       
+       <li>GXD Summary results page should not be impacted by this user story (You Searched For, data, sort order, etc)</li>
+       
+       <li>Search should work properly in all supported browsers (IE, Firefox, Safari)</li>
+       
+	</ol>
+</div>
+ 
+ <div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Query by the Anatomy field using the "select" method.  Leave all other query fields as the default.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>Query by EMAPA term with direct annotations; no children.  EMAPA:35262; costal cartilage; TS28; 2 results</li>
+    		    <li>Query by EMAPA term with direct annotations + child annotations.  EMAPA:18606; dorsal aorta; TS23-26; 13 results</li>
+    		    <li>Query by EMAPA term with no direct annotations has only child annotations.  EMAPA:35414; hyaline cartilage; TS 28; 30 results</li>
+    		    <li>Query by EMAPA term with annotations to multiple stages.  EMAPA:32738; epithelium; TS 14-26; 22 results</li>
+    		    <li>Query by EMAPA term with annotations to a single stage.  EMAPA:16032; first polar body; TS 1; 10 results</li>
+    		    
+    		</ol></li>
+    		
+    		<li>Query by the Anatomy field using the "select" method.  Modify other query fields.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Use test case 1.1 and change query for expression to "detected".</li>
+    		   <li>Use test case 1.4 and change query for expression to "not detected".</li>
+    		   <li>Use test case 1.2 and select a single stage.  Test again using a single age.</li>
+    		   <li>Use test case 1.3 and select a single gene.</li>
+    		</ol></li>
+    		
+    		<li>Query by the Anatomy field using the "text" method.  Leave all other query fields as the default.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>Query by text that will match an EMAPA term(s) with direct annotations; no children.  Text: notochord; match to 3 terms; 1,124 results</li>
+    		    <li>Query by text that will match an EMAPA term(s) with direct annotations + child annotations.  Text: rathke; match 5 terms; 319 results</li>
+    		    <li>Query by text that will match an EMAPA term(s) with no direct annotations but has child annotations.  Text: hylaline; match 1 term; 30 results</li>
+    		    <li>Query by text that will match an EMAPA term(s) with annotations to multiple stages.  Text: polar bod; match to 4 terms; 3825 results</li>
+    		    <li>Query by text that will match an EMAPA term(s) with annotations to a single stage.  Text: cuticle; match to 1 term; 18 results</li>
+    		    
+    		</ol></li>
+    		
+    		<li>Query by the Anatomy field using the "text" method.  Modify other query fields.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Use test case 3.1 and change query for expression to "detected".  Expect 977 results.</li>
+    		   <li>Use test case 3.1 and change query for expression to "not detected".  Expect 147 results.</li>
+    		   <li>Use test case 3.2 and select a single stage; TS14 - expect 5 results.  Test again using age - 9.0/9.5 - 37 results.</li>
+    		   <li>Use test case 3.4 and add a gene nomenclature search - Act*; expect 149 results.</li>
+    		   <li>Use test case 3.3 and select a vocabulary term; Function: bone development; expect 9 results </li>
+    		   <li>Use test case 3.5 and select a specific assay type</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Query by the Anatomy field. Verify terms with special characters are included.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Query with text that includes special characters that match terms with and without the special characters.  All should be in the results.  Text: as follows
+    		   <ol>
+    		       <li>hyphen: lumbo-sacral plexus</li>
+    		       <li>apostrophe: hilton's 'white line' (synonym); rathke's pouch (term)</li>
+    		       <li>comma: loop of Henle, outer med por</li>
+    		       <li>slash: thymus/parathyroid prim</li>
+    		   </ol></li>
+    		   <li>Query with text that does not include special characters but should match terms with those characters.  All should be in the results.  Text: as above</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Query by the Anatomy field.  Verify that "200 item" limit not applied to search. Text = di.  Expect matches to "interdigital region between forelimb digits 3 and 4".
+    		<p concordion:assertTrue="false">new test</p>  
+    		
+    		
+    		
+    		<li>Verify GXD result tabs.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Perform tests defined in #2 above.</li>
+    		   <li>Perform a test where the Image tab is 0 - term: autopod skin</li>
+    		   <li>Perform a test where the Gene tab is 1 - term: tail myotome</li>
+    		   
+    		</ol></li>
+    		
+    		
+    		
+    		<li>Verify anatomy search works in all supported browsers
+    		<p concordion:assertTrue="false">new test</p>  
+    		</li>
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
