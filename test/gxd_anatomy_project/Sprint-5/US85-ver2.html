@@ -62,75 +62,53 @@
 		<ol>
     		
     		<li>Query by the Anatomy field using the "select" method.  Leave all other query fields as the default.
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Query by EMAPA term with direct annotations; no children.  EMAPA:35262; costal cartilage; TS28; 2 results</li>
-    		    <li>Query by EMAPA term with direct annotations + child annotations.  EMAPA:18606; dorsal aorta; TS23-26; 13 results</li>
-    		    <li>Query by EMAPA term with no direct annotations has only child annotations.  EMAPA:35414; hyaline cartilage; TS 28; 30 results</li>
-    		    <li>Query by EMAPA term with annotations to multiple stages.  EMAPA:32738; epithelium; TS 14-26; 22 results</li>
-    		    <li>Query by EMAPA term with annotations to a single stage.  EMAPA:16032; first polar body; TS 1; 10 results</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 1/9/2014</p>  
+    		<ol><li>Query by term that returns direct annotations; no children.  EMAPA:35262; costal cartilage; TS28; 2 results</li>
+    		    <li>Query by term that will match an EMAPA term(s) with direct annotations; no children.  Text: notochord; match to 1 term; 954 results</li>
+    		    <li>Query by term that will match an EMAPA term(s) with direct annotations + child annotations.  Term= Rathke's pouch; match 5 terms; 319 results</li>
+    		    <li>Query by term with no direct annotations has only child annotations.  EMAPA:35414; hyaline cartilage; TS 28; 30 results</li>
+    		    <li>Query by term that will match an EMAPA term(s) with annotations to terms with the same name.  Text: polar body; match to 4 terms; 3825 results</li>
+    		    <li>Query by term with annotations to a single stage.  EMAPA:16032; first polar body; TS 1; 10 results</li>
+    		    <li>Query by term that will match an EMAPA term(s) with annotations to a single stage.  Text: cuticle; match to 1 term; 18 results</li>
     		    
     		</ol></li>
     		
     		<li>Query by the Anatomy field using the "select" method.  Modify other query fields.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/9/2014</p>
     		<ol>
-    		   <li>Use test case 1.1 and change query for expression to "detected".</li>
-    		   <li>Use test case 1.4 and change query for expression to "not detected".</li>
-    		   <li>Use test case 1.2 and select a single stage.  Test again using a single age.</li>
-    		   <li>Use test case 1.3 and select a single gene.</li>
-    		</ol></li>
-    		
-    		<li>Query by the Anatomy field using the "text" method.  Leave all other query fields as the default.
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Query by text that will match an EMAPA term(s) with direct annotations; no children.  Text: notochord; match to 3 terms; 1,124 results</li>
-    		    <li>Query by text that will match an EMAPA term(s) with direct annotations + child annotations.  Text: rathke; match 5 terms; 319 results</li>
-    		    <li>Query by text that will match an EMAPA term(s) with no direct annotations but has child annotations.  Text: hylaline; match 1 term; 30 results</li>
-    		    <li>Query by text that will match an EMAPA term(s) with annotations to multiple stages.  Text: polar bod; match to 4 terms; 3825 results</li>
-    		    <li>Query by text that will match an EMAPA term(s) with annotations to a single stage.  Text: cuticle; match to 1 term; 18 results</li>
-    		    
-    		</ol></li>
-    		
-    		<li>Query by the Anatomy field using the "text" method.  Modify other query fields.
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol>
-    		   <li>Use test case 3.1 and change query for expression to "detected".  Expect 977 results.</li>
-    		   <li>Use test case 3.1 and change query for expression to "not detected".  Expect 147 results.</li>
-    		   <li>Use test case 3.2 and select a single stage; TS14 - expect 5 results.  Test again using age - 9.0/9.5 - 37 results.</li>
-    		   <li>Use test case 3.4 and add a gene nomenclature search - Act*; expect 149 results.</li>
-    		   <li>Use test case 3.3 and select a vocabulary term; Function: bone development; expect 9 results </li>
-    		   <li>Use test case 3.5 and select a specific assay type</li>
-    		   
+    		   <li>Use test case 1.2 and change query for expression to "detected".  Expect 851 results.</li>
+    		   <li>Use test case 1.2 and change query for expression to "not detected".  Expect 103 results.</li>
+    		   <li>Use test case 1.4 and select a single gene: Comp.  Expect 4 results</li>
+    		   <li>Use test case 1.3 and select a single stage; TS14 - expect 5 results.  Test again using age - 9.0/9.5 - 37 results.</li>
+    		   <li>Use test case 1.5 and add a gene nomenclature search - Act*; expect 149 results.</li>
+    		   <li>Use test case 1.4 and select a vocabulary term; Function: bone development; expect 9 results </li>
+    		   <li>Use test case 1.7 and select a specific assay type</li>
     		</ol></li>
     		
     		<li>Query by the Anatomy field. Verify terms with special characters are included.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/9/2014</p>
     		<ol>
-    		   <li>Query with text that includes special characters that match terms with and without the special characters.  All should be in the results.  Text: as follows
+    		   <li>Query with text that includes special characters as follows
     		   <ol>
     		       <li>hyphen: lumbo-sacral plexus</li>
     		       <li>apostrophe: hilton's 'white line' (synonym); rathke's pouch (term)</li>
     		       <li>comma: loop of Henle, outer med por</li>
     		       <li>slash: thymus/parathyroid prim</li>
     		   </ol></li>
-    		   <li>Query with text that does not include special characters but should match terms with those characters.  All should be in the results.  Text: as above</li>
     		   
     		</ol></li>
     		
-    		<li>Query by the Anatomy field.  Verify that "200 item" limit not applied to search. Text = di.  Expect matches to "interdigital region between forelimb digits 3 and 4".
-    		<p concordion:assertTrue="false">new test</p>  
-    		
-    		
+    		<li>Query by the Anatomy field.  Verify that "200 item" limit not applied to search. Select term "Epithelium".  Expect 1 match to "hindgut diverticulum postanal component epithelium"; a term not listed in the AC.
+    		<p concordion:assertTrue="true">PASS - jlewis 1/9/2014</p>  
     		
     		<li>Verify GXD result tabs.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/9/2014</p>
     		<ol>
     		   <li>Perform tests defined in #2 above.</li>
     		   <li>Perform a test where the Image tab is 0 - term: autopod skin</li>
     		   <li>Perform a test where the Gene tab is 1 - term: tail myotome</li>
     		   
     		</ol></li>
-    		
-    		
     		
     		<li>Verify anatomy search works in all supported browsers
     		<p concordion:assertTrue="false">new test</p>  
