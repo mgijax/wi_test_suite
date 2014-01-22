@@ -1,0 +1,185 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 73 & 166 - Search Pane on Anatomy Browser/title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Search Pane for Anatomy Browser - new rules</h1>
+    <ul>
+        <li>User Story 166 - Sorting Anatomy Browser results & User Story 73 - Add Autocomplete</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements - US 73 - Autocomplete</h2>
+    <ol>
+       <li>Use EMAPA terms and synonyms for the anatomy autocomplete on the GXD QF
+       <ol><li>Include terms in the autocomplete regardless of whether they have associated GXD results</li>
+           <li>Include text to identify an item that is a synonym</li>
+           <li>Order of list starts with Solr score order and then modifies it by floating structures to the top that begin with typed text.</li>
+           <li>Limit of list is 200 items - limit currently in place on public</li>
+           <li>Do not display duplicate terms or synonyms in the A/C list</li>
+       </ol></li>
+       <li>Match by terms or synonyms
+       <ol><li>A minimum of 2 characters is needed to activate autocomplete list.  NOTE: a space is a valid character.  E.g. a character plus a space will activate A/C.</li>
+           <li>Match is by Prefix only - this is not a "contains" search</li>
+           <li>A match to a term and its synonym(s) should return each match in the autocomplete list.</li>
+       </ol></li>
+       <li>Match by multiple tokens
+       <ol><li>All tokens must match a term/synonym for that item to be included in the autocomplete list</li>
+           <li>Order of tokens entered not significant to matching</li>
+       </ol></li>
+       
+       <li>Ignore special characters
+       <ol><li>Special characters entered by the user are ignored when matching to terms/synonyms</li>
+           <li>Special characters included in terms/synonyms are ignored when matching</li>
+       </ol></li>
+       
+       <li>The user must select an item from the autocomplete list - by mouse click, return key, or tab.
+       <ol><li>Selecting an item from the list automatically fires off the search (no extra button to click).</li>
+       </ol></li>
+       
+       <li>Autocomplete list should work properly in all supported browsers (IE, Firefox, Safari)</li>
+      
+       
+	</ol>
+    <h2>Test Requirements - US 166 Search results</h2>
+	<ol>
+	   <li>Search for EMAPA terms and/or synonyms that match the item (term or synonym) selected by the user.</li>
+	   <li>Perform a search in same way as Anatomy Search on GXD QF
+	   <ol><li>Full word matching - no prefix matching, no stemming</li>
+	       <li>Match all tokens of a multiple token query.</li>
+	       <li>Ignore stop words: and, from, of, or, the, their, to</li>
+	       <li>order of words not significant</li>
+	       <li>Ignore special characters when matching terms/synonyms</li>
+	   </ol></li>
+	   <li>Update Tree View and Term Detail sections of the page with the first term returned in the results</li>
+	   <li>Return EMAPA terms as links in the Search Pane.
+	   <ol><li>Display in Solr "best match" order - except float exact matches to the top of the list.</li>
+	       <li>Return a term just once even when the term and/or its synonyms are matched multiple times.</li>
+            <li>Display matching text in bold when applicable for returned terms.
+            <ul><li>A term may be returned due to a synonym and in this case the term would have no matching text in bold</li>
+            </ul> </li>
+	        <li>For each term display its Theiler Stage range</li>
+	   </ol></li>
+	   
+	   	   <li>Clicking on one of the result terms should updates the Term Detail and Tree View portions of the page.</li>
+       <li>Verify Search works okay on all supported browsers - IE, Firefox, and Safari.</li>
+       
+	</ol>
+</div>
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<li>Verify EMAPA terms returned in autocomplete list & results of search
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2014</p>    
+    		<ol>
+    		   <li>Enter complete term name for an EMAPA term that returns multiple matches in the A/C list.  Term - aorta</li>
+    		   <li>Enter complete term name for an EMAPA term that returns a single match in the A/C list.  Term = left dorsal aorta.</li>
+    		   <li>Enter term name that matches multiple EMAPA terms exactly.  Term = upper leg skeletal muscle.  Expect term only listed once in A/C and listed twice in search results..</li>
+    		   <li>Enter text that matches multiple synonyms exactly.  Synonym - rest of.  Expect it only listed once in A/C list.</li>
+    		   <li>Enter term name that has no GXD annotations - should still be in A/C list.  Term = plantar pads</li>
+    		   <li>Enter long term name that wraps in A/C list.  Term = epithelium of degenerating rest of paramesonephric duct of male</li>
+    		   <li>Enter synonym for an EMAPA term that returns multiple matches in the A/C list.  Synonym = pit</li>
+    		   <li>Enter synonym for an EMAPA term that returns a single match in the A/C list.  Synonym = heart rudiment.</li>
+    		</ol></li>
+    		
+    		<li>Verify prefix search matching
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2014</p>  
+    		<ol>
+    		   <li>Verify 2 characters are required to activate auto-complete.  Enter 1, 2, and 3 characters.</li>
+    		   <li>Verify a prefix search is being used (vs. contains). Text = im (limb terms should not be present)</li>
+    		</ol></li>
+    		
+    		<li>Verify autocomplete list accepts numerics as valid characters and ignores special characters - same for the search
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2014</p>   
+    		<ol>
+    		   <li>Enter text with special characters that matches a term with special characters
+    		   <ol><li>hyphen: lumbo-sacral plexus</li>
+    		       <li>apostrophe: hilton's 'white line' (synonym); rathke's pouch (term)</li>
+    		       <li>comma: loop of Henle, outer med por</li>
+    		       <li>slash: thymus/parathyroid prim</li>
+    		   </ol></li>
+    		   <li>Enter text without special characters that matches a term with special characters. Use previous examples.</li>
+    		   <li>Enter text with numerics that matches a term with numerics.  Term = digit 1</li>
+    		   <li>Enter text without numerics that matches a term with numerics. Term = digit</li>
+    		</ol></li>
+ 
+    		<li>Verify text that matches both the term name and synonym(s) for an EMAPA term results in all matched terms/syns being displayed in the A/C list
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2014</p>  
+    		<ol>
+    		   <li>Enter text that matches both the term name and a single synonym; text = stomat.  Expect both in A/C.</li>
+    		   <li>Enter text that matches the term name and multiple synonyms for a single EMAPA term; text = cister.  Expect term + 2 syns in AC (term = midbrain basal cistern)</li>
+    		   <li>Enter text that matches multiple synonyms for a single EMAPA term; text = pit.  Expect 2 syns in AC (mouth pit, oral pit)</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify use of multiple tokens
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2014</p>  
+    		<ol>
+    		   <li>Enter multiple tokens and verify all items in list match all tokens.  Text = thy para prim</li>
+    		   <li>Enter the same tokens in a different order to verify match still made.  Text = prim para thy</li>
+    		   <li>Include an add'l token that does not match the term returned - term no longer returned.  Text = thy para prim zz</li>
+    		</ol></li>
+    		
+    		<li>Verify selection of term from autocomplete & automatic "search" upon selection.
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2014</p>  
+    		<ol>
+    		   <li>Select first item in list with mouse click, return or tab. Verify display.</li>
+    		   <li>Select last item in list with mouse click.  Verify display.</li>
+    		   <li>Select item in middle of list with mouse click.  Verify display.</li>
+    		</ol></li>
+    		
+    		<li>Verify stop words are ignored when searching for terms (stop words okay in A/C)
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2014</p>
+    		<ol>
+    		   <li>Select a term that includes a stop word and should match other terms if stop word ignored - surface epithelium of ovary.  Expect 2 terms returned.</li>
+    		</ol></li>
+    		
+    		
+    		<li>Verify anatomy autocomplete in all supported browsers
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2014</p>  
+    		</li>
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
