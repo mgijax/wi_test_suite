@@ -38,8 +38,10 @@
 	   <li>The filter options are present at the top of the GXD Results Summary, but should filter all 4 GXD Summaries: Gene, Assay, Result, Image</li>
 	   <li>Filters work on the "bucket" of data returned from the Query Form search.
 	   <ul><li>Rerunning the Query Form search with new or the same parameters removes all filters -- resets the "bucket" of data.</li></ul></li>
-	   <li>Filters list only items that are present in the current "bucket" of data.
-	   <ul><li>The original list of filter items persists through all filter events</li></ul></li>
+	   <li>Filters are limited to the items present in the "bucket" of data returned from the Query Form search.
+	   <ol><li>When at least 1 item is checked for a filter and executed - the filter list will only include the checked items</li>
+	       <li>When removing all items from a filter (unchecking the boxes) and re-filtering will result in the original filter list returning</li>
+	   </ol></li>
 	   <li>Users may select 1 or more items for each filter available.</li>
 	   <li>User may un-select 1 or more items for each filter available.
 	   <ul><li>Provide two options: button at top of page or un-check of box within Filter</li></ul></li>
