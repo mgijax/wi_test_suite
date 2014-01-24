@@ -36,11 +36,27 @@
 	       <li>Assay Type</li>
 	   </ol></li>
 	   <li>The filter options are present at the top of the GXD Results Summary, but should filter all 4 GXD Summaries: Gene, Assay, Result, Image</li>
-	   <li>Filters work on the "bucket" of data returned from the Query Form search.
+	   <li>The filter options are present at the top of all versions of the GXD Results Summary pages
+	   <ol><li>Query Form Summaries - Standard QF (query results header w/ You Searched For)</li>
+	       <li>Query Form Summaries - Differential QF (query results header w/ You Searched For)
+	       <ul><li>Note - the default tab is Genes (not Results) for these Summaries</li></ul></li>
+	       <li>by Marker (marker header)</li>
+	       <li>by Marker/Assay Type (marker header + "Data Summary" w/assay type)</li>
+	       <li>by Marker/Theiler Stage (marker header + "Data Summary" w/TS)</li>
+	       <li>by EMAPA/EMAPS terms (structure header)</li>
+	       <li>by Allele (allele header)</li>
+	       <li>by Reference (J# header)</li>
+	       <li>by Marker/Structure - link from BQ and Marker Tissue (no header - US 141)</li>
+	       <li>by Marker/J# - link from GXD Lit (no header)</li>
+	       <li>by Probe (no header)</li>
+	       <li>by Antibody (no header)</li>
+	       <li>others?</li>
+	   </ol></li>
+	   <li>Filters work on the "bucket" of data contained on the original Summary (either from QF or other specific summaries)
 	   <ul><li>Rerunning the Query Form search with new or the same parameters removes all filters -- resets the "bucket" of data.</li></ul></li>
-	   <li>Filters are limited to the items present in the "bucket" of data returned from the Query Form search.
+	   <li>Filters are limited to the items present in the initial "bucket" of data.
 	   <ol><li>When at least 1 item is checked for a filter and executed - the filter list will only include the checked items</li>
-	       <li>When removing all items from a filter (unchecking the boxes) and re-filtering will result in the original filter list returning</li>
+	       <li>When all previously checked items are unchecked for a filter and executed - the original filter list will return</li>
 	   </ol></li>
 	   <li>Users may select 1 or more items for each filter available.</li>
 	   <li>User may un-select 1 or more items for each filter available.
@@ -50,7 +66,9 @@
 	   <ul><li>Applicable for all 4 GXD Summaries: Gene, Assay, Results, Image</li>
 	   </ul></li>
 	   <li>Pagination counts and controls are updated after each filter event for all GXD Summaries</li>
-	   <li>You searched for values and original query counts continue to be displayed during all filter events.</li>
+	   <li>You searched for values and original query counts continue to be displayed during all filter events.
+	   <ul><li>You search for values only apply to the Query Form Summaries.</li>
+	   </ul></li>
 	   <li>Use the Reference QF as a guide to the UI display as applicable.</li>
        <li>Filters should work properly in all supported browsers (IE, Firefox, Safari)</li>
        
@@ -68,6 +86,18 @@
 		<h3>Manual tests</h3>
 		
 		<ol>
+    		
+    		<li>Verify the GXD Summary page from the Query Forms includes the filters.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>test 1.1</li>
+    		    
+    		</ol></li>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>test 1.1</li>
+    		    
+    		</ol></li>
     		
     		<li>Test 1
     		<p concordion:assertTrue="false">new test</p>  
