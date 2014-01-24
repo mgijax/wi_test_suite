@@ -1,0 +1,92 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 142</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Anatomy search uses EMAPS - Differential QF</h1>
+    <ul>
+        <li>User Story 142 - Add filters to the GXD Result Summary</li>
+      
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Add filter option for selected fields on the GXD Results Summary to provide the user an additional way to narrow down results.
+	   <ol><li>Anatomical Structure</li>
+	       <li>Assay Type</li>
+	   </ol></li>
+	   <li>The filter options are present at the top of the GXD Results Summary, but should filter all 4 GXD Summaries: Gene, Assay, Result, Image</li>
+	   <li>Filters work on the "bucket" of data returned from the Query Form search.
+	   <ul><li>Rerunning the Query Form search with new or the same parameters removes all filters -- resets the "bucket" of data.</li></ul></li>
+	   <li>Filters list only items that are present in the current "bucket" of data.
+	   <ul><li>The original list of filter items persists through all filter events</li></ul></li>
+	   <li>Users may select 1 or more items for each filter available.</li>
+	   <li>User may un-select 1 or more items for each filter available.
+	   <ul><li>Provide two options: button at top of page or un-check of box within Filter</li></ul></li>
+	   <li>Provide users the option to remove all filters in 1 step.</li>
+	   <li>Provide users with updated counts each time a filter is added/removed
+	   <ul><li>Applicable for all 4 GXD Summaries: Gene, Assay, Results, Image</li>
+	   </ul></li>
+	   <li>Pagination counts and controls are updated after each filter event for all GXD Summaries</li>
+	   <li>You searched for values and original query counts continue to be displayed during all filter events.</li>
+	   <li>Use the Reference QF as a guide to the UI display as applicable.</li>
+       <li>Filters should work properly in all supported browsers (IE, Firefox, Safari)</li>
+       
+	</ol>
+</div>
+ 
+ <div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>test 1.1</li>
+    		    
+    		</ol></li>
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
