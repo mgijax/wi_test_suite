@@ -32,8 +32,8 @@
     <h2>Test Requirements</h2>
 	<ol>
 	   <li>Add filter option for selected fields on the GXD Results Summary to provide the user an additional way to narrow down results.
-	   <ol><li>Anatomical Structure</li>
-	       <li>Assay Type</li>
+	   <ol><li>Anatomical Structure: 24 options - adipose tissue, alimentary system, branchial arches, cardiovascular system, cavities & their linings, early embryo, embryo-other, endocrine system, extraembryonic component, head, hemolymphoid system, integumental system, limbs, liver & biliary system, mesenchyme, muscle, nervous system, postnatal-other, renal & urinary system, reproductive system, respiratory system, sensory organs, skeletal system, tail </li>
+	       <li>Assay Type: Immunohistochemistry, In situ reporter (knock-in), Norther blot, Nuclease S1, RNA in situ, RNA protection, RT-PCR, Western blot</li>
 	   </ol></li>
 	   <li>All the filter options are present at the top of each tab on the GXD Summary page - and should filter all the tabs at the same time: Results, Assays, Genes, and Images. (per GXD meeting - 1/24)
 	   <ul><li>See the reference QF re: placement/style of filter buttons</li></ul></li>
@@ -55,9 +55,10 @@
 	   </ol></li>
 	   <li>Filters work on the "bucket" of data contained on the original Summary (either from QF or other specific summaries)
 	   <ul><li>Rerunning the Query Form search with new or the same parameters removes all filters -- resets the "bucket" of data.</li></ul></li>
-	   <li>Filters are limited to the items present in the initial "bucket" of data.
+	   <li>Filters are limited to the items present in the initial "bucket" of data and continually change as filters are added/removed
 	   <ol><li>When at least 1 item is checked for a filter and executed - the filter list will only include the checked items</li>
 	       <li>When all previously checked items are unchecked for a filter and executed - the original filter list will return</li>
+	       <li>Filtering items in 1 field may reduce the items to filter by in another.</li>
 	   </ol></li>
 	   <li>Users may select 1 or more items for each filter available.</li>
 	   <li>User may un-select 1 or more items for each filter available.
@@ -112,7 +113,30 @@
     		
     		<li>Verify Anatomical Structure initial filter - counts - pagination displays as expected via Std QF. (reqs 1,4)
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>list of tests</li>
+    		<ol><li>adipose tissue terms: adipose tissue, brown fat, white fat, etc. (only stage 28)</li>
+    		    <li>alimentary system terms: gut endoderm, intestine, lip, lower jaw,  etc. (stages 12-26)</li>
+    		    <li>branchial arches terms: 1st branchial groove, branchial pouch, 1st branchial arch maxillary-mandibular groove,  etc. (stages 12-19) </li>
+    		    <li>cardiovascular system terms: 1st arch artery,  right atrium, iliac artery (stages 12-28)</li>
+    		    <li>cavities & their linings terms:  </li>
+    		    <li>early embryo terms: </li>
+    		    <li>embryo-other terms: </li>
+    		    <li>endocrine system terms:  </li>
+    		    <li>extraembryonic component terms:  </li>
+    		    <li>head terms:  </li>
+    		    <li>hemolymphoid system terms:  </li>
+    		    <li>integumental system terms:  </li>
+    		    <li>limbs terms:  </li>
+    		    <li>liver & biliary system terms:  </li>
+    		    <li>mesenchyme terms:  </li>
+    		    <li>muscle terms:  </li>
+    		    <li>nervous system terms:  </li>
+    		    <li>postnatal-other terms:  </li>
+    		    <li>renal & urinary system terms:  </li>
+    		    <li>reproductive system terms:  </li>
+    		    <li>respiratory system terms:  </li>
+    		    <li>sensory organs terms:  </li>
+    		    <li>skeletal system terms:  </li>
+    		    <li>tail </li>
     		    
     		</ol></li>
     		
@@ -129,6 +153,30 @@
     		</ol></li>
     		
     		<li>Verify Assay Type filter initial filter - counts - pagination displays as expected via Differential QF. (reqs 1,4)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>list of tests</li>
+    		    
+    		</ol></li>
+    		
+    		<li>Verify Anatomical Structure filter - add/remove items - counts updated. (req 6,7, 11)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>list of tests</li>
+    		    
+    		</ol></li>
+    		
+    		<li>Verify Assay Type filter initial filter - add/remove items - counts updated.  (req 6,7, 11)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>list of tests</li>
+    		    
+    		</ol></li>
+    		
+    		<li>Verify filtering by Assay Type alters options in Anatomical Structure filter (req 5)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>list of tests</li>
+    		    
+    		</ol></li>
+    		
+    		<li>Verify filtering by Anatomical Structures alters options in Assay Type filter (req 5)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol><li>list of tests</li>
     		    
