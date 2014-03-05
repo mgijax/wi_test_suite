@@ -31,30 +31,34 @@
     <h2>Test Requirements</h2>
 	<ol>
 	   <li>Identify markers as being a cluster, cluster member, or both on the Marker Detail page.</li>
-	   <li>A marker may be members of one or more clusters.
+	   <li>A marker may be a member of one or more clusters.
 	   <ol><li>Add a new field to the bottom of the Nomenclature ribbon - "Member of" - only if a marker is a member of a Cluster.</li>
 	       <li>Display and link to the Cluster marker(s).</li>
 	       <li>If a marker is a member of multiple clusters display a comma-delimited list - no ordering required.</li>
 	   </ol></li>
 	   <li>A marker may be a cluster with multiple members (i.e. other markers).
 	   <ol><li>Add a new field to the bottom of the Nomenclature ribbon - "Cluster members" - only if a marker is a Cluster.</li>
-	       <li>Display a comma-delimited list of up to 3 members.</li>
-	       <li>Display in coordinate order.</li>
+	       <li>Display a comma-delimited list of up to 3 members as a teaser for the user.</li>
+	       <li>Display the teaser list in location order (genomic location if available, otherwise genetic location).</li>
 	       <li>If there are more than 3 members in a Cluster - display an ellipsis (...) at the end of the list</li>
-	       <li>Link each marker displayed to the Marker Detail page</li>
+	       <li>Link each marker in the teaser list to its Marker Detail page</li>
 	       <li>Display a total count of the number of members in the cluster and have the number link to a pop-up report.</li>
 	   </ol></li>
-	   <li>Provide user a pop-up report that displays all cluster members
-	   <ol><li>Display the following fields for each cluster member: marker symbol, name, feature type, and location (chr, coordinates, strand)</li>
-	       <li>Display genetic location if coordinates are not available.</li>
-	       <li>Provide users the option to forward the cluster members to the Batch Query (including the cluster marker too).</li>
-	       <li>List Cluster members in location order</li>
+	   <li>Provide users a pop-up report that displays all cluster members in a table format
+	   <ol><li>Display the following fields for each cluster member: marker symbol, name, feature type, and location.</li>
+	       <li>Display genomic location if available (chr, coordinates, strand), otherwise genetic location.</li>
+	       <li>Provide users the option to forward the cluster members to the Batch Query (include the cluster marker too).
+	       <ul><li>The default Batch Query display - Nomenclature and Location options (same as forward from QS).</li></ul></li>
+	       <li>List Cluster members in location order (genomic if available, otherwise genetic location)</li>
 	       <li>Style similar to mouse models pop-ups - limit size and provide vertical scroll bar.</li>
 	   </ol></li>
 	   <li>A marker may be both a Cluster and a member of a Cluster
 	   <ol><li>In this case display "Member of" first and then "Cluster members" using rules above.</li>
 	   </ol></li>
-	   
+	   <li>Sort "by location" - if using the same order as the Marker QF - it appears to work as follows
+	   <ol><li>Primary - Chromsome (both genetic and genomic locations have a chromosome)</li>
+	       <li>Secondary - Coordinates; markers without coordinates follow those with coordinates</li>
+	       <li>Tertiary - Smart alpha - marker symbol; applies to markers w/o coordinates</li>
 	</ol>
 </div>
 
