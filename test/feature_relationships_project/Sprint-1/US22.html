@@ -76,31 +76,31 @@
 		<ol>
     		
     		<li>Verify markers involved in a relationship are identified and display the appropriate information and link as expected.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>  
     		<ol>
-    		   <li>Display Marker Detail page for a marker that is a Cluster; xxx.  Verify "Cluster members" included in Nomen ribbon.</li>
-    		   <li>Display Marker Detail page for a marker that is a member of a Cluster; xxx.  Verify "Member of" included in Nomen ribbon.</li>
-    		   <li>Display Marker Detail page for a marker that is both a Cluster and a member of a Cluster; xxx. Verify both "Cluster members" and "Member of" included in Nomen ribbon.</li>
+    		   <li>Display Marker Detail page for a marker that is a Cluster; Mirc6.  Verify "Cluster members" included in Nomen ribbon.</li>
+    		   <li>Display Marker Detail page for a marker that is a member of a Cluster; Hoxa1.  Verify "Member of" included in Nomen ribbon.</li>
+    		   <li>Display Marker Detail page for a marker that is both a Cluster and a member of a Cluster; Igh-V10. Verify both "Cluster members" and "Member of" included in Nomen ribbon.</li>
     		   <li>Display Marker Detail page for a marker that is not a Cluster or Cluster member; Pax6.  Verify no cluster fields are included in Nomen ribbon.</li>
     	    </ol></li>
     	    
     	    <li>Verify cluster display when a marker is a member of more than 1 cluster
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>  
     		<ol>
-    		   <li>Display Marker Detail page for a marker that is a member of multiple clusters; xxx.  Verify clusters are displayed in comma-delimited list.</li>
+    		   <li>Display Marker Detail page for a marker that is a member of multiple clusters; Igh-V10.  Verify clusters are displayed in comma-delimited list.</li>
     	    </ol></li>
     	    
     	    <li>Verify member teaser list for a marker that is a Cluster - display and links.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>  
     		<ol>
-    		   <li>Display Marker Detail page for a marker with less than 3 members; xxx.  Verify members are displayed in comma-delimited list w/ no ellipsis.</li>
-    		   <li>Display Marker Detail for a marker with more than 3 members; xxx.  Verify members in comma-delim list w/ an ellipsis. </li>
-    		   <li>Display Marker Detail for a marker with exactly 3 members; xxx.  Verify there is no ellipsis.</li>
-    		   <li>Display Marker Detail for a marker with members that have coordinates; xxx.  Verify teaser list is in location order.</li>
+    		   <li>Display Marker Detail page for a marker with less than 3 members; Mirc14.  Verify members are displayed in comma-delimited list w/ no ellipsis.</li>
+    		   <li>Display Marker Detail for a marker with more than 3 members; Mirc6.  Verify members in comma-delim list w/ an ellipsis. </li>
+    		   <li>Display Marker Detail for a marker with exactly 3 members; xxx.  Verify there is no ellipsis. [case not found in sample data]</li>
+    		   <li>Display Marker Detail for a marker with members that have coordinates; Igh.  Verify teaser list is in location order.</li>
     	    </ol></li>
     	    
     	    <li>Verify count of members and link to member pop-up on Marker Detail of all sample data clusters
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>  
     		
     	    <ol><li>Hoxa - 11 members</li>
     		 <li>Mirc14 - 2 members</li>
@@ -110,7 +110,7 @@
     	    </ol></li>
     	    
     	    <li>Verify fields displayed in pop-up: Marker Symbol & Name, Feature Type, and Location; all sample clusters
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>   
     		<ol><li>Hoxa - 11 members; all with coordinates; strands</li>
     		 <li>Mirc14 - 2 members; all with coordinates; strands; small table</li>
              <li>Mirc6 - 24 members; large table w/ vertical scroll bar</li>
@@ -119,16 +119,17 @@
     	    </ol></li>
     	    
     	    <li>Verify location order of members in pop-up; all sample clusters
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>    
     		<ol><li>Hoxa - 11 members; all with coordinates; strands</li>
     		 <li>Mirc14 - 2 members; all with coordinates; strands; small table</li>
              <li>Mirc6 - 24 members; large table w/ vertical scroll bar</li>
     	     <li>Igh - 6 members; mix of coordinates/no coordinates</li>
     		 <li>Igh-V10 - 4 members; marker that is a cluster and cluster member</li>
+    		 <li>Cluster that contains multiple chromosomes; xxx.  [case not found in sample data]
     	    </ol></li>
     	    
     	    <li>Verify forward to Batch Query - all sample clusters - forward members+cluster marker itself
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>    
     		<ol><li>Hoxa - 11 members; all with coordinates; strands</li>
     		 <li>Mirc14 - 2 members; all with coordinates; strands; small table</li>
              <li>Mirc6 - 24 members; large table w/ vertical scroll bar</li>
@@ -137,7 +138,7 @@
     	    </ol></li>
     	    
     	  <li>Verify pop-up displays as expected on all supported browsers - Firefox, Safari, Chrome.  Also, check I/E?
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>  
     		<ol>
     		   <li>Test all sample clusters - verify pop-up display</li>
     	    </ol></li>
