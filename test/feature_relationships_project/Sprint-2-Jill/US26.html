@@ -1,0 +1,134 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 26</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>New Regulates ribbon - Marker Detail</h1>
+    <ul>
+        <li>User Story 26 - Reqs/Implement basic Regulates on Marker Detail</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Identify markers as having "regulates" relationships on the Marker Detail page.
+	   <ol><li>Add a new ribbon to the marker detail page when a marker has these relationships.</li>
+	       <li>Position the ribbon as proposed -- this could change later.  The ribbon is not displayed if no regulates data is present.</li>
+	       <li>A marker may regulate/be regulated by itself.</li>
+	       </ol></li>
+	   <li>A marker may "regulate" another marker
+	   <ol><li>Display a teaser list of up to 3 markers and a count of the total number of markers with "regulates" relationships.</li>
+	       <li>There may be multiple relationships between 2 markers, but only count the marker once.</li>
+	       <li>Markers listed in the teaser list link to the Marker Detail page.</li>
+	       <li>Initial order - defer to SE.  This may change in a later user story when more data is present.</li>
+	   </ol></li>
+	   <li>A marker may be "regulated" by another marker
+	   <ol><li>Display a teaser list of up to 3 markers and a count of the total number of these relationships.</li>
+	       <li>There may be multiple relationships between 2 markers, but only count the marker once.</li>
+	       <li>Markers listed in the teaser list link to the Marker Detail page.</li>
+	       <li>Initial order - defer to SE.  This may change in a later user story when more data is present.</li>
+	   </ol></li>
+	   <li>A marker may have both sides of the "regulates" relationships - "regulates" and "regulated by".
+	   <ol><li>Display both types of relationships per previous requirements.  "regulates" is listed first.</li>
+	   </ol>
+	   <li>Provide users a button/link to view all relationships this marker is involved in.  Link not activated for this user story.</li>
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify markers with/without regulates relationships are identified and display the appropriate information and link as expected.
+    		<p concordion:assertTrue="true">PASS - jlewis 4/3/2014</p>  
+    		<ol>
+    		   <li>Display Marker Detail for a marker with both regulates/regulated by; Pax6. Verify new ribbon w/ 9 regulates & 22 regulated by.</li>
+    		   <li>Display Marker Detail for a marker with only regulates; Mir375.  Verify new ribbon has only that type listed w/ 28 markers.</li>
+    		   <li>Display Marker Detail for a marker with only regulated by; Trim71.  Verify new ribbon has 4 regulated by markers.</li>
+    		   <li>Display Marker Detail for a marker with no relationships of any kind; Brca1.  Verify no display.</li>
+    		   <li>Display Marker Detail for a marker with cluster relationships, but no regulates; Hoxa &amp; Hoxa1.  Verify cluster display and no regulates display.</li>
+    		   <li>Display Marker Detail for a marker with cluster and regulates relationships; Mir125a.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker that has a regulates relationship with itself; Pou5f1.  Verify 11 regulates/21 regulated by.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify regulates display when a marker has a single regulates marker
+    		<p concordion:assertTrue="true">PASS - jlewis 4/3/2014</p>  
+    		<ol>
+    		   <li>Display Marker Detail for a marker with 1 regulates/0 regulated by; Mir300.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 regulated by/0 regulates; Sema4c.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 regulates/1 regulated by; Six3.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 regulates marker with multiple relationships; Dnmt3b.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 regulates/many regulated by.  Verify display. [no test case in sample data]</li>
+    		   <li>Display Marker Detail for a marker with 1 regulated by/many regulates.  Verify display. [no test case in sample data]</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify teaser list - display, links
+    		<p concordion:assertTrue="true">PASS - jlewis 4/3/2014</p>  
+    		<ol>
+    		   <li>Display Marker Detail for a marker with less than 3 regulates markers; Sox2.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
+    		   <li>Display Marker Detail for a marker with more than 3 regulates markers; Pou5f1.  Verify markers in comma-delim list w/ an ellipsis. </li>
+    		   <li>Display Marker Detail for a marker with exactly 3 regulates markers; xxx.  Verify there is no ellipsis.[no case in sample data] </li>
+    		   <li>Display Marker Detail for a marker with less than 3 regulated by markers; Lef1.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
+    		   <li>Display Marker Detail for a marker with more than 3 regulated by markers; Pou5fl1.  Verify markers in comma-delim list w/ an ellipsis. </li>
+    		   <li>Display Marker Detail for a marker with exactly 3 regulated by markers; xxx.  Verify there is no ellipsis. [no case in sample data]</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify count of regulates/regulated by relationships 
+    		<p concordion:assertTrue="true">PASS - jlewis 4/3/2014</p> 
+    		<ol>
+    		    <li>Mir190b - regulates = 1; regulated by = 0</li>
+    		    <li>Mir378 - regulates = 28; regulated by = 0</li>
+    		    <li>Mir125a - regulates = 158; regulated by = 0 </li>
+    		    <li>Atxn1 - regulates = 0; regulated by = 2 </li>
+    		    <li>Pou5f1 - regulates = 11; regulated by = 21 </li>
+    		    <li>Trim71 - regulates = 0; regulated by = 4</li>
+    		    <li>Fgf4 - regulates = 0; regulated by = 1</li>
+    		    <li>Dnmt3b - regulates = 1; regulated by = 0</li>
+    		    <li>Pax6 - regulates = 9; regulated by = 22</li>
+    		</ol>
+		
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
