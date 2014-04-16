@@ -1,0 +1,101 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 25</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Implement changes to Relationship Loader - interacts_with</h1>
+    <ul>
+        <li>User Story 25 - Implement changes to relationship loader for interactions</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Update load software to recognize & load the relationship category - "interacts_with"</li>
+	    <li>Update load software to recognize & load the following input fields that may be present for any category (not just interacts_with)
+	    <ol><li>Property fields</li>
+	        <li>Notes</li></ol></li>
+	    <li>Validate the Property fields' column headings.
+	    <ol><li>Required prefix = Property:</li>
+	        <li>The text that follows the prefix must be present in the "Relationship Properties" controlled vocabulary</li>
+	        <li>There are no Property fields that are required to be present in the input file.</li>
+	        <li>Display the following fields when this error is found: xxx,xxx,xxx</li>
+	        <li>If this error is found during the load process the load will abort.</li>
+	    </ol></li>
+
+	    <li>Validate the data in the Property:score column (if the column is present)
+	    <ol>
+	        <li>Valid values for score = blank, an integer, or a float</li>
+	        <li>plus (+) or minus (-) are allowed, but not required</li>
+	        <li>Display the following fields when this error is found: xxx,xxx,xxx</li>
+	        <li>If this error is found during the load process the load will abort.</li>
+	    </ol></li>
+	    <li>During the QC process create the following files:
+	    <ol>
+	        <li>file 1</li>
+	        <li>file 2</li>
+	        <li>etc.</li>
+	    </ol></li>
+	    <li>Accept & load a file that contains both interacts_with and cluster relationships.</li>
+	    
+	    
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	   
+		
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
