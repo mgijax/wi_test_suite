@@ -34,31 +34,27 @@
 	    <li>Update load software to recognize & load the following input fields that may be present for any category (not just interacts_with)
 	    <ol><li>Property fields</li>
 	        <li>Notes</li></ol></li>
-	    <li>Validate the Property fields' column headings.
+	    <li>Validate the Property fields' column headings. (new QC check)
 	    <ol><li>Required prefix = Property:</li>
 	        <li>The text that follows the prefix must be present in the "Relationship Properties" controlled vocabulary</li>
 	        <li>There are no Property fields that are required to be present in the input file.</li>
 	        <li>Display the following fields when this error is found: xxx,xxx,xxx</li>
 	        <li>If this error is found during the load process the load will abort.</li>
 	    </ol></li>
-
-	    <li>Validate the data in the Property:score column (if the column is present)
+	    
+	    <li>Validate the data in the Property:score column (if the column is present) (new QC check)
 	    <ol>
 	        <li>Valid values for score = blank, an integer, or a float</li>
 	        <li>plus (+) or minus (-) are allowed, but not required</li>
 	        <li>Display the following fields when this error is found: xxx,xxx,xxx</li>
 	        <li>If this error is found during the load process the load will abort.</li>
 	    </ol></li>
-	    <li>During the QC process create the following files:
-	    <ol>
-	        <li>file 1</li>
-	        <li>file 2</li>
-	        <li>etc.</li>
-	    </ol></li>
-	    <li>Accept & load a file that contains both interacts_with and cluster relationships.</li>
+	    <li>Add the error messages for the new QC checks to the existing QC file - xxxx.xxx</li>
+	    <li>Accept & load a file that contains both interacts_with and cluster relationships</li>
+	 </ol>
 	    
 	    
-	</ol>
+
 </div>
 
 
@@ -80,7 +76,7 @@
     		   <li>test 1.1</li>
     		   
     	    </ol></li>
-    	    
+    	 </ol>
     	   
 		
 	</div>
