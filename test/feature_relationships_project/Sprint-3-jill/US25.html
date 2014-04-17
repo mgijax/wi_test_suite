@@ -31,16 +31,25 @@
     <h2>Test Requirements</h2>
 	<ol>
 	    <li>Update load software to recognize & load the relationship category - "interacts_with"
-	    <ul><li>Continue to limit the load to just the "Add" action</li></ul></li>
+	    <ul><li>Continue to limit the load to just the "Add" action</li>
+	        <li>Continue to limit the load to a single input file</li>
+	        <li>Limit input files to the inclusion of a single category</li>
+	    </ul></li>
+	    
 	    <li>Load a relatively small input file from Wendy (60K rows)</li>
-	     <li>Accept & load a file that contains both interacts_with and cluster relationships</li>
+	    
 	    <li>Update load software to recognize & load the following input columns that may be present for any category (not just interacts_with)
-	    <ol><li>Property fields - optional</li>
-	        <li>Notes - optional (255 character limit?)</li></ol></li>
-	    <li>Add a sanity check regarding the location of the Property field columns in the input file ???????
+	    <ol><li>Property fields - starting at column 14</li>
+	        <li>Notes - column 13</li></ol></li>
+	        
+	    <li>Add a QC check to verify the location of Property field columns in the input file
 	    <ol><li>The Property fields must follow the Notes column (col 13) if they are present in the input file.</li>
-	        <li>Once a non-Property field column is found the remaining columns are ignored including a misplaced Property column.</li>
-	        <li>Add the output for the new Sanity checks to the existing Sanity check report file - sanity.rpt</li>
+	        <li>Property fields are recognized by the presence of "Property:" at the beginning of the heading.</li>
+	        <li>Property fields found in columns 1-13 will be flagged as an error.</li>
+	        <li>Once a non-Property field column is found the remaining columns are checked for a misplaced Property field.</li>
+	        <li>Display line # and the column heading for each occurrence of this error.</li>
+	        <li>Add the output for this check to the existing QC report file (QC.rpt) with an appropriate sub-heading</li>
+	        <li>If this error is found during the load process the load will abort.</li>
 	    </ol></li>
 	   
 	    <li>Add a QC check to validate the Property fields' column headings.
@@ -48,22 +57,23 @@
 	        <li>The text that follows the prefix must be present in the "Relationship Properties" controlled vocabulary</li>
 	        <li>There are no Property fields that are required to be present in the input file.</li>
 	        <li>Display line # and invalid column heading for each occurrence of this error.</li>
+	        <li>Add the output for this check to the existing QC report file (QC.rpt) with an appropriate sub-heading</li>
 	        <li>If this error is found during the load process the load will abort.</li>
 	    </ol></li>
+	    
 	    <li>Add a QC check to validate the data in the Property:score column (if the column is present)
 	    <ol>
 	        <li>Valid values for score = blank, an integer, or a float</li>
 	        <li>plus (+) or minus (-) are allowed, but not required</li>
 	        <li>Display line # and invalid score for each occurrence of this error.</li>
+	        <li>Add the output for this check to the existing QC report file  (QC.rpt) with an appropriate sub-heading</li>
 	        <li>If this error is found during the load process the load will abort.</li>
 	    </ol></li>
-	    <li>Add the output for the new QC checks to the existing QC report file (qc.rpt) with appropriate sub-headings</li>
 	    
-	   
-	    
-	    <li>Propose that we do not implement the following requirement that is documented in the wiki per curator feedback
-	    <ul><li><i>Verify that each property column (if any exist) has at least one row with data</i></li>
-	    </ul></li>
+	    <li>Add a command line warning message if any Property column has no data
+	    <ol><li>Display a separate message for each Property that this may apply.</li>
+	        <li>If this error is found during the load process, the load will continue.</li>
+	    </ol></li>
 	 </ol>
 	    
 	    
