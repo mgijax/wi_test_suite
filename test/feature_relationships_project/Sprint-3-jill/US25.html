@@ -30,16 +30,17 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	    <li>Update load software to recognize & load the relationship category - "interacts_with"
+	    <li>Update load software to recognize & load the relationship category - "interacts_with" with the following assumptions
 	    <ul><li>Continue to limit the load to just the "Add" action</li>
 	        <li>Continue to limit the load to a single input file</li>
-	        <li>Limit input files to the inclusion of a single category</li>
+	        <li>Continue to limit the input files to a single category</li>
 	    </ul></li>
 	    
 	    <li>Load a relatively small input file from Wendy (60K rows)</li>
 	    
 	    <li>Update load software to recognize & load the following input columns that may be present for any category (not just interacts_with)
-	    <ol><li>Property fields - starting at column 14</li>
+	    <ol><li>Property fields - starting at column 14
+	        <ul><li>There are no Property fields that are required to be present in the input file.</li></ul></li>
 	        <li>Notes - column 13</li></ol></li>
 	        
 	    <li>Add a QC check to verify the location of Property field columns in the input file
@@ -55,7 +56,6 @@
 	    <li>Add a QC check to validate the Property fields' column headings.
 	    <ol><li>Required prefix = Property:</li>
 	        <li>The text that follows the prefix must be present in the "Relationship Properties" controlled vocabulary</li>
-	        <li>There are no Property fields that are required to be present in the input file.</li>
 	        <li>Display line # and invalid column heading for each occurrence of this error.</li>
 	        <li>Add the output for this check to the existing QC report file (QC.rpt) with an appropriate sub-heading</li>
 	        <li>If this error is found during the load process the load will abort.</li>
@@ -70,8 +70,8 @@
 	        <li>If this error is found during the load process the load will abort.</li>
 	    </ol></li>
 	    
-	    <li>Add a command line warning message if any Property column has no data
-	    <ol><li>Display a separate message for each Property that this may apply.</li>
+	    <li>Add a command line warning message if an entire Property column has no data
+	    <ol><li>Display a single message for each Property column that this may apply.</li>
 	        <li>If this error is found during the load process, the load will continue.</li>
 	    </ol></li>
 	 </ol>
