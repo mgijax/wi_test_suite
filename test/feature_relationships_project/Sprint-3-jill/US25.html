@@ -44,12 +44,13 @@
 	        <li>Notes - column 13</li></ol></li>
 	        
 	    <li>Add a QC check to verify that Property fields in the input file are not found in columns 1-13.
-	    <ol><li>The Property fields are only permitted in columns 14-N (i.e. following the Notes column (col 13)). <s>and precede any optional curator non-property columns in the input file.</s></li>
+	    <ol><li>The Property fields are only permitted in columns 14-N (i.e. following the Notes column (col 13)).</li>
 	        <li>Property fields found in columns 1-13 will be flagged as an error.</li>
-	        <li>Property fields are recognized by the presence of "Property:" at the beginning of the heading.
-	        <ul><li>If the Property field is not identified properly (e.g. misspelled) the QC will not report this error in columns 1-13.</ul></li>
-	        
-	        <li><s>Once an optional curator  column is found the remaining columns are checked for a misplaced Property column.</s></li>
+	        <li>Property fields are recognized by the presence of "Property:" at the beginning of the column heading.
+	        <ol><li>If the Property field is not identified properly (e.g. misspelled) the QC will not report this error in columns 1-13.</li>
+	            <li>The "Property:" identifier is case insensitive.  Curators may use any combination of upper/lower case for this label.</li>
+	            <li>Blank spaces will be stripped from the beginning of the column heading and also before and after the colon (:).</li>
+	        </ol></li>
 	        <li>Display line # and the column heading for each occurrence of this error.</li>
 	        <li>Add the output for this check to the existing QC report file (QC.rpt) with an appropriate sub-heading</li>
 	        <li>If this error is found during the load process the load will abort.</li>
@@ -67,6 +68,8 @@
 	    <ol>
 	        <li>Valid values for score = blank, an integer, or a float</li>
 	        <li>plus (+) or minus (-) are allowed, but not required</li>
+	        <li>Exponential notation is not accepted</li>
+	        <li>The Python default will be used for the number of decimal places accepted (and then rounded).</li>
 	        <li>Display line # and invalid score for each occurrence of this error.</li>
 	        <li>Add the output for this check to the existing QC report file  (QC.rpt) with an appropriate sub-heading</li>
 	        <li>If this error is found during the load process the load will abort.</li>
