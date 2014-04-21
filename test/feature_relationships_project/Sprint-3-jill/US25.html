@@ -43,11 +43,13 @@
 	        <ul><li>There are no Property fields that are required to be present in the input file.</li></ul></li>
 	        <li>Notes - column 13</li></ol></li>
 	        
-	    <li>Add a QC check to verify the location of Property field columns in the input file
-	    <ol><li>The Property fields must follow the Notes column (col 13) and precede any optional curator non-property columns in the input file.</li>
-	        <li>Property fields are recognized by the presence of "Property:" at the beginning of the heading.</li>
+	    <li>Add a QC check to verify that Property fields in the input file are not found in columns 1-13.
+	    <ol><li>The Property fields are only permitted in columns 14-N (i.e. following the Notes column (col 13)). <s>and precede any optional curator non-property columns in the input file.</s></li>
 	        <li>Property fields found in columns 1-13 will be flagged as an error.</li>
-	        <li>Once an optional curator non-Property column is found the remaining columns are checked for a misplaced Property column.</li>
+	        <li>Property fields are recognized by the presence of "Property:" at the beginning of the heading.
+	        <ul><li>If the Property field is not identified properly (e.g. misspelled) the QC will not report this error in columns 1-13.</ul></li>
+	        
+	        <li><s>Once an optional curator  column is found the remaining columns are checked for a misplaced Property column.</s></li>
 	        <li>Display line # and the column heading for each occurrence of this error.</li>
 	        <li>Add the output for this check to the existing QC report file (QC.rpt) with an appropriate sub-heading</li>
 	        <li>If this error is found during the load process the load will abort.</li>
