@@ -47,7 +47,7 @@
 	    <ol><li>The Property fields are only permitted in columns 14-N (i.e. following the Notes column (col 13)).</li>
 	        <li>Property fields found in columns 1-13 will be flagged as an error.</li>
 	        <li>Property fields are recognized by the presence of "Property:" at the beginning of the column heading.
-	        <ol><li>If the Property field is not identified properly (e.g. misspelled) the QC will not report this error in columns 1-13.</li>
+	        <ol><li>Property labels misspelled or without a colon prevent the column heading to be recognized as a Property field.</li>
 	            <li>The "Property:" identifier is case insensitive.  Curators may use any combination of upper/lower case for this label.</li>
 	            <li>Blank spaces will be stripped from the beginning of the column heading and also before and after the colon (:).</li>
 	        </ol></li>
