@@ -12,14 +12,14 @@
 	p {margin:2px 0px;}
 </style>
 
-    <title>User Story 22</title>
+    <title>User Story 72</title>
 </head>
 
 <body>
 
-<div id="maintitle"><h1>Initial Cluster Membership WI</h1>
+<div id="maintitle"><h1>Change Relationship Category Names</h1>
     <ul>
-        <li>User Story 22 - Implement initial Cluster membership WI - Marker Detail</li>
+        <li>User Story 72 - Change relationship category names</li>
     </ul>
 </div><div id="TOC">
 	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
@@ -30,6 +30,31 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
+	   <li>Update the core database with the new RV -- load the cluster data -- move it to the Front-end.</li>
+	   <li>Verify that the cluster & sample "interacts_with" data (aka regulates) is displayed as expected.</li>
+	   <li>Include the following interacts_with test requirements
+	   <ol>
+	   <li>Identify markers as having "interacts_with" relationships on the Marker Detail page.
+	   <ol><li>Add a new ribbon to the marker detail page when a marker has these relationships.</li>
+	       <li>CHANGE - alter the ribbon name to "Interactions:"</li>
+	       <li>CHANGE - display a single count and teaser list due to the fact that this is a symmetrical relationship at the highest level. The relationships are displayed as one group regardless of whether the other marker is the Organizer or the Participant.</li>
+	       <li>Position this new ribbon as proposed between the Allele and GO ribbons.  The ribbon is not displayed if no interaction data is present.
+	       <ol><li>This position could change as the PIs are having discussions about the order of ribbons on the Marker Detail page.  The lead stakeholders (Janan and Carol) agreed that we could initially implement the ribbon in the proposed location.</li></ol></li>
+	       <li>A marker may regulate itself / be regulated by itself.
+	       <ol><li>Note: In this case the marker would be treated as all other relationships.  The marker could be included in the teaser list and, if so, the symbol would also be linked.</li></ol></li>
+	       </ol></li>
+	   <li>Display a summary of the interaction relationships for the Marker.
+	   <ol><li>Display a teaser list of up to 3 markers and a count of the total number of markers with "interacts_with" relationships.</li>
+	       <li>There may be multiple relationships between 2 markers, but only count the marker once.</li>
+	       <li>The number of markers with relationships includes those on either side of the relationship.</li>
+	       <li>Markers listed in the teaser list link to the Marker Detail page.</li>
+	       <li>Initial order - defer to SE.  This may change in a later user story when more data is present.</li>
+	   </ol></li>
+	   
+	   <li>Provide users a button/link to view all relationships this marker is involved in.</li>
+	   </ol></li>
+	   <li>Include the following cluster test requirements:
+	   <ol>
 	   <li>Identify markers as being a cluster, cluster member, or both on the Marker Detail page.</li>
 	   <li>A marker may be a member of one or more clusters.
 	   <ol><li>Add a new field to the bottom of the Nomenclature ribbon - "Member of" - only if a marker is a member of a Cluster.</li>
@@ -59,7 +84,14 @@
 	   <ol><li>Primary - Chromsome (both genetic and genomic locations have a chromosome)</li>
 	       <li>Secondary - Coordinates; markers without coordinates follow those with coordinates</li>
 	       <li>Tertiary - Smart alpha - marker symbol; applies to markers w/o coordinates</li>
-	</ol>
+	   
+	   
+	   </ol></li>
+	  
+	   
+	</ol></li>
+	 <li>The new features should display appropriately in the supported browsers (Firefox, Chrome, Safari).</li>
+    </ol>
 </div>
 
 
@@ -75,8 +107,56 @@
 		
 		<ol>
     		
+    		<li>Verify markers with/without interaction relationships are identified and display the appropriate information and link as expected.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display Marker Detail for a marker with both regulates/regulated by; Pax6. Verify new ribbon w/ 9 regulates & 22 regulated by.</li>
+    		   <li>Display Marker Detail for a marker with only regulates; Mir375.  Verify new ribbon has only that type listed w/ 28 markers.</li>
+    		   <li>Display Marker Detail for a marker with only regulated by; Trim71.  Verify new ribbon has 4 regulated by markers.</li>
+    		   <li>Display Marker Detail for a marker with no relationships of any kind; Brca1.  Verify no display.</li>
+    		   <li>Display Marker Detail for a marker with cluster relationships, but no regulates; Hoxa &amp; Hoxa1.  Verify cluster display and no regulates display.</li>
+    		   <li>Display Marker Detail for a marker with cluster and regulates relationships; Mir125a.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker that has a regulates relationship with itself; Pou5f1.  Verify 11 regulates/21 regulated by.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify regulates display when a marker has a single regulates marker
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display Marker Detail for a marker with 1 regulates/0 regulated by; Mir300.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 regulated by/0 regulates; Sema4c.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 regulates/1 regulated by; Six3.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 regulates marker with multiple relationships; Dnmt3b.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 regulates/many regulated by.  Verify display. [no test case in sample data]</li>
+    		   <li>Display Marker Detail for a marker with 1 regulated by/many regulates.  Verify display. [no test case in sample data]</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify teaser list - display, links
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display Marker Detail for a marker with less than 3 regulates markers; Sox2.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
+    		   <li>Display Marker Detail for a marker with more than 3 regulates markers; Pou5f1.  Verify markers in comma-delim list w/ an ellipsis. </li>
+    		   <li>Display Marker Detail for a marker with exactly 3 regulates markers; xxx.  Verify there is no ellipsis.[no case in sample data] </li>
+    		   <li>Display Marker Detail for a marker with less than 3 regulated by markers; Lef1.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
+    		   <li>Display Marker Detail for a marker with more than 3 regulated by markers; Pou5fl1.  Verify markers in comma-delim list w/ an ellipsis. </li>
+    		   <li>Display Marker Detail for a marker with exactly 3 regulated by markers; xxx.  Verify there is no ellipsis. [no case in sample data]</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify count of regulates/regulated by relationships 
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>Mir190b - regulates = 1; regulated by = 0</li>
+    		    <li>Mir378 - regulates = 28; regulated by = 0</li>
+    		    <li>Mir125a - regulates = 158; regulated by = 0 </li>
+    		    <li>Atxn1 - regulates = 0; regulated by = 2 </li>
+    		    <li>Pou5f1 - regulates = 11; regulated by = 21 </li>
+    		    <li>Trim71 - regulates = 0; regulated by = 4</li>
+    		    <li>Fgf4 - regulates = 0; regulated by = 1</li>
+    		    <li>Dnmt3b - regulates = 1; regulated by = 0</li>
+    		    <li>Pax6 - regulates = 9; regulated by = 22</li>
+    		</ol></li>
+    		
     		<li>Verify markers involved in a relationship are identified and display the appropriate information and link as expected.
-    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>  
+    		<p concordion:assertTrue="false">new test</p>   
     		<ol>
     		   <li>Display Marker Detail page for a marker that is a Cluster; Mirc6.  Verify "Cluster members" included in Nomen ribbon.</li>
     		   <li>Display Marker Detail page for a marker that is a member of a Cluster; Hoxa1.  Verify "Member of" included in Nomen ribbon.</li>
@@ -85,13 +165,13 @@
     	    </ol></li>
     	    
     	    <li>Verify cluster display when a marker is a member of more than 1 cluster
-    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>  
+    		<p concordion:assertTrue="false">new test</p>    
     		<ol>
     		   <li>Display Marker Detail page for a marker that is a member of multiple clusters; Igh-V10.  Verify clusters are displayed in comma-delimited list.</li>
     	    </ol></li>
     	    
     	    <li>Verify member teaser list for a marker that is a Cluster - display and links.
-    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>  
+    		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Display Marker Detail page for a marker with less than 3 members; Mirc14.  Verify members are displayed in comma-delimited list w/ no ellipsis.</li>
     		   <li>Display Marker Detail for a marker with more than 3 members; Mirc6.  Verify members in comma-delim list w/ an ellipsis. </li>
@@ -100,7 +180,7 @@
     	    </ol></li>
     	    
     	    <li>Verify count of members and link to member pop-up on Marker Detail of all sample data clusters
-    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>  
+    		<p concordion:assertTrue="false">new test</p>  
     		
     	    <ol><li>Hoxa - 11 members</li>
     		 <li>Mirc14 - 2 members</li>
@@ -110,7 +190,7 @@
     	    </ol></li>
     	    
     	    <li>Verify fields displayed in pop-up: Marker Symbol & Name, Feature Type, and Location; all sample clusters
-    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>   
+    		<p concordion:assertTrue="false">new test</p>    
     		<ol><li>Hoxa - 11 members; all with coordinates; strands</li>
     		 <li>Mirc14 - 2 members; all with coordinates; strands; small table</li>
              <li>Mirc6 - 24 members; large table w/ vertical scroll bar</li>
@@ -119,7 +199,7 @@
     	    </ol></li>
     	    
     	    <li>Verify location order of members in pop-up; all sample clusters
-    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>    
+    		<p concordion:assertTrue="false">new test</p>    
     		<ol><li>Hoxa - 11 members; all with coordinates; strands</li>
     		 <li>Mirc14 - 2 members; all with coordinates; strands; small table</li>
              <li>Mirc6 - 24 members; large table w/ vertical scroll bar</li>
@@ -129,7 +209,7 @@
     	    </ol></li>
     	    
     	    <li>Verify forward to Batch Query - all sample clusters - forward members+cluster marker itself
-    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>    
+    		<p concordion:assertTrue="false">new test</p>    
     		<ol><li>Hoxa - 11 members; all with coordinates; strands</li>
     		 <li>Mirc14 - 2 members; all with coordinates; strands; small table</li>
              <li>Mirc6 - 24 members; large table w/ vertical scroll bar</li>
@@ -138,11 +218,15 @@
     	    </ol></li>
     	    
     	  <li>Verify pop-up displays as expected on all supported browsers - Firefox, Safari, Chrome.  Also, check I/E?
-    		<p concordion:assertTrue="true">PASS - jlewis 3/11/2014</p>  
+    		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Test all sample clusters - verify pop-up display</li>
     	    </ol></li>
-		</ol>
+    		
+    		
+    		
+   		</ol>
+		
 	</div>
 	<div id="sql">
 	
