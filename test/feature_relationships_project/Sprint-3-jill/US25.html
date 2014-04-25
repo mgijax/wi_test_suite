@@ -48,6 +48,7 @@
 	            </ol></li>
 	            <li>The "Property:" identifier is case insensitive.  Curators may use any combination of upper/lower case for this label.</li>
 	            <li>Blank spaces will be stripped from the beginning of the column heading and also before and after the colon (:).</li>
+	            <li>Blank spaces will be stripped from the beginning and end of all property field values.
 	        </ol></li>
 	        <li>Notes - column 13 and optional</li>
 	        
@@ -64,6 +65,8 @@
 	    <li>Add a QC check to validate the Property fields' column headings.
 	    <ol><li>Required prefix = Property:</li>
 	        <li>The text that follows the prefix must be present in the "Relationship Properties" controlled vocabulary</li>
+	        <li>Blank spaces will be stripped from the beginning of the column heading and also before and after the colon (:).</li>
+	        <li>Leading/trailing spaces will be removed from the property name before validating.</li>
 	        <li>Display line # and invalid column heading for each occurrence of this error.</li>
 	        <li>Add the output for this check to the existing QC report file (QC.rpt) with an appropriate sub-heading</li>
 	        <li>If this error is found during the load process the load will abort.</li>
@@ -72,7 +75,8 @@
 	    <li>Add a QC check to validate the data in the Property:score column (if the column is present)
 	    <ol>
 	        <li>Valid values for score = blank, an integer, or a float</li>
-	        <li>plus (+) or minus (-) are allowed, but not required</li>
+	        <li>plus (+) or minus (-) are allowed, but not required
+	        <ul><li>Note: The plus sign is accepted as part of the input file, but is not loaded into the database.  The negative sign is loaded.</li></ul></li>
 	        <li>Non-numeric, exponential notation, and numbers with commas (1,200) are not accepted</li>
 	        <li>The Python default will be used for the number of decimal places accepted (and then rounded).</li>
 	        <li>Display line # and invalid score for each occurrence of this error.</li>
