@@ -38,7 +38,7 @@
 	    
 	    <li>Load a relatively small input file from Wendy (60K rows)</li>
 	    
-	    <li>Update load software to recognize & load the following input columns that may be present for any category (not just interacts_with)
+	    <li>Update load software to recognize & load the following input fields that may be present for any category (not just interacts_with)
 	    <ol><li>Property fields - starting at column 14
 	        <ol><li>Property fields are optional.</li>
 	            <li>Property fields may be present starting at column 14 and may be preceded and/or interspersed with blank columns or other curator non-property columns
@@ -54,9 +54,9 @@
 	        
 	    </ol></li>
 	        
-	    <li>Add a QC check to verify that Property fields in the input file are not found in columns 1-13.
-	    <ol><li>The Property fields are only permitted in columns 14-N (i.e. following the Notes column (col 13)).</li>
-	        <li>Property fields found in columns 1-13 will be flagged as an error.</li>
+	    <li>Add a QC check to verify that Property column headings in the input file are NOT found in columns 1-13.
+	    <ol><li>The Property fields are only permitted in columns 14-N (i.e. following the Notes column (col 13)) and must be identified by a valid column heading.</li>
+	        <li>Property column headings found in columns 1-13 will be flagged as an error.</li>
 	        <li>Display line # and the column heading for each occurrence of this error.</li>
 	        <li>Add the output for this check to the existing QC report file (QC.rpt) with an appropriate sub-heading</li>
 	        <li>If this error is found during the load process the load will abort.</li>
@@ -119,7 +119,7 @@
     		   
     	    </ol></li>
     	    
-    	    <li>Verify valid input files with Notes columns pass QC checks
+    	    <li>Verify valid input files with Notes column pass QC checks
     		<p concordion:assertTrue="true">PASS - jlewis 4/25/2014</p>
     		<ol>
     		   <li>Check input file with the 12 required fields plus notes -- US25_13_cols.txt; expect to pass QC check</li>
@@ -135,11 +135,11 @@
     	    <li>Verify new Property field QC checks 
     		<p concordion:assertTrue="true">PASS - jlewis 4/24/2014</p>
     		<ol>
-    		   <li>Check input file with a Property field in column 1 - US25_Prop_Col1_Err.txt; expect to fail QC check</li>
-    		   <li>Check input file with a Property field in column 13 - US25_Prop_Col13_Err.txt; expect to fail QC check</li>
-    		   <li>Check input file with several Property field at the beginning of the file - US25_Prop_BegFile_Err.txt; expect to fail QC check</li>
-    		   <li>Check input file with a single bad Property field name - US25_BadProp_Names_Single.txt; expect to fail QC check</li>
-    		   <li>Check input file with multiple bad Property field names - US25_BadProp_Names_Mult.txt; expect to fail QC check</li>
+    		   <li>Check input file with a Property column heading in column 1 - US25_Prop_Col1_Err.txt; expect to fail QC check</li>
+    		   <li>Check input file with a Property column heading in column 13 - US25_Prop_Col13_Err.txt; expect to fail QC check</li>
+    		   <li>Check input file with several Property column headings at the beginning of the file - US25_Prop_BegFile_Err.txt; expect to fail QC check</li>
+    		   <li>Check input file with a single bad Property field name in a column heading - US25_BadProp_Names_Single.txt; expect to fail QC check</li>
+    		   <li>Check input file with multiple bad Property field names in column headings - US25_BadProp_Names_Mult.txt; expect to fail QC check</li>
     		   
     	    </ol></li>
     	    
@@ -179,7 +179,7 @@
     		   
     	    </ol></li>
     		
-    		<li>Verify Load of input files without new optional fields (property and notes) works.
+    		<li>Verify Load of input files without new optional fields (property and notes).
     		<p concordion:assertTrue="true">PASS - sc/jlewis  4/25/2014</p> 
     		<ol>
     		   <li>Load input file with only required 12 columns - US25_12_cols.txt; expect data to load</li>
@@ -194,7 +194,7 @@
     		   
     	    </ol></li>
     	    
-    	    <li>Verify Load of input files with property fields that have extra spaces
+    	    <li>Verify Load of input files with property column headings that have extra spaces
     		<p concordion:assertTrue="true">PASS - sc/jlewis  4/25/2014</p> 
     		<ol>
     		   <li>Load input file with extra spaces in Property column headings - US25_PropSpace.txt; expect data to load</li>
@@ -206,8 +206,8 @@
     		<ol>
     		   <li>Load input file with a single bad property name - US25_BadProp_Names_Single.txt; expect load to find error and stop</li>
     		   <li>Load input file with multiple bad property names - US25_Bad_Prop_Names_Mult.txt; expect load to find errors and stop</li>
-    		   <li>Load input file with property in column 1 - US25_Prop_Col1_Err.txt; expect load to find error and stop</li>
-    		   <li>Load input file with property in column 13 - US25_Prop_Col13_Err.txt; expect load to find error and stop</li>
+    		   <li>Load input file with property in column 1 heading - US25_Prop_Col1_Err.txt; expect load to find error and stop</li>
+    		   <li>Load input file with property in column 13 heading - US25_Prop_Col13_Err.txt; expect load to find error and stop</li>
     		   
     	    </ol></li>
     	    
