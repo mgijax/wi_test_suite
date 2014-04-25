@@ -166,47 +166,61 @@
     	 <h3>LOAD CHECKS - Manual tests</h3>
 		
 		<ol>
-    		
-    		<li>Verify Load of input files without new options fields continue to work.
-    		<p concordion:assertTrue="false">new test</p>  
+		
+		    <li>Verify a moderate size load of real data
+    		<p concordion:assertTrue="true">PASS - sc  4/25/2014</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Load Wendy's 60K input file - microTCDs_miRTarbase_no_dups_18Apr2014.txt; expect data to load 
+    		   <ul><li>Note: had to modify Wendy's file to remove a duplicate and also change J:00000 to a valid one.</li></ul></li>
+    		   
+    	    </ol></li>
+    		
+    		<li>Verify Load of input files without new optional fields (property and notes) works.
+    		<p concordion:assertTrue="true">PASS - sc/jlewis  4/25/2014</p> 
+    		<ol>
+    		   <li>Load input file with only required 12 columns - US25_12_cols.txt; expect data to load</li>
     		   
     	    </ol></li>
     	    
-    	    <li>Verify Load of input files with property fields that have no errors
-    		<p concordion:assertTrue="false">new test</p>  
+    	    <li>Verify Load of input file with Notes 
+    		<p concordion:assertTrue="true">PASS - sc/jlewis  4/25/2014</p> 
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Load input file with required 12 columns plus notes - US25_13_cols.txt; expect data to load</li>
+    		   <li>Load input file with very long note fields - US25_Long_Notes2.txt; expect data to load</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify Load of input files with property fields that have extra spaces
+    		<p concordion:assertTrue="true">PASS - sc/jlewis  4/25/2014</p> 
+    		<ol>
+    		   <li>Load input file with extra spaces in Property column headings - US25_PropSpace.txt; expect data to load</li>
     		   
     	    </ol></li>
     	    
     	    <li>Verify Load aborts if a property QC error is found in the file
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - sc/jlewis  4/25/2014</p> 
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Load input file with a single bad property name - US25_BadProp_Names_Single.txt; expect load to find error and stop</li>
+    		   <li>Load input file with multiple bad property names - US25_Bad_Prop_Names_Mult.txt; expect load to find errors and stop</li>
+    		   <li>Load input file with property in column 1 - US25_Prop_Col1_Err.txt; expect load to find error and stop</li>
+    		   <li>Load input file with property in column 13 - US25_Prop_Col13_Err.txt; expect load to find error and stop</li>
     		   
     	    </ol></li>
     	    
     	    <li>Verify Load continues when a warning condition exists 
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - sc/jlewis  4/25/2014</p> 
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Load input file with a single Property column that has no data - US25_Single_NoData.txt; expect data to load</li>
+    		   <li>Load input file with Property columns with and without data - US25_Mix_NoData.txt; expect data to load</li>
     		   
     	    </ol></li>
     	    
-    	    <li>Verify load of new optional field Notes
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol>
-    		   <li>test 1.1</li>
-    		   
-    	    </ol></li>
     	    
     	    <li>Verify load of Property:score field
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - sc/jlewis  4/25/2014</p> 
     		<ol>
-    		   <li>test 1.1</li>
-    		   
+    		   <li>Load input file with scores with operators and many decimal places -- US25_Score_DecPl_Oper.txt; expect data to load</li>
+               <li>Load input file with non-numeric values in property score column - US25_Score_NonNum_Bad.txt; expect load to find error and stop</li>    		   
     	    </ol></li>
     	    
     	    
