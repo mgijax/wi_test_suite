@@ -40,17 +40,22 @@
 	    
 	    <li>Update load software to recognize & load the following input columns that may be present for any category (not just interacts_with)
 	    <ol><li>Property fields - starting at column 14
-	        <ul><li>There are no Property fields that are required to be present in the input file.</li></ul></li>
-	        <li>Notes - column 13</li></ol></li>
+	        <ol><li>Property fields are optional.</li>
+	            <li>Property fields may be present starting at column 14 and may be preceded and/or interspersed with blank columns or other curator non-property columns
+	            <ul><li>The blank and non-property columns are ignored by the QC and Load processes.</li></ul>
+	            <li>Property fields are recognized by the presence of "Property:" at the beginning of the column heading.
+	            <ol><li>Property labels misspelled or without a colon prevent the column heading to be recognized as a Property field.</li>
+	            </ol></li>
+	            <li>The "Property:" identifier is case insensitive.  Curators may use any combination of upper/lower case for this label.</li>
+	            <li>Blank spaces will be stripped from the beginning of the column heading and also before and after the colon (:).</li>
+	        </ol></li>
+	        <li>Notes - column 13 and optional</li>
+	        
+	    </ol></li>
 	        
 	    <li>Add a QC check to verify that Property fields in the input file are not found in columns 1-13.
 	    <ol><li>The Property fields are only permitted in columns 14-N (i.e. following the Notes column (col 13)).</li>
 	        <li>Property fields found in columns 1-13 will be flagged as an error.</li>
-	        <li>Property fields are recognized by the presence of "Property:" at the beginning of the column heading.
-	        <ol><li>Property labels misspelled or without a colon prevent the column heading to be recognized as a Property field.</li>
-	            <li>The "Property:" identifier is case insensitive.  Curators may use any combination of upper/lower case for this label.</li>
-	            <li>Blank spaces will be stripped from the beginning of the column heading and also before and after the colon (:).</li>
-	        </ol></li>
 	        <li>Display line # and the column heading for each occurrence of this error.</li>
 	        <li>Add the output for this check to the existing QC report file (QC.rpt) with an appropriate sub-heading</li>
 	        <li>If this error is found during the load process the load will abort.</li>
@@ -68,7 +73,7 @@
 	    <ol>
 	        <li>Valid values for score = blank, an integer, or a float</li>
 	        <li>plus (+) or minus (-) are allowed, but not required</li>
-	        <li>Exponential notation is not accepted</li>
+	        <li>Non-numeric, exponential notation, and numbers with commas (1,200) are not accepted</li>
 	        <li>The Python default will be used for the number of decimal places accepted (and then rounded).</li>
 	        <li>Display line # and invalid score for each occurrence of this error.</li>
 	        <li>Add the output for this check to the existing QC report file  (QC.rpt) with an appropriate sub-heading</li>
@@ -94,18 +99,120 @@
 <p concordion:assertTrue="true">testing assertTrue - displays as green</p>
 <p concordion:assertTrue="false">testing assertFalse - displays as red</p>
  -->
-		<h3>Manual tests</h3>
+		<h3>QC CHECKS - Manual tests</h3>
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify valid input files with Property columns pass QC checks
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Check input file with required columns, notes, and 1 property in col 14 - US25_14_cols_1prop.txt; expect to pass QC</li>
+    		   <li>Check input file with req columns, notes, blank column, and 1 property in col 15 - US25_15_cols_1prop.txt; expect to pass QC</li>
+    		   <li>Check input file with req columns, notes, opt curator columns, and 1 property col - US25_16_cols_1prop.txt; expect to pass QC</li>
+    		   <li>Check input file with req columns, notes, and mix of property and curator columns - US25_21_cols_mix.txt; expect to pass QC</li>
+    		   <li>Check input file with leading spaces; spaces on both sides of the colon; in Property headings - US25_Prop_Spaces.txt; expect to pass QC</li>
+    		   
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify valid input files with Notes columns pass QC checks
+    		<p concordion:assertTrue="true">PASS - jlewis 4/25/2014</p>
+    		<ol>
+    		   <li>Check input file with the 12 required fields plus notes -- US25_13_cols.txt; expect to pass QC check</li>
+    		   <li>Check input file with very long note fields -- US25_Long_Notes2.txt; expect to pass QC check</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify valid input files without Notes or Properties still pass QC checks
+    		<p concordion:assertTrue="true">PASS - jlewis 4/24/2014</p> 
+    		<ol>
+    		   <li>Check input file with only the required fields; 12 columns -- US25_12_cols.txt; expect to pass QC check</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify new Property field QC checks 
+    		<p concordion:assertTrue="true">PASS - jlewis 4/24/2014</p>
+    		<ol>
+    		   <li>Check input file with a Property field in column 1 - US25_Prop_Col1_Err.txt; expect to fail QC check</li>
+    		   <li>Check input file with a Property field in column 13 - US25_Prop_Col13_Err.txt; expect to fail QC check</li>
+    		   <li>Check input file with several Property field at the beginning of the file - US25_Prop_BegFile_Err.txt; expect to fail QC check</li>
+    		   <li>Check input file with a single bad Property field name - US25_BadProp_Names_Single.txt; expect to fail QC check</li>
+    		   <li>Check input file with multiple bad Property field names - US25_BadProp_Names_Mult.txt; expect to fail QC check</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify new Property:score QC checks 
+    		<p concordion:assertTrue="true">PASS - jlewis 4/24/2014</p>  
+    		<ol>
+    		   <li>Check input file where there is a mix of blank, integer, and float values in Score column - US25_Score_Mix_Good.txt; expect to pass QC check </li>
+    		   <li>Check input file where the score has several decimal places - US25_Score_ManyDec_Good.txt; expect to pass QC check</li>
+    		   <li>Check input file with operators in Score column - US25_Score_Oper_Good.txt; expect to pass QC check</li>
+    		   <li>Check input file with non-numerics in Score column - US25_Score_NonNum_Bad.txt; expect to fail QC check</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify new warning messages displayed during QC checks 
+    		<p concordion:assertTrue="true">PASS - jlewis 4/24/2014</p>
+    		<ol>
+    		   <li>Check input file where the single property column in the file has no data - US25_Single_NoData.txt; expect display of command line warning</li>
+    		   <li>Check input file where the multiple property columns in the file have no data - US25_Mult_NoData.txt; expect display of multiple command line warnings</li>
+    		   <li>Check input file where the Property:score column has no data - US25_Score_Blank_Warn.txt; expect display of multiple command line warnings</li>
+    		   <li>Check input file with several property columns - some with data and some without - US25_Mix_NoData.txt; expect display of multiple command line warnings.</li>
+    	    </ol></li>
+    	    
+    	    
+    	    
+    	 </ol>
+    	   
+    	   
+    	 <h3>LOAD CHECKS - Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify Load of input files without new options fields continue to work.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>test 1.1</li>
     		   
     	    </ol></li>
-    	 </ol>
-    	   
+    	    
+    	    <li>Verify Load of input files with property fields that have no errors
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify Load aborts if a property QC error is found in the file
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify Load continues when a warning condition exists 
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify load of new optional field Notes
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Verify load of Property:score field
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    		   
+    	    </ol></li>
+    	    
+    	    
+    	 </ol>  
+    	 
+    	 
 		
 	</div>
 	<div id="sql">
