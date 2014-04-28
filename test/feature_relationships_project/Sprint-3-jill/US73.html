@@ -44,7 +44,7 @@
 	   
 	   <li>Display Interaction Explorer initial table view - same requirements as (US68) 
 	   <ol><li>Pagination per standard paradigm with the exception that controls only at top of page</li>
-	       <li>Display the following columns with these column headsing and default order: 
+	       <li>Display the following columns with these column heading and default order: 
 	          <ul><li>Feature 1 (link to Marker Detail)</li>
 	              <li>Interaction - display term synonym</li>
 	              <li>Feature 2 (link to Marker Detail)</li>
@@ -56,7 +56,8 @@
 	       <li>Default order of page: Feature 2 - smart alpha order; no secondary sort  </li>
 	   </ol></li>
 	   <li>Provide basic column sorting in the Explorer table - same requirements as (US81)
-	   <ol><li>Smart Alpha sort-ascending on all columns except Score. Second click of column provides a descending sort.</li>
+	   <ol><li>Smart Alpha sort-ascending on all columns except Score and Data Source. Second click of column provides a descending sort.</li>
+	       <li>Data Source - case insensitive alpha sort.</li>
 	       <li>A sort on the Score column involves data_source and score
 	       <ul><li>1st click of sort -- Primary = data_source: smart alpha ascending; Secondary=score; descending</li>
 	           <li>2nd click of sort -- Primary = data_source: smart alpha ascending; Secondary=score; ascending</li>
@@ -84,53 +85,112 @@
 		<ol>
     		
     		<li>Verify markers with/without interaction relationships are identified and display the appropriate information and link as expected.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 4/28/2014</p>  
     		<ol>
-    		   <li>Display Marker Detail for a marker with interactions as both a Participant and Organizer; Pax6. Verify new ribbon w/ 29 markers w/interactions.</li>
-    		   <li>Display Marker Detail for a marker with only Organizer interactions; Mir375.  Verify new ribbon has only that type listed w/ 28 markers.</li>
-    		   <li>Display Marker Detail for a marker with only Participant interactions; Trim71.  Verify new ribbon has 4 markers.</li>
+    		   <li>Display Marker Detail for a marker with interactions as both a Participant and Organizer; Mir451. Verify new ribbon w/ 2 markers w/interactions.</li>
+    		   <li>Display Marker Detail for a marker with only Organizer interactions; Mir375.  Verify new ribbon has only that type listed w/ 44 markers.</li>
+    		   <li>Display Marker Detail for a marker with only Participant interactions; Trim71.  Verify new ribbon has 17 markers.</li>
     		   <li>Display Marker Detail for a marker with no relationships of any kind; Brca1.  Verify no display.</li>
-    		   <li>Display Marker Detail for a marker with cluster relationships, but no interactions; Hoxa &amp; Hoxa1.  Verify cluster display and no interaction display.</li>
-    		   <li>Display Marker Detail for a marker with cluster and interaction relationships; Mir125a.  Verify display.</li>
-    		   <li>Display Marker Detail for a marker that has an interaction relationship with itself; Pou5f1.  Verify count of 30 markers in ribbon.</li>
+    		   <li>Display Marker Detail for a marker with cluster relationships, but no interactions; Klra, Klra20.  Verify cluster display and no interaction display.</li>
+    		   <li>Display Marker Detail for a marker with cluster and interaction relationships; Hoxa1.  Verify display - 6  markers.</li>
+    		   <li>Display Marker Detail for a marker that has an interaction relationship with itself; xxx.  [no example of this case in test data].</li>
     	    </ol></li>
     	    
     	    <li>Verify interaction display when a marker has a single interacts_with marker
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 4/28/2014</p>  
     		<ol>
-    		   <li>Display Marker Detail for a marker with 1 Organizer/0 Participant relationships; Mir300.  Verify display.</li>
-    		   <li>Display Marker Detail for a marker with 1 Participant/0 Organizer relationships; Sema4c.  Verify display.</li>
-    		   <li>Display Marker Detail for a marker with 1 Organizer/1 Participant relationship; Six3.  Verify display.</li>
-    		   <li>Display Marker Detail for a marker with 1 marker that has multiple relationships; Dnmt3b.  Verify display.</li>
-    		   <li>Display Marker Detail for a marker with 1 Organizer/many Participant relationships.  Verify display. [no test case in sample data]</li>
-    		   <li>Display Marker Detail for a marker with 1 Participant/many Organizer relationships.  Verify display. [no test case in sample data]</li>
+    		   <li>Display Marker Detail for a marker with 1 Organizer/0 Participant relationships; Mir7578, Mir99a.  Verify display - 1 marker.</li>
+    		   <li>Display Marker Detail for a marker with 1 Participant/0 Organizer relationships; Cyb5.  Verify display - 1 marker.</li>
+    		   <li>Display Marker Detail for a marker with 1 Organizer/1 Participant relationship; Mir451.  Verify display - 2 markers.</li>
+    		   <li>Display Marker Detail for a marker with 1 Organizer/many Participant relationships; XXX.  Verify display. [no test case in sample data]</li>
+    		   <li>Display Marker Detail for a marker with 1 Participant/many Organizer relationships; Mir17.  Verify display - 568 markers.</li>
     	    </ol></li>
     	    
     	    <li>Verify teaser list - display, links
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 4/28/2014</p>  
     		<ol>
-    		   <li>Display Marker Detail for a marker with less than 3 interacts_with markers; Sox2.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
-    		   <li>Display Marker Detail for a marker with more than 3 interacts_with markers; Pou5f1.  Verify markers in comma-delim list w/ an ellipsis. </li>
-    		   <li>Display Marker Detail for a marker with exactly 3 interacts_with markers; xxx.  Verify there is no ellipsis.[no case in sample data] </li>
-    		   <li>Display Marker Detail for a marker with less than 3 interacts_with markers; Lef1.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
-    		   <li>Display Marker Detail for a marker with more than 3 interacts_with markers; Pou5fl1.  Verify markers in comma-delim list w/ an ellipsis. </li>
-    		   <li>Display Marker Detail for a marker with exactly 3 interacts_with markers; xxx.  Verify there is no ellipsis. [no case in sample data]</li>
+    		   <li>Display Marker Detail for a marker with less than 3 interacts_with markers; Mir99b.  Verify 2 markers are displayed in comma-delimited list w/ no ellipsis.</li>
+    		   <li>Display Marker Detail for a marker with more than 3 interacts_with markers; Mir453.  Verify 3 (of 11) markers in comma-delim list w/ an ellipsis. </li>
+    		   <li>Display Marker Detail for a marker with exactly 3 interacts_with markers; Aco1.  Verify there is no ellipsis. </li>
     	    </ol></li>
     	    
-    	    <li>Verify count of interaction relationships 
-    		<p concordion:assertTrue="false">new test</p>  
+    	    <li>Verify Explorer pagination.
+    		<p concordion:assertTrue="true">PASS - jlewis 4/28/2014</p>  
+    		
     		<ol>
-    		    <li>Mir190b - interactions = </li>
-    		    <li>Mir378 - interactions = </li>
-    		    <li>Mir125a - interactions = </li>
-    		    <li>Atxn1 - interactions =  </li>
-    		    <li>Pou5f1 - interactions=  </li>
-    		    <li>Trim71 - interactions = </li>
-    		    <li>Fgf4 - interactions = </li>
-    		    <li>Dnmt3b - interactions = </li>
-    		    <li>Pax6 - interactions = </li>
+    		   <li>Display Explorer for marker with less than 25 rows; Mir296 (17 markers/17 relationships) - check controls for 1 page displays</li>
+    		   <li>Display Explorer for marker with more than 100 rows; Mir300 (106 markers/107 relationships) - displays multiple pages regardless of page default size.</li>
+    		   <li>Display Explorer for marker with more than 500 rows; Mir17 (568 markers/604 relationships) - verify first/last commands; bread crumb links.</li>
     		</ol></li>
     		
+    		<li>Verify Explorer table view column order & links
+    		<p concordion:assertTrue="true">PASS - jlewis 4/28/2014</p>  
+    		
+    		<ol>
+    		   <li>Display Explorer for marker Hoxa1 - verify column names, order, links</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify Explorer table view default sort order - Feature 2 smart alpha
+    		<p concordion:assertTrue="true">PASS - jlewis 4/28/2014</p>  
+    		
+    		<ol>
+    		   <li>Display Explorer for marker Mir185 - see Gm* genes for smart alpha verification.</li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify Explorer Feature 1 & 2 column sorting - smart alpha
+    		<p concordion:assertTrue="false">new test</p>  
+    		
+    		<ol>
+    		    <li>Display Explorer for Marker with single value for Feature 1; Mir185  Expect no change.</li>
+    		    <li>Display Explorer for Marker with multiple values in Feature 1; Trim71.  Expect: smart alpha sort of column 1; no secondary sort.</li>
+    		    <li>Display Explorer for Marker with single value for Feature 2; Trim71  Expect no change.</li>
+    		    <li>Display Explorer for Marker with multiple values in Feature 2; Mir185.  Expect: smart alpha sort of column 1; no secondary sort.</li>
+    		</ol></li>
+    		
+    		<li>Verify Explorer Interaction sort
+    		<p concordion:assertTrue="false">new test</p>  
+    		
+    		<ol>
+    		    <li>Display Explorer for Marker with single value for Interaction; Mir185  Expect no change.</li>
+    		    <li>Display Explorer for Marker with multiple values in Interaction; XXX.  [no case for this in data]</li>
+    		</ol></li>
+    		
+    		<li>Verify Explorer Validation sort
+    		<p concordion:assertTrue="false">new test</p>  
+    		
+    		<ol>
+    		    <li>Display Explorer for Marker with single value for Validation; XXX  Expect no change.</li>
+    		    <li>Display Explorer for Marker with multiple values in Validation and no blanks; Dram2.  Expect: Alpha order</li>
+    		    <li>Display Explorer for Marker with multiple values in Validation including blank; XXX.  Expect: Alpha order with rows with blank values going to the bottom of the results.</li>
+    		</ol></li>
+    		
+    		<li>Verify Explorer Data Source sort
+    		<p concordion:assertTrue="false">new test</p>  
+    		
+    		<ol>
+    		    <li>Display Explorer for Marker with single value for Data Source; XXX  Expect no change.</li>
+    		    <li>Display Explorer for Marker with multiple values in Data Source and no blanks; XXX.  Expect: Alpha order</li>
+    		    <li>Display Explorer for Marker with multiple values in Data Source including blank; XXX.  Expect: Alpha order with rows with blank values going to the bottom of the results.</li>
+    		</ol></li>
+    		
+    		<li>Verify Explorer Reference sort
+    		<p concordion:assertTrue="false">new test</p>  
+    		
+    		<ol>
+    		    <li>Display Explorer for Marker with single value for Reference; XXX  Expect no change.</li>
+    		    <li>Display Explorer for Marker with multiple values in Reference; XXX.  Expect: Alpha order</li>
+    		</ol></li>
+    		
+    		<li>Verify Explorer Score sort
+    		<p concordion:assertTrue="false">new test</p>  
+    		
+    		<ol>
+    		    <li>Display Explorer for Marker with single value for Data Source/multiple score values; no blanks; XXX  Expect: click1=score in descending order; click2=score in ascending order.</li>
+    		    <li>Display Explorer for Marker with multiple values for Data Source/multiple score values; no blanks; XXX  Expect: click1=data source ascending-score descending; click2=data source ascending-score ascending.</li>
+    		    <li>Display Explorer for Marker with blank score values; XXX.  Expect: blank values to the bottom for both click 1 and click 2.</li>
+    		</ol></li>
     		
     	  <li>Verify pop-up displays as expected on all supported browsers - Firefox, Safari, Chrome.  Also, check I/E?
     		<p concordion:assertTrue="false">new test</p>  
