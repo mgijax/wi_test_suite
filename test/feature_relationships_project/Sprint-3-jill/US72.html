@@ -108,51 +108,51 @@
 		<ol>
     		
     		<li>Verify markers with/without interaction relationships are identified and display the appropriate information and link as expected.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 4/22/2014</p>  
     		<ol>
-    		   <li>Display Marker Detail for a marker with both regulates/regulated by; Pax6. Verify new ribbon w/ 9 regulates & 22 regulated by.</li>
-    		   <li>Display Marker Detail for a marker with only regulates; Mir375.  Verify new ribbon has only that type listed w/ 28 markers.</li>
-    		   <li>Display Marker Detail for a marker with only regulated by; Trim71.  Verify new ribbon has 4 regulated by markers.</li>
+    		   <li>Display Marker Detail for a marker with interactions as both a Participant and Organizer; Pax6. Verify new ribbon w/ 29 markers w/interactions.</li>
+    		   <li>Display Marker Detail for a marker with only Organizer interactions; Mir375.  Verify new ribbon has only that type listed w/ 28 markers.</li>
+    		   <li>Display Marker Detail for a marker with only Participant interactions; Trim71.  Verify new ribbon has 4 markers.</li>
     		   <li>Display Marker Detail for a marker with no relationships of any kind; Brca1.  Verify no display.</li>
-    		   <li>Display Marker Detail for a marker with cluster relationships, but no regulates; Hoxa &amp; Hoxa1.  Verify cluster display and no regulates display.</li>
-    		   <li>Display Marker Detail for a marker with cluster and regulates relationships; Mir125a.  Verify display.</li>
-    		   <li>Display Marker Detail for a marker that has a regulates relationship with itself; Pou5f1.  Verify 11 regulates/21 regulated by.</li>
+    		   <li>Display Marker Detail for a marker with cluster relationships, but no interactions; Hoxa &amp; Hoxa1.  Verify cluster display and no interaction display.</li>
+    		   <li>Display Marker Detail for a marker with cluster and interaction relationships; Mir125a.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker that has an interaction relationship with itself; Pou5f1.  Verify count of 30 markers in ribbon.</li>
     	    </ol></li>
     	    
-    	    <li>Verify regulates display when a marker has a single regulates marker
+    	    <li>Verify interaction display when a marker has a single interacts_with marker
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display Marker Detail for a marker with 1 regulates/0 regulated by; Mir300.  Verify display.</li>
-    		   <li>Display Marker Detail for a marker with 1 regulated by/0 regulates; Sema4c.  Verify display.</li>
-    		   <li>Display Marker Detail for a marker with 1 regulates/1 regulated by; Six3.  Verify display.</li>
-    		   <li>Display Marker Detail for a marker with 1 regulates marker with multiple relationships; Dnmt3b.  Verify display.</li>
-    		   <li>Display Marker Detail for a marker with 1 regulates/many regulated by.  Verify display. [no test case in sample data]</li>
-    		   <li>Display Marker Detail for a marker with 1 regulated by/many regulates.  Verify display. [no test case in sample data]</li>
+    		   <li>Display Marker Detail for a marker with 1 Organizer/0 Participant relationships; Mir300.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 Participant/0 Organizer relationships; Sema4c.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 Organizer/1 Participant relationship; Six3.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 marker that has multiple relationships; Dnmt3b.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 Organizer/many Participant relationships.  Verify display. [no test case in sample data]</li>
+    		   <li>Display Marker Detail for a marker with 1 Participant/many Organizer relationships.  Verify display. [no test case in sample data]</li>
     	    </ol></li>
     	    
     	    <li>Verify teaser list - display, links
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display Marker Detail for a marker with less than 3 regulates markers; Sox2.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
-    		   <li>Display Marker Detail for a marker with more than 3 regulates markers; Pou5f1.  Verify markers in comma-delim list w/ an ellipsis. </li>
-    		   <li>Display Marker Detail for a marker with exactly 3 regulates markers; xxx.  Verify there is no ellipsis.[no case in sample data] </li>
-    		   <li>Display Marker Detail for a marker with less than 3 regulated by markers; Lef1.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
-    		   <li>Display Marker Detail for a marker with more than 3 regulated by markers; Pou5fl1.  Verify markers in comma-delim list w/ an ellipsis. </li>
-    		   <li>Display Marker Detail for a marker with exactly 3 regulated by markers; xxx.  Verify there is no ellipsis. [no case in sample data]</li>
+    		   <li>Display Marker Detail for a marker with less than 3 interacts_with markers; Sox2.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
+    		   <li>Display Marker Detail for a marker with more than 3 interacts_with markers; Pou5f1.  Verify markers in comma-delim list w/ an ellipsis. </li>
+    		   <li>Display Marker Detail for a marker with exactly 3 interacts_with markers; xxx.  Verify there is no ellipsis.[no case in sample data] </li>
+    		   <li>Display Marker Detail for a marker with less than 3 interacts_with markers; Lef1.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
+    		   <li>Display Marker Detail for a marker with more than 3 interacts_with markers; Pou5fl1.  Verify markers in comma-delim list w/ an ellipsis. </li>
+    		   <li>Display Marker Detail for a marker with exactly 3 interacts_with markers; xxx.  Verify there is no ellipsis. [no case in sample data]</li>
     	    </ol></li>
     	    
-    	    <li>Verify count of regulates/regulated by relationships 
+    	    <li>Verify count of interaction relationships 
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		    <li>Mir190b - regulates = 1; regulated by = 0</li>
-    		    <li>Mir378 - regulates = 28; regulated by = 0</li>
-    		    <li>Mir125a - regulates = 158; regulated by = 0 </li>
-    		    <li>Atxn1 - regulates = 0; regulated by = 2 </li>
-    		    <li>Pou5f1 - regulates = 11; regulated by = 21 </li>
-    		    <li>Trim71 - regulates = 0; regulated by = 4</li>
-    		    <li>Fgf4 - regulates = 0; regulated by = 1</li>
-    		    <li>Dnmt3b - regulates = 1; regulated by = 0</li>
-    		    <li>Pax6 - regulates = 9; regulated by = 22</li>
+    		    <li>Mir190b - interactions = 1</li>
+    		    <li>Mir378 - interactions = 28</li>
+    		    <li>Mir125a - interactions = 158</li>
+    		    <li>Atxn1 - interactions = 2 </li>
+    		    <li>Pou5f1 - interactions= 30 </li>
+    		    <li>Trim71 - interactions = 4</li>
+    		    <li>Fgf4 - interactions = 1</li>
+    		    <li>Dnmt3b - interactions = 1</li>
+    		    <li>Pax6 - interactions = 29</li>
     		</ol></li>
     		
     		<li>Verify markers involved in a relationship are identified and display the appropriate information and link as expected.
@@ -160,14 +160,14 @@
     		<ol>
     		   <li>Display Marker Detail page for a marker that is a Cluster; Mirc6.  Verify "Cluster members" included in Nomen ribbon.</li>
     		   <li>Display Marker Detail page for a marker that is a member of a Cluster; Hoxa1.  Verify "Member of" included in Nomen ribbon.</li>
-    		   <li>Display Marker Detail page for a marker that is both a Cluster and a member of a Cluster; Igh-V10. Verify both "Cluster members" and "Member of" included in Nomen ribbon.</li>
+    		   <li>Display Marker Detail page for a marker that is both a Cluster and a member of a Cluster; xxx. Verify both "Cluster members" and "Member of" included in Nomen ribbon.[no example in data]</li>
     		   <li>Display Marker Detail page for a marker that is not a Cluster or Cluster member; Pax6.  Verify no cluster fields are included in Nomen ribbon.</li>
     	    </ol></li>
     	    
     	    <li>Verify cluster display when a marker is a member of more than 1 cluster
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
-    		   <li>Display Marker Detail page for a marker that is a member of multiple clusters; Igh-V10.  Verify clusters are displayed in comma-delimited list.</li>
+    		   <li>Display Marker Detail page for a marker that is a member of multiple clusters; xxx.  Verify clusters are displayed in comma-delimited list.[no example in test data]</li>
     	    </ol></li>
     	    
     	    <li>Verify member teaser list for a marker that is a Cluster - display and links.
@@ -175,8 +175,8 @@
     		<ol>
     		   <li>Display Marker Detail page for a marker with less than 3 members; Mirc14.  Verify members are displayed in comma-delimited list w/ no ellipsis.</li>
     		   <li>Display Marker Detail for a marker with more than 3 members; Mirc6.  Verify members in comma-delim list w/ an ellipsis. </li>
-    		   <li>Display Marker Detail for a marker with exactly 3 members; xxx.  Verify there is no ellipsis. [case not found in sample data]</li>
-    		   <li>Display Marker Detail for a marker with members that have coordinates; Igh.  Verify teaser list is in location order.</li>
+    		   <li>Display Marker Detail for a marker with exactly 3 members; Gpr31.  Verify there is no ellipsis.</li>
+    		   <li>Display Marker Detail for a marker with members that have coordinates; Klra.  Verify teaser list is in location order.</li>
     	    </ol></li>
     	    
     	    <li>Verify count of members and link to member pop-up on Marker Detail of all sample data clusters
@@ -185,8 +185,7 @@
     	    <ol><li>Hoxa - 11 members</li>
     		 <li>Mirc14 - 2 members</li>
              <li>Mirc6 - 24 members</li>
-    	     <li>Igh - 6 members</li>
-    		 <li>Igh-V10 - 4 members</li>
+    	     <li>Klra - 28 members</li>
     	    </ol></li>
     	    
     	    <li>Verify fields displayed in pop-up: Marker Symbol & Name, Feature Type, and Location; all sample clusters
@@ -194,8 +193,8 @@
     		<ol><li>Hoxa - 11 members; all with coordinates; strands</li>
     		 <li>Mirc14 - 2 members; all with coordinates; strands; small table</li>
              <li>Mirc6 - 24 members; large table w/ vertical scroll bar</li>
-    	     <li>Igh - 6 members; mix of coordinates/no coordinates</li>
-    		 <li>Igh-V10 - 4 members; marker that is a cluster and cluster member</li>
+    	     <li>Klra - 28 members; mix of coordinates/no coordinates</li>
+    		 <li>XXX - 4 members; marker that is a cluster and cluster member [no example in test data]</li>
     	    </ol></li>
     	    
     	    <li>Verify location order of members in pop-up; all sample clusters
@@ -213,8 +212,8 @@
     		<ol><li>Hoxa - 11 members; all with coordinates; strands</li>
     		 <li>Mirc14 - 2 members; all with coordinates; strands; small table</li>
              <li>Mirc6 - 24 members; large table w/ vertical scroll bar</li>
-    	     <li>Igh - 6 members; mix of coordinates/no coordinates</li>
-    		 <li>Igh-V10 - 4 members; marker that is a cluster and cluster member</li>
+    	     <li>Klra - 28 members; mix of coordinates/no coordinates</li>
+    		 
     	    </ol></li>
     	    
     	  <li>Verify pop-up displays as expected on all supported browsers - Firefox, Safari, Chrome.  Also, check I/E?
