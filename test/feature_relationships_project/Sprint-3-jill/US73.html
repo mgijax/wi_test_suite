@@ -1,0 +1,160 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 73</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Move Interactions to the front-end</h1>
+    <ul>
+        <li>User Story 73 - Move Interaction relations from back-end to front-end</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	   <li>Verify that the 60K of interactions data (Wendy's file) is displayed as expected.</li>
+	   <li>Identify markers as having "interacts_with" relationships via the new Interaction ribbon on the Marker Detail page.</li>
+	   <li>Display appropriate marker count, teaser list, and links in the new Interaction ribbon.
+	   <ol><li>Display a teaser list of up to 3 markers and a count of the total number of markers with "interacts_with" relationships.</li>
+	       <li>There may be multiple relationships between 2 markers, but only count the marker once.</li>
+	       <li>The number of markers with relationships includes those on either side of the relationship.</li>
+	       <li>Markers listed in the teaser list link to the Marker Detail page.</li>
+	       <li>Initial teaser order (per Jon) - sorted by relationship term then by the location of the related markers.  So, for instance, the “is targeted by” markers will come before the “targets” markers, and within each of those, the choices are sorted by location</li>
+	   </ol></li>
+	   
+	   <li>Provide users a button/link to view all relationships this marker is involved in.</li>
+	   
+	   <li>Display Interaction Explorer initial table view - same requirements as (US68) 
+	   <ol><li>Pagination per standard paradigm with the exception that controls only at top of page</li>
+	       <li>Display the following columns with these column headsing and default order: 
+	          <ul><li>Feature 1 (link to Marker Detail)</li>
+	              <li>Interaction - display term synonym</li>
+	              <li>Feature 2 (link to Marker Detail)</li>
+	              <li>Validation</li>
+	              <li>Data Source</li>
+	              <li>Score</li>
+	              <li>Reference (link to Reference)</li>
+	          </ul></li>
+	       <li>Default order of page: Feature 2 - smart alpha order; no secondary sort  </li>
+	   </ol></li>
+	   <li>Provide basic column sorting in the Explorer table - same requirements as (US81)
+	   <ol><li>Smart Alpha sort-ascending on all columns except Score. Second click of column provides a descending sort.</li>
+	       <li>A sort on the Score column involves data_source and score
+	       <ul><li>1st click of sort -- Primary = data_source: smart alpha ascending; Secondary=score; descending</li>
+	           <li>2nd click of sort -- Primary = data_source: smart alpha ascending; Secondary=score; ascending</li>
+	      </ul></li>
+	       <li>Blank fields are sorted after fields with values in either ascending or descending mode.</li>
+	   
+	   </ol></li>
+	  
+	   
+	 <li>The new features should display appropriately in the supported browsers (Firefox, Chrome, Safari).</li>
+    </ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify markers with/without interaction relationships are identified and display the appropriate information and link as expected.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display Marker Detail for a marker with interactions as both a Participant and Organizer; Pax6. Verify new ribbon w/ 29 markers w/interactions.</li>
+    		   <li>Display Marker Detail for a marker with only Organizer interactions; Mir375.  Verify new ribbon has only that type listed w/ 28 markers.</li>
+    		   <li>Display Marker Detail for a marker with only Participant interactions; Trim71.  Verify new ribbon has 4 markers.</li>
+    		   <li>Display Marker Detail for a marker with no relationships of any kind; Brca1.  Verify no display.</li>
+    		   <li>Display Marker Detail for a marker with cluster relationships, but no interactions; Hoxa &amp; Hoxa1.  Verify cluster display and no interaction display.</li>
+    		   <li>Display Marker Detail for a marker with cluster and interaction relationships; Mir125a.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker that has an interaction relationship with itself; Pou5f1.  Verify count of 30 markers in ribbon.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify interaction display when a marker has a single interacts_with marker
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display Marker Detail for a marker with 1 Organizer/0 Participant relationships; Mir300.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 Participant/0 Organizer relationships; Sema4c.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 Organizer/1 Participant relationship; Six3.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 marker that has multiple relationships; Dnmt3b.  Verify display.</li>
+    		   <li>Display Marker Detail for a marker with 1 Organizer/many Participant relationships.  Verify display. [no test case in sample data]</li>
+    		   <li>Display Marker Detail for a marker with 1 Participant/many Organizer relationships.  Verify display. [no test case in sample data]</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify teaser list - display, links
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display Marker Detail for a marker with less than 3 interacts_with markers; Sox2.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
+    		   <li>Display Marker Detail for a marker with more than 3 interacts_with markers; Pou5f1.  Verify markers in comma-delim list w/ an ellipsis. </li>
+    		   <li>Display Marker Detail for a marker with exactly 3 interacts_with markers; xxx.  Verify there is no ellipsis.[no case in sample data] </li>
+    		   <li>Display Marker Detail for a marker with less than 3 interacts_with markers; Lef1.  Verify markers are displayed in comma-delimited list w/ no ellipsis.</li>
+    		   <li>Display Marker Detail for a marker with more than 3 interacts_with markers; Pou5fl1.  Verify markers in comma-delim list w/ an ellipsis. </li>
+    		   <li>Display Marker Detail for a marker with exactly 3 interacts_with markers; xxx.  Verify there is no ellipsis. [no case in sample data]</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify count of interaction relationships 
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>Mir190b - interactions = </li>
+    		    <li>Mir378 - interactions = </li>
+    		    <li>Mir125a - interactions = </li>
+    		    <li>Atxn1 - interactions =  </li>
+    		    <li>Pou5f1 - interactions=  </li>
+    		    <li>Trim71 - interactions = </li>
+    		    <li>Fgf4 - interactions = </li>
+    		    <li>Dnmt3b - interactions = </li>
+    		    <li>Pax6 - interactions = </li>
+    		</ol></li>
+    		
+    		
+    	  <li>Verify pop-up displays as expected on all supported browsers - Firefox, Safari, Chrome.  Also, check I/E?
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Test Interaction Explorer</li>
+    	    </ol></li>
+    		
+    		
+    		
+   		</ol>
+		
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
