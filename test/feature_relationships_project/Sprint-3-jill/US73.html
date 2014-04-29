@@ -140,10 +140,10 @@
     		</ol></li>
     		
     		<li>Verify Explorer Feature 1 & 2 column sorting - smart alpha
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 4/29/2014</p>  
     		
     		<ol>
-    		    <li>Display Explorer for Marker with single value for Feature 1; Mir185  Expect no change.</li>
+    		    <li>Display Explorer for Marker with single value for Feature 1; Mir185  Expect no change.[DUE TO SOLR "out-of-box" the previous sort order is lost]</li>
     		    <li>Display Explorer for Marker with multiple values in Feature 1; Trim71.  Expect: smart alpha sort of column 1; no secondary sort.</li>
     		    <li>Display Explorer for Marker with single value for Feature 2; Trim71  Expect no change.</li>
     		    <li>Display Explorer for Marker with multiple values in Feature 2; Mir185.  Expect: smart alpha sort of column 1; no secondary sort.</li>
@@ -153,7 +153,7 @@
     		<p concordion:assertTrue="false">new test</p>  
     		
     		<ol>
-    		    <li>Display Explorer for Marker with single value for Interaction; Mir185  Expect no change.</li>
+    		    <li>Display Explorer for Marker with single value for Interaction; Mir185  Expect no change. [DUE TO SOLR "out-of-box" the previous sort order is lost]</li>
     		    <li>Display Explorer for Marker with multiple values in Interaction; XXX.  [no case for this in data]</li>
     		</ol></li>
     		
@@ -161,35 +161,35 @@
     		<p concordion:assertTrue="false">new test</p>  
     		
     		<ol>
-    		    <li>Display Explorer for Marker with single value for Validation; XXX  Expect no change.</li>
-    		    <li>Display Explorer for Marker with multiple values in Validation and no blanks; Dram2.  Expect: Alpha order</li>
-    		    <li>Display Explorer for Marker with multiple values in Validation including blank; XXX.  Expect: Alpha order with rows with blank values going to the bottom of the results.</li>
+    		    <li>Display Explorer for Marker with single value for Validation; Mir100  Expect no change.</li>
+    		    <li>Display Explorer for Marker with multiple values in Validation and no blanks; Mir185.  Expect: Alpha order</li>
+    		    <li>Display Explorer for Marker with multiple values in Validation including blank; XXX.  Expect: Alpha order with rows with blank values going to the bottom of the results.[no case for this in data]</li>
     		</ol></li>
     		
     		<li>Verify Explorer Data Source sort
     		<p concordion:assertTrue="false">new test</p>  
     		
     		<ol>
-    		    <li>Display Explorer for Marker with single value for Data Source; XXX  Expect no change.</li>
-    		    <li>Display Explorer for Marker with multiple values in Data Source and no blanks; XXX.  Expect: Alpha order</li>
-    		    <li>Display Explorer for Marker with multiple values in Data Source including blank; XXX.  Expect: Alpha order with rows with blank values going to the bottom of the results.</li>
+    		    <li>Display Explorer for Marker with single value for Data Source; Mir432  Expect no change. [DUE TO SOLR "out-of-box" the previous sort order is lost]</li>
+    		    <li>Display Explorer for Marker with multiple values in Data Source and no blanks; Mir101a.  Expect: Alpha order</li>
+    		    <li>Display Explorer for Marker with multiple values in Data Source including blank; XXX.  Expect: Alpha order with rows with blank values going to the bottom of the results. [no case for this in data]</li>
     		</ol></li>
     		
     		<li>Verify Explorer Reference sort
     		<p concordion:assertTrue="false">new test</p>  
     		
     		<ol>
-    		    <li>Display Explorer for Marker with single value for Reference; XXX  Expect no change.</li>
-    		    <li>Display Explorer for Marker with multiple values in Reference; XXX.  Expect: Alpha order</li>
+    		    <li>Display Explorer for Marker with single value for Reference; Mir432  Expect no change. [DUE TO SOLR "out-of-box" the previous sort order is lost]</li>
+    		    <li>Display Explorer for Marker with multiple values in Reference; Mir101a.  Expect: Alpha order</li>
     		</ol></li>
     		
     		<li>Verify Explorer Score sort
     		<p concordion:assertTrue="false">new test</p>  
     		
     		<ol>
-    		    <li>Display Explorer for Marker with single value for Data Source/multiple score values; no blanks; XXX  Expect: click1=score in descending order; click2=score in ascending order.</li>
-    		    <li>Display Explorer for Marker with multiple values for Data Source/multiple score values; no blanks; XXX  Expect: click1=data source ascending-score descending; click2=data source ascending-score ascending.</li>
-    		    <li>Display Explorer for Marker with blank score values; XXX.  Expect: blank values to the bottom for both click 1 and click 2.</li>
+    		    <li>Display Explorer for Marker with single value for Data Source/multiple score values; no blanks; Mir432  Expect: click1=score in descending order; click2=score in ascending order.</li>
+    		    <li>Display Explorer for Marker with multiple values for Data Source/multiple score values; no blanks; XXX  Expect: click1=data source ascending-score descending; click2=data source ascending-score ascending. [no case for this in data]</li>
+    		    <li>Display Explorer for Marker with blank score values; Mir101a.  Expect: blank values to the bottom for both click 1 and click 2.</li>
     		</ol></li>
     		
     	  <li>Verify pop-up displays as expected on all supported browsers - Firefox, Safari, Chrome.  Also, check I/E?
