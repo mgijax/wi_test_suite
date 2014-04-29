@@ -30,16 +30,16 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	    <li>Update load software to recognize & load the relationship category - "interacts_with" with the following assumptions
+	    <li><b>Update load software to recognize & load the relationship category - "interacts_with" with the following assumptions
 	    <ul><li>Continue to limit the load to just the "Add" action</li>
 	        <li>Continue to limit the load to a single input file</li>
 	        <li>Continue to limit the input files to a single category</li>
-	    </ul></li>
+	    </ul></b></li>
 	    
-	    <li>Load a relatively small input file from Wendy (60K rows)</li>
+	    <li><b>Load a relatively small input file from Wendy (60K rows)</b></li>
 	    
-	    <li>Update load software to recognize & load the following input fields that may be present for any category (not just interacts_with)
-	    <ol><li>Property fields - starting at column 14
+	    <li><b>Update load software to recognize & load the following input fields that may be present for any category (not just interacts_with)</b>
+	    <ol><li><b>Property fields - starting at column 14</b>
 	        <ol><li>Property fields are optional.</li>
 	            <li>Property fields may be present starting at column 14 and may be preceded and/or interspersed with blank columns or other curator non-property columns
 	            <ul><li>The blank and non-property columns are ignored by the QC and Load processes.</li></ul>
@@ -50,11 +50,11 @@
 	            <li>Blank spaces will be stripped from the beginning of the column heading and also before and after the colon (:).</li>
 	            <li>Blank spaces will be stripped from the beginning and end of all property field values.
 	        </ol></li>
-	        <li>Notes - column 13 and optional</li>
+	        <li><b>Notes - column 13 and optional</b></li>
 	        
 	    </ol></li>
 	        
-	    <li>Add a QC check to verify that Property column headings in the input file are NOT found in columns 1-13.
+	    <li><b>Add a QC check to verify that Property column headings in the input file are NOT found in columns 1-13.</b>
 	    <ol><li>The Property fields are only permitted in columns 14-N (i.e. following the Notes column (col 13)) and must be identified by a valid column heading.</li>
 	        <li>Property column headings found in columns 1-13 will be flagged as an error.</li>
 	        <li>Display line # and the column heading for each occurrence of this error.</li>
@@ -62,7 +62,7 @@
 	        <li>If this error is found during the load process the load will abort.</li>
 	    </ol></li>
 	   
-	    <li>Add a QC check to validate the Property fields' column headings.
+	    <li><b>Add a QC check to validate the Property fields' column headings.</b>
 	    <ol><li>Required prefix = Property:</li>
 	        <li>The text that follows the prefix must be present in the "Relationship Properties" controlled vocabulary</li>
 	        <li>Blank spaces will be stripped from the beginning of the column heading and also before and after the colon (:).</li>
@@ -72,7 +72,7 @@
 	        <li>If this error is found during the load process the load will abort.</li>
 	    </ol></li>
 	    
-	    <li>Add a QC check to validate the data in the Property:score column (if the column is present)
+	    <li><b>Add a QC check to validate the data in the Property:score column (if the column is present)</b>
 	    <ol>
 	        <li>Valid values for score = blank, an integer, or a float</li>
 	        <li>plus (+) or minus (-) are allowed, but not required
@@ -84,7 +84,7 @@
 	        <li>If this error is found during the load process the load will abort.</li>
 	    </ol></li>
 	    
-	    <li>Add a command line warning message if an entire Property column has no data
+	    <li><b>Add a command line warning message if an entire Property column has no data</b>
 	    <ol><li>Display a single message for each Property column that this may apply.</li>
 	        <li>If this error is found during the load process, the load will continue.</li>
 	    </ol></li>
