@@ -30,7 +30,20 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	   <li>requirement 1</li>
+	   <li>Provide a link to the new user help doc via the "?" icon for the Explorer (graph and table view)
+	   <ul><li>"INTERACTION_explorer_help.shtml".</li></ul></li>
+	   <li>Provide a pop-up to the user for specific help re: the graph controls/display (pan, zoom, etc.)
+	   <ul><li>Use the paradigm used on the Homology Class page</li>
+	       <li>Text for pop-up - David S. to provide.</li>
+	   </ul></li>
+	   <li>Provide users a way to tell the difference between predicted and validated relationships.
+	   <ol><li>Validated = green</li>
+	       <li>Predicted = red</li>
+	       <li>Any other value (blank, etc) treated as Validated.</li>
+	   </ol></li>
+	   <li>Provide users +/- for zooming</li>
+	   <li>Provide the graph control features for all supported browsers.  Controls limited to Pan and Zoom.
+	   <ul><li>PC: Firefox; Chrome & MAC: Firefox; Chrome; Safari</li></ul></li>
 	</ol>
 </div>
 
@@ -47,10 +60,11 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify user help link & information pop-up
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1
+    		   <li>Display Pax6 Explorer page - verify links.</li>
+    		   <li>Display Mir125a Explorer page - verify pop-up display and content.</li> 
     	    </ol></li>
     	    
     	    <li>Test 2
