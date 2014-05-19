@@ -41,7 +41,11 @@
 	       <li>Predicted = red</li>
 	       <li>Any other value (blank, etc) treated as Validated.</li>
 	   </ol></li>
-	   <li>Provide users +/- for zooming</li>
+	   <li>Provide users ability to zoom in and out
+	   <ol><li>Display +/- for users to click on to zoom</li>
+	       <li>Provide zooming using mouse wheel</li>
+	  </ol></li>
+	   
 	   <li>Provide the graph control features for all supported browsers.  Controls limited to Pan and Zoom.
 	   <ul><li>PC: Firefox; Chrome & MAC: Firefox; Chrome; Safari</li></ul></li>
 	</ol>
@@ -67,13 +71,20 @@
     		   <li>Display Mir125a Explorer page - verify pop-up display and content.</li> 
     	    </ol></li>
     	    
-    	    <li>Test 2
-    		<p concordion:assertTrue="false">new test</p>  
+    	    <li>Verify zooming function - wheel &amp; +/- controls
     		<ol>
-    		   <li>test 2.1</li>
+    		   <li>Display Trim71 Explorer page - verify controls</li>
+    		   <li>Display Mir377 Explorer page - verify controls</li>
     	    </ol></li>
     	    
-    	    
+    	    <li>Verify relationships identified by the appropriate color line
+    	    <ol>
+    	       <li>Display Pax6 Explorer page; all relationships are predicted.</li>
+    	       <li>Display Mir340 Explorer page; all relationships are validated (the first 500).</li>
+    	       <li>Display Mirlet7b Explorer page; a mix of both predicted and validated relationships</li>
+    	       <li>Display Zmynd11 Explorer page; a case of a blank relationship (participant)  with Mir340 - display it as predicted.</li>
+    	       <li>Display Zmynd8 Explorer page; a case of a "foo" relationship (participant)  with Mir223 - display it as predicted.</li>
+    	       <li>Display Mir340 &amp; Mir223 Explorer pages; cases of "foo" & blank relationships (organizer) - display it as predicted. [Can't check test case until filters are available]</li>
 		</ol>
 	</div>
 	<div id="sql">
