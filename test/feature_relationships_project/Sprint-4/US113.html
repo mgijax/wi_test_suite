@@ -37,7 +37,7 @@
 	       <li>Text for pop-up - David S. to provide.</li>
 	   </ul></li>
 	   <li>Provide users a way to tell the difference between predicted and validated relationships.
-	   <ol><li>Validated = green</li>
+	   <ol><li>Validated = blue</li>
 	       <li>Predicted = red</li>
 	       <li>Any other value (blank, etc) treated as Validated.</li>
 	   </ol></li>
@@ -64,20 +64,22 @@
 		
 		<ol>
     		
-    		<li>Verify user help link & information pop-up
-    		<p concordion:assertTrue="false">new test</p>  
+    		<li>Verify user help link & information pop-up on all supported browsers
+    		<p concordion:assertTrue="true">PASS - jlewis 5/19/2014</p>  
     		<ol>
     		   <li>Display Pax6 Explorer page - verify links.</li>
     		   <li>Display Mir125a Explorer page - verify pop-up display and content.</li> 
     	    </ol></li>
     	    
-    	    <li>Verify zooming function - wheel &amp; +/- controls
+    	    <li>Verify zooming function - wheel &amp; +/- controls on all supported browsers
+    	    <p concordion:assertTrue="true">PASS - jlewis 5/19/2014</p>  
     		<ol>
     		   <li>Display Trim71 Explorer page - verify controls</li>
     		   <li>Display Mir377 Explorer page - verify controls</li>
     	    </ol></li>
     	    
     	    <li>Verify relationships identified by the appropriate color line
+    	    <p concordion:assertTrue="true">PASS - jlewis 5/19/2014</p>  
     	    <ol>
     	       <li>Display Pax6 Explorer page; all relationships are predicted.</li>
     	       <li>Display Mir340 Explorer page; all relationships are validated (the first 500).</li>
