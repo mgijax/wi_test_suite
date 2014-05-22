@@ -31,16 +31,14 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	   <li>Add filter option for selected fields for the Interaction Explorer to provide the user a way to narrow down results.
+	   <li>Add filter options to the Interaction Explorer to provide the user a way to narrow down results.
 	   <ol><li>Interaction: list of unique terms present in results (currently just 1 term)</li>
 	       <li>Validation: list of unique values for this field present in results (currently: validated & predicted)</li>
 	       <li>Data Source: list of unique values for this field present in results (currently: 2 sources) </li>
 	   </ol></li>
 	   <li>All the filter options are present at the top of the page - and should filter the Table View only (filter of Graph different story)
 	   <ul><li>See the GXD or Reference pages for style of filter buttons</li>
-	       <li>Location of filter buttons - at the discretion of the SE (okay?)</li></ul></li>
-	   <li>Filters work on the "bucket" of interaction data for a specific marker.</li>
-	   <li>Re-linking from the Marker Detail to the IE page will remove the filters.</li>
+	       <li>Location of filter buttons - at the discretion of the SE (is this okay?)</li></ul></li>
 	   <li>Filters are limited to the items present in the initial "bucket" of data and continually change as filters are added/removed
 	   <ol><li>When at least 1 item is checked for a filter and executed - the filter list will only include the checked items</li>
 	       <li>When all previously checked items are unchecked for a filter and executed - the original filter list will return</li>
@@ -49,13 +47,15 @@
 	   <li>Users may select 1 or more items for each filter available.</li>
 	   <li>User may un-select 1 or more items for each filter available.
 	   <ul><li>Provide two options: button at top of page or un-check of box within Filter</li></ul></li>
-	   <li>Display special filter message in the heading  of all the Summary pages per Reference Summary style (text that specifically notes objects removed).
-	   <ul><li>message = "Filters:  No filters selected."</li>  </ul></li>
-	   <li>Provide users a list of filters selected in the heading of the Summary page as part of each filter event.
+	   <li>Provide users a list of filters selected in the heading of the Explorer page as part of each filter event.
 	   <ul><li>Each item is displayed as a button and also acts as an "undo" for the user.</li></ul></li>
 	   <li>Provide users the option to remove all filters in 1 step.</li>
 	   <li>Provide users with updated pagination counts after each filter event</li>
 	   <li>Do we need to display original counts of summary (as the Reference Summary does) or not (as the GXD Summary does).</li>
+	   <li>Browser controls
+	   <ol><li>Page refresh/reload -- removes all filters and returns to original "bucket" and order of results</li>
+	       <li>History -- how do the back/forward buttons work?</li>
+	   </ol></li>
        <li>Filters should work properly in all supported browsers (Mac: Firefox, Chrome, Safari; PC: Firefox, Chrome)</li>
        
 	</ol>
@@ -73,164 +73,88 @@
 		
 		<ol>
     		
-    		<li>Verify all the versions of the GXD Summary pages display the filters on each Summary Tab and "filter text" in heading area. (req 1,2,3,8)
+    		<li>Verify the filter button display & location in the heading of the Explorer.
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Standard QF Summary</li>
-	            <li>Differential QF Summary</li>
-	            <li>by Marker</li>
-	            <li>by Marker/Assay Type - link on Marker Detail</li>
-	            <li>by Marker/Theiler Stage - link on Marker Detail</li>
-	            <li>by EMAPA term - link on QS, Anatomy Browser</li>
-	            <li>by EMAPS term - link on Anatomy Browser, Assay Detail</li>
-	            <li>by Allele - e.g. A&lt;y&gt;   </li>
-	            <li>by Reference</li>
-	            <li>by Marker/Structure - link from BQ and Marker Tissue</li>
-	            <li>by Marker/J# - link from GXD Lit</li>
-	            <li>by Probe - e.g. MGI:2670297</li>
-	            <li>by Antibody - e.g. MGI:1330766</li>
-    		    
-    		</ol></li>
     		
-    		<li>Verify Anatomical System initial filter - counts - pagination displays as expected via Std QF. (reqs 1,4)
+    		
+    		<li>Verify Interaction filter - counts - pagination displays as expected.
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Perform a query that will return results that include all Anatomical Systems.  Query = xxxxx.  Expect: filter to list them all.</li>
-    		    <li>Perform a query that will return results that include only 1 Anatomical System.  Query = xxxxx.  Expect: filter to list just that item.</li>
-    		    <li>Perform a query that will return results that include multiple Systems, but not all.  Query = xxxx.  Expect: filter to list correct subset of systems.</li>
+    		<ol>
+    		    <li>Explore interactions for marker Xxxx that include results with a single Interaction term.  Expect: filter to list just that item.</li>
+    		    <li>Explore interactions for marker Xxxx that include results with multiple Interaction terms.  Expect: [No example in data of multiple terms]</li>
     		</ol>
-    		<ul><li>TERMS for each SYSTEM - list for testing</li>
-    		    <li>adipose tissue terms: adipose tissue, brown fat, white fat, etc. (only stage 28)</li>
-    		    <li>alimentary system terms: gut endoderm, intestine, lip, lower jaw,  etc. (stages 12-26)</li>
-    		    <li>branchial arches terms: 1st branchial groove, branchial pouch, 1st branchial arch maxillary-mandibular groove,  etc. (stages 12-19) </li>
-    		    <li>cardiovascular system terms: 1st arch artery,  right atrium, iliac artery, etc (stages 12-28)</li>
-    		    <li>cavities & their linings terms: greater sac, pericardial cavity, pleural cavity (stages 08-28) </li>
-    		    <li>early embryo terms: epiblast, second polar body, node  (stages 01-10)</li>
-    		    <li>embryo-other terms: axial skeleton, definitive endoderm, cranium  (stages 11-27) </li>
-    		    <li>endocrine system terms:  thyroid gland, gland, pancreas body  (stages 22-28) </li>
-    		    <li>extraembryonic component terms:  yolk sac, Reichert's membrane, common umbilical vein (stages 4-26)</li>
-    		    <li>head terms: snout, face, head (stages 12-28) </li>
-    		    <li>hemolymphoid system terms: mediastinal lymph node, blood, plasma (stages 23-28)</li>
-    		    <li>integumental system terms: brown fat, hair, nail bed (stages 11-28)</li>
-    		    <li>limbs terms:  ankle, knee joint, lower leg (stages 14-28)</li>
-    		    <li>liver & biliary system terms: common bile duct, liver lobe, liver vascular element (stages 16-28) </li>
-    		    <li>mesenchyme terms:  body-wall mesenchyme, somite, trunk somite (stages 11-26)</li>
-    		    <li>muscle terms: deltoid, pelvic girdle musculature (stages 21-28) </li>
-    		    <li>nervous system terms:  future brain, brain pia mater, brainstem nucleua (stages 11-28)</li>
-    		    <li>postnatal-other terms:  bone, back muscle, ligament (stage 28)</li>
-    		    <li>renal & urinary system terms: renal artery, maturing nephron, metanephros (stages 19-28) </li>
-    		    <li>reproductive system terms:  ovary, placenta, prostate gland (stages 19-28) </li>
-    		    <li>respiratory system terms: left lung, vocal folds, lung (stages 15-28) </li>
-    		    <li>sensory organs terms: medial-nasal process, hyaloid cavity, eye gland (stages 12-28)</li>
-    		    <li>skeletal system terms: axial skeleton, C1 vertebra, vault of skull (stages 15-26)</li>
-    		    <li>tail terms: pancreas tail, unsegmented mesenchyme, tail nervous system (stages 15-26)</li>
-    		    
-    		</ul></li>
     		
-    		<li>Verify Assay Type initial filter - counts - pagination displays as expected via Std QF. (reqs 1,4)
+    		<li>Verify Validation filter - counts - pagination displays as expected 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Perform a query that will return results that include all Assay Types.  Query = xxxxx.  Expect: filter to list them all.</li>
-    		    <li>Perform a query that will return results that include only 1 Assay Type.  Query = xxxxx.  Expect: filter to list just that item.</li>
-    		    <li>Perform a query that will return results that include multiple Assay Types, but not all.  Query = xxxx.  Expect: filter to list correct subset of assays.</li>
+    		<ol><li>Explore interactions for marker Xxxx that include all Validation items. Expect: filter to list them all.</li>
+    		    <li>Explore interactions for marker Xxxx that include a single Validation item.  Expect: filter to list just that item.</li>
+    		    <li>Explore interactions for marker Xxxx that include multiple Validation items, but not all. Expect: filter to list correct subset [this case not in data].</li>
     		</ol></li>
     		
-    		<li>Verify Anatomical System initial filter - counts - pagination displays as expected via Differential QF. (reqs 1,4)
+    		<li>Verify Data Source filter - counts - pagination displays as expected 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Perform a query that will return results that include all Anatomical Systems.  Query = xxxxx.  Expect: filter to list them all.</li>
-    		    <li>Perform a query that will return results that include only 1 Anatomical System.  Query = xxxxx.  Expect: filter to list just that item.</li>
-    		    <li>Perform a query that will return results that include multiple Systems, but not all.  Query = xxxx.  Expect: filter to list correct subset of systems.</li>
+    		<ol><li>Explore interactions for marker Xxxx that include all Data Sources. Expect: filter to list them all.</li>
+    		    <li>Explore interactions for marker Xxxx that include only 1 Data Source. Expect: filter to list just that item.</li>
+    		    <li>Explore interactions for marker Xxxx that include multiple Sources, but not all. Expect: filter to list correct subset of systems. [this case not in data.]</li>
     		</ol></li>
     		
-    		<li>Verify Assay Type initial filter - counts - pagination displays as expected via Differential QF. (reqs 1,4)
+    		
+    		<li>Verify Validation filter - add/remove items - counts updated. 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Perform a query that will return results that include all Assay Types.  Query = xxxxx.  Expect: filter to list them all.</li>
-    		    <li>Perform a query that will return results that include only 1 Assay Type.  Query = xxxxx.  Expect: filter to list just that item.</li>
-    		    <li>Perform a query that will return results that include multiple Assay Types, but not all.  Query = xxxx.  Expect: filter to list correct subset of assays.</li>
-    		    
+    		<ol><li>Filter by 1 item - verify updated counts.</li>
+    		    <li>Remove filter just added - verify count returns to the original number.</li>
+    		    <li>Filter by all items in filter list - verify counts stay the same.</li>
+    		    <li>Remove filters just added - verify counts stay the same.</li>
     		</ol></li>
     		
-    		<li>Verify Anatomical System filter - add/remove items - counts updated. (req 6,7, 11)
+    		<li>Verify Data Source filter - add/remove items - counts updated. 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Filter by 1 item - verify updated counts on all summary tabs.</li>
+    		<ol><li>Filter by 1 item - verify updated count.</li>
     		    <li>Remove filter just added - verify counts return to the original numbers.</li>
     		    <li>Filter by all items in filter list - verify counts stay the same.</li>
     		    <li>Remove filters just added - verify counts stay the same.</li>
-    		    <li>Filter by 3 items - verify updated counts on all summary tabs.</li>
-    		    <li>Remove 1 of the items - verify updated counts on all summary tabs.</li>
-    		    <li>Remove remaining items - verify counts return to the original numbers.</li>
     		</ol></li>
     		
-    		<li>Verify Assay Type filter initial filter - add/remove items - counts updated.  (req 6,7, 11)
+    		<li>Verify filtering by Data Source alters options in Validation filter 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Filter by 1 item - verify updated counts on all summary tabs.</li>
-    		    <li>Remove filter just added - verify counts return to the original numbers.</li>
-    		    <li>Filter by all items in filter list - verify counts stay the same.</li>
-    		    <li>Remove filters just added - verify counts stay the same.</li>
-    		    <li>Filter by 3 items - verify updated counts on all summary tabs.</li>
-    		    <li>Remove 1 of the items - verify updated counts on all summary tabs.</li>
-    		    <li>Remove remaining items - verify counts return to the original numbers.</li>
+    		<ol><li>Filter by Data Source that does not change the list of Validation. Verify list after filter.</li>
+    		    <li>Filter by Data Source that removes 1 item from the Validation filter.  Verify list.</li>
     		</ol></li>
     		
-    		<li>Verify filtering by Assay Type alters options in Anatomical System filter (req 5)
+    		<li>Verify filtering by Validation alters options in Data Source filter 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Filter by Assay Types that do not change the list of Anatomical Systems. Verify list after filter.</li>
-    		    <li>Filter by Assay Types that remove 1 item from the Anatomical Systems filter.  Verify list.</li>
-    		    <li>Filter by Assay Types that remove all but 1 item from the Anatomical Systems filter.  Verify list.</li>
+    		<ol><li>Filter by Validation that does not change the list of Data Sources. Verify list after filter.</li>
+    		    <li>Filter by Validation that removes 1 item from the Data Sources filter.  Verify list.</li>
     		</ol></li>
     		
-    		<li>Verify filtering by Anatomical System alters options in Assay Type filter (req 5)
+    		<li>Verify list of filters displayed in the heading and "undo" functionality 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Filter by Anatomical Systems that do not change the list of Assay Types. Verify list after filter.</li>
-    		    <li>Filter by Anatomical Systems that remove 1 item from the Assay Types filter.  Verify list.</li>
-    		    <li>Filter by Anatomical Systems that remove all but 1 item from the Assay Types filter.  Verify list.</li>
-    		</ol></li>
-    		
-    		<li>Verify list of filters displayed in the heading and "undo" functionality (req 9)
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Filter by 1 Assay item.  Select undo button.</li>
-    		    <li>Filter by 1 System item.  Select undo button.</li>
-    		    <li>Filter by multiple Assay and System items.  Undo some of each.  Verify results.</li>
-    		    <li>Filter by all Assay items.  Undo all of them.  Verify results.</li>
-    		    <li>Filter by all System items.  Undo all of them.  Verify results.</li>
+    		<ol><li>Filter by 1 Interaction item.  Select undo button.</li>
+    		    <li>Filter by 1 Validation item.  Select undo button.</li>
+    		    <li>Filter by 1 Data Source item.  Select undo button.</li>
+    		    <li>Filter by all Validation items.  Undo all of them.  Verify results.</li>
+    		    <li>Filter by all Data Source items.  Undo all of them.  Verify results.</li>
     		    <li>Filter for each item in both filters in random order - multiple filter operations.  Verify display.  Undo selected ones.  Verify.</li>
     		</ol></li>
     		
-    		<li>Verify pagination works as expected as filters added/removed (req 12)
+    		<li>Verify pagination works as expected as filters added/removed 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Filter by Assay and verify the pagination on all 4 tabs.  Verify the pagination counts/controls.</li>
-    		    <li>FIlter by System and verify the pagination on all 4 tabs.  Verify the pagination counts/controls.</li>
-    		    <li>Filter by both Assay and System and verify the pagination on all 4 tabs.  Verify the pagination counts/controls.</li>
-    		    <li>Remove some of the filters selected.  Verify the pagination counts/controls.</li>
-    		    <li>Remove all of the filters selected.  Verify the pagination counts/controls.</li>   
-    		</ol></li>
     		
-    		<li>Verify "remove all filters" button (req 10)
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Filter 1 item from Assay filter.  Remove all filters.</li>
-    		    <li>Filter multiple items from Assay filter.  Remove all filters.</li>
-    		    <li>Filter 1 item from System filter.  Remove all filters</li>
-    		    <li>Filter multiple items from System filter.  Remove all filters</li>
-    		    <li>Filter items from both filters -- remove all filters.</li>
-    		</ol></li>
     		
-    		<li>Verify re-run of Query Form removes all filters (req 4)
+    		<li>Verify "remove all filters" button 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Use Std QF to produce GXD Summary - filter at least 1 item.  Re-run the query.  Expect: all filters removed for new summary.</li>
-    		    <li>Use Std QF to produce GXD Summary - filter at least 1 item.  Modify the query params and re-run query.  Expect: all filters removed on new summary.</li>
-    		    <li>Use Differential QF to produce GXD Summary - filter at least 1 item.  Re-run query.  Expect: all filters removed.</li>
-    		    <li>Use Differential QF to produce GXD Summary - filter at least 1 item.  Modify query params and re-run query.  Expect:  all filters removed</li>
-    		</ol></li>
+    		
+    		
+    		<li>Verify page reload removes all filters
+    		<p concordion:assertTrue="false">new test</p>  
+    		
     		
     		<li>Verify Filter items with special characters work as expected (ampersand, hyphen, parens)
     		<p concordion:assertTrue="false">new test</p>
-    		<ol><li>Filter by item that includes ampersand; cavities & their linings.  Expect: data with this system returned.</li>
-    		    <li>Filter by item that includes hyphen; RT-PCR.  Expect: data with this assay returned.</li>
-    		    <li>Filter by item that includes parens; in situ reporter (knock-in).  Expect:  data with this assay returned.</li>
-    		    <li>Remove filter for item that includes ampersand; renal & urinary system.  Expect: item no longer filtered</li>
-    		    <li>Remove filter for item that includes hyphen; embryo-other.  Expect: item no longer filtered.</li>
-    		    <li>Remove filter for item that includes parens; in situ reporter (knock-in).  Expect: item no longer filtered</li>
-    		</ol></li>
     		
     		
-    		<li>Verify filters works as expected on all supported browsers (IE, Safari, Firefox) (req 15)</li>
+    		
+    		<li>Verify filters works as expected on all supported browsers (Chrome, Safari, Firefox)</li>
     		<p concordion:assertTrue="false">new test</p>  
     		
     		
