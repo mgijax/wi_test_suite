@@ -38,7 +38,7 @@
 	   </ol></li>
 	   <li>All the filter options are present at the top of the page - and should filter the Table View only (filter of Graph different story)
 	   <ul><li>See the GXD or Reference pages for style of filter buttons</li>
-	       <li><u>Location of filter buttons - at the discretion of the SE (Jim/Wendy is this okay?)</u></li></ul></li>
+	       <li><u>Location of filter buttons - at the discretion of the SE (Jim has requested a conversation to decide this)</u></li></ul></li>
 	   <li>Filters are limited to the items present in the initial "bucket" of data and continually change as filters are added/removed
 	   <ol><li>When at least 1 item is checked for a filter and executed - the filter list will only include the checked items</li>
 	       <li>When all previously checked items are unchecked for a filter and executed - the original filter list will return</li>
@@ -50,8 +50,8 @@
 	   <li>Provide users a list of filters selected in the heading of the Explorer page as part of each filter event.
 	   <ul><li>Each item is displayed as a button and also acts as an "undo" for the user.</li></ul></li>
 	   <li>Provide users the option to remove all filters in 1 step.</li>
-	   <li>Provide users with updated pagination counts after each filter event</li>
-	   <li><u>Do we need to display original counts of summary (as the Reference Summary does) or not (as the GXD Summary does)?</u></li>
+	   <li>Provide users with updated pagination counts after each filter event
+	   <ul><li>Per Jim, no reason to display the original counts as done on the Reference Summary on this page.</li></ul></li>
 	   <li>Browser controls
 	   <ol><li>Page refresh/reload -- removes all filters and returns to original "bucket" and order of results</li>
 	       <li>History -- forward/back buttons are "filter-aware" as implemented on GXD summary.</li>
@@ -80,27 +80,27 @@
     		<li>Verify Interaction filter - counts - pagination displays as expected.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		    <li>Explore interactions for marker Xxxx that include results with a single Interaction term.  Expect: filter to list just that item.</li>
+    		    <li>Explore interactions for marker Mirlet7b (originator) that include results with a single Interaction term.  Expect: filter to list just that item; all results and counts the same.</li>
+    		    <li>Explore interactions for marker Trim71 (participant) that includes results with a single Interaction term.  Expect:  filter to list just that item; all results and counts the same.</li>
     		    <li>Explore interactions for marker Xxxx that include results with multiple Interaction terms.  Expect: [No example in data of multiple terms]</li>
     		</ol>
     		
     		<li>Verify Validation filter - counts - pagination displays as expected 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Explore interactions for marker Xxxx that include all Validation items. Expect: filter to list them all.</li>
-    		    <li>Explore interactions for marker Xxxx that include a single Validation item.  Expect: filter to list just that item.</li>
-    		    <li>Explore interactions for marker Xxxx that include multiple Validation items, but not all. Expect: filter to list correct subset [this case not in data].</li>
+    		<ol><li>Explore interactions for marker Mirlet7b that include 2 Validation items (validated & predicted). Expect: filter to list them all.</li>
+    		    <li>Explore interactions for marker Trp53  that include a single Validation item.  Expect: filter to list just that item.</li>
+    		    <li>Explore interactions for markers Zmynd8; Zmynd11 that includes "inferred" Validation items. Expect: filter to list correct subset [these are dummied data that will go away when solr is re-run].</li>
     		</ol></li>
     		
     		<li>Verify Data Source filter - counts - pagination displays as expected 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Explore interactions for marker Xxxx that include all Data Sources. Expect: filter to list them all.</li>
-    		    <li>Explore interactions for marker Xxxx that include only 1 Data Source. Expect: filter to list just that item.</li>
+    		<ol><li>Explore interactions for marker Atxn1 that includes 2 Data Sources. Expect: filter to list them all.</li>
+    		    <li>Explore interactions for marker Pax6 that includes only 1 Data Source. Expect: filter to list just that item.</li>
     		    <li>Explore interactions for marker Xxxx that include multiple Sources, but not all. Expect: filter to list correct subset of systems. [this case not in data.]</li>
     		</ol></li>
     		
     		
-    		<li>Verify Validation filter - add/remove items - counts updated. 
-    		<p concordion:assertTrue="false">new test</p>  
+    		<li>Verify Validation filter - add/remove items - counts updated
     		<ol><li>Filter by 1 item - verify updated counts.</li>
     		    <li>Remove filter just added - verify count returns to the original number.</li>
     		    <li>Filter by all items in filter list - verify counts stay the same.</li>
@@ -137,21 +137,23 @@
     		    <li>Filter for each item in both filters in random order - multiple filter operations.  Verify display.  Undo selected ones.  Verify.</li>
     		</ol></li>
     		
-    		<li>Verify pagination works as expected as filters added/removed 
+    		<li>Verify pagination works as expected as filters added/removed </li>
     		<p concordion:assertTrue="false">new test</p>  
     		
     		
-    		<li>Verify "remove all filters" button 
+    		<li>Verify "remove all filters" button </li>
     		<p concordion:assertTrue="false">new test</p>  
     		
     		
-    		<li>Verify page reload removes all filters
+    		<li>Verify page reload removes all filters</li>
     		<p concordion:assertTrue="false">new test</p>  
     		
     		
     		<li>Verify Filter items with special characters work as expected (ampersand, hyphen, parens)
     		<p concordion:assertTrue="false">new test</p>
-    		
+    		<ol>
+    		  <li>Filter by data source with hyphen; microT-CDS.  Verify filters display and work as expected.</li>
+    		</ol></li>
     		
     		
     		<li>Verify filters works as expected on all supported browsers (Chrome, Safari, Firefox)</li>
