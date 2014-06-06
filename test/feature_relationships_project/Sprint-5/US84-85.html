@@ -32,13 +32,13 @@
     <h2>Test Requirements</h2>
 	<ol>
 	   <li>Add filter options to the Interaction Explorer to provide the user a way to narrow down results.
-	   <ol><li>Interaction: list of unique terms present in results (currently just 1 term)</li>
-	       <li>Validation: list of unique values for this field present in results (currently: validated & predicted)</li>
-	       <li>Data Source: list of unique values for this field present in results (currently: 2 sources) </li>
+	   <ol><li>Interaction: list of unique terms present in results</li>
+	       <li>Validation: list of unique values for this field present in results </li>
+	       <li>Data Source: list of unique values for this field present in results </li>
 	   </ol></li>
 	   <li>All the filter options are present at the top of the page - and should filter the Table View only (filter of Graph different story)
 	   <ul><li>See the GXD or Reference pages for style of filter buttons</li>
-	       <li><u>Location of filter buttons - at the discretion of the SE (Jim has requested a conversation to decide this)</u></li></ul></li>
+	       <li>Location of filter buttons - at the discretion of the SE for this user story (US148 deals with different placement)</li></ul></li>
 	   <li>Filters are limited to the items present in the initial "bucket" of data and continually change as filters are added/removed
 	   <ol><li>When at least 1 item is checked for a filter and executed - the filter list will only include the checked items</li>
 	       <li>When all previously checked items are unchecked for a filter and executed - the original filter list will return</li>
@@ -54,7 +54,7 @@
 	   <ul><li>Per Jim, no reason to display the original counts as done on the Reference Summary on this page.</li></ul></li>
 	   <li>Browser controls
 	   <ol><li>Page refresh/reload -- removes all filters and returns to original "bucket" and order of results</li>
-	       <li>History -- forward/back buttons are "filter-aware" as implemented on GXD summary.</li>
+	       <li>History -- forward/back buttons are "filter-aware" as implemented on GXD summary (this may be removed from this US)</li>
 	   </ol></li>
        <li>Filters should work properly in all supported browsers (Mac: Firefox, Chrome, Safari; PC: Firefox, Chrome)</li>
        
@@ -82,23 +82,29 @@
     		<ol>
     		    <li>Explore interactions for marker Mirlet7b (originator) that include results with a single Interaction term.  Expect: filter to list just that item; all results and counts the same.</li>
     		    <li>Explore interactions for marker Trim71 (participant) that includes results with a single Interaction term.  Expect:  filter to list just that item; all results and counts the same.</li>
-    		    <li>Explore interactions for marker Xxxx that include results with multiple Interaction terms.  Expect: [No example in data of multiple terms]</li>
+    		    <li>Explore interactions for marker Mir1901 that include results with multiple Interaction terms.  Expect: filter to list 2 terms</li>
     		</ol>
     		
     		<li>Verify Validation filter - counts - pagination displays as expected 
     		<p concordion:assertTrue="false">new test</p>  
     		<ol><li>Explore interactions for marker Mirlet7b that include 2 Validation items (validated & predicted). Expect: filter to list them all.</li>
     		    <li>Explore interactions for marker Trp53  that include a single Validation item.  Expect: filter to list just that item.</li>
-    		    <li>Explore interactions for markers Zmynd8; Zmynd11 that includes "inferred" Validation items. Expect: filter to list correct subset [these are dummied data that will go away when solr is re-run].</li>
+    		    <li>Explore interactions for markers Zmynd8; Zmynd11; Trim71 that includes "inferred" Validation items. Expect: filter to list correct subset.</li>
     		</ol></li>
     		
     		<li>Verify Data Source filter - counts - pagination displays as expected 
     		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Explore interactions for marker Atxn1 that includes 2 Data Sources. Expect: filter to list them all.</li>
+    		<ol><li>Explore interactions for marker Atxn1 that includes a subset of Data Sources. Expect: filter to list correct subset.</li>
     		    <li>Explore interactions for marker Pax6 that includes only 1 Data Source. Expect: filter to list just that item.</li>
-    		    <li>Explore interactions for marker Xxxx that include multiple Sources, but not all. Expect: filter to list correct subset of systems. [this case not in data.]</li>
+    		    <li>Explore interactions for marker Trim71 that include all sources. Expect: filter to list all sources.</li>
     		</ol></li>
     		
+    		<li>Verify Interaction filter - add/remove items - counts updated
+    		<ol><li>Filter by 1 item - verify updated counts.</li>
+    		    <li>Remove filter just added - verify count returns to the original number.</li>
+    		    <li>Filter by all items in filter list - verify counts stay the same.</li>
+    		    <li>Remove filters just added - verify counts stay the same.</li>
+    		</ol></li>
     		
     		<li>Verify Validation filter - add/remove items - counts updated
     		<ol><li>Filter by 1 item - verify updated counts.</li>
@@ -115,13 +121,19 @@
     		    <li>Remove filters just added - verify counts stay the same.</li>
     		</ol></li>
     		
-    		<li>Verify filtering by Data Source alters options in Validation filter 
+    		<li>Verify filtering by Interaction alters options in other filters 
     		<p concordion:assertTrue="false">new test</p>  
     		<ol><li>Filter by Data Source that does not change the list of Validation. Verify list after filter.</li>
     		    <li>Filter by Data Source that removes 1 item from the Validation filter.  Verify list.</li>
     		</ol></li>
     		
-    		<li>Verify filtering by Validation alters options in Data Source filter 
+    		<li>Verify filtering by Data Source alters options in other filters
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol><li>Filter by Data Source that does not change the list of Validation. Verify list after filter.</li>
+    		    <li>Filter by Data Source that removes 1 item from the Validation filter.  Verify list.</li>
+    		</ol></li>
+    		
+    		<li>Verify filtering by Validation alters options in other filters 
     		<p concordion:assertTrue="false">new test</p>  
     		<ol><li>Filter by Validation that does not change the list of Data Sources. Verify list after filter.</li>
     		    <li>Filter by Validation that removes 1 item from the Data Sources filter.  Verify list.</li>
