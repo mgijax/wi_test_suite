@@ -54,7 +54,8 @@
 	   <ul><li>Per Jim, no reason to display the original counts as done on the Reference Summary on this page.</li></ul></li>
 	   <li>Browser controls
 	   <ol><li>Page refresh/reload -- removes all filters and returns to original "bucket" and order of results</li>
-	       <li>History -- forward/back buttons are "filter-aware" as implemented on GXD summary (this may be removed from this US)</li>
+	       <li><s>History -- forward/back buttons are "filter-aware" as implemented on GXD summary </s> removed 6/9/14 per Jim</li>
+	       <li>History -- back button - takes you back to the last web page displayed.  This is not a step-by-step undo of filter and/or sort actions.</li>
 	   </ol></li>
        <li>Filters should work properly in all supported browsers (Mac: Firefox, Chrome, Safari; PC: Firefox, Chrome)</li>
        
@@ -74,11 +75,11 @@
 		<ol>
     		
     		<li>Verify the filter button display & location in the heading of the Explorer.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
     		
     		
     		<li>Verify Interaction filter - counts - pagination displays as expected.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
     		<ol>
     		    <li>Explore interactions for marker Mirlet7b (originator) that include results with a single Interaction term.  Expect: filter to list just that item; all results and counts the same.</li>
     		    <li>Explore interactions for marker Trim71 (participant) that includes results with a single Interaction term.  Expect:  filter to list just that item; all results and counts the same.</li>
@@ -86,20 +87,21 @@
     		</ol>
     		
     		<li>Verify Validation filter - counts - pagination displays as expected 
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
     		<ol><li>Explore interactions for marker Mirlet7b that include 2 Validation items (validated & predicted). Expect: filter to list them all.</li>
     		    <li>Explore interactions for marker Trp53  that include a single Validation item.  Expect: filter to list just that item.</li>
     		    <li>Explore interactions for markers Zmynd8; Zmynd11; Trim71 that includes "inferred" Validation items. Expect: filter to list correct subset.</li>
     		</ol></li>
     		
     		<li>Verify Data Source filter - counts - pagination displays as expected 
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
     		<ol><li>Explore interactions for marker Atxn1 that includes a subset of Data Sources. Expect: filter to list correct subset.</li>
     		    <li>Explore interactions for marker Pax6 that includes only 1 Data Source. Expect: filter to list just that item.</li>
     		    <li>Explore interactions for marker Trim71 that include all sources. Expect: filter to list all sources.</li>
     		</ol></li>
     		
     		<li>Verify Interaction filter - add/remove items - counts updated
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
     		<ol><li>Filter by 1 item - verify updated counts.</li>
     		    <li>Remove filter just added - verify count returns to the original number.</li>
     		    <li>Filter by all items in filter list - verify counts stay the same.</li>
@@ -107,6 +109,7 @@
     		</ol></li>
     		
     		<li>Verify Validation filter - add/remove items - counts updated
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
     		<ol><li>Filter by 1 item - verify updated counts.</li>
     		    <li>Remove filter just added - verify count returns to the original number.</li>
     		    <li>Filter by all items in filter list - verify counts stay the same.</li>
@@ -114,7 +117,7 @@
     		</ol></li>
     		
     		<li>Verify Data Source filter - add/remove items - counts updated. 
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
     		<ol><li>Filter by 1 item - verify updated count.</li>
     		    <li>Remove filter just added - verify counts return to the original numbers.</li>
     		    <li>Filter by all items in filter list - verify counts stay the same.</li>
@@ -122,25 +125,25 @@
     		</ol></li>
     		
     		<li>Verify filtering by Interaction alters options in other filters 
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Filter by Data Source that does not change the list of Validation. Verify list after filter.</li>
-    		    <li>Filter by Data Source that removes 1 item from the Validation filter.  Verify list.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>   
+    		<ol><li>Filter by Interaction that does not change the list of filters; Pax6.  Verify list after filter.</li>
+    		    <li>Filter by Interaction that removes 1 item from the Data Source or Validation filter; Mir1901.  Verify list.</li>
     		</ol></li>
     		
     		<li>Verify filtering by Data Source alters options in other filters
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Filter by Data Source that does not change the list of Validation. Verify list after filter.</li>
-    		    <li>Filter by Data Source that removes 1 item from the Validation filter.  Verify list.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>   
+    		<ol><li>Filter by Data Source that does not change the list of options in the other filters; Pax6. Verify list after filter.</li>
+    		    <li>Filter by Data Source that removes 1 item from each of the filters; Trim71.  Verify list.</li>
     		</ol></li>
     		
     		<li>Verify filtering by Validation alters options in other filters 
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol><li>Filter by Validation that does not change the list of Data Sources. Verify list after filter.</li>
-    		    <li>Filter by Validation that removes 1 item from the Data Sources filter.  Verify list.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
+    		<ol><li>Filter by Validation that does not change the other filters; Pax6. Verify list after filter.</li>
+    		    <li>Filter by Validation that removes 1 item from the other filters; Trim71.  Verify list.</li>
     		</ol></li>
     		
     		<li>Verify list of filters displayed in the heading and "undo" functionality 
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
     		<ol><li>Filter by 1 Interaction item.  Select undo button.</li>
     		    <li>Filter by 1 Validation item.  Select undo button.</li>
     		    <li>Filter by 1 Data Source item.  Select undo button.</li>
@@ -150,26 +153,26 @@
     		</ol></li>
     		
     		<li>Verify pagination works as expected as filters added/removed </li>
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
     		
     		
     		<li>Verify "remove all filters" button </li>
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
     		
     		
     		<li>Verify page reload removes all filters</li>
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>   
     		
     		
     		<li>Verify Filter items with special characters work as expected (ampersand, hyphen, parens)
-    		<p concordion:assertTrue="false">new test</p>
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>
     		<ol>
     		  <li>Filter by data source with hyphen; microT-CDS.  Verify filters display and work as expected.</li>
     		</ol></li>
     		
     		
     		<li>Verify filters works as expected on all supported browsers (Chrome, Safari, Firefox)</li>
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/9/2014</p>  
     		
     		
 		</ol>
