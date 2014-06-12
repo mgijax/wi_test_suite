@@ -31,7 +31,14 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	    <li>req 1</li>
+	    <li>Provide user ability to filter by score: "Filter Predicted Interactions by Score".</li>
+	    <li>Score minimum and maximum filter values are inclusive; i.e. relationships with those values are included.</li>
+	    <li>Score filter applies to any relationship with a score value (typically just Predicted) -- are we limiting it to Predicted in the s/w?</li>
+	    <li>In addition to returning relationships that are within the specified score filter values -- also return all relationships that have no score values.</li>
+	    <li>Display a slider in the filter box with the maximum and minimum score present in the current set of data.
+	        <ol><li>minimum and/or maximum values updated after any filter event (score or any other filter)</li></ol></li>
+	    <li>Display a single undo score button displaying ">=n.nnn" -- update the value upon further score filtering</li>
+	    <li>Include removal of score filtering in the "Remove all filters" button</li>
        
 	</ol>
 </div>
