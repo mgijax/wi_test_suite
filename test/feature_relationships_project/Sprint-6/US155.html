@@ -32,12 +32,15 @@
     <h2>Test Requirements</h2>
 	<ol>
 	    <li>Score values will be scaled from 0-1 by the curator(s) that generate the input file -- this will enable us to provide a simple filter for Score.</li>
-	    <li>Provide user ability to filter by score using a slider: "Filter Predicted Interactions by Score".</li>
+	    <li>Provide user ability to filter by score using a slider.
+	       <ol><li>Filter button label - "Score"</li>
+	           <li>Title on filter when displayed -- "Filter Predicted Interactions by Score".</li></ol> </li>
 	    <li>The score minimum and maximum values displayed in the filter are inclusive; i.e. scores with those values are included in the results.</li>
-	    <li>Score filter applies to any relationship with a score value (typically just Predicted) -- are we limiting it to Predicted in the s/w?</li>
+	    <li>Score filter applies to any relationship with a score value (typically just Predicted)</li>
 	    <li>In addition to returning relationships that are within the specified score filter range -- also return all relationships that have no score values.</li>
 	    <li>Display the minimum and maximum score present in the current set of data.
-	        <ol><li>minimum and/or maximum values updated after any filter event (score or any other filter)</li></ol></li>
+	        <ol><li>minimum and/or maximum values updated after any filter event (score or any other filter)</li>
+	            <li>when only relationships with no score are present in the current set of data the range is 1-0.</li></ol></li>
 	    <li>Display a single undo score button displaying ">=n.nnn" -- update the value upon further score filtering</li>
 	    <li>Include removal of score filtering in the "Remove all filters" button</li>
        
