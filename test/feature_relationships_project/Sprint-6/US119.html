@@ -1,0 +1,115 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 119</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Allele Detail - Mutation Involves changes</h1>
+    <ul>
+        <li>User Story 119 - Implement allele detail changes for mutation involves</li>
+      
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Add teaser of Mutation Involves relationships in the Mutation Description ribbon</li>
+	    <li>Display the total number of "related" markers</li>
+	    <li>Display up to 3 markers as a teaser for the user -- if more than 3 markers are related include an ellipsis.</li>
+	    <li>Link markers in the teaser list to their Marker Detail page.</li>
+	    <li>Order the markers in the teaser list in location order.</li>
+	    <li>Display a "View All" button that when clicked displays the new pop-up page of related markers.</li>
+	    <li>Display consistently in all supported browsers (PC - Chrome, Firefox; Mac - Chrome, Firefox, Safari)</li>
+	    
+	</ol>
+</div>
+ 
+ <div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify placement and text of Mutation Involves in the Mutation Description ribbon.</
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>View mutation with a single mutation type and a short note; MGI:nnnnn.  Expect: Involves text/teaser displayed.</li>
+    		    <li>View mutation with multiple mutation types and a long note; MGI:nnnnn.  Expect Involves text/teaser displayed.</li>
+    		    <li>Possible to have a mutation without a note or mutation types?</li>
+   		    </ol></li>
+    	 
+    	    <li>Verify related marker count.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>View mutation with markers that each have a single relationship; MGI:nnnnn.  Expect: count=nn.</li>
+    		    <li>View mutation with markers that have more than 1 relationship to the mutation; MGI:nnnn.  Expect: count = nn.</li>
+    		    
+   		    </ol></li>
+   		    
+   		    <li>Verify marker teaser list ellipsis inclusion and links.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>View mutation with less than 3 related markers; MGI:nnnnn.  Expect: Markers displayed with no ellipsis.</li>
+    		    <li>View mutation with 3 related markers; MGI:nnnnn.  Expect: Markers displayed with no ellipsis.</li>
+    		    <li>View mutation with 4 related markers; MGI:nnnnn.  Expect: Markers displayed with ellipsis.</li>
+    		    <li>View mutation with many related markers; MGI:nnnnn.  Expect: Markers displayed with ellipsis.</li>
+   		    </ol></li>
+    	   
+    	   
+    	    <li>Verify sort order of teaser list.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>View mutation with single relationships to markers; MGI:nnnnn.  Expect: teaser markers in location order.</li>
+    		    <li>View mutation with multiple relationships to a single marker; MGI:nnnnn.  Expect: teaser markers in location order.</li>
+   		    </ol></li>
+   		    
+    	   
+    	    <li>Verify display/navigation changes on all supported browsers (PC: Firefox, Chrome; Mac: Firefox, Chrome, Safari)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>Display and action of "View All" button.</li>
+    		    <li>Open/close action of note field in Mutation description ribbon.</li>
+    		    <li>Links in teaser list</li>
+   		    </ol></li>
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>

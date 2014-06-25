@@ -1,0 +1,133 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 105</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Mutation Involves - new pop-up page</h1>
+    <ul>
+        <li>User Story 105 - Mutation Involves: new pop-up page</li>
+      
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Display mutation involves relationships in a separate browser window from where linked</li>
+	    <li>Use mockup as a guide for display, headings, logos, etc</li>
+	    <li>Pagination is required as the list of relationships may be lengthy</li>
+	    <li>Include the following columns in the table
+	    <ol><li>Mutation - display allele symbol</li>
+	        <li>Effects on Gene/Genome Feature - display appropriate term synonym and marker symbol</li>
+	        <li>Gene/Genome Feature Type</li>
+	        <li>Gene/Genome Feature Location - chromosome, coordinates, and strand (when present)</li>
+	        <li>Reference - J number</li>
+	        <li>Notes</li>
+	    </ol></li>
+	    <li>Link Marker Symbol and Reference to appropriate detail page</li>
+	    <li>Sort relationships by location</li>
+	    <li>Display consistently in all supported browsers (PC - Chrome, Firefox; Mac - Chrome, Firefox, Safari)</li>
+	    
+       
+	</ol>
+</div>
+ 
+ <div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify display of new pop-up page (size, colors, logo link, heading)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>Display relationships for mutation with wide columns; MGI:3798167.  Expect wrapping; horizontal scroll bar; etc</li>
+    		    <li>Display mutation with many relationships; MGI:3714526.  Expect pagination; vertical scroll bar. 95 results.</li>
+   		    </ol></li>
+    	 
+    	    <li>Verify pagination works
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>Display relationships for a mutation that are displayed on a single page; MGI:nnnnn.  Expect n results.</li>
+    		    <li>Display relationships for a mutation that span 3 or more pages; MGI:nnnnn.  Expect n results.</li>
+    		    <li>Update the number of items per page from the default to the other choices</li>
+    		    <li>Use the navigation buttons to move between pages</li>
+   		    </ol></li>
+   		    
+   		    <li>Verify column headings - order, spelling, case, wrapping, content, links (Marker & Reference Detail)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>View relationships for mutation, MGI:1857644; verify content/links in columns</li>
+    		    <li>View relationships for a mutation with Notes, MGI:2388600; verify Note display</li>
+    		    <li>View mutation with a relationship to a marker with coordinates, but no strand; MGI:3840855.  Expect display of coordinates with no parens/strand.</li>
+    		    <li>Click on links for Marker Detail & Reference Detail.  Expect: Link to new tab of original browser window.</li>
+   		    </ol></li>
+    	   
+    	    <li>Verify all terms used and verify appropriate synonym displayed
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>View mutation MGI:5317120.  Expect: Annotations to terms: 5'deletion, 3'deletion, deletion; 15 r-ships</li>
+    		    <li>View mutation MGI:3577256.  Expect: Annotations to terms: 5'duplication, 3'duplication, duplication; 78 r-ships</li>
+    		    <li>View mutation MGI:5501271.  Expect: Annotations to terms: inversion, inversion breakpoint; 24 r-ships</li>
+                <li>View mutation MGI:2388600.  Expect: Annotation to term: normal; 3 r-ships</li>
+    		</ol></li>
+    	   
+    	    <li>Verify sort order
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>View for mutation with relationships to markers that have coordinates; MGI:2447624.  Expect: sorted by location</li>
+    		    <li>View for mutation with relationships to markers with and w/out strand; MGI:3840855.  Expect: sorted by location; regardless of presence of strand.</li>
+   		    </ol></li>
+   		    
+   		    <li>Verify special characters displayed as expected
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		    <li>View mutation with a semi-colon; MGI:5287026.  Expect: 26 results.</li>
+    		    <li>View mutations with hypen and parens; MGI:nnnnn.  Expect: n results.</li>
+   		    </ol></li>
+    	   
+    	    <li>Verify pop-up page on all supported browsers (PC: Firefox, Chrome; Mac: Firefox, Chrome, Safari)
+    		<p concordion:assertTrue="false">new test</p>  
+    		
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
