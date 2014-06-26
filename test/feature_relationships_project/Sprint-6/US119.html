@@ -56,14 +56,14 @@
 		<ol>
     		
     		<li>Verify placement and text of Mutation Involves in the Mutation Description ribbon.</
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p>  
     		<ol>
     		    <li>View mutation with a single mutation type and a short note; MGI:5469615.  Expect: Involves text/teaser displayed; 55 results.</li>
     		    <li>View mutation with multiple mutation types and a long note; MGI:4421679.  Expect Involves text/teaser displayed; 17 results</li>
    		    </ol></li>
     	 
     	    <li>Verify related marker count.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p>  
     		<ol>
     		    <li>View mutation with markers that each have a single relationship; MGI:1857644 (Dbf).  Expect: count=24.</li>
     		    <li>View mutation with markers that have more than 1 relationship to the mutation; MGI:1857538 (Wld&lt;s&gt;).  Expect: count = 3.</li>
@@ -71,7 +71,7 @@
    		    </ol></li>
    		    
    		    <li>Verify marker teaser list ellipsis inclusion and links.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p>  
     		<ol>
     		    <li>View mutation with less than 3 related markers; MGI:5297598 (bella).  Expect: Markers displayed with no ellipsis; 2 results.</li>
     		    <li>View mutation with 3 related markers; MGI:2388600 (psme1 slash allele - test only).  Expect: Markers displayed with no ellipsis; 3 results.</li>
@@ -81,20 +81,20 @@
     	   
     	   
     	    <li>Verify sort order of teaser list.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 6/26/2014; some are in alpha order and others are in location order</p>  
     		<ol>
-    		    <li>View mutation with single relationships to markers; MGI:3702631.  Expect: teaser markers in location order; 31 results.</li>
-    		    <li>View mutation with multiple relationships to a single marker; MGI:2447624 (dlx5 slash allele - test only).  Expect: teaser markers in location order; 2 results.</li>
+    		    <li>View mutation with single relationships to markers; MGI:3702631.  Expect: teaser markers in location order; 31 results. (FAILED)</li>
+    		    <li>View mutation with multiple relationships to a single marker; MGI:2447624 (dlx5 slash allele - test only).  Expect: teaser markers in location order; 2 results. (PASSED)</li>
    		    </ol></li>
    		    
    		     <li>Verify display with molecular image
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p>  
     		<ol>
     		    <li>View mutation with a molecular image; MGI:5427092.  Expect: new text to wrap because of imge</li>
    		    </ol></li>
     	   
     	    <li>Verify display/navigation changes on all supported browsers (PC: Firefox, Chrome; Mac: Firefox, Chrome, Safari)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p>  
     		<ol>
     		    <li>Display and action of "View All" button.</li>
     		    <li>Open/close action of note field in Mutation description ribbon.</li>

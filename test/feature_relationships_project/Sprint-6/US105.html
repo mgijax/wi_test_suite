@@ -45,6 +45,12 @@
 	    <li>Link Marker Symbol and Reference to appropriate detail page</li>
 	    <li>Sort relationships by location</li>
 	    <li>Display consistently in all supported browsers (PC - Chrome, Firefox; Mac - Chrome, Firefox, Safari)</li>
+	    <li>Set title and meta fields for SEO (search engine optimization).
+	    <ol>
+	        <li>Title = {mutation symbol}: mouse genes/genome features involved in this mutation</li>
+	        <li>Description = Mouse genes/genome features involved in mutation {mutation symbol} </li>
+	        <li>Keywords = MGI, {allele symbol}, {allele name}, mouse, mice, murine, Mus musculus, {allele type}, {list of allele synonyms}, {MGI id of allele}</li>   
+	    </ol></li>
 	    
        
 	</ol>
@@ -63,14 +69,14 @@
 		<ol>
     		
     		<li>Verify display of new pop-up page (size, colors, logo link, heading)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p>  
     		<ol>
     		    <li>Display relationships for mutation with wide columns; MGI:3798167.  Expect wrapping; horizontal scroll bar; etc</li>
     		    <li>Display mutation with many relationships; MGI:3714526.  Expect pagination; vertical scroll bar. 95 results.</li>
    		    </ol></li>
     	 
     	    <li>Verify pagination works
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p> 
     		<ol>
     		    <li>Display relationships for a mutation that are displayed on a single page; MGI:5297598.  Expect 2 results.</li>
     		    <li>Display relationships for a mutation that span 3 or more pages; MGI:3840894.  Expect 722 results.</li>
@@ -79,7 +85,7 @@
    		    </ol></li>
    		    
    		    <li>Verify column headings - order, spelling, case, wrapping, content, links (Marker & Reference Detail)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p>   
     		<ol>
     		    <li>View relationships for mutation, MGI:1857644; verify content/links in columns</li>
     		    <li>View relationships for a mutation with Notes, MGI:2388600; verify Note display</li>
@@ -88,7 +94,7 @@
    		    </ol></li>
     	   
     	    <li>Verify all terms used and verify appropriate synonym displayed
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p> 
     		<ol>
     		    <li>View mutation MGI:5317120.  Expect: Annotations to terms: 5'deletion, 3'deletion, deletion; 15 r-ships</li>
     		    <li>View mutation MGI:3577256.  Expect: Annotations to terms: 5'duplication, 3'duplication, duplication; 78 r-ships</li>
@@ -97,21 +103,26 @@
     		</ol></li>
     	   
     	    <li>Verify sort order
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p>   
     		<ol>
     		    <li>View for mutation with relationships to markers that have coordinates; MGI:2447624.  Expect: sorted by location</li>
     		    <li>View for mutation with relationships to markers with and w/out strand; MGI:3840855.  Expect: sorted by location; regardless of presence of strand.</li>
    		    </ol></li>
    		    
    		    <li>Verify special characters displayed as expected
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p>  
     		<ol>
     		    <li>View mutation with a semi-colon; MGI:5287026.  Expect: 26 results.</li>
     		    <li>View mutations with hypen and parens; MGI:4367905.  Expect: 19 results.</li>
    		    </ol></li>
     	   
     	    <li>Verify pop-up page on all supported browsers (PC: Firefox, Chrome; Mac: Firefox, Chrome, Safari)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p>  </li>
+    		
+    		<li>Verify title and meta fields for SEO per requirements.
+    		<p concordion:assertTrue="true">PASS - jlewis 6/26/2014</p>   </li>
+    		
+    		
     		
     		
 		</ol>
