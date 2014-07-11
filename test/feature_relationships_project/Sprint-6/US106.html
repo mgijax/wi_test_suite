@@ -1,0 +1,121 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 106</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Mutation Involves - Allele Summaries</h1>
+    <ul>
+        <li>User Story 106 - Change Allele Summaries - mutation involves</li>
+      
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	    <li>Identify alleles that are an &quot;orginator&quot; in <i>mutation involves</i> relationships and modify the display of its row in all Allele Summary reports (including when generated from QF)
+	    <ol><li>Add <i>mutation involves</i> teaser list of markers to the Category column (same rules as Allele Detail)</li>
+	        <li>Add link to new <i>mutation involves</i> pop-up page with a &quot;View All&quot; button (same button style as Allele Detail)</li>
+	        <li>Display this new information after all existing fields in the Category column (allele types, attributes)</li>
+	    </ol></li>
+	    <li>New pop-up page linked to has same content and style as when linked to from the Allele Detail page</li>
+	    <li>All existing Allele Summary variations on the Marker Detail page should include the <i>mutation involves</i> alleles as appropriate
+	    <ol><li>The &quot;All&quot; alleles link should include any <i>mutation involves</i> alleles present.</li>
+	        <li>Specific categories (e.g. targeted) should include <i>mutation involves</i> alleles if that allele falls in that category.</li>
+	    </ol></li>
+	    <li>Create a new Allele Summary version that only returns <i>mutation involves</i> alleles for a marker.
+	    <ul><li>Display a new sub-heading for this Summary version that informs users that only <i>mutation involves</i> alleles have been returned</li></ul></li>
+	    <li>New features should work properly on all supported browsers.</li>
+	    <li>No changes to the Text and Excel output files are intended as part of this user story.</li>
+       
+	</ol>
+</div>
+ 
+ <div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify new teaser list and button for mutation involves alleles on Allele Summary
+    		<p concordion:assertTrue="true">new test</p>  
+    		<ol>
+    		    <li>Display mutation involves (MI) allele that has more than 3 relationships; MGI:nnnn.  Expect: Ellipsis to be displayed and click on button to bring up Pop-up</li>
+    		    <li>Display MI allele that has 2 relationships; allele = bella.  Expect: No ellipsis to be displayed and click on button to bring up Pop-up</li>
+    		    <li>Display MI allele that has 3 relationships; MGI:nnnn.  Expect: No ellipsis to be displayed and click on button to bring up Pop-up</li>
+    		    <li>Display MI allele that has allele and generation types; MGI:nnnn.  Expect: New text below both these fields in Category column</li>
+    		    <li>Display MI allele that has only an allele type; MGI:nnnn.  Expect: New text below allele type in Category column.</li>
+    		    <li>Display MI allele that has only generation type displayed (possible?); MGI:nnnn.  Expect:  New text below gen type in Category column.</li>
+   		    </ol></li>
+   		    
+   		    <li>Verify MI alleles returned in "All" Allele Summary link on Marker Detail page
+    		<p concordion:assertTrue="true">new test</p>  
+    		<ol>
+    		    <li>Display marker that has a single MI allele present; marker=Abra.  Expect: 1 MI allele to be in ALL summary.</li>
+    		    <li>Display marker that has multiple MI alleles present; marker=Hoxd1.  Expect: 9 MI alleles to be in ALL summary.</li>
+    		    <li>Display marker that has zero MI alleles present; marker=Brca1.  Expect: all alleles displayed as before.</li>
+    		   
+   		    </ol></li>
+   		    
+   		    <li>Verify MI alleles returned in existing category Allele Summary links on Marker Detail page
+    		<p concordion:assertTrue="true">new test</p>  
+    		<ol>
+    		    <li>Display marker that has a single MI allele present in a category; marker = Xxx.  Expect: MI allele to be displayed in summary.</li>
+    		    <li>Display marker that has multiple MI alleles present in a category; marker = n-R5s77.  Expect: all MI alleles to be displayed in summary.</li>
+    		    <li>Display marker that has an MI allele that uses a category not previously displayed for this marker; Oxr1.  Expect: Spontaneous to now be displayed with 1 MI allele.</li>
+    		    <li>Display marker that has zero MI alleles present; marker=Xxx.  Expect: all allele summaries to be displayed as before.</li>
+   		    </ol></li>
+   		    
+   		    <li>Verify MI alleles count displayed/linked in new Mutation Involves category on Marker Detail
+    		<p concordion:assertTrue="true">new test</p>  
+    		<ol>
+    		    <li>Display marker that has a single MI allele present; marker = Xxx.  Expect: MI allele to be displayed in new summary.</li>
+    		    <li>Display marker that has multiple MI alleles present; marker = Prmt2.  Expect: 4 MI alleles to be displayed in new summary.</li>
+   		    </ol></li>
+    	   
+    	    <li>Verify pop-up page on all supported browsers (PC: Firefox, Chrome; Mac: Firefox, Chrome, Safari)
+    		<p concordion:assertTrue="falsee">new test</p>  </li>
+    		
+    		
+    		
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
