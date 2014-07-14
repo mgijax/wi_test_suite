@@ -62,18 +62,17 @@
 		<ol>
     		
     		<li>Verify new teaser list and button for mutation involves alleles on Allele Summary
-    		<p concordion:assertTrue="true">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/2014</p>  
     		<ol>
-    		    <li>Display mutation involves (MI) allele that has more than 3 relationships; MGI:nnnn.  Expect: Ellipsis to be displayed and click on button to bring up Pop-up</li>
+    		    <li>Display mutation involves (MI) allele that has more than 3 relationships; MGI:5517421; Del(10Taar2-Taar9)1Tboz.  Expect: Ellipsis to be displayed and click on button to bring up Pop-up</li>
     		    <li>Display MI allele that has 2 relationships; allele = bella.  Expect: No ellipsis to be displayed and click on button to bring up Pop-up</li>
-    		    <li>Display MI allele that has 3 relationships; MGI:nnnn.  Expect: No ellipsis to be displayed and click on button to bring up Pop-up</li>
-    		    <li>Display MI allele that has allele and generation types; MGI:nnnn.  Expect: New text below both these fields in Category column</li>
-    		    <li>Display MI allele that has only an allele type; MGI:nnnn.  Expect: New text below allele type in Category column.</li>
-    		    <li>Display MI allele that has only generation type displayed (possible?); MGI:nnnn.  Expect:  New text below gen type in Category column.</li>
+    		    <li>Display MI allele that has 3 relationships; MGI:2388600 (psme1/psme2 slash allele).  Expect: No ellipsis to be displayed and click on button to bring up Pop-up</li>
+    		    <li>Display MI allele that has allele and generation types; MGI:4822472; Itcha-18H.  Expect: New text below both these fields in Category column</li>
+    		    <li>Display MI allele that has only an allele type; MGI:5468708; Del(1Fcgr2b-Fcgr3)1Vlcg.  Expect: New text below allele type in Category column.</li>
    		    </ol></li>
    		    
    		    <li>Verify MI alleles returned in "All" Allele Summary link on Marker Detail page
-    		<p concordion:assertTrue="true">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/2014</p>  
     		<ol>
     		    <li>Display marker that has a single MI allele present; marker=Abra.  Expect: 1 MI allele to be in ALL summary.</li>
     		    <li>Display marker that has multiple MI alleles present; marker=Hoxd1.  Expect: 9 MI alleles to be in ALL summary.</li>
@@ -82,23 +81,23 @@
    		    </ol></li>
    		    
    		    <li>Verify MI alleles returned in existing category Allele Summary links on Marker Detail page
-    		<p concordion:assertTrue="true">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/2014</p>  
     		<ol>
-    		    <li>Display marker that has a single MI allele present in a category; marker = Xxx.  Expect: MI allele to be displayed in summary.</li>
+    		    <li>Display marker that has a single MI allele present in a category; marker = Nkx1-1.  Expect: 1 MI allele to be displayed in chemically induced category.</li>
     		    <li>Display marker that has multiple MI alleles present in a category; marker = n-R5s77.  Expect: all MI alleles to be displayed in summary.</li>
     		    <li>Display marker that has an MI allele that uses a category not previously displayed for this marker; Oxr1.  Expect: Spontaneous to now be displayed with 1 MI allele.</li>
-    		    <li>Display marker that has zero MI alleles present; marker=Xxx.  Expect: all allele summaries to be displayed as before.</li>
+    		    <li>Display marker that has zero MI alleles present; marker=Kit.  Expect: all allele summaries to be displayed as before.</li>
    		    </ol></li>
    		    
    		    <li>Verify MI alleles count displayed/linked in new Mutation Involves category on Marker Detail
-    		<p concordion:assertTrue="true">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/2014</p>  
     		<ol>
-    		    <li>Display marker that has a single MI allele present; marker = Xxx.  Expect: MI allele to be displayed in new summary.</li>
+    		    <li>Display marker that has a single MI allele present; marker = Emc9.  Expect: MI allele to be displayed in new summary.</li>
     		    <li>Display marker that has multiple MI alleles present; marker = Prmt2.  Expect: 4 MI alleles to be displayed in new summary.</li>
    		    </ol></li>
     	   
     	    <li>Verify pop-up page on all supported browsers (PC: Firefox, Chrome; Mac: Firefox, Chrome, Safari)
-    		<p concordion:assertTrue="falsee">new test</p>  </li>
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/2014</p>  </li>
     		
     		
     		
