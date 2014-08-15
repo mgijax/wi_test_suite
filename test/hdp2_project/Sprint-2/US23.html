@@ -28,10 +28,39 @@
 
 
 <div id="acceptance">
-    <h2>Test Requirements</h2>
+    <h2>Test Requirements - Disease Detail & All Mouse Models page</h2>
 	<ol>
-	   <li>req 1</li>
-	   <li>req 2</li>
+	<h3>Disease Detail</h3>
+	   <li>The basic display of the Disease Detail does not change.  The new roll-up rules alter the categorization of the markers and their models.  Genes may move to other sections on the page, be removed from the page, or be added to the page.</li>
+	   <li>The following ribbons on the page should remain the same (data content and display)
+	   <ol><li>Human Disease</li>
+	       <li>Synonyms</li>
+	       <li>View all models</li>
+	       <li>References</li></ol>
+	   <li>The basic rules for display, text, links, homologs, etc. of the Genes and mouse models ribbon does not change.
+	   <ul><li>There are new rules to determine which category to display (or not) a gene in.   Where the rules are implemented in the software is also new.
+	       <ol><li>Roll-up to a gene when there's an OMIM annotation to a simple 1 marker (where marker type = gene) genotype.</li>
+	           <li>Roll-up to a gene when there's an OMIM annotation to a conditional genotype that has just 1 marker (where marker type = gene) when recombinase and transgenic reporter alleles are factored out.
+	           <ul><li>This rule is different than what is currently being done - previously included multi-marker genotypes.  Also, did not factor out transgenic reporter.</li></ul></li>
+	           <li>Roll-up to a gene when there's an OMIM annotation to a complex genotype that has just 1 marker (where marker type = gene) when transgenic reporters are factored out.
+	           <ul><li>This rule is different than what is currently being done - previously factored out all complex genotypes.</li></ul></li>
+	           <li>Remove Gt(ROSA)26Sor if it was a gene rolled up to.</li>
+	           <li>Remove genes that have only NOT annotations in the rolled up set.</li>
+	       </ol></li>
+	   </ul></li>
+	   <li>The basic rules for display, text, links of the Transgenes and other genome features ribbon does not change.
+	   <ul><li>There are new rules to determine which category to display (or not) a transgene or other non-gene marker in.  Where the rules are implemented in the software is also new.
+	       <ol><li>Same rules as above except for non-gene markers.</li></ol></li>
+	   </ul></li>
+	   <li>The rules to determine what models are included for each marker does not change.</li>
+	   
+	<h3>All Mouse Models page</h3>
+	 <li>The basic display of the All Mouse Models page does not change.  The new roll-up rules alter the categorization of the models.  The total number of models does not change.</li>
+	 <li>The Disease phenotype not observed ribbon on the page should remain the same (data content and display).</li>
+     <li>The basic rules for display, text, links, etc. of the Mouse models ribbon does not change.
+	   <ul><li>There are new rules to determine which category to display each Mouse Model.  Where the rules are implemented in the software is also new.
+	       <ol><li>Same rules as above - both gene rules and other marker type rules.</li></ol></li>
+	   </ul></li>	   
 	   
 	   
 	</ol>
@@ -50,12 +79,67 @@
 		
 		<ol>
     		
-    		<li>Test 1
+    		<li>Verify Disease Detail pages & associated mouse model pop-ups have not changed due to the new roll-up rules.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
-    		   <li>test 1.2</li>
-    		   
+    		   <li>Display disease with no models & no human marker associations; 603047 - Astigmatism.</li>
+    		   <li>Display disease with no models, but with human marker associations; 603956 - Cervical Cancer </li>
+    		   <li>Display disease with model(s) for 1 gene; 600321 - Diabetes...IDDM7</li>
+    		   <li>Display disease with model(s) for multiple mouse genes; 109100 - Autoimmune Disease (2 mouse genes)</li>
+    		   <li>Display disease with models for many mouse genes & many associated human markers; 600807 - Asthma</li>
+    		   <li>Display disease with model(s) for 1 non-gene; 188550 - Thyroid Carcinoma</li>
+    		   <li>Display disease with model(s) for many non-genes; nnnnn</li>
+    		   <li>Display disease with model(s) for many genes and many non-genes; 152700 - Lupus; SLE.  Expect the same list of genes as Public.  Should differ from HMDC due to Allele/Disease annotation to Tlr9 (don't include on Disease Detail).</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Disease Detail pages with homologs have not changed due to the new roll-up rules.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display disease with 1-m homology class; 253550 - Spinal Muscular Atrophy, Type II; SMA2.</li>
+    		   <li>Display disease with n-1 homology class; 603903 - Sickle Cell Anemia </li>
+    		   <li>Display disease with 0-1 and 1-0 homology classes; 181500 - Schizophrenia; SCZD.  Expect same results with new rules.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Disease Detail pages & associated mouse model pop-ups are using new roll-up rules
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display disease that changed from 2 genes with models to 0 genes w/ models; 606889 - Alzheimer Disease 4.</li>
+    		   <li>Display disease that changed from 0 genes w/ models to 1 gene w/ models; nnnnnn - Teratoma, Ovarian.  Expect: Foxo3 to be in list.</li>
+    		   <li>Display disease that lost human/mouse gene models; 606889.  Expect: No genes listed in the human/mouse section.</li>
+    		   <li>Display disease that gained human/mouse gene models; nnnnn</li>
+    		   <li>Display disease that lost gene due to stricker 1 marker rule for conditionals; 114500 - Colorectal Cancer.  Expect: Kras no longer in gene list.</li>
+    		   <li>Display disease that has factored out a gene due to a recombinase allele; 142340 - Diaphragmatic Hernia, Congenital.  Nkx3-2 should not be in the gene list (but is in a mouse model).</li>
+    		   <li>Display disease that rolls up to a gene due to the complex/transgenic reporter rule; 166950 - Teratoma, Ovarian.  Expect: Foxo3 to be listed in mouse gene section.</li>
+    		   <li>Display disease that has a Gt(ROSA) model; 114480 - Breast Cancer.  Expect: Gt(ROSA)26Sor to not be included in the gene list.
+    	    </ol></li>
+    	    
+    	    <li>Verify Disease Detail pages & associated mouse model pop-ups have changed in the non-gene section due to the new roll-up rules
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display disease that changed from 1 non-gene model to 0 non-gene models; nnnnnn</li>
+    		   <li>Display disease that changed from 0 non-gene models to 1 non-gene model; nnnnnn</li>
+    		   <li>Display disease that lost mouse non-gene models; nnnnn</li>
+    		   <li>Display disease that gained mouse non-gene models; nnnnn</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Disease Detail pages & associated mouse model pop-ups have changed in the non-gene section due to the new roll-up rules
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display disease that changed from 1 non-gene model to 0 non-gene models; nnnnnn</li>
+    		   <li>Display disease that changed from 0 non-gene models to 1 non-gene model; nnnnnn</li>
+    		   <li>Display disease that lost mouse non-gene models; nnnnn</li>
+    		   <li>Display disease that gained mouse non-gene models; nnnnn</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Disease Detail pages & associated mouse model pop-ups with NOT models have not changed due to the new roll-up rules
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display disease with only NOT models; 208230 - Arthropathy, Progressive Pseudorheumatoid, of Childhood; PPAC </li>
+    		   <li>Display disease where a gene has only NOT models; 143100 - Huntington Disease; HD.  Expect: Hap1 that has only NOT models to not be on gene list.</li>
+    		   <li>Display disease NOT models in Human section; 208230 - Arthropathy, Progressive Pseudorheumatoid, of Childhood; PPAC</li>
+    		   <li>Display disease with NOT models in Gene section; 607822 - Alzheimer Disease 3.  Psen1 has a NOT model.</li>
+    		   <li>Display disease with NOT models in non-Gene section; nnnnn</li>
+    		   <li>Display disease with NOT models in Human/Mouse section; nnnnn</li>
     	    </ol></li>
     	    
   
