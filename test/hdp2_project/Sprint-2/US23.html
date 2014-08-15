@@ -88,8 +88,9 @@
     		   <li>Display disease with model(s) for multiple mouse genes; 109100 - Autoimmune Disease (2 mouse genes)</li>
     		   <li>Display disease with models for many mouse genes & many associated human markers; 600807 - Asthma</li>
     		   <li>Display disease with model(s) for 1 non-gene; 188550 - Thyroid Carcinoma</li>
-    		   <li>Display disease with model(s) for many non-genes; nnnnn</li>
+    		   <li>Display disease with model(s) for many non-genes; 607136 - Spinocerebellar Ataxia 17; SCA17.  Expect: 4 non-gene markers listed.</li>
     		   <li>Display disease with model(s) for many genes and many non-genes; 152700 - Lupus; SLE.  Expect the same list of genes as Public.  Should differ from HMDC due to Allele/Disease annotation to Tlr9 (don't include on Disease Detail).</li>
+    		   <li>Display disease with model(s) associated with slash alleles; 183600 - Split-Hand/Foot Malformation 1: SHFM1.
     	    </ol></li>
     	    
     	    <li>Verify Disease Detail pages with homologs have not changed due to the new roll-up rules.
@@ -104,7 +105,7 @@
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Display disease that changed from 2 genes with models to 0 genes w/ models; 606889 - Alzheimer Disease 4.</li>
-    		   <li>Display disease that changed from 0 genes w/ models to 1 gene w/ models; nnnnnn - Teratoma, Ovarian.  Expect: Foxo3 to be in list.</li>
+    		   <li>Display disease that changed from 0 genes w/ models to 1 gene w/ models; 166950 - Teratoma, Ovarian.  Expect: Foxo3 to be in list.</li>
     		   <li>Display disease that lost human/mouse gene models; 606889.  Expect: No genes listed in the human/mouse section.</li>
     		   <li>Display disease that gained human/mouse gene models; nnnnn</li>
     		   <li>Display disease that lost gene due to stricker 1 marker rule for conditionals; 114500 - Colorectal Cancer.  Expect: Kras no longer in gene list.</li>
@@ -118,18 +119,11 @@
     		<ol>
     		   <li>Display disease that changed from 1 non-gene model to 0 non-gene models; nnnnnn</li>
     		   <li>Display disease that changed from 0 non-gene models to 1 non-gene model; nnnnnn</li>
-    		   <li>Display disease that lost mouse non-gene models; nnnnn</li>
-    		   <li>Display disease that gained mouse non-gene models; nnnnn</li>
+    		   <li>Display disease that lost mouse non-gene models; 176807 - Prostate Cancer.  Expect: 11 non-gene markers instead of 12.</li>
+    		   <li>Display disease that gained mouse non-gene markers with models; 603903 - Sickle Cell Anemia.  Expect: 4 additional markers in non-gene table.</li>
     	    </ol></li>
     	    
-    	    <li>Verify Disease Detail pages & associated mouse model pop-ups have changed in the non-gene section due to the new roll-up rules
-    		<p concordion:assertTrue="false">new test</p>  
-    		<ol>
-    		   <li>Display disease that changed from 1 non-gene model to 0 non-gene models; nnnnnn</li>
-    		   <li>Display disease that changed from 0 non-gene models to 1 non-gene model; nnnnnn</li>
-    		   <li>Display disease that lost mouse non-gene models; nnnnn</li>
-    		   <li>Display disease that gained mouse non-gene models; nnnnn</li>
-    	    </ol></li>
+    	    
     	    
     	    <li>Verify Disease Detail pages & associated mouse model pop-ups with NOT models have not changed due to the new roll-up rules
     		<p concordion:assertTrue="false">new test</p>  
@@ -138,7 +132,7 @@
     		   <li>Display disease where a gene has only NOT models; 143100 - Huntington Disease; HD.  Expect: Hap1 that has only NOT models to not be on gene list.</li>
     		   <li>Display disease NOT models in Human section; 208230 - Arthropathy, Progressive Pseudorheumatoid, of Childhood; PPAC</li>
     		   <li>Display disease with NOT models in Gene section; 607822 - Alzheimer Disease 3.  Psen1 has a NOT model.</li>
-    		   <li>Display disease with NOT models in non-Gene section; nnnnn</li>
+    		   <li>Display disease with NOT models in non-Gene section; 614266 - Barrett Esophagus.  Expect: model and NOT model for non-gene marker.</li>
     		   <li>Display disease with NOT models in Human/Mouse section; nnnnn</li>
     	    </ol></li>
     	    
