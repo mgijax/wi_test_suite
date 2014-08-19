@@ -105,9 +105,8 @@
     	    <li>Verify Disease Detail pages & associated mouse model pop-ups are using new roll-up rules
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display disease that changed from 2 genes with models to 0 genes w/ models due to 1 marker rules for conditionals; 606889 - Alzheimer Disease 4.  Expect: 0 mouse genes; 1 other; 2 human. Lost Psen1, Psen2.</li>
+    		   <li>Display disease that changed from 2 genes with models to 0 genes w/ models due to 1 marker rules for conditionals; 606889 - Alzheimer Disease 4.  Expect: 0 mouse genes; 1 other; 2 human. Lost Psen1, Psen2. Psen2 models will display in human only section.</li>
     		   <li>Display disease that changed from 0 genes w/ models to 1 gene w/ models due to transgenic reporter rule; 166950 - Teratoma, Ovarian.  Expect: 1 mouse; 1 other; 0 human. Gained Foxo3.</li>
-    		   <li>Display disease that lost human/mouse gene models due to 1 marker rule for conditionals; 606889 - Alzheimer Disease 4.  Expect: 0 mouse, 1 other, 2 human.  Lost Psen1, Psen2.</li>
     		   <li>Display disease that lost gene due to 1 marker rule for conditionals; 114500 - Colorectal Cancer.  Expect: 1 mouse; 0 other; 4 human.  Lost Kras.</li>
     		   <li>Display disease that includes a gene due to conditional rule; 142340 - Diaphragmatic Hernia, Congenital. Expect: 10 mouse; 0 other; 0 human.  Nr2f2 included due to recombinase allele factored out. Nkx3-2 is the marker for the recomb allele (and should not be included). HMDC differs: Includes a phenotypic human marker; DIH1.</li>
     		   <li>Display disease that rolls up to a gene due to the complex/transgenic reporter rule; 166950 - Teratoma, Ovarian.  Expect: Foxo3 to be listed in mouse gene section; 1 mouse, 1 other, 0 human.</li>
