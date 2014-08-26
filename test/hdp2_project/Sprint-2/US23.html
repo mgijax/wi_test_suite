@@ -78,23 +78,26 @@
 		<h3>Manual tests</h3>
 		
 		<ol>
-    		
-    		<li>Verify Disease Detail pages & associated mouse model pop-ups have not changed due to the new roll-up rules.  Results should match markers returned on HMDC/Disease tab unless noted.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<li>Disease Detail page - diseases with no mouse models
+    		<p concordion:assertTrue="true">PASS - Jon's dev version</p>  
     		<ol>
-    		   <li>Display disease with no models & no human marker associations; 603047 - Astigmatism.  Expect: 0 mouse or human markers.</li>
-    		   <li>Display disease with no models, but with human marker associations; 603956 - Cervical Cancer.  Expect: 1 human gene (FGFR3)</li>
-    		   <li>Display disease with model(s) for 1 gene; 600321 - Diabetes...IDDM7.  Expect: 1 mouse gene (Neurod1).  HMDC differs - add'l human gene (human phenotypic marker).</li>
+    		  <li>Display disease with no models & no human marker associations; 603047 - Astigmatism.  Expect: 0 mouse or human markers.</li>
+    		  <li>Display disease with no models, but with human marker associations; 603956 - Cervical Cancer.  Expect: 1 human gene (FGFR3)</li>
+    	    </ol></li>
+    	    
+    	    <li>Disease Detail page - diseases where the results are unchanged with new roll-up rules
+    		<p concordion:assertTrue="true">PASS - Jon's dev version</p>  
+    		<ol>
+    		  <li>Display disease with model(s) for 1 gene; 600321 - Diabetes...IDDM7.  Expect: 1 mouse gene (Neurod1).  HMDC differs - add'l human gene (human phenotypic marker).</li>
     		   <li>Display disease with model(s) for multiple mouse genes; 109100 - Autoimmune Disease.  Expect: 2 mouse genes (Cd200, Gpr132). HMDC differs - 3 add'l genes due to Allele/Disease annotations.</li>
     		   <li>Display disease with models for many mouse genes & many associated human markers; 600807 - Asthma.  Expect: 4 mouse genes; 13 human genes</li>
     		   <li>Display disease with model(s) for 1 non-gene; 188550 - Thyroid Carcinoma.  Expect: 1 other; 7 human genes.  HMDC differs - add'l 2 others due to Allele/Disease annotation. </li>
     		   <li>Display disease with model(s) for many non-genes; 607136 - Spinocerebellar Ataxia 17; SCA17.  Expect: 4 mouse others; 1 human gene.</li>
     		   <li>Display disease with model(s) for many genes and many non-genes; 152700 - Lupus; SLE.  Expect: 26 mouse genes; 5 mouse others; 6 human genes.</li>
-    		   <li>Display disease with model(s) associated with slash alleles; 183600 - Split-Hand/Foot Malformation 1: SHFM1.  Expect: 2 mouse genes; 0 human genes.  HMDC differs - 0 mouse genes due to slash alleles being removed. </li>
     	    </ol></li>
     	    
-    	    <li>Verify Disease Detail pages with homologs have not changed due to the new roll-up rules.
-    		<p concordion:assertTrue="false">new test</p>  
+    	    <li>Disease Detail page - diseases with genes that have n-m homologs
+    		<p concordion:assertTrue="true">PASS - Jon's dev version</p>  
     		<ol>
     		   <li>Display disease with 1-m homology class; 253550 - Spinal Muscular Atrophy, Type II; SMA2. Expect: 1 mouse gene; 1 human gene.</li>
     		   <li>Display disease with n-1 homology class; 603903 - Sickle Cell Anemia. Expect: 1 mouse genes; 0 others; 1 human gene. HMDC differs - add'l 4 mouse others due to allele/disease annotations.</li>
@@ -102,27 +105,49 @@
     		   <li>Display disease with human markers that have no homology class; 130650 - Beckwith-Wiedemann Syndrome; BWS.  Expect: 2 mouse genes; 1 others; 6 human genes.  2 human genes are not in a homology class.</li>
     	    </ol></li>
     	    
-    	    <li>Verify Disease Detail pages & associated mouse model pop-ups are using new roll-up rules
-    		<p concordion:assertTrue="false">new test</p>  
+    	    <li>Disease Detail page - diseases with conditional genotype models
+    		<p concordion:assertTrue="true">PASS - Jon's dev version</p>  
     		<ol>
-    		   <li>Display disease that changed from 2 genes with models to 0 genes w/ models due to 1 marker rules for conditionals; 606889 - Alzheimer Disease 4.  Expect: 0 mouse genes; 1 other; 2 human. Lost Psen1, Psen2. Psen2 models will display in human only section.</li>
-    		   <li>Display disease that changed from 0 genes w/ models to 1 gene w/ models due to transgenic reporter rule; 166950 - Teratoma, Ovarian.  Expect: 1 mouse; 1 other; 0 human. Gained Foxo3.</li>
     		   <li>Display disease that lost gene due to 1 marker rule for conditionals; 114500 - Colorectal Cancer.  Expect: 1 mouse; 0 other; 4 human.  Lost Kras.</li>
     		   <li>Display disease that includes a gene due to conditional rule; 142340 - Diaphragmatic Hernia, Congenital. Expect: 10 mouse; 0 other; 0 human.  Nr2f2 included due to recombinase allele factored out. Nkx3-2 is the marker for the recomb allele (and should not be included). HMDC differs: Includes a phenotypic human marker; DIH1.</li>
-    		   <li>Display disease that rolls up to a gene due to the complex/transgenic reporter rule; 166950 - Teratoma, Ovarian.  Expect: Foxo3 to be listed in mouse gene section; 1 mouse, 1 other, 0 human.</li>
-    		   <li>Display disease that has a Gt(ROSA) model; 114480 - Breast Cancer.  Expect: Gt(ROSA)26Sor to not be included in the gene list.
+    		   <li>Display disease that changed from 2 genes with models to 0 genes w/ models due to 1 marker rules for conditionals; 606889 - Alzheimer Disease 4.  Expect: 0 mouse genes; 1 other; 2 human. Lost Psen1, Psen2. Psen2 models will display in human only section.</li>
+    		   <li>Display disease w/ associated model for a simple genotype for a recombinase allele; 125800, Diabetes Insip...Autosomal.  Expect: model to be included with other models for Aqp2 on main page and All Models page. (Public doesn't handle this model type properly, but new rules fix it.)</li>
+    		   <li>Display disease w/ associated model for a recombinase transgene allele; 114480 - Breast Cancer.  Expect: this cre Transgene to be listed in Other section. (new other marker -- Tg(MMTV-Erbb2*,-cre)1Mul). (Public doesn't handle this marker/model properly, but new rules fix it.)
+    		   <ul><li>Mouse = 9 (lost 4: Bin1, Ctnnb1, Pten, Trp53); Human = 24; Other = 22 (gained 1 (above); lost 2: Tg(CAG-Has2)99Nita & Tg(MMTV-Myc)141-3Led)</ul></li>
+    		   <li>Display disease that includes a non-gene marker due to conditional rule; 612242 - Chromosome 10q23 Deletion Syndrome.  Expect: 0 mouse; 1 other; 0 human.  Marker included when a recombinase allele is factored out. (NOTE: disease reference ribbon now present - fix from Public)
+    		   <li>Display disease that lost mouse non-gene models; 176807 - Prostate Cancer.  Expect: 8 mouse; 11 other; 12 human.  
+    		   <ul><li>Lost 8 mouse genes: Ar, Brca2, Braf, Scrib, Spry1, Spry2, Tert, Trp53.  Lost 1 other: Tg(ARR2/Pbsn-FGF8)3Prb))</li></ul></li>
     	    </ol></li>
     	    
-    	    <li>Verify Disease Detail pages & associated mouse model pop-ups have changed in the non-gene section due to the new roll-up rules
-    		<p concordion:assertTrue="false">new test</p>  
+    	    <li>Disease Detail page - diseases with complex genotype models
+    		<p concordion:assertTrue="true">PASS - Jon's dev version</p>  
     		<ol>
-    		   <li>Display disease that includes a marker due to conditional rule; 612242 - Chromosome 10q23 Deletion Syndrome.  Expect: 0 mouse; 1 other; 0 human.  Marker included when a recombinase allele is factored out.
-    		   <li>Display disease that lost mouse non-gene models; 176807 - Prostate Cancer.  Expect: 13 mouse; 11 other; 12 human.  Lost 3 genes & 1 other marker due to conditional rule (OMG) change. (Ar, Brca2, Spry1, Tg(ARR2/Pbsn-FGF8)3Prb))</li>
+    		   <li>Display disease w/ associated complex genotype model and other models; 211980 - Lung Cancer.  Expect: Col1a1 not listed on main page, but model included on All Models page in Add'l Complex section.</li>
+    		   <li>Display disease w/ only complex genotype models; 605814 - Citrullinemia, Type II, Neonatal-Onset.  Expect: No mouse genes listed on main page, but models included on All Models page.</li>
+    		   <li>Display disease w/ only complex genotype models and also no human genes; 160750 - Myositis. Expect no mouse/human gene list on main page, but models included on All Models page.</li>
     	    </ol></li>
     	    
+    	    <li>Disease Detail page - diseases with transgenic reporter models
+    		<p concordion:assertTrue="true">PASS - Jon's dev version</p>  
+    		<ol>
+    		   <li>Display disease w/ associated complex model w/ transgenic reporter allele that factors to simple geno;166950 - Teratoma, Ovarian.  Expect: 1 mouse; 1 other; 0 human. Gained Foxo3.</li>
+    		   <li>Display disease w/ associated model for a transgenic reporter allele with a simple genotype; 615538 - Chromosome 22q13 Duplication Syndrome.  Expect Tg(Shank3-EGFP)1Hzo listed in the Other section with 1 model.</li>
+    	    </ol></li>
     	    
+    	    <li>Disease Detail page - diseases with Gt(ROSA) genotype models
+    		<p concordion:assertTrue="true">PASS - Jon's dev version</p>  
+    		<ol>
+    		   <li>Display disease that has a Gt(ROSA) model; 300813 - Sarcoma, Synovial.  Expect: Gt(ROSA)26Sor to not be included in the gene list.  Plus - appropriate disease references now displayed.</li>
+    		   <li>Display disease that has a conditional model where the recombinase Gt(ROSA) allele; 614286 - Myelodysplastic; MDS.  Expect: Bap1 to be in the gene list, but not Gt(ROSA) (the recombinase allele).</li>
+    	    </ol></li>
     	    
-    	    <li>Verify Disease Detail pages & associated mouse model pop-ups with NOT models have not changed due to the new roll-up rules
+    	    <li>Disease Detail page - diseases with slash allele genotype models
+    		<p concordion:assertTrue="true">PASS - Jon's dev version</p>  
+    		<ol>
+    		  <li>Display disease with model(s) associated with slash alleles; 183600 - Split-Hand/Foot Malformation 1: SHFM1.  Expect: 2 mouse genes; 0 human genes & 2 disease references vs. none.  HMDC differs - 0 mouse genes due to slash alleles being removed. </li>
+    	    </ol></li>
+    	    
+    	    <li>Disease Detail page - diseases with NOT models
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Display disease with only NOT models; 208230 - Arthropathy, Progressive Pseudorheumatoid, of Childhood; PPAC.  Expect: 0 mouse; 0 other; 1 human. NOT models displayed as before. </li>
@@ -131,6 +156,8 @@
     		   <li>Display disease with NOT models in Gene section; 607822 - Alzheimer Disease 3.  Expect: 1 mouse; 1 other; 1 human.  Mouse Psen1 has 1 NOT model.</li>
     		   <li>Display disease with NOT models in non-Gene section; 614266 - Barrett Esophagus.  Expect: 0 mouse; 1 other; 3 human.  Other marker has model and NOT model.</li>
     	    </ol></li>
+    		
+    	    
     	    
   
 		</ol>
