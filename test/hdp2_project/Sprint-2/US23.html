@@ -148,7 +148,7 @@
     	    </ol></li>
     	    
     	    <li>Disease Detail page - diseases with NOT models
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - Jon's dev version</p>  
     		<ol>
     		   <li>Display disease with only NOT models; 208230 - Arthropathy, Progressive Pseudorheumatoid, of Childhood; PPAC.  Expect: 0 mouse; 0 other; 1 human. NOT models displayed as before. </li>
     		   <li>Display disease where a gene has only NOT models and should not be on the roll-up list; 143100 - Huntington Disease; HD.  Expect: 4 mouse; 21 other; 1 human.  Gene Hap1 has only NOT models & is not on gene list. HMDC differs: Tg(Camk2a-tTA)1Mmay included due to transgenic reporter bug.</li>

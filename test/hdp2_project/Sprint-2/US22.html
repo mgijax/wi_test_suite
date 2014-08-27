@@ -1,0 +1,155 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 22</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - use new roll-up annotations</h1>
+    <ul>
+        <li>User Story 22 - Change marker detail to use pre-computed gene rollup annotations</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements - Marker Detail</h2>
+	<ol>
+	<h3>Marker Detail</h3>
+	   <li>The basic display of the Marker Detail does not change.  The new roll-up rules alter the diseases that MGI associates to a Marker.  The new rules add/remove from the current list.</li>
+	   <li>The following ribbons/fields on the page are impacted by this change
+	   <ol><li>Human homologs - "Diseases Associated with Human XXX"
+	       <ul><li>Display an asterisk next to diseases that also are associated to the mouse homolog</li></ul></li>
+	       <li>Mutations, alleles, and phenotypes - "Human Diseases Modeled Using Mouse Xxx"
+	       <ul><li>Alter list of diseases per new rules</li></ul></li>
+	   </ol>
+	   <li>There are new rules to determine whether to roll-up the disease to a marker.   The rules have been re-implemented so need to test all cases.
+	       <ol><li>Roll-up to a gene for OMIM annotations to a simple 1 marker genotype.</li>
+	           <li>Roll-up to a gene for OMIM annotations to a conditional genotype that has just 1 marker when recombinase, transgenic reporter, and wild type alleles are factored out.</li>
+	           <li>Roll-up to a gene for OMIM annotations to a complex genotype that has just 1 marker when transgenic reporters are factored out.</li>
+	           <li>Do not associate any diseases to marker Gt(ROSA)26Sor.</li>
+	           <li>Do not associate any diseases that have only NOT annotations from the rolled up set.</li>
+	           
+	       </ol></li>
+	   <li>NOTE: differences with HMDC (until rules are updated) - slash alleles not removed; allele/disease annotations not included; transgenic reporter bug</li>
+	
+	   
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		<li>Marker Detail page - no diseases associated to the mouse marker
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with no models & no human disease associations; Xxx.  Expect: neither disease link to appear</li>
+    		  <li>Display marker with no models, but with human disease associations; Xxx.  Expect: no link in Pheno ribbon, but link displayed in Human ribbon with no asterisks.</li>
+    	    </ol></li>
+    	    
+    	    <li>Marker Detail page - disease list unchanged with new rules
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with model(s) for 1 disease & same human disease; Xxx.  Expect: </li>
+    		   <li>Display marker with model(s) for 1 disease & different human disease(s); Xxx.  Expect: </li>
+    		   <li>Display marker with models for many diseases & many human diseases; Xxx.  Expect: </li>
+    	    </ol></li>
+    	    
+    	    <li>Marker Detail page - markers with n-m human homolog disease associations
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display marker with diseases and with 1-m homology class; Xxx.  Expect:.</li>
+    		   <li>Display marker with diseases and n-1 homology class; Xxx.  Expect:.</li>
+    		   <li>Display marker with diseases and 0-1 and 1-0 homology classes; Xxx.  Expect:</li>
+    		   <li>Display marker with diseases and with human markers that have no homology class; Xxx.  Expect:</li>
+    	    </ol></li>
+    	    
+    	    <li>Marker Detail page - diseases annotated via conditional genotype models
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display marker that lost disease due to 1 marker rule for conditionals; Kras.  Expect: 114500 - Colorectal Cancer - no longer on mouse model list.</li>
+    		   <li>Display marker that includes a disease due to conditional rule; Nr2f2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - on the mouse model list.</li>
+    		   <li>Display marker that is associated to a disease via a recombinase allele that is factored out; Nkx3-2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - is not on the mouse model list.</li>
+    		   <li>Display marker that lost all diseases due to 1 marker rule for conditionals; Xxxx.  Expect: .</li>
+    		   <li>Display marker that includes a disease due to a simple genotype for a recombinase allele; Xxx.  Expect: </li>
+    	    </ol></li>
+    	    
+    	    <li>Marker Detail page - diseases annotated via complex genotype models
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display marker w/ a disease associated via complex genotype model; Col1a1.  Expect: 211980 - Lung Cancer - not on mouse model list.</li>
+    		   <li>Display marker w/ a disease associated via complex genotype model & same disease associated to human homolog; Xxxx.  Expect: disease not on mouse model list and with no asterisk on human list.</li>
+    	    </ol></li>
+    	    
+    	    <li>Marker Detail page - diseases annotated via transgenic reporter models
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display marker w/ associated complex model w/ transgenic reporter allele that factors to simple geno; Foxo3.  Expect: 166950 - Teratoma, Ovarian to be included on model list. </li>
+    		   <li>Display marker w/ associated complex model w/ transgenic reporter allele with multiple attributes; Xxxx.  Expect: disease not on mouse model list.</li>
+    	    </ol></li>
+    	    
+    	    <li>Marker Detail page - diseases with annotations involving Gt(ROSA)26Sor 
+    	    <p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display Gt(ROSA)26Sor marker detail page. Expect: No disease models listed.</li>
+    		   <li>Display marker that has a conditional model with a recombinase Gt(ROSA) allele; Bap1.  Expect:  614286 - Myelodysplastic; MDS to be in the mouse model list.</li>
+    	    </ol></li>
+    	    
+    	    <li>Marker Detail page - diseases annotated via slash allele genotype models
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with annotations to model(s) via slash alleles; Dlx6.  Expect: 183600 - Split-Hand/Foot Malformation 1: SHFM1 to be included in the mouse model list. </li>
+    	    </ol></li>
+    	    
+    	    <li>Marker Detail page - diseases annotated with NOT models
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display marker that has only NOT models for a disease; Hap1.  Expect:  143100 - Huntington Disease; HD to not be on the mouse models list.</li>
+    		   <li>Display marker that  has only NOT models for a disease, but human homolog is associated to the same disease;Xxx.  Expect: 208230 - Arthropathy, Progressive Pseudorheumatoid, of Childhood; PPAC to not be listed in mouse models and disease in human list to not have an asterisk.</li>
+    	    </ol></li>
+    		
+    	    
+    	    
+  
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
