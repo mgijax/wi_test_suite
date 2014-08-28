@@ -66,51 +66,50 @@
 		
 		<ol>
     		<li>Marker Detail page - no diseases associated to the mouse marker
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/27/14</p>  
     		<ol>
-    		  <li>Display marker with no models & no human disease associations; Xxx.  Expect: neither disease link to appear</li>
-    		  <li>Display marker with no models, but with human disease associations; Xxx.  Expect: no link in Pheno ribbon, but link displayed in Human ribbon with no asterisks.</li>
+    		  <li>Display marker with no models & no human disease associations; Bmp3.  Expect: neither disease link to appear</li>
+    		  <li>Display marker with no models, but with human disease associations; Bmp1.  Expect: no disease list in Pheno ribbon and disease list displayed in Human ribbon with no asterisks.</li>
     	    </ol></li>
     	    
     	    <li>Marker Detail page - disease list unchanged with new rules
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Display marker with model(s) for 1 disease & same human disease; Xxx.  Expect: </li>
-    		   <li>Display marker with model(s) for 1 disease & different human disease(s); Xxx.  Expect: </li>
-    		   <li>Display marker with models for many diseases & many human diseases; Xxx.  Expect: </li>
+    		  <li>Display marker with model(s) for 1 disease & same human disease; Tbx19.  Expect: Acth Defic...IAD in both lists.</li>
+    		   <li>Display marker with model(s) for 1 disease & different human disease(s); Stub1.  Expect: mouse model disease: 212840-GDHS; homolog disease:615768-SCAR16 </li>
+    		   <li>Display marker with models for many diseases & many human diseases; Kit.  Expect: mouse model diseases: 2; human homolog diseases:4</li>
     	    </ol></li>
     	    
     	    <li>Marker Detail page - markers with n-m human homolog disease associations
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display marker with diseases and with 1-m homology class; Xxx.  Expect:.</li>
-    		   <li>Display marker with diseases and n-1 homology class; Xxx.  Expect:.</li>
-    		   <li>Display marker with diseases and 0-1 and 1-0 homology classes; Xxx.  Expect:</li>
-    		   <li>Display marker with diseases and with human markers that have no homology class; Xxx.  Expect:</li>
+    		   <li>Display marker with diseases and with 1-m homology class; Smn1.  Expect:. mouse model list=3; human homologs=4 & 1; appropriate asterisks.</li>
+    		   <li>Display marker with n-1 homology class; Hbb-bt & Hbb-bs.  Expect: Both mouse markers have 7 homolog diseases; 0 mouse diseases.</li>
+    		   <li>Display marker with diseases and 1-0 homology class; Nrg1.  Expect: 1 mouse model disease; no human homolog</li>
+    		   <li>Display marker with a disease but not associated to a  homology class; ckr.  Expect: 1 mouse model disease; no human homolog or homolgy class</li> 
     	    </ol></li>
     	    
     	    <li>Marker Detail page - diseases annotated via conditional genotype models
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/27/2014</p>  
     		<ol>
     		   <li>Display marker that lost disease due to 1 marker rule for conditionals; Kras.  Expect: 114500 - Colorectal Cancer - no longer on mouse model list.</li>
     		   <li>Display marker that includes a disease due to conditional rule; Nr2f2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - on the mouse model list.</li>
     		   <li>Display marker that is associated to a disease via a recombinase allele that is factored out; Nkx3-2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - is not on the mouse model list.</li>
-    		   <li>Display marker that lost all diseases due to 1 marker rule for conditionals; Xxxx.  Expect: .</li>
-    		   <li>Display marker that includes a disease due to a simple genotype for a recombinase allele; Xxx.  Expect: </li>
+    		   <li>Display marker that lost a disease due to 1 marker rule for conditionals, but the disease is associated to the human homolog; Nf2.  Expect: 607174, Meningioma, Familial, Susceptibility - no longer on mouse disease list and no longer have asterisk on human disease list.</li>
+    		   <li>Display marker that includes a disease due to a simple genotype for a recombinase allele; Satb2.  Expect: 119540, Cleft Palate, Isolated; CPI listed in mouse disease list.</li>
     	    </ol></li>
     	    
     	    <li>Marker Detail page - diseases annotated via complex genotype models
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Display marker w/ a disease associated via complex genotype model; Col1a1.  Expect: 211980 - Lung Cancer - not on mouse model list.</li>
-    		   <li>Display marker w/ a disease associated via complex genotype model & same disease associated to human homolog; Xxxx.  Expect: disease not on mouse model list and with no asterisk on human list.</li>
+    		   <li>Display marker w/ a disease associated via complex genotype model & same disease associated to human homolog; Rb1.  Expect: disease 180200-Retinoblastoma not on mouse model list and with no asterisk on human list.</li>
     	    </ol></li>
     	    
     	    <li>Marker Detail page - diseases annotated via transgenic reporter models
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		   <li>Display marker w/ associated complex model w/ transgenic reporter allele that factors to simple geno; Foxo3.  Expect: 166950 - Teratoma, Ovarian to be included on model list. </li>
-    		   <li>Display marker w/ associated complex model w/ transgenic reporter allele with multiple attributes; Xxxx.  Expect: disease not on mouse model list.</li>
     	    </ol></li>
     	    
     	    <li>Marker Detail page - diseases with annotations involving Gt(ROSA)26Sor 
