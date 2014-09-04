@@ -31,15 +31,19 @@
     <h2>Test Requirements</h2>
 	<ol>
 	  
+	   <li>Change the Marker QF/Summary to query the data that was "rolled-up" using the new implementation of the roll-up rules on the Production server instead of the HMDC data as currently implemented.
+	       <ul><li>The results are expected to be the same for the most part.  Exceptions include: slash alleles not factored out; transgenic reporter bug (factoring out when multiple attributes exist)</ul> 
 	   <li>The rules to determine whether to roll-up a OMIM or MP annotation to a marker and return it for a query are as follows.   The rules have been re-implemented so need to test all cases.
 	       <ol><li>Roll-up to a gene for MP/OMIM annotations for a simple 1 marker genotype.</li>
 	           <li>Roll-up to a gene for MP/OMIM annotations for a conditional genotype that has just 1 marker when recombinase, transgenic reporter, and wild type alleles are factored out.</li>
 	           <li>Roll-up to a gene for MP/OMIM annotations to a complex genotype that has just 1 marker when transgenic reporters are factored out.</li>
-	           <li>Do not return any markers for MP/OMIM annotations to marker Gt(ROSA)26Sor.</li>
+	           <li>Do not return Gt(ROSA)26Sor as a match for any MP/OMIM annotations it may have.</li>
+	           <li>Factor out MP annotations to MP:0003012; "no phenotypic analysis".</li>
 	           <li>Do not return any markers for matches to normal MP or NOT OMIM annotations.</li>
-	           
 	       </ol></li>
-	   <li>NOTE: differences with HMDC (until rules are updated) - slash alleles not removed; allele/disease annotations not included; transgenic reporter bug</li>
+	   <li>Booleans, quotes, wildcards, etc (all UI features) should continue to work as before.</li>
+	   <li>Rules for searching notes has not changed -- search QTL notes, general notes, and annotation notes (except those with a normal qualifier).
+	      <ul><li>Bug fix - currently public version returns matches to normal annotation notes.</li></ul></li>
 	
 	   
 	   
@@ -66,66 +70,87 @@
     		  <li>Query for an OMIM term that has human annotations, but no mouse annotations; nnnnn.  Expect: 0 results returned.</li>
     	    </ol></li>
     	    
-    	    <li>Marker Detail & Homology Class - disease list unchanged with new rules
+    	    <li>Query for MP or OMIM ids that have annotations to simple genotypes (naturally simple ones or super simple)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Display marker with model(s) for 1 disease & same human disease; Tbx19.  Expect: Acth Defic...IAD for mouse & homolog.</li>
-    		   <li>Display marker with model(s) for 1 disease & different human disease(s); Stub1.  Expect: mouse: 212840-GDHS; homolog:615768-SCAR16 </li>
-    		   <li>Display marker with models for many diseases & many human diseases; Kit.  Expect: mouse = 2; human homolog = 4</li>
+    		  <li>Query for an MP term with an annotation to a simple hm genotype; MP:nnnnn.  Expect: xxxx.</li>
+    		   <li>Query for an MP term with an annotation to a simple genotype for a cre allele; MP:nnnnn.  Expect: xxxxx</li>
+    		   <li>Query for an MP term with an annotation to a simple genotype for a transgenic reporter allele; MP:nnnnn.  Expect: xxxxx</li>
+    		   <li>Query for an OMIM term with an annotation to a simple hm genotype; nnnnn.  Expect: xxxx.</li>
+    		   <li>Query for an OMIM term with an annotation to a simple genotype for a cre allele; nnnnn.  Expect: xxxxx</li>
+    		   <li>Query for an OMIM term with an annotation to a simple genotype for a transgenic reporter allele; nnnnn.  Expect: xxxxx</li>
+    		   <li>
     	    </ol></li>
     	    
-    	    <li>Marker Detail & Homology Class - markers with n-m human homolog disease associations
+    	    <li>Query for MP or OMIM ids that have annotations to conditional genotypes
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display marker with diseases and with 1-m homology class; Smn1.  Expect:. mouse=3; 2 human homologs=4 & 1; appropriate asterisks.</li>
-    		   <li>Display marker with n-1 homology class; Hbb-bt & Hbb-bs.  Expect: Both mouse=0; homolog=7</li>
-    		   <li>Display marker with diseases and 1-0 homology class; Nrg1.  Expect: mouse=1; no human homolog</li>
-    		   <li>Display marker with a disease but not associated to a  homology class; ckr.  Expect: 1 mouse model disease; no human homolog or Homolgy Class page</li> 
-    	    </ol></li>
+    		   <li>Query for an MP term with an annotation to a conditional genotype (OMG w/cre out); MP:nnnnn.  Expect: marker returned.</li>
+    		   <li>Query for an MP term with an annotation to a conditional genotype (Complex w/cre out); MP:nnnnn.  Expect: marker not returned.</li>
+    		   <li>Query for an OMIM term with an annotation to a conditional genotype (OMG w/cre out); MP:nnnnn.  Expect: marker returned.</li>
+    		   <li>Query for an OMIM term with an annotation to a conditional genotype (Complex w/cre out); MP:nnnnn.  Expect: marker not returned.</li>
+    		   </ol></li>
     	    
-    	    <li>Marker Detail & Homology Class - diseases annotated via conditional genotype models
+    	    <li>Query for MP or OMIM ids that have annotations to complex genotypes
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display marker that lost disease due to 1 marker rule for conditionals; Kras.  Expect: 114500 - Colorectal Cancer - no longer on mouse list.</li>
-    		   <li>Display marker that includes a disease due to conditional rule; Nr2f2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - on the mouse list.</li>
-    		   <li>Display marker that is associated to a disease via a recombinase allele that is factored out; Nkx3-2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - should not be on mouse list.</li>
-    		   <li>Display marker that lost a disease due to 1 marker rule for conditionals, but the disease is associated to the human homolog; Nf2.  Expect: 607174, Meningioma, Familial, Susceptibility - not on mouse list; no asterisk on human list.</li>
-    		   <li>Display marker that includes a disease due to a simple genotype for a recombinase allele; Satb2.  Expect: 119540, Cleft Palate, Isolated; CPI - on mouse list.</li>
+    		   <li>Query for an MP term with an annotation to a complex genotype; MP:nnnnn.  Expect: Xxx not returned.</li>
+    		   <li>Query for an OMIM term with an annotation to a complex genotype; nnnnn.  Expect: Xxx not returned.</li>
     	    </ol></li>
     	    
-    	    <li>Marker Detail & Homology Class - diseases annotated via complex genotype models
+    	    <li>Query for MP or OMIM ids that have annotations to slash alleles
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display marker w/ a disease associated via complex genotype model; Col1a1.  Expect: 211980 - Lung Cancer - not on mouse list.</li>
-    		   <li>Display marker w/ a disease associated via complex genotype model & same disease associated to human homolog; Rb1.  Expect: disease 180200-Retinoblastoma not on mouse list; no asterisk on human list.</li>
+    		   <li>Query for an MP term with an annotation to a genotype for a slash allele: MP:0002166.  Expect: Psme1 returned.</li>
+    		   <li>Query for an OMIM term with an annotation to a genotype for a slash allele; 183600.  Expect: Dlx6 returned. </li>
     	    </ol></li>
     	    
-    	    <li>Marker Detail & Homology Class - diseases annotated via transgenic reporter models
+    	    <li>Query for MP or OMIM ids that have annotations via transgenic reporter genotypes
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    		   <li>Display marker w/ associated complex model w/ transgenic reporter allele that factors to simple geno; Foxo3.  Expect: 166950 - Teratoma, Ovarian - on mouse list. </li>
-    	    </ol></li>
+    		   <li>Query for an MP term with an annotation to a conditional genotype (OMG w/cre & reporter out); MP:nnnnn.  Expect: marker returned.</li>
+    		   <li>Query for an MP term with an annotation to a conditional genotype for a transgene w/ multiple attributes including reporter (OMG w/ cre out); MP:nnnnn.  Expect: marker returned.</li>
+    		   <li>Query for an OMIM term with an annotation to a conditional genotype (OMG w/cre & reporter out); MP:nnnnn.  Expect: marker returned.</li>
+    		   <li>Query for an OMIM term with an annotation to a conditional genotype for a transgene w/ multiple attributes including reporter (OMG w/ cre out); MP:nnnnn.  Expect: marker returned.</li>
+    		</ol></li>
     	    
-    	    <li>Marker Detail & Homology Class - diseases with annotations involving Gt(ROSA)26Sor 
+    	    <li>Query for MP or OMIM ids with annotations involving Gt(ROSA)26Sor 
     	    <p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display Gt(ROSA)26Sor marker detail page. Expect: No disease models listed & no Homology Class page.</li>
-    		   <li>Display marker that has a conditional model with a recombinase Gt(ROSA) allele; Bap1.  Expect:  614286 - Myelodysplastic; MDS to be in the mouse model list.</li>
-    	    </ol></li>
+    		  <li>Query for an MP term with an annotation to a conditional genotype (Cre=Gt(ROSA)); MP:nnnnn.  Expect marker returned.</li>
+    		  <li>Query for an MP term with an annotation to a Gt(ROSA) conditional genotype (OMG w/ cre out); MP:nnnnn.  Expect Gt(ROSA) not returned.</li>
+    		  <li>Query for an OMIM term with an annotation to a conditional genotype (Cre=Gt(ROSA)); MP:nnnnn.  Expect marker returned.</li>
+    		  <li>Query for an OMIM term with an annotation to a Gt(ROSA) conditional genotype (OMG w/ cre out); MP:nnnnn.  Expect Gt(ROSA) not returned.</li>
+    		</ol></li>
     	    
-    	    <li>Marker Detail & Homology Class - diseases annotated via slash allele genotype models
-    		<p concordion:assertTrue="false">new test</p> 
-    		<ol>
-    		  <li>Display marker with annotations to model(s) via slash alleles; Dlx6.  Expect: 183600 - Split-Hand/Foot Malformation 1: SHFM1 to be included in the mouse model list. </li>
-    	    </ol></li>
     	    
-    	    <li>Marker Detail & Homology Class - diseases annotated with NOT models
+    	    <li>Query for MP annotations with a "normal" qualifier
     		<p concordion:assertTrue="false">new test</p>   
     		<ol>
-    		   <li>Display marker that has only NOT models for a disease; Hap1.  Expect:  143100 - Huntington Disease; HD to not be on the mouse models list.</li>
-    		   <li>Display marker that  has only NOT models for a disease, but human homolog is associated to the same disease; Wisp3.  Expect: 208230 - Arthropathy, Progressive Pseudorheumatoid, of Childhood; PPAC to not be listed in mouse models and disease in human list to not have an asterisk.</li>
+    		   <li>Query for MP term that has only normal annotations for a marker; MP:nnnnnn.  Expect:  Xxx to not be returned.</li>
+    		   <li>Query for MP term that has both regular and normal annotations for a marker; MP:nnnnn.  Expect: XXX to be returned.</li>
+    	    </ol></li>
+    	    
+    	    <li>Query for OMIM annotations with a "NOT" qualifier
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		   <li>Query for OMIM term that has only NOT annotations for a marker; 143100.  Expect: Hap1 to not be returned.</li>
+    		   <li>Query for OMIM term that has both regular and NOT annotations for a marker; nnnnn.  Expect: Xxx to be returned.</li>
     	    </ol></li>
     		
+    		<li>Query for MP annotations with "normal" annotation notes
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		   <li>Query for text that matches a normal note for an MP annotation that is in the simple set; "xxx xxx xxx".  Expect: marker to not be returned.</li>
+    		   <li>Query for text that matches a normal note for an MP annotation that is not in the simple set; "xxx xxx xxx".  Expect: marker to not be returned.</li>
+    	    </ol></li>
+    	    
+    	    <li>Query for MP annotations with regular annotation notes
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		   <li>Query for text that matches a regular note for an MP annotation that is in the simple set; "xxx xxx xxx".  Expect: marker to be returned.</li>
+    		   <li>Query for text that matches a regular note for an MP annotation that is not in the simple set; "xxx xxx xxx".  Expect: marker to not be returned.</li>
+    	    </ol></li>
     	    
     	    
   
