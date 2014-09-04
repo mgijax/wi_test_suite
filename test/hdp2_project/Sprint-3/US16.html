@@ -125,20 +125,37 @@
     		  <li>Query for an OMIM term with an annotation to a conditional genotype (Cre=Gt(ROSA)); 614286; Myelodysplastic Syndrome; MDS.  Expect: Bap1 returned in the results.</li>
     		  <li>Query for an OMIM term with an annotation to a Gt(ROSA) conditional genotype (OMG w/ cre out); 300813; Sarcoma, Synovial.  Expect Gt(ROSA) not returned.</li>
     		</ol></li>
+    		
+    		<li>Query for MP term that only has annotations to child terms.
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		   <li>Query for MP term with annotations to a child term via a simple genotype; MP:0008220; abnormal ventral commissure morphology.  Expect: Bhlhe22 returned in the results due to an annotation to MP:0008227; absent anterior commissure.</li>
+    		   <li>Query for MP term with only simple genotype annotations to child terms; MP:0009120; abnormal white fat cell lipid droplet size.  Expect: 6 genes returned: Cav1, Epg5, Kdma3a, Lciat1, Lpin1, Pck1.
+    		   <li>Query for MP term with annotations to a child term via a genotype that is not simple; MP:0008220; abnormal ventral commissure morphology.  Expect:  Map1b & Map2 not returned in the results due to complex genotype annotation to a child term, MP:0008226.</li>
+    		   
+    	    </ol></li>
     	    
     	    
     	    <li>Query for MP annotations with a "normal" qualifier
     		<p concordion:assertTrue="false">new test</p>   
     		<ol>
-    		   <li>Query for MP term that has only normal annotations for a marker; MP:nnnnnn.  Expect:  Xxx to not be returned.</li>
-    		   <li>Query for MP term that has both regular and normal annotations for a marker; MP:nnnnn.  Expect: XXX to be returned.</li>
+    		   <li>Query for MP term that has normal annotations to a simple genotype for a marker; MP:0005394; taste/olfaction phenotype.  Expect:  Adcy8 not returned in results.</li>
+    		   <li>Query for MP term that has normal annotations to a complex genotype for a marker; MP:0005384; cellular phenotype.  Expect: Arhgap1 not returned in results.</li>
+    		   <li>Query for MP term that has both regular and normal annotations for a marker; MP:0005394; taste/olfaction phenotype.  Expect: Cnga4 to be returned -- has a normal annotation to this term and a regular annotation to a child term.</li>
+    	    </ol></li>
+    	    
+    	    <li>Query for MP term - MP:0003012; "no phenotypic analysis"
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		   <li>Query for MP term whose annotations have been removed from the "derived set"; MP:0003012.  Expect: No results.</li>
+    		   
     	    </ol></li>
     	    
     	    <li>Query for OMIM annotations with a "NOT" qualifier
     		<p concordion:assertTrue="false">new test</p>   
     		<ol>
-    		   <li>Query for OMIM term that has only NOT annotations for a marker; 143100.  Expect: Hap1 to not be returned.</li>
-    		   <li>Query for OMIM term that has both regular and NOT annotations for a marker; nnnnn.  Expect: Xxx to be returned.</li>
+    		   <li>Query for OMIM term that has only NOT annotations to simple genotypes for a marker; 143100; Huntington Disease; HD.  Expect: Hap1 to not be returned.</li>
+    		   <li>Query for OMIM term that has both regular and NOT annotations to simple genotypes for a marker; 600072; Fatal Familial Insomnia; FFI.  Expect: Prnp to be returned in the results.</li>
     	    </ol></li>
     		
     		<li>Query for MP annotations with "normal" annotation notes
