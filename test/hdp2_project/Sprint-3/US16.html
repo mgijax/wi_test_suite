@@ -130,7 +130,8 @@
     		<p concordion:assertTrue="true">PASS - jlewis 9/5/14</p>   
     		<ol>
     		   <li>Query for MP term with annotations to a child term via a simple genotype; MP:0008220; abnormal ventral commissure morphology.  Expect: Bhlhe22 returned in the results due to an annotation to MP:0008227; absent anterior commissure.</li>
-    		   <li>Query for MP term with only simple genotype annotations to child terms; MP:0009120; abnormal white fat cell lipid droplet size.  Expect: 6 genes returned: Cav1, Epg5, Kdma3a, Lclat1, Lpin1, Pck1.
+    		   <li>Query for MP term with only simple genotype annotations to child terms; MP:0009120; abnormal white fat cell lipid droplet size.  Expect: 6 genes returned: Cav1, Epg5, Kdma3a, Lclat1, Lpin1, Pck1.</li>
+    		   <li>Query for MP term's synonym (same term/expected results as above): "abnormal white adipocyte lipid droplet size".
     		   <li>Query for MP term with annotations to a child term via a genotype that is not simple; MP:0008220; abnormal ventral commissure morphology.  Expect:  Map1b & Map2 not returned in the results due to complex genotype annotation to a child term, MP:0008226.</li>
     		   
     	    </ol></li>
@@ -159,17 +160,17 @@
     	    </ol></li>
     		
     		<li>Query for MP annotations with "normal" annotation notes
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/2014</p>   
     		<ol>
     		   <li>Query for text that matches a normal note for an MP annotation that is in the simple set; "notably, supramammillary nuclei".  Expect: marker Foxb1 to not be returned (normal note for MP:0004162; hm1 genotype for &lt;tm1Pgr&gt; allele).</li>
-    		   <li>Query for text that matches a normal note for an MP annotation that is not in the simple set; "xxx xxx xxx".  Expect: marker to not be returned.</li>
+    		   <li>Query for text that matches a normal note for an MP annotation that is not in the simple set; "in contrast, weights of accessory sex glands (seminal vesicles and coagulating glands) are similar to those of wild-type males".  Expect: markers Thra & Thrb to not be returned.  Note is associated to annotation for MP:0004852.</li>
     	    </ol></li>
     	    
     	    <li>Query for MP annotations with backgroud sensitivity annotation notes
     		<p concordion:assertTrue="false">FAIL - jlewis 9/5 - 13.1 failed -- nothing was returned.  Same string on Public returned expected marker.</p>   
     		<ol>
     		   <li>Query for text that matches a BS note for an MP annotation that is in the simple set; "the jejunum crypt, but not ileal crypts, are more resistant".  Expect: marker Gpx1 to be returned.</li>
-    		   <li>Query for text that matches a BS note for an MP annotation that is not in the simple set; "mixed genetic background of equal parts 129/Sv".  Expect: marker to not be returned.</li>
+    		   <li>Query for text that matches a BS note for an MP annotation that is not in the simple set; "mixed genetic background of equal parts 129/Sv".  Expect: markers Thra & Thrb to not be returned. Note is associated to MP:0004738. </li>
     	    </ol></li>
 
     	    <li>Query for MP annotations with general annotation notes
@@ -177,6 +178,20 @@
     		<ol>
     		   <li>Query for text that matches a general note for an MP annotation that is in the simple set; "linoleic acid, lauric acid and stearic acid stimulation" (use quotes).  Expect: Ucp1 to be returned.</li>
     		   <li>Query for text that matches a general note for an MP annotation that is not in the simple set; "cholesterol is primarily in the LDL fraction as opposed to controls where it is predominantly in the HDL fraction".  Expect: markers (Apobec1, Fgg, Ldir) to not be returned.</li>
+    	    </ol></li>
+    	    
+    	    <li>Query for markers using MP alternate IDs and MP synonyms
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/2014</p>   
+    		<ol>
+    		   <li>Query for an MP term using an alternate id; MP:0001946; "abnormal pancreatic islet morphology".  Expect: Pax4 one of the markers returned.</li>
+    		   <li>Query for an MP term using a synonym; "abnormal islet of Langerhans".  Expect: same results as previous example (same term).</li>
+    	    </ol></li>
+    	    
+    	    <li>Query for markers using OMIM alternate IDs and OMIM synonyms
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/2014</p>   
+    		<ol>
+    		   <li>Query for an OMIM term using an alternate id; xxxxx.  Expect: </li>
+    		   <li>Query for an OMIM term using a synonym; "Vlcad Deficiency".  Expect: 2 markers: Acadl, Acadvl </li>
     	    </ol></li>
     	    
   
@@ -189,6 +204,29 @@
     		<ol>
     		   <li>Query for text that matches a QTL note for a QTL marker; "lung cancer" (use quotes).  Expect: 60 markers to be returned; includes QTL Clas2.</li>
     	    </ol></li>
+    	 
+    	 <li>Query for markers via General allele notes (using Phenotype Box)
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/2014</p>   
+    		<ol>
+    		   <li>Query for text that matches an allele general note for a marker; "Phenotypic Similarity to Human Syndrome: Metabolic Syndrome in mice homozygous".  Expect: 3 markers; a, Apoe, Cyp19a1.</li>
+    	    </ol></li>   
+    	    
+    	    
+    	    
+    	    
+		</ol>
+		
+		<h3>Manual tests: NOMENCLATURE SEARCHES</h3>
+		<ol>
+		<li>Query for markers by Allele Symbol & Allele Name
+    		<p concordion:assertTrue="true">FAIL - jlewis 9/5/2014; query by allele symbol results in extraneous chars in Why Matched? column</p>   
+    		<ol>
+    		   <li>Query for allele symbol; Lepr&lt;db&gt;.  Expect: marker Lepr returned.</li>
+    		   <li>Query for allele name; yellow.  Expect: marker a returned (nonagouti).</li>
+    	    </ol></li>
+    	 
+    	    
+    	      
 		</ol>
 	</div>
 	<div id="sql">
