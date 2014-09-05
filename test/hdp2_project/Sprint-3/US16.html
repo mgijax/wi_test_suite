@@ -63,7 +63,7 @@
 		
 		<ol>
     		<li>Query for MP or OMIM ids that have no annotations at all
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/14</p>  
     		<ol>
     		  <li>Query for an MP term that has no annotations; MP:0008224; "increased hippocampal commissure size".  Expect: 0 results returned.</li>
     		  <li>Query for an OMIM term that has no annotations; 604324; Acne, Adult.  Expect: 0 results returned.</li>
@@ -71,7 +71,7 @@
     	    </ol></li>
     	    
     	    <li>Query for MP or OMIM ids that have annotations to simple genotypes (naturally simple; i.e. "super-simple")
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/14</p> 
     		<ol>
     		  <li>Query for an MP term with an annotation to a simple hm genotype; MP:0005215; "abnormal pancreatic islet morphology".  Expect: Pax4 one of the markers returned.</li>
     		   <li>Query for an MP term with an annotation to a simple genotype for a cre allele; MP:0004031, "insulitis".  Expect: Tg(Ins2-cre)5Lt</li>
@@ -83,7 +83,7 @@
     	    </ol></li>
     	    
     	    <li>Query for MP or OMIM ids that have annotations to conditional genotypes
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/14</p>
     		<ol>
     		   <li>Query for an MP term with an annotation to a conditional genotype (OMG w/cre out); MP:0009176; "increased pancreatic alpha cell number".  Expect: Pax4 one of the markers returned.</li>
     		   <li>Query for an MP term with an annotation to a conditional genotype (Complex w/cre out); MP:0002175; "decreased brain weight".  Expect: Col1a1 not returned in the results.</li>
@@ -92,7 +92,7 @@
     		   </ol></li>
     	    
     	    <li>Query for MP or OMIM ids that have annotations to complex genotypes
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/14</p>  
     		<ol>
     		   <li>Query for an MP term with an annotation to a complex genotype; MP:0010024; "increased total body fat amount".  Expect: Adrb1 not returned in the results.</li>
     		   <li>Query for an MP term with an annotation to a non-conditional complex genotype with cre alleles; MP:0008734; "decreased susceptibility to endotoxin shock".  Expect: Elane not returned in the results.</li>
@@ -100,14 +100,14 @@
     	    </ol></li>
     	    
     	    <li>Query for MP or OMIM ids that have annotations to slash alleles
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/14</p>
     		<ol>
     		   <li>Query for an MP term with an annotation to a genotype for a slash allele: MP:0002166.  Expect: Psme1 returned.</li>
     		   <li>Query for an OMIM term with an annotation to a genotype for a slash allele; 183600.  Expect: Dlx6 returned. </li>
     	    </ol></li>
     	    
     	    <li>Query for MP or OMIM ids that have annotations via transgenic reporter genotypes
-    		<p concordion:assertTrue="false">new test</p> 
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/14</p> 
     		<ol>
     		   <li>Query for an MP term with an annotation to a complex genotype (OMG w/ reporter out); MP:0011128; "increased secondary ovarian follicle number".  Expect: Foxo3 in the results.</li>
     		   <li>Query for an MP term with an annotation to a conditional genotype (OMG w/cre & reporter out); MP:0006071; "abnormal retinal progenitor cell morphology".  Expect: Atoh7 to be returned in the results.</li>
@@ -118,7 +118,7 @@
     		</ol></li>
     	    
     	    <li>Query for MP or OMIM ids with annotations involving Gt(ROSA)26Sor 
-    	    <p concordion:assertTrue="false">new test</p>  
+    	    <p concordion:assertTrue="true">PASS - jlewis 9/5/14</p>  
     		<ol>
     		  <li>Query for an MP term with an annotation to a conditional genotype (Cre=Gt(ROSA)); MP:0000333; "decreased bone marrow cell number".  Expect: Nle1 returned in the results.</li>
     		  <li>Query for an MP term with an annotation to a Gt(ROSA) conditional genotype (OMG w/ cre out); MP:0000154, "rib fusion".  Expect Gt(ROSA) not returned.</li>
@@ -127,32 +127,32 @@
     		</ol></li>
     		
     		<li>Query for MP term that only has annotations to child terms.
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/14</p>   
     		<ol>
     		   <li>Query for MP term with annotations to a child term via a simple genotype; MP:0008220; abnormal ventral commissure morphology.  Expect: Bhlhe22 returned in the results due to an annotation to MP:0008227; absent anterior commissure.</li>
-    		   <li>Query for MP term with only simple genotype annotations to child terms; MP:0009120; abnormal white fat cell lipid droplet size.  Expect: 6 genes returned: Cav1, Epg5, Kdma3a, Lciat1, Lpin1, Pck1.
+    		   <li>Query for MP term with only simple genotype annotations to child terms; MP:0009120; abnormal white fat cell lipid droplet size.  Expect: 6 genes returned: Cav1, Epg5, Kdma3a, Lclat1, Lpin1, Pck1.
     		   <li>Query for MP term with annotations to a child term via a genotype that is not simple; MP:0008220; abnormal ventral commissure morphology.  Expect:  Map1b & Map2 not returned in the results due to complex genotype annotation to a child term, MP:0008226.</li>
     		   
     	    </ol></li>
     	    
     	    
     	    <li>Query for MP annotations with a "normal" qualifier
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/14</p> 
     		<ol>
     		   <li>Query for MP term that has normal annotations to a simple genotype for a marker; MP:0005394; taste/olfaction phenotype.  Expect:  Adcy8 not returned in results.</li>
-    		   <li>Query for MP term that has normal annotations to a complex genotype for a marker; MP:0005384; cellular phenotype.  Expect: Arhgap1 not returned in results.</li>
+    		   <li>Query for MP term that has normal annotations to a complex genotype for a marker; MP:0005384; cellular phenotype.  Expect: Pim1 not returned in results.</li>
     		   <li>Query for MP term that has both regular and normal annotations for a marker; MP:0005394; taste/olfaction phenotype.  Expect: Cnga4 to be returned -- has a normal annotation to this term and a regular annotation to a child term.</li>
     	    </ol></li>
     	    
     	    <li>Query for MP term - MP:0003012; "no phenotypic analysis"
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/14</p>
     		<ol>
     		   <li>Query for MP term whose annotations have been removed from the "derived set"; MP:0003012.  Expect: No results.</li>
     		   
     	    </ol></li>
     	    
     	    <li>Query for OMIM annotations with a "NOT" qualifier
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/14</p>
     		<ol>
     		   <li>Query for OMIM term that has only NOT annotations to simple genotypes for a marker; 143100; Huntington Disease; HD.  Expect: Hap1 to not be returned.</li>
     		   <li>Query for OMIM term that has both regular and NOT annotations to simple genotypes for a marker; 600072; Fatal Familial Insomnia; FFI.  Expect: Prnp to be returned in the results.</li>
@@ -161,19 +161,19 @@
     		<li>Query for MP annotations with "normal" annotation notes
     		<p concordion:assertTrue="false">new test</p>   
     		<ol>
-    		   <li>Query for text that matches a normal note for an MP annotation that is in the simple set; "xxx xxx xxx".  Expect: marker to not be returned.</li>
+    		   <li>Query for text that matches a normal note for an MP annotation that is in the simple set; "notably, supramammillary nuclei".  Expect: marker Foxb1 to not be returned (normal note for MP:0004162; hm1 genotype for &lt;tm1Pgr&gt; allele).</li>
     		   <li>Query for text that matches a normal note for an MP annotation that is not in the simple set; "xxx xxx xxx".  Expect: marker to not be returned.</li>
     	    </ol></li>
     	    
     	    <li>Query for MP annotations with backgroud sensitivity annotation notes
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/5 - 13.1 failed -- nothing was returned.  Same string on Public returned expected marker.</p>   
     		<ol>
     		   <li>Query for text that matches a BS note for an MP annotation that is in the simple set; "the jejunum crypt, but not ileal crypts, are more resistant".  Expect: marker Gpx1 to be returned.</li>
-    		   <li>Query for text that matches a BS note for an MP annotation that is not in the simple set; "xxx xxx xxx".  Expect: marker to not be returned.</li>
+    		   <li>Query for text that matches a BS note for an MP annotation that is not in the simple set; "mixed genetic background of equal parts 129/Sv".  Expect: marker to not be returned.</li>
     	    </ol></li>
 
     	    <li>Query for MP annotations with general annotation notes
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 9/5/2014</p>   
     		<ol>
     		   <li>Query for text that matches a general note for an MP annotation that is in the simple set; "linoleic acid, lauric acid and stearic acid stimulation" (use quotes).  Expect: Ucp1 to be returned.</li>
     		   <li>Query for text that matches a general note for an MP annotation that is not in the simple set; "cholesterol is primarily in the LDL fraction as opposed to controls where it is predominantly in the HDL fraction".  Expect: markers (Apobec1, Fgg, Ldir) to not be returned.</li>
