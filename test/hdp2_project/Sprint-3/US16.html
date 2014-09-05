@@ -59,7 +59,7 @@
 <p concordion:assertTrue="true">testing assertTrue - displays as green</p>
 <p concordion:assertTrue="false">testing assertFalse - displays as red</p>
  -->
-		<h3>Manual tests</h3>
+		<h3>Manual tests: ROLL_UP RULES</h3>
 		
 		<ol>
     		<li>Query for MP or OMIM ids that have no annotations at all
@@ -180,6 +180,15 @@
     	    </ol></li>
     	    
   
+		</ol>
+		
+		<h3>Manual tests: TEXT SEARCHES</h3>
+		<ol>
+		<li>Query for markers via QTL notes (using Phenotype Box)
+    		<p concordion:assertTrue="true">FAIL - jlewis 9/5/2014</p>   
+    		<ol>
+    		   <li>Query for text that matches a QTL note for a QTL marker; "lung cancer" (use quotes).  Expect: 60 markers to be returned; includes QTL Clas2.</li>
+    	    </ol></li>
 		</ol>
 	</div>
 	<div id="sql">
