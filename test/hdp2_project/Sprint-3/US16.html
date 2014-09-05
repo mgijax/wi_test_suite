@@ -165,13 +165,19 @@
     		   <li>Query for text that matches a normal note for an MP annotation that is not in the simple set; "xxx xxx xxx".  Expect: marker to not be returned.</li>
     	    </ol></li>
     	    
-    	    <li>Query for MP annotations with regular annotation notes
+    	    <li>Query for MP annotations with backgroud sensitivity annotation notes
     		<p concordion:assertTrue="false">new test</p>   
     		<ol>
-    		   <li>Query for text that matches a regular note for an MP annotation that is in the simple set; "xxx xxx xxx".  Expect: marker to be returned.</li>
-    		   <li>Query for text that matches a regular note for an MP annotation that is not in the simple set; "xxx xxx xxx".  Expect: marker to not be returned.</li>
+    		   <li>Query for text that matches a BS note for an MP annotation that is in the simple set; "the jejunum crypt, but not ileal crypts, are more resistant".  Expect: marker Gpx1 to be returned.</li>
+    		   <li>Query for text that matches a BS note for an MP annotation that is not in the simple set; "xxx xxx xxx".  Expect: marker to not be returned.</li>
     	    </ol></li>
-    	    
+
+    	    <li>Query for MP annotations with general annotation notes
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		   <li>Query for text that matches a general note for an MP annotation that is in the simple set; "linoleic acid, lauric acid and stearic acid stimulation" (use quotes).  Expect: Ucp1 to be returned.</li>
+    		   <li>Query for text that matches a general note for an MP annotation that is not in the simple set; "cholesterol is primarily in the LDL fraction as opposed to controls where it is predominantly in the HDL fraction".  Expect: markers (Apobec1, Fgg, Ldir) to not be returned.</li>
+    	    </ol></li>
     	    
   
 		</ol>
