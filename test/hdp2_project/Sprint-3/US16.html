@@ -190,7 +190,7 @@
     	    <li>Query for markers using OMIM alternate IDs and OMIM synonyms
     		<p concordion:assertTrue="true">PASS - jlewis 9/5/2014</p>   
     		<ol>
-    		   <li>Query for an OMIM term using an alternate id; xxxxx.  Expect: </li>
+    		   <li>Query for an OMIM term using an alternate id; xxxxx.  Expect: (NO alt ids for OMIM)</li>
     		   <li>Query for an OMIM term using a synonym; "Vlcad Deficiency".  Expect: 2 markers: Acadl, Acadvl </li>
     	    </ol></li>
     	    
@@ -200,7 +200,7 @@
 		<h3>Manual tests: TEXT SEARCHES</h3>
 		<ol>
 		<li>Query for markers via QTL notes (using Phenotype Box)
-    		<p concordion:assertTrue="true">FAIL - jlewis 9/5/2014</p>   
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/5/2014</p>   
     		<ol>
     		   <li>Query for text that matches a QTL note for a QTL marker; "lung cancer" (use quotes).  Expect: 60 markers to be returned; includes QTL Clas2.</li>
     	    </ol></li>
@@ -219,13 +219,48 @@
 		<h3>Manual tests: NOMENCLATURE SEARCHES</h3>
 		<ol>
 		<li>Query for markers by Allele Symbol & Allele Name
-    		<p concordion:assertTrue="true">FAIL - jlewis 9/5/2014; query by allele symbol results in extraneous chars in Why Matched? column</p>   
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/5/2014; query by allele symbol results in extraneous chars in Why Matched? column</p>   
     		<ol>
     		   <li>Query for allele symbol; Lepr&lt;db&gt;.  Expect: marker Lepr returned.</li>
     		   <li>Query for allele name; yellow.  Expect: marker a returned (nonagouti).</li>
     	    </ol></li>
-    	 
     	    
+    	    <li>Query for markers by MOUSE current symbol; current name; old symbol; old name; synonym; related synonym
+    		<p concordion:assertTrue="true">PASS - jlewis 9/8/2014</p>   
+    		<ol>
+    		   <li>Query for text that matches a marker by current symbol; Pax6.  Expect: Pax6 to be returned & why matched to be current symbol.</li>
+    		   <li>Query for text that matches a marker by current name; Kit ligand.  Expect: Kitl to be returned & why matched to be current name.</li>
+    		   <li>Query for text that matches a marker by old symbol; 2300006M17Rik.  Expect: 2010111I01Rik (MGI:1919311) to be returned & why matched to be old symbol.</li>
+    		   <li>Query for text that matches a marker by old name; breast cancer.  Expect: Tff1 to be returned & why matched to be old name.</li>
+    		   <li>Query for text that matches a marker by synonym; yellow.  Expect: Mc1r to be returned & why matched to be synonym.</li>
+    		   <li>Query for text that matches a marker by related synonym; MGC:7090.  Expect: Acaa1a to be returned & why matched to be related synonym.</li>
+    	    </ol></li>
+    	    
+    	    <li>Query for markers by HUMAN symbol, name, synonyms
+    		<p concordion:assertTrue="true">PASS - jlewis 9/8/2014</p>   
+    		<ol>
+    		   <li>Query for text that matches a marker by human symbol; TP53.  Expect: Trp53 to be returned & why matched to be human symbol.</li>
+    		   <li>Query for text that matches a marker by human marker name; breast cancer. Expect: Sncg to be returned & why matched to be human name.</li>
+    		   <li>Query for text that matches a marker by human synonym; ren. Expect: Fbxo9 to be returned & why matched to be human synonym.</li>
+    	    </ol></li>
+    	    
+    	    <li>Query for markers by RAT symbol, synonyms
+    		<p concordion:assertTrue="true">PASS - jlewis 9/8/14</p>   
+    		<ol>
+    		   <li>Query for text that matches a marker by rat symbol; RT1-Db1.  Expect: H2-Db1 to be returned & why matched to be rat symbol.</li>
+    		   <li>Query for text that matches a marker by rat synonym; Dlx5. Expect: Dlx2 to be returned & why matched to be rat synonym.</li>
+    	    </ol></li>
+    	 
+    	    <li>Query for markers by ortholog symbols (Cattle, Chicken, Dog, Rhesus macaque, Xenopus, Zebrafish)
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/8/14 -- Xenopus data not in ScrumBob; plus existing bug; all other species okay.</p>   
+    		<ol>
+    		   <li>Query for text that matches a marker by cattle symbol; LOC514194.  Expect: Cp to be returned & why matched to be cattle symbol.</li>
+    		   <li>Query for text that matches a marker by chicken symbol; Asl2. Expect: Asl to be returned & why matched to be chicken symbol.</li>
+    		   <li>Query for text that matches a marker by dog symbol; LOC479704.  Expect: Asl to be returned & why matched to be dog symbol.</li>
+    		   <li>Query for text that matches a marker by Rhesus macaque symbol; ELA2B. Expect: Cela2a to be returned & why matched to be Rhesus macque symbol.</li>
+    		   <li>Query for text that matches a marker by Xenopus symbol; Xxx.  Expect: Xxx to be returned & why matched to be Xenopus symbol. (DATA not on S-B yet; also bug in Public)</li>
+    		   <li>Query for text that matches a marker by Zebrafish symbol; LOC100148378. Expect: Arg1 to be returned & why matched to be zebrafish symbol.</li>
+    	    </ol></li>
     	      
 		</ol>
 	</div>
