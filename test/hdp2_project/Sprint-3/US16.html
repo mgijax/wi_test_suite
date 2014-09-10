@@ -44,6 +44,10 @@
 	   <li>Booleans, quotes, wildcards, etc (all UI features) should continue to work as before.</li>
 	   <li>Rules for searching notes has not changed -- search QTL notes, general notes, and annotation notes (except those with a normal qualifier).
 	      <ul><li>Bug fix - currently public version returns matches to normal annotation notes.</li></ul></li>
+	   <li>Rules for searching Nomenclature unchanged -- regression testing required due to impact from re-implementation of the rules.</li>
+	   <li>Stop words for Phenotype box -- ignore/factor out of any search not in quotes.  If only stop words exist treat as if nothing was entered in the box
+	      <ul><li>Stop words = a, an, and, are, as, be, but, if, is, it, or, such, that, the, their, then, there, these, they, this, was, will</li>
+	      </ul></li>
 	
 	   
 	   
@@ -194,7 +198,29 @@
     		   <li>Query for an OMIM term using a synonym; "Vlcad Deficiency".  Expect: 2 markers: Acadl, Acadvl </li>
     	    </ol></li>
     	    
-  
+    	    <li>Query for markers using boolean operators in the phenotype box
+    		<p concordion:assertTrue="true">PASS - jlewis 9/9/2014</p>   
+    		<ol>
+    		   <li>Query using the AND operator; MP:0012138 AND MP:0002175.  Expected results: 4 markers; includes: Drd1a, Phgdh, Ssb, 1 Tg </li>
+    		   <li>Query using the OR operator; 166950 OR MP:0011614.  Expected results: 3 markers; includes: Ccdc7, Foxo3, 1 Tg </li>
+    		   <li>Query using the AND NOT operator; 211980 AND NOT 260350.  Expected results: 11 markers; includes Foxm1, Robo1, Xpc, 7 Tg; excludes Kras</li>
+    		   <li>Query using multiple operators; (211980 OR 167000) AND NOT 173900.  Expected results: 13 markers.  Excludes: Robo1</li>
+    		   <li>Query for Brca*; protein coding gene; NOT 114480.  Expected results: 15 genes.  Excludes: Brca1, Brca2.</li>
+    	    </ol></li>
+    	    
+    	    <li>Queries with stop words in the Phenotype box
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		   <li>Query with a single stop word; <i>such</i>.  Expect: 0 markers returned</li>
+    		   <li>Query with multiple stop words; <i>if the</i>.  Expect: 0 markers returned</li>
+    		   <li>Query with a single stop word and a single valid token; <i>the mouth</i>.  Expect: 567 results and same results as searching by just <i>mouth</i>. </li>
+    		   <li>Query with a single stop word and multiple valid tokens; <i>malformations the brain</i>.  Expect: same results as: <i>malformations brain</i>.</li>
+    		   <li>Query with multiple stop words and a single valid token; <i>is the mouth.</i>  Expect: same results as just <i>mouth</i></li>
+    		   <li>Query with multiple stop words and multiple non-stop works; <i>the mouth is mucosal</i>.  Expect: same results as <i>mouth mucosal</i></li>
+    		   <li>Query with stop words and a non-stop word that returns nothing; <i>be the football</i>.  Expect: 0 markers</li>
+    		</ol></li>
+    	   
+
 		</ol>
 		
 		<h3>Manual tests: TEXT SEARCHES</h3>
@@ -211,9 +237,7 @@
     		   <li>Query for text that matches an allele general note for a marker; "Phenotypic Similarity to Human Syndrome: Metabolic Syndrome in mice homozygous".  Expect: 3 markers; a, Apoe, Cyp19a1.</li>
     	    </ol></li>   
     	    
-    	    
-    	    
-    	    
+
 		</ol>
 		
 		<h3>Manual tests: NOMENCLATURE SEARCHES</h3>
@@ -251,14 +275,15 @@
     		   <li>Query for text that matches a marker by rat synonym; Dlx5. Expect: Dlx2 to be returned & why matched to be rat synonym.</li>
     	    </ol></li>
     	 
-    	    <li>Query for markers by ortholog symbols (Cattle, Chicken, Dog, Rhesus macaque, Xenopus, Zebrafish)
-    		<p concordion:assertTrue="false">FAIL - jlewis 9/8/14 -- Xenopus data not in ScrumBob; plus existing bug; all other species okay.</p>   
+    	    <li>Query for markers by ortholog symbols (Cattle, Chicken, Chimp, Dog, Rhesus macaque, Xenopus, Zebrafish)
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/8/14 -- Xenopus data not in ScrumBob; plus existing bug - chimp & xenopus symbols not returned; all other species okay.</p>   
     		<ol>
     		   <li>Query for text that matches a marker by cattle symbol; LOC514194.  Expect: Cp to be returned & why matched to be cattle symbol.</li>
     		   <li>Query for text that matches a marker by chicken symbol; Asl2. Expect: Asl to be returned & why matched to be chicken symbol.</li>
+    		   <li>Query for text that matches a marker by chimp symbol; FAM156B.  Expect: Tmem29 to be returned & why matched to be chimp symbol.</li>
     		   <li>Query for text that matches a marker by dog symbol; LOC479704.  Expect: Asl to be returned & why matched to be dog symbol.</li>
     		   <li>Query for text that matches a marker by Rhesus macaque symbol; ELA2B. Expect: Cela2a to be returned & why matched to be Rhesus macque symbol.</li>
-    		   <li>Query for text that matches a marker by Xenopus symbol; Xxx.  Expect: Xxx to be returned & why matched to be Xenopus symbol. (DATA not on S-B yet; also bug in Public)</li>
+    		   <li>Query for text that matches a marker by Xenopus symbol; LOC100485342.  Expect: C6 to be returned & why matched to be Xenopus symbol. (DATA not on S-B yet; also bug in Public)</li>
     		   <li>Query for text that matches a marker by Zebrafish symbol; LOC100148378. Expect: Arg1 to be returned & why matched to be zebrafish symbol.</li>
     	    </ol></li>
     	      
