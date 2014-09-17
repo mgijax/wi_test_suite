@@ -1,0 +1,142 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 68</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Auto-complete and YSF - boolean queries</h1>
+    <ul>
+        <li>User Story 68 - Implement Auto-complete and You Searched For - boolean queries</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements - Phenotype/Disease Query Box</h2>
+	<ol>
+	   <li>Maintain existing functionality in query box: auto-complete; search by free-form text; wild cards; double quotes; implicit OR; stop words; defaults</li>
+	   <li>Recognize the following boolean operators: AND, OR, NOT, AND NOT
+	   <ul><li>boolean operators must be in upper case; otherwise not recognized.</li>
+	       <li>OR NOT is recognized by the software, but there's no plan to document this for users</li>
+	   </ul>
+	   <li>Auto-complete recognizes that a boolean has been entered and "starts over".</li>
+	   <li>Users may enter query string with booleans without using the A/C.</li>
+	   <li>Users may modify query string to add parens</li>
+	</ol>
+	<h2>Test Requirements - You Searched For and Error Handling</h2>
+	<ol>
+	   <li>Update the You Searched For to display boolean operators (explicit & implicit)</li>
+	   <li>Update the YSF to display parentheses when an AND operator is present.</li>
+	   <li>Provide error handling for the following cases:
+	   <ol><li>unmatched double quotes</li>
+	   
+	   </ol></li>
+	
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		<li>Verify Phenotype/Disease query box existing functionality works (building of query string)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Enter text and select term from A/C that has 1 token; obese.  Expect: MP:0001261 displayed</li>
+    		  <li>Enter text and select term from A/C that has multiple tokens; xxx xxx xxx.  Expect:</li>
+    		  <li>Enter text and select terms from A/C to create a comma delimited list of ids.  Expect:</li>
+    		  <li>Enter text and select the same term twice.  Expect:</li>
+    		  <li>Enter free-form text - single token; xxxxx.  Expect:</li>
+    		  <li>Enter free-form text - multiple tokens; xxx xxx xxx.  Expect:</li>
+    		  <li>Enter free-form text - OMIM id; nnnnnn.  Expect:</li>
+    		  <li>Enter free-form text - MP id; MP:nnnnn.  Expect:</li>
+    		  <li>Enter free-form list of ids (MP, OMIM, MP alt id); nnnnn.  Expect:</li>
+    		  <li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Phenotype/Disease query box boolean operations (simple)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Test 1.1</li>
+    		  <li>Test 1.2</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Phenotype/Disease query box boolean operations (complex)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Test 1.1</li>
+    		  <li>Test 1.2</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Phenotype/Disease query box wild cards - with and without booleans 
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Enter free-form text - multiple tokens w/ double quotes; "xxx xxx xxx".  Expect:</li>
+    		  <li>Enter free-form text - single token w/ double quotes; "xxxx".  Expect: same results as without double quotes.</li>
+    		  <li>Enter free-form text - boolean OR with single tokens; xxx OR xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean AND with single tokens; xxx AND xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean AND NOT with single tokens; xxx AND NOT xxx.  Expect:</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Phenotype/Disease query box double quotes - with and without booleans
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Test 1.1</li>
+    		  <li>Test 1.2</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Phenotype/Disease query box stop words - with and without boolean operations
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Test 1.1</li>
+    		  <li>Test 1.2</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Phenotype/Disease query box special characters - with and without booleans
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Test 1.1</li>
+    		  <li>Test 1.2</li>
+    	    </ol></li>
+  
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
