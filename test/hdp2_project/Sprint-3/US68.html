@@ -21,8 +21,6 @@
     <ul>
         <li>User Story 68 - Implement Auto-complete and You Searched For - boolean queries</li>
     </ul>
-</div><div id="TOC">
-	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
 </div>
 
 
@@ -41,7 +39,7 @@
 	</ol>
 	<h2>Test Requirements - You Searched For and Error Handling</h2>
 	<ol>
-	   <li>Update the You Searched For to display boolean operators (explicit & implicit)</li>
+	   <li>Update the You Searched For to display boolean operators (explicit and implicit)</li>
 	   <li>Update the YSF to display parentheses when an AND operator is present.</li>
 	   <li>Provide error handling for the following cases:
 	   <ol><li>unmatched double quotes</li>
@@ -49,6 +47,7 @@
 	   </ol></li>
 	
 	</ol>
+	More details -- <a href=http://mgiwiki/mediawiki/index.php/sw:HMDC_Boolean_Query>boolean queries</a>
 </div>
 
 
@@ -75,52 +74,78 @@
     		  <li>Enter free-form text - OMIM id; nnnnnn.  Expect:</li>
     		  <li>Enter free-form text - MP id; MP:nnnnn.  Expect:</li>
     		  <li>Enter free-form list of ids (MP, OMIM, MP alt id); nnnnn.  Expect:</li>
-    		  <li>
+    		 
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box boolean operations (simple)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Test 1.1</li>
-    		  <li>Test 1.2</li>
+    		  <li>Enter free-form text - boolean OR with single tokens; xxx OR xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean AND with single tokens; xxx AND xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean AND NOT with single tokens; xxx AND NOT xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean NOT; NOT xxx.  Expect:</li>
+    		  <li>Use A/C selection - boolean OR with single tokens; xxx OR xxx.  Expect:</li>
+    		  <li>Use A/C selection - boolean AND with single tokens; xxx AND xxx.  Expect:</li>
+    		  <li>Use A/C selection - boolean AND NOT with single tokens; xxx AND NOT xxx.  Expect:</li>
+    		  <li>Use A/C selection - boolean NOT; NOT xxx.  Expect:</li>
+    		  <li>Use combo of A/C and free-form text - boolean OR with single tokens; xxx OR xxx.  Expect:</li>
+    		  <li>Use combo of A/C and free-form text - boolean AND with single tokens; xxx AND xxx.  Expect:</li>
+    		  <li>Use combo of A/C and free-form text - boolean AND NOT with single tokens; xxx AND NOT xxx.  Expect:</li>
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box boolean operations (complex)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Test 1.1</li>
-    		  <li>Test 1.2</li>
+    		  <li>Enter free-form text - boolean OR with single tokens; xxx OR xxx OR xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean AND with single tokens; xxx AND xxx AND xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean AND NOT with single tokens; xxx AND NOT xxx AND NOT xxx.  Expect:</li>
+    		  <li>Use A/C selection - boolean OR with single tokens; xxx OR xxx OR xxx.  Expect:</li>
+    		  <li>Use A/C selection - boolean AND with single tokens; xxx AND xxx AND xxx.  Expect:</li>
+    		  <li>Use A/C selection - boolean AND NOT with single tokens; xxx AND NOT xxx AND NOT xxx.  Expect:</li>
+    		  <li>Use combo of A/C and free-form text - boolean OR with single tokens; xxx OR xxx OR xxx.  Expect:</li>
+    		  <li>Use combo of A/C and free-form text - boolean AND with single tokens; xxx AND xxx AND xxx.  Expect:</li>
+    		  <li>Use combo of A/C and free-form text - boolean AND NOT with single tokens; xxx AND NOT xxx AND NOT xxx.  Expect:</li>
+    		  <li>Use combination of operators - xxx AND xxx OR xxx.  Expect:</li>
+    		  <li>Use combination of operators - xxx OR xxx AND xxx.  Expect:</li>
     	    </ol></li>
     	    
-    	    <li>Verify Phenotype/Disease query box wild cards - with and without booleans 
+    	    <li>Verify Phenotype/Disease query box double quotes - with and without booleans 
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		  <li>Enter free-form text - multiple tokens w/ double quotes; "xxx xxx xxx".  Expect:</li>
     		  <li>Enter free-form text - single token w/ double quotes; "xxxx".  Expect: same results as without double quotes.</li>
-    		  <li>Enter free-form text - boolean OR with single tokens; xxx OR xxx.  Expect:</li>
-    		  <li>Enter free-form text - boolean AND with single tokens; xxx AND xxx.  Expect:</li>
-    		  <li>Enter free-form text - boolean AND NOT with single tokens; xxx AND NOT xxx.  Expect:</li>
+    		  <li>Enter free-form text - multiple tokens w/ double quotes; "xxx xxx xxx" AND "xxx xxx xxx".  Expect:</li>
+    		  <li>Enter free-form text - single token w/ double quotes; "xxxx" OR "xxxx".  Expect: same results as without double quotes.</li>
+    		  <li>Enter free-form text - complex boolean query w/ dbl quotes; "xxxx" OR "xxx xxx xxx" AND "xxx xxx"</li>
+    		  
     	    </ol></li>
     	    
-    	    <li>Verify Phenotype/Disease query box double quotes - with and without booleans
+    	    <li>Verify Phenotype/Disease query box wild card - with and without booleans
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Test 1.1</li>
-    		  <li>Test 1.2</li>
+    		  <li>Enter free-form text - multiple tokens w/ wildcards; xxx* xxx*.  Expect:</li>
+    		  <li>Enter free-form text - single token w/ wildcard; xxx*.  Expect:</li>
+    		  <li>Enter free-form text - multiple tokens w/ wild cards; xxx* xxx* AND xxx* xxx*.  Expect:</li>
+    		  <li>Enter free-form text - single token w/wild cards; xxx* OR xxx*.  Expect: </li>
+    		  <li>Enter free-form text - complex boolean query w/ wild cards; xxx* OR xxx* xxx* xxx* AND xxx* xxx*</li>
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box stop words - with and without boolean operations
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Test 1.1</li>
-    		  <li>Test 1.2</li>
+    		  <li>Enter free-form text - single stop word; Disease.  Expect: normal query string.</li>
+    		  <li>Enter free-form text - multiple stop words; disease and phenotypes.  Expect:  normal query string.</li>
+    		  <li>Enter free-form text - single stop words/booleans; disease AND phenotypes.  Expect:  normal query string.</li>
+    		  <li>Enter free-form text - complex boolean w/ stop and regular words; cancer AND disease phenotypes.  Expect: </li>
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box special characters - with and without booleans
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Test 1.1</li>
-    		  <li>Test 1.2</li>
+    		  <li>Enter free-form text - single token with special char; xxxxxx.  Expect:</li>
+    		  <li>Enter free-form text - multiple tokens with special char; xxxx xxxx.  Expect:</li>
+    		  <li>Enter free-form text - single token with special char/boolean; xxx OR xxx.  Expect:</li>
+    		  <li>Enter free-form text - multiple tokens with special char; xxxx xxxx AND xxx xxxx.  Expect:</li>
     	    </ol></li>
   
 		</ol>
