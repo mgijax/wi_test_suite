@@ -62,90 +62,97 @@
 		<h3>Manual tests</h3>
 		
 		<ol>
-    		<li>Verify Phenotype/Disease query box existing functionality works (building of query string)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<li>Verify Phenotype/Disease query box existing functionality works (building of query string) and YSF text.
+    		<p concordion:assertTrue="false">FAIL: jlewis 9/19/2014 - 1.9 failed; all others passed.</p>  
     		<ol>
-    		  <li>Enter text and select term from A/C that has 1 token; obese.  Expect: MP:0001261 displayed</li>
-    		  <li>Enter text and select term from A/C that has multiple tokens; xxx xxx xxx.  Expect:</li>
-    		  <li>Enter text and select terms from A/C to create a comma delimited list of ids.  Expect:</li>
-    		  <li>Enter text and select the same term twice.  Expect:</li>
-    		  <li>Enter free-form text - single token; xxxxx.  Expect:</li>
-    		  <li>Enter free-form text - multiple tokens; xxx xxx xxx.  Expect:</li>
-    		  <li>Enter free-form text - OMIM id; nnnnnn.  Expect:</li>
-    		  <li>Enter free-form text - MP id; MP:nnnnn.  Expect:</li>
-    		  <li>Enter free-form list of ids (MP, OMIM, MP alt id); nnnnn.  Expect:</li>
-    		 
+    		  <li>Enter text and select term from A/C that has 1 token; obese.  Expect: MP:0001261, in query string; YSF = includes term name</li>
+    		  <li>Enter text and select term from A/C that has multiple tokens.  Expect: single id w/ comma in QS; YSF = includes term name</li>
+    		  <li>Enter text and select 3 terms from A/C to create a comma delimited list of ids.  Expect: 3 ids listed w/ commas in QS; YSF = include term names; also OR displayed.</li>
+    		  <li>Enter text and select the same term twice.  Expect: the same 2 ids listed twice; YSF = also twice w/ names</li>
+    		  <li>Enter free-form text - single token; obese.  Expect: no commas; YSF = same text in bold</li>
+    		  <li>Enter free-form text - multiple tokens; systemic lupus.  Expect: no commas in QS; YSF = implicit ORs displayed with text; systemic OR lupus</li>
+    		  <li>Enter free-form text - OMIM id; 166950.  Expect: no commas in QS; YSF = id with term name all in bold </li>
+    		  <li>Enter free-form text - MP id; MP:0012506.  Expect: no commas in QS; YSF = id with term name all in bold</li>
+    		  <li>FAILED: Enter free-form text of ids with commas but no space; YSF = ids with term names all in bold</li>
+    		  <li>Enter free-form list of ids (MP, OMIM, MP alt id); MP:0000774, 211980, MP:0001946.  Expect: QS as typed; YSF = ids w/ names in parens all in bold; except Alt ID - no name - public bug? (search ok)</li>
+    		  <li>Enter MP alt id with different prefix; Fyler:1622.  Expect QS as typed; YSF = id in bold (no term name here - public bug? search ok)
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box boolean operations (simple)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/19/2014</p>  
     		<ol>
-    		  <li>Enter free-form text - boolean OR with single tokens; xxx OR xxx.  Expect:</li>
-    		  <li>Enter free-form text - boolean AND with single tokens; xxx AND xxx.  Expect:</li>
-    		  <li>Enter free-form text - boolean AND NOT with single tokens; xxx AND NOT xxx.  Expect:</li>
-    		  <li>Enter free-form text - boolean NOT; NOT xxx.  Expect:</li>
-    		  <li>Use A/C selection - boolean OR with single tokens; xxx OR xxx.  Expect:</li>
-    		  <li>Use A/C selection - boolean AND with single tokens; xxx AND xxx.  Expect:</li>
-    		  <li>Use A/C selection - boolean AND NOT with single tokens; xxx AND NOT xxx.  Expect:</li>
-    		  <li>Use A/C selection - boolean NOT; NOT xxx.  Expect:</li>
-    		  <li>Use combo of A/C and free-form text - boolean OR with single tokens; xxx OR xxx.  Expect:</li>
-    		  <li>Use combo of A/C and free-form text - boolean AND with single tokens; xxx AND xxx.  Expect:</li>
-    		  <li>Use combo of A/C and free-form text - boolean AND NOT with single tokens; xxx AND NOT xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean OR with single tokens; albino OR blindness.  Expect: QS: comma inserted after OR; YSF: text entered w/out comma</li>
+    		  <li>Enter free-form text - boolean AND with single tokens; teratoma AND ovarian.  Expect: QS: comma inserted after AND; YSF: text entered w/out comma and 3 sets of parens.</li>
+    		  <li>Enter free-form text - boolean AND NOT with single tokens; asthma AND NOT lung.  Expect: QS: comma inserted after AND and also after NOT; YSF: parens around (NOT lung) and no commas</li>
+    		  <li>Enter free-form text - boolean NOT; NOT piebald with Kit*.  Expect: QS: comma inserted after NOT; YSF: text displayed in bold w/out comma</li>
+    		  <li>Use A/C selection - boolean OR; id OR id  Expect: QS: comma inserted after OR; YSF: ids w/ term names</li>
+    		  <li>Use A/C selection - boolean AND; id AND id.  Expect: QS: comma inserted after AND; YSF: ((small limb buds - MP:0004575) AND (absent limb buds - MP:0004573))</li>
+    		  <li>Use A/C selection - boolean AND NOT; id AND NOT id.  Expect:YSF - ((small limb buds - MP:0004575) AND (NOT absent limb buds - MP:0004573))</li>
+    		  <li>Use A/C selection - boolean NOT; NOT id.  Expect: NOT abnormal eye development - MP:0001286</li>
+    		  <li>Use combo of A/C and free-form text - boolean OR; xxx OR xxx.  Expect: blindness - MP:0002001 OR albino</li>
+    		  <li>Use combo of A/C and free-form text - boolean AND; xxx AND xxx.  Expect: ((blindness) AND (fused cornea and lens - MP:0001307))</li>
+    		  <li>Use combo of A/C and free-form text - boolean AND NOT; xxx AND NOT xxx.  Expect: YSF = ((Breast Cancer - 114480) AND (NOT albino))</li>
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box boolean operations (complex)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">IN PROGRESS...</p>  
     		<ol>
-    		  <li>Enter free-form text - boolean OR with single tokens; xxx OR xxx OR xxx.  Expect:</li>
-    		  <li>Enter free-form text - boolean AND with single tokens; xxx AND xxx AND xxx.  Expect:</li>
-    		  <li>Enter free-form text - boolean AND NOT with single tokens; xxx AND NOT xxx AND NOT xxx.  Expect:</li>
-    		  <li>Use A/C selection - boolean OR with single tokens; xxx OR xxx OR xxx.  Expect:</li>
-    		  <li>Use A/C selection - boolean AND with single tokens; xxx AND xxx AND xxx.  Expect:</li>
-    		  <li>Use A/C selection - boolean AND NOT with single tokens; xxx AND NOT xxx AND NOT xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean OR with single tokens; diabetes OR cleft OR teratoma.  Expect: YSF: entered text in bold</li>
+    		  <li>Enter free-form text - boolean AND with single tokens; cancer AND lung AND tumor.  Expect: QS: commas inserted; YSF: entered text in bold plus parens</li>
+    		  <li>Enter free-form text - boolean AND NOT with single tokens; lung AND NOT cancer AND NOT tumor.  Expect: QS: commas inserted; YSF: entered text in bold plus parens</li>
+    		  <li>Use A/C selection - boolean OR; xxx OR xxx OR xxx.  Expect: Cleft Soft Palate - 119570 OR Teratoma, Ovarian - 166950 OR Piebald Trait; PBT - 172800</li>
+    		  <li>Use A/C selection - boolean AND; park1 AND park2 AND park3.  Expect: YSF: ids & names in bold plus ANDs plus parens. </li>
+    		  <li>Use A/C selection - boolean AND NOT; xxx AND NOT xxx AND NOT xxx.  Expect: ((Breast Cancer - 114480) AND (NOT Breast-Ovarian Cancer, Familial, Susceptibility to, 1; BROVCA1 - 604370) AND (NOT Breast-Ovarian Cancer, Familial, Susceptibility to, 2; BROVCA2 - 612555))</li>
+    		  <li> +++++++++++++++++++++++++++++++++</li>
     		  <li>Use combo of A/C and free-form text - boolean OR with single tokens; xxx OR xxx OR xxx.  Expect:</li>
     		  <li>Use combo of A/C and free-form text - boolean AND with single tokens; xxx AND xxx AND xxx.  Expect:</li>
     		  <li>Use combo of A/C and free-form text - boolean AND NOT with single tokens; xxx AND NOT xxx AND NOT xxx.  Expect:</li>
     		  <li>Use combination of operators - xxx AND xxx OR xxx.  Expect:</li>
     		  <li>Use combination of operators - xxx OR xxx AND xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean OR with mult tokens; xxx xxx OR xxx xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean AND with mult tokens; xxx xxx AND xxx xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean AND NOT with mult tokens; xxx xxx AND NOT xxx xxx.  Expect:</li>
+    		  <li>Enter free-form text - boolean NOT; NOT xxx xxx .  Expect:</li>
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box double quotes - with and without booleans 
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/19/2014</p>  
     		<ol>
-    		  <li>Enter free-form text - multiple tokens w/ double quotes; "xxx xxx xxx".  Expect:</li>
-    		  <li>Enter free-form text - single token w/ double quotes; "xxxx".  Expect: same results as without double quotes.</li>
-    		  <li>Enter free-form text - multiple tokens w/ double quotes; "xxx xxx xxx" AND "xxx xxx xxx".  Expect:</li>
-    		  <li>Enter free-form text - single token w/ double quotes; "xxxx" OR "xxxx".  Expect: same results as without double quotes.</li>
-    		  <li>Enter free-form text - complex boolean query w/ dbl quotes; "xxxx" OR "xxx xxx xxx" AND "xxx xxx"</li>
+    		  <li>Enter free-form text - multiple tokens w/ double quotes; "abnormal brain size".  Expect: YSF=text entered in bold w/ quotes.</li>
+    		  <li>FAIL (no quotes in YSF):Enter free-form text - single token w/ double quotes; "albino".  Expect: YSF=text entered in bold w/ quotes.</li>
+    		  <li>Enter free-form text - multiple tokens w/ double quotes; "abnormal brain size" AND "abnormal brain weight".  Expect: YSF=text entered in bold with quotes; parens added.</li>
+    		  <li>FAIL (no quotes in YSF):Enter free-form text - single token w/ double quotes; "albino" OR "pigmentation".  Expect: YSF = text entered in bold w/ quotes; no parens.</li>
+    		  <li>Enter free-form text - complex boolean query w/ dbl quotes; "yellow coat" OR "black coat" AND MP:0012076.  Expect: (("yellow coat" OR "black coat") AND (abnormal agouti pigmentation - MP:0012076))</li>
     		  
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box wild card - with and without booleans
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/19/2014</p>  
     		<ol>
-    		  <li>Enter free-form text - multiple tokens w/ wildcards; xxx* xxx*.  Expect:</li>
-    		  <li>Enter free-form text - single token w/ wildcard; xxx*.  Expect:</li>
-    		  <li>Enter free-form text - multiple tokens w/ wild cards; xxx* xxx* AND xxx* xxx*.  Expect:</li>
-    		  <li>Enter free-form text - single token w/wild cards; xxx* OR xxx*.  Expect: </li>
-    		  <li>Enter free-form text - complex boolean query w/ wild cards; xxx* OR xxx* xxx* xxx* AND xxx* xxx*</li>
+    		  <li>Enter free-form text - multiple tokens w/ wildcards; diab* mell*.  Expect: YSF: entered text in bold plus implicit OR</li>
+    		  <li>Enter free-form text - single token w/ wildcard; alzh*.  Expect: YSF: entered text in bold</li>
+    		  <li>Enter free-form text - multiple tokens w/ wild cards; diab* AND mell*.  Expect: QS: comma inserted after AND. YSF: entered text in bold plus parens</li>
+    		  <li>Enter free-form text - single token w/wild cards; xxx* xxx* OR xxx* xxx*.  Expect: Bad test case -- this is just one long OR statement; can't quote w/ wildcards</li>
+    		  <li>Enter free-form text - complex boolean query w/ wild cards; parkin* OR alzheimer* AND abnormal brain*.  Expect:  ((parkin* OR alzheimer*) AND (abnormal OR brain*))</li>
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box stop words - with and without boolean operations
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/19/2014</p>  
     		<ol>
-    		  <li>Enter free-form text - single stop word; Disease.  Expect: normal query string.</li>
-    		  <li>Enter free-form text - multiple stop words; disease and phenotypes.  Expect:  normal query string.</li>
-    		  <li>Enter free-form text - single stop words/booleans; disease AND phenotypes.  Expect:  normal query string.</li>
-    		  <li>Enter free-form text - complex boolean w/ stop and regular words; cancer AND disease phenotypes.  Expect: </li>
+    		  <li>Enter free-form text - single stop word; Disease.  Expect: YSF: entered text in bold.</li>
+    		  <li>Enter free-form text - multiple stop words; disease and phenotype.  Expect:  entered text in bold plus ORs (implicit ORs).</li>
+    		  <li>Enter free-form text - single stop words/booleans; disease AND phenotype.  Expect:  entered text in bold plus parens.</li>
+    		  <li>Enter free-form text - complex boolean w/ stop and regular words; cancer AND disease phenotype.  Expect: entered text in bold plus parens and implicit OR</li>
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box special characters - with and without booleans
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/19/2014</p>  
     		<ol>
-    		  <li>Enter free-form text - single token with special char; xxxxxx.  Expect:</li>
-    		  <li>Enter free-form text - multiple tokens with special char; xxxx xxxx.  Expect:</li>
-    		  <li>Enter free-form text - single token with special char/boolean; xxx OR xxx.  Expect:</li>
-    		  <li>Enter free-form text - multiple tokens with special char; xxxx xxxx AND xxx xxxx.  Expect:</li>
+    		  <li>FAIL (comma dropped): Enter free-form text - single token with special char; 46,xy.  Expect: entered text in bold including comma</li>
+    		  <li>FAIL (quotes dropped): Enter free-form text - single token with special char in quotes; "(-245)".  Expect: entered text in bold including quotes.</li>
+    		  <li>FAIL (slash inserted): Enter free-form text - special character and wild card; 3-meth*.  Expect: entered text in bold</li>
+    		  <li>Enter free-form text - special character in quotes; "alzheimer disease; ad".  Expect: entered text in bold.</li>
+    		  <li>FAIL (2nd half of boolean query not in quotes in YSF): Enter free-form text - boolean and special chars:  "alzheimer disease; AD" OR "(-245)".  Expect: entered text in bold.</li>
     	    </ol></li>
   
 		</ol>
