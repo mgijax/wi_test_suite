@@ -95,24 +95,38 @@
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box boolean operations (complex)
-    		<p concordion:assertTrue="false">IN PROGRESS...</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 9/22/2014 - problem cases noted below.</p>  
     		<ol>
     		  <li>Enter free-form text - boolean OR with single tokens; diabetes OR cleft OR teratoma.  Expect: YSF: entered text in bold</li>
     		  <li>Enter free-form text - boolean AND with single tokens; cancer AND lung AND tumor.  Expect: QS: commas inserted; YSF: entered text in bold plus parens</li>
     		  <li>Enter free-form text - boolean AND NOT with single tokens; lung AND NOT cancer AND NOT tumor.  Expect: QS: commas inserted; YSF: entered text in bold plus parens</li>
     		  <li>Use A/C selection - boolean OR; xxx OR xxx OR xxx.  Expect: Cleft Soft Palate - 119570 OR Teratoma, Ovarian - 166950 OR Piebald Trait; PBT - 172800</li>
-    		  <li>Use A/C selection - boolean AND; park1 AND park2 AND park3.  Expect: YSF: ids & names in bold plus ANDs plus parens. </li>
+    		  <li>Use A/C selection - boolean AND; park1 AND park2 AND park3.  Expect: YSF: ids and names in bold plus ANDs plus parens. </li>
     		  <li>Use A/C selection - boolean AND NOT; xxx AND NOT xxx AND NOT xxx.  Expect: ((Breast Cancer - 114480) AND (NOT Breast-Ovarian Cancer, Familial, Susceptibility to, 1; BROVCA1 - 604370) AND (NOT Breast-Ovarian Cancer, Familial, Susceptibility to, 2; BROVCA2 - 612555))</li>
-    		  <li> +++++++++++++++++++++++++++++++++</li>
-    		  <li>Use combo of A/C and free-form text - boolean OR with single tokens; xxx OR xxx OR xxx.  Expect:</li>
-    		  <li>Use combo of A/C and free-form text - boolean AND with single tokens; xxx AND xxx AND xxx.  Expect:</li>
-    		  <li>Use combo of A/C and free-form text - boolean AND NOT with single tokens; xxx AND NOT xxx AND NOT xxx.  Expect:</li>
-    		  <li>Use combination of operators - xxx AND xxx OR xxx.  Expect:</li>
-    		  <li>Use combination of operators - xxx OR xxx AND xxx.  Expect:</li>
-    		  <li>Enter free-form text - boolean OR with mult tokens; xxx xxx OR xxx xxx.  Expect:</li>
-    		  <li>Enter free-form text - boolean AND with mult tokens; xxx xxx AND xxx xxx.  Expect:</li>
-    		  <li>Enter free-form text - boolean AND NOT with mult tokens; xxx xxx AND NOT xxx xxx.  Expect:</li>
-    		  <li>Enter free-form text - boolean NOT; NOT xxx xxx .  Expect:</li>
+    		  <li>Use combo of A/C and free-form text - boolean combo with single tokens; xxx OR xxx AND xxx (first 2 terms via A/C and list FF).  Expect: ((obese - MP:0001261 OR blindness - MP:0002001) AND (diabetes))</li>
+    		  <li>FAIL: lost term name; Same query - insert parens to override default.  Expect: same as previous YSF except parens in different place.  Results:obese - MP:0001261 OR ((MP:0002001) AND (diabetes))</li> 
+    		  <li>Use combo of A/C and free-form text - boolean ANDs with single tokens; xxx AND xxx AND xxx; (first term FF, last 2 A/C).  Expect: ((obesity) AND (blindness - MP:0002001) AND (Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853))</li>
+    		  <li>Use combo of A/C and free-form text - boolean AND NOT with single tokens; xxx OR xxx AND NOT xxx.  Expect: ((obesity OR blindness - MP:0002001) AND (NOT diabetes))</li>
+    		  <li>FAIL: missing term name; Same query - insert parens to override default.  Results: obesity OR ((MP:0002001) AND (NOT diabetes))
+    		  <li>Use combination of operators (AC) - xxx AND xxx OR xxx.  Expect:((obese - MP:0001261) AND (blindness - MP:0002001 OR Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853))</li>
+    		  <li>FAIL - missing term name(s); see below. Use same query and insert parens to override default.  Expect: same as entered query plus parens and terms.
+    		  <ul><li>inserted paren before comma of 2nd term -- lost 2 term names - ((MP:0001261) AND (MP:0002001)) OR Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853</li>
+    		      <li>inserted paren after comma of 2nd term - lost 1 term name - ((MP:0001261) AND (blindness - MP:0002001)) OR Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853
+    		  </ul></li>
+    		  <li>Use combination of operators (AC) - xxx OR xxx AND xxx.  Expect: ((obese - MP:0001261 OR blindness - MP:0002001) AND (Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853))</li>
+    		  <li>FAIL - missing term names. Use same query and insert parens to override default; MP:0001261, OR, (MP:0002001, AND, 125853,).  Expect: same as previous YSF text with different placement of parens.
+    		  <ul><li>Results= obese - MP:0001261 OR ((MP:0002001) AND (Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853))</li></ul></li>
+    		  <li>Use combination of operators (FF) - xxx AND xxx OR xxx; obesity AND blindness OR diabetes  Expect: ((obesity) AND (blindness OR diabetes))</li>
+    		  <li>Use same query and insert parens to override default - (obesity AND blindness) OR diabetes  Expect: entered text in YSF, plus add'l sets of parens.</li>
+    		  <li>Use combination of operators (FF) - obesity OR blindness AND diabetes.  Expect: ((obesity OR blindness) AND (diabetes))</li>
+    		  <li>Use same query and insert parens to override default - obesity OR (blindness AND diabetes).  Expect: entered text in YSF, plus add'l sets of parens.</li>
+    		  <li>Enter free-form text - boolean OR with mult tokens; piebald trait; PBT OR teratoma ovarian.  Expect: piebald OR trait; OR PBT OR teratoma OR ovarian</li>
+    		  <li>Enter free-form text - boolean AND with mult tokens; piebald trait; PBT AND teratoma ovarian.  Expect: ((piebald OR trait; OR PBT) AND (teratoma OR ovarian)). (Test note -include test for US72)</li>
+    		  <li>Try same test above inserting double quotes -- "piebald trait; PBT" AND "teratoma ovarian".  Expect: (("piebald trait; PBT") AND ("teratoma ovarian"))</li>
+    		  <li>Enter free-form text - boolean AND NOT with mult tokens; Diabetes mellitus Noninsulin AND NOT abdominal obesity.  Expect:((Diabetes OR mellitus OR Noninsulin) AND (NOT abdominal OR obesity)) Test note - include test for US 72</li>
+    		  <li>Enter free-form text - boolean NOT; NOT abdominal obesity.  Expect: not sure; what I got was NOT abdominal OR obesity</li>
+    		  <li>FAIL: NOT and parens dropped.  Use same query string - insert parens and OR; NOT (abdominal OR obesity).  Expect: same query string in YSF.</li>
+    		  <li>Use same query string - insert double quotes - NOT "abdominal obesity".  Expect: same query string in YSF.
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box double quotes - with and without booleans 
