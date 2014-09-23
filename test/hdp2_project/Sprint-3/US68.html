@@ -165,6 +165,22 @@
     		  <li>Enter free-form text - special character in quotes; "alzheimer disease; ad".  Expect: entered text in bold.</li>
     		  <li>Enter free-form text - boolean and special chars:  "alzheimer disease; AD" OR "(-245)".  Expect: entered text in bold.</li>
     	    </ol></li>
+    	    
+    	     <li>Verify You Searched For text works as before for the Genes & Location boxes
+    		<p concordion:assertTrue="true">PASS - jlewis 9/23/2014</p>  
+    		<ol>
+    		  <li>Enter text in all 3 query boxes.  Expect: YSF to display all text.</li>
+    		  <li>Enter text in the 3 query boxes one at a time.  Expect: YSF to display appropriate text for each search.</li>
+    		  <li>Enter text with comma delimiters in the gene box and boolean search in Pheno box.  Expect: YSF to display entered text.</li>
+    		  <li>Enter multiple locations in location box and boolean search in Pheno box.  Expect YSF to display entered text.</li>
+    		  
+    	    </ol></li>
+    	    
+    	    <li>Verify error messages
+    		<p concordion:assertTrue="true">PASS - jlewis 9/23/2014</p>  
+    		<ol>
+    		  <li>Enter text with 2 boolean operators in parens -- this will generate an error message.  obese (AND AND) blindness.</li>
+    	    </ol></li>
   
 		</ol>
 	</div>
