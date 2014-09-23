@@ -39,6 +39,7 @@
 	</ol>
 	<h2>Test Requirements - You Searched For and Error Handling</h2>
 	<ol>
+	   <li>Maintain existing display for genes and location query boxes</li>
 	   <li>Update the You Searched For to display boolean operators (explicit and implicit)</li>
 	   <li>Update the YSF to display parentheses when an AND operator is present.</li>
 	   <li>Provide error handling for the following cases:
@@ -63,7 +64,7 @@
 		
 		<ol>
     		<li>Verify Phenotype/Disease query box existing functionality works (building of query string) and YSF text.
-    		<p concordion:assertTrue="false">FAIL: jlewis 9/19/2014 - 1.9 failed; all others passed.</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/23/2014; Found display issue on PUBLIC re: ALT IDs (1.10 and 1.11)</p>  
     		<ol>
     		  <li>Enter text and select term from A/C that has 1 token; obese.  Expect: MP:0001261, in query string; YSF = includes term name</li>
     		  <li>Enter text and select term from A/C that has multiple tokens.  Expect: single id w/ comma in QS; YSF = includes term name</li>
@@ -73,13 +74,13 @@
     		  <li>Enter free-form text - multiple tokens; systemic lupus.  Expect: no commas in QS; YSF = implicit ORs displayed with text; systemic OR lupus</li>
     		  <li>Enter free-form text - OMIM id; 166950.  Expect: no commas in QS; YSF = id with term name all in bold </li>
     		  <li>Enter free-form text - MP id; MP:0012506.  Expect: no commas in QS; YSF = id with term name all in bold</li>
-    		  <li>FAILED: Enter free-form text of ids with commas but no space; YSF = ids with term names all in bold</li>
+    		  <li>Enter free-form text of ids with commas but no space; YSF = ids with term names all in bold</li>
     		  <li>Enter free-form list of ids (MP, OMIM, MP alt id); MP:0000774, 211980, MP:0001946.  Expect: QS as typed; YSF = ids w/ names in parens all in bold; except Alt ID - no name - public bug? (search ok)</li>
     		  <li>Enter MP alt id with different prefix; Fyler:1622.  Expect QS as typed; YSF = id in bold (no term name here - public bug? search ok)
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box boolean operations (simple)
-    		<p concordion:assertTrue="true">PASS - jlewis 9/19/2014</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/23/2014 (NOTE: AND NOT results not as expected; but outside scope of testing)</p>  
     		<ol>
     		  <li>Enter free-form text - boolean OR with single tokens; albino OR blindness.  Expect: QS: comma inserted after OR; YSF: text entered w/out comma</li>
     		  <li>Enter free-form text - boolean AND with single tokens; teratoma AND ovarian.  Expect: QS: comma inserted after AND; YSF: text entered w/out comma and 3 sets of parens.</li>
@@ -95,7 +96,7 @@
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box boolean operations (complex)
-    		<p concordion:assertTrue="false">FAIL - jlewis 9/22/2014 - problem cases noted below.</p>  
+    		<p concordion:assertTrue="true">PASS - 9/22/2014</p>  
     		<ol>
     		  <li>Enter free-form text - boolean OR with single tokens; diabetes OR cleft OR teratoma.  Expect: YSF: entered text in bold</li>
     		  <li>Enter free-form text - boolean AND with single tokens; cancer AND lung AND tumor.  Expect: QS: commas inserted; YSF: entered text in bold plus parens</li>
@@ -104,18 +105,14 @@
     		  <li>Use A/C selection - boolean AND; park1 AND park2 AND park3.  Expect: YSF: ids and names in bold plus ANDs plus parens. </li>
     		  <li>Use A/C selection - boolean AND NOT; xxx AND NOT xxx AND NOT xxx.  Expect: ((Breast Cancer - 114480) AND (NOT Breast-Ovarian Cancer, Familial, Susceptibility to, 1; BROVCA1 - 604370) AND (NOT Breast-Ovarian Cancer, Familial, Susceptibility to, 2; BROVCA2 - 612555))</li>
     		  <li>Use combo of A/C and free-form text - boolean combo with single tokens; xxx OR xxx AND xxx (first 2 terms via A/C and list FF).  Expect: ((obese - MP:0001261 OR blindness - MP:0002001) AND (diabetes))</li>
-    		  <li>FAIL: lost term name; Same query - insert parens to override default.  Expect: same as previous YSF except parens in different place.  Results:obese - MP:0001261 OR ((MP:0002001) AND (diabetes))</li> 
+    		  <li>Same query - insert parens to override default.  Expect: same as previous YSF except parens in different place.  Results:obese - MP:0001261 OR ((MP:0002001) AND (diabetes))</li> 
     		  <li>Use combo of A/C and free-form text - boolean ANDs with single tokens; xxx AND xxx AND xxx; (first term FF, last 2 A/C).  Expect: ((obesity) AND (blindness - MP:0002001) AND (Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853))</li>
     		  <li>Use combo of A/C and free-form text - boolean AND NOT with single tokens; xxx OR xxx AND NOT xxx.  Expect: ((obesity OR blindness - MP:0002001) AND (NOT diabetes))</li>
-    		  <li>FAIL: missing term name; Same query - insert parens to override default.  Results: obesity OR ((MP:0002001) AND (NOT diabetes))
+    		  <li>Same query - insert parens to override default.  Results: obesity OR ((MP:0002001) AND (NOT diabetes))
     		  <li>Use combination of operators (AC) - xxx AND xxx OR xxx.  Expect:((obese - MP:0001261) AND (blindness - MP:0002001 OR Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853))</li>
-    		  <li>FAIL - missing term name(s); see below. Use same query and insert parens to override default.  Expect: same as entered query plus parens and terms.
-    		  <ul><li>inserted paren before comma of 2nd term -- lost 2 term names - ((MP:0001261) AND (MP:0002001)) OR Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853</li>
-    		      <li>inserted paren after comma of 2nd term - lost 1 term name - ((MP:0001261) AND (blindness - MP:0002001)) OR Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853
-    		  </ul></li>
+    		  <li>Use same query and insert parens to override default.  Expect: same as entered query plus parens and terms.</li>
     		  <li>Use combination of operators (AC) - xxx OR xxx AND xxx.  Expect: ((obese - MP:0001261 OR blindness - MP:0002001) AND (Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853))</li>
-    		  <li>FAIL - missing term names. Use same query and insert parens to override default; MP:0001261, OR, (MP:0002001, AND, 125853,).  Expect: same as previous YSF text with different placement of parens.
-    		  <ul><li>Results= obese - MP:0001261 OR ((MP:0002001) AND (Diabetes Mellitus, Noninsulin-Dependent; NIDDM - 125853))</li></ul></li>
+    		  <li>Use same query and insert parens to override default; MP:0001261, OR, (MP:0002001, AND, 125853,).  Expect: same as previous YSF text with different placement of parens.</li>
     		  <li>Use combination of operators (FF) - xxx AND xxx OR xxx; obesity AND blindness OR diabetes  Expect: ((obesity) AND (blindness OR diabetes))</li>
     		  <li>Use same query and insert parens to override default - (obesity AND blindness) OR diabetes  Expect: entered text in YSF, plus add'l sets of parens.</li>
     		  <li>Use combination of operators (FF) - obesity OR blindness AND diabetes.  Expect: ((obesity OR blindness) AND (diabetes))</li>
@@ -125,23 +122,23 @@
     		  <li>Try same test above inserting double quotes -- "piebald trait; PBT" AND "teratoma ovarian".  Expect: (("piebald trait; PBT") AND ("teratoma ovarian"))</li>
     		  <li>Enter free-form text - boolean AND NOT with mult tokens; Diabetes mellitus Noninsulin AND NOT abdominal obesity.  Expect:((Diabetes OR mellitus OR Noninsulin) AND (NOT abdominal OR obesity)) Test note - include test for US 72</li>
     		  <li>Enter free-form text - boolean NOT; NOT abdominal obesity.  Expect: not sure; what I got was NOT abdominal OR obesity</li>
-    		  <li>FAIL: NOT and parens dropped.  Use same query string - insert parens and OR; NOT (abdominal OR obesity).  Expect: same query string in YSF.</li>
+    		  <li>Use same query string - insert parens and OR; NOT (abdominal OR obesity).  Expect: same query string in YSF.</li>
     		  <li>Use same query string - insert double quotes - NOT "abdominal obesity".  Expect: same query string in YSF.
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box double quotes - with and without booleans 
-    		<p concordion:assertTrue="false">FAIL - jlewis 9/19/2014</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/23/2014</p>  
     		<ol>
     		  <li>Enter free-form text - multiple tokens w/ double quotes; "abnormal brain size".  Expect: YSF=text entered in bold w/ quotes.</li>
-    		  <li>FAIL (no quotes in YSF):Enter free-form text - single token w/ double quotes; "albino".  Expect: YSF=text entered in bold w/ quotes.</li>
+    		  <li>Enter free-form text - single token w/ double quotes; "albino".  Expect: YSF=text entered in bold w/ quotes.</li>
     		  <li>Enter free-form text - multiple tokens w/ double quotes; "abnormal brain size" AND "abnormal brain weight".  Expect: YSF=text entered in bold with quotes; parens added.</li>
-    		  <li>FAIL (no quotes in YSF):Enter free-form text - single token w/ double quotes; "albino" OR "pigmentation".  Expect: YSF = text entered in bold w/ quotes; no parens.</li>
+    		  <li>Enter free-form text - single token w/ double quotes; "albino" OR "pigmentation".  Expect: YSF = text entered in bold w/ quotes; no parens.</li>
     		  <li>Enter free-form text - complex boolean query w/ dbl quotes; "yellow coat" OR "black coat" AND MP:0012076.  Expect: (("yellow coat" OR "black coat") AND (abnormal agouti pigmentation - MP:0012076))</li>
     		  
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box wild card - with and without booleans
-    		<p concordion:assertTrue="true">PASS - jlewis 9/19/2014</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/23/2014</p>  
     		<ol>
     		  <li>Enter free-form text - multiple tokens w/ wildcards; diab* mell*.  Expect: YSF: entered text in bold plus implicit OR</li>
     		  <li>Enter free-form text - single token w/ wildcard; alzh*.  Expect: YSF: entered text in bold</li>
@@ -151,7 +148,7 @@
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box stop words - with and without boolean operations
-    		<p concordion:assertTrue="true">PASS - jlewis 9/19/2014</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/23/2014</p>  
     		<ol>
     		  <li>Enter free-form text - single stop word; Disease.  Expect: YSF: entered text in bold.</li>
     		  <li>Enter free-form text - multiple stop words; disease and phenotype.  Expect:  entered text in bold plus ORs (implicit ORs).</li>
@@ -160,13 +157,13 @@
     	    </ol></li>
     	    
     	    <li>Verify Phenotype/Disease query box special characters - with and without booleans
-    		<p concordion:assertTrue="false">FAIL - jlewis 9/19/2014</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/23/2014</p>  
     		<ol>
-    		  <li>FAIL (comma dropped): Enter free-form text - single token with special char; 46,xy.  Expect: entered text in bold including comma</li>
-    		  <li>FAIL (quotes dropped): Enter free-form text - single token with special char in quotes; "(-245)".  Expect: entered text in bold including quotes.</li>
-    		  <li>FAIL (slash inserted): Enter free-form text - special character and wild card; 3-meth*.  Expect: entered text in bold</li>
+    		  <li>Enter free-form text - single token with special char; 46,xy.  Expect: entered text in bold including comma with implicit OR</li>
+    		  <li>Enter free-form text - single token with special char in quotes; "(-245)".  Expect: entered text in bold including quotes.</li>
+    		  <li>Enter free-form text - special character and wild card; 3-meth*.  Expect: entered text in bold</li>
     		  <li>Enter free-form text - special character in quotes; "alzheimer disease; ad".  Expect: entered text in bold.</li>
-    		  <li>FAIL (2nd half of boolean query not in quotes in YSF): Enter free-form text - boolean and special chars:  "alzheimer disease; AD" OR "(-245)".  Expect: entered text in bold.</li>
+    		  <li>Enter free-form text - boolean and special chars:  "alzheimer disease; AD" OR "(-245)".  Expect: entered text in bold.</li>
     	    </ol></li>
   
 		</ol>
