@@ -30,27 +30,27 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
 	<ol>
-	   <li>Change the GXD QF auto-complete gene counts for MP and OMIM terms to use the new rolled-up data (simple genotypes)</li>
-	   <li>The following rules to determine whether to roll-up a OMIM or MP annotation to a marker and include it in the displayed count are as follows:
+	   <li>Change the GXD QF auto-complete gene counts for MP and OMIM terms to use the new rolled-up data (simple genotypes)
+	     <ul><li>The following rules to determine whether to roll-up a OMIM or MP annotation to a marker and include it in the displayed count are as follows:
 	       <ol><li>Roll-up to a gene for MP/OMIM annotations for a simple 1 marker genotype.</li>
 	           <li>Roll-up to a gene for MP/OMIM annotations for a conditional genotype that has just 1 marker when recombinase, transgenic reporter, and wild type alleles are factored out.</li>
 	           <li>Roll-up to a gene for MP/OMIM annotations to a complex genotype that has just 1 marker when transgenic reporters are factored out.</li>
 	           <li>Do not return Gt(ROSA)26Sor as a match for any MP/OMIM annotations it may have.</li>
 	           <li>Factor out MP annotations to MP:0003012; "no phenotypic analysis".</li>
 	           <li>Do not return any markers for matches to normal MP or NOT OMIM annotations.</li>
-	       </ol></li>
+	       </ol></li></ul></li>
 	   
 	   <li>Change the GXD QF/Summary to query the data with the "rolled-up" using the new implementation of the roll-up rules on the Production server instead of the HMDC data as currently implemented.
-	       <ul><li>The results are expected to be the same for the most part.  Exceptions include: slash alleles not factored out; transgenic reporter bug (factoring out when multiple attributes exist)</ul></li> 
-	   <li>The following rules to determine whether to roll-up a OMIM or MP annotation to a marker and search expression results for it are as follows:
-	       <ol><li>Roll-up to a gene for MP/OMIM annotations for a simple 1 marker genotype.</li>
-	           <li>Roll-up to a gene for MP/OMIM annotations for a conditional genotype that has just 1 marker when recombinase, transgenic reporter, and wild type alleles are factored out.</li>
-	           <li>Roll-up to a gene for MP/OMIM annotations to a complex genotype that has just 1 marker when transgenic reporters are factored out.</li>
-	           <li>Do not return Gt(ROSA)26Sor as a match for any MP/OMIM annotations it may have.</li>
-	           <li>Factor out MP annotations to MP:0003012; "no phenotypic analysis".</li>
-	           <li>Do not return any markers for matches to normal MP or NOT OMIM annotations.</li>
-	       </ol></li>
-	   
+	       <ul><li>The results are expected to be the same for the most part.  Exceptions include: slash alleles not factored out; transgenic reporter bug (factoring out when multiple attributes exist)
+	           <li>The following rules to determine whether to roll-up a OMIM or MP annotation to a marker and search expression results for it are as follows:
+	             <ol><li>Roll-up to a gene for MP/OMIM annotations for a simple 1 marker genotype.</li>
+	                 <li>Roll-up to a gene for MP/OMIM annotations for a conditional genotype that has just 1 marker when recombinase, transgenic reporter, and wild type alleles are factored out.</li>
+	                 <li>Roll-up to a gene for MP/OMIM annotations to a complex genotype that has just 1 marker when transgenic reporters are factored out.</li>
+	                 <li>Do not return Gt(ROSA)26Sor as a match for any MP/OMIM annotations it may have.</li>
+	                 <li>Factor out MP annotations to MP:0003012; "no phenotypic analysis".</li>
+	                 <li>Do not return any markers for matches to normal MP or NOT OMIM annotations.</li>
+	            </ol></li>
+	       </ul></li> 
 	   
 	
 	   
