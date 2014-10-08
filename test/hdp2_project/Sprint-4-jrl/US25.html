@@ -80,10 +80,10 @@
     	    </ol></li>
     	    
     	    <li>Query for MP or OMIM ids that have annotations to simple genotypes (naturally simple; i.e. "super-simple")
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/8/14</p>  
     		<ol>
-    		  <li>Query for an MP term with an annotation to a simple hm genotype; MP:0005215; "abnormal pancreatic islet morphology".  Expect: Count=232; Pax4 one of the markers returned.</li>
-    		   <li>Query for an MP term with an annotation to a simple genotype for a cre allele; MP:0002608; increased hematocrit.  Expect: Count=nn ; Aqp2</li>
+    		  <li>Query for an MP term with an annotation to a simple hm genotype; MP:0005215; "abnormal pancreatic islet morphology".  Expect: Count=233; Pax4 one of the markers returned.</li>
+    		   <li>Query for an MP term with an annotation to a simple genotype for a cre allele; MP:0002608; increased hematocrit.  Expect: Count=53 ; Aqp2</li>
     		   <li>Query for an OMIM term with an annotation to a simple hm genotype; 211980; Lung Cancer.  Expect: count=11; Robo1 one of the markers returned.</li>
     		   <li>Query for an OMIM term with an annotation to a simple genotype for a cre allele; 119540; Cleft Palate, Isolated; CPI.  Expect: count=1; Satb2 marker returned.</li>
     		   <li>Query for an OMIM term with an annotation to a simple genotype for a transgenic reporter allele; 615538; Chromosome 22q13 Duplication Syndrome.  Expect: count=1; warning message because no GXD results.</li>
@@ -135,22 +135,21 @@
     		</ol></li>
     		
     		<li>Query for MP term that only has annotations to child terms.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jliews 10/8/14</p>  
     		<ol>
-    		   <li>Query for MP term with annotations to a child term via a simple genotype; MP:0008220; abnormal ventral commissure morphology.  Expect: count=40; Bhlhe22 returned in the results due to an annotation to MP:0008227; absent anterior commissure.</li>
-    		   <li>Query for MP term with only simple genotype annotations to child terms; MP:0009120; abnormal white fat cell lipid droplet size.  Expect: 6 genes returned: Cav1, Epg5, Kdma3a, Lclat1, Lpin1, Pck1.</li>
+    		   <li>Query for MP term with annotations to a child term via a simple genotype; MP:0008220; abnormal ventral commissure morphology.  Expect: count=41; Bhlhe22 returned in the results due to an annotation to MP:0008227; absent anterior commissure.</li>
+    		   <li>Query for MP term with only simple genotype annotations to child terms; MP:0009120; abnormal white fat cell lipid droplet size.  Expect: count=6; 5 genes returned: Cav1, Kdma3a, Lclat1, Lpin1, Pck1.</li>
     		   <li>Query for MP term's synonym (same term/expected results as above): "abnormal white adipocyte lipid droplet size".
-    		   <li>Query for MP term with annotations to a child term via a genotype that is not simple; MP:0008220; abnormal ventral commissure morphology.  Expect:  Map1b and Map2 not returned in the results due to complex genotype annotation to a child term, MP:0008226.</li>
+    		   <li>Query for MP term with annotations to a child term via a genotype that is not simple; MP:0008220; abnormal ventral commissure morphology.  Expect: count=41; Map1b and Map2 not returned in the results due to complex genotype annotation to a child term, MP:0008226.</li>
     		   
     	    </ol></li>
     	    
     	    
     	    <li>Query for MP annotations with a "normal" qualifier
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/8/14</p>  
     		<ol>
-    		   <li>Query for MP term that has normal annotations to a simple genotype for a marker; MP:0005394; taste/olfaction phenotype.  Expect:  count=135; Adcy8 not returned in results.</li>
-    		   <li>Query for MP term that has normal annotations to a complex genotype for a marker; MP:0005384; cellular phenotype.  Expect: Pim1 not returned in results.</li>
-    		   <li>Query for MP term that has both regular and normal annotations for a marker; MP:0005394; taste/olfaction phenotype.  Expect: Cnga4 to be returned -- has a normal annotation to this term and a regular annotation to a child term.</li>
+    		   <li>Query for MP term that has normal annotations to a simple genotype for a marker; MP:0005394; taste/olfaction phenotype.  Expect:  count=136; Adcy8 not returned in results.</li>
+    		   <li>Query for MP term that has normal annotations to a complex genotype for a marker; MP:0005384; cellular phenotype.  Expect: count=3204; Pim1 not returned in results.</li>
     	    </ol></li>
     	    
     	    <li>Query for MP term - MP:0003012; "no phenotypic analysis"
