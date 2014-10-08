@@ -12,7 +12,7 @@
 	p {margin:2px 0px;}
 </style>
 
-    <title>User Story 22 & 24</title>
+    <title>User Story 29</title>
 </head>
 
 <body>
@@ -76,67 +76,69 @@
     		<li>no diseases associated to the mouse marker
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query for marker with no models & no human disease associations; Bmp3.  Expect: no diseases for mouse or human homolog</li>
-    		  <li>Query for marker with no models, but with human disease associations; Bmp1.  Expect: mouse=0; homolog=1</li>
+    		  <li>Query for marker with no OMIM annotations and no human gene/disease annotations; Bmp3.  Expect: no diseases for marker</li>
+    		  <li>Query for marker with no OMIM annotations, but with human gene/disease annotations; Bmp1.  Expect: no diseases for marker</li>
+    		  <li>Query for marker with an allele/OMIM annotation to a disease; a.  Expect: disease AOMS1 (605552) not listed.</li>
     	    </ol></li>
     	    
     	    <li>disease list unchanged with new rules
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    		  <li>Query for marker with model(s) for 1 disease & same human disease; Tbx19.  Expect: Acth Defic...IAD for mouse & homolog.</li>
-    		   <li>Query for marker with model(s) for 1 disease & different human disease(s); Stub1.  Expect: mouse: 212840-GDHS; homolog:615768-SCAR16 </li>
-    		   <li>Query for marker with models for many diseases & many human diseases; Kit.  Expect: mouse = 2; human homolog = 4</li>
+    		  <li>Query for marker with simple genocluster model(s) for 1 disease; Tbx19.  Expect: Acth Defic...IAD listed for marker.</li>
+    		   <li>Query for marker with simple genocluster model(s) for 1 disease and different human disease(s); Stub1.  Expect: 212840-GDHS listed for marker </li>
+    		   <li>Query for marker with simple genocluster models for many diseases; Kit.  Expect: 2 disease listed for marker.</li>
     	    </ol></li>
     	    
     	    
     	    <li>diseases annotated via conditional genotype models
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    		   <li>Query for marker that lost disease due to 1 marker rule for conditionals; Kras.  Expect: 114500 - Colorectal Cancer - no longer on mouse list.</li>
-    		   <li>Query for marker that includes a disease due to conditional rule; Nr2f2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - on the mouse list.</li>
-    		   <li>Query for marker that is associated to a disease via a recombinase allele that is factored out; Nkx3-2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - should not be on mouse list.</li>
-    		   <li>Query for marker that lost a disease due to 1 marker rule for conditionals, but the disease is associated to the human homolog; Nf2.  Expect: 607174, Meningioma, Familial, Susceptibility - not on mouse list; no asterisk on human list.</li>
-    		   <li>Query for marker that includes a disease due to a simple genotype for a recombinase allele; Satb2.  Expect: 119540, Cleft Palate, Isolated; CPI - on mouse list.</li>
+    		   <li>Query for marker that lost disease due to 1 marker rule for conditionals; Kras.  Expect: 114500 - Colorectal Cancer - no longer in results.</li>
+    		   <li>Query for marker that includes a disease due to conditional rule; Nr2f2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - in results.</li>
+    		   <li>Query for marker that is associated to a disease via a recombinase allele that is factored out; Nkx3-2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - not in results.</li>
+    		   <li>Query for marker that lost a disease due to 1 marker rule for conditionals, but the disease is associated to the human homolog; Nf2.  Expect: 607174, Meningioma, Familial, Susceptibility - not in results.</li>
+    		   <li>Query for marker that includes a disease due to a simple genotype for a recombinase allele; Satb2.  Expect: 119540, Cleft Palate, Isolated; CPI - in results.</li>
     	    </ol></li>
     	    
     	    <li>diseases annotated via complex genotype models
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    		   <li>Query for marker w/ a disease associated via complex genotype model; Col1a1.  Expect: 211980 - Lung Cancer - not on mouse list.</li>
-    		   <li>Query for marker w/ a disease associated via complex genotype model & same disease associated to human homolog; Rb1.  Expect: disease 180200-Retinoblastoma not on mouse list; no asterisk on human list.</li>
+    		   <li>Query for marker w/ a disease associated via complex genotype model; Col1a1.  Expect: 211980 - Lung Cancer - not in results.</li>
+    		   <li>Query for marker w/ a disease associated via complex genotype model and same disease associated to human homolog; Rb1.  Expect: disease 180200-Retinoblastoma not in results.</li>
     	    </ol></li>
     	    
     	    <li>diseases annotated via transgenic reporter models
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    		   <li>Query for marker w/ associated complex model w/ transgenic reporter allele that factors to simple geno; Foxo3.  Expect: 166950 - Teratoma, Ovarian - on mouse list. </li>
+    		   <li>Query for marker w/ associated complex model w/ transgenic reporter allele that factors to simple geno; Foxo3.  Expect: 166950 - Teratoma, Ovarian - in results. </li>
     	    </ol></li>
     	    
     	    <li>diseases with annotations involving Gt(ROSA)26Sor 
     	    <p concordion:assertTrue="false">new test</p>
     		<ol>
     		   <li>Query for Gt(ROSA)26Sor marker. Expect: No diseases listed.</li>
-    		   <li>Query for marker that has a conditional model with a recombinase Gt(ROSA) allele; Bap1.  Expect:  614286 - Myelodysplastic; MDS to be in the mouse model list.</li>
+    		   <li>Query for marker that has a conditional model with a recombinase Gt(ROSA) allele; Bap1.  Expect:  614286 - Myelodysplastic; MDS to be in the results.</li>
     	    </ol></li>
     	    
     	    <li>diseases annotated via slash allele genotype models
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    		  <li>Query for marker with annotations to model(s) via slash alleles; Dlx6.  Expect: 183600 - Split-Hand/Foot Malformation 1: SHFM1 to be included in the mouse model list. </li>
+    		  <li>Query for marker with annotations to model(s) via slash alleles; Dlx6.  Expect: 183600 - Split-Hand/Foot Malformation 1: SHFM1 to be in the results. </li>
     	    </ol></li>
     	    
     	    <li>diseases annotated with NOT models
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    		   <li>Query for marker that has only NOT models for a disease; Hap1.  Expect:  143100 - Huntington Disease; HD to not be on the mouse models list.</li>
-    		   <li>Query for marker that  has only NOT models for a disease, but human homolog is associated to the same disease; Wisp3.  Expect: 208230 - Arthropathy, Progressive Pseudorheumatoid, of Childhood; PPAC to not be listed in mouse models and disease in human list to not have an asterisk.</li>
+    		   <li>Query for marker that has only NOT models for a disease; Hap1.  Expect:  143100 - Huntington Disease; HD to not be in the results.</li>
+    		   <li>Query for marker that  has only NOT models for a disease, but human homolog is associated to the same disease; Wisp3.  Expect: 208230 - Arthropathy, Progressive Pseudorheumatoid, of Childhood; PPAC to not be listed in results.</li>
+    		   <li>Query for marker that has NOT and a simple genocluster model for a disease; Prnp.  Expect: disease Fatal Familial Insomnia; FFI listed in results.</li>
     	    </ol></li>
     		
     	    <li>no MP associated to the mouse marker
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query for marker with no MP annotations; Xxx.  Expect: no phenotypes</li>
-    		  <li>Query for marker with only Normal annotaitons; Bmp1.  Expect: no phenotypes</li>
+    		  <li>Query for marker with no MP annotations; Bcap31.  Expect: no phenotypes</li>
+    		  <li>Query for marker with only Normal annotations; Bmp1.  Expect: no phenotypes</li>
     	    </ol></li>
     	    
     	    <li>MP list unchanged with new rules
@@ -150,42 +152,41 @@
     	    <li>MP annotated via conditional genotypes 
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    		   <li>Query for marker that lost MP term due to 1 marker rule for conditionals; Xxx.  Expect: nnn - in results.</li>
-    		   <li>Query for marker that includes a disease due to conditional rule; Xxx.  Expect: nnn - in results.</li>
-    		   <li>Query for marker that is associated to an MP term via a recombinase allele that is factored out; Xxx.  Expect: nnnnn - not in results.</li>
-    		   <li>Query for marker that includes an MP term due to a simple genotype for a recombinase allele; Xxx.  Expect: nnn - in results.</li>
+    		   <li>Query for marker that lost MP term due to 1 marker rule for conditionals; Col1a1.  Expect: "decreased brain weight" (MP:0002175) to not be in results.</li>
+    		   <li>Query for marker that includes a disease due to conditional rule; Pax4.  Expect: "increased pancreatic alpha cell number" (MP:0009176) in results.</li>
+    		   <li>Query for marker that includes an MP term due to a simple genotype for a recombinase allele; Aqp2.  Expect: "increased hematocrit" in results.</li>
     	    </ol></li>
     	    
     	    <li>MP annotated via complex genotypes 
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    		   <li>Query for marker w/ an MP annotation via complex genotype model; Xxx.  Expect: nnnn not on list</li>
+    		   <li>Query for marker w/ an MP annotation via complex genotype model; Adrb1.  Expect: "increased total body fat amount" (MP:0010024) not on list</li>
     	    </ol></li>
     	    
     	    <li>MP annotated via transgenic reporter genotypes
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    		   <li>Query for marker w/ MP annotation to a complex model w/ transgenic reporter allele that factors to simple geno; Xxx.  Expect: xxxx </li>
+    		   <li>Query for marker w/ MP annotation to a complex model w/ transgenic reporter allele that factors to simple geno; Foxo3.  Expect: "increased secondary ovarian follicle number" (MP:0011128) to be in results. </li>
     	    </ol></li>
     	    
     	    <li>MP with annotations involving Gt(ROSA)26Sor 
     	    <p concordion:assertTrue="false">new test</p>
     		<ol>
     		   <li>Query for Gt(ROSA)26Sor marker. Expect: No diseases listed.</li>
-    		   <li>Query for marker that has an MP annotation to a conditional genotype with a recombinase Gt(ROSA) allele; Xxx.  Expect:  nnn.</li>
+    		   <li>Query for marker that has an MP annotation to a conditional genotype with a recombinase Gt(ROSA) allele; Nle1.  Expect: "decreased bone marrow cell number" (MP:0000333) to be in results.</li>
     	    </ol></li>
     	    
     	    <li>MP annotated via slash allele genotypes 
     		<p concordion:assertTrue="false">new test</p>
     		<ol>
-    		  <li>Query for marker with MP annotations via slash alleles; Psme1.  Expect:nnn </li>
+    		  <li>Query for marker with MP annotations via slash alleles; Psme1.  Expect:"altered tumor susceptibility" (MP:0002166) in results. </li>
     	    </ol></li>
     	    
     	    <li>MP normal annotations
     		<p concordion:assertTrue="false">new test</p> 
     		<ol>
-    		   <li>Query for marker that has only normal annotations for an MP term; Xxx.  Expect:  term not displayed.</li>
-    		   <li>Query for marker that  has normal and abnormal annotations for an MP term; Xxx.  Expect:  term to be displayed.</li>
+    		   <li>Query for marker that has only normal annotations for an MP term; Adcy8.  Expect:  "taste/olfaction" (MP:0005394) term not displayed</li>
+    		   <li>Query for marker that has annotations to "no phenotypic analysis" (MP:0003012); Mcam.  Expect: this term to not be displayed.</li>
     	    </ol></li>
     		
     	    
