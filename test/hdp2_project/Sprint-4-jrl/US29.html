@@ -1,0 +1,209 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 22 & 24</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Batch Query - use new roll-up annotations</h1>
+    <ul>
+        <li>User Story 29 - Change Batch Query to use pre-computed gene roll-up annotations</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements - Batch Query-OMIM annotations</h2>
+	<ol>
+	   <li>The new roll-up rules alter the diseases that MGI associates to a Marker.  The new rules add/remove from the current list.</li>
+	   <li>This change impacts the list of diseases when "Human Disease (OMIM)" is selected from Additional Information.</li>
+	   <li>The following rules are used to determine whether to roll-up the disease to a marker.   The rules have been re-implemented so need to test all cases.
+	       <ol><li>Roll-up to a gene for OMIM annotations to a simple 1 marker genotype.</li>
+	           <li>Roll-up to a gene for OMIM annotations to a conditional genotype that has just 1 marker when recombinase, transgenic reporter, and wild type alleles are factored out.</li>
+	           <li>Roll-up to a gene for OMIM annotations to a complex genotype that has just 1 marker when transgenic reporters are factored out.</li>
+	           <li>Do not associate any diseases to marker Gt(ROSA)26Sor.</li>
+	           <li>Do not associate any diseases that have only NOT annotations from the rolled up set.</li>
+	           
+	       </ol></li>
+	   <li>NOTE: differences with HMDC - slash alleles not removed; allele/disease annotations not included; transgenic reporter bug</li>
+	   
+	</ol>
+	
+	<h2>Test Requirements - Batch Query-MP annotations</h2>
+	<ol>
+	   <li>The new roll-up rules alter the diseases that MGI associates to a Marker.  The new rules add/remove from the current list.</li>
+	   <li>This change impacts the list of diseases when "Mammalian Phenotype (MP)" is selected from Additional Information.</li>
+	   <li>The following rules are used to determine whether to roll-up the phenotype to a marker.   The rules have been re-implemented so need to test all cases.
+	       <ol><li>Roll-up to a gene for MP annotations to a simple 1 marker genotype.</li>
+	           <li>Roll-up to a gene for MP annotations to a conditional genotype that has just 1 marker when recombinase, transgenic reporter, and wild type alleles are factored out.</li>
+	           <li>Roll-up to a gene for MP annotations to a complex genotype that has just 1 marker when transgenic reporters are factored out.</li>
+	           <li>Do not associate any phenotypes to marker Gt(ROSA)26Sor.</li>
+	           <li>Do not associate any phenotypes that have only normal annotations from the rolled up set.</li>
+	           
+	       </ol></li>
+	   <li>NOTE: differences with HMDC - slash alleles not removed; transgenic reporter bug</li>
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		<li>no diseases associated to the mouse marker
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query for marker with no models & no human disease associations; Bmp3.  Expect: no diseases for mouse or human homolog</li>
+    		  <li>Query for marker with no models, but with human disease associations; Bmp1.  Expect: mouse=0; homolog=1</li>
+    	    </ol></li>
+    	    
+    	    <li>disease list unchanged with new rules
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		  <li>Query for marker with model(s) for 1 disease & same human disease; Tbx19.  Expect: Acth Defic...IAD for mouse & homolog.</li>
+    		   <li>Query for marker with model(s) for 1 disease & different human disease(s); Stub1.  Expect: mouse: 212840-GDHS; homolog:615768-SCAR16 </li>
+    		   <li>Query for marker with models for many diseases & many human diseases; Kit.  Expect: mouse = 2; human homolog = 4</li>
+    	    </ol></li>
+    	    
+    	    
+    	    <li>diseases annotated via conditional genotype models
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		   <li>Query for marker that lost disease due to 1 marker rule for conditionals; Kras.  Expect: 114500 - Colorectal Cancer - no longer on mouse list.</li>
+    		   <li>Query for marker that includes a disease due to conditional rule; Nr2f2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - on the mouse list.</li>
+    		   <li>Query for marker that is associated to a disease via a recombinase allele that is factored out; Nkx3-2.  Expect: 142340 - Diaphragmatic Hernia, Congenital - should not be on mouse list.</li>
+    		   <li>Query for marker that lost a disease due to 1 marker rule for conditionals, but the disease is associated to the human homolog; Nf2.  Expect: 607174, Meningioma, Familial, Susceptibility - not on mouse list; no asterisk on human list.</li>
+    		   <li>Query for marker that includes a disease due to a simple genotype for a recombinase allele; Satb2.  Expect: 119540, Cleft Palate, Isolated; CPI - on mouse list.</li>
+    	    </ol></li>
+    	    
+    	    <li>diseases annotated via complex genotype models
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		   <li>Query for marker w/ a disease associated via complex genotype model; Col1a1.  Expect: 211980 - Lung Cancer - not on mouse list.</li>
+    		   <li>Query for marker w/ a disease associated via complex genotype model & same disease associated to human homolog; Rb1.  Expect: disease 180200-Retinoblastoma not on mouse list; no asterisk on human list.</li>
+    	    </ol></li>
+    	    
+    	    <li>diseases annotated via transgenic reporter models
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		   <li>Query for marker w/ associated complex model w/ transgenic reporter allele that factors to simple geno; Foxo3.  Expect: 166950 - Teratoma, Ovarian - on mouse list. </li>
+    	    </ol></li>
+    	    
+    	    <li>diseases with annotations involving Gt(ROSA)26Sor 
+    	    <p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		   <li>Query for Gt(ROSA)26Sor marker. Expect: No diseases listed.</li>
+    		   <li>Query for marker that has a conditional model with a recombinase Gt(ROSA) allele; Bap1.  Expect:  614286 - Myelodysplastic; MDS to be in the mouse model list.</li>
+    	    </ol></li>
+    	    
+    	    <li>diseases annotated via slash allele genotype models
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		  <li>Query for marker with annotations to model(s) via slash alleles; Dlx6.  Expect: 183600 - Split-Hand/Foot Malformation 1: SHFM1 to be included in the mouse model list. </li>
+    	    </ol></li>
+    	    
+    	    <li>diseases annotated with NOT models
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		   <li>Query for marker that has only NOT models for a disease; Hap1.  Expect:  143100 - Huntington Disease; HD to not be on the mouse models list.</li>
+    		   <li>Query for marker that  has only NOT models for a disease, but human homolog is associated to the same disease; Wisp3.  Expect: 208230 - Arthropathy, Progressive Pseudorheumatoid, of Childhood; PPAC to not be listed in mouse models and disease in human list to not have an asterisk.</li>
+    	    </ol></li>
+    		
+    	    <li>no MP associated to the mouse marker
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query for marker with no MP annotations; Xxx.  Expect: no phenotypes</li>
+    		  <li>Query for marker with only Normal annotaitons; Bmp1.  Expect: no phenotypes</li>
+    	    </ol></li>
+    	    
+    	    <li>MP list unchanged with new rules
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		  <li>Query for marker with just 1 phenotype; Xxx.  Expect: same as Public.</li>
+    		   <li>Query for marker with many phenotypes; Xxx.  Expect: same as Public </li>
+    	    </ol></li>
+    	    
+    	    
+    	    <li>MP annotated via conditional genotypes 
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		   <li>Query for marker that lost MP term due to 1 marker rule for conditionals; Xxx.  Expect: nnn - in results.</li>
+    		   <li>Query for marker that includes a disease due to conditional rule; Xxx.  Expect: nnn - in results.</li>
+    		   <li>Query for marker that is associated to an MP term via a recombinase allele that is factored out; Xxx.  Expect: nnnnn - not in results.</li>
+    		   <li>Query for marker that includes an MP term due to a simple genotype for a recombinase allele; Xxx.  Expect: nnn - in results.</li>
+    	    </ol></li>
+    	    
+    	    <li>MP annotated via complex genotypes 
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		   <li>Query for marker w/ an MP annotation via complex genotype model; Xxx.  Expect: nnnn not on list</li>
+    	    </ol></li>
+    	    
+    	    <li>MP annotated via transgenic reporter genotypes
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		   <li>Query for marker w/ MP annotation to a complex model w/ transgenic reporter allele that factors to simple geno; Xxx.  Expect: xxxx </li>
+    	    </ol></li>
+    	    
+    	    <li>MP with annotations involving Gt(ROSA)26Sor 
+    	    <p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		   <li>Query for Gt(ROSA)26Sor marker. Expect: No diseases listed.</li>
+    		   <li>Query for marker that has an MP annotation to a conditional genotype with a recombinase Gt(ROSA) allele; Xxx.  Expect:  nnn.</li>
+    	    </ol></li>
+    	    
+    	    <li>MP annotated via slash allele genotypes 
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		  <li>Query for marker with MP annotations via slash alleles; Psme1.  Expect:nnn </li>
+    	    </ol></li>
+    	    
+    	    <li>MP normal annotations
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		   <li>Query for marker that has only normal annotations for an MP term; Xxx.  Expect:  term not displayed.</li>
+    		   <li>Query for marker that  has normal and abnormal annotations for an MP term; Xxx.  Expect:  term to be displayed.</li>
+    	    </ol></li>
+    		
+    	    
+  
+		</ol>
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
