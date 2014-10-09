@@ -1,0 +1,137 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<style>
+			table {
+				border-collapse: collapse;
+				padding-bottom: 5px;
+				margin-bottom: 5px;
+			}
+			
+			table,th,td {
+				border: 1px solid #CCCCCC;
+			}
+			
+			td,th {
+				padding: 2px;
+			}
+			
+			.man {
+				background-color: #FFFFCC;
+			}
+			
+			ul {
+				padding: 0px;
+				padding-bottom: 3px;
+				padding-top: 0px;
+				margin: 0px;
+			}
+			
+			ol {
+				padding: 0px;
+				padding-bottom: 3px;
+				padding-top: 0px;
+				margin: 0px;
+			}
+			
+			li {
+				padding-left: 2px;
+				padding-top: 0px;
+				padding-bottom: 0px;
+				margin-left: 25px;
+			}
+			
+			p {
+				margin: 2px 0px;
+			}
+		</style>
+		
+		<title>User Story 72</title>
+	</head>
+
+	<body>
+		<div id="maintitle">
+			<h1>Boolean Search Results - use new boolean query</h1>
+			<ul>
+				<li>User Story 72 - Implement Boolean Searchs on HMDC</li>
+			</ul>
+		</div>
+		<div id="TOC">
+			<p>
+				Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a>
+			</p>
+		</div>
+	
+		<div id="acceptance">
+			<h2>Test Requirements - Phenotype/Disease Query Box</h2>
+			<ol>
+				<li>Recognize the following boolean operators: AND, OR, NOT, AND NOT
+					<ul>
+						<li>boolean operators must be in upper case; otherwise not recognized.</li>
+						<li>OR NOT is recognized by the software, but there's no plan to document this for users</li>
+					</ul>
+				</li>
+			</ol>
+		</div>
+	
+		<div id="tests">
+			<h2>Tests</h2>
+	
+			<div id="manual">
+				<!-- To insert manual test results, use the following: <p concordion:assertTrue="true">testing assertTrue - displays as green</p> <p concordion:assertTrue="false">testing assertFalse - displays as red</p> -->
+				<h3>Manual tests</h3>
+	
+				<ol>
+					<li>Single Gene Queries
+						<ol>
+							<li><span cc:assertEquals="pass">PASS</span> Query for marker with no OMIM annotations and no human gene/disease annotations - Query: Bmp3 - Expect: no diseases for marker</li>
+							<li><span cc:assertEquals="pass">PASS</span> Query for marker with no OMIM annotations, but with human gene/disease annotations - Query: Bmp1 - Expect: Osteogenesis Imperfecta, Type Xiii; OI13</li>
+							<li><span cc:assertEquals="pass">PASS</span> Query for marker with OMIM annotation to a disease human only plus MP mouse annotations - Query: MTTP - Expect: All diseases annotated to the human marker MTTP - 2 diseases.</li>
+							<li><span cc:assertEquals="pass">PASS</span> Query for marker with OMIM annotation to a disease mouse and human - Query: 105830 - Expect: All diseases annotated thorugh the genocluster and the human marker - 8 diseases.</li>
+							<li><span cc:assertEquals="pass">PASS</span> Query for marker with OMIM annotation to a disease human only no MP mouse annotations - Query: 300321 - Expect: All diseases annotated to human marker FLNA - 10 diseases.</li>
+							<li><span cc:assertEquals="pass">PASS</span> Query for MP term and have no human diseases returned - Query: MP:0001261 - Expect: No human data brought back - 15 disease clusters</li>
+							<li><span cc:assertEquals="pass">PASS</span> Query for MP term and have no human diseases returned - Query: MP:0001261 - Expect: No human data brought back - 15 disease clusters</li>
+							<li><span cc:assertEquals="pass">PASS</span> Query for MP term and have no human diseases returned - Query: MP:0001261 - Expect: No human data brought back - 15 disease clusters</li>
+							<li><span cc:assertEquals="pass">PASS</span> Query for MP term and have no human diseases returned - Query: MP:0001261 - Expect: No human data brought back - 15 disease clusters</li>
+							<li><span cc:assertEquals="pass">PASS</span> Query for MP term and have no human diseases returned - Query: MP:0001261 - Expect: No human data brought back - 15 disease clusters</li>
+						</ol>
+					</li>
+	
+					<li>Or queries.
+						<ol>
+							<li><span cc:assertEquals="pass">PASS</span> (MP OR MP) - Query: (MP:0000774 OR MP:0001307) - Expect: Only matching on MP terms should not see any human disease annotations</li>
+							<li><span cc:assertEquals="pass">PASS</span> (MP OR OMIM) - Query: (MP:0000774 OR 211980) - Expect: Both human and mouse diseases</li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM OR MP) - Query: (211980 OR MP:0000774) - Expect: Same as previous test</li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM OR OMIM) - Query: (211980 OR 311300)- Expect: Both human and mouse diseases, Lung cancer as well as Otopalatodigital Syndrome, Type I. Gene FLNA is added to the list.</li>
+						</ol>
+					</li>
+					
+					<li>And queries.
+						<ol>
+							<li><span cc:assertEquals="pass">PASS</span> (MP AND MP) - Query: (MP:0000774 AND MP:0001307) - Expect: No results, there are no genes that have both annotations</li>
+							<li><span cc:assertEquals="pass">PASS</span> (MP AND MP) - Query: (MP:0002006 AND MP:0005395) - Expect: Mouse only diseases showing</li>
+							<li><span cc:assertEquals="pass">PASS</span> (MP AND OMIM) - Query: (MP:0002006 AND 155255) - Expect: Only mouse diseases showing</li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND MP) - Query: (155255 AND MP:0002006) - Expect: Same as previous test</li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND OMIM) - Query: (211980 AND 260350) - Expect: Each term has both mouse and human, but anded together have only human diseases.</li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND OMIM) - Query: (211980 AND 131200) - Expect: Each term has both mouse and human, but anded together have only mouse diseases.</li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND OMIM) - Query: (311300 AND 300049) - Expect: Each term has both mouse and human, but anded together match on both the mouse and human side.</li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND OMIM) - Query: (211980 AND 300321) - Expect: Each term has both mouse and human, but anded together have no results.</li>
+						</ol>
+					</li>
+					
+					<li>And Not queries.
+						<ol>
+							<li><span cc:assertEquals="pass">PASS</span> (MP AND NOT MP) - Query: - Expect: </li>
+							<li><span cc:assertEquals="pass">PASS</span> (MP AND NOT OMIM) - Query: - Expect: </li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND NOT MP) - Query: - Expect: </li>
+							
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND NOT OMIM) - Query: (309350 AND NOT 305620) - Expect: Mouse genes only because 305620 matches on human side of FLNA and removes those results</li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND NOT OMIM) - Query: (105830 AND NOT 300260) - Expect: Human and Mouse minus 300260 which matches on mouse side of UBE3A and removes those results</li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND NOT OMIM) - Query: (311300 AND NOT 300049) - Expect: No results because both diseases match on human side of FLNA</li>
+						</ol>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</body>
+</html>
