@@ -1,0 +1,87 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 116</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Allele QF bug: stop searching normal notes & qualifiers</h1>
+    <ul>
+    <li>User Story 116 - Allele QF bug: stop searching normal notes & qualifiers</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+	<ol>
+	     <li>Stop searching Normal annotation notes via the allele QF.
+	       <ul><li>Regardless of the annotation qualifier, Normal notes should never be searched using the allele QF.</li>
+	       </ul></li>
+	   
+	   <li>Stop searching annotation notes where their corresponding annotations have a "normal" qualifier.
+	       <ul><li>Regardless of the note type, a note for an annotation with a "normal" qualifier should not be searchable via the allele QF.
+	       </ul></li> 
+	   
+	
+	   
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		<li>Ensure that Normal notes are excluded from the search
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query for a string known to only appear in Normal notes (and a few General notes for annotations with a "normal" qualifier): "used for expression analysis".  Expect: 0 results returned.</li>
+    	    </ol></li>
+    	    
+    	    <li>Query for General notes to ensure that they are still working correctly
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+		<li>Query for a string in a General note which should return 1 allele: "homozygotes display fusion of the nasal opening".  Expect: 1 result returned (Ripk4<sup>tm1Pmh</sup>).</li>
+    		   <li>Query for a string in a General note for an annotation with a normal qualifier: "cytokine levels are comparable to controls".  Expect: 0 results returned.</li>
+    		   
+    	    </ol></li>
+    	    
+    	    <li>Query for Background sensitivity notes to ensure that they are still working correctly
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+		<li>Query for a string in a Background sensitivity note which should return 1 allele: "susceptibility to megacolon appears to be reduced following initial backrossing".  Expect: 1 results returned (Tlx2<sup>tm1Sjk</sup>).</li>
+		<li>Query for a string in a Background sensitivity note for an annotation with a normal qualifier: "unlike on a C57BL/6 background where death occurs at P2-P3".  Expect: 0 result returned.</li>
+    		   </ol></li>
+    	    
+		</ol>
+	
+	</div>
+	<div id="sql">
+ 	</div>
+</div>
+
+</body>
+</html>
