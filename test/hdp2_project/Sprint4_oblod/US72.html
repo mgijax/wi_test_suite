@@ -125,8 +125,12 @@
 							<li><span cc:assertEquals="pass">PASS</span> (MP AND NOT OMIM) - Query: - Expect: </li>
 							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND NOT MP) - Query: - Expect: </li>
 							
-							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND NOT OMIM) - Query: (309350 AND NOT 305620) - Expect: Mouse genes only because 305620 matches on human side of FLNA and removes those results</li>
+							
+							
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND NOT OMIM) - Query: (309350 AND NOT 305620) - Expect: Mouse Diseases only 305620 matches on human side of FLNA and removes all human Diseases</li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND NOT OMIM) - Query: (125853 AND NOT 245590) - Expect: Human Diseases only 245590 matches on mouse side of HNF1A and removes all mouse Diseases</li>
 							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND NOT OMIM) - Query: (105830 AND NOT 300260) - Expect: Human and Mouse minus 300260 which matches on mouse side of UBE3A and removes those results</li>
+							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND NOT OMIM) - Query: (305620 AND NOT 309350) - Expect: No Diseases 309350 matches on both human and mouse side of FLNA and removes all Diseases</li>
 							<li><span cc:assertEquals="pass">PASS</span> (OMIM AND NOT OMIM) - Query: (311300 AND NOT 300049) - Expect: No results because both diseases match on human side of FLNA</li>
 						</ol>
 					</li>
