@@ -56,13 +56,13 @@
 		
 		<ol>
     		<li>Ensure that Normal notes are excluded from the search
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">pass - jsb, 10/9/14</p>  
     		<ol>
     		  <li>Query for a string known to only appear in Normal notes (and a few General notes for annotations with a "normal" qualifier): "used for expression analysis".  Expect: 0 results returned.</li>
     	    </ol></li>
     	    
     	    <li>Query for General notes to ensure that they are still working correctly
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">pass - jsb, 10/9/14</p>  
     		<ol>
 		<li>Query for a string in a General note which should return 1 allele: "homozygotes display fusion of the nasal opening".  Expect: 1 result returned (Ripk4<sup>tm1Pmh</sup>).</li>
     		   <li>Query for a string in a General note for an annotation with a normal qualifier: "cytokine levels are comparable to controls".  Expect: 0 results returned.</li>
@@ -70,7 +70,7 @@
     	    </ol></li>
     	    
     	    <li>Query for Background sensitivity notes to ensure that they are still working correctly
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">pass - jsb, 10/9/14</p>  
     		<ol>
 		<li>Query for a string in a Background sensitivity note which should return 1 allele: "susceptibility to megacolon appears to be reduced following initial backrossing".  Expect: 1 results returned (Tlx2<sup>tm1Sjk</sup>).</li>
 		<li>Query for a string in a Background sensitivity note for an annotation with a normal qualifier: "unlike on a C57BL/6 background where death occurs at P2-P3".  Expect: 0 result returned.</li>
