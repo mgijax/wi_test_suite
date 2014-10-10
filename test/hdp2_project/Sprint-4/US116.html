@@ -17,9 +17,9 @@
 
 <body>
 
-<div id="maintitle"><h1>Allele QF bug: stop searching normal notes & qualifiers</h1>
+<div id="maintitle"><h1>Allele QF bug: stop searching normal notes and qualifiers</h1>
     <ul>
-    <li>User Story 116 - Allele QF bug: stop searching normal notes & qualifiers</li>
+    <li>User Story 116 - Allele QF bug: stop searching normal notes and qualifiers</li>
     </ul>
 </div><div id="TOC">
 	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
@@ -35,7 +35,9 @@
 	   
 	   <li>Stop searching annotation notes where their corresponding annotations have a "normal" qualifier.
 	       <ul><li>Regardless of the note type, a note for an annotation with a "normal" qualifier should not be searchable via the allele QF.
-	       </ul></li> 
+	       </ul></li>
+	       
+	   <li>Continue searching general allele notes & QTL notes.</li>
 	   
 	
 	   
@@ -75,6 +77,19 @@
 		<li>Query for a string in a Background sensitivity note which should return 1 allele: "susceptibility to megacolon appears to be reduced following initial backrossing".  Expect: 1 results returned (Tlx2<sup>tm1Sjk</sup>).</li>
 		<li>Query for a string in a Background sensitivity note for an annotation with a normal qualifier: "unlike on a C57BL/6 background where death occurs at P2-P3".  Expect: 0 result returned.</li>
     		   </ol></li>
+    		   
+    		<li>Query for alleles via QTL notes
+    		<p concordion:assertTrue="true">PASS - jlewis 10/10/2014</p>   
+    		<ol>
+    		   <li>Query for text that matches a QTL note for a QTL allele; "lung cancer" (use quotes).  Expect: 99 alleles to be returned; includes QTL allele Marif1<sup>C57BL/10</sup>.</li>
+    	    </ol></li>
+    	 
+    	 <li>Query for alleles via General allele notes
+    		<p concordion:assertTrue="true">PASS - jlewis 10/10/2014</p>   
+    		<ol>
+    		   <li>Query for text that matches an allele general note for a marker; "Phenotypic Similarity to Human Syndrome: Metabolic Syndrome in mice homozygous".  Expect: 4 alleles; including A<sup>y</sup>.</li>
+    	    </ol></li>   
+    	    
     	    
 		</ol>
 	
