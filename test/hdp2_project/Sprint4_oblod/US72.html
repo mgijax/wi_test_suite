@@ -86,7 +86,16 @@
 						<ol>
 							<li><span concordion:assertTrue="true">PASS</span> (MP AND MP) - Query: (MP:0000774 AND MP:0001307) - Expect: No results, there are no genes that have both annotations</li>
 							<li><span concordion:assertTrue="true">PASS</span> (MP AND MP) - Query: (MP:0002006 AND MP:0005395) - Expect: Mouse only diseases showing</li>
+							<li><span concordion:assertTrue="true">PASS</span> Geno Cluster boolean searching:
+								<ol>
+									<li>GenoCluster: 13845 Has MP Terms: MP:0003631, MP:0005386</li>
+									<li>GenoCluster: 15492 Has MP Terms: MP:0002169</li>
+									<li>(MP AND MP) - Query: Gene: Sirt2, Pheno: (MP:0002169 AND MP:0003631) No results because MP:0002169 and MP:0003631 are not in the same genocluster.</li>
+									<li>(MP AND MP) - Query: Gene: Sirt2, Pheno: (MP:0003631 AND MP:0005386) Results because MP:0003631 and MP:0005386 are in the same genocluster.</li>
+								</ol>
+							</li>
 							<li><span concordion:assertTrue="true">PASS</span> (MP AND OMIM) - Query: (MP:0002006 AND 155255) - Expect: Only mouse diseases showing</li>
+
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND MP) - Query: (155255 AND MP:0002006) - Expect: Same as previous test</li>
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND OMIM) - Query: (211980 AND 260350) - Expect: Each term has both mouse and human, but anded together have only human diseases.</li>
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND OMIM) - Query: (211980 AND 131200) - Expect: Each term has both mouse and human, but anded together have only mouse diseases.</li>
@@ -98,6 +107,15 @@
 					<li>AND NOT queries.
 						<ol>
 							<li><span concordion:assertTrue="true">PASS</span> (MP AND NOT MP) - Query: (MP:0006126 AND NOT MP:0010402) - Expect: Phenotypes for "abnormal outflow tract development" but not "ventricular septal defect" and only mouse diseases showing</li>
+							<li><span concordion:assertTrue="true">PASS</span> Geno Cluster boolean searching:
+								<ol>
+									<li>GenoCluster: 13845 Has MP Terms: MP:0003631, MP:0005386</li>
+									<li>GenoCluster: 15492 Has MP Terms: MP:0002169</li>
+									<li>(MP AND NOT MP) - Query: Gene: Sirt2, Pheno: (MP:0002169 AND NOT MP:0003631) Results for only MP:0002169 because MP:0003631 is not in the same genocluster.</li>
+									<li>(MP AND NOT MP) - Query: Gene: Sirt2, Pheno: (MP:0003631 AND NOT MP:0005386) No Results because MP:0003631 and MP:0005386 are in the same genocluster.</li>
+								</ol>
+							</li>
+							
 							<li><span concordion:assertTrue="true">PASS</span> (MP AND NOT OMIM) - Query: (MP:0006126 AND NOT 188400) - Expect: Phenotypes for "abnormal outflow tract development" but no diseases for "DiGeorge Syndrome; DGS" and only mouse diseases showing</li>
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND NOT MP) - Query: (188400 AND NOT MP:0006126) - Expect: Diseases for ""DiGeorge Syndrome; DGS" but no phenotypes for "abnormal outflow tract development" and human and mouse diseases showing</li>
 							
