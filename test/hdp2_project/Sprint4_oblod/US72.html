@@ -45,12 +45,11 @@
 		<div id="acceptance">
 			<h2>Test Requirements - Phenotype/Disease Query Box</h2>
 			<ol>
-				<li>Recognize the following boolean operators: AND, OR, NOT, AND NOT
-					<ul>
-						<li>boolean operators must be in upper case; otherwise not recognized.</li>
-						<li>OR NOT is recognized by the software, but there's no plan to document this for users</li>
-					</ul>
-				</li>
+				<li>Test results of boolean operations on Grid and Gene tabs (ignore Disease tab for this US)</li>
+				<li>Boolean operations include OMIM annotations to human genes</li>
+				<li>Recognize boolean operators: AND, OR, AND NOT</li>
+				<li>The Boolean operators NOT and OR NOT will not be documented, but these operators are not trapped as errors (will return results)</li>
+				<li>For details see <a href="http://mgiwiki/mediawiki/index.php/sw:HMDC_Boolean_Query#Search_Paradigm_and_Results">boolean requirments wiki</a>
 			</ol>
 		</div>
 	
@@ -64,21 +63,44 @@
 				<ol>
 					<li>Single Gene Queries
 						<ol>
-							<li><span concordion:assertTrue="true">PASS</span> Query for marker with no OMIM annotations and no human gene/disease annotations - Query: Bmp3 - Expect: no diseases for marker</li>
-							<li><span concordion:assertTrue="true">PASS</span> Query for marker with no OMIM annotations, but with human gene/disease annotations - Query: Bmp1 - Expect: Osteogenesis Imperfecta, Type Xiii; OI13</li>
-							<li><span concordion:assertTrue="true">PASS</span> Query for marker with OMIM annotation to a disease human only plus MP mouse annotations - Query: MTTP - Expect: All diseases annotated to the human marker MTTP - 2 diseases.</li>
-							<li><span concordion:assertTrue="true">PASS</span> Query for marker with OMIM annotation to a disease mouse and human - Query: 105830 - Expect: All diseases annotated thorugh the genocluster and the human marker - 8 diseases.</li>
-							<li><span concordion:assertTrue="true">PASS</span> Query for marker with OMIM annotation to a disease human only no MP mouse annotations - Query: 300321 - Expect: All diseases annotated to human marker FLNA - 10 diseases.</li>
-							<li><span concordion:assertTrue="true">PASS</span> Query for MP term and have no human diseases returned - Query: MP:0001261 - Expect: No human data brought back - 15 disease clusters</li>
+							<li><span concordion:assertTrue="true">PASS-olin</span> Query for marker with no OMIM annotations and no human gene/disease annotations - Query: Bmp3 - Expect: no diseases for marker</li>
+							<li><span concordion:assertTrue="true">PASS-olin</span> Query for marker with no mouse/OMIM annotations, but with human gene/disease annotations - Query: Bmp1 - Expect: Osteogenesis Imperfecta, Type Xiii; OI13 for human BMP1</li>
+							<li><span concordion:assertTrue="true">PASS-olin</span> Query for marker with OMIM annotation to a disease human only plus MP mouse annotations - Query: MTTP - Expect: All diseases annotated to the human marker MTTP - 2 diseases.</li>
+					   </ol>
+					</li>
+					
+					 <li>OMIM and MP ids searches (single and implicit OR)
+    	             <p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>
+    		         <ol>
+    		            <li>Query for MP id with no results; MP:0012067.  Expect: no results.</li>
+    		            <li>Query for MP id with genocluster results with human disease; MP:0010378.  Expect: no human data; 35 mouse genes; 26 high level systems; 6 diseases.</li>
+    		            <li>Query for MP id with genocluster results with no human diseases; MP:0011281.  Expect: no human data; 1 mouse gene; 5 high level systems; 0 diseases.</li>
+    		            <li>Query for multiple ids with results; MP:0012067, MP:0010378, MP:0011281.  Expect: 36 mouse genes; 27 high level systems; 6 diseases.</li>
+    		            <li>Query for OMIM id with no results; 604324; Adult acne.  Expect: 0 results.</li>
+    		            <li>Query for OMIM id with only mouse results; Ankyloglossia - 106280.  Expect:  1 mouse gene; 1 disease.</li>
+    		            <li>Query for OMIM id with only human results; 300321; FG Syndrome 2; FGS2.  Expect: 1 human genes; 10 diseases.</li>
+    		            <li>Query for OMIM id with both mouse and human results; 105830; Angelman Syndrome; AS.  Expect: 2 mouse genes, 3 human genes, 8 diseases on grid.</li>
+    		            <li>Query for multiple ids with results; 604324, 106280, 300321, 105830.  Expect:  3 mouse genes; 4 human genes; 19 diseases.</li>
+    	             </ol></li>
+    	    
+	
+					<li>OR queries with IDs
+					<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>
+						<ol>
+							<li>(MP OR MP) - Query: (MP:0012067 OR MP:0010378 OR MP:0011281) - Expect: 36 mouse genes; 27 high level systems; 6 diseases</li>
+							<li>(MP OR OMIM) - Query: (MP:0010378 OR 106280) - Expect: 36 mouse genes; 0 human genes; 7 diseases on grid</li>
+							<li>(OMIM OR MP) - Query: (300321 OR MP:0011281) - Expect: 1 mouse genes; 1 human genes; 10 diseases on grid</li>
+							<li>(OMIM OR OMIM) - Query: (604324 OR 106280 OR 300321 OR 105830) - Expect: Expect:  3 mouse genes; 4 human genes; 19 diseases</li>
 						</ol>
 					</li>
-	
-					<li>OR queries.
+					
+					<li>OR queries with text
+					<p concordion:assertTrue="false">new test</p>
 						<ol>
-							<li><span concordion:assertTrue="true">PASS</span> (MP OR MP) - Query: (MP:0000774 OR MP:0001307) - Expect: Only matching on MP terms should not see any human diseases</li>
-							<li><span concordion:assertTrue="true">PASS</span> (MP OR OMIM) - Query: (MP:0000774 OR 211980) - Expect: Both human and mouse diseases</li>
-							<li><span concordion:assertTrue="true">PASS</span> (OMIM OR MP) - Query: (211980 OR MP:0000774) - Expect: Same as previous test</li>
-							<li><span concordion:assertTrue="true">PASS</span> (OMIM OR OMIM) - Query: (211980 OR 311300) - Expect: Both human and mouse diseases, Lung cancer as well as Otopalatodigital Syndrome, Type I. Gene FLNA is added to the list.</li>
+							<li>(MP OR MP) - Query: lung OR albino - Expect: Only matching on MP terms should not see any human diseases</li>
+							<li>(MP OR OMIM) - Query: blindess OR diabetes - Expect: Both human and mouse diseases</li>
+							<li>(OMIM OR MP) - Query: diabetes OR obesity - Expect: Same as previous test</li>
+							<li>(OMIM OR OMIM) - Query: SLE OR cancer - Expect: Both human and mouse diseases, Lung cancer as well as Otopalatodigital Syndrome, Type I. Gene FLNA is added to the list.</li>
 						</ol>
 					</li>
 					
