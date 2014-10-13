@@ -1,0 +1,179 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 49</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>GXD QF/Summary - include mouse homologs</h1>
+    <ul>
+        <li>User Story 49 - Change GXD Auto-Complete/QF/Summary to include mouse homologs</li>
+    </ul>
+</div><div id="TOC">
+	<p>Contents: <a href="#maintitle">Title</a> | <a href="#acceptance">Test Requirements</a> | <a href="#manual">Manual Tests</a> | <a href="#sql">SQL Tests</a></p>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements - Autocomplete and GXD QF/Summary</h2>
+	<ol>
+	   <li>Modify the GXD QF auto-complete gene counts for OMIM terms to include mouse homolog(s) of associated human genes.</li>
+	   <li>Modify the GXD QF/Summary to query the data using the additional mouse homolog(s) of associated human genes.</li>
+	   <li>There are no rules that modify this list of human homologs.</li>
+	   <li>A mouse gene that was excluded via the "roll-up rules" may not be counted/searched due to its human gene/homolog association (e.g. Retinoblastoma - mouse marker Rb1)</li>
+	   <li>There may be multiple mouse homologs for an annoted human gene. (e.g. lung cancer - Cyp2a4, Cyp2a5)</li>
+	   <li>The GXD QF is the only query form that takes into account mouse homologs for an OMIM term</li>
+	   <li>This should have no impact on MP term searches.</li>
+	   <li>How should this impact the link to the GXD Literature results?</li>
+	   
+	</ol>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests: ROLL_UP RULES + Mouse Homologs: Auto/complete and Search Results</h3>
+		
+		<ol>
+    		<li>Query for MP or OMIM ids that have no annotations at all
+    		<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>  
+    		<ol>
+    		  <li>Query for an MP term that has no annotations; MP:0008224; "increased hippocampal commissure size".  Expect: count=0; 0 results returned.</li>
+    		  <li>Query for an OMIM term that has no annotations and no mouse homologs; 604324; Acne, Adult.  Expect: count=0; 0 results returned.</li>
+    	    </ol></li>
+    	    
+    	    <li>Query for OMIM ids that have only mouse homologs
+    		<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>  
+    		<ol>
+    		  <li>Query for an OMIM term that has annotations to human genes with GXD results, but no mouse OMIM annotations; 103285; ADULT Syndrome.  Expect: count=1; results for 1 gene returned.</li>
+    		  <li>Query for an OMIM term that has annotaitons to human genes with no GXD results, but no mouse OMIM annotations; 608584; Asthma-Related Traits, Susceptibility to, 2.  Expect: count=1; warning message displayed because no GXD results.</li>
+    	    </ol></li>
+    	    
+    	    
+    	    
+    	    <li>Query for OMIM ids annotated to human genes with multiple homologs
+    	    <p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>
+    		<ol>
+    		   <li>Query for an OMIM term with multiple homologs for a human gene that have GXD results; 211980; Lung Cancer.  Expect: count=27; Cyp2a4 and Cyp2a5 have GXD results.</li> 
+    	    </ol></li>
+    	    
+    	    <li>Query for OMIM ids with annotations to mouse complex genotypes trumped by a human gene annotation with a mouse homolog.
+    	    <p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>
+    		<ol>
+    		   <li>Query for an OMIM term with an annotation to a conditional genotype (Complex w/cre out); 180200; Retinoblastoma; RB1.  Expect: count=4; GXD results to Rb1.</li>
+    	    </ol></li>
+    	    
+    	    
+    	    
+    	    <li>Query for OMIM id that has an annotation to a human gene with multiple mouse homologs where one of the mouse homologs has an annotation
+    		<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>  
+    		<ol>
+    		   <li>Query for an OMIM term with an annotation to a mouse gene & human gene (already counted) plus another mouse homolog (not previously counted); 152700; Systemic Lupus Erythematosus; SLE.  Expect: count=35 - now counts mouse gene C4a. GXD results - include Ptpn22 due to mouse homolog.</li>
+    	    </ol></li>
+    	    
+    	    
+    	    
+    	    <li>Query for OMIM ids with annotations involving Gt(ROSA)26Sor 
+    	    <p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>      
+    		<ol>
+    		  <li>Query for an OMIM term with an annotation to a conditional genotype (Cre=Gt(ROSA)); 614286; Myelodysplastic Syndrome; MDS.  Expect: count=12; Bap1 returned in the results.  Add'l 3 genes in count and results due to mouse homologs.</li>
+    		  <li>Query for an OMIM term with an annotation to a Gt(ROSA) conditional genotype (OMG w/ cre out); 300813; Sarcoma, Synovial.  Expect count=0.</li>
+    		</ol></li>
+    		
+    		<li>Query for OMIM annotations to human genes that have no mouse homologs
+    		<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>  
+    		<ol>   
+    		   <li>Query for an OMIM term with annotations to human genes with and without mouse homologs; 133239; Esophageal Cancer.  Expect: count=6; GXD results for 4 markers.</li>
+    		</ol></li>
+    		
+    		<li>Query for OMIM annotations that previously had genes in the count, but no GXD results -- but with homologs now have results.
+    		<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>  
+    		<ol>   
+    		   <li>Query for an OMIM term with an annotation to a conditional genotype (Complex w/cre out); 180200; Retinoblastoma; RB1.  Expect: count=4; GXD results to Rb1.</li>
+    		</ol></li>
+    	    
+    	    <li>Query for OMIM annotations with a "NOT" qualifier
+    		<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>   
+    		<ol>
+    		   <li>Query for OMIM term that has a human gene with a mouse homolog with only NOT annotations; 208230; Arthropathy, Progressive Pseudorheumatoid, of Childhood; PPAC.  Expect: mouse homolog now counted and searched; count=1; marker=Wisp3.</li>
+    		   <li>Query for OMIM term that has only NOT annotations to simple genotypes for a marker; 143100; Huntington Disease; HD.  Expect: count=25; Hap1 to not be returned (no change due to mouse homologs)</li>
+    		   <li>Query for OMIM term that has both regular and NOT annotations to simple genotypes for a marker; 600072; Fatal Familial Insomnia; FFI.  Expect: count=1; Prnp to be returned in the results. (no change due to mouse homologs)</li>
+    	    </ol></li>
+    	    
+    	    
+    	    <li>Query for OMIM term with no add'l human gene annotations
+    		<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>   
+    		<ol>
+    		   <li>Query for an OMIM term with a human annotation that has a mouse annotation too; "Vlcad Deficiency".  Expect: same result prior to homolog change - count=2; results=markers: Acadl, Acadvl </li>
+    	    </ol></li>
+    	    
+    	    <li>Query for MP or OMIM ids that have annotations to simple genotypes (naturally simple; i.e. "super-simple") - with no change due to mouse homologs.
+    		<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>  
+    		<ol>
+    		  <li>Query for an MP term with an annotation to a simple hm genotype; MP:0005215; "abnormal pancreatic islet morphology".  Expect: Count=233; Pax4 one of the markers returned.</li>
+    		   <li>Query for an MP term with an annotation to a simple genotype for a cre allele; MP:0002608; increased hematocrit.  Expect: Count=53 ; Aqp2</li> 
+    		   <li>Query for an OMIM term with an annotation to a simple genotype for a cre allele; 119540; Cleft Palate, Isolated; CPI.  Expect: count=1; Satb2 marker returned.</li>
+    		   <li>Query for an OMIM term with an annotation to a simple genotype for a transgenic reporter allele; 615538; Chromosome 22q13 Duplication Syndrome.  Expect: count=1; warning message because no GXD results.</li>
+    	    </ol></li>
+    	    
+    	    <li>Query for MP ids that have annotations to conditional genotypes - no change expected due to OMIM homologs
+    		<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>  
+    		<ol>
+    		   <li>Query for an MP term with an annotation to a conditional genotype (OMG w/cre out); MP:0009176; "increased pancreatic alpha cell number".  Expect: count=21; Pax4 one of the markers returned.</li>
+    		   <li>Query for an MP term with an annotation to a conditional genotype (Complex w/cre out); MP:0002175; "decreased brain weight".  Expect: count=87; Col1a1 not returned in the results.</li>
+    		</ol></li>
+    		
+    		<li>Query for MP or OMIM ids that have annotations to slash alleles - no change for mouse homologs
+    		<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>    
+    		<ol>
+    		   <li>Query for an MP term with an annotation to a genotype for a slash allele: MP:0002166; "altered tumor susceptibility".  Expect: count=972; Psme2 returned.</li>
+    		   <li>Query for an OMIM term with an annotation to a genotype for a slash allele; 183600; "Split-hand/foot Malformation; SHFM1".  Expect: count=2; Dlx6 returned. </li>
+    	    </ol></li>
+    	    
+    	    <li>Query for MP or OMIM ids that have annotations via transgenic reporter genotypes (no change for MP terms)
+    		<p concordion:assertTrue="true">PASS - jlewis 10/13/14</p>    
+    		<ol>
+    		   <li>Query for an MP term with an annotation to a complex genotype (OMG w/ reporter out); MP:0011128; "increased secondary ovarian follicle number".  Expect: count=4; Foxo3 in the results.</li>
+    		   <li>Query for an MP term with an annotation to a conditional genotype (OMG w/cre and reporter out); MP:0006071; "abnormal retinal progenitor cell morphology".  Expect: count=12; Atoh7 to be returned in the results.</li>
+    		   <li>Query for an MP term with an annotation to a conditional genotype for a transgene w/ multiple attributes including reporter (OMG w/ cre out); MP:0000774; "decreased brain size".  Expect: count=242; Tg(EEF1A1-SHC1*)1Ravi not returned (no GXD results).</li>
+    		   <li>Query for an OMIM term with an annotation to a complex genotype (OMG w/reporter out); 166950; Teratoma, Ovarian.  Expect: count=2; Foxo3 returned in results.</li>
+    		   
+    		</ol></li>
+
+		</ol>
+	
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
