@@ -97,10 +97,10 @@
 					<li>OR queries with text
 					<p concordion:assertTrue="false">new test</p>
 						<ol>
-							<li>(MP OR MP) - Query: lung OR albino - Expect: Only matching on MP terms should not see any human diseases</li>
-							<li>(MP OR OMIM) - Query: blindess OR diabetes - Expect: Both human and mouse diseases</li>
-							<li>(OMIM OR MP) - Query: diabetes OR obesity - Expect: Same as previous test</li>
-							<li>(OMIM OR OMIM) - Query: SLE OR cancer - Expect: Both human and mouse diseases, Lung cancer as well as Otopalatodigital Syndrome, Type I. Gene FLNA is added to the list.</li>
+							<li>(MP OR MP) - Query: (insulitis OR hemeranopia) - Expect: 49 mouse genes; 0 human genes; 8 diseases on grid.</li>
+							<li>(MP OR OMIM) - Query: insulitis OR  - Expect: </li>
+							<li>(OMIM OR MP) - Query: diabetes OR obesity - Expect: </li>
+							<li>(OMIM OR OMIM) - Query: SLE OR cancer - Expect: </li>
 						</ol>
 					</li>
 					
