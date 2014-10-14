@@ -123,6 +123,7 @@
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND OMIM) - Query: (211980 AND 131200) - Expect: Each term has both mouse and human, but anded together have only mouse diseases.</li>
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND OMIM) - Query: (311300 AND 300049) - Expect: Each term has both mouse and human, but anded together match on both the mouse and human side.</li>
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND OMIM) - Query: (211980 AND 300321) - Expect: Each term has both mouse and human, but anded together have no results.</li>
+							<li><span concordion:assertTrue="true">PASS</span> (omim AND MP/OMIM) - Query: (222100 AND, arthritis) -Expect: PTPN22 and Il1r1 to be returned.</li>
 						</ol>
 					</li>
 					
@@ -159,6 +160,7 @@
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND NOT OMIM) - Query: (311300 AND NOT 300049) - Expect: No results because both diseases match on human side of FLNA</li>
 							<li><span concordion:assertTrue="true">PASS</span> (mp/omim AND NOT omim) - Query: (ALS* AND NOT 137760) - Expect: should not return OPTN</li>
 							<li><span concordion:assertTrue="true">PASS</span> (omim AND NOT omim) - Query: (Gillespie AND NOT cataract) - Expect: No results </li>
+							<li><span concordion:assertTrue="true">PASS</span> (omim AND NOT mp/omim) - Query: (222100 AND NOT arthritis) - Expect: Difference with just a query by 222100 -- human gene PTPN22 and mouse gene Il1r1 no longer returned (genocluster with both 222100 and arthritis MP term, MP:0003436)</li>
 						</ol>
 					</li>
 					
