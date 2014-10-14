@@ -157,6 +157,8 @@
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND NOT OMIM) - Query: (105830 AND NOT 300260) - Expect: Human and Mouse minus 300260 which matches on mouse side of UBE3A and removes those results</li>
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND NOT OMIM) - Query: (305620 AND NOT 309350) - Expect: No Diseases 309350 matches on both human and mouse side of FLNA and removes all Diseases</li>
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND NOT OMIM) - Query: (311300 AND NOT 300049) - Expect: No results because both diseases match on human side of FLNA</li>
+							<li><span concordion:assertTrue="true">PASS</span> (mp/omim AND NOT omim) - Query: (ALS* AND NOT 137760) - Expect: should not return OPTN</li>
+							<li><span concordion:assertTrue="true">PASS</span> (omim AND NOT omim) - Query: (Gillespie AND NOT cataract) - Expect: No results </li>
 						</ol>
 					</li>
 					
