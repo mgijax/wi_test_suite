@@ -95,12 +95,12 @@
 					</li>
 					
 					<li>OR queries with text
-					<p concordion:assertTrue="false">new test</p>
+					<p concordion:assertTrue="true">PASS - jlewis 10/14/14</p>
 						<ol>
 							<li>(MP OR MP) - Query: (insulitis OR hemeranopia) - Expect: 49 mouse genes; 0 human genes; 8 diseases on grid.</li>
-							<li>(MP OR OMIM) - Query: insulitis OR  - Expect: </li>
-							<li>(OMIM OR MP) - Query: diabetes OR obesity - Expect: </li>
-							<li>(OMIM OR OMIM) - Query: SLE OR cancer - Expect: </li>
+							<li>(MP OR OMIM) - Query: (insulitis OR heteroplasia)  - Expect: 49 mouse genes; 1 human gene; 16 diseases on grid. </li>
+							<li>(OMIM OR MP) - Query: (heteroplasia OR insulitis) - Expect: same results as previous query</li>
+							<li>(OMIM OR OMIM) - Query: (Kindler OR "teratoma ovarian") - Expect: 3 mouse genes; 1 human gene; 2 disease on grid. </li>
 						</ol>
 					</li>
 					
@@ -123,6 +123,17 @@
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND OMIM) - Query: (211980 AND 131200) - Expect: Each term has both mouse and human, but anded together have only mouse diseases.</li>
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND OMIM) - Query: (311300 AND 300049) - Expect: Each term has both mouse and human, but anded together match on both the mouse and human side.</li>
 							<li><span concordion:assertTrue="true">PASS</span> (OMIM AND OMIM) - Query: (211980 AND 300321) - Expect: Each term has both mouse and human, but anded together have no results.</li>
+						</ol>
+					</li>
+					
+					<li>AND queries (tests from Sue B.)
+					<p concordion:assertTrue="true">PASS - jlewis 10/14/14</p>
+						<ol>
+							<li>(mp/omim AND mp/omim) - Query: Coloboma AND "Optic Nerve Hypoplasia" - Expect: should return human PAX6 (also mouse Rpl24 and Smoc1)</li>
+							<li>(omim AND mp/omim) - Query: 120430 AND "Optic Nerve Hypoplasia"  - Expect: should return human PAX6</li>
+							<li>(omim AND omim) - Query: 120430 AND 165550 - Expect: should return human PAX6</li>
+							<li>(mp/omim AND omim) - Query: ALS* AND 137760 - Expect: should return human OPTN; 3 diseases on grid </li>
+							<li>(omim AND omim) - Query: gillespie AND cataract - Expect: should return human PAX6</li>
 						</ol>
 					</li>
 					
