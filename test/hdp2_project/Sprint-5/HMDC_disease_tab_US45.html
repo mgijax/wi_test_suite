@@ -27,10 +27,16 @@
 
 <div id="acceptance">
     <h2>Test Requirements</h2>
-	<ol>
-	   <li>xxx</li>
-	  
-	</ol>
+    <ol>
+         <li>Search MP and OMIM vocabularies with User's query and determine the set of OMIM and or MP terms to use for searching the annotations.</li>
+         <li>Search the simple set of mouse genoclusters for annotations to the MP/OMIM term search set.</li>
+         <li>Search the human gene/OMIM annotations for annotations to the OMIM term search set.</li>
+         <li>Apply boolean operation if present (explicit AND, OR, AND NOT or implicit OR).</li>
+         <li>For every genocluster that results, return all diseases with annotations to those resulting genoclusters.</li>
+         <li>For every human gene that results, return all disease with annotations to those resulting human genes.</li>
+    </ol>
+	       
+	
 	
 	More details -- <a href=http://mgiwiki/mediawiki/index.php/sw:HMDC_Boolean_Query>boolean queries</a>
 </div>
@@ -48,11 +54,58 @@
 		
 		<ol>
     	
-    	    <li>Test case 1
+    	    <li>Search for results with a single OMIM term
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query for OMIM term with no mouse or human annotations; 604324; Adult Acne.  Expect: 0 results</li>
+    		  <li>Query for OMIM term with only mouse annotations; direct OMIM annotation only; 203500, Alkaptonuria; AKU.  Expect: 1 disease.</li>
+    		  <li>Query for OMIM term with only mouse annotations; direct+indirect OMIM annotations; 606391, Maturity-Onset Diabetes of the Young; MODY.  Expect: 3 diseases (1 direct + 2 indirect).</li>
+    		  <li>Query for OMIM term with only human annotations; direct OMIM annotation only; 606243, Alveolar Soft Part Sarcoma; ASPS.  Expect: 1 disease.</li>
+    		  <li>Query for OMIM term with only human annotations; direct+indirect OMIM annotations; 123150, Jackson-Weiss Syndrome; JWS.  Expect: 1 direct disease + 13 indirect diseases.</li>
+    		  <li>Query for OMIM term with mouse and human annotations; direct only; 604290, Aceruloplasminemia.  Expect 1 disease.</li>
+    		  <li>Query for OMIM term with mouse and human annotations; direct+indirect; 148190, Keratitis, Hereditary.  Expect: 1 direct; 5 human indirect; 2 mouse and human indirect diseases; total=8.</li>
+    		  <li>Query for OMIM term with only non-simple mouse OMIM annotations (should not be returned); nnnn.  Expect: 0 diseases. </li>
+    	    </ol></li>
+    	    
+    	    <li>Search for results with a single MP term
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query for MP term with no mouse OMIM annotations to same genocluster; MP:0010713; genes=col*.  Expect: 0 diseases</li>
+    		  <li>Query for MP term with mouse OMIM annotation to same genocluster/different genotype; MP:0003213, decreased susceptibility to age related obesity.  Expect: 1 disease; OPA1.
+    		  <li>Query for MP term with mouse OMIM annotations to genocluster (same and diff genotypes); MP:0005239; genes=abc*.  Expect: 2 diseases returned (same genotype as MP term) and 2 diseases returned (same genocluster/diff genotype than MP term)
+    		  <ul><li>same genotype = PXE, STGD1; same genocluster/diff genotype = CORD3, RP19</li></ul></li>
+    		  <li>Query for MP term with multiple mouse OMIM annotations to same disease cluster term on grid; MP:0008235(increased susceptibility to neuronal excitotoxicity); genes=psen*.  Expect: 2 diseases in disease tab (1 disease cluster on grid); AD, AD3</li>
+    	    </ol></li>
+    	    
+    	    <li>Search for results with multiple OMIM terms (implicit ORs)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query for OMIM terms with only mouse annotations; direct OMIM annotation only; nnnn, nnnn.  Expect: n disease.</li>
+    		  <li>Query for OMIM terms with only mouse annotations; direct+indirect OMIM annotations; nnnn, nnnn.  Expect: n diseases.</li>
+    		  <li>Query for OMIM terms with only human annotations; direct OMIM annotation only; nnnn, nnnn.  Expect: n disease.</li>
+    		  <li>Query for OMIM terms with only human annotations; direct+indirect OMIM annotations; nnnn, nnnn.  Expect: n diseases.</li>
+    		  <li>Query for OMIM terms with mouse and human annotations; direct only; nnnn, nnnn.  Expect n disease.</li>
+    		  <li>Query for OMIM terms with mouse and human annotations; direct+indirect; xxxx.  Expect: n diseases.</li>
+    		  <li>Query for OMIM terms with mouse and human annotations with text; xxxx xxxx.  Expect: n diseases.</li>
+    		  <li>Query for OMIM terms with mouse and human annotations with double quotes; "xxxx xxxx".  Expect: n diseases.</li>
+    		  <li>Query for OMIM terms with mouse and human annotations with wild card; xxxx*.  Expect: n diseases.</li>
+    	    </ol></li>
+    	    
+    	    <li>Search for results with multiple MP terms (implicit ORs)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		  <li>test 1.1</li>
     	    </ol></li>
+    	    
+    	    <li>Search for results with a mix of OMIM and MP terms (implicit ORs)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>test 1.1</li>
+    	    </ol></li>
+    	    
+    	    
+    	    
+    	    
   
 		</ol>
 	</div>
