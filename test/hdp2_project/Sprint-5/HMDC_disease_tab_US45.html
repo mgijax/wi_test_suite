@@ -104,19 +104,66 @@
     	    <li>Search for results with multiple MP terms (implicit ORs)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>test 1.1</li>
+    		  <li>Query for MP terms with no mouse OMIM annotations to same genocluster; MP:nnnn, MP:nnnnn;.  Expect: 0 diseases</li>
+    		  <li>Query for MP term with mouse OMIM annotation to same genocluster/different genotype; MP:nnn, MP:nnnn.  Expect: n diseases</li>
+    		  <li>Query for MP term with mouse OMIM annotations to genocluster (same and diff genotypes); MP:nnnn, MP:nnnn.  Expect: n diseases.
+    		  <ul><li>same genotype = xxx; same genocluster/diff genotype = xxx</li></ul></li>
+    		  <li>Query for MP term with multiple mouse OMIM annotations to same disease cluster term on grid; MP:nnnnn, MP:nnnnn.  Expect: n diseases.</li>
     	    </ol></li>
     	    
     	    <li>Search for results with a mix of OMIM and MP terms (implicit ORs)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query for MP and OMIM terms where both terms return diseases with no overlap.  nnnnn, MP:nnnnn.  Expect: n diseases</li>
+    		  <li>Query for MP and OMIM terms where both terms return diseases and there is at least 1 disease returned that is associated to both terms, MP:nnnnn, nnnnn.  Expect: n diseases</li>
+    		  
+    	    </ol></li>
+    	    
+    	    <li>Search for results converting implicit ORs to explicit ORs
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Repeat the above implicit OR tests and insert an OR operator.  Expect: same results as implicit OR</li>
+    	    </ol></li>
+    	    
+    	     <li>Search for results with OMIM terms with an AND operator
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>test 1.1</li>
+    	    </ol></li>
+  
+            <li>Search for results with MP terms with an AND operator
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>test 1.1</li>
+    	    </ol></li>
+  
+            <li>Search for results with MP and OMIM terms with an AND operator
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query with terms that return indirect human disease annotations; 222100 AND arthritis.  Expect: 3 diseases returned; 1 direct; 2 human indirect.</li>
+    		  <li>Query with terms that return indirect mouse disease annotations; xxxx AND xxxxx.  Expect; n diseases returned. </li>
+    		  <li>Query with terms that return only direct disease annotaitons; xxxx AND xxxx.  Expect: n diseases returned.</li> 
+    	    </ol></li>
+    	    
+    	     <li>Search for results with OMIM terms with an AND NOT operator
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>test 1.1</li>
+    	    </ol></li>
+  
+            <li>Search for results with MP terms with an AND NOT operator
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>test 1.1</li>
+    	    </ol></li>
+  
+            <li>Search for results with MP and OMIM terms with an AND NOT operator
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		  <li>test 1.1</li>
     	    </ol></li>
     	    
     	    
-    	    
-    	    
-  
 		</ol>
     	    
       	    
