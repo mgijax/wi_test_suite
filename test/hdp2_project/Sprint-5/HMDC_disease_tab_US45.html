@@ -80,15 +80,25 @@
     	    <li>Search for results with multiple OMIM terms (implicit ORs)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query for OMIM terms with only mouse annotations; direct OMIM annotation only; nnnn, nnnn.  Expect: n disease.</li>
-    		  <li>Query for OMIM terms with only mouse annotations; direct+indirect OMIM annotations; nnnn, nnnn.  Expect: n diseases.</li>
-    		  <li>Query for OMIM terms with only human annotations; direct OMIM annotation only; nnnn, nnnn.  Expect: n disease.</li>
-    		  <li>Query for OMIM terms with only human annotations; direct+indirect OMIM annotations; nnnn, nnnn.  Expect: n diseases.</li>
-    		  <li>Query for OMIM terms with mouse and human annotations; direct only; nnnn, nnnn.  Expect n disease.</li>
-    		  <li>Query for OMIM terms with mouse and human annotations; direct+indirect; xxxx.  Expect: n diseases.</li>
-    		  <li>Query for OMIM terms with mouse and human annotations with text; xxxx xxxx.  Expect: n diseases.</li>
-    		  <li>Query for OMIM terms with mouse and human annotations with double quotes; "xxxx xxxx".  Expect: n diseases.</li>
-    		  <li>Query for OMIM terms with mouse and human annotations with wild card; xxxx*.  Expect: n diseases.</li>
+    		  <li>Query for OMIM terms with only mouse annotations; direct OMIM annotation only; 203500, 179830.  Expect: 2 diseases; Renal Tubular Acidosis, Proximal and Alkaptonuria; AKU.</li>
+    		  <li>Query for OMIM terms with only mouse annotations; direct+indirect OMIM annotations; 606391, 260450.  Expect: 5 diseases (2 direct; 3 indirect)
+    		  <ul><li>direct = MODY, Pancreatic Insufficiency, Combined Exocrine</li>
+    		      <li>indirect = NIDDM, MODY4, SDS</li>
+    		  </ul></li> 
+    		  <li>Query for OMIM terms with only human annotations; direct OMIM annotation only; 606243, 612356.  Expect: 2 diseases; ASPS, Heparin Cofactor II Deficiency.</li>
+    		  <li>Query for OMIM terms with only human annotations; direct+indirect OMIM annotations; 614025, 603218.  Expect: 8 diseases; 2 direct; 6 indirect.
+    		  <ul><li>direct = Hepatic Lipase Deficiency and HDL1</li>
+    		      <li>indirect = NIDDM, CJD, FFI, GSD, Kuru.., Spongiform...</li>
+    		  </ul></li>
+    		  <li>Query for OMIM terms with mouse and human annotations; direct only; 606243, 611185.  Expect 2 diseases; RLS6 and ASPS.</li>
+    		  <li>Query for OMIM terms with mouse and human annotations; direct+indirect; 607014, 218700.  Expect: 11 diseases; 2 direct; 5 indirect human; 2 indirect mouse; 2 indirect human/mouse.
+    		  <ul><li>direct = Hurler Syndrome, CHNG2</li>
+    		      <li>indirect = Scheie Syn, Hurler-Scheie Syn, Otitis; Hypothyroidism/Athyr, ASD7, CTHM, HLHS2, TOF, VSD3 </li>
+    		 </ul></li>
+    		  <li>Query for OMIM terms with mouse and human annotations with text; "shwachman diamond".  Expect: 2 diseases; 1 direct; 1 indirect mouse.</li>
+    		  <li>Query for OMIM terms with mouse and human annotations with double quotes; shwachman diamond.  Expect: 3 diseases; 2 direct; 1 mouse indirect; 0 human indirect
+    		  <ul><li>diseases = Diamond-Blackfan Anemia, Pancreatic Insuff Comb Exoc, Shwachman-Diamond Syndrome</li></ul></li>
+    		  <li>Query for OMIM terms with mouse and human annotations with wild card; AUTS1*.  Expect: 8 diseases.</li>
     	    </ol></li>
     	    
     	    <li>Search for results with multiple MP terms (implicit ORs)
@@ -108,6 +118,8 @@
     	    
   
 		</ol>
+    	    
+      	    
 	</div>
 	<div id="sql">
 	
