@@ -104,37 +104,44 @@
     	    <li>Search for results with multiple MP terms (implicit ORs)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query for MP terms with no mouse OMIM annotations to same genocluster; MP:nnnn, MP:nnnnn;.  Expect: 0 diseases</li>
-    		  <li>Query for MP term with mouse OMIM annotation to same genocluster/different genotype; MP:nnn, MP:nnnn.  Expect: n diseases</li>
-    		  <li>Query for MP term with mouse OMIM annotations to genocluster (same and diff genotypes); MP:nnnn, MP:nnnn.  Expect: n diseases.
-    		  <ul><li>same genotype = xxx; same genocluster/diff genotype = xxx</li></ul></li>
-    		  <li>Query for MP term with multiple mouse OMIM annotations to same disease cluster term on grid; MP:nnnnn, MP:nnnnn.  Expect: n diseases.</li>
+    		  <li>Query for MP terms with no mouse OMIM annotations to same genocluster; MP:0011568, MP:0012048;.  Expect: 0 diseases</li>
+    		  <li>Query for MP terms with mouse OMIM annotations to same genocluster/genotypes: MP:0001349, MP:0003096.  Expect: 2 diseases: Ehlers Danlos; Robinow.</li>
+    		  <li>Query for MP term with mouse OMIM annotation to same genocluster/different genotype; MP:0003213, MP:nnnn.  Expect: n diseases</li>
+    		  <li>Query for MP term with mouse OMIM annotations to genocluster (same and diff genotypes); MP:0001337, MP:nnnn.  Expect: n diseases.
+    		  <ul><li>MP:0001337: same genotype = Sjogren, Otitis;  CHARGE.  same genocluster/diff genotype = SLE</li></ul></li>
+    		  <li>Query for MP term with multiple mouse OMIM annotations to same disease cluster term on grid; MP:0008235, MP:0004254.  Expect: 8 diseases on disease tab; 6 diseases on grid tab.
+    		  <ul><li>Alzheimers: 1 cluster term on grid for 2 diseases and Cerebral Amyloid: 1 cluster term on grid for 2 diseases.</li></ul></li>
     	    </ol></li>
     	    
     	    <li>Search for results with a mix of OMIM and MP terms (implicit ORs)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query for MP and OMIM terms where both terms return diseases with no overlap.  nnnnn, MP:nnnnn.  Expect: n diseases</li>
-    		  <li>Query for MP and OMIM terms where both terms return diseases and there is at least 1 disease returned that is associated to both terms, MP:nnnnn, nnnnn.  Expect: n diseases</li>
+    		  <li>Query for MP and OMIM terms where both terms return diseases with no overlap.  MP:0000575, 203500.  Expect: 3 diseases; 1 direct via OMIM; 2 indirect via MP.</li>
+    		  <li>Query for MP and OMIM terms where both terms return diseases and there is at least 1 disease returned that is associated to both terms, 142340, MP:0011643.  Expect: 4 diseases.
+    		  <ul><li>Ullrich (MP indirect); Diaphrag (overlap direct OMIM/indirect MP); Gastroschisis (indirect OMIM; Ompha (indirect OMIM)</ul></li>
     		  
     	    </ol></li>
     	    
     	    <li>Search for results converting implicit ORs to explicit ORs
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Repeat the above implicit OR tests and insert an OR operator.  Expect: same results as implicit OR</li>
+    		  <li>Repeat a sampling of the above implicit OR tests and insert an OR operator.  Expect: same results as implicit OR</li>
     	    </ol></li>
     	    
     	     <li>Search for results with OMIM terms with an AND operator
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>test 1.1</li>
+    		  <li>AND query for OMIM terms with no overlap mouse or human; 211980 AND 172800.  Expect: 0 results.</li>
+    		  <li>AND query for OMIM terms with overlap on mouse annotations (same genocluster); 131200 AND 211980.  Expect: 2 diseases on grid; 2 diseases on tab.</li>
+    		  <li>AND query for OMIM terms with overlap on human annotations; 211980 AND 601859.  Expect: 2 diseases on grid tab; 2 diseases on tab.</li>
+    		  <li>AND query for OMIM terms with overlap on mouse and human annotations; nnnn AND nnnn.  Expect: n results.</li>
     	    </ol></li>
   
             <li>Search for results with MP terms with an AND operator
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>test 1.1</li>
+    		  <li>AND query for MP terms with no OMIM overlap; MP:nnnn AND MP:nnnn.  Expect: 0 diseases.</li>
+    		  
     	    </ol></li>
   
             <li>Search for results with MP and OMIM terms with an AND operator
