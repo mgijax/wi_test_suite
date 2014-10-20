@@ -55,20 +55,20 @@
 		<ol>
     	
     	    <li>Search for results with a single OMIM term
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/20/14</p>  
     		<ol>
-    		  <li>Query for OMIM term with no mouse or human annotations; 604324; Adult Acne.  Expect: 0 results</li>
-    		  <li>Query for OMIM term with only mouse annotations; direct OMIM annotation only; 203500, Alkaptonuria; AKU.  Expect: 1 disease.</li>
+    		  <li>Query for OMIM term with no mouse or human annotations; 604324; Adult Acne.  Expect: 0 grid results; 1 disease tab result.</li>
+    		  <li>Query for OMIM term with only mouse annotations; direct OMIM annotation only; 179830, Renal Tubular Acidosis, Proximal.  Expect: 1 disease.</li>
     		  <li>Query for OMIM term with only mouse annotations; direct+indirect OMIM annotations; 606391, Maturity-Onset Diabetes of the Young; MODY.  Expect: 3 diseases (1 direct + 2 indirect).</li>
     		  <li>Query for OMIM term with only human annotations; direct OMIM annotation only; 606243, Alveolar Soft Part Sarcoma; ASPS.  Expect: 1 disease.</li>
     		  <li>Query for OMIM term with only human annotations; direct+indirect OMIM annotations; 123150, Jackson-Weiss Syndrome; JWS.  Expect: 1 direct disease + 13 indirect diseases.</li>
     		  <li>Query for OMIM term with mouse and human annotations; direct only; 604290, Aceruloplasminemia.  Expect 1 disease.</li>
     		  <li>Query for OMIM term with mouse and human annotations; direct+indirect; 148190, Keratitis, Hereditary.  Expect: 1 direct; 5 human indirect; 2 mouse and human indirect diseases; total=8.</li>
-    		  <li>Query for OMIM term with only non-simple mouse OMIM annotations (should not be returned); nnnn.  Expect: 0 diseases. </li>
+    		  <li>Query for OMIM term with only non-simple mouse OMIM annotations; 205700.  Expect: 0 diseases on grid; 1 disease on tab; Anemia, Autoimmune Hemolytic. </li>
     	    </ol></li>
     	    
     	    <li>Search for results with a single MP term
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/20/14</p>  
     		<ol>
     		  <li>Query for MP term with no mouse OMIM annotations to same genocluster; MP:0010713; genes=col*.  Expect: 0 diseases</li>
     		  <li>Query for MP term with mouse OMIM annotation to same genocluster/different genotype; MP:0003213, decreased susceptibility to age related obesity.  Expect: 1 disease; OPA1.
@@ -78,9 +78,9 @@
     	    </ol></li>
     	    
     	    <li>Search for results with multiple OMIM terms (implicit ORs)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/20/14</p>  
     		<ol>
-    		  <li>Query for OMIM terms with only mouse annotations; direct OMIM annotation only; 203500, 179830.  Expect: 2 diseases; Renal Tubular Acidosis, Proximal and Alkaptonuria; AKU.</li>
+    		  <li>Query for OMIM terms with only mouse annotations; direct OMIM annotation only; 179830, 606369.  Expect: 2 diseases; Renal Tubular Acidosis, Proximal and Macrocephaly and Epileptic Encephalopathy.</li>
     		  <li>Query for OMIM terms with only mouse annotations; direct+indirect OMIM annotations; 606391, 260450.  Expect: 5 diseases (2 direct; 3 indirect)
     		  <ul><li>direct = MODY, Pancreatic Insufficiency, Combined Exocrine</li>
     		      <li>indirect = NIDDM, MODY4, SDS</li>
@@ -95,26 +95,26 @@
     		  <ul><li>direct = Hurler Syndrome, CHNG2</li>
     		      <li>indirect = Scheie Syn, Hurler-Scheie Syn, Otitis; Hypothyroidism/Athyr, ASD7, CTHM, HLHS2, TOF, VSD3 </li>
     		 </ul></li>
-    		  <li>Query for OMIM terms with mouse and human annotations with text; "shwachman diamond".  Expect: 2 diseases; 1 direct; 1 indirect mouse.</li>
-    		  <li>Query for OMIM terms with mouse and human annotations with double quotes; shwachman diamond.  Expect: 3 diseases; 2 direct; 1 mouse indirect; 0 human indirect
-    		  <ul><li>diseases = Diamond-Blackfan Anemia, Pancreatic Insuff Comb Exoc, Shwachman-Diamond Syndrome</li></ul></li>
-    		  <li>Query for OMIM terms with mouse and human annotations with wild card; AUTS1*.  Expect: 8 diseases.</li>
+    		  <li>Query for OMIM terms with mouse and human annotations with double quotes: "shwachman diamond".  Expect: 2 diseases; 1 direct; 1 indirect mouse.</li>
+    		  <li>Query for OMIM terms with mouse and human annotations with text; <i>shwachman diamond</i>.  Expect: 3 diseases on the grid; 2 direct; 1 mouse indirect; 0 human indirect. Disease tab = 16; these 3 diseases plus disease matches to  diamond (13 more).
+    		  <ul><li>3 grid diseases = Diamond-Blackfan Anemia, Pancreatic Insuff Comb Exoc, Shwachman-Diamond Syndrome</li></ul></li>
+    		  <li>Query for OMIM terms with mouse and human annotations with wild card; AUTS1*.  Expect: 2 diseases on grid; 10 disease on tab (2 grid ones + 8 vocab matches).</li>
     	    </ol></li>
     	    
     	    <li>Search for results with multiple MP terms (implicit ORs)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/20/14</p>  
     		<ol>
     		  <li>Query for MP terms with no mouse OMIM annotations to same genocluster; MP:0011568, MP:0012048;.  Expect: 0 diseases</li>
     		  <li>Query for MP terms with mouse OMIM annotations to same genocluster/genotypes: MP:0001349, MP:0003096.  Expect: 2 diseases: Ehlers Danlos; Robinow.</li>
-    		  <li>Query for MP term with mouse OMIM annotation to same genocluster/different genotype; MP:0003213, MP:nnnn.  Expect: n diseases</li>
-    		  <li>Query for MP term with mouse OMIM annotations to genocluster (same and diff genotypes); MP:0001337, MP:nnnn.  Expect: n diseases.
-    		  <ul><li>MP:0001337: same genotype = Sjogren, Otitis;  CHARGE.  same genocluster/diff genotype = SLE</li></ul></li>
+    		  <li>Query for MP term with mouse OMIM annotations to genocluster (same and diff genotypes); MP:0001337, MP:0005576.  Expect: 9 diseases.
+    		  <ul><li>MP:0001337: same genotype = Sjogren, Otitis;  CHARGE.  same genocluster/diff genotype = SLE</li>
+    		      <li>MP:0005576: same genotype = CCHS, HBB; same genocluster/diff genotype = diabetes; same and diff genotype = Obesity; child term/same genotype = Prader.</ul></li>
     		  <li>Query for MP term with multiple mouse OMIM annotations to same disease cluster term on grid; MP:0008235, MP:0004254.  Expect: 8 diseases on disease tab; 6 diseases on grid tab.
     		  <ul><li>Alzheimers: 1 cluster term on grid for 2 diseases and Cerebral Amyloid: 1 cluster term on grid for 2 diseases.</li></ul></li>
     	    </ol></li>
     	    
     	    <li>Search for results with a mix of OMIM and MP terms (implicit ORs)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/20/14</p>  
     		<ol>
     		  <li>Query for MP and OMIM terms where both terms return diseases with no overlap.  MP:0000575, 203500.  Expect: 3 diseases; 1 direct via OMIM; 2 indirect via MP.</li>
     		  <li>Query for MP and OMIM terms where both terms return diseases and there is at least 1 disease returned that is associated to both terms, 142340, MP:0011643.  Expect: 4 diseases.
