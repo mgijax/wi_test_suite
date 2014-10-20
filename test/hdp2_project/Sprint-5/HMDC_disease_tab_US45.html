@@ -134,13 +134,15 @@
     		  <li>AND query for OMIM terms with no overlap mouse or human; 211980 AND 172800.  Expect: 0 results.</li>
     		  <li>AND query for OMIM terms with overlap on mouse annotations (same genocluster); 131200 AND 211980.  Expect: 2 diseases on grid; 2 diseases on tab.</li>
     		  <li>AND query for OMIM terms with overlap on human annotations; 211980 AND 601859.  Expect: 2 diseases on grid tab; 2 diseases on tab.</li>
-    		  <li>AND query for OMIM terms with overlap on mouse and human annotations; nnnn AND nnnn.  Expect: n results.</li>
+    		  <li>AND query for OMIM terms with overlap on mouse and human annotations; 152700 AND 611162.  Expect: 2 diseases on grid; 2 diseases on tab; SLE & malaria.</li>
     	    </ol></li>
   
             <li>Search for results with MP terms with an AND operator
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>AND query for MP terms with no OMIM overlap; MP:nnnn AND MP:nnnn.  Expect: 0 diseases.</li>
+    		  <li>AND query for MP terms with no OMIM overlap; MP:0001307 AND MP:0003198.  Expect: 0 diseases.</li>
+    		  <li>AND query for MP terms with an OMIM overlap (same genotype); MP:0008041 AND MP:0011279.  Expect: 1 disease on grid; 1 disease on tab- Chediak-Higashi.</li>
+    		  <li>AND query for MP terms with an OMIM overlap (same genocluster/diff g-type); MP:0010307 AND MP:0005070.  Expect: 2 diseases on grid/tab due to same genocluster/diff genotype - MS and Hemo Lymph.  Also 2 other dieseases on grid/tab.</li>
     		  
     	    </ol></li>
   
@@ -164,10 +166,11 @@
     		  <li>test 1.1</li>
     	    </ol></li>
   
-            <li>Search for results with MP and OMIM terms with an AND NOT operator
+            <li>Search for results with OMIM terms AND NOT MP term
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>test 1.1</li>
+    		  <li>613659 (gastric cancer) AND NOT MP:0000691 (enlarged spleen) -- Expect: MP term element to remove 1 mouse gene and associated diseases from grid; same on disease tab.</li>
+    		  
     	    </ol></li>
     	    
     	    
