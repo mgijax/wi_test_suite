@@ -158,19 +158,21 @@
     	    </ol></li>
     	    
     	     <li>Search for results with OMIM terms with an AND NOT operator
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/21/14</p>  
     		<ol>
-    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes all results; nnnn AND NOT nnnn.  Expect: 0 results.</li>
-    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes none of the results; nnnn AND NOT nnnn.  Expect: n results (same results when querying by element 1 by iteself).</li>
-    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes a portion of the results; nnnn AND NOT nnnn.  Expect: n results.</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes all results; 104310 AND, NOT, 606889.  Expect: 0 results.</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes none of the results; 166950, AND, NOT, 114480,.  Expect: 1 disease (same results when querying by element 1 by iteself).</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes a portion of human results; 211980, AND, NOT, "gastric cancer".  Expect: 4 human genes and their associated diseases removed from the results for 211980.  (KRAS, ERBB2, IRF1, PIK3CA); 22 diseases on tab.</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes a portion of human and mouse results; 604229, AND, NOT, 148190.  Expect: 6 diseases removed from results for 604229.  9 diseases on tab.</li>
     	    </ol></li>
   
             <li>Search for results with MP terms with an AND NOT operator
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/21/14</p>  
     		<ol>
-    		  <li>AND NOT query for MP terms where the AND NOT clause removes all results; MP:nnnn AND NOT MP:nnnn.  Expect: 0 results.</li>
-    		  <li>AND NOT query for MP terms where the AND NOT clause removes none of the results; MP:nnnn AND NOT MP:nnnn.  Expect: n results (same results when querying by element 1 by iteself).</li>
-    		  <li>AND NOT query for MP terms where the AND NOT clause removes a portion of the results; MP:nnnn AND NOT MP:nnnn.  Expect: n results.</li>
+    		  <li>AND NOT query for MP terms where the AND NOT clause removes all results; MP:0004031, AND, NOT, MP:0005387.  Expect: 0 results.</li>
+    		  <li>AND NOT query for MP terms where the AND NOT clause removes none of the results; MP:0001274, AND, NOT, MP:0005394.  Expect: 71 rows in grid; 7 diseases (same results when querying by element 1 by iteself).</li>
+    		  <li>AND NOT query for MP terms where the AND NOT clause removes a portion of the results; MP:0001307, AND, NOT, MP:0005386.  Expect: 4 diseases; lost ADHD when including the AND NOT element.</li>
+    		  <li>AND NOT query for MP terms where the AND NOT clause has 2 elements; MP:0001274, AND, NOT, (MP:0005385, OR, MP:0010768,).  Expect: 2 diseases; Lost Menkes, Molybdenum, parietal, Peters Ana, Wilson when AND NOT clause included.</li>
     	    </ol></li>
   
             <li>Search for results with OMIM terms AND NOT MP term
@@ -191,9 +193,15 @@
     	    </ol></li>
     	    
     	    <li>Text searches that return results on Disease Tab, but not on Grid
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/21/14</p>  
     		<ol>
-    		  <li>test 1.1</li>
+    		  <li>Query using a single token that returns only matches to the Disease Tab; zechi.  Expect: 1 disease (all with no annotations in MGI)</li>
+    		  <li>Query using a single token that returns matches to the Grid and add'l matches to the Disease Tab; Maine.  Expect: 1 disease on grid; 2 diseases on tab.</li>
+    		  <li>Query using multiple tokens in quotes that returns matches  to a disease synonym in the Diseaes Tab; "Aarskog Syndrome".  Expect: 1 disease on grid; 3 diseases on tab.  Faciodigitogenital Syndrome matched via synonym.</li>
+    		  <li>Query using multiple tokens in quotes that return matches to the Grid and add'l matches to the Disease Tab; "coarse hair".  Expect: 2 diseases on grid; 3 diseases on tab. Add'l disease = Onychogryposis, Pedal, with Keratosis Plantaris and Coarse Hair</li>
+    		  <li>Query using text and Boolean AND that returns add'l matches to the Disease Tab; Aarskog AND Syndrome.  Expect: 1 disease on grid; 3 diseases on tab (same results as 14.3)</li>
+    		  <li>Query using text and Boolean AND NOT that returns add'l matches to the Disease Tab; Aarskog AND, NOT, kuwait.  Expect:  1 disease on grid; 2 diseases on tab. Faciodigitogenital Syndrome not returned due to "kuwait" in synonym list.</li>
+    		  <li>Query using text and Boolean AND that returns add'l matches to the Disease Tab; "renal cell cancer", OR, "colon cancer".  Expect: 2 add'l diseases on tab.</li>
     	    </ol></li>
     	    
 		</ol>
