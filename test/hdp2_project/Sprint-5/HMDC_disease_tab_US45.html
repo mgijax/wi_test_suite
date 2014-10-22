@@ -126,7 +126,7 @@
     	    </ol></li>
     	    
     	    <li>Search for results converting implicit ORs to explicit ORs
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/22/14</p>  
     		<ol>
     		  <li>Repeat a sampling of the above implicit OR tests and insert an OR operator.  Expect: same results as implicit OR</li>
     	    </ol></li>
@@ -179,20 +179,26 @@
     		<p concordion:assertTrue="true">PASS - jlewis 10/22/14</p>  
     		<ol>
     		  <li>613659 (gastric cancer) AND NOT MP:0000691 (enlarged spleen) -- Expect: MP term element to remove 1 mouse gene (Il6st) and associated diseases from grid; same on disease tab.</li>
-    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes all results; 179830, AND, NOT, MP:0005378.  Expect: 0 results.</li>
-    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes none of the results; 240800, AND, NOT, MP:0001261, .  Expect: 5 diseases due to a match to a human gene AND NOT clause did not change the results.</li>
-    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes a portion of the results; 209850, AND, NOT, MP:0001186,.  Expect: 10 diseases on grid and tab (no change); 1 marker removed due to AND NOT clause (Tg(Mov1/Tyr)OVE876BPay).</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes all results; 179830, AND, NOT, MP:0005378.  Expect: 0 results.
+    		  <ul><li>(Renal Tubular Acidosis, Proximal - 179830 AND (NOT growth/size/body phenotype - MP:0005378))</li></ul></li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes none of the results; 240800, AND, NOT, MP:0001261, .  Expect: 5 diseases due to a match to a human gene AND NOT clause did not change the results.
+    		  <ul><li>(Hypoglycemia, Leucine-Induced; LIH - 240800 AND (NOT obese - MP:0001261))</li></ul></li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes a portion of the results; 209850, AND, NOT, MP:0001186,.  Expect: 10 diseases on grid and tab (no change); 1 marker removed due to AND NOT clause (Tg(Mov1/Tyr)OVE876BPay).
+    		  <ul><li>(Autism - 209850 AND (NOT pigmentation phenotype - MP:0001186))</li></ul></li>
     		  
     	    </ol></li>
     	    
     	    <li>Search using the AND NOT boolean for a mix of OMIM and MP terms
     		<p concordion:assertTrue="true">PASS - jlewis 10/22/14</p>  
     		<ol>
-    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes all results; "achalasia familial", AND, NOT, MP:0003631.  Expect: 0 results.</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes all results; "achalasia familial", AND, NOT, MP:0003631.  Expect: 0 results.
+    		  <ul><li>("achalasia familial" AND (NOT nervous system phenotype - MP:0003631))</li></ul></li>
     		  <li>AND NOT query for OMIM terms where the AND NOT clause removes none of the results; "gastric cancer", AND, NOT, pancreas.  Expect: 38 diseases on tab (same results when querying by element 1 by iteself).</li>
-    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes the mouse results; "renal tubular acidosis proximal", AND, NOT, MP:0005378.  Expect: 1 disease returned per human annotation; AND NOT clause removed 1 disease per the mouse annotation</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes the mouse results; "renal tubular acidosis proximal", AND, NOT, MP:0005378.  Expect: 1 disease returned per human annotation; AND NOT clause removed 1 disease per the mouse annotation
+    		  <ul><li>("renal tubular acidosis proximal" AND (NOT growth/size/body phenotype - MP:0005378))</li></ul></li>
     		  <li>AND NOT query for OMIM terms where the AND NOT clause removes human results; "gastric cancer", AND, NOT, craniofacial.  Expect: human gene FGFR2 and 10 associated diseaes not returned when using the AND NOT clause.</li>
-    		  <li>AND NOT query for OMIM terms where vocab matches are present; "achalasia", AND, NOT, MP:0003631.  Expect: 2 add'l diseases on Disease tab due to the match to "achalasia".</li>
+    		  <li>AND NOT query for OMIM terms where vocab matches are present; "achalasia", AND, NOT, MP:0003631.  Expect: 2 add'l diseases on Disease tab due to the match to "achalasia".
+    		  <ul><li>("achalasia" AND (NOT nervous system phenotype - MP:0003631))</li></ul></li>
     	    </ol></li>
     	    
     	    <li>Text searches that return results on Disease Tab, but not on Grid
