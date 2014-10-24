@@ -70,7 +70,7 @@
 		<ol>
     	    
     	    <li>Verify Expresses Component (EC) text and count to display when present
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/24/14</p>  
     		<ol>
     		  <li>Display allele with no EC; Lep<sup>db</sup>; MGI:1856009.  Expect: no EC</li>
     		  <li>Display transgene with no EC; Tg(Apcs-Lep)1Yog; MGI:3039276.  Expect: no EC</li>
@@ -81,7 +81,7 @@
     	    </ol></li>
     	    
     	    <li>Verify EC Table fields for all mouse components
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/24/14</p>  
     		<ol>
     		  <li>Display allele with 1 EC mouse component; Npr1<sup>tm1(Npr1)Unc</sup>; MGI:2158630.  Expect: mouse Npr1 and no Notes.</li>
     		  <li>Display allele with >1 EC mouse components; Cdh5<sup>tm4(Cdh5/Fkbp,Ptprb/Mtor*)Dvst</sup>; MGI:5305106. Expect: mouse Cdh5, Fkbp, Ptprb, Mtor and no Notes</li>
@@ -89,7 +89,7 @@
     	    </ol></li>
     	    
     	    <li>Verify EC Table fields for all non-mouse components
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/24/14</p>  
     		<ol>
     		  <li>Display allele with 1 EC non-mouse component; Ttr<sup>tm3(TTR*)Kymm</sup>; MGI:3838183.  Expect: Human TTR</li>
     		  <li>Display allele with >1 EC non-mouse components; Col1a1<sup>tm1(tetO-EML4/ALK)Kkw</sup>; MGI:5527336. Expect: Human EML4, ALK</li>
@@ -99,13 +99,13 @@
     	    </ol></li>
     	    
     	    <li>Verify EC Table field for a mix of mouse and non-mouse components
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/24/14</p>  
     		<ol>
     		  <li>Display allele with 1 mouse and 1 non-mouse component; Tg(Camk2a-App*,-Apbb1)25Spim; MGI:4366527. Expect: Mouse App, Rat Apbb1</li>
     	    </ol></li>
     	    
     	    <li>Verify Mutation details defaults to open for the Allele Detail page
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - 10/24/14</p>  
     		<ol>
     		  <li>Display Allele Detail page with a "short" Mutation details; Kit<sup>Gt(E325B03)Wrst</sup>; MGI:3896900.  Expect: Open</li>
     		  <li>Display Allele Detail page with a "long" Mutation details; Aard<sup>tm1(KOMP)Vlcg</sup>; MGI:4452871.  Expect: Open</li>
@@ -116,14 +116,20 @@
     	    </ol></li>
     	    
     	    <li>Verify display in supported browsers
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 10/24/14</p>  
     		<ol>
     		  <li>Verify open/close toggle</li>
     		  <li>Verify display of new table</li>
     		  <li>Verify mutation details always open state and ability to close</li>
     	    </ol></li>
     	    
-    	    <li>Insert regression tests for MI here</li>
+    	     <li>Verify mutation involves display
+    		<p concordion:assertTrue="false">FAIL - jlewis 10/24/14; 7.2 failed -- all markers listed not just 3.</p>  
+    		<ol>
+    		  <li>Display allele with < 3 mutation involves relationship; MGI:2183544.  Expect: list of 2 markers</li>
+    		  <li>Display allele with > 3 mutation involves relationships; MGI:4462823.  Expect: list of 3 markers w/ ellipsis</li>
+    		  <li>Display allele with 3 mutation involves relationships; MGI:3628802.  Expect: list of 3 markers no ellipsis.</li>
+    	    </ol></li>
     	   
     	    
 		</ol>

@@ -137,7 +137,7 @@
     		  <li>AND query for OMIM terms with no overlap mouse or human; 211980 AND 172800.  Expect: 0 results.</li>
     		  <li>AND query for OMIM terms with overlap on mouse annotations (same genocluster); 131200 AND 211980.  Expect: 2 diseases on grid; 2 diseases on tab.  Endometriosis and Lung Cancer.</li>
     		  <li>AND query for OMIM terms with overlap on human annotations; 211980 AND 601859.  Expect: 2 diseases on grid tab; 2 diseases on tab.  Autoimmune Lymph... and Lung Cancer.</li>
-    		  <li>AND query for OMIM terms with overlap on mouse and human annotations; 152700 AND 611162.  Expect: 2 diseases on grid; 2 diseases on tab; SLE & malaria.</li>
+    		  <li>AND query for OMIM terms with overlap on mouse and human annotations; 152700 AND 611162.  Expect: 2 diseases on grid; 2 diseases on tab; SLE and malaria.</li>
     	    </ol></li>
   
             <li>Search for results with MP terms with an AND operator
@@ -206,9 +206,9 @@
     		<ol>
     		  <li>Query using a single token that returns only matches to the Disease Tab; zechi.  Expect: 1 disease (all with no annotations in MGI)</li>
     		  <li>Query using a single token that returns matches to the Grid and add'l matches to the Disease Tab; Maine.  Expect: 1 disease on grid; 2 diseases on tab.</li>
-    		  <li>Query using multiple tokens in quotes that returns matches  to a disease synonym in the Diseaes Tab; "Aarskog Syndrome".  Expect: 1 disease on grid; 3 diseases on tab.  Faciodigitogenital Syndrome matched via synonym.</li>
+    		  <li>Query using multiple tokens in quotes that returns matches  to a disease synonym in the Diseaes Tab; "Choanal Atresia".  Expect: 7 disease on grid; 9 diseases on tab. CHARGE Syndrome matched via synonym.</li>
     		  <li>Query using multiple tokens in quotes that return matches to the Grid and add'l matches to the Disease Tab; "coarse hair".  Expect: 2 diseases on grid; 3 diseases on tab. Add'l disease = Onychogryposis, Pedal, with Keratosis Plantaris and Coarse Hair</li>
-    		  <li>Query using text and Boolean AND that returns add'l matches to the Disease Tab; Aarskog AND Syndrome.  Expect: 1 disease on grid; 3 diseases on tab (same results as 14.3)</li>
+    		  <li>Query using text and Boolean AND that returns add'l matches to the Disease Tab; Choanal AND Atresia.  Expect: 7 diseases on grid; 9 diseases on tab</li>
     		  <li>Query using text and Boolean AND NOT that returns add'l matches to the Disease Tab; Aarskog AND, NOT, kuwait.  Expect:  1 disease on grid; 2 diseases on tab. Faciodigitogenital Syndrome not returned due to "kuwait" in synonym list.</li>
     		  <li>Query using text and Boolean AND that returns add'l matches to the Disease Tab; "renal cell cancer", OR, "colon cancer".  Expect: 2 add'l diseases on tab.</li>
     	    </ol></li>
