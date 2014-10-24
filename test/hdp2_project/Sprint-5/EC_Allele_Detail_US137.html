@@ -1,0 +1,156 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 137</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>EC - Allele Detail</h1>
+    <ul>
+        <li>User Story 137 - Expressed Component changes - Allele Detail</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+       <li>Add Expresses Component relationships in the Mutation description/Transgene description ribbon</li>
+       <li>If an allele has both Mutation Involves and Expresses Component data; EC data is displayed after MI data.</li>
+       <li>The EC section has 2 parts: a fixed line and a open/close table.  By default, the table is closed.</li>
+       <li>The fixed line format: "Allele_Symbol" expresses * component where # is the count of expressed components for the allele.  The word component is plural when appropriate.</li>
+       <li>The table has 2 different formats depending on the type of expressed components present (mouse vs. non-mouse)</li>
+       <li>The following fields are displayed when all expressed components are "mouse" (i.e. expresses_mouse_gene)
+       <ol><li>Organism - always display "Mouse"</li>
+           <li>Gene - display the mouse gene symbol; link to the Marker Detail page</li>
+           <li>Note - display the Note field from the input file; display column even if no data</li>
+       </ol></li>
+       <li>The following fields are displayed when some or all of the expressed components are "non-mouse" (i.e. expresses_an_orthologous_gene)
+       <ol><li>Organism - display organism from input file for non-mouse; for mouse - same as above</li>
+           <li>Gene - display non-mouse gene symbol with link to NCBI using ID; for mouse same as above
+           <ul><li>If NCBI id does not exist for non-mouse; display symbol without link.</li></ul></li>
+           <li>Mouse Homolog - for non-mouse display mouse symbol and link to Marker Detail; for mouse the column is blank</li>
+           <li>Note - display the Note field from the input file; display column even if no data</li>
+       </ol></li>
+       <li>Change the display default of the "Mutation Details" section to always be open.  This applies to all alleles, i.e. not specific to Expresses Component.</li>
+       <li>Display should work for all supported browsers (PC: Firefox, Chrome; Mac: Firefox, Chrome, Safari)</li>
+       <li>Regression testing for Mutation Involves (requested by Jon)</li>
+       <li>Limited to testing of 42 EC relationships in the database</li>
+         
+    </ol>
+    
+	
+	More details -- <a href=xxxx>Expressed Component Requirements Doc</a>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    	    
+    	    <li>Verify Expresses Component (EC) text and count to display when present
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display allele with no EC; Lep<sup>db</sup>; MGI:1856009.  Expect: no EC</li>
+    		  <li>Display transgene with no EC; Tg(Apcs-Lep)1Yog; MGI:3039276.  Expect: no EC</li>
+    		  <li>Display allele with Mutation Involves (MI); Del(6Dlx6-Dlx5)1Tlu; MGI:2388594.  Expect: no EC</li>
+    		  <li>Display allele with 1 EC; Gata2<sup>tm2(Gata2)Jeng</sup>; MGI:3805382.  Expect: EC = 1; component</li>
+    		  <li>Display transgene with more than 1 EC; Tg(APPSwe,tauP301L)1Lfa; MGI:2672831.  Expect: EC=2; components</li>
+    		  <li>Display Gt(ROSA) allele; Gt(ROSA)26Sor<sup>tm1(tTA,tetO-Mir155)Fjsl</sup>; MGI:5431136.  Expect: EC = 1; component</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify EC Table fields for all mouse components
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display allele with 1 EC mouse component; Npr1<sup>tm1(Npr1)Unc</sup>; MGI:2158630.  Expect: mouse Npr1 and no Notes.</li>
+    		  <li>Display allele with >1 EC mouse components; Cdh5<sup>tm4(Cdh5/Fkbp,Ptprb/Mtor*)Dvst</sup>; MGI:5305106. Expect: mouse Cdh5, Fkbp, Ptprb, Mtor and no Notes</li>
+    		  <li>Display transgene with 1 EC mouse component; Tg(B2m)1Rms; MGI:2663951.  Expect: mouse B2m.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify EC Table fields for all non-mouse components
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display allele with 1 EC non-mouse component; Ttr<sup>tm3(TTR*)Kymm</sup>; MGI:3838183.  Expect: Human TTR</li>
+    		  <li>Display allele with >1 EC non-mouse components; Col1a1<sup>tm1(tetO-EML4/ALK)Kkw</sup>; MGI:5527336. Expect: Human EML4, ALK</li>
+    		  <li>Display transgene with 1 EC non-mouse component; Tg(ACTA1-Ar)141Kyjo; MGI:3794206.  Expect: Rat Ar.</li>
+    		  <li>Display transgene with >1 EC non-mouse components; Tg(APPswe,PSEN1dE9)85Dbo; MGI:3524957.  Expect: Human APP, PSEN1.</li>
+    		  <li>Display allele with a non-mouse EC that has wrong case in Input File; Tg(AR*100Q)C25Als; MGI:5000265.  Expect: case from input file to display; Human Ar.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify EC Table field for a mix of mouse and non-mouse components
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display allele with 1 mouse and 1 non-mouse component; Tg(Camk2a-App*,-Apbb1)25Spim; MGI:4366527. Expect: Mouse App, Rat Apbb1</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Mutation details defaults to open for the Allele Detail page
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display Allele Detail page with a "short" Mutation details; Kit<sup>Gt(E325B03)Wrst</sup>; MGI:3896900.  Expect: Open</li>
+    		  <li>Display Allele Detail page with a "long" Mutation details; Aard<sup>tm1(KOMP)Vlcg</sup>; MGI:4452871.  Expect: Open</li>
+    		  <li>Display Allele Detail page with no mutation details; cw; MGI:1856476.  Expect: no change from Public display.</li>
+    		  <li>Link from Cre to an Allele Detail page.  Expect: Open</li>
+    		  <li>Display Transgene Detail; Ints1<sup>Tg(Tyr)2364B-1aOve</sup>; MGI:5286636.</li>
+    		  <li>Display QTL Detail; Aod3<sup>A/J</sup>; MGI:2670906.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify display in supported browsers
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Verify open/close toggle</li>
+    		  <li>Verify display of new table</li>
+    		  <li>Verify mutation details always open state and ability to close</li>
+    	    </ol></li>
+    	    
+    	    <li>Insert regression tests for MI here</li>
+    	   
+    	    
+		</ol>
+		<h3>Tests to Defer (not in 42 test EC relationships)</h3>
+		<ol>
+		   <li>Allele with both EC and MI relationships</li>
+		   <li>EC mouse with text in the Note column</li>
+		   <li>EC non-mouse with text in the Note column</li>
+		   <li>EC non-mouse without an NCBI gene id</li>
+		   <li>EC non-mouse with a non-MGI organism</li>
+		   <li>Mix of mouse and non-mouse where there's more than 1 of each</li>
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
