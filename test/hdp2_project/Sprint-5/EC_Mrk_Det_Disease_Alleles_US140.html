@@ -1,0 +1,97 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 140</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>EC - Marker Detail</h1>
+    <ul>
+        <li>User Story 140 - Expressed Component changes - Update list of alleles w/ disease</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+       <li>Text change - Phenotype ribbon: change label: "Alleles Annotated to Human Diseases" to "Mutations Annotated to Human Diseases"</li>
+       <li>Include expressed component alleles in the count of the newly labeled "Mutations Annotated to Human Diseases"</li>
+       <li>Include expressed component alleles in the allele summary for "Mutations Annotated to Human Diseases"</li>
+       <li>Mutation Involves alleles are also included in this count/summary and should not be impacted by these changes.</li>
+    </ol>
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    	    
+    	    <li>Verify Expresses Component (EC) included in count and summary for "Mutations Annotated to Human Diseases"
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with no EC alleles; Lep.  Expect: count=2; no EC in disease link</li>
+    		  <li>Display marker with EC alleles, but none with disease links (no link); Gata2.  Expect: no disease link.</li>
+    		  <li>Display marker with EC alleles, but none with disease links (link exists); B2m.  Expect: Disease link with count = 1.</li>
+    		  <li>Display marker with 1 EC allele in disease link where it is the only allele; Kcnj11.  Expect: count = 1; EC allele in summary.</li>
+    		  <li>Display marker with 1 EC allele in disease link where there are other alleles; Kras.  Expect:  count=6; 1 EC allele in summary.</li>
+    		  <li>Display marker with more than 1 EC allele in disease link; App.  Expect: count=8; 3 EC alleles in summary.</li>
+    		  <li>Display marker with 1 EC allele that was already in disease link (already an allele of marker); Rho.  Expect: count=9 and summary to include 1 EC allele; same as Public (no change).</li>
+    		  <li>Display non-gene marker with EC alleles; Hbb.  Expect: count=6; summary includes 1 EC allele.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify Mutation Involves (MI) alleles included in count and summary for "Mutations Annotated to Human Diseases"
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with MI allele in disease link (and no EC alleles); Dlx5.  Expect: count=2; 1 MI allele in summary</li>
+    		  <li>Display marker with mult MI alleles in disease link; Cops3.  Expect: count=3; 3 MI alleles in summary</li>
+    		  <li>Display marker with both EC and MI alleles in disease link; Fgfr3.  Expect: count=13; 3 MI and 1 EC alleles in disease summary.</li>
+    	    </ol></li>
+    	    
+    	    
+    	    
+		</ol>
+		<h3>Tests to Defer (not in 42 test EC relationships)</h3>
+		<ol>
+		   <li>xxxx</li>
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
