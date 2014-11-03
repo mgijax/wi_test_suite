@@ -50,24 +50,24 @@
 		<ol>
     	    
     	    <li>Verify Expresses Component (EC) included in count and summary for "Mutations Annotated to Human Diseases"
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/3/14</p>  
     		<ol>
-    		  <li>Display marker with no EC alleles; Lep.  Expect: count=2; no EC in disease link</li>
-    		  <li>Display marker with EC alleles, but none with disease links (no link); Gata2.  Expect: no disease link.</li>
-    		  <li>Display marker with EC alleles, but none with disease links (link exists); B2m.  Expect: Disease link with count = 1.</li>
-    		  <li>Display marker with 1 EC allele in disease link where it is the only allele; Kcnj11.  Expect: count = 1; EC allele in summary.</li>
-    		  <li>Display marker with 1 EC allele in disease link where there are other alleles; Kras.  Expect:  count=6; 1 EC allele in summary.</li>
-    		  <li>Display marker with more than 1 EC allele in disease link; App.  Expect: count=8; 3 EC alleles in summary.</li>
-    		  <li>Display marker with 1 EC allele that was already in disease link (already an allele of marker); Rho.  Expect: count=9 and summary to include 1 EC allele; same as Public (no change).</li>
-    		  <li>Display non-gene marker with EC alleles; Hbb.  Expect: count=6; summary includes 1 EC allele.</li>
+    		  <li>Display marker with no EC alleles; Lep.  Expect: mutations w/ disease count=2; no EC allele in summary</li>
+    		  <li>Display marker with EC alleles, but none with disease associations; Gata2.  Expect: mutations w/disease count=0.</li>
+    		  <li>Display marker with EC alleles, none with disease disease associations; but other alleles that do; B2m.  Expect: mutations w/ disease count=1.</li>
+    		  <li>Display marker with only 1 EC allele with disease association; Kcnj11.  Expect: mutations w/ disease count = 1; EC allele in summary.</li>
+    		  <li>Display marker with 1 EC allele with disease association and other alleles too; Kras.  Expect:  mutations w/ disease count=6; 1 EC allele in summary.</li>
+    		  <li>Display marker with more than 1 EC allele with disease associations; App.  Expect: mutations w/ disease count=8; 3 EC alleles in summary.</li>
+    		  <li>Display marker with 1 EC allele with disease associations that previously was included (already an allele of marker); Rho.  Expect: mutations w/ disease count=9 and 1 EC allele in summary; same as Public (no change).</li>
+    		  <li>Display non-gene marker with EC alleles with disease associations; Hbb.  Expect: mutations w/ disease count=6; 1 EC allele in summary.</li>
     	    </ol></li>
     	    
     	    <li>Verify Mutation Involves (MI) alleles included in count and summary for "Mutations Annotated to Human Diseases"
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/3/14</p>  
     		<ol>
-    		  <li>Display marker with MI allele in disease link (and no EC alleles); Dlx5.  Expect: count=2; 1 MI allele in summary</li>
-    		  <li>Display marker with mult MI alleles in disease link; Cops3.  Expect: count=3; 3 MI alleles in summary</li>
-    		  <li>Display marker with both EC and MI alleles in disease link; Fgfr3.  Expect: count=13; 3 MI and 1 EC alleles in disease summary.</li>
+    		  <li>Display marker with MI allele with disease associations (and no EC alleles); Dlx5.  Expect: mutations w/disease count=2; 1 MI allele in summary</li>
+    		  <li>Display marker with many MI alleles with disease associations; Cops3.  Expect: mutations w/disease count=3; 3 MI alleles in summary</li>
+    		  <li>Display marker with both EC and MI alleles with disease associations; Fgfr3.  Expect: mutations w/disease count=13; 3 MI and 1 EC alleles in summary.</li>
     	    </ol></li>
     	    
     	    
