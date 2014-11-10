@@ -1,0 +1,107 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 167</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>EC - Roll-up rules WI pages</h1>
+    <ul>
+        <li>User Story 167 - Move updated roll-up data to FE and test</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+       <li>Test the WI pages/fields using the new rolled-up data changed by EC/MI relationships.
+       <li>Change label text for rolled up human disease list for a marker: "Human Diseases Modeled in Mice Using [symbol]"</li>
+       <li>Marker Detail - reflect updated roll-up rules for OMIM
+       <ol><li>Human Diseases Modeled in Mice Using [symbol]: add/remove per new rolled up data</li>
+           <li>Asterisks on list of "Diseases Associated with Human [symbol]": add/remove per new rolled up data</li>
+           <li>Disease relevant reference link: rolled up annotations + disease annoations to alleles of marker</li>
+       </ol>
+       <li>Disease Detail - should reflect updated roll-up rules for OMIM
+       <ol><li>Mouse genes may be removed from this page - e.g. docking site markers</li>
+           <li>Mouse genes may be added to this page - e.g. EC markers</li>
+           <li>Transgenes may be added/removed from this page</li>
+           <li>Mouse Models for EC markers are included in table</li>
+       </ol></li>
+       <li>All Mouse Models - should reflect updated roll-up rules for OMIM
+       <ul><li>Same models displayed; but category of model may change with new rules</li></ul>
+       <li>Homology Class - should reflect updated roll-up rules with EC/MI
+       <ul><li>Should only change list of diseases associated to Mouse (no change to human list)</li></ul>
+       <li>Batch Query - reflect updated roll-up rules for OMIM and MP
+       <ol><li>List of MP annotations for a marker change with the new rules</li>
+           <li>List of OMIM annotations for a marker change with the new rules</li>
+       </ol></li>
+       <li>Marker QF - reflect updated roll-up rules for queries by OMIM and MP terms</li>
+       <li>GXD QF - reflect updated roll-up rules
+       <ol><li>Autocomplete - count of markers for MP and OMIM terms change with new rules</li>
+           <li>GXD Search - markers to search by change with new rules for OMIM and MP searches</li>
+       </ol>
+    </ol>
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    	    
+    	    <li>Test 1
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>test 1.1</li>
+    	    </ol></li>
+    	    
+    	    <li>Test 2
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>test 2.1</li>
+    	    </ol></li>
+    	    
+    	    
+    	    
+		</ol>
+		
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
