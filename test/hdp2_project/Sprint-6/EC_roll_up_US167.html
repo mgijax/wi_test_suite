@@ -33,7 +33,7 @@
        <li>Marker Detail - reflect updated roll-up rules for OMIM
        <ol><li>Human Diseases Modeled in Mice Using [symbol]: add/remove per new rolled up data</li>
            <li>Asterisks on list of "Diseases Associated with Human [symbol]": add/remove per new rolled up data</li>
-           <li>Disease relevant reference link: rolled up annotations + disease annoations to alleles of marker</li>
+           <li><s>Disease relevant reference link: rolled up annotations + disease annoations to alleles of marker</s></li>
        </ol>
        <li>Disease Detail - should reflect updated roll-up rules for OMIM
        <ol><li>Mouse genes may be removed from this page - e.g. docking site markers</li>
@@ -71,19 +71,70 @@
 		
 		<ol>
     	    
-    	    <li>Test 1
-    		<p concordion:assertTrue="false">new test</p>  
+    	    <li>Verify the new marker/disease roll-up rules impact the Marker Detail as expected
+    		<p concordion:assertTrue="true">PASS - jlewis 11/11/14</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Display marker that has disease annotations, but did not change; Kit.  Expect: 2 diseases</li>
+    		   <li>Display marker that had 0 disease annotations, but now has 1 via EC; Kcnj11.  Expect: 1 disease; PNDM</li>
+    		   <li>Display marker that gained a disease annotation; App.  Expect: 2 diseases; Alzheimer 4 added due to EC.</li>
+    		   <li>Display marker that lost a disease annotation; Col1a1.  Expect: 4 diseases; lost 2 incl D-2 Hydrox...</li>
+    		   <li>Display marker that gained an "asterisk" in the human disease list; Kcnj11.  Expect: 1 disease w/ asterisk; PNDM</li>
+    		   <li>Display marker that lost an "asterisk" in the human disease list; Xxx.  No case found.</li>
     	    </ol></li>
     	    
-    	    <li>Test 2
-    		<p concordion:assertTrue="false">new test</p>  
+    	    <li>Verify the marker/disease roll-up rules impact the Homology Class as expected
+    		<p concordion:assertTrue="true">PASS - jlewis 11/11/14</p>  
     		<ol>
-    		  <li>test 2.1</li>
+    		  <li>Display homology class that has disease annotations, but did not change; 187 (Kit).  Expect: 2 diseases; same as Public</li>
+    		   <li>Display homology class that has 0 mouse disease annotations (before and after change); 55955 (Bmp1).  Expect: no annotations</li>
+    		   <li>Display homology class that gained a disease annotation; 56379 (App).  Expect: 2 diseases; Alzheimer 4 added.</li>
+    		   <li>Display homology class that lost a disease annotation; 73874 (Col1a1).  Expect: 4 diseases</li>
     	    </ol></li>
     	    
+    	    <li>Verify the marker/disease roll-up rules impact the Disease Detail and All Mouse Models as expected
+    		<p concordion:assertTrue="false">FAIL - jlewis 11/11/14; DD categorization okay, but models missing on DD.  Models present on AMM, but categorization wrong. (this issue moved to a separate user story 181)</p>  
+    		<ol>
+    		  <li>Display Disease that gained a mouse gene; 606889 (AD 4).  Expect: Mouse App added.</li>
+    		  <li>Display Disease that gained and lost mouse genes; 613657 (D-2-hydrox...).  Expect: Mouse Idh2 added and Mouse Col1a1 lost.</li>
+    		  <li>Display Disease that gained a transgene/other; 222100 (Diabetes...IDDM).  Expect:H2-I listed in the Transgene/Other section.</li>
+    	    </ol></li>
     	    
+    	    <li>Verify the OMIM/MP roll-up rules for a marker using the Batch Query
+    		<p concordion:assertTrue="true">PASS - jlewis 11/11/14</p>  
+    		<ol>
+    		  <li>Query for marker that has disease annotations, but did not change; Kit.  Expect: 2 diseases</li>
+    		   <li>Query for marker that has 0 disease annotations (before and after change); Bmp1.  Expect: no annotations</li>
+    		   <li>Query for marker that gained a disease annotation; Mapt.  Expect: 2 diseases</li>
+    		   <li>Query for marker that lost a disease annotation; Col1a1.  Expect: 4 diseases</li>
+    		   <li>Query for marker that has MP annotations, but did not change; Pax4.  Expect: 12 phenotypes</li>
+    		   <li>Query for marker that has 0 MP annotations (before and after change); Gt(ROSA)26Sor.  Expect: no annotations</li>
+    		   <li>Query for marker that gained an MP annotation; Mapt.  Expect: 29 phenotypes vs. 3 on Public.  Expect all "details" links to return results.</li>
+    		   <li>Query for marker that lost an MP annotation; Col1a1.  Expect: cardiac hypertrophy to longer be listed. Expect all "details" links to return results.</li>
+    	    </ol></li>
+    	    
+    	     <li>Verify the GXD autocomplete counts for MP/OMIM terms using the new rules
+    		<p concordion:assertTrue="true">PASS - jlewis 11/11/14</p> 
+    		<ol>
+    		   <li>Query for MP term that gained genes; periinsulitis.  Expect: count=13 </li>
+    		   <li>Query for OMIM term that gained genes; Alzheimer, AD.  Expect: count=69</li>
+    		   <li>Query for OMIM term that lost genes; Glioma Susceptibility 2; GLM2.  Expect: count=1</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify the GXD QF for MP/OMIM terms using the new rules
+    		<p concordion:assertTrue="true">PASS - jlewis 11/11/14</p> 
+    		<ol>
+    		   <li>Query for MP term that lost/gained genes; hydroencephaly.  Expect: Idh2 returned; Col1a1 not returned</li>
+    		   <li>Query for OMIM term that gained genes; Alzheimer, AD.  Expect: Mapt included.</li>
+    		   <li>Query for OMIM term that lost genes; Glioma; GLM2.  Expect: Col1a1 to not be returned.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify the Marker QF for MP/OMIM terms using the new rules
+    		<p concordion:assertTrue="true">PASS - jlewis 11/11/14</p>  
+    		<ol>
+    		   <li>Query for MP term that gained/lost genes; MP:0001891.  Expect: return Idh2; don't return Col1a1</li>
+    		   <li>Query for OMIM term that gained genes; 104300.  Expect: Mapt to be returned.</li>
+    		   <li>Query for OMIM term that lost genes; 613028.  Expect: 0 genes returned; Col1a1 to no longer be returned.</li>
+    	    </ol></li>
     	    
 		</ol>
 		
