@@ -29,6 +29,7 @@
     <h2>Test Requirements</h2>
     <ol>   
         <li>Filter mouse markers by Feature Type in the HMDC following the general paradigm of the GXD filters.</li>
+        <li>New filter should work with existing row/column filter.  i.e. selecting a subset of rows from the results dynamically updates the list of features in the filter</li>
         <li>Apply filter to all HMDC Tab results
         <ul><li>Grid: keep matching mouse marker rows; keep human homologs of those markers</li>
             <li>Genes: keep matching mouse marker rows; keep human homologs of those markers (continue to just display the direct matches in this tab, right?)</li>
@@ -64,18 +65,18 @@
     	    <li>Verify row/column filter display and function
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Use r/c filter to select 1 row.  Expect: 1 row displayed; remove button with new text/new location.</li>
-    		   <li>Use r/c filter to select 1 column.  Expect: 1 col displayed; remove button as above</li>
+    		   <li>Use r/c filter to select 1 row.  Expect: 1 row displayed; remove button with new text/new location; feature type filter should have 1 FT</li>
+    		   <li>Use r/c filter to select 1 column.  Expect: 1 col displayed; remove button as above; feature type filter should have not change</li>
     		   <li>Use r/c filter to select mult rows/cols.  Expect: selections to display; remove button to display.</li>
-    		   <li>Use r/c remove button to unselect above filters.  Expect: return to full grid.</li>
+    		   <li>Use r/c remove button to unselect above filters.  Expect: return to full grid; return to full list of FTs in pop-up filter</li>
     	    </ol></li>
     	    
     	    <li>Verify initial list of Feature Types in filter pop-up
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Run query that returns markers with 1 feature type; XXX.  Expect: 1 FT in filter.</li>
-    		   <li>Run query that returns many feature types; XXX.  Expect: all FTs in list in alpha order.</li>
-    		   <li>Run query that returns typical number of feature types; XXX.  Expect: all FTs in alpha order.</li>
+    		   <li>Run query that returns markers with 1 feature type; <i>Brca1</i>.  Expect: 1 FT in filter.</li>
+    		   <li>Run search with no query params to return all FTs in HMDC.  Expect: all FTs in list in alpha order.</li>
+    		   <li>Run query that returns typical number of feature types; <i>diabetes</i>  Expect: all FTs in alpha order.</li>
     		   <li>Run query that returns no results; <i>football</i>.  Expect: display message "No values in results to filter."</li>
     	    </ol></li>
     	    
@@ -85,6 +86,8 @@
     		   <li>Select all FTs in filter.  Expect: all FTs listed with checked box when re-opening filter.</li>
     		   <li>Select 1 FT in filter.  Expect: only that FT listed when re-opening filter.</li>
     		   <li>Select partial set of FTs in filter.  Expect:  all selected FTs listed when re-opening filter.</li>
+    		   <li>Run query that returns many feature types; use row/col filter to remove all Transgenes.  Expect: Filter pop-up to be dynamically updated to remove Transgene FT.</li>
+    		   <li>Remove row/col filter so that feature types are added back to the FT filter pop-up.</li>
     	    </ol></li>
     	    
     	    <li>Verify results when filtering by Feature Type
@@ -109,18 +112,24 @@
     	    <li>Verify filter by Feature Type and n-m homology
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Run query that returns a row with multiple mouse genes.  Filter by FT that matches genes.  Expect: mouse genes; human homologs to remain in results</li>
-    		   <li>Run query that returns a row with multiple mouse genes.  Filter by FT that does not match genes.  Expect: mouse genes; human homologs no longer returned.</li>
+    		   <li>Run query that returns a row with mouse paralogs.  Filter by FT that matches genes.  Expect: mouse genes; human homologs to remain in results</li>
+    		   <li>Run query that returns a row with mouse paralogs.  Filter by FT that does not match genes.  Expect: mouse genes; human homologs no longer returned.</li>
     		   <li>Run query that returns a row with multiple human homologs.  Filter by FT that matches genes.  Expect: mouse genes; human homologs to remain in results.</li>
     		   <li>Run query that returns a row with multiple human homologs.  Filter by FT that does not match genes.  Expect: mouse genes; human homologs to remain in results.</li>
-    		   <li>Any case where mouse homologs have different feature types?  This would be an add'l test.</li>
+    		   <li>Run query that returns a row with mouse paralogs w/ diff FTs.  Filter by FT of marker that was returned directly.  Expect: The row and paralogs to remain in results.
+    		   <ul><li>HomolGene id = 37935; Mouse=Ndufs6 (protein coding gene), Gm6415 (pseudogene) Human=NDUFS6</li>
+    		       <li>OMIM 252010 annotated to Ndufs6 and NDUFS6</li></ul></li>
+    		   <li>Run query that returns a row with mouse paralogs w/ diff FTs.  Filter by FT of mouse paralog (indirect).  Expect: row to no longer be returned (not sure).
+    		   <ul><li>use #5 example.</li></ul> </li>
     	    </ol></li>
     	    
     	    <li>Verify filter by Feature Type and text-matched diseases
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Run query that returns a disease via direct annotation and text match.  Filter out direct annotation.  Expect: disease to remain in disease tab.</li>
-    		   <li>Run query that returns diseases via text match -- no genes; empty filter.  Expect: display message "No values in results to filter."</li>
+    		   <li>Run query that returns a disease via direct annotation and text match.  Filter out direct annotation.  Expect: disease to remain in disease tab.
+    		   <ul><li>gene box = breast; pheno box = breast</li></ul></li>
+    		   <li>Run query that returns diseases via text match -- no genes; empty filter; <i>jumping</i>.  Expect: disease tab=1; display message in filter pop-up "No values in results to filter."</li>
+    		   <li>Run query that returns diseases and human genes (no mouse genes); <i>Maine</i>.  Expect: disease tab=2; gene tab=1; filter = No values in results to filter</li>
     	    </ol></li>
     	    
     	    <li>Verify remove filter buttons display in "filter area" and function
