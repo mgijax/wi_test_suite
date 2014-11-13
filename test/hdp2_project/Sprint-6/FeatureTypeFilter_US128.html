@@ -28,7 +28,7 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
     <ol>   
-        <li>Filter mouse markers by Feature Type in the HMDC.</li>
+        <li>Filter mouse markers by Feature Type in the HMDC following the general paradigm of the GXD filters.</li>
         <li>Apply filter to all HMDC Tab results
         <ul><li>Grid: keep matching mouse marker rows; keep human homologs of those markers</li>
             <li>Genes: keep matching mouse marker rows; keep human homologs of those markers (continue to just display the direct matches in this tab, right?)</li>
@@ -61,17 +61,83 @@
 		<h3>Manual tests</h3>
 		
 		<ol>
-    	    <li>Test 1
+    	    <li>Verify row/column filter display and function
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 1.1</li>
+    		   <li>Use r/c filter to select 1 row.  Expect: 1 row displayed; remove button with new text/new location.</li>
+    		   <li>Use r/c filter to select 1 column.  Expect: 1 col displayed; remove button as above</li>
+    		   <li>Use r/c filter to select mult rows/cols.  Expect: selections to display; remove button to display.</li>
+    		   <li>Use r/c remove button to unselect above filters.  Expect: return to full grid.</li>
     	    </ol></li>
     	    
-    	    <li>Test 2
+    	    <li>Verify initial list of Feature Types in filter pop-up
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>test 2.1</li>
+    		   <li>Run query that returns markers with 1 feature type; XXX.  Expect: 1 FT in filter.</li>
+    		   <li>Run query that returns many feature types; XXX.  Expect: all FTs in list in alpha order.</li>
+    		   <li>Run query that returns typical number of feature types; XXX.  Expect: all FTs in alpha order.</li>
+    		   <li>Run query that returns no results; <i>football</i>.  Expect: display message "No values in results to filter."</li>
     	    </ol></li>
+    	    
+    	    <li>Verify dynamic update of Feature Types in filter pop-up
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Select all FTs in filter.  Expect: all FTs listed with checked box when re-opening filter.</li>
+    		   <li>Select 1 FT in filter.  Expect: only that FT listed when re-opening filter.</li>
+    		   <li>Select partial set of FTs in filter.  Expect:  all selected FTs listed when re-opening filter.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify results when filtering by Feature Type
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Run query that returns many FTs - select all via filter.  Expect: filtered results the same as original results.</li>
+    		   <li>Run query that returns 1 FT - select all via filter.  Expect: Filtered results the same as original results.</li>
+    		   <li>Run query that returns many FTs - select 1 via filter.  Expect: Filtered results to include selected FT.</li>
+    		   <li>Run query that returns many FTs - select 2-3 via filter.  Expect: Filtered results to include selected FTs.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify filter by Feature Type and human genes
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Run query that returns human genes w/no mouse homolog. Filter by FT.  Expect: Those human genes no longer returned.</li>
+    		   <li>Run query that returns human genes w/ mouse homolog - direct annotation.  Filter by FT that matches homolog.  Expect: Those human genes remain in results.</li>
+    		   <li>Run query that returns human genes w/ mouse homolog - direct annotation.  Filter by FT that does not match homolog.  Expect: Those human genes to be removed from results.</li>
+    		   <li>Run query that returns human genes w/ mouse homolog - indirect annotation.  Filter by FT that matches homolog.  Expect: Human gene remains in results.</li>
+    		   <li>Run query that returns human genes w/ mouse homolog - indirect annotation.  Filter by FT that does not match homolog.  Expect: Those human genes to be removed from results.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify filter by Feature Type and n-m homology
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Run query that returns a row with multiple mouse genes.  Filter by FT that matches genes.  Expect: mouse genes; human homologs to remain in results</li>
+    		   <li>Run query that returns a row with multiple mouse genes.  Filter by FT that does not match genes.  Expect: mouse genes; human homologs no longer returned.</li>
+    		   <li>Run query that returns a row with multiple human homologs.  Filter by FT that matches genes.  Expect: mouse genes; human homologs to remain in results.</li>
+    		   <li>Run query that returns a row with multiple human homologs.  Filter by FT that does not match genes.  Expect: mouse genes; human homologs to remain in results.</li>
+    		   <li>Any case where mouse homologs have different feature types?  This would be an add'l test.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify filter by Feature Type and text-matched diseases
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Run query that returns a disease via direct annotation and text match.  Filter out direct annotation.  Expect: disease to remain in disease tab.</li>
+    		   <li>Run query that returns diseases via text match -- no genes; empty filter.  Expect: display message "No values in results to filter."</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify remove filter buttons display in "filter area" and function
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Select 1 FT from the filter.  Expect: 1 remove button to be displayed and click to remove to work.</li>
+    		   <li>Select a long FT from the filter.  Expect: remove button display to accommodate long text and click to remove to work.</li>
+    		   <li>Run a query that returns a large number of FTs - select them all via filter.  Expect: display to accommodate many buttons and clicks to remove each of them to work.</li>
+    	    </ol></li>
+    	    
+    	    
+    	    <li>Verify display in all supported browsers (Mac-FF, Safari, Chrome; PC-FF, Chrome)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Repeat selected tests above for each browser.</li>
+    	    </ol></li>
+    	    
 		</ol>
 		
     	    
