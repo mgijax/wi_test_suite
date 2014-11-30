@@ -32,10 +32,11 @@
         <li>New filter should work with existing row/column filter.  i.e. selecting a subset of rows from the results dynamically updates the list of features in the filter</li>
         <li>Apply filter to all HMDC Tab results
         <ul><li>Grid: keep matching mouse marker rows; keep human homologs of those markers</li>
-            <li>Genes: keep matching mouse marker rows; keep human homologs of those markers (continue to just display the direct matches in this tab, right?)</li>
+            <li>Genes: keep matching mouse marker rows; keep human homologs of those markers (continue to just display the direct matches in this tab)</li>
             <li>Diseases: keep diseases that are returned due to annotations to genes that match the filters</li>
         </ul>
         <li>Filter by Feature Type will remove all human genes that have no mouse homologs (i.e. a row with no mouse marker will never match any Feature Types).</li>
+        <li>Filter by Feature Type will remove all diesases that have been matched via text.</li>
         <li>Move and re-label the current row/col 'remove' button to "Remove row/column filters".</li>
         <li>Add new filter button
         <ul><li>Button label= Feature Type</li>
@@ -43,8 +44,7 @@
             <li>Display= dynamic list of FTs that are present in the mouse markers in the returned grid</li>
             <li>Order= list in alpha order (case insensitive)</li>
         </ul></li>
-        <li>Display a "remove" button for each filter type selected.
-        <ul><li>Will there be a 'Remove all filters' button?</li></ul></li>
+        <li>Display a "remove" button for each filter type selected and a Remove all button.</li>
        
     </ol>
    
@@ -111,7 +111,7 @@
     	    </ol></li>
     	    
     	    <li>Verify filter by Feature Type and n-m homology
-    		<p concordion:assertTrue="false">FAIL - jlewis 11/26/14</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/30/14</p>  
     		<ol>
     		   <li>pass: Run query that returns a row with mouse paralogs: OMIM 152700.  Filter by FT that matches genes.  Expect: mouse genes; human homologs to remain in results: C4A, C4b (human gene dropped from gene tab)</li>
     		   <li>pass: Run query that returns a row with mouse paralogs.  Filter by FT that does not match genes.  Expect: mouse genes; human homologs no longer returned.</li>
