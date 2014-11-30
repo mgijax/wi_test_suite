@@ -63,7 +63,7 @@
 		
 		<ol>
     	    <li>Verify row/column filter display and function
-    		<p concordion:assertTrue="true">PASS - jlewis 11/21/14</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/26/14</p>  
     		<ol>
     		   <li>Use r/c filter to select 1 row.  Expect: 1 row displayed; remove button with new text/new location; feature type filter should have 1 FT</li>
     		   <li>Use r/c filter to select 1 column.  Expect: 1 col displayed; remove button as above; feature type filter no change</li>
@@ -72,16 +72,16 @@
     	    </ol></li>
     	    
     	    <li>Verify initial list of Feature Types in filter pop-up
-    		<p concordion:assertTrue="false">FAIL - jlewis</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/26/14</p>  
     		<ol>
-    		   <li>fail: Run query that returns markers with 1 feature type; <i>Leprot</i>.  Expect: 1 FT in filter.</li>
-    		   <li>pass: Run search with query of <i>disease</i> in Pheno box to return all FTs in HMDC.  Expect: all FTs in list in alpha order.</li>
+    		   <li>pass: Run query that returns markers with 1 feature type; <i>Leprot</i>.  Expect: 1 FT in filter.</li>
+    		   <li>pass: Run search with query of <i>disease</i> in Pheno box to return many FTs in HMDC.  Expect: all FTs in list in alpha order.</li>
     		   <li>pass: Run query that returns typical number of feature types; <i>diabetes</i>  Expect: all FTs in alpha order.</li>
-    		   <li>fail: Run query that returns no results; <i>football</i>.  Expect: display message "No values in results to filter."</li>
+    		   <li>pass: Run query that returns no results; <i>football</i>.  Expect: display message "No values in results to filter."</li>
     	    </ol></li>
     	    
     	    <li>Verify dynamic update of Feature Types in filter pop-up
-    		<p concordion:assertTrue="true">PASS - jlewis 11/21/14</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/26/14</p>  
     		<ol>
     		   <li>pass: Select all FTs in filter.  Expect: all FTs listed with checked box when re-opening filter.</li>
     		   <li>pass: Select 1 FT in filter.  Expect: only that FT listed when re-opening filter.</li>
@@ -91,49 +91,49 @@
     	    </ol></li>
     	    
     	    <li>Verify results when filtering by Feature Type
-    		<p concordion:assertTrue="false">FAIL - jlewis 11/21/14</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/26/14 (case for failed test removed from user story)</p>  
     		<ol>
-    		   <li>pass: Run query that returns many FTs - select all via filter.  Expect: filtered results the same as original results.</li>
-    		   <li>fail: Run query that returns 1 FT - select all via filter.  Expect: Filtered results the same as original results.</li>
+    		   <li>pass: Run query that returns many FTs - select all via filter.  Expect: filtered results the same as original results, but with human genes with no mouse homologs removed.</li>
+    		   <li>fail: Run query that returns 1 FT - select all via filter.  Expect: Filtered results the same as original results. (this doesn't work, but basically a no-op; no need to address for this user story per Sue)</li>
     		   <li>pass: Run query that returns many FTs - select 1 via filter.  Expect: Filtered results to include selected FT.</li>
     		   <li>pass: Run query that returns many FTs - select 2-3 via filter.  Expect: Filtered results to include selected FTs.</li>
     		   <li>pass: Run query=pax* and filter by a FT on the gene tab that is not on the grid: unclassified non-coding RNA gene.  Expect: 0 results on grid; 1 result on gene tab.</li>
     	    </ol></li>
     	    
     	    <li>Verify filter by Feature Type and human genes
-    		<p concordion:assertTrue="false">FAIL - jlewis 11/21/14</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 11/26/14</p>  
     		<ol>
     		   <li>pass: Run query that returns human genes w/no mouse homolog. Filter by FT.  Expect: Those human genes no longer returned.</li>
-    		   <li>fail: Run query that returns human genes w/ mouse homolog - direct by gene; query=Pax*.  Filter by FT that matches homolog (protein coding).  Expect: Those human genes remain in results, e.g. PAX6.</li>
-    		   <li>wait:  Run query that returns human genes w/ mouse homolog - direct by gene; query=Pax*.  Filter by FT that does not match homolog (transgene).  Expect: Those human genes to be removed from results.</li>
-    		   <li>fail: Run query that returns human genes w/ mouse homolog - direct by disease; query="lung cancer".  Filter by FT that matches homolog (protein coding gene).  Expect: Human gene remains in results FASLG</li>
-    		   <li>wait: Run query that returns human genes w/ mouse homolog - direct by disease; query="lung cancer".  Filter by FT that does not match homolog (transgene).  Expect: Those human genes to be removed from results.</li>
+    		   <li>pass: Run query that returns human genes w/ mouse homolog - direct by gene; query=Pax*.  Filter by FT that matches homolog (protein coding).  Expect: Those human genes remain in results, e.g. PAX6.</li>
+    		   <li>pass:  Run query that returns human genes w/ mouse homolog - direct by gene; query=Pax*.  Filter by FT that does not match homolog (transgene).  Expect: Those human genes to be removed from results.</li>
+    		   <li>pass: Run query that returns human genes w/ mouse homolog - direct by disease; query="lung cancer".  Filter by FT that matches homolog (protein coding gene).  Expect: Human gene remains in results FASLG</li>
+    		   <li>pass: Run query that returns human genes w/ mouse homolog - direct by disease; query="lung cancer".  Filter by FT that does not match homolog (transgene).  Expect: Those human genes to be removed from results.</li>
     	    </ol></li>
     	    
     	    <li>Verify filter by Feature Type and n-m homology
-    		<p concordion:assertTrue="false">FAIL - jlewis 11/21/14</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 11/26/14</p>  
     		<ol>
-    		   <li>fail: Run query that returns a row with mouse paralogs: OMIM 152700.  Filter by FT that matches genes.  Expect: mouse genes; human homologs to remain in results: C4A, C4b (human gene dropped from gene tab)</li>
-    		   <li>wait: Run query that returns a row with mouse paralogs.  Filter by FT that does not match genes.  Expect: mouse genes; human homologs no longer returned.</li>
-    		   <li>fail: Run query that returns a row with multiple human homologs.  Filter by FT that matches genes.  Expect: mouse genes; human homologs to remain in results.</li>
-    		   <li>wait: Run query that returns a row with multiple human homologs.  Filter by FT that does not match genes.  Expect: mouse genes; human homologs to remain in results.</li>
-    		   <li>pass: Run query that returns a row with mouse paralogs w/ diff FTs.  Filter by FT of marker that was returned directly.  Expect: The row and paralogs to remain in results.
+    		   <li>pass: Run query that returns a row with mouse paralogs: OMIM 152700.  Filter by FT that matches genes.  Expect: mouse genes; human homologs to remain in results: C4A, C4b (human gene dropped from gene tab)</li>
+    		   <li>pass: Run query that returns a row with mouse paralogs.  Filter by FT that does not match genes.  Expect: mouse genes; human homologs no longer returned.</li>
+    		   <li>pass: Run query that returns a row with multiple human homologs: Cyp2*.  Filter by FT that matches mouse homolog; protein coding.  Expect: mouse genes; human homologs to remain in results.</li>
+    		   <li>pass: Run query that returns a row with multiple human homologs.  Filter by FT that does not match genes.  Expect: mouse genes; human homologs to not remain in results.</li>
+    		   <li>pass: Run query that returns a row with mouse paralogs w/ diff FTs; Nduf*.  Filter by FT of marker that was returned directly.  Expect: The row and paralogs to remain in results.
     		   <ul><li>HomolGene id = 37935; Mouse=Ndufs6 (protein coding gene), Gm6415 (pseudogene) Human=NDUFS6</li>
     		       <li>OMIM 252010 annotated to Ndufs6 and NDUFS6</li></ul></li>
-    		   <li>fail: Run query that returns a row with mouse paralogs w/ diff FTs.  Filter by FT of mouse paralog (indirect).  Expect: row to be returned.
+    		   <li>pass: Run query that returns a row with mouse paralogs w/ diff FTs; Nduf*.  Filter by FT of mouse paralog (indirect) (pseudogene).  Expect: row to be returned.
     		   <ul><li>use #5 example.</li></ul> </li>
     	    </ol></li>
     	    
     	    <li>Verify filter by Feature Type and text-matched diseases
-    		<p concordion:assertTrue="false">FAIL - jlewis 11/21/14</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis - 11/26/14 (double check case 1 behavior with Sue)</p>  
     		<ol>
-    		   <li>???: Run query that returns a disease via direct annotation and text match.  Filter out direct annotation.  Expect: match via text match does not persist, ok?</li>
-    		   <li>fail: Run query that returns diseases via text match -- no genes; empty filter; <i>jumping</i>.  Expect: disease tab=1; display message in filter pop-up "No values in results to filter."</li>
-    		   <li>fail: Run query that returns diseases and human genes (no mouse genes); <i>Maine</i>.  Expect: disease tab=2; gene tab=1; filter = No values in results to filter</li>
+    		   <li>???: Run query that returns a disease via direct annotation and text match; <i>breast</i>.  Use FT filter (any FT).  Expect: match via text match does not persist, ok? (113670, Hypertrophy of the breast...)</li>
+    		   <li>pass: Run query that returns diseases via text match -- no genes; empty filter; <i>jumping</i>.  Expect: disease tab=1; display message in filter pop-up "No values in results to filter."</li>
+    		   <li>pass: Run query that returns diseases and human genes (no mouse genes); <i>Maine</i>.  Expect: disease tab=2; gene tab=1; filter = No values in results to filter</li>
     	    </ol></li>
     	    
     	    <li>Verify remove filter buttons display in "filter area" and function
-    		<p concordion:assertTrue="true">PASS: jlewis 11/21/14</p>  
+    		<p concordion:assertTrue="true">PASS: jlewis 11/26/14</p>  
     		<ol>
     		   <li>pass: Select 1 FT from the filter.  Expect: 1 remove button to be displayed and click to remove to work.</li>
     		   <li>pass: Select a long FT from the filter.  Expect: remove button display to accommodate long text and click to remove to work.</li>
@@ -142,7 +142,7 @@
     	    
     	    
     	    <li>Verify display in all supported browsers (Mac-FF, Safari, Chrome; PC-FF, Chrome)
-    		<p concordion:assertTrue="false">IN PROGRESS - jlewis</p>  
+    		<p concordion:assertTrue="false">IN PROGRESS - jlewis (just using Mac on 2nd iteration)</p>  
     		<ol>
     		   <li>Repeat selected tests above for each browser.</li>
     		   <li>Refresh and back buttons.</li>
