@@ -1,0 +1,619 @@
+US29 Testing Doc
+
+US29 - Implement ZFIN homology preprocessor
+
+
+
+1) Testing Strategy
+
+Compare between ZFIN input files (xpat.txt, mouse_orthos.txt, gene.txt) and ZFIN clusters loaded into Scrum Bob.
+
+Data to compare (input file vs Scrum Bob):
+a) Total number of mouse genes in ZFIN clusters
+b) Total number of zebrafish genes in ZFIN clusters
+c) Number of mouse genes in ZFIN clusters with multiple mouse genes
+d) Number of zebrafish genes in ZFIN clusters with multiple mouse genes
+e) Number of mouse genes in ZFIN clusters with multiple zebrafish genes
+f) Number of zebrafish genes in ZFIN clusters with multiple zebrafish genes
+g) Spot check some larger clusters for consistency
+
+
+
+
+2) Result summary
+a) Total number of mouse genes in ZFIN clusters
+input files: 6271
+DEV_MGI..mgd_bob: 6271
+
+b) Total number of zebrafish genes in ZFIN clusters
+input files: 7135
+DEV_MGI..mgd_bob: 7135
+
+c) Number of mouse genes in ZFIN clusters with multiple mouse genes
+input files: 0
+DEV_MGI..mgd_bob: 0
+There are no ZFIN clusters in which there is more than one mouse gene.
+
+d) Number of zebrafish genes in ZFIN clusters with multiple mouse genes
+input files: 0
+DEV_MGI..mgd_bob: 0
+There are no ZFIN clusters in which there is more than one mouse gene.
+
+e) Number of mouse genes in ZFIN clusters with multiple zebrafish genes
+input files: 845
+DEV_MGI..mgd_bob: 845
+
+f) Number of zebrafish genes in ZFIN clusters with multiple zebrafish genes
+input files: 1709
+DEV_MGI..mgd_bob: 1709
+
+
+g) Spot check some larger clusters for consistency
+Mouse Atp1a1 (6 zebrafish genes)
+Mouse Tnni2 (5 zebrafish genes)
+
+
+
+
+
+
+3) Input File Analysis
+
+The first step is to to get the rows in xpat.txt (the expression file) that are also in mouse_orthos.txt (the mouse/zebrafish ortholog file) and gene.txt (has ZFIN ID-to-NCBI ID relationships).
+
+Input files:
+----------
+Expression file: xpat.txt
+Columns:
+1. ZFIN Gene ID
+2. Gene Symbol
+3. EST ID (Optional)
+4. EST Symbol (Optional)
+5. Expression Type
+6. Expression ID
+7. Publication ID
+8. Genotype ID
+9. Environment ID
+10. Probe Quality (optional 0 - 5 rating)
+
+We only want the real genes.  These have and ID structure: ZDB-GENE-######-# (example: ZDB-GENE-000426-1)
+This file also has Engineered Foreign Genes with the ID structure: ZDB-EFG-######-# (example: ZDB-EFG-080131-2), and some transcripts with ID structure: ZDB-TSCRIPT-######-# (example: ZDB-TSCRIPT-090929-6116).  We won't load the Engineered Foreign Gene data (EFG) or the Transcript data (TSCRIPT), just the gene data (GENE).
+
+We only need column 1 (and only the "ZDB-GENE-#" rows)
+
+----------
+Orthology file (zebrafish-to-mouse): mouse_orthos.txt
+Columns:
+1. ZFIN ID
+2. ZFIN Symbol
+3. ZFIN Name
+4. Mouse Symbol
+5. Mouse Name
+6. MGI ID
+7. Gene ID
+
+We need columns 1 and 6.
+
+----------
+NCBI ID file (file that relates ZFIN IDs to NCBI IDs): gene.txt
+Columns:
+1. ZFIN ID
+2. SO ID
+3. Symbol
+4. NCBI Gene ID
+
+We need columns 1 and 4.
+
+
+Using unix commands the rows shared between these three files were obtained.
+
+Number of unique ZFIN IDs common to these three files: 7135
+
+I checked to see if all of the NCBI IDs for these 7135 zebrafish genes are in MGI, and all are present.
+
+
+
+
+
+
+4) Testing
+
+=================================
+4a) Compare the total number of mouse genes in ZFIN clusters
+
+Mouse gene count from input files: 6271
+Mouse gene count in ZFIN clusters from DEV_MGI..mgd_bob: 6271
+
+Test result: PASS
+-----------
+
+
+Data:
+
+Input files
+From the 7135 rows of unique ZFIN IDs, I counted the number of unique MGI IDs.
+
+Unique mouse genes in ZFIN Clusters: 6271
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575996
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select count(distinct t1._Marker_key) as "totalmouseGene_count"
+from #tt1 t1, #tt2 t2
+where t1._Organism_key = 1
+and t2.gene_count > 0
+and t1._Cluster_key = t2._Cluster_key
+
+Row #	totalmouseGene_count
+1	6271 
+
+
+=================================
+4b) Compare the total number of zebrafish genes in ZFIN clusters
+
+Zebrafish gene count from input files: 7135
+Zebrafish gene count in ZFIN clusters from DEV_MGI..mgd_bob: 7135
+
+Test result: PASS
+-----------
+
+Data:
+
+Input files
+The 7135 rows of unique ZFIN IDs represent the number of ZFIN genes in these clusters.
+
+Unique zebrafish genes in ZFIN Clusters: 7135
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575996
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select count(distinct t1._Marker_key) as "totalfishGene_count"
+from #tt1 t1, #tt2 t2
+where t1._Organism_key = 84
+and t2.gene_count > 0
+and t1._Cluster_key = t2._Cluster_key
+
+1 rows returned, 0.204 seconds
+
+totalfishGene_count
+7135 
+
+
+
+
+
+=================================
+4c) Compare the total number of mouse genes in ZFIN clusters with multiple mouse genes
+
+Mouse gene count in clusters with multiple mouse genes from input files: 0
+Mouse gene count in clusters with multiple mouse genes from DEV_MGI..mgd_bob: 0
+
+There are no ZFIN clusters in which there is more than one mouse gene.
+
+Test result: PASS
+-----------
+
+Data:
+
+Input files
+The number of duplicated ZFIN IDs in the set of 7135 unique ZFIN IDs represents the count of mouse genes in clusters with multiple mouse genes.  Some sources (like HGNC) use comma-delimited MGI IDs in a single row to show multiple mouse genes for a given non-mouse gene.  The ZFIN files have no cases like this.  If the same ZFIN ID is present in different rows (with different MGI IDs), that would indicate multiple mouse genes in a ZFIN cluster.  There are no such cases of this either.
+
+Mouse gene count in clusters with multiple mouse genes from input files: 0
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575996
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "mouse_gene_count"
+into #tt2
+from #tt1 t1
+where t1._Organism_key = 1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, mouse_gene_count)
+||
+
+select count(distinct t1._Marker_key) as "totalmouseGene_count"
+from #tt1 t1, #tt2 t2
+where t1._Organism_key = 1
+and t2.mouse_gene_count > 1
+and t1._Cluster_key = t2._Cluster_key
+
+totalmouseGene_count
+0 
+
+
+
+
+=================================
+4d) Compare the total number of zebrafish genes in ZFIN clusters with multiple mouse genes
+
+Zebrafish gene count in clusters with multiple mouse genes from input files: 0
+Zebrafish gene count in clusters with multiple mouse genes from DEV_MGI..mgd_bob: 0
+
+Again, there are no ZFIN clusters in which there is more than one mouse gene.
+
+Test result: PASS
+-----------
+
+Data:
+
+Input files
+Because there are no duplicated MGI IDs in the set of 7135 unique ZFIN IDs, there are clusters with more than one mouse gene, and thus no zebrafish genes in such clusters.
+
+Zebrafish gene count in clusters with multiple mouse genes from input files: 0
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575996
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "mouse_gene_count"
+into #tt2
+from #tt1 t1
+where t1._Organism_key = 1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, mouse_gene_count)
+||
+
+select count(distinct t1._Marker_key) as "totalZebrafishGene_count"
+from #tt1 t1, #tt2 t2
+where t1._Organism_key = 84
+and t2.mouse_gene_count > 1
+and t1._Cluster_key = t2._Cluster_key
+
+totalmouseGene_count
+0 
+
+
+
+
+
+
+=================================
+4e) Compare the total number of mouse genes in ZFIN clusters with multiple zebrafish genes
+
+Mouse gene count in clusters with multiple zebrafish genes from input files: 845
+Mouse gene count in clusters with multiple zebrafish genes from DEV_MGI..mgd_bob: 845
+
+Test result: PASS
+-----------
+
+Data:
+
+Input files
+The number of duplicated MGI IDs in the set of 7135 unique ZFIN IDs represents the count of mouse genes in clusters with multiple zebrafish genes.  If an MGI ID is duplicated in the file, and there are no ZFIN ID duplicates, then the presence of duplicated MGI IDs reflects clusters with multiple zebrafish genes.  The count of unique MGI IDs in these cases gives the mouse gene count in clusters with multiple fish genes.
+
+Zebrafish gene count in clusters with multiple mouse genes from input files: 845
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575996
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "fish_gene_count"
+into #tt2
+from #tt1 t1
+where t1._Organism_key = 84
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, fish_gene_count)
+||
+
+select count(distinct t1._Marker_key) as "mouseGene_count"
+from #tt1 t1, #tt2 t2
+where t1._Organism_key = 1
+and t2.fish_gene_count > 1
+and t1._Cluster_key = t2._Cluster_key
+
+mouseGene_count
+845 
+
+
+
+
+
+
+=================================
+4f) Compare the total number of zebrafish genes in ZFIN clusters with multiple zebrafish genes
+
+Zebrafish gene count in clusters with multiple zebrafish genes from input files: 1709
+Zebrafish gene count in clusters with multiple zebrafish genes from DEV_MGI..mgd_bob: 1709
+
+Test result: PASS
+-----------
+
+Data:
+
+Input files
+The set of duplicated MGI IDs in the set of 7135 unique ZFIN IDs represents the set of mouse genes in clusters with multiple zebrafish genes.  The count of unique ZFIN IDs corresponding to these duplicated MGI IDs is the number of zebrafish genes in clusters with multiple zebrafish genes.
+
+Zebrafish gene count in clusters with multiple mouse genes from input files: 1709
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575996
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "fish_gene_count"
+into #tt2
+from #tt1 t1
+where t1._Organism_key = 84
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, fish_gene_count)
+||
+
+select count(distinct t1._Marker_key) as "zebrafishGene_count"
+from #tt1 t1, #tt2 t2
+where t1._Organism_key = 84
+and t2.fish_gene_count > 1
+and t1._Cluster_key = t2._Cluster_key
+
+zebrafishGene_count
+1709 
+
+
+
+
+=================================
+4g) Spot check some larger clusters for consistency
+
+Get the distribution of ZIFN clusters with different numbers of genes
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575996
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select distinct t2.gene_count, count(distinct t2._Cluster_key) as "Fish_Genes_ZFINcluster"
+from #tt2 t2
+where t2._Organism_key = 84
+GROUP BY t2.gene_count
+
+gene_count	Fish_Genes_ZFINcluster
+1	5426
+2	833
+3	8
+4	2
+5	1
+6	1 
+
+So there is one cluster with 6 genes and one cluster with 5 genes.
+
+Get these two clusters:
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575996
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select t2._Cluster_key, t2._Organism_key, t2.gene_count as "Fish_GeneCount"
+into #tt3
+from #tt2 t2
+where t2._Organism_key = 84
+and  t2.gene_count > 4
+
+||
+create index idx3 on #tt3(_Cluster_key, _Organism_key, Fish_GeneCount)
+||
+
+select t3._Cluster_key, t3.Fish_GeneCount, t1._Marker_key, t1._Organism_key, m.symbol
+from #tt1 t1, #tt3 t3, MRK_Marker m
+where t1._Marker_key = m._Marker_key
+and t1._Cluster_key = t3._Cluster_key
+order by Fish_GeneCount
+
+
+Row #	_Cluster_key	Fish_GeneCount	_Marker_key	_Organism_key	symbol
+1	2201252	5	25425	1	Tnni2
+2	2201252	5	504728	84	tnni2a.2
+3	2201252	5	504904	84	tnni2a.3
+4	2201252	5	506604	84	tnni2b.2
+5	2201252	5	507634	84	tnni2a.1
+6	2201252	5	507992	84	tnni2a.4
+7	2202459	6	459	1	Atp1a1
+8	2202459	6	497736	84	atp1a1a.5
+9	2202459	6	517631	84	atp1a1a.1
+10	2202459	6	517632	84	atp1a1a.2
+11	2202459	6	517633	84	atp1a1a.3
+12	2202459	6	517634	84	atp1a1a.4
+13	2202459	6	517635	84	atp1a1b 
+
+Mouse Atp1a1 (6 zebrafish genes)
+ATPase, Na+/K+ transporting, alpha 1 polypeptide
+MGI:88105
+
+from xpat.txt (only showing one row for each unique ZFIN gene here)
+ZDB-GENE-001212-1	atp1a1a.1	ZDB-EST-010914-55	cb70	mRNA in situ hybridization	ZDB-XPAT-030328-1	ZDB-PUB-010810-1	ZDB-GENO-010924-10	ZDB-EXP-041102-1	1	
+ZDB-GENE-001212-2	atp1a1a.2	ZDB-EST-030328-1	cb703	mRNA in situ hybridization	ZDB-XPAT-030328-2	ZDB-PUB-010810-1	ZDB-GENO-010924-10	ZDB-EXP-041102-1	3	
+ZDB-GENE-001212-3	atp1a1a.3			Reverse transcription PCR	ZDB-XPAT-040724-2226	ZDB-PUB-010705-10	ZDB-GENO-030619-2	ZDB-EXP-041102-1		
+ZDB-GENE-001212-4	atp1a1a.4			Reverse transcription PCR	ZDB-XPAT-081231-22	ZDB-PUB-080922-14	ZDB-GENO-960809-7	ZDB-EXP-041102-1		
+ZDB-GENE-001212-5	atp1a1b	ZDB-EST-030328-3	cb707	mRNA in situ hybridization	ZDB-XPAT-030328-24	ZDB-PUB-010810-1	ZDB-GENO-010924-10	ZDB-EXP-041102-1	3	
+ZDB-GENE-020501-1	atp1a1a.5	ZDB-EST-030328-5	cb709	mRNA in situ hybridization	ZDB-XPAT-030328-37	ZDB-PUB-010810-1	ZDB-GENO-010924-10	ZDB-EXP-041102-1	3	
+
+from mouse_orthos.txt
+ZDB-GENE-001212-1	atp1a1a.1	ATPase, Na+/K+ transporting, alpha 1a polypeptide, tandem duplicate 1	Atp1a1	ATPase, Na+/K+ transporting, alpha 1 polypeptide	MGI:88105	11928	
+ZDB-GENE-001212-2	atp1a1a.2	ATPase, Na+/K+ transporting, alpha 1a polypeptide, tandem duplicate 2	Atp1a1	ATPase, Na+/K+ transporting, alpha 1 polypeptide	MGI:88105	11928	
+ZDB-GENE-001212-3	atp1a1a.3	ATPase, Na+/K+ transporting, alpha 1a polypeptide, tandem duplicate 3	Atp1a1	ATPase, Na+/K+ transporting, alpha 1 polypeptide	MGI:88105	11928	
+ZDB-GENE-001212-4	atp1a1a.4	ATPase, Na+/K+ transporting, alpha 1a polypeptide, tandem duplicate 4	Atp1a1	ATPase, Na+/K+ transporting, alpha 1 polypeptide	MGI:88105	11928	
+ZDB-GENE-001212-5	atp1a1b	ATPase, Na+/K+ transporting, alpha 1b polypeptide	Atp1a1	ATPase, Na+/K+ transporting, alpha 1 polypeptide	MGI:88105	11928
+ZDB-GENE-020501-1	atp1a1a.5	ATPase, Na+/K+ transporting, alpha 1a polypeptide, tandem duplicate 5	Atp1a1	ATPase, Na+/K+ transporting, alpha 1 polypeptide	MGI:88105	11928
+
+from gene.txt
+ZDB-GENE-001212-1	SO:0000704	atp1a1a.1	64612	
+ZDB-GENE-001212-2	SO:0000704	atp1a1a.2	64613	
+ZDB-GENE-001212-3	SO:0000704	atp1a1a.3	64614	
+ZDB-GENE-001212-4	SO:0000704	atp1a1a.4	64615	
+ZDB-GENE-001212-5	SO:0000704	atp1a1b	64616	
+ZDB-GENE-020501-1	SO:0000704	atp1a1a.5	245703
+
+
+Test result: PASS
+-----------
+
+
+
+
+
+
+
+Mouse Tnni2 (5 zebrafish genes)
+troponin I, skeletal, fast 2
+MGI:105070
+
+Note that in mouse_orthos.txt and gene.txt there is another zebrafish gene associated with mouse Tnni2 (ZDB-GENE-050417-49 (tnni2b.1)).  However this ZFIN gene does not have expression results (not in xpat.txt), thus it was not loaded.
+
+xpat.txt
+ZDB-GENE-040426-970	tnni2a.2	ZDB-CDNA-040425-1901	MGC:56294	mRNA in situ hybridization	ZDB-XPAT-041130-296	ZDB-PUB-040907-1	ZDB-GENO-010924-10	ZDB-EXP-041102-1		
+ZDB-GENE-040625-119	tnni2a.4	ZDB-EST-060810-125	IMAGE:6907617	mRNA in situ hybridization	ZDB-XPAT-060810-580	ZDB-PUB-040907-1	ZDB-GENO-010924-10	ZDB-EXP-041102-1	3	
+ZDB-GENE-040718-80	tnni2a.3	ZDB-CDNA-040718-101	MGC:92053	mRNA in situ hybridization	ZDB-XPAT-090218-237	ZDB-PUB-040907-1	ZDB-GENO-010924-10	ZDB-EXP-041102-1	3	
+ZDB-GENE-040801-9	tnni2b.2	ZDB-EST-041111-340	IMAGE:7149120	mRNA in situ hybridization	ZDB-XPAT-041111-345	ZDB-PUB-040907-1	ZDB-GENO-010924-10	ZDB-EXP-041102-1		
+ZDB-GENE-041114-60	tnni2a.1	ZDB-CDNA-041114-60	MGC:103650	mRNA in situ hybridization	ZDB-XPAT-060810-293	ZDB-PUB-040907-1	ZDB-GENO-010924-10	ZDB-EXP-041102-1	3	
+ZDB-GENE-050417-49 (not found)
+
+from mouse_orthos.txt
+ZDB-GENE-040426-970	tnni2a.2	troponin I type 2a (skeletal, fast), tandem duplicate 2	Tnni2	troponin I, skeletal, fast 2	MGI:105070	21953
+ZDB-GENE-040625-119	tnni2a.4	troponin I type 2a (skeletal, fast), tandem duplicate 4	Tnni2	troponin I, skeletal, fast 2	MGI:105070	21953	
+ZDB-GENE-040718-80	tnni2a.3	troponin I type 2a (skeletal, fast), tandem duplicate 3	Tnni2	troponin I, skeletal, fast 2	MGI:105070	21953	
+ZDB-GENE-040801-9	tnni2b.2	troponin I type 2b (skeletal, fast), tandem duplicate 2	Tnni2	troponin I, skeletal, fast 2	MGI:105070	21953	
+ZDB-GENE-041114-60	tnni2a.1	troponin I type 2a (skeletal, fast), tandem duplicate 1	Tnni2	troponin I, skeletal, fast 2	MGI:105070	21953	
+ZDB-GENE-050417-49	tnni2b.1	troponin I type 2b (skeletal, fast), tandem duplicate 1	Tnni2	troponin I, skeletal, fast 2	MGI:105070	21953	
+
+gene.txt
+ZDB-GENE-040426-970	SO:0000704	tnni2a.2	394068	
+ZDB-GENE-040625-119	SO:0000704	tnni2a.4	494164	
+ZDB-GENE-040718-80	SO:0000704	tnni2a.3	402809	
+ZDB-GENE-040801-9	SO:0000704	tnni2b.2	445029	
+ZDB-GENE-041114-60	SO:0000704	tnni2a.1	492493	
+ZDB-GENE-050417-49	SO:0000704	tnni2b.1	550249	
+
+
+Test result: PASS
+-----------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
