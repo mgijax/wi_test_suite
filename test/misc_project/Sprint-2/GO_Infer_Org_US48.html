@@ -1,0 +1,168 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 48</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>GO Marker - show organism for Inferred IDs</h1>
+    <ul>
+        <li>User Story48 - Show organism in "inferred from" column on GO/Marker page</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+       <li>Display organism for IDs in the Inferred From column/GO Marker page/Table view.  Not all IDs will display an organism - see below for exceptions.</li>
+       <li>IDs associated to database objects in MGI that include "organism" include MGI, RGD, EC, and some sequence ids.
+       <li>MGI and RGD IDs will display an organism (per associated marker object)
+       <ul><li>MGI allele ID: organism=mouse</li>
+           <li>RGD gene ID: organism=rat</li>
+       </ul></li>
+       <li>EC ids will display an organism due to the association with mouse markers in MGI.</li>
+       <li>Sequence IDs will display organism if associated to an db object in MGI include: EMBL, NCBI, protein_id, RefSeq, and UniProtKB.
+       <ul><li>EMBL sequences (can't find example where organism is displayed)</li>
+           <li>NCBI protein sequences</li>
+           <li>protein_id ...</li>
+           <li>RefSeq protein and transcript sequences: organism = varied</li>
+           <li>UniProtKB protein sequences: organism = varied</li>
+       </ul></li>
+       <li>Display organism by checking the logical db for both yeast MODs - SGD and PomBase.  These IDs are not associated to any MGI db objects.
+       <ul><li>SGD gene ID: organism=budding yeast.</li>
+           <li>PomBase gene ID: organism=fission yeast.</li>
+       </ul></li>
+       <li>The remaining ID types will not display an organism because they are not associated with any db objects in MGI that has one.
+       <ul><li>CHEBI, GO, InterPro, PANTHER, UniProtKB-KW</li></ul>
+       <li>If an ID is associated with a sequence and marker object -- the marker object's organism is the preferred one.</li>
+       <li>If the ID has no object in the MGI database then no organism is displayed.</li>
+    </ol>
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    	    
+    	    <li>Verify all MGI ids display "mouse"
+    		<p concordion:assertTrue="true">PASS - jlewis 1/21/2015</p>  
+    		<ol>
+    		  <li>Display GO table for a marker with many MGI ids; Pax1.  Verify all display "mouse".</li>
+    		  <li>Display GO table with multiple MGI ids per annotations; Pax1.  Verify all display "mouse".</li>
+    		  <li>Display GO table for a marker with a single MGI id; Patz1.  Verify it displays "mouse".</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify all RGD ids display "rat"
+    		<p concordion:assertTrue="true">PASS - jlewis 1/21/2015</p>  
+    		<ol>
+    		  <li>Display GO table for a marker with many RGD ids; C4b.  Verify all display "rat".</li>
+    		  <li>Display GO table for a marker with a single RGD id; Chrdl1.  Verify it displays "rat".</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify all SGD ids display "budding yeast"
+    		<p concordion:assertTrue="true">PASS - jlewis 1/21/2015</p>  
+    		<ol>
+    		  <li>Display GO table for a marker with many links to a single SGD id; Degs2.  Verify all display "budding yeast".</li>
+    		  <li>Display GO table for a marker with a single SGD id; Cap1.  Verify it displays "budding yeast".</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify all PomBase ids display "fission yeast"
+    		<p concordion:assertTrue="true">PASS - jlewis 1/21/2015</p>  
+    		<ol>
+    		  <li>Display GO table for a marker with a PomBase id; Topbp1.  Verify all display "fission yeast".</li>
+    		  <li>Display GO table for a marker with multiple links to a PomBase id; Pigq.  Verify it displays "fission yeast".</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify all EMBL ids display appropriate organism (mouse, human or rat)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display GO table for a marker with mouse EMBL id; Xxx.  Verify organism display.</li>
+    		  <li>Display GO table for a marker with human EMBL id; Xxx.  Verify organism display.</li>
+    		  <li>Display GO table for a marker with an unloaded EMBL sequence; Emr4.  Verify no organism display.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify all NCBI ids display appropriate organism (mouse, human or rat)
+    		<p concordion:assertTrue="true">new</p>  
+    		<ol>
+    		  <li>Display GO table for a marker with mouse protein NCBI id; Catsper1.  Verify organism display.</li>
+    		  <li>Display GO table for a marker with a non-mouse NCBI id; xxx.  Verify organism display.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify all "protein_id" ids display appropriate organism (mouse, human or rat)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display GO table for a marker with mouse protein_id id; Xxx.  Verify organism display.</li>
+    		  <li>Display GO table for a marker with human protein_id id; Xxx.  Verify organism display.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify all RefSeq ids display appropriate organism (mouse, human or rat)
+    		<p concordion:assertTrue="true">PASS - jlewis 1/21/2015</p>  
+    		<ol>
+    		  <li>Display GO table for a marker with mouse RefSeq id; Capn3.  Verify organism display.</li>
+    		  <li>Display GO table for a marker with human RefSeq id; Sat2.  Verify organism display.</li>
+    		  <li>Display GO table for a marker with rat RefSeq id; Satb2.  Verify organism display.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify all UniProtKB ids display appropriate organism (mouse, human or rat)
+    		<p concordion:assertTrue="true">PASS - jlewis 1/21/2015</p>  
+    		<ol>
+    		  <li>Display GO table for a marker with zebrafish UniProtKB id; Rsph9.  Verify organism display.</li>
+    		  <li>Display GO table for a marker with human UniProtKB id; Hdhd2.  Verify organism display.</li>
+    		  <li>Display GO table with both human and mouse UniProtKB ids; Patz1.  Verify organism display.</li>
+    		  <li>Display GO table with UniProtKB ids that don't match what is in MGI; Capzb. Verify no organism display (P14315 vs. P14315-2)
+    	    </ol></li>
+    	    
+    	    <li>Verify other ID types have no adverse display impact
+    		<p concordion:assertTrue="false">FAIL - jlewis 1/21/2015; CHEBI and EC ids display organism.</p>  
+    		<ol>
+    		  <li>Display GO table for a marker with CHEBI id; Aldh1a3.  Verify no organism display.</li>
+    		  <li>Display GO table for a marker with EC id; B4galt7.  Verify no organism display.</li>
+    		  <li>Display GO table for a marker with GO id; Rsph9.  Verify no organism display.</li>
+    		  <li>Display GO table for a marker with InterPro id; Cep57.  Verify no organism display.</li>
+    		  <li>Display GO table for a marker with PANTHER id; Aldh1a7.  Verify no organism display.</li>
+    		  <li>Display GO table for a marker with UniProtKB-KW id; Chrdl1.  Verify no organism display.</li>
+    	    </ol></li>
+    	    
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
