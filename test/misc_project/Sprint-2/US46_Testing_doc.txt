@@ -1,0 +1,436 @@
+US46 Testing Doc
+
+US46 - Implement Geisha homology preprocessor
+
+
+
+1) Testing Strategy
+
+Compare between Geisha input files (expression.txt, orthology.txt, gene.txt) and Geisha clusters loaded into Scrum Bob.
+
+Data to compare (input file vs Scrum Bob):
+a) Total number of mouse genes in Geisha clusters
+b) Total number of chicken genes in Geisha clusters
+c) Number of mouse genes in Geisha clusters with multiple mouse genes
+d) Number of chicken genes in Geisha clusters with multiple mouse genes
+e) Spot check some larger clusters for consistency
+
+
+
+
+2) Result summary
+a) Total number of mouse genes in Geisha clusters
+input files: 1391
+DEV_MGI..mgd_bob: 1391
+
+b) Total number of chicken genes in Geisha clusters
+input files: 1378
+DEV_MGI..mgd_bob: 1378
+
+c) Number of mouse genes in Geisha clusters with multiple mouse genes
+input files: 25
+DEV_MGI..mgd_bob: 25
+There are no Geisha clusters in which there is more than one mouse gene.
+
+d) Number of chicken genes in Geisha clusters with multiple mouse genes
+input files: 11
+DEV_MGI..mgd_bob: 11
+There are no Geisha clusters in which there is more than one mouse gene.
+
+e) Spot check some larger clusters for consistency
+Mouse Krt75 (2 chicken genes)
+Chicken MRPS36 (3 mouse genes)
+
+
+
+
+
+
+3) Input File Analysis
+
+The first step is to to get the rows in expression.txt (the expression file) that are also in orthology.txt (the mouse/chicken ortholog file).
+
+Input files:
+----------
+Expression file: expression.txt
+Chicken NCBI gene ID	Chicken gene name	GEISHA ID	BirdBase ID	Ensembl ID	GO ids	stages	locations
+
+Columns:
+1. Chicken NCBI gene ID
+2. Chicken gene name
+3. GEISHA ID (note: this field seems to be a gene symbol plus a reference)
+4. BirdBase ID
+5. Ensembl ID
+6. GO ids
+7. stages
+8. locations
+
+We only need column 1.
+
+----------
+Orthology file (chicken-to-human, mouse, Xenopus, Zebrachicken): orthology.txt
+
+Columns:
+1. Chicken NCBI gene ID
+2. Chicken gene name
+3. GEISHA ID (note: this field seems to be a gene symbol plus a reference)
+4. Human NCBI gene ID
+5. Mouse NCBI Gene ID
+6. Xenopus NCBI gene ID
+7. Zebrachicken NCBI Gene ID
+
+We need columns 1 and 5.
+
+
+
+
+Using unix commands the rows shared between these two files were obtained.  I checked to see if all of the NCBI IDs for these chicken and mouse genes are in MGI.
+
+The number of unique chicken NCBI/mouse NCBI pairs, where all NCBI IDs are in MGI and all chicken NCBI IDs are in the expression file: 1392
+
+From this I can determine the number of chicken and mouse genes in Geisha clusters.
+
+
+
+
+
+
+4) Testing
+
+=================================
+4a) Compare the total number of mouse genes in Geisha clusters
+
+Mouse gene count from input files: 1391
+Mouse gene count in Geisha clusters from DEV_MGI..mgd_bob: 1391
+
+Test result: PASS
+-----------
+
+
+Data:
+
+Input files
+From the 1392 rows of unique chicken/mouse NCBI pairs, I counted the number of unique MGI IDs.
+
+Unique mouse genes in Geisha Clusters:  1391
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575998
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select count(distinct t1._Marker_key) as "totalmouseGene_count"
+from #tt1 t1, #tt2 t2
+where t1._Organism_key = 1
+and t2.gene_count > 0
+and t1._Cluster_key = t2._Cluster_key
+
+Row #	totalmouseGene_count
+1	1391
+
+
+=================================
+4b) Compare the total number of chicken genes in Geisha clusters
+
+chicken gene count from input files: 1378
+chicken gene count in Geisha clusters from DEV_MGI..mgd_bob: 1378
+
+Test result: PASS
+-----------
+
+Data:
+
+Input files
+From the 1392 rows of unique chicken/mouse NCBI pairs, I counted the number of unique MGI IDs.
+
+Unique mouse genes in Geisha Clusters:  1378
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575998
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select count(distinct t1._Marker_key) as "totalchickenGene_count"
+from #tt1 t1, #tt2 t2
+where t1._Organism_key = 63
+and t2.gene_count > 0
+and t1._Cluster_key = t2._Cluster_key
+
+Row #	totalchickenGene_count
+1	1378
+
+
+
+
+
+
+=================================
+4c) Compare the total number of mouse genes in Geisha clusters with multiple mouse genes
+
+Mouse gene count in clusters with multiple genes from input files: 25
+Mouse gene count in clusters with multiple mouse genes from DEV_MGI..mgd_bob: 25
+
+
+Test result: PASS
+-----------
+
+Data:
+
+Input files
+From the 1392 rows of unique chicken/mouse NCBI pairs, the number of duplicated chicken NCBI IDs represent clusters with multiple genes.  After subtracting the cases where there is only one mouse gene and multiple chicken genes in the cluster, the remaining number of unique mouse genes in these clusters is the mouse gene count in clusters with multiple mouse genes.
+
+There is one case where a mouse gene is in a cluster with multiple chicken genes.
+chicken	mouse
+408041	109052408042	109052
+
+Unique mouse genes in Geisha Clusters having more than one mouse gene:  25
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575998
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "mouse_gene_count"
+into #tt2
+from #tt1 t1
+where t1._Organism_key = 1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, mouse_gene_count)
+||
+
+select count(distinct t1._Marker_key) as "MouseGenes_mulitMouseClusters"
+from #tt1 t1, #tt2 t2
+where t2.mouse_gene_count > 1
+and t1._Organism_key = 1
+and t1._Cluster_key = t2._Cluster_key
+
+Row #	MouseGenes_mulitMouseClusters
+1	25
+
+
+
+
+=================================
+4d) Compare the total number of chicken genes in Geisha clusters with multiple mouse genes
+
+chicken gene count in clusters with multiple mouse genes from input files: 11
+chicken gene count in clusters with multiple mouse genes from DEV_MGI..mgd_bob: 11
+
+Test result: PASS
+-----------
+
+Data:
+
+Input files
+Following the strategy from 4c, the same file containing rows where the chicken NCBI ID is duplicated can be used to determine the number of chicken genes in clusters with multiple mouse genes (again taking into account the case where a single mouse gene is associated with multiple chicken genes in a cluster).
+
+chicken gene count in clusters with multiple mouse genes from input files: 11
+
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575998
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "mouse_gene_count"
+into #tt2
+from #tt1 t1
+where t1._Organism_key = 1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, mouse_gene_count)
+||
+
+select count(distinct t1._Marker_key) as "ChickenGenes_mulitMouse"
+from #tt1 t1, #tt2 t2
+where t2.mouse_gene_count > 1
+and t1._Organism_key = 63
+and t1._Cluster_key = t2._Cluster_key
+
+Row #	ChickenGenes_mulitMouse
+1	11
+
+
+
+
+=================================
+4g) Spot check some larger clusters for consistency
+
+Get the distribution of Geisha clusters with different numbers of genes
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575998
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select distinct t2.gene_count, count(distinct t2._Cluster_key) as "chicken_Genes_Geishacluster"
+from #tt2 t2
+where t2._Organism_key = 63
+GROUP BY t2.gene_count
+
+Row #	gene_count	chicken_Genes_Geishacluster
+1	1	1376
+2	2	1 
+
+
+There is only one cluster with multiple chicken genes (_Cluster_key = 2204460).
+_Cluster_key	_Organism_key	_Marker_key	symbol	NCBI_ID
+2204460	1	60230	Krt75	109052
+2204460	63	473830	KRT6A	408041
+2204460	63	473831	KRT75	408042 
+
+Note: mouse has _Organism_key=1, chicken has _Organism_key=63.
+
+
+check input files
+
+geisha_expression.txt
+408041	KRT6A	KRT6A.UApcr	BB-GG5355			3,4,5,7,8,9,10,11,15,16,21,23,24	Anterior Intestinal Portal,Area Pellucida,Area Opaca,Allantois,Extraembryonic
+408042	KRT75	Cytokeratin.James.2005	BB-GG5356			11	Mesoderm,Ectoderm,Endoderm
+
+geisha_orthology.txt
+408041	KRT6A	KRT6A.UApcr	9119	109052	100491159
+408042	KRT75	Cytokeratin.James.2005	9119	109052	100491159	
+
+
+
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575998
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select distinct t2.gene_count, count(distinct t2._Cluster_key) as "chicken_Genes_Geishacluster"
+from #tt2 t2
+where t2._Organism_key = 1
+GROUP BY t2.gene_count
+
+
+Row #	gene_count	chicken_Genes_Geishacluster
+1	1	1366
+2	2	8
+3	3	3 
+
+There are 3 clusters with three mouse genes in the cluster.
+
+
+Look at one of these: (_Cluster_key = 2204149)
+
+_Cluster_key	_Organism_key	_Marker_key	symbol	NCBI_ID
+2204149	1	50108	Mrps36	66128
+2204149	1	50108	Mrps36	102639455
+2204149	1	307323	Mrps36-ps2	100042811
+2204149	1	328139	Mrps36-ps1	100043826
+2204149	63	486203	MRPS36	771273
+
+Note that for one of the mouse genes in this cluster (Mrps36), there are two NCBI IDs (66128, 102639455)
+
+geisha_expression.txt
+771273	MRPS36	ChEST339m10	BB-GG14655	ENSGALG00000014789		13,17,23,24,25	Eye,Ubiquitous Embryonic,Wing Mesenchyme,Neural Plate/Tube,Paraxial Mesoderm,Head Mesenchyme,Leg Mesenchyme
+771273	MRPS36	MRPS36.Robb.2012	BB-GG14655	ENSGALG00000014789		13,17,23,24,25	Eye,Ubiquitous Embryonic,Wing Mesenchyme,Neural Plate/Tube,Paraxial Mesoderm,Head Mesenchyme,Leg Mesenchyme
+
+geisha_orthology.txt
+771273	MRPS36	ChEST339m10	92259	66128,100043826,100042811	548723,100037103	
+771273	MRPS36	MRPS36.Robb.2012	92259	66128,100043826,100042811	548723,100037103	
+The second NCBI ID for mouse Mrps36 (102639455) is not in the geisha_orthology.txt file.
+
+
+Test result: PASS
+-----------
+
+
+
+
+
+
+
+
+
+
+
+
+
