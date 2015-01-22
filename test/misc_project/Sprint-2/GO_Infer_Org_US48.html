@@ -28,28 +28,29 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
     <ol>
-       <li>Display organism for IDs in the Inferred From column/GO Marker page/Table view.  Not all IDs will display an organism - see below for exceptions.</li>
-       <li>IDs associated to database objects in MGI that include "organism" include MGI, RGD, EC, and some sequence ids.
-       <li>MGI and RGD IDs will display an organism (per associated marker object)
+       <li>Display organism for IDs in the Inferred From column/GO Marker page/Table view.  Not all IDs will display an organism because it is not associated to one in MGI.</li>
+       <li>IDs associated to database objects in MGI that include "organism" include MGI, RGD, EC, and some of the sequence ids.</li>
+       <li>Display organism for SGD and PomBase IDs.  The ID itself implies the organism to display.</li>
+       <li>MGI and RGD IDs will display an organism per associated marker object.
        <ul><li>MGI allele ID: organism=mouse</li>
            <li>RGD gene ID: organism=rat</li>
        </ul></li>
-       <li>EC ids will display an organism due to the association with mouse markers in MGI.</li>
-       <li>Sequence IDs will display organism if associated to an db object in MGI include: EMBL, NCBI, protein_id, RefSeq, and UniProtKB.
+       <li>EC ids will display an organism due to the association with mouse markers in MGI.  Organism=mouse.</li>
+       <li>Sequence IDs will display organism if associated to an db object in MGI.  These include: EMBL, NCBI, protein_id, RefSeq, and UniProtKB.
        <ul><li>EMBL sequences (can't find example where organism is displayed)</li>
            <li>NCBI protein sequences</li>
-           <li>protein_id ...</li>
+           <li>protein_id - GenBank protein sequences (can't find example where organism is displayed)</li>
            <li>RefSeq protein and transcript sequences: organism = varied</li>
            <li>UniProtKB protein sequences: organism = varied</li>
        </ul></li>
-       <li>Display organism by checking the logical db for both yeast MODs - SGD and PomBase.  These IDs are not associated to any MGI db objects.
+       <li>SGD and PomBase Ids determine organism by checking the logical db.  These IDs are not associated to any MGI db objects.
        <ul><li>SGD gene ID: organism=budding yeast.</li>
            <li>PomBase gene ID: organism=fission yeast.</li>
        </ul></li>
-       <li>The remaining ID types will not display an organism because they are not associated with any db objects in MGI that has one.
-       <ul><li>CHEBI, GO, InterPro, PANTHER, UniProtKB-KW</li></ul>
        <li>If an ID is associated with a sequence and marker object -- the marker object's organism is the preferred one.</li>
        <li>If the ID has no object in the MGI database then no organism is displayed.</li>
+       <li>The remaining ID types will not display an organism because they are not associated with any db objects in MGI with an organism.
+       <ul><li>CHEBI, GO, InterPro, PANTHER, UniProtKB-KW</li></ul>
     </ol>
    
 </div>
@@ -97,25 +98,27 @@
     	    </ol></li>
     	    
     	    <li>Verify all EMBL ids display appropriate organism (mouse, human or rat)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">NO ORGANISM IN MGI for this ID type??</p>  
     		<ol>
     		  <li>Display GO table for a marker with mouse EMBL id; Xxx.  Verify organism display.</li>
     		  <li>Display GO table for a marker with human EMBL id; Xxx.  Verify organism display.</li>
     		  <li>Display GO table for a marker with an unloaded EMBL sequence; Emr4.  Verify no organism display.</li>
     	    </ol></li>
     	    
-    	    <li>Verify all NCBI ids display appropriate organism (mouse, human or rat)
-    		<p concordion:assertTrue="true">new</p>  
+    	    <li>Verify all NCBI protein  and transcript sequence ids display appropriate organism (mouse, human or rat)
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/2015</p>  
     		<ol>
     		  <li>Display GO table for a marker with mouse protein NCBI id; Catsper1.  Verify organism display.</li>
-    		  <li>Display GO table for a marker with a non-mouse NCBI id; xxx.  Verify organism display.</li>
+    		  <li>Display GO table for a marker with human NCBI id; Mir101a.  Verify organism display for 406893.</li>
+    		  <li>Display GO table for a marker with human protein NCBI id; Ppp1r9a.  Verify organism display for NP_060120.</li>
     	    </ol></li>
     	    
-    	    <li>Verify all "protein_id" ids display appropriate organism (mouse, human or rat)
-    		<p concordion:assertTrue="false">new test</p>  
+    	    <li>Verify all "protein_id" ids display appropriate organism (mouse, human or rat) NOTE:LINKS FOR THIS ID TYPE BROKEN ON PUBLIC. TR ENTERED.
+    		<p concordion:assertTrue="false">NO ORGANISM IN MGI for this ID type??</p>  
     		<ol>
     		  <li>Display GO table for a marker with mouse protein_id id; Xxx.  Verify organism display.</li>
     		  <li>Display GO table for a marker with human protein_id id; Xxx.  Verify organism display.</li>
+    		  <li>Display GO table for a marker with a "protein_id" id that displays no organism; Anxa4.  Verify no organism for AAK83461.</li>
     	    </ol></li>
     	    
     	    <li>Verify all RefSeq ids display appropriate organism (mouse, human or rat)
