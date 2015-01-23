@@ -37,7 +37,7 @@
        </ul></li>
        <li>EC ids will display an organism due to the association with mouse markers in MGI.  Organism=mouse.</li>
        <li>Sequence IDs will display organism if associated to an db object in MGI.  These include: EMBL, NCBI, protein_id, RefSeq, and UniProtKB.
-       <ul><li>EMBL sequences (can't find example where organism is displayed)</li>
+       <ul><li>EMBL sequences (found one example; most display no organism)</li>
            <li>NCBI protein sequences</li>
            <li>protein_id - GenBank protein sequences (can't find example where organism is displayed)</li>
            <li>RefSeq protein and transcript sequences: organism = varied</li>
@@ -97,11 +97,17 @@
     		  <li>Display GO table for a marker with multiple links to a PomBase id; Pigq.  Verify it displays "fission yeast".</li>
     	    </ol></li>
     	    
-    	    <li>Verify all EMBL ids display appropriate organism (mouse, human or rat)
-    		<p concordion:assertTrue="false">NO ORGANISM IN MGI for this ID type??</p>  
+    	    <li>Verify all EC ids display "mouse"
+    		<p concordion:assertTrue="true">PASS - jlewis 1/21/2015</p>  
     		<ol>
-    		  <li>Display GO table for a marker with mouse EMBL id; Xxx.  Verify organism display.</li>
-    		  <li>Display GO table for a marker with human EMBL id; Xxx.  Verify organism display.</li>
+    		   <li>Display GO table for a marker with EC id; B4galt7.  Verify mouse organism display.</li>
+    		  
+    	    </ol></li>
+    	    
+    	    <li>Verify all EMBL ids display appropriate organism (mouse, human or rat) (examples with organism not easy to find; most don't have organism)
+    		<p concordion:assertTrue="true">PASS - jlewis 1/23/2015</p>  
+    		<ol>
+    		  <li>Display GO table for a marker with human EMBL id; Abcb9.  Verify human organism display for AF216494.</li>
     		  <li>Display GO table for a marker with an unloaded EMBL sequence; Emr4.  Verify no organism display.</li>
     	    </ol></li>
     	    
@@ -139,10 +145,9 @@
     	    </ol></li>
     	    
     	    <li>Verify other ID types have no adverse display impact
-    		<p concordion:assertTrue="false">FAIL - jlewis 1/21/2015; CHEBI and EC ids display organism.</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 1/23/2015</p>  
     		<ol>
     		  <li>Display GO table for a marker with CHEBI id; Aldh1a3.  Verify no organism display.</li>
-    		  <li>Display GO table for a marker with EC id; B4galt7.  Verify no organism display.</li>
     		  <li>Display GO table for a marker with GO id; Rsph9.  Verify no organism display.</li>
     		  <li>Display GO table for a marker with InterPro id; Cep57.  Verify no organism display.</li>
     		  <li>Display GO table for a marker with PANTHER id; Aldh1a7.  Verify no organism display.</li>
