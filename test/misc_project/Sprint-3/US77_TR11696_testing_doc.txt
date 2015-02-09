@@ -1,0 +1,104 @@
+
+
+US77 Testing
+TR11696 (Sequence to Gene Association Problem)
+
+The solution has two parts.
+1) Remove all the XM_ sequences associated with MGI genes using J:90438.  This is the MGI curation reference that the Sequence Group uses to assign coordinates to a sequence and also for sequence-marker associations.
+
+2) Run the load sequence of: entrezgene loads followed by the cache loads.
+
+Testing strategy.
+
+1) Check that XM_ sequence associations with markers using J:90438 have been deleted.
+
+2) Check that the SEQ_Marker_Cache table has been populated by RefSeqs via the entrezgene load.
+
+
+
+Testing
+
+1) Verify removal of XM_ sequence to marker associations with association reference J:90438.
+
+1a) Check that XM_ to marker associations from J:90438 are absent from the accession table (ACC_Accession).
+
+select _Accession_key
+into #tt1
+from ACC_AccessionReference
+where _Refs_key = 91423
+
+||
+create index idx1 on #tt1(_Accession_key)
+||
+
+select t1._Accession_key, a._Object_key, a.accID
+into #tt2
+from #tt1 t1, ACC_Accession a
+where a._LogicalDB_key = 27
+and a.prefixPart = "XM_"
+and a._MGIType_key = 2
+and t1._Accession_key = a._Accession_key
+
+||
+create index idx2 on #tt2(_Object_key, accID)
+||
+
+select count(*)
+from #tt2
+
+3017
+
+Results from sybase : DEV_MGI..mgd_bob
+0
+
+Test result: PASS
+2/9/15 (rmb)
+----------------------------
+
+
+1b) Check XM_ to marker associations from J:90438 are absent from the SEQ_Marker_Cache table.
+
+select count(distinct _Sequence_key)
+from SEQ_Marker_Cache
+where _Refs_key = 91423
+and _LogicalDB_key = 27
+and accID like "XM_%"
+
+Results from sybase : DEV_MGI..mgd 
+2645
+
+
+Results from sybase : DEV_MGI..mgd_bob 
+0
+
+
+Test result: PASS
+2/9/15 (rmb)
+----------------------------
+
+
+2) Verify that SEQ_Marker_Cache has been populated by RefSeqs via the entrezgene load.
+
+
+select count(*)
+from SEQ_Marker_Cache
+where _Refs_key = 64047
+and _LogicalDB_key = 27
+and accID like "NM_%"
+
+
+Results from sybase : DEV_MGI..mgd
+140326
+
+
+Results from sybase : DEV_MGI..mgd_bob 
+140689
+
+
+Note: _Refs_key = 64047 is J:63103 (the Entrez Gene Load)
+Additional counts are expected from DEV_MGI..mgd_bob, since they would take the place of deleted XM_ to marker associations from J:90438.
+
+Test result: PASS
+2/9/15 (rmb)
+----------------------------
+
