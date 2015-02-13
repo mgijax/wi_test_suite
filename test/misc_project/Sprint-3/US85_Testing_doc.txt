@@ -1,0 +1,324 @@
+US85 Precompute Connected Components
+Test Document
+
+Overview
+Prior to generation of Hybrid Homology Clusters between HomoloGene (HG) and the HUGO Gene Nomenclature Committee (HGNC), the set of connected components between these homology resources must be computed.  Connected components contain sets of homology clusters from HG and/or HGNC where the clusters from different sources either share overlapping markers (it should be possible to trace a path of overlap by shared markers that includes all clusters in the connected component), or where the clusters from a given source do not share any markers with any clusters from the other source (these are single-source connected components, and contain a single homology cluster).  Since clusters from a given source (HG or HGNC) do not have any marker overlap, only clusters from different sources can overlap.
+
+Selection of clusters for the hybrid set will consider the connected components, and following a set of rules, will pick the cluster (or clusters) from each connected component for the hybrid set.
+
+Connected Component Report
+The Connected Component report Sharon generated was placed in the TR1186 project directory:
+http://prodwww.informatics.jax.org/all/wts_projects/11800/11886/HGvsHGNC/connComp_rpt.txt
+
+
+Testing Strategy
+1) Connected Component Counts
+To test the connected components comprehensively, a cardinality bucketizer was run on the homology clusters from HG and HGNC generated from DEV1_MGI..mgd_sc1 (the same database that the connected components report was generated from).  The bucketizer is an independent way to generate a connected data set between HG and HGNC, and from the results it is fairly easy to count the connected components from each cardinality bucket.  If the total number of connected components generated from the bucketizer equals the number of connected components from the connected component report, then this strongly supports the integrity of the components generated for the report.  The cardinality buckets also provide test cases to verity in the report.
+
+Bucketizer Description
+The inputs for the bucketizer are two sets of clustered data.  Each cluster has an identifier for the cluster and has identifiers for the members.  The bucketizer looks for clusters between the two sets that share one or more members, and then distributes the results into six separate "buckets" based on the cluster cardinality between the two sets.  Comparing set (a) vs set (b), the cardinality buckets are: 1(a)-to-0(b), 0(a)-to-1(b), 1(a)-to-1(b), 1(a)-to-N(b), N(a)-to-1(b), N(a)-to-N(b).   In this case, the identifiers for clusters are the _Cluster_key values from the MRK_ClusterMember table and the member IDs are the corresponding _Marker_key values.  For HG clusters, only markers from human and mouse are included (HGNC clusters only contain markers from human and mouse).
+
+
+2) Spot Check Verification of Connected Components
+Connected components from each of the output buckets of the bucketizer will be compared to corresponding entries in the connected component report for verification.
+
+
+
+
+Testing
+
+1) Connected Component Counts
+
+Bucketizer Run for HG vs HGNC Homology
+
+Input files:
+HG clusters
+   HG_clusters.txt
+	cluster key
+	marker key
+   total rows: 40066
+   unique HG cluster IDs: 20953
+
+HGNC clusters
+   HGNC_clusters.txt
+	cluster key
+	marker key
+   total rows: 45317
+   unique HG cluster IDs: 33717
+
+
+
+Output Buckets:
+Line counts in the output bucket files are not informative because duplicates are present (depending on the structure of the bucket).  The number of unique components was determined in each bucket (shown in parentheses).  In most cases these are simple unique cluster counts from a given column (for example, in the 0to1 bucket the unique count of HGNC cluster keys gives the component count from that bucket).  For the NtoN bucket, there is no easy unique row count to get the component count, since there are duplicates in both rows.  For the NtoN bucket, I manually assembled connected components (there are only 33).
+
+For the output buckets, cardinalities read HG-to-HGNC.
+
+HG_HGNC_bucket_0to1.txt (15060)
+HG_HGNC_bucket_1to0.txt (2391)
+HG_HGNC_bucket_1to1.txt (17846)
+HG_HGNC_bucket_1toN.txt (174)
+HG_HGNC_bucket_Nto1.txt (233)
+HG_HGNC_bucket_NtoN.txt (33)
+
+15060 + 2391 + 17846 + 174 + 233 + 33 = 35737 connected components total.
+
+
+Compare this total value with the number of connected components in the connComp_rpt.txt file.
+
+It is easy to get this number, since the components are numbered sequentially.
+
+The last component in the connComp_rpt.txt file is shown below.  There are 35737 components total.  This number matches the number determined from the bucketizer results exactly.
+
+comp35737:
+cKey: 2215209
+source: homologene
+members:
+196554|Vmn2r105|mouse, laboratory
+
+
+Test result: PASS
+2/13/15 (rmb)
+----------------------------
+
+
+2) Spot Check Verification of Connected Components
+Actual testing involved spot checking many connected components, including most of the 33 components from the NtoN bucket.  For this test document, representatives from each of the cardinality buckets will be verified.
+
+Notes:
+- For cluster identifiers, the numerical values are the cluster keys, and a prefix of 'HG_' or 'HGNC_' was added to identify the sources.
+- For the 0to1 and 1to0 buckets, the cluster IDs (i.e. keys) appear in the first column and the marker IDs (i.e. keys) appear in the second column (since there is only one source represented).
+- For the buckets (1to1, 1toN, Nto1, NtoN), the first column contains HG clusters and the second column contains HGNC clusters.
+- The entries in HG_Cluster.txt and HGNC_Cluster.txt are included for buckets with at lease one cluster from each source, so that the marker members can be seen.
+- The species for the marker keys is not provided in the cluster files or in the bucketizer buckets, since this information was not necessary for the comparisons.
+
+----------------------------
+a) 0to1 bucket
+
+HG_HGNC_bucket_0to1.txt
+HGNC_2249177	404940
+
+connComp_rpt.txt
+comp4628:
+cKey: 2249177
+source: hgnc
+members:
+404940|NUDT19P5|human
+
+Test result: PASS
+2/13/15 (rmb)
+
+
+
+----------------------------
+b) 1to0 bucket
+
+HG_HGNC_bucket_1to0.txt
+
+HG_2189648	200575
+HG_2189648	201114
+HG_2189648	98223
+
+connComp_rpt.txt
+comp34650:
+cKey: 2189648
+source: homologene
+members:
+98223|4921509C19Rik|mouse, laboratory
+201114|Gm14147|mouse, laboratory
+200575|Gm14151|mouse, laboratory
+
+Test result: PASS
+2/13/15 (rmb)
+
+
+
+
+----------------------------
+c) 1to1 bucket
+
+HG_HGNC_bucket_1to1.txt
+HG_2189545	HGNC_2259111
+
+HG_clusters.txt
+HG_2189545	46898
+HG_2189545	46703
+
+HGNC_clusters.txt
+HGNC_2259111	46898
+
+connComp_rpt.txt
+comp13160:
+cKey: 2259111
+source: hgnc
+members:
+46898|HGFAC|human
+
+cKey: 2189545
+source: homologene
+members:
+46898|HGFAC|human
+46703|Hgfac|mouse, laboratory
+
+Test result: PASS
+2/13/15 (rmb)
+
+
+
+----------------------------
+d) 1toN bucket
+
+HG_HGNC_bucket_1toN.txt
+HG_2192803	HGNC_2255214
+HG_2192803	HGNC_2262681
+
+HG_clusters.txt
+HG_2192803	124958
+HG_2192803	122585
+
+HGNC_clusters.txt
+HGNC_2255214	124958
+HGNC_2262681	122585
+
+connComp_rpt.txt
+comp29127:
+cKey: 2262681
+source: hgnc
+members:
+122585|FAM153B|human
+
+cKey: 2192803
+source: homologene
+members:
+124958|FAM153A|human
+122585|FAM153B|human
+
+cKey: 2255214
+source: hgnc
+members:
+124958|FAM153A|human
+
+Test result: PASS
+2/13/15 (rmb)
+
+
+
+----------------------------
+e) Nto1 bucket
+
+HG_HGNC_bucket_Nto1.txt
+HG_2190203	HGNC_2250740
+HG_2193848	HGNC_2250740
+HG_2202432	HGNC_2250740
+
+HG_clusters.txt
+HG_2190203	124098
+HG_2193848	124096
+HG_2202432	124097
+HG_2202432	196860
+HG_2202432	87091
+
+HGNC_clusters.txt
+HGNC_2250740	124096
+HGNC_2250740	124097
+HGNC_2250740	124098
+HGNC_2250740	87091
+HGNC_2250740	196860
+
+connComp_rpt.txt
+comp20650:
+cKey: 2250740
+source: hgnc
+members:
+124096|IFNL2|human
+124097|IFNL3|human
+124098|IFNL1|human
+87091|Ifnl3|mouse, laboratory
+196860|Ifnl2|mouse, laboratory
+
+cKey: 2193848
+source: homologene
+members:
+124096|IFNL2|human
+
+cKey: 2202432
+source: homologene
+members:
+124097|IFNL3|human
+196860|Ifnl2|mouse, laboratory
+87091|Ifnl3|mouse, laboratory
+
+cKey: 2190203
+source: homologene
+members:
+124098|IFNL1|human
+
+Test result: PASS
+2/13/15 (rmb)
+
+
+
+
+----------------------------
+f) NtoN bucket
+
+HG_HGNC_bucket_NtoN.txt
+
+HG_2193795	HGNC_2259972
+HG_2193795	HGNC_2280136
+HG_2196796	HGNC_2259972
+HG_2196796	HGNC_2280136
+
+HG_clusters.txt
+HG_2193795	120296
+HG_2193795	28667
+HG_2196796	102756
+HG_2196796	51248
+
+HGNC_clusters.txt
+HGNC_2259972	102756
+HGNC_2259972	28667
+HGNC_2280136	120296
+HGNC_2280136	51248
+
+connComp_rpt.txt
+comp8322:
+cKey: 2259972
+source: hgnc
+members:
+102756|MYL12B|human
+28667|Myl12b|mouse, laboratory
+
+cKey: 2196796
+source: homologene
+members:
+102756|MYL12B|human
+51248|Myl12a|mouse, laboratory
+
+cKey: 2280136
+source: hgnc
+members:
+120296|MYL12A|human
+51248|Myl12a|mouse, laboratory
+
+cKey: 2193795
+source: homologene
+members:
+120296|MYL12A|human
+28667|Myl12b|mouse, laboratory
+
+Test result: PASS
+2/13/15 (rmb)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
