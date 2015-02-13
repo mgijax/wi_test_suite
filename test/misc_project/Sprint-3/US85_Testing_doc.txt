@@ -44,7 +44,7 @@ HGNC clusters
 	cluster key
 	marker key
    total rows: 45317
-   unique HG cluster IDs: 33717
+   unique HGNC cluster IDs: 33717
 
 
 
