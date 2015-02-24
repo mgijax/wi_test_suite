@@ -1,0 +1,959 @@
+
+
+
+
+ConnComp1
+HG_HM_2242264	HGNC_HM_2277420
+HG_HM_2263698	HGNC_HM_2277420
+HG_HM_2263698	HGNC_H_2280483
+
+ConnComp1
+and cm._Cluster_key in (2242264, 2277420, 2263698, 2277420, 2263698, 2280483)
+
+select cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key in (9272151, 13437099, 13764519)
+and cm._Cluster_key in (2242264, 2277420, 2263698, 2277420, 2263698, 2280483)
+and cm._Cluster_key = c._Cluster_key
+
+||
+create index idx1 on #tt1(_Cluster_key, _Marker_key)
+||
+
+select cm._Cluster_key, t1._Marker_key, c._ClusterSource_key
+into #tt2
+from MRK_ClusterMember cm, MRK_Cluster c, #tt1 t1
+where cm._Cluster_key = c._Cluster_key
+and t1._Marker_key = cm._Marker_key
+
+||
+create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
+||
+
+select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
+from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
+where m._Organism_key in (1, 2)
+and m._Marker_Status_key in (1, 3)
+and vt._Vocab_key = 89
+and mp._PropertyType_key = 1001
+and t2._ClusterSource_key in (9272151, 13437099, 13764519)
+and t2._Cluster_key *= mp._Object_key
+and vt._Term_key = c._ClusterSource_key
+and cm._Cluster_key = c._Cluster_key
+and t2._Cluster_key = cm._Cluster_key
+and cm._Marker_key = m._Marker_key
+order by t2._Cluster_key, m._Organism_key, m.symbol
+
+10 rows returned, 0.041 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2242264	86171	Hist1h4i	1	null	HomoloGene	null
+2	2242264	86627	HIST4H4	2	null	HomoloGene	null
+3	2263698	86175	Hist4h4	1	null	HomoloGene	null
+4	2263698	86609	HIST1H4B	2	null	HomoloGene	null
+5	2277420	86175	Hist4h4	1	null	HGNC	null
+6	2277420	86627	HIST4H4	2	null	HGNC	null
+7	2280483	86609	HIST1H4B	2	null	HGNC	null
+8	2325526	86175	Hist4h4	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2325526	86627	HIST4H4	2	1	HGNC/HomoloGene Hybrid	HGNC
+10	2325527	86609	HIST1H4B	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp2
+HG_HM_2242729	HGNC_HM_2292864
+HG_HM_2242729	HGNC_H_2295494
+HG_HM_2254980	HGNC_HM_2292864
+
+
+ConnComp2
+and cm._Cluster_key in (2242729, 2292864, 2242729, 2295494, 2254980, 2292864)
+
+22 rows returned, 0.491 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2242729	75633	2610305D13Rik	1	null	HomoloGene	null
+2	2242729	307092	Gm13051	1	null	HomoloGene	null
+3	2242729	306866	Gm13139	1	null	HomoloGene	null
+4	2242729	201545	Gm13154	1	null	HomoloGene	null
+5	2242729	201537	Gm13157	1	null	HomoloGene	null
+6	2242729	200573	Gm13212	1	null	HomoloGene	null
+7	2242729	309444	Gm13242	1	null	HomoloGene	null
+8	2242729	306830	Gm13247	1	null	HomoloGene	null
+9	2242729	306829	Gm13251	1	null	HomoloGene	null
+10	2242729	640831	Gm30910	1	null	HomoloGene	null
+11	2242729	39000	Rex2	1	null	HomoloGene	null
+12	2242729	200209	Zfp534	1	null	HomoloGene	null
+13	2242729	307682	Zfp600	1	null	HomoloGene	null
+14	2242729	137682	ZNF616	2	null	HomoloGene	null
+15	2254980	92934	BC024063	1	null	HomoloGene	null
+16	2254980	120337	ZNF268	2	null	HomoloGene	null
+17	2292864	200573	Gm13212	1	null	HGNC	null
+18	2292864	120337	ZNF268	2	null	HGNC	null
+19	2295494	137682	ZNF616	2	null	HGNC	null
+20	2304272	137682	ZNF616	2	1	HGNC/HomoloGene Hybrid	HGNC
+21	2304273	200573	Gm13212	1	1	HGNC/HomoloGene Hybrid	HGNC
+22	2304273	120337	ZNF268	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+ConnComp3
+HG_HM_2242932	HGNC_HM_2280581
+HG_HM_2242932	HGNC_H_2279719
+HG_H_2252201	HGNC_HM_2280581
+
+ConnComp3
+and cm._Cluster_key in (2242932, 2280581, 2242932, 2279719, 2252201, 2280581)
+
+9 rows returned, 0.020 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2242932	58230	Tmem110	1	null	HomoloGene	null
+2	2242932	411375	TMEM110-MUSTN1	2	null	HomoloGene	null
+3	2252201	108487	TMEM110	2	null	HomoloGene	null
+4	2279719	411375	TMEM110-MUSTN1	2	null	HGNC	null
+5	2280581	58230	Tmem110	1	null	HGNC	null
+6	2280581	108487	TMEM110	2	null	HGNC	null
+7	2306929	411375	TMEM110-MUSTN1	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2306930	58230	Tmem110	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2306930	108487	TMEM110	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp4
+HG_HM_2243430	HGNC_HM_2294387
+HG_HM_2243430	HGNC_H_2268552
+HG_H_2253492	HGNC_HM_2294387
+
+ConnComp4
+and cm._Cluster_key in (2243430, 2294387, 2243430, 2268552, 2253492, 2294387)
+
+
+9 rows returned, 0.400 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2243430	592	Bmi1	1	null	HomoloGene	null
+2	2243430	412596	COMMD3-BMI1	2	null	HomoloGene	null
+3	2253492	20922	BMI1	2	null	HomoloGene	null
+4	2268552	412596	COMMD3-BMI1	2	null	HGNC	null
+5	2294387	592	Bmi1	1	null	HGNC	null
+6	2294387	20922	BMI1	2	null	HGNC	null
+7	2301395	592	Bmi1	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2301395	20922	BMI1	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2301396	412596	COMMD3-BMI1	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/19/15
+
+
+ConnComp5
+HG_HM_2245793	HGNC_HM_2278253
+HG_HM_2245793	HGNC_HM_2298417
+HG_HM_2248794	HGNC_HM_2278253
+HG_HM_2248794	HGNC_HM_2298417
+
+ConnComp5
+and cm._Cluster_key in (2245793, 2278253, 2245793, 2298417, 2248794, 2278253, 2248794, 2298417)
+
+12 rows returned, 0.325 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2245793	28667	Myl12b	1	null	HomoloGene	null
+2	2245793	120296	MYL12A	2	null	HomoloGene	null
+3	2248794	51248	Myl12a	1	null	HomoloGene	null
+4	2248794	102756	MYL12B	2	null	HomoloGene	null
+5	2278253	28667	Myl12b	1	null	HGNC	null
+6	2278253	102756	MYL12B	2	null	HGNC	null
+7	2298417	51248	Myl12a	1	null	HGNC	null
+8	2298417	120296	MYL12A	2	null	HGNC	null
+9	2309538	28667	Myl12b	1	1	HGNC/HomoloGene Hybrid	HGNC
+10	2309538	102756	MYL12B	2	1	HGNC/HomoloGene Hybrid	HGNC
+11	2309539	51248	Myl12a	1	1	HGNC/HomoloGene Hybrid	HGNC
+12	2309539	120296	MYL12A	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp6
+HG_HM_2248770	HGNC_HM_2285182
+HG_HM_2248770	HGNC_H_2299033
+HG_HM_2266946	HGNC_HM_2285182
+
+ConnComp6
+and cm._Cluster_key in (2248770, 2285182, 2248770, 2299033, 2266946, 2285182)
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2248770	118421	Fbxo39	1	null	HomoloGene	null
+2	2248770	122098	FBXO39	2	null	HomoloGene	null
+3	2266946	314830	Xaf1	1	null	HomoloGene	null
+4	2266946	135042	XAF1	2	null	HomoloGene	null
+5	2285182	118421	Fbxo39	1	null	HGNC	null
+6	2285182	135042	XAF1	2	null	HGNC	null
+7	2299033	122098	FBXO39	2	null	HGNC	null
+8	2308510	118421	Fbxo39	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2308510	135042	XAF1	2	1	HGNC/HomoloGene Hybrid	HGNC
+10	2308511	122098	FBXO39	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp7
+HG_HM_2249174	HGNC_HM_2298420
+HG_HM_2249174	HGNC_H_2283726
+HG_H_2266751	HGNC_HM_2298420
+
+ConnComp7
+and cm._Cluster_key in (2249174, 2298420, 2249174, 2283726, 2266751, 2298420)
+
+9 rows returned, 0.364 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2249174	76818	Calca	1	null	HomoloGene	null
+2	2249174	107281	CALCB	2	null	HomoloGene	null
+3	2266751	20975	CALCA	2	null	HomoloGene	null
+4	2283726	107281	CALCB	2	null	HGNC	null
+5	2298420	76818	Calca	1	null	HGNC	null
+6	2298420	20975	CALCA	2	null	HGNC	null
+7	2307217	76818	Calca	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2307217	20975	CALCA	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2307218	107281	CALCB	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp8
+HG_HM_2249343	HGNC_HM_2269640
+HG_HM_2249343	HGNC_H_2269455
+HG_H_2256572	HGNC_HM_2269640
+
+ConnComp8
+and cm._Cluster_key in (2249343, 2269640, 2249343, 2269455, 2256572, 2269640)
+
+9 rows returned, 0.292 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2249343	41209	Cst9	1	null	HomoloGene	null
+2	2249343	104966	CST9L	2	null	HomoloGene	null
+3	2256572	120955	CST9	2	null	HomoloGene	null
+4	2269455	104966	CST9L	2	null	HGNC	null
+5	2269640	41209	Cst9	1	null	HGNC	null
+6	2269640	120955	CST9	2	null	HGNC	null
+7	2312809	41209	Cst9	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2312809	120955	CST9	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2312810	104966	CST9L	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp9
+HG_HM_2249735	HGNC_HM_2300450
+HG_HM_2249735	HGNC_H_2267746
+HG_HM_2249735	HGNC_H_2278837
+HG_HM_2249735	HGNC_H_2282199
+HG_HM_2249735	HGNC_H_2288615
+HG_HM_2249735	HGNC_H_2294408
+HG_HM_2249735	HGNC_H_2294421
+HG_HM_2249735	HGNC_H_2294437
+HG_H_2264828	HGNC_HM_2300450
+
+ConnComp9
+and cm._Cluster_key in (2249735, 2300450, 2249735, 2267746, 2249735, 2278837, 2249735, 2282199, 2249735, 2288615, 2249735, 2294408, 2249735, 2294421, 2249735, 2294437, 2264828, 2300450)
+
+27 rows returned, 0.353 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2249735	32833	Ranbp2	1	null	HomoloGene	null
+2	2249735	129957	RGPD1	2	null	HomoloGene	null
+3	2249735	154648	RGPD2	2	null	HomoloGene	null
+4	2249735	171390	RGPD3	2	null	HomoloGene	null
+5	2249735	124845	RGPD4	2	null	HomoloGene	null
+6	2249735	137287	RGPD5	2	null	HomoloGene	null
+7	2249735	157926	RGPD6	2	null	HomoloGene	null
+8	2249735	127217	RGPD8	2	null	HomoloGene	null
+9	2264828	32864	RANBP2	2	null	HomoloGene	null
+10	2267746	137287	RGPD5	2	null	HGNC	null
+11	2278837	129957	RGPD1	2	null	HGNC	null
+12	2282199	157926	RGPD6	2	null	HGNC	null
+13	2288615	124845	RGPD4	2	null	HGNC	null
+14	2294408	127217	RGPD8	2	null	HGNC	null
+15	2294421	154648	RGPD2	2	null	HGNC	null
+16	2294437	171390	RGPD3	2	null	HGNC	null
+17	2300450	32833	Ranbp2	1	null	HGNC	null
+18	2300450	32864	RANBP2	2	null	HGNC	null
+19	2303990	137287	RGPD5	2	1	HGNC/HomoloGene Hybrid	HGNC
+20	2303991	129957	RGPD1	2	1	HGNC/HomoloGene Hybrid	HGNC
+21	2303992	154648	RGPD2	2	1	HGNC/HomoloGene Hybrid	HGNC
+22	2303993	171390	RGPD3	2	1	HGNC/HomoloGene Hybrid	HGNC
+23	2303994	124845	RGPD4	2	1	HGNC/HomoloGene Hybrid	HGNC
+24	2303995	157926	RGPD6	2	1	HGNC/HomoloGene Hybrid	HGNC
+25	2303996	127217	RGPD8	2	1	HGNC/HomoloGene Hybrid	HGNC
+26	2303997	32833	Ranbp2	1	1	HGNC/HomoloGene Hybrid	HGNC
+27	2303997	32864	RANBP2	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/19/15
+
+
+ConnComp10
+HG_HM_2250198	HGNC_HM_2279915
+HG_HM_2250198	HGNC_H_2267811
+HG_H_2242476	HGNC_HM_2279915
+
+ConnComp10
+and cm._Cluster_key in (2250198, 2279915, 2250198, 2267811, 2242476, 2279915)
+
+12 rows returned, 0.257 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2242476	21196	GZMB	2	null	HomoloGene	null
+2	2250198	31167	Gzmd	1	null	HomoloGene	null
+3	2250198	31210	Gzme	1	null	HomoloGene	null
+4	2250198	31166	Gzmf	1	null	HomoloGene	null
+5	2250198	31165	Gzmg	1	null	HomoloGene	null
+6	2250198	125649	GZMH	2	null	HomoloGene	null
+7	2267811	125649	GZMH	2	null	HGNC	null
+8	2279915	31210	Gzme	1	null	HGNC	null
+9	2279915	21196	GZMB	2	null	HGNC	null
+10	2307300	31210	Gzme	1	1	HGNC/HomoloGene Hybrid	HGNC
+11	2307300	21196	GZMB	2	1	HGNC/HomoloGene Hybrid	HGNC
+12	2307301	125649	GZMH	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp11
+HG_HM_2252472	HGNC_HM_2298985
+HG_HM_2256279	HGNC_HM_2298985
+HG_HM_2256279	HGNC_H_2270609
+
+ConnComp11
+and cm._Cluster_key in (2252472, 2298985, 2256279, 2298985, 2256279, 2270609)
+
+
+10 rows returned, 0.279 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2252472	8341	Eif1a	1	null	HomoloGene	null
+2	2252472	27001	EIF1AX	2	null	HomoloGene	null
+3	2256279	50215	Eif1ax	1	null	HomoloGene	null
+4	2256279	137734	EIF1AY	2	null	HomoloGene	null
+5	2270609	137734	EIF1AY	2	null	HGNC	null
+6	2298985	50215	Eif1ax	1	null	HGNC	null
+7	2298985	27001	EIF1AX	2	null	HGNC	null
+8	2304313	137734	EIF1AY	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2304314	50215	Eif1ax	1	1	HGNC/HomoloGene Hybrid	HGNC
+10	2304314	27001	EIF1AX	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/19/15
+
+
+ConnComp12
+HG_HM_2252763	HGNC_HM_2300266
+HG_HM_2252763	HGNC_H_2276409
+HG_H_2244430	HGNC_HM_2300266
+
+
+
+ConnComp12
+and cm._Cluster_key in (2252763, 2244430, 2300266, 2276409)
+
+9 rows returned, 0.019 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2244430	130605	C7orf61	2	null	HomoloGene	null
+2	2252763	62809	Tsc22d4	1	null	HomoloGene	null
+3	2252763	78363	TSC22D4	2	null	HomoloGene	null
+4	2276409	78363	TSC22D4	2	null	HGNC	null
+5	2300266	62809	Tsc22d4	1	null	HGNC	null
+6	2300266	130605	C7orf61	2	null	HGNC	null
+7	2320752	62809	Tsc22d4	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2320752	130605	C7orf61	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2320753	78363	TSC22D4	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+
+ConnComp13
+HG_HM_2254527	HGNC_HM_2279084
+HG_HM_2254527	HGNC_H_2284923
+HG_H_2263931	HGNC_HM_2279084
+
+ConnComp13
+and cm._Cluster_key in (2254527, 2279084, 2254527, 2284923, 2263931, 2279084)
+
+9 rows returned, 0.352 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2254527	1247	Ctrb1	1	null	HomoloGene	null
+2	2254527	121718	CTRB2	2	null	HomoloGene	null
+3	2263931	21201	CTRB1	2	null	HomoloGene	null
+4	2279084	1247	Ctrb1	1	null	HGNC	null
+5	2279084	21201	CTRB1	2	null	HGNC	null
+6	2284923	121718	CTRB2	2	null	HGNC	null
+7	2301601	1247	Ctrb1	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2301601	21201	CTRB1	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2301602	121718	CTRB2	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp14
+HG_HM_2254585	HGNC_HM_2298070
+HG_HM_2265448	HGNC_HM_2298070
+HG_HM_2265448	HGNC_H_2287732
+
+ConnComp14
+and cm._Cluster_key in (2254585, 2298070, 2265448, 2298070, 2265448, 2287732)
+
+10 rows returned, 0.202 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2254585	97340	Wfdc6a	1	null	HomoloGene	null
+2	2254585	92370	EPPIN	2	null	HomoloGene	null
+3	2265448	59506	Eppin	1	null	HomoloGene	null
+4	2265448	411376	EPPIN-WFDC6	2	null	HomoloGene	null
+5	2287732	411376	EPPIN-WFDC6	2	null	HGNC	null
+6	2298070	59506	Eppin	1	null	HGNC	null
+7	2298070	92370	EPPIN	2	null	HGNC	null
+8	2306931	411376	EPPIN-WFDC6	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2306932	59506	Eppin	1	1	HGNC/HomoloGene Hybrid	HGNC
+10	2306932	92370	EPPIN	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp15
+HG_HM_2257100	HGNC_HM_2277460
+HG_HM_2257100	HGNC_H_2271587
+HG_H_2241900	HGNC_HM_2277460
+
+ConnComp15
+and cm._Cluster_key in (2257100, 2277460, 2257100, 2271587, 2241900, 2277460)
+
+9 rows returned, 0.105 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2241900	94018	SIGLEC5	2	null	HomoloGene	null
+2	2257100	93921	Siglecf	1	null	HomoloGene	null
+3	2257100	124003	SIGLEC8	2	null	HomoloGene	null
+4	2271587	124003	SIGLEC8	2	null	HGNC	null
+5	2277460	93921	Siglecf	1	null	HGNC	null
+6	2277460	94018	SIGLEC5	2	null	HGNC	null
+7	2327050	93921	Siglecf	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2327050	94018	SIGLEC5	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2327051	124003	SIGLEC8	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp16
+HG_HM_2257716	HGNC_HM_2287975
+HG_HM_2257716	HGNC_H_2270296
+HG_H_2265369	HGNC_HM_2287975
+
+ConnComp16
+and cm._Cluster_key in (2257716, 2287975, 2257716, 2270296, 2265369, 2287975)
+
+
+22 rows returned, 0.295 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2257716	22744	Klk1	1	null	HomoloGene	null
+2	2257716	32456	Klk1b1	1	null	HomoloGene	null
+3	2257716	32460	Klk1b11	1	null	HomoloGene	null
+4	2257716	32419	Klk1b16	1	null	HomoloGene	null
+5	2257716	32459	Klk1b21	1	null	HomoloGene	null
+6	2257716	8330	Klk1b22	1	null	HomoloGene	null
+7	2257716	32458	Klk1b24	1	null	HomoloGene	null
+8	2257716	32418	Klk1b26	1	null	HomoloGene	null
+9	2257716	32417	Klk1b27	1	null	HomoloGene	null
+10	2257716	11860	Klk1b3	1	null	HomoloGene	null
+11	2257716	11858	Klk1b4	1	null	HomoloGene	null
+12	2257716	32457	Klk1b5	1	null	HomoloGene	null
+13	2257716	32455	Klk1b8	1	null	HomoloGene	null
+14	2257716	8332	Klk1b9	1	null	HomoloGene	null
+15	2257716	126944	KLK3	2	null	HomoloGene	null
+16	2265369	127352	KLK1	2	null	HomoloGene	null
+17	2270296	126944	KLK3	2	null	HGNC	null
+18	2287975	22744	Klk1	1	null	HGNC	null
+19	2287975	127352	KLK1	2	null	HGNC	null
+20	2308001	22744	Klk1	1	1	HGNC/HomoloGene Hybrid	HGNC
+21	2308001	127352	KLK1	2	1	HGNC/HomoloGene Hybrid	HGNC
+22	2308002	126944	KLK3	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/19/15
+
+
+ConnComp17
+HG_HM_2258770	HGNC_HM_2282820
+HG_HM_2258770	HGNC_H_2296907
+HG_H_2251464	HGNC_HM_2282820
+HG_HM_2259707	HGNC_HM_2282820
+
+ConnComp17
+and cm._Cluster_key in (2258770, 2282820, 2258770, 2296907, 2251464, 2282820, 2259707, 2282820)
+
+26 rows returned, 0.213 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2251464	107784	SLC22A9	2	null	HomoloGene	null
+2	2258770	83955	Slc22a19	1	null	HomoloGene	null
+3	2258770	124212	SLC22A24	2	null	HomoloGene	null
+4	2259707	117631	Slc22a27	1	null	HomoloGene	null
+5	2259707	195295	Slc22a28	1	null	HomoloGene	null
+6	2259707	157403	Slc22a29	1	null	HomoloGene	null
+7	2259707	83954	Slc22a30	1	null	HomoloGene	null
+8	2259707	127628	SLC22A25	2	null	HomoloGene	null
+9	2282820	83955	Slc22a19	1	null	HGNC	null
+10	2282820	93032	Slc22a26	1	null	HGNC	null
+11	2282820	117631	Slc22a27	1	null	HGNC	null
+12	2282820	195295	Slc22a28	1	null	HGNC	null
+13	2282820	157403	Slc22a29	1	null	HGNC	null
+14	2282820	83954	Slc22a30	1	null	HGNC	null
+15	2282820	127628	SLC22A25	2	null	HGNC	null
+16	2282820	107784	SLC22A9	2	null	HGNC	null
+17	2296907	124212	SLC22A24	2	null	HGNC	null
+18	2309103	83955	Slc22a19	1	1	HGNC/HomoloGene Hybrid	HGNC
+19	2309103	93032	Slc22a26	1	1	HGNC/HomoloGene Hybrid	HGNC
+20	2309103	117631	Slc22a27	1	1	HGNC/HomoloGene Hybrid	HGNC
+21	2309103	195295	Slc22a28	1	1	HGNC/HomoloGene Hybrid	HGNC
+22	2309103	157403	Slc22a29	1	1	HGNC/HomoloGene Hybrid	HGNC
+23	2309103	83954	Slc22a30	1	1	HGNC/HomoloGene Hybrid	HGNC
+24	2309103	127628	SLC22A25	2	1	HGNC/HomoloGene Hybrid	HGNC
+25	2309103	107784	SLC22A9	2	1	HGNC/HomoloGene Hybrid	HGNC
+26	2309104	124212	SLC22A24	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp18
+HG_HM_2259849	HGNC_HM_2278491
+HG_HM_2259849	HGNC_H_2277989
+HG_H_2251054	HGNC_HM_2278491
+
+ConnComp18
+and cm._Cluster_key in (2259849, 2278491, 2259849, 2277989, 2251054, 2278491)
+
+
+9 rows returned, 0.272 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2251054	120425	RABL2B	2	null	HomoloGene	null
+2	2259849	52688	Rabl2	1	null	HomoloGene	null
+3	2259849	154906	RABL2A	2	null	HomoloGene	null
+4	2277989	154906	RABL2A	2	null	HGNC	null
+5	2278491	52688	Rabl2	1	null	HGNC	null
+6	2278491	120425	RABL2B	2	null	HGNC	null
+7	2308512	154906	RABL2A	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2308513	52688	Rabl2	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2308513	120425	RABL2B	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/19/15
+
+
+ConnComp19
+HG_HM_2260663	HGNC_HM_2284697
+HG_HM_2260663	HGNC_H_2297379
+HG_H_2243629	HGNC_HM_2284697
+
+ConnComp19
+and cm._Cluster_key in (2260663, 2284697, 2260663, 2297379, 2243629, 2284697)
+
+
+9 rows returned, 0.128 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2243629	42825	DAZL	2	null	HomoloGene	null
+2	2260663	41824	Dazl	1	null	HomoloGene	null
+3	2260663	135451	DAZ2	2	null	HomoloGene	null
+4	2284697	41824	Dazl	1	null	HGNC	null
+5	2284697	42825	DAZL	2	null	HGNC	null
+6	2297379	135451	DAZ2	2	null	HGNC	null
+7	2302829	135451	DAZ2	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2302830	41824	Dazl	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2302830	42825	DAZL	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/19/15
+
+
+ConnComp20
+HG_HM_2261978	HGNC_HM_2288180
+HG_HM_2261978	HGNC_H_2298239
+HG_H_2258922	HGNC_HM_2288180
+
+ConnComp20
+and cm._Cluster_key in (2261978, 2288180, 2261978, 2298239, 2258922, 2288180)
+
+9 rows returned, 0.022 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2258922	135658	RLN2	2	null	HomoloGene	null
+2	2261978	12925	Rln1	1	null	HomoloGene	null
+3	2261978	82881	RLN1	2	null	HomoloGene	null
+4	2288180	12925	Rln1	1	null	HGNC	null
+5	2288180	135658	RLN2	2	null	HGNC	null
+6	2298239	82881	RLN1	2	null	HGNC	null
+7	2302968	12925	Rln1	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2302968	135658	RLN2	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2302969	82881	RLN1	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp21
+HG_HM_2261994	HGNC_HM_2273174
+HG_HM_2261994	HGNC_H_2294177
+HG_H_2252282	HGNC_HM_2273174
+
+ConnComp21
+and cm._Cluster_key in (2261994, 2273174, 2261994, 2294177, 2252282, 2273174)
+
+9 rows returned, 0.210 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2252282	137362	BEX2	2	null	HomoloGene	null
+2	2261994	40706	Bex2	1	null	HomoloGene	null
+3	2261994	135304	BEX1	2	null	HomoloGene	null
+4	2273174	40706	Bex2	1	null	HGNC	null
+5	2273174	137362	BEX2	2	null	HGNC	null
+6	2294177	135304	BEX1	2	null	HGNC	null
+7	2302735	135304	BEX1	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2302736	40706	Bex2	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2302736	137362	BEX2	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/19/15
+
+
+ConnComp22
+HG_HM_2263636	HGNC_HM_2274201
+HG_HM_2263636	HGNC_HM_2280650
+HG_HM_2263636	HGNC_HM_2283444
+HG_H_2257801	HGNC_HM_2274201
+HG_H_2250650	HGNC_HM_2280650
+
+ConnComp22
+and cm._Cluster_key in (263636, 2274201, 2263636, 2280650, 2263636, 2283444, 2257801, 2274201, 2250650, 2280650)
+
+
+18 rows returned, 0.215 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2250650	127904	KRT33B	2	null	HomoloGene	null
+2	2257801	95342	KRT33A	2	null	HomoloGene	null
+3	2263636	38112	Krt31	1	null	HomoloGene	null
+4	2263636	55868	Krt33a	1	null	HomoloGene	null
+5	2263636	38110	Krt33b	1	null	HomoloGene	null
+6	2263636	95341	KRT31	2	null	HomoloGene	null
+7	2274201	55868	Krt33a	1	null	HGNC	null
+8	2274201	95342	KRT33A	2	null	HGNC	null
+9	2280650	38110	Krt33b	1	null	HGNC	null
+10	2280650	127904	KRT33B	2	null	HGNC	null
+11	2283444	38112	Krt31	1	null	HGNC	null
+12	2283444	95341	KRT31	2	null	HGNC	null
+13	2311905	38110	Krt33b	1	1	HGNC/HomoloGene Hybrid	HGNC
+14	2311905	127904	KRT33B	2	1	HGNC/HomoloGene Hybrid	HGNC
+15	2311906	38112	Krt31	1	1	HGNC/HomoloGene Hybrid	HGNC
+16	2311906	95341	KRT31	2	1	HGNC/HomoloGene Hybrid	HGNC
+17	2311907	55868	Krt33a	1	1	HGNC/HomoloGene Hybrid	HGNC
+18	2311907	95342	KRT33A	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/19/15
+
+
+ConnComp23
+HG_HM_2263962	HGNC_HM_2269445
+HG_HM_2263962	HGNC_H_2273862
+HG_H_2258401	HGNC_HM_2269445
+
+ConnComp23
+and cm._Cluster_key in (2263962, 2269445, 2263962, 2273862, 2258401, 2269445)
+
+9 rows returned, 0.201 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2258401	171625	ALG10B	2	null	HomoloGene	null
+2	2263962	73599	Alg10b	1	null	HomoloGene	null
+3	2263962	137432	ALG10	2	null	HomoloGene	null
+4	2269445	73599	Alg10b	1	null	HGNC	null
+5	2269445	171625	ALG10B	2	null	HGNC	null
+6	2273862	137432	ALG10	2	null	HGNC	null
+7	2304107	137432	ALG10	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2304108	73599	Alg10b	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2304108	171625	ALG10B	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp24
+HG_HM_2264018	HGNC_HM_2272163
+HG_HM_2264018	HGNC_H_2297155
+HG_H_2248595	HGNC_HM_2272163
+
+ConnComp24
+and cm._Cluster_key in (2264018, 2272163, 2264018, 2297155, 2248595, 2272163)
+
+9 rows returned, 0.319 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2248595	22403	RPS4X	2	null	HomoloGene	null
+2	2264018	13214	Rps4x	1	null	HomoloGene	null
+3	2264018	135755	RPS4Y1	2	null	HomoloGene	null
+4	2272163	13214	Rps4x	1	null	HGNC	null
+5	2272163	22403	RPS4X	2	null	HGNC	null
+6	2297155	135755	RPS4Y1	2	null	HGNC	null
+7	2303027	135755	RPS4Y1	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2303028	13214	Rps4x	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2303028	22403	RPS4X	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp25
+HG_HM_2264072	HGNC_HM_2270248
+HG_HM_2264072	HGNC_H_2281783
+HG_H_2244233	HGNC_HM_2270248
+
+ConnComp25
+and cm._Cluster_key in (2264072, 2270248, 2264072, 2281783, 2244233, 2270248)
+
+9 rows returned, 0.347 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2244233	124018	SULT1C4	2	null	HomoloGene	null
+2	2264072	22823	Sult1c1	1	null	HomoloGene	null
+3	2264072	133189	SULT1C3	2	null	HomoloGene	null
+4	2270248	22823	Sult1c1	1	null	HGNC	null
+5	2270248	124018	SULT1C4	2	null	HGNC	null
+6	2281783	133189	SULT1C3	2	null	HGNC	null
+7	2301773	133189	SULT1C3	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2301774	22823	Sult1c1	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2301774	124018	SULT1C4	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp26
+HG_HM_2265282	HGNC_HM_2288980
+HG_HM_2265282	HGNC_H_2288644
+HG_H_2261306	HGNC_HM_2288980
+
+ConnComp26
+and cm._Cluster_key in (2265282, 2288980, 2265282, 2288644, 2261306, 2288980)
+
+9 rows returned, 0.244 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2261306	108655	ISY1	2	null	HomoloGene	null
+2	2265282	60040	Isy1	1	null	HomoloGene	null
+3	2265282	415846	ISY1-RAB43	2	null	HomoloGene	null
+4	2288644	415846	ISY1-RAB43	2	null	HGNC	null
+5	2288980	60040	Isy1	1	null	HGNC	null
+6	2288980	108655	ISY1	2	null	HGNC	null
+7	2316705	415846	ISY1-RAB43	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2316706	60040	Isy1	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2316706	108655	ISY1	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp27
+HG_HM_2265688	HGNC_HM_2269785
+HG_HM_2265691	HGNC_HM_2269785
+HG_HM_2265691	HGNC_H_2294822
+
+ConnComp27
+and cm._Cluster_key in (2265688, 2269785, 2265691, 2269785, 2265691, 2294822)
+
+10 rows returned, 0.150 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2265688	29740	Ccl12	1	null	HomoloGene	null
+2	2265688	22446	CCL2	2	null	HomoloGene	null
+3	2265691	13363	Ccl2	1	null	HomoloGene	null
+4	2265691	135808	CCL13	2	null	HomoloGene	null
+5	2269785	13363	Ccl2	1	null	HGNC	null
+6	2269785	22446	CCL2	2	null	HGNC	null
+7	2294822	135808	CCL13	2	null	HGNC	null
+8	2303065	135808	CCL13	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2303066	13363	Ccl2	1	1	HGNC/HomoloGene Hybrid	HGNC
+10	2303066	22446	CCL2	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp28
+HG_HM_2265692	HGNC_HM_2284079
+HG_HM_2265692	HGNC_H_2272923
+HG_H_2263918	HGNC_HM_2284079
+
+ConnComp28
+and cm._Cluster_key in (2265692, 2284079, 2265692, 2272923, 2263918, 2284079)
+
+9 rows returned, 0.172 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2263918	22447	CCL3	2	null	HomoloGene	null
+2	2265692	13364	Ccl3	1	null	HomoloGene	null
+3	2265692	131051	CCL3L3	2	null	HomoloGene	null
+4	2272923	131051	CCL3L3	2	null	HGNC	null
+5	2284079	13364	Ccl3	1	null	HGNC	null
+6	2284079	22447	CCL3	2	null	HGNC	null
+7	2306311	13364	Ccl3	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2306311	22447	CCL3	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2306312	131051	CCL3L3	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp29
+HG_H_2243176	HGNC_HM_2270190
+HG_H_2243176	HGNC_H_2282655
+HG_M_2264861	HGNC_HM_2270190
+
+ConnComp29
+and cm._Cluster_key in (2243176, 2270190, 2243176, 2282655, 2264861, 2270190)
+
+9 rows returned, 0.174 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2243176	89356	SCGB1C1	2	null	HomoloGene	null
+2	2243176	169670	SCGB1C2	2	null	HomoloGene	null
+3	2264861	89355	Scgb1c1	1	null	HomoloGene	null
+4	2270190	89355	Scgb1c1	1	null	HGNC	null
+5	2270190	89356	SCGB1C1	2	null	HGNC	null
+6	2282655	169670	SCGB1C2	2	null	HGNC	null
+7	2312017	169670	SCGB1C2	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2312018	89355	Scgb1c1	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2312018	89356	SCGB1C1	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp30
+HG_H_2243903	HGNC_HM_2288266
+HG_H_2243903	HGNC_H_2275677
+HG_M_2244927	HGNC_HM_2288266
+
+ConnComp30
+and cm._Cluster_key in (2243903, 2288266, 2243903, 2275677, 2244927, 2288266)
+
+9 rows returned, 0.112 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2243903	412290	KLRC4-KLRK1	2	null	HomoloGene	null
+2	2243903	36740	KLRK1	2	null	HomoloGene	null
+3	2244927	35120	Klrk1	1	null	HomoloGene	null
+4	2275677	412290	KLRC4-KLRK1	2	null	HGNC	null
+5	2288266	35120	Klrk1	1	null	HGNC	null
+6	2288266	36740	KLRK1	2	null	HGNC	null
+7	2307048	412290	KLRC4-KLRK1	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2307049	35120	Klrk1	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2307049	36740	KLRK1	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp31
+HG_H_2251681	HGNC_HM_2300019
+HG_H_2251681	HGNC_H_2275041
+HG_M_2250026	HGNC_HM_2300019
+
+ConnComp31
+and cm._Cluster_key in (2251681, 2300019, 2251681, 2275041, 2250026, 2300019)
+
+9 rows returned, 0.128 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2250026	76132	Gtf2ird2	1	null	HomoloGene	null
+2	2251681	81992	GTF2IRD2	2	null	HomoloGene	null
+3	2251681	128368	GTF2IRD2B	2	null	HomoloGene	null
+4	2275041	128368	GTF2IRD2B	2	null	HGNC	null
+5	2300019	76132	Gtf2ird2	1	null	HGNC	null
+6	2300019	81992	GTF2IRD2	2	null	HGNC	null
+7	2323534	76132	Gtf2ird2	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2323534	81992	GTF2IRD2	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2323535	128368	GTF2IRD2B	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp32
+HG_H_2261734	HGNC_HM_2296594
+HG_H_2261734	HGNC_H_2286845
+HG_M_2266743	HGNC_HM_2296594
+
+ConnComp32
+and cm._Cluster_key in (2261734, 2296594, 2261734, 2286845, 2266743, 2296594)
+
+9 rows returned, 0.266 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2261734	156251	BOLA2	2	null	HomoloGene	null
+2	2261734	158483	BOLA2B	2	null	HomoloGene	null
+3	2266743	50142	Bola2	1	null	HomoloGene	null
+4	2286845	158483	BOLA2B	2	null	HGNC	null
+5	2296594	50142	Bola2	1	null	HGNC	null
+6	2296594	156251	BOLA2	2	null	HGNC	null
+7	2308893	50142	Bola2	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2308893	156251	BOLA2	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2308894	158483	BOLA2B	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/19/15
+
+
+ConnComp33
+HG_H_2245730	HGNC_HM_2295621
+HG_H_2245730	HGNC_H_2269534
+HG_H_2245730	HGNC_H_2290305
+HG_M_2264455	HGNC_HM_2295621
+
+and cm._Cluster_key in (2245730, 2264455, 2295621, 2269534, 2290305)
+
+14 rows returned, 0.044 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2245730	20978	CALM1	2	null	HomoloGene	null
+2	2245730	20979	CALM2	2	null	HomoloGene	null
+3	2245730	20980	CALM3	2	null	HomoloGene	null
+4	2264455	737	Calm1	1	null	HomoloGene	null
+5	2264455	23213	Calm2	1	null	HomoloGene	null
+6	2264455	23212	Calm3	1	null	HomoloGene	null
+7	2269534	20980	CALM3	2	null	HGNC	null
+8	2290305	20978	CALM1	2	null	HGNC	null
+9	2295621	23213	Calm2	1	null	HGNC	null
+10	2295621	20979	CALM2	2	null	HGNC	null
+11	2307219	20978	CALM1	2	1	HGNC/HomoloGene Hybrid	HGNC
+12	2307220	23213	Calm2	1	1	HGNC/HomoloGene Hybrid	HGNC
+13	2307220	20979	CALM2	2	1	HGNC/HomoloGene Hybrid	HGNC
+14	2307221	20980	CALM3	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/19/15
+
+
+
+

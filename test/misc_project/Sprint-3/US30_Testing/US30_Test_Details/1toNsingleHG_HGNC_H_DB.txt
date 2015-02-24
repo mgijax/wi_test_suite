@@ -1,0 +1,1160 @@
+
+
+
+-----------
+bucket_1toN.txt
+
+This bucket is also sorted by HG_cluster ID.
+
+After removing the HG_HM_ rows, all HGNC_H_ cases should be called HG.
+
+grep "HGNC_H_" 1toNsingleHG.txt > 1toNsingleHG_HGNC_H_hold.txt
+
+Note: There is only one row with "HGNC_HM_" in this file.  Easiest to just remove it manually.
+
+
+Removed the row with HG_H_2259776 from 1toNsingleHG_HGNC_H_hold.txt, because of HGNC_HM_2277412
+HG_H_2259776	HGNC_HM_2277412
+HG_H_2259776	HGNC_H_2285908
+
+
+wc -l 1toNsingleHG_HGNC_H_hold.txt
+     355 1toNsingleHG_HGNC_H_hold.txt
+
+cut -f2 1toNsingleHG_HGNC_H_hold.txt > 1toNsingleHG_HGNC_H.txt
+
+removed the HGNC_H_ prefix
+
+
+run through the database to get the hybrid cluster calls
+
+
+
+
+
+
+
+
+
+select *
+into #new
+from MGI_Columns
+||
+delete from #new
+where creation_date != null
+||
+select * from #new
+||
+insert into #new
+values("2295534", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2297386", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277537", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2290250", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291385", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2297004", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2283695", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2297402", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2300315", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2301055", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274957", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282103", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2269527", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2275129", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2286394", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2287830", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2290364", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295761", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277669", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280667", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285148", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2288096", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277532", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280282", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2267869", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280548", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2284218", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2293179", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2298951", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2290230", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2292971", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2275996", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277520", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2284025", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2287206", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2278557", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285394", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274799", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2279736", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2293012", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285387", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2286987", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2275600", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2290046", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273495", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280962", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2278857", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282250", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277876", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295869", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273721", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2297796", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282767", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2286615", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299240", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299302", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2268273", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274558", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2275116", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2275380", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2288164", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2300509", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280551", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282043", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2284683", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2300520", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282828", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295370", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2269732", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271640", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273907", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2275966", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2292517", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295204", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274165", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277069", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2269053", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2294844", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2300123", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2290541", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295962", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2272466", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273274", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280209", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2281673", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282186", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2289914", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2301125", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2276991", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2292139", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2281534", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2293083", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2268043", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277263", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2278539", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2279275", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2284170", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274065", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274156", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2281847", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2269968", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271740", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295064", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2297592", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2269381", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2276742", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277590", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285941", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2289111", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2300801", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296504", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2300289", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2278846", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280909", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285735", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2281384", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2286548", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2283737", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285554", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291118", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2290431", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291682", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2269524", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2272629", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2298384", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2298441", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285666", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295013", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2268815", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274354", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2270712", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271909", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2272601", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274207", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2279720", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282940", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2283426", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2283657", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2289035", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291757", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291898", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2292617", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2272659", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291066", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296750", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2297021", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274660", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2281749", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282674", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2283918", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2293118", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2293425", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2301033", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2279636", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2294916", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2267467", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2272021", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2275423", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295162", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299281", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280595", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280850", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282694", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2298119", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2268250", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2270525", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2275758", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2276207", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2278631", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2281760", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2284824", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2289141", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296006", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299482", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299747", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273470", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2281060", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2270266", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273970", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2276482", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2278588", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285363", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2287949", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2289503", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2292287", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2293184", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2293858", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2300825", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2283808", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291985", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2289228", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291570", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299742", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2276316", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2297621", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2275396", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2283265", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273263", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280127", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2286340", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296511", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296855", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2298799", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2289280", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2298645", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2268000", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2272002", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273065", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2276280", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277047", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277471", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2278742", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2283945", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2284664", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2287381", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2287887", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2288276", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291014", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2292637", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296223", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2298752", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299188", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299947", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2300350", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274945", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295493", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274727", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2284018", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2269596", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2269925", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271882", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273074", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274416", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274919", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2276052", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2284559", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2292537", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295264", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296321", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2297091", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299786", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2300199", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282346", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285623", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299797", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2267752", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2269389", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271497", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280724", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2283408", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285415", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285977", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2287320", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2289019", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2294664", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296958", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271069", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2286531", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2292655", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2268167", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280469", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273022", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2279341", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2272218", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2292805", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2269931", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2286376", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2268056", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285619", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2293740", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2267619", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273343", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280135", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285722", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299819", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291013", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2298464", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291767", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2292414", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2269976", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271203", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2284190", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2284583", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291232", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2268417", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273021", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2270997", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271371", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2267775", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2267851", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2275754", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2281215", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295637", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296305", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2270833", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280582", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2283698", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2288861", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2290752", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2279614", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299658", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2267870", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273536", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2279532", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296216", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296850", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271699", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2283962", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2295715", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2298787", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299356", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2300265", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2272108", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2289271", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2293922", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2267591", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277698", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271911", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2298784", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2267828", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2276223", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282738", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2289727", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271753", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273147", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2281624", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273464", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2288143", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273625", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2281206", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2268037", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2280847", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2272813", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299867", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2268931", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2274975", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2275655", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277301", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2294462", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296515", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2299450", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271976", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2294007", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2282854", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2291489", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2268928", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2285558", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2273678", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2297390", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2277225", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2296677", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2271744", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2286646", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2297885", "b", "c", "d", getdate(), getdate())
+||
+insert into #new
+values("2298684", "b", "c", "d", getdate(), getdate())
+||
+select count(*)
+from #new
+||
+select cm._Cluster_key as "input_key"
+into #tt1
+from #new n, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13437099
+and c._Cluster_key = cm._Cluster_key
+and CONVERT(INT, n.table_name) = cm._Cluster_key
+||
+create index idx1 on #tt1(input_key)
+||
+select cm._Marker_key
+into #tt2
+from #tt1 t1, MRK_ClusterMember cm
+where t1.input_key = cm._Cluster_key
+||
+create index idx2 on #tt2(_Marker_key)
+||
+select t2._Marker_key, cm._Cluster_key as "Hybrid_key"
+into #tt3
+from #tt2 t2, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13764519
+and c._Cluster_key = cm._Cluster_key
+and cm._Marker_key = t2._Marker_key
+||
+create index idx3 on #tt3(_Marker_key, Hybrid_key)
+||
+select distinct mp.value
+from #tt3 t3, MGI_Property mp
+where mp._PropertyType_key = 1001
+and t3.Hybrid_key = mp._Object_key
+
+
+select count(*)
+from #new
+
+1 rows returned, 0.001 seconds
+
+Row #	
+1	355 
+
+
+
+Row #	value
+1	HG 
+
+

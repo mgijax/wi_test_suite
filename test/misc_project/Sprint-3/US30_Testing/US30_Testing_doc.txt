@@ -1,0 +1,1185 @@
+US30 - Precompute hybrid homology: apply rules and store hybrid clusters
+
+
+Testing Strategy
+
+1) Test that New Hybrid Cluster Data are represented in the database
+- New Cluster Source (HGNC/HomoloGene Hybrid)
+
+- New Property Tables (MGI_Property, MGI_PropertyType)
+
+- New MGI_PropertyType (secondary source, with values: HGNC, HG, both)
+
+
+
+2) Test that the Hybrid Homology Rules are accurately followed in selection of Hybrid Clusters
+- Use Bucketizer on HG and HGNC clusters (as was done for US85 - Precompute connected components)
+
+Note: The input files for the US30 bucketizer were slightly different than for US85.  Because the Hybrid Cluster rules are species-sensitive, the cluster_keys from HG and HGNC clusters were prefixed with codes that identified the cluster as having both human and mouse genes or having only human or only mouse genes.  This modification makes Hybrid Cluster prediction easier.
+
+Examples of bucket entries with cluster ID prefixes:
+
+bucket_1to1.txt
+HG_HM_2241455	HGNC_HM_2281536
+
+bucket_1toN.txt
+HG_HM_2241704	HGNC_H_2274682
+HG_HM_2241704	HGNC_H_2300294
+
+bucket_NtoN.txt
+HG_H_2243176	HGNC_HM_2270190
+HG_H_2243176	HGNC_H_2282655
+HG_M_2264861	HGNC_HM_2270190
+
+HG: HomoloGene cluster
+HGNC: HGNC cluster
+HM: human and mouse genes are present in the cluster
+H: only human genes are present in the cluster
+M: only mouse genes are present in the cluster
+
+
+- From Bucketizer cardinality buckets and established Hybrid rules from the Hybrid_Homology_Computation wiki, predict the Hybrid clusters and their sources.
+http://mgiwiki/mediawiki/index.php/sw:Hybrid_Homology_Computation
+
+- Compare predictions with data in DEV_MGI..mgd_bob
+
+
+
+The easiest way to comprehensively test the hybrid cluster calls from bucketizer results is by loading the bucketizer cluster ids from different buckets into the database using temp tables, and then looking at the hybrid clusters for the corresponding markers.
+
+Because the only specific connection between hybrid clusters and their original clusters is the set of _Marker_keys, the strategy is as follows:
+
+- Load cluster iDs from bucketizer buckets into MGI via temp tables.
+- Get the markers for these cluster IDS from the MRK_Cluster_member table.
+- Get the hybrid clusters from MRK_Cluster_member with these markers.
+- Get the source calls for corresponding hybrid clusters, and spot check individual clusters.
+- For the NtoN bucket, verify the Hybrid Clusters for connected components manually.
+
+
+Testing details (file manipulations and database queries) are available in separate documents, which are referenced in the test results in this document.
+
+The detailed testing files are available in subdirectory:
+http://rohan.informatics.jax.org/usrlocalmgi/scrum-bob/wi_test_suite/test/misc_project/Sprint-3/US30_Testing/US30_Test_Details/
+
+
+
+Testing
+
+1) Verify that New Hybrid Cluster Data are represented in the database
+
+1a) New Hybrid Clusters in MRK_Cluster
+
+This query counts the clusters from each cluster source.  Note that there are 35805 Hybrid clusters.
+
+select _ClusterSource_key, count(distinct _Cluster_key) as "Clusters"
+into #tt1
+from MRK_Cluster
+GROUP BY _ClusterSource_key
+
+||
+create index idx1 on #tt1(_ClusterSource_key)
+||
+
+select distinct vt.term as "Cluster_Source", t1.Clusters
+from #tt1 t1, VOC_Term vt
+where vt._Term_key = t1._ClusterSource_key
+
+Results from sybase : DEV_MGI..mgd_bob 
+
+Row #	Cluster_Source	Clusters
+1	GEISHA	1377
+2	ZFIN	6294
+3	HomoloGene	25999
+4	HGNC	33717
+5	HGNC/HomoloGene Hybrid	35805 
+
+test result: PASS 2/19/15
+---------------------
+
+1b) New Property Tables
+
+The following query counts the Hybrid clusters from each Hybrid cluster source.
+
+select _Cluster_key
+into #tt1
+from MRK_Cluster
+where _ClusterSource_key = 13764519
+
+||
+create index idx1 on #tt1(_Cluster_key)
+||
+
+select mp.value as "Hybrid_Cluster_Source", count(distinct mp._Object_key) as "Hybrid_Clusters"
+
+from #tt1 t1, MGI_Property mp
+where mp._PropertyType_key = 1001
+and mp._Object_key = t1._Cluster_key
+GROUP BY mp.value
+
+3 rows returned, 0.648 seconds
+
+Row #	Hybrid_Cluster_Source	Hybrid_Clusters
+1	both	10723
+2	HG	9297
+3	HGNC	15785 
+
+test result: PASS 2/19/15
+---------------------
+
+
+2) Verify that the Hybrid Homology Rules are accurately followed.
+
+==============================
+Rule 2 - Single Source
+(2) if there is only one source (and hence one cluster), keep it and its source (could be M/H or M or H)
+
+In the following buckets:
+bucket_1to0.txt
+bucket_0to1.txt
+
+
+Rule 2
+-----------
+bucket_1to0.txt
+
+Expected result: All corresponding hybrid clusters should be soured to HG.
+
+Result Summary: 
+There are 2390 unique HG IDs in bucket_1to0.txt.
+All corresponding Hybrid clusters are sourced to HG.
+See Details: 1to0_DB.txt
+
+test result: PASS 2/19/15
+
+
+Rule 2
+-----------
+bucket_0to1.txt
+
+Expected result: All corresponding hybrid clusters should be soured to HGNC.
+
+Result Summary: 
+There are 15060 unique HGNC IDs in bucket_0to1.txt.
+All corresponding Hybrid clusters are sourced to HGNC.
+See Details: 0to1_DB.txt
+
+test result: PASS 2/19/15
+
+
+
+==============================
+Rule 3b - Both Sources (HG, HGNC), Single Species Clusters
+If multiple sources:
+(3b) if there are only single species clusters, keep all the HG clusters, mark them from HG
+
+Could be in the following buckets:
+bucket_1to1.txt
+bucket_1toN.txt
+bucket_Nto1.txt
+
+Notes:
+- Just looking at: HG_H_ + HGNC_H_ rows
+- There are no cases of: HG_M_ + HGNC_H_
+- There are no HGNC_M_  clusters
+
+
+Rule 3b
+-----------
+bucket_1to1.txt
+
+This bucket is sorted by HG_cluster ID. 
+
+Expected result:
+The HG_HM_ rows were removed (only single species HG clusters left).  From this set, the HGNC_H_ cases should all be sourced to HG (rule 3b), and the HGNC_HM_ cases should be sourced to HGNC (rule 3 - single source has HM).
+
+Result Summary: For all HG_H_ + HGNC_H_ cases, the hybrid clusters are sourced to HG.
+
+See Details: 1to1singleHG_HGNC_H_DB.txt
+
+
+Spot check:
+
+From: bucket_1to1.txt
+HG_H_2246224	HGNC_H_2274724
+
+select cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key in (9272151, 13437099, 13764519)
+and cm._Cluster_key in (2246224, 2274724)
+and cm._Cluster_key = c._Cluster_key
+
+||
+create index idx1 on #tt1(_Cluster_key, _Marker_key)
+||
+
+select cm._Cluster_key, t1._Marker_key, c._ClusterSource_key
+into #tt2
+from MRK_ClusterMember cm, MRK_Cluster c, #tt1 t1
+where cm._Cluster_key = c._Cluster_key
+and t1._Marker_key = cm._Marker_key
+
+||
+create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
+||
+
+select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
+from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
+where m._Organism_key in (1, 2)
+and m._Marker_Status_key in (1, 3)
+and vt._Vocab_key = 89
+and mp._PropertyType_key = 1001
+and t2._ClusterSource_key in (9272151, 13437099, 13764519)
+and t2._Cluster_key *= mp._Object_key
+and vt._Term_key = c._ClusterSource_key
+and cm._Cluster_key = c._Cluster_key
+and t2._Cluster_key = cm._Cluster_key
+and cm._Marker_key = m._Marker_key
+order by t2._Cluster_key, m._Organism_key, m.symbol
+
+7 rows returned, 0.020 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2246224	161872	FAM231D	2	null	HomoloGene	null
+2	2246224	451446	LOC100996721	2	null	HomoloGene	null
+3	2246224	599293	LOC102724235	2	null	HomoloGene	null
+4	2274724	161872	FAM231D	2	null	HGNC	null
+5	2310144	161872	FAM231D	2	1	HGNC/HomoloGene Hybrid	HG
+6	2310144	451446	LOC100996721	2	1	HGNC/HomoloGene Hybrid	HG
+7	2310144	599293	LOC102724235	2	1	HGNC/HomoloGene Hybrid	HG 
+
+test result: PASS 2/20/15
+
+
+Rule 3b
+-----------
+bucket_1toN.txt
+
+This bucket is also sorted by HG_cluster ID.
+
+Expected result:
+The HG_HM_ rows were removed (only single species HG clusters left).  From this set, the HGNC_H_ cases should all be sourced to HG (rule 3b), and the HGNC_HM_ cases should be sourced to HGNC (rule 3 - single source has HM).
+Note: There is only one row with "HGNC_HM_" in this file.  Easiest to just remove it manually.
+
+Result Summary: For all HG_H_ + HGNC_H_ cases, the hybrid clusters are sourced to HG.
+
+See Details: 1toNsingleHG_HGNC_H_DB.txt
+
+
+Spot check:
+
+From: bucket_1toN.txt
+HG_H_2263115	HGNC_H_2271699
+HG_H_2263115	HGNC_H_2283962
+HG_H_2263115	HGNC_H_2295715
+HG_H_2263115	HGNC_H_2298787
+HG_H_2263115	HGNC_H_2299356
+HG_H_2263115	HGNC_H_2300265
+
+
+select cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key in (9272151, 13437099, 13764519)
+and cm._Cluster_key in (2263115, 2271699, 2283962, 2295715, 2298787, 2299356, 2300265)
+and cm._Cluster_key = c._Cluster_key
+
+||
+create index idx1 on #tt1(_Cluster_key, _Marker_key)
+||
+
+select cm._Cluster_key, t1._Marker_key, c._ClusterSource_key
+into #tt2
+from MRK_ClusterMember cm, MRK_Cluster c, #tt1 t1
+where cm._Cluster_key = c._Cluster_key
+and t1._Marker_key = cm._Marker_key
+
+||
+create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
+||
+
+select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
+from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
+where m._Organism_key in (1, 2)
+and m._Marker_Status_key in (1, 3)
+and vt._Vocab_key = 89
+and mp._PropertyType_key = 1001
+and t2._ClusterSource_key in (9272151, 13437099, 13764519)
+and t2._Cluster_key *= mp._Object_key
+and vt._Term_key = c._ClusterSource_key
+and cm._Cluster_key = c._Cluster_key
+and t2._Cluster_key = cm._Cluster_key
+and cm._Marker_key = m._Marker_key
+order by t2._Cluster_key, m._Organism_key, m.symbol
+18 rows returned, 0.026 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2263115	28630	RBMY1A1	2	null	HomoloGene	null
+2	2263115	127310	RBMY1B	2	null	HomoloGene	null
+3	2263115	127311	RBMY1D	2	null	HomoloGene	null
+4	2263115	127312	RBMY1E	2	null	HomoloGene	null
+5	2263115	122051	RBMY1F	2	null	HomoloGene	null
+6	2263115	127313	RBMY1J	2	null	HomoloGene	null
+7	2271699	122051	RBMY1F	2	null	HGNC	null
+8	2283962	127311	RBMY1D	2	null	HGNC	null
+9	2295715	127313	RBMY1J	2	null	HGNC	null
+10	2298787	28630	RBMY1A1	2	null	HGNC	null
+11	2299356	127312	RBMY1E	2	null	HGNC	null
+12	2300265	127310	RBMY1B	2	null	HGNC	null
+13	2309523	28630	RBMY1A1	2	1	HGNC/HomoloGene Hybrid	HG
+14	2309523	127310	RBMY1B	2	1	HGNC/HomoloGene Hybrid	HG
+15	2309523	127311	RBMY1D	2	1	HGNC/HomoloGene Hybrid	HG
+16	2309523	127312	RBMY1E	2	1	HGNC/HomoloGene Hybrid	HG
+17	2309523	122051	RBMY1F	2	1	HGNC/HomoloGene Hybrid	HG
+18	2309523	127313	RBMY1J	2	1	HGNC/HomoloGene Hybrid	HG 
+
+
+test result: PASS 2/20/15
+
+Rule 3b
+-----------
+bucket_Nto1.txt
+
+Still considering rule 3b (single species connected components)
+
+
+This bucket is sorted by HGNC_cluster ID
+
+There are no HGNC_H_ clusters in this file (all are HGNC_HM_).  So nothing to look at here for rule 3b.
+
+
+
+
+==============================
+Rule 3 - Both Sources (HG, HGNC), One source has M/H clusters
+(3) if only one source has M/H clusters, keep all the clusters from the source w/ M/H, mark them from its source, flag them as in conflict
+
+Could be in the following buckets:
+bucket_1to1.txt
+bucket_1toN.txt
+bucket_Nto1.txt
+bucket_NtoN.txt
+
+
+Rule 3
+-----------
+bucket_1to1.txt
+
+Expected result:
+a) The HG_HM_ + HGCN_H clusters should all be sourced to HG
+b) The HG_H_ or HG_M_ + HGNC_HM_ clusters should all be sourced to HGNC
+
+
+Result Summary: a) For all HG_HM_ + HGNC_H_ cases, the hybrid clusters are sourced to HG.
+
+See Details: 1to1_HGhm_HGNCh_HGNCid_DB.txt
+
+test result: PASS 2/20/15
+
+
+Spot check:
+
+From: bucket_1to1.txt
+HG_HM_2241458	HGNC_H_2286961
+
+select cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key in (9272151, 13437099, 13764519)
+and cm._Cluster_key in (2241458, 2286961)
+and cm._Cluster_key = c._Cluster_key
+
+||
+create index idx1 on #tt1(_Cluster_key, _Marker_key)
+||
+
+select cm._Cluster_key, t1._Marker_key, c._ClusterSource_key
+into #tt2
+from MRK_ClusterMember cm, MRK_Cluster c, #tt1 t1
+where cm._Cluster_key = c._Cluster_key
+and t1._Marker_key = cm._Marker_key
+
+||
+create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
+||
+
+select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
+from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
+where m._Organism_key in (1, 2)
+and m._Marker_Status_key in (1, 3)
+and vt._Vocab_key = 89
+and mp._PropertyType_key = 1001
+and t2._ClusterSource_key in (9272151, 13437099, 13764519)
+and t2._Cluster_key *= mp._Object_key
+and vt._Term_key = c._ClusterSource_key
+and cm._Cluster_key = c._Cluster_key
+and t2._Cluster_key = cm._Cluster_key
+and cm._Marker_key = m._Marker_key
+order by t2._Cluster_key, m._Organism_key, m.symbol
+
+5 rows returned, 0.022 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2241458	28862	Luzp1	1	null	HomoloGene	null
+2	2241458	46266	LUZP1	2	null	HomoloGene	null
+3	2286961	46266	LUZP1	2	null	HGNC	null
+4	2314154	28862	Luzp1	1	1	HGNC/HomoloGene Hybrid	HG
+5	2314154	46266	LUZP1	2	1	HGNC/HomoloGene Hybrid	HG 
+
+
+test result: PASS 2/20/15
+
+
+
+Result Summary: b) For all HG_H_ or HG_M_ + HGNC_HM_ cases, the hybrid clusters are sourced to HGNC.
+Note this result supports Rule 4.
+
+See Details: 1to1_HGNC_HMsingleHG_DB.txt
+
+test result: PASS 2/20/15
+
+
+Spot check:
+
+From: bucket_1to1.txt
+HG_H_2264600	HGNC_HM_2283388
+
+select cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key in (9272151, 13437099, 13764519)
+and cm._Cluster_key in (2264600, 2283388)
+and cm._Cluster_key = c._Cluster_key
+
+||
+create index idx1 on #tt1(_Cluster_key, _Marker_key)
+||
+
+select cm._Cluster_key, t1._Marker_key, c._ClusterSource_key
+into #tt2
+from MRK_ClusterMember cm, MRK_Cluster c, #tt1 t1
+where cm._Cluster_key = c._Cluster_key
+and t1._Marker_key = cm._Marker_key
+
+||
+create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
+||
+
+select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
+from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
+where m._Organism_key in (1, 2)
+and m._Marker_Status_key in (1, 3)
+and vt._Vocab_key = 89
+and mp._PropertyType_key = 1001
+and t2._ClusterSource_key in (9272151, 13437099, 13764519)
+and t2._Cluster_key *= mp._Object_key
+and vt._Term_key = c._ClusterSource_key
+and cm._Cluster_key = c._Cluster_key
+and t2._Cluster_key = cm._Cluster_key
+and cm._Marker_key = m._Marker_key
+order by t2._Cluster_key, m._Organism_key, m.symbol
+
+5 rows returned, 0.023 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2264600	106842	CAMTA1	2	null	HomoloGene	null
+2	2283388	67670	Camta1	1	null	HGNC	null
+3	2283388	106842	CAMTA1	2	null	HGNC	null
+4	2322046	67670	Camta1	1	1	HGNC/HomoloGene Hybrid	HGNC
+5	2322046	106842	CAMTA1	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/20/15
+
+
+
+Rule 3
+-----------
+bucket_1toN.txt
+
+Expected result:
+a) The HG_HM_ + HGCN_H clusters should all be sourced to HG
+b) The HG_H_ or HG_M_ + HGNC_HM_ clusters should all be sourced to HGNC
+
+
+a) The HG_HM_ + HGCN_H clusters should all be sourced to HG.
+
+
+strategy:
+a) Get the rows with HG_HM_ from bucket_1toN.txt (save as 1toN_HGhm_hold.txt) 
+b) Extract the corresponding rows with HGNC_HM IDs from (a) and isolate the HG IDs.
+c) Extract the HG_HM IDs from (a) that correspond to HG IDs in (b) - these HG IDs are paired with at least one HGNC_HM in the connected components, so need to be excluded here.
+d) Extract the rows from (a) that do not match any of the HG_HM IDs from (c).
+
+
+Run these through database to get the sources (should all be HGNC).
+
+
+Result Summary: b) For all HG_HM_ + HGNC_H_ cases, the hybrid clusters are sourced to HG.
+
+See Details: 1toN_HGhm_HGNCh_HGNCid.txt_DB.txt
+
+test result: PASS 2/20/15
+
+
+b) The HG_H_ or HG_M_ + HGNC_HM_ clusters should all be sourced to HGNC
+There is only one row with "HGNC_HM_" in this file.  Easiest to just remove it manually.
+
+HG_H_2259776	HGNC_HM_2277412
+HG_H_2259776	HGNC_H_2285908
+
+Should be sourced to HGNC
+
+Easiest to just look at this one in the database.
+
+
+select cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key in (9272151, 13437099, 13764519)
+and cm._Cluster_key in (2259776, 2277412, 2285908)
+and cm._Cluster_key = c._Cluster_key
+
+||
+create index idx1 on #tt1(_Cluster_key, _Marker_key)
+||
+
+select cm._Cluster_key, t1._Marker_key, c._ClusterSource_key
+into #tt2
+from MRK_ClusterMember cm, MRK_Cluster c, #tt1 t1
+where cm._Cluster_key = c._Cluster_key
+and t1._Marker_key = cm._Marker_key
+
+||
+create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
+||
+
+select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
+from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
+where m._Organism_key in (1, 2)
+and m._Marker_Status_key in (1, 3)
+and vt._Vocab_key = 89
+and mp._PropertyType_key = 1001
+and t2._ClusterSource_key in (9272151, 13437099, 13764519)
+and t2._Cluster_key *= mp._Object_key
+and vt._Term_key = c._ClusterSource_key
+and cm._Cluster_key = c._Cluster_key
+and t2._Cluster_key = cm._Cluster_key
+and cm._Marker_key = m._Marker_key
+order by t2._Cluster_key, m._Organism_key, m.symbol
+
+8 rows returned, 0.020 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2259776	107065	CLEC18A	2	null	HomoloGene	null
+2	2259776	124458	CLEC18C	2	null	HomoloGene	null
+3	2277412	102753	Clec18a	1	null	HGNC	null
+4	2277412	107065	CLEC18A	2	null	HGNC	null
+5	2285908	124458	CLEC18C	2	null	HGNC	null
+6	2327991	102753	Clec18a	1	1	HGNC/HomoloGene Hybrid	HGNC
+7	2327991	107065	CLEC18A	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2327992	124458	CLEC18C	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/20/15
+
+
+Rule 3
+-----------
+bucket_Nto1.txt
+
+This bucket is sorted by HGNC_cluster ID.
+There are no HGNC_H_ clusters in this file (all are HGNC_HM_).
+
+Expected result:
+The HG_H_ or HG_M_ + HGNC_HM_ clusters should all be sourced to HGNC.
+
+
+strategy:
+Need to get the connected components with just HG_M or HG_H.  These should all be called to HGNC (because HGNC has HM).
+a) Get the rows with HG_HM_, and extract the corresponding HGNC_HM IDs
+b) Extract the HGNC_HM IDs from bucket_Nto1.txt that do not match any of the HGNC_HM IDs from (a).
+
+Run these through database to get the sources (should all be HGNC).
+
+
+Result Summary: For all HG_H_ or HG_M_ + HGNC_HM_ cases, the hybrid clusters are sourced to HGNC.
+
+See Details: Nto1_HG_HorM_DB.txt
+
+test result: PASS 2/20/15
+
+
+Spot check:
+
+From: bucket_Nto1.txt
+HG_H_2245287	HGNC_HM_2301121
+HG_M_2253972	HGNC_HM_2301121
+
+select cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key in (9272151, 13437099, 13764519)
+and cm._Cluster_key in (2245287, 2253972, 2301121)
+and cm._Cluster_key = c._Cluster_key
+
+||
+create index idx1 on #tt1(_Cluster_key, _Marker_key)
+||
+
+select cm._Cluster_key, t1._Marker_key, c._ClusterSource_key
+into #tt2
+from MRK_ClusterMember cm, MRK_Cluster c, #tt1 t1
+where cm._Cluster_key = c._Cluster_key
+and t1._Marker_key = cm._Marker_key
+
+||
+create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
+||
+
+select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
+from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
+where m._Organism_key in (1, 2)
+and m._Marker_Status_key in (1, 3)
+and vt._Vocab_key = 89
+and mp._PropertyType_key = 1001
+and t2._ClusterSource_key in (9272151, 13437099, 13764519)
+and t2._Cluster_key *= mp._Object_key
+and vt._Term_key = c._ClusterSource_key
+and cm._Cluster_key = c._Cluster_key
+and t2._Cluster_key = cm._Cluster_key
+and cm._Marker_key = m._Marker_key
+order by t2._Cluster_key, m._Organism_key, m.symbol
+
+6 rows returned, 0.029 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2245287	126586	PRSS48	2	null	HomoloGene	null
+2	2253972	98237	Prss48	1	null	HomoloGene	null
+3	2301121	98237	Prss48	1	null	HGNC	null
+4	2301121	126586	PRSS48	2	null	HGNC	null
+5	2327820	98237	Prss48	1	1	HGNC/HomoloGene Hybrid	HGNC
+6	2327820	126586	PRSS48	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/20/15
+
+
+
+
+Rule 3
+-----------
+bucket_NtoN.txt
+
+
+There are four connected components in bucket_NtoN.txt where there is only one species represented in all clusters from a given source.  In each case HGNC has the HM cluster, so all should be sourced to HGNC.
+
+ConnComp29  (my NtoN CCs)
+comp10796 (Sharon's CCs)
+HG_H_2243176	HGNC_HM_2270190
+HG_H_2243176	HGNC_H_2282655
+HG_M_2264861	HGNC_HM_2270190
+
+ConnComp29
+and cm._Cluster_key in (2243176, 2270190, 2243176, 2282655, 2264861, 2270190)
+
+9 rows returned, 0.174 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2243176	89356	SCGB1C1	2	null	HomoloGene	null
+2	2243176	169670	SCGB1C2	2	null	HomoloGene	null
+3	2264861	89355	Scgb1c1	1	null	HomoloGene	null
+4	2270190	89355	Scgb1c1	1	null	HGNC	null
+5	2270190	89356	SCGB1C1	2	null	HGNC	null
+6	2282655	169670	SCGB1C2	2	null	HGNC	null
+7	2312017	169670	SCGB1C2	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2312018	89355	Scgb1c1	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2312018	89356	SCGB1C1	2	1	HGNC/HomoloGene Hybrid	HGNC
+
+test result: PASS 2/19/15
+
+
+ConnComp30 (my NtoN CCs)
+comp5845 (Sharon's CCs)
+HG_H_2243903	HGNC_HM_2288266
+HG_H_2243903	HGNC_H_2275677
+HG_M_2244927	HGNC_HM_2288266
+
+ConnComp30
+and cm._Cluster_key in (2243903, 2288266, 2243903, 2275677, 2244927, 2288266)
+
+9 rows returned, 0.112 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2243903	412290	KLRC4-KLRK1	2	null	HomoloGene	null
+2	2243903	36740	KLRK1	2	null	HomoloGene	null
+3	2244927	35120	Klrk1	1	null	HomoloGene	null
+4	2275677	412290	KLRC4-KLRK1	2	null	HGNC	null
+5	2288266	35120	Klrk1	1	null	HGNC	null
+6	2288266	36740	KLRK1	2	null	HGNC	null
+7	2307048	412290	KLRC4-KLRK1	2	1	HGNC/HomoloGene Hybrid	HGNC
+8	2307049	35120	Klrk1	1	1	HGNC/HomoloGene Hybrid	HGNC
+9	2307049	36740	KLRK1	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+ConnComp31 (my NtoN CCs)
+comp22302 (Sharon's CCs)
+HG_H_2251681	HGNC_HM_2300019
+HG_H_2251681	HGNC_H_2275041
+HG_M_2250026	HGNC_HM_2300019
+
+ConnComp31
+and cm._Cluster_key in (2251681, 2300019, 2251681, 2275041, 2250026, 2300019)
+
+9 rows returned, 0.128 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2250026	76132	Gtf2ird2	1	null	HomoloGene	null
+2	2251681	81992	GTF2IRD2	2	null	HomoloGene	null
+3	2251681	128368	GTF2IRD2B	2	null	HomoloGene	null
+4	2275041	128368	GTF2IRD2B	2	null	HGNC	null
+5	2300019	76132	Gtf2ird2	1	null	HGNC	null
+6	2300019	81992	GTF2IRD2	2	null	HGNC	null
+7	2323534	76132	Gtf2ird2	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2323534	81992	GTF2IRD2	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2323535	128368	GTF2IRD2B	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+
+ConnComp32 (my NtoN CCs)
+comp7679 (Sharon's CCs)
+HG_H_2261734	HGNC_HM_2296594
+HG_H_2261734	HGNC_H_2286845
+HG_M_2266743	HGNC_HM_2296594
+
+ConnComp32
+and cm._Cluster_key in (2261734, 2296594, 2261734, 2286845, 2266743, 2296594)
+
+9 rows returned, 0.266 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2261734	156251	BOLA2	2	null	HomoloGene	null
+2	2261734	158483	BOLA2B	2	null	HomoloGene	null
+3	2266743	50142	Bola2	1	null	HomoloGene	null
+4	2286845	158483	BOLA2B	2	null	HGNC	null
+5	2296594	50142	Bola2	1	null	HGNC	null
+6	2296594	156251	BOLA2	2	null	HGNC	null
+7	2308893	50142	Bola2	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2308893	156251	BOLA2	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2308894	158483	BOLA2B	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/19/15
+
+
+
+
+==============================
+Rule 1 - Matching clusters
+
+ If both sources have M/H clusters
+(1) if each source has exactly one M/H cluster, and they agree, keep it as one cluster, mark it from both sources
+
+Should only be in:
+bucket_1to1.txt
+
+-----------
+bucket_1to1.txt
+
+Expected result:
+a) Most of the cases from bucket_1to1.txt with: HG_HM_ + HGNC_HM_ will have hybrid clusters sourced "both".
+b) Some of the HG_HM_ + HGNC_HM_ cases will have hybrid clusters sourced "HNGC" (because they have some different mouse/human markers, and thus fall under rule 4).
+c) The Hybrid clusters that are sourced "both" should all have the same number of markers in their HG and HGNC clusters.
+d) The Hybrid clusters that are sourced "HGNC" should have a different number of markers between HG and HGNC.
+
+If all markers match between the HG and HGNC clusters from the 1to1 bucket then they should be sourced to both.  If there are any markers in the HG or HGNC clusters that are not shared by the hybrid cluster for that connected component then that hybrid should be sourced to HGNC (not both). 
+
+
+Result Summary:
+From HG and HGNC clusters with mouse and human genes in the 1to1 bucket, the source for all hybrid clusters where there is at least one marker that does not match between HG and HGNC clusters is "HGNC".  Where the markers match exactly between HG and HGNC clusters from this set, the hybrid clusters are all sourced "both".
+
+Note: There are 70 Hybrid clusters from the bucket_1to1.txt that are sourced "HGNC". The rest are source "both".
+
+See Details: 1to1_HG_HGNC_HM_DB.txt
+
+test result: PASS 2/23/15
+
+
+Spot check:
+
+Example of a Hybrid cluster with "HGNC" as source:
+
+From: bucket_1to1.txt
+HG_HM_2241564	HGNC_HM_2272182
+
+select cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key in (9272151, 13437099, 13764519)
+and cm._Cluster_key in (2241564, 2272182)
+and cm._Cluster_key = c._Cluster_key
+
+||
+create index idx1 on #tt1(_Cluster_key, _Marker_key)
+||
+
+select cm._Cluster_key, t1._Marker_key, c._ClusterSource_key
+into #tt2
+from MRK_ClusterMember cm, MRK_Cluster c, #tt1 t1
+where cm._Cluster_key = c._Cluster_key
+and t1._Marker_key = cm._Marker_key
+
+||
+create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
+||
+
+select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
+from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
+where m._Organism_key in (1, 2)
+and m._Marker_Status_key in (1, 3)
+and vt._Vocab_key = 89
+and mp._PropertyType_key = 1001
+and t2._ClusterSource_key in (9272151, 13437099, 13764519)
+and t2._Cluster_key *= mp._Object_key
+and vt._Term_key = c._ClusterSource_key
+and cm._Cluster_key = c._Cluster_key
+and t2._Cluster_key = cm._Cluster_key
+and cm._Marker_key = m._Marker_key
+order by t2._Cluster_key, m._Organism_key, m.symbol
+
+7 rows returned, 0.026 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2241564	8633	Esd	1	null	HomoloGene	null
+2	2241564	323759	Gm2904	1	null	HomoloGene	null
+3	2241564	21397	ESD	2	null	HomoloGene	null
+4	2272182	8633	Esd	1	null	HGNC	null
+5	2272182	21397	ESD	2	null	HGNC	null
+6	2304791	8633	Esd	1	1	HGNC/HomoloGene Hybrid	HGNC
+7	2304791	21397	ESD	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/23/15
+
+
+
+
+Example of a Hybrid cluster with "both" as source:
+
+From: bucket_1to1.txt
+HG_HM_2241455	HGNC_HM_2281536
+
+select cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key in (9272151, 13437099, 13764519)
+and cm._Cluster_key in (2241455, 2281536)
+and cm._Cluster_key = c._Cluster_key
+
+||
+create index idx1 on #tt1(_Cluster_key, _Marker_key)
+||
+
+select cm._Cluster_key, t1._Marker_key, c._ClusterSource_key
+into #tt2
+from MRK_ClusterMember cm, MRK_Cluster c, #tt1 t1
+where cm._Cluster_key = c._Cluster_key
+and t1._Marker_key = cm._Marker_key
+
+||
+create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
+||
+
+select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
+from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
+where m._Organism_key in (1, 2)
+and m._Marker_Status_key in (1, 3)
+and vt._Vocab_key = 89
+and mp._PropertyType_key = 1001
+and t2._ClusterSource_key in (9272151, 13437099, 13764519)
+and t2._Cluster_key *= mp._Object_key
+and vt._Term_key = c._ClusterSource_key
+and cm._Cluster_key = c._Cluster_key
+and t2._Cluster_key = cm._Cluster_key
+and cm._Marker_key = m._Marker_key
+order by t2._Cluster_key, m._Organism_key, m.symbol
+
+6 rows returned, 0.023 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2241455	58479	Sost	1	null	HomoloGene	null
+2	2241455	64229	SOST	2	null	HomoloGene	null
+3	2281536	58479	Sost	1	null	HGNC	null
+4	2281536	64229	SOST	2	null	HGNC	null
+5	2319598	58479	Sost	1	1	HGNC/HomoloGene Hybrid	both
+6	2319598	64229	SOST	2	1	HGNC/HomoloGene Hybrid	both 
+
+
+test result: PASS 2/23/15
+
+
+
+
+==============================
+Rule 4 - The Chaff
+(4) otherwise (both sources have disagreeing M/H clusters) keep all the HGNC clusters, mark them as from HGNC.
+Note: We are not flagging hybrid clusters as "conflict".
+
+Could be in the following buckets:
+bucket_1to1.txt
+bucket_1toN.txt
+bucket_Nto1.txt
+bucket_NtoN.txt
+
+
+Rule 4
+-----------
+bucket_1to1.txt
+
+The rule 4 case in the 1to1 bucket were covered under the analysis for rule 3 above:
+[(b) For all HG_H_ or HG_M_ + HGNC_HM_ cases, the hybrid clusters are sourced to HGNC]
+
+
+
+Rule 4
+-----------
+bucket_1toN.txt
+
+Expected result:
+All rows with human/mouse clusters from both HG and HGNC should be sourced to HGNC (rule 4).
+
+strategy:
+a) Get the rows with HGNC_HM_ from bucket_1toN.txt.
+b) Remove any HG_H_ or HG_M_ rows (left with only HG_HM_ + HGNC+HM_ rows)
+
+Run these through database to get the sources (should all be HGNC).
+
+
+Result Summary: For all HG_HM_ + HGNC_HM_ cases, the hybrid clusters are sourced to HGNC.
+
+See Details: 1toN_HG_HGNC_HM_DB.txt
+
+test result: PASS 2/23/15
+
+Spot check:
+
+From: bucket_1toN.txt
+HG_HM_2242919	HGNC_HM_2270149
+HG_HM_2242919	HGNC_H_2281608
+
+select cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key in (9272151, 13437099, 13764519)
+and cm._Cluster_key in (2242919, 2270149, 2281608)
+and cm._Cluster_key = c._Cluster_key
+
+||
+create index idx1 on #tt1(_Cluster_key, _Marker_key)
+||
+
+select cm._Cluster_key, t1._Marker_key, c._ClusterSource_key
+into #tt2
+from MRK_ClusterMember cm, MRK_Cluster c, #tt1 t1
+where cm._Cluster_key = c._Cluster_key
+and t1._Marker_key = cm._Marker_key
+
+||
+create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
+||
+
+select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
+from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
+where m._Organism_key in (1, 2)
+and m._Marker_Status_key in (1, 3)
+and vt._Vocab_key = 89
+and mp._PropertyType_key = 1001
+and t2._ClusterSource_key in (9272151, 13437099, 13764519)
+and t2._Cluster_key *= mp._Object_key
+and vt._Term_key = c._ClusterSource_key
+and cm._Cluster_key = c._Cluster_key
+and t2._Cluster_key = cm._Cluster_key
+and cm._Marker_key = m._Marker_key
+order by t2._Cluster_key, m._Organism_key, m.symbol
+
+9 rows returned, 0.021 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2242919	58463	Ankhd1	1	null	HomoloGene	null
+2	2242919	89339	ANKHD1	2	null	HomoloGene	null
+3	2242919	130794	ANKHD1-EIF4EBP3	2	null	HomoloGene	null
+4	2270149	58463	Ankhd1	1	null	HGNC	null
+5	2270149	89339	ANKHD1	2	null	HGNC	null
+6	2281608	130794	ANKHD1-EIF4EBP3	2	null	HGNC	null
+7	2319592	58463	Ankhd1	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2319592	89339	ANKHD1	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2319593	130794	ANKHD1-EIF4EBP3	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/20/15
+
+
+
+
+Rule 4
+-----------
+bucket_Nto1.txt
+
+Expected result:
+All rows with human/mouse clusters from both HG and HGNC should be sourced to HGNC (rule 4).
+
+strategy:
+a) Get the rows with HG_HM_ from bucket_Nto1.txt.
+b) Remove any HG_H_ or HG_M_ rows (no need to: all rows are: HG_HM_ + HGNC_HM_)
+
+Run these through database to get the sources (should all be HGNC).
+
+
+Result Summary: For all HG_HM_ + HGNC_HM_ cases, the hybrid clusters are sourced to HGNC.
+
+See Details: Nto1_HG_HGNC_HM_DB.txt
+
+test result: PASS 2/23/15
+
+Spot check:
+
+From: bucket_Nto1.txt
+HG_H_2245846	HGNC_HM_2269021
+HG_HM_2254430	HGNC_HM_2269021
+
+
+select cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key in (9272151, 13437099, 13764519)
+and cm._Cluster_key in (2245846, 2254430, 2269021)
+and cm._Cluster_key = c._Cluster_key
+
+||
+create index idx1 on #tt1(_Cluster_key, _Marker_key)
+||
+
+select cm._Cluster_key, t1._Marker_key, c._ClusterSource_key
+into #tt2
+from MRK_ClusterMember cm, MRK_Cluster c, #tt1 t1
+where cm._Cluster_key = c._Cluster_key
+and t1._Marker_key = cm._Marker_key
+
+||
+create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
+||
+
+select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
+from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
+where m._Organism_key in (1, 2)
+and m._Marker_Status_key in (1, 3)
+and vt._Vocab_key = 89
+and mp._PropertyType_key = 1001
+and t2._ClusterSource_key in (9272151, 13437099, 13764519)
+and t2._Cluster_key *= mp._Object_key
+and vt._Term_key = c._ClusterSource_key
+and cm._Cluster_key = c._Cluster_key
+and t2._Cluster_key = cm._Cluster_key
+and cm._Marker_key = m._Marker_key
+order by t2._Cluster_key, m._Organism_key, m.symbol
+
+15 rows returned, 0.026 seconds
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2242201	124098	IFNL1	2	null	HomoloGene	null
+2	2245846	124096	IFNL2	2	null	HomoloGene	null
+3	2254430	196860	Ifnl2	1	null	HomoloGene	null
+4	2254430	87091	Ifnl3	1	null	HomoloGene	null
+5	2254430	124097	IFNL3	2	null	HomoloGene	null
+6	2269021	196860	Ifnl2	1	null	HGNC	null
+7	2269021	87091	Ifnl3	1	null	HGNC	null
+8	2269021	124098	IFNL1	2	null	HGNC	null
+9	2269021	124096	IFNL2	2	null	HGNC	null
+10	2269021	124097	IFNL3	2	null	HGNC	null
+11	2321882	196860	Ifnl2	1	1	HGNC/HomoloGene Hybrid	HGNC
+12	2321882	87091	Ifnl3	1	1	HGNC/HomoloGene Hybrid	HGNC
+13	2321882	124098	IFNL1	2	1	HGNC/HomoloGene Hybrid	HGNC
+14	2321882	124096	IFNL2	2	1	HGNC/HomoloGene Hybrid	HGNC
+15	2321882	124097	IFNL3	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+test result: PASS 2/20/15
+
+
+
+-----------
+bucket_NtoN.txt
+
+The rule 4 cases in the NtoN bucket are all covered in file: NtoN_CCs_results.txt
+
+Spot check:
+
+Example 1
+From: bucket_NtoN.txt
+HG_HM_2242729	HGNC_HM_2292864
+HG_HM_2242729	HGNC_H_2295494
+HG_HM_2254980	HGNC_HM_2292864
+
+This is ConnComp2 (in NtoN_CCs_results.txt), comp3080 in Sharon's Report.
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2242729	75633	2610305D13Rik	1	null	HomoloGene	null
+2	2242729	307092	Gm13051	1	null	HomoloGene	null
+3	2242729	306866	Gm13139	1	null	HomoloGene	null
+4	2242729	201545	Gm13154	1	null	HomoloGene	null
+5	2242729	201537	Gm13157	1	null	HomoloGene	null
+6	2242729	200573	Gm13212	1	null	HomoloGene	null
+7	2242729	309444	Gm13242	1	null	HomoloGene	null
+8	2242729	306830	Gm13247	1	null	HomoloGene	null
+9	2242729	306829	Gm13251	1	null	HomoloGene	null
+10	2242729	640831	Gm30910	1	null	HomoloGene	null
+11	2242729	39000	Rex2	1	null	HomoloGene	null
+12	2242729	200209	Zfp534	1	null	HomoloGene	null
+13	2242729	307682	Zfp600	1	null	HomoloGene	null
+14	2242729	137682	ZNF616	2	null	HomoloGene	null
+15	2254980	92934	BC024063	1	null	HomoloGene	null
+16	2254980	120337	ZNF268	2	null	HomoloGene	null
+17	2292864	200573	Gm13212	1	null	HGNC	null
+18	2292864	120337	ZNF268	2	null	HGNC	null
+19	2295494	137682	ZNF616	2	null	HGNC	null
+20	2304272	137682	ZNF616	2	1	HGNC/HomoloGene Hybrid	HGNC
+21	2304273	200573	Gm13212	1	1	HGNC/HomoloGene Hybrid	HGNC
+22	2304273	120337	ZNF268	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+
+Example 2
+From: bucket_NtoN.txt
+HG_HM_2249174	HGNC_HM_2298420
+HG_HM_2249174	HGNC_H_2283726
+HG_H_2266751	HGNC_HM_2298420
+
+This is ConnComp7 (in NtoN_CCs_results.txt), comp6011 in Sharon's Report.
+
+Row #	_Cluster_key	_Marker_key	symbol	_Organism_key	sequenceNum	ClusterSource	HybridSource
+1	2249174	76818	Calca	1	null	HomoloGene	null
+2	2249174	107281	CALCB	2	null	HomoloGene	null
+3	2266751	20975	CALCA	2	null	HomoloGene	null
+4	2283726	107281	CALCB	2	null	HGNC	null
+5	2298420	76818	Calca	1	null	HGNC	null
+6	2298420	20975	CALCA	2	null	HGNC	null
+7	2307217	76818	Calca	1	1	HGNC/HomoloGene Hybrid	HGNC
+8	2307217	20975	CALCA	2	1	HGNC/HomoloGene Hybrid	HGNC
+9	2307218	107281	CALCB	2	1	HGNC/HomoloGene Hybrid	HGNC 
+
+
+test result: PASS 2/19/15
+
+
+
+
+
+
+
+
+
+
