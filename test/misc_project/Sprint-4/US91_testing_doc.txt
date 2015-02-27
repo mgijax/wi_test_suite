@@ -1,0 +1,150 @@
+US91 Test Doc
+
+Change HomoloGene cluster page details
+
+Test environment:
+http://scrumbob.informatics.jax.org
+
+1) Testing Requirements
+
+1a) Change HomoloGene Vertebrate Homology Page title
+From:
+Vertebrate Homology Class
+To:
+HomoloGene Vertebrate Homology
+
+1b) Change text in the Homology Information popup button and in the popup itself to indicate HomoloGene is the source.
+From:
+MGI Homology Information
+To:
+MGI HomoloGene Information
+
+1c) Incorporate links to MGI HNGC Homology Pages in the Gene Links column
+
+
+1d) Inspect that other parts of the page work expectedly
+
+
+
+
+2) Testing
+
+2a) Verify the change of HomoloGene Vertebrate Homology Page title
+From:
+Vertebrate Homology Class
+To:
+HomoloGene Vertebrate Homology
+
+
+Result: PASS 2/27/15 - rmb
+
+
+
+2b) Verify the text change in the Homology Information popup button and in the popup itself to indicate HomoloGene is the source.
+From:
+MGI Homology Information
+To:
+MGI HomoloGene Information
+
+Result: PASS 2/27/15 - rmb
+
+	Mouse
+2c) Verify incorporate links to MGI HNGC Homology Pages in the Gene Links column
+
+2c1) Verify display of "HGNC Homology" link in Gene Links column for corresponding genes in HomoloGene clusters.
+
+Test Case1: HomoloGene Class ID: 133076
+
+Gene Symbol	Species
+2610305D13Rik	Mouse
+Gm13051	Mouse
+Gm13139	Mouse
+Gm13154	Mouse
+Gm13157	Mouse
+Gm13212	Mouse (has HGNC cluster)
+Gm13242	Mouse
+Gm13247	Mouse
+Gm13251	Mouse
+Gm30910	Mouse
+Rex2	Mouse
+Zfp534	Mouse
+Zfp600	Mouse
+ZNF616	Human  (has HGNC cluster)
+
+Corresponding HGCN Cluster:
+Gene Symbol	Species
+Gm13212	Mouse
+ZNF268	Human
+ZNF616	Human
+
+Expected result:
+HGNC homology links displayed only for human ZNF616 and mouse Gm13212.
+
+Result: PASS 4/10/14 - rmb
+
+
+
+
+Test Case2: HomoloGene Class ID: 87808
+
+ClusterKey	Symbol	Species
+2249735	Ranbp2	Mouse
+2249735	RGPD1	Human
+2249735	RGPD2	Human
+2249735	RGPD3	Human
+2249735	RGPD4	Human
+2249735	RGPD5	Human
+2249735	RGPD6	Human
+2249735	RGPD8	Human
+
+Note: Human RANBP2 is in a different HomoloGene Cluster (HG ID: 136803)
+
+Corresponding HGCN Clusters:
+
+ClusterKey	Symbol	Species
+2267746	RGPD5	Human
+
+2278837	RGPD1	Human
+
+2282199	RGPD6	Human
+
+2288615	RGPD4	Human
+
+2294408	RGPD8	Human
+
+2294421	RGPD2	Human
+
+2294437	RGPD3	Human
+
+2300450	Ranbp2	Mouse
+2300450	RANBP2	Human
+
+Expected result:
+HGNC homology links only for all human and mouse genes in the HG cluster (all to separate HGNC Homology pages)
+
+Result: PASS 4/10/14 - rmb
+
+
+2c2) Verify that the HGNC Homology links are directed to the appropriate MGI HGNC Homology pages
+
+Test Case1: HomoloGene Class ID: 133076 (same as above)
+Expected result:
+HGNC homology links for only for human ZNF616 and mouse Gm13212, go to the correct HGCN cluster pages.
+
+Result: PASS 2/27/15 - rmb
+
+
+Test Case2: HomoloGene Class ID: 87808 (same as above)
+Expected result:
+HGNC homology links for all human and mouse genes go to the correct HGCN cluster pages.
+
+Result: PASS 2/27/15 - rmb
+
+
+
+2d) Inspect that other parts of the page work expectedly
+
+Testing Note:
+On Scrum Bob, it looks like the links to the Comparative GO Graph are missing.  Jon indicated that this might be a config issue for our Scrum Bob setup.  This issue is not related to the changes implemented for US91.
+
+Result: PASS 4/10/14 - rmb
