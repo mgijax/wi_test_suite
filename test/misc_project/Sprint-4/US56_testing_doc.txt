@@ -1,0 +1,610 @@
+US56 Testing Doc
+
+Implement Xenbase Homology Preprocessor TR11888
+
+
+
+1) Testing Strategy
+
+Compare between Xenbase input files and Xenbase clusters loaded into Scrum Bob.
+
+Data to compare (input file vs Scrum Bob):
+a) Total number of mouse genes in Xenbase clusters
+b) Total number of frog genes in Xenbase clusters
+c) Number of mouse genes in Xenbase clusters with multiple mouse genes
+d) Number of frog genes in Xenbase clusters with multiple mouse genes
+e) Number of mouse genes in Xenbase clusters with multiple frog genes
+f) Number of frog genes in Xenbase clusters with multiple frog genes
+g) Spot check some larger clusters for consistency
+
+All sql queries were done on DEV_MGI..mgd_bob.
+
+
+2) Result summary
+a) Total number of mouse genes in Xenbase clusters
+input files: 12463
+DEV_MGI..mgd_bob: 12463
+
+b) Total number of frog genes in Xenbase clusters
+input files: 12625
+DEV_MGI..mgd_bob: 12625
+
+c) Number of mouse genes in Xenbase clusters with multiple mouse genes
+input files: 0
+DEV_MGI..mgd_bob: 0
+There are no Xenbase clusters in which there is more than one mouse gene.
+
+d) Number of frog genes in Xenbase clusters with multiple mouse genes
+input files: 0
+DEV_MGI..mgd_bob:0
+There are no Xenbase clusters in which there is more than one mouse gene.
+
+e) Number of mouse genes in Xenbase clusters with multiple frog genes
+input files: 154
+DEV_MGI..mgd_bob: 154
+
+f) Number of frog genes in Xenbase clusters with multiple frog genes
+input files: 316
+DEV_MGI..mgd_bob: 316
+
+
+g) Spot check some larger clusters for consistency
+- Xenbase cluster with one mouse gene and 5 frog genes.
+- Xenbase cluster with one mouse gene and 4 frog genes.
+
+
+
+
+
+3) Input File Analysis
+
+Xenbase input file analysis is similar to ZFIN, except that Xenbase relates mouse genes to a GenePage ID instead of a GeneID.  They provide a mapping of GeneIDs to GenePage IDs (but this file contains X. laevis data in addition to X. tropicalis).
+
+http://www.xenbase.org/other/static/ftpDatafiles.jsp
+Xenbase Input files
+
+GeneExpression_tropicalis.txt
+Xenbase gene ID
+gene symbol
+genotype
+anatomical tissue(XAO_ID XAO_Name)
+start stage(XAO_ID XAO_Name)
+end stage(XAO_ID XAO_Name)
+assay
+evidence ID(image ID)
+experiment ID
+literature ID
+source
+curation status 
+
+GenePageTropicalisEntrezGeneUnigeneMapping.txt
+Xenbase gene ID
+gene symbol
+Entrez Gene ID
+Unignene ID
+
+
+XenbaseGeneMouseOrthologMapping.txt
+Mouse Entrez Gene ID
+Xenbase genepage ID
+Xenbase gene symbol
+Xenbase gene name
+
+
+XenbaseGenepageToGeneIdMapping.txt
+XB-GENEPAGE ID
+XB-GENE IDs for tropicalis and laevis
+
+
+
+Using unix commands the rows shared between these three files were obtained, and EntrezGene IDs not in MGI were removed.
+
+The resulting file: MouseEG_dupes_XenEG_sort.txt has two columns, one for Mouse EG ID and one for Xenopus Tropicalis EG ID.  This file is sorted by by Mouse EG ID.
+
+
+
+
+
+
+4) Testing
+
+=================================
+4a) Compare the total number of mouse genes in Xenbase clusters
+
+Mouse gene count from input files: 12463
+Mouse gene count in Xenbase clusters from DEV_MGI..mgd_bob: 12463
+
+
+Test result: PASS
+-----------
+
+
+Data:
+
+unique mouse genes in input files
+
+cut -f1 MouseEGmgi_XenEGsing.txt | sort | uniq | wc -l
+   12463
+
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13611349
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select count(distinct t1._Marker_key) as "totalmouseGene_count"
+from #tt1 t1, #tt2 t2
+where t1._Organism_key = 1
+and t2.gene_count > 0
+and t1._Cluster_key = t2._Cluster_key
+
+Results from sybase : DEV_MGI..mgd_bob 
+Row #	totalmouseGene_count
+1	12463ß
+
+
+
+
+
+
+
+
+=================================
+4b) Compare the total number of frog genes in Xenbase clusters
+
+frog gene count from input files: 12625
+frog gene count in Xenbase clusters from DEV_MGI..mgd_bob: 12625
+
+Test result: PASS
+-----------
+
+Data:
+
+unique frog genes in input files
+
+cut -f2 MouseEGmgi_XenEGsing.txt | sort | uniq | wc -l
+   12625
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13611349
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select count(distinct t1._Marker_key) as "totalfrogGene_count"
+from #tt1 t1, #tt2 t2
+where t1._Organism_key = 95
+and t2.gene_count > 0
+and t1._Cluster_key = t2._Cluster_key
+
+Results from sybase : DEV_MGI..mgd_bob 
+Row #	totalfrogGene_count
+1	12625 
+
+
+
+
+=================================
+4c) Compare the total number of mouse genes in Xenbase clusters with multiple mouse genes
+
+Mouse gene count in clusters with multiple mouse genes from input files: 0
+Mouse gene count in clusters with multiple mouse genes from DEV_MGI..mgd_bob: 0
+
+There are no Xenbase clusters in which there is more than one mouse gene.
+
+Test result: PASS
+-----------
+
+Data:
+Input files
+The number of duplicated Xenopus EG IDs in MouseEGmgi_XenEGsing.txt reflects the number of mouse genes in clusters with multiple mouse genes.
+
+cut -f2 MouseEGmgi_XenEGsing.txt | sort | uniq -d | wc -l
+       0 (duplicated Xen EG IDs)
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13575996
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "mouse_gene_count"
+into #tt2
+from #tt1 t1
+where t1._Organism_key = 1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, mouse_gene_count)
+||
+
+select count(distinct t1._Marker_key) as "totalmouseGene_count"
+from #tt1 t1, #tt2 t2
+where t1._Organism_key = 1
+and t2.mouse_gene_count > 1
+and t1._Cluster_key = t2._Cluster_key
+
+totalmouseGene_count
+0 
+
+
+
+
+=================================
+4d) Compare the total number of frog genes in Xenbase clusters with multiple mouse genes
+
+frog gene count in clusters with multiple mouse genes from input files: 0
+frog gene count in clusters with multiple mouse genes from DEV_MGI..mgd_bob: 0
+
+Again, there are no Xenbase clusters in which there is more than one mouse gene.
+
+
+
+
+
+
+=================================
+4e) Compare the total number of mouse genes in Xenbase clusters with multiple frog genes
+
+Mouse gene count in clusters with multiple frog genes from input files: 154
+Mouse gene count in clusters with multiple frog genes from DEV_MGI..mgd_bob: 154
+
+Test result: PASS
+-----------
+
+Data:
+Input files
+The number of duplicated Mouse EG IDs in MouseEGmgi_XenEGsing.txt reflects the number of mouse genes in clusters with multiple mouse genes.
+
+
+cut -f1 MouseEGmgi_XenEGsing.txt | sort | uniq -d > MouseEG_dupes.txt
+
+wc -l MouseEG_dupes.txt
+     154 MouseEG_dupes.txt
+
+
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13611349
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select t2._Cluster_key, t2.gene_count
+into #tt3
+from #tt2 t2
+where t2.gene_count > 1
+
+||
+create index idx3 on #tt3(_Cluster_key, gene_count)
+||
+
+select count(distinct t1._Marker_key) as "Mouse_Genes"
+from #tt1 t1, #tt3 t3
+where t1._Organism_key = 1
+and t1._Cluster_key = t3._Cluster_key
+
+Row #	Mouse_Genes
+1	154 
+
+
+
+
+
+
+=================================
+4f) Compare the total number of frog genes in Xenbase clusters with multiple frog genes
+
+frog gene count in clusters with multiple frog genes from input files: 316
+frog gene count in clusters with multiple frog genes from DEV_MGI..mgd_bob: 316
+
+Test result: PASS
+-----------
+
+Data:
+
+Input files
+The number of unique Xenopus EG IDs in the set associated with duplicated mouse EG IDs is the count of frog genes in clusters with multiple frog genes.
+
+cut -f1 MouseEGmgi_XenEGsing.txt | sort | uniq -d > MouseEG_dupes.txt
+
+wc -l MouseEG_dupes.txt
+     154 MouseEG_dupes.txt
+
+fgrep -w -f MouseEG_dupes.txt MouseEGmgi_XenEGsing.txt > MouseEG_dupes_XenEG.txt
+
+wc -l MouseEG_dupes_XenEG.txt
+     316 MouseEG_dupes_XenEG.txt
+
+Note: fgrep takes a file of values (the duplicated mouse EG IDs in MouseEG_dupes.txt, in this case) and finds matches in a second file (MouseEGmgi_XenEGsing.txt, in this case), and sends the matching rows to a third file (MouseEG_dupes_XenEG.txt, in this case).
+
+
+Database check (DEV_MGI..mgd_bob)
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13611349
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select t2._Cluster_key, t2.gene_count
+into #tt3
+from #tt2 t2
+where t2.gene_count > 1
+
+||
+create index idx3 on #tt3(_Cluster_key, gene_count)
+||
+
+select count(distinct t1._Marker_key) as "Frog_Genes"
+from #tt1 t1, #tt3 t3
+where t1._Organism_key = 95
+and t1._Cluster_key = t3._Cluster_key
+
+Row #	Frog_Genes
+1	316 
+
+
+
+Another way to look at this is to get the distribution of frog genes in clusters with a given number of frog genes (there's one cluster containing 5 frog genes, which is the largest Xenbase cluster).
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13611349
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select distinct t2.gene_count, count(distinct t2._Cluster_key) as "Frog_Genes_XenbaseCluster"
+from #tt2 t2
+where t2._Organism_key = 95
+GROUP BY t2.gene_count
+
+gene_count	Frog_Genes_XenbaseCluster
+1	12309
+2	149
+3	3
+4	1
+5	1 
+
+So, there are 12309 frog genes in clusters with only one frog gene, 149 frog genes in clusters with 2 frog genes, etc.
+
+149 (2) + 3 (3) + 1 (4) + 1 (5) = 298 + 9 + 4 + 5 = 316 frog genes
+
+
+
+
+
+
+
+=================================
+4g) Spot check some larger clusters for consistency
+
+- Xenbase cluster with one mouse gene and 5 frog genes.
+
+From the distribution in the second sql query of 4f, there is one cluster with 5 frog genes.
+
+Input files:
+From MouseEG_dupes_XenEG_sort.txt
+
+MouseEG	XenEG
+110308	100101751
+110308	100144701
+110308	100489309
+110308	100489468
+110308	779830
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13611349
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select t2._Cluster_key, t2.gene_count
+into #tt3
+from #tt2 t2
+where t2.gene_count = 5
+
+||
+create index idx3 on #tt3(_Cluster_key, gene_count)
+||
+
+select distinct t1._Marker_key, t3._Cluster_key, t3.gene_count, m.symbol, t1._Organism_key, a.accID as "EG_ID"
+from #tt1 t1, #tt3 t3, MRK_Marker m, ACC_Accession a
+where a._LogicalDB_key = 55
+and a._Object_key = t1._Marker_key
+and m._Marker_key = t1._Marker_key
+and t1._Cluster_key = t3._Cluster_key
+
+6 rows returned, 0.012 seconds
+
+Row #	_Marker_key	_Cluster_key	gene_count	symbol	_Organism_key	EG_ID
+1	621012	2405612	5	krt5.7	95	100101751
+2	622549	2405612	5	krt6	95	100144701
+3	602973	2405612	5	krt1	95	100489309
+4	603075	2405612	5	LOC100489468	95	100489468
+5	10673	2405612	5	Krt5	1	110308
+6	619853	2405612	5	krt5.2	95	779830 
+
+
+Test result: PASS
+-----------
+
+
+
+- Xenbase cluster with one mouse gene and 4 frog genes.
+
+From the distribution in the second sql query of 4f, there is one cluster with 4 frog genes.
+
+Input files:
+From MouseEG_dupes_XenEG_sort.txt
+
+MouseEG	XenEG
+12944	100216304
+12944	100494488
+12944	496975
+12944	548380
+
+select m._Organism_key, cm._Cluster_key, cm._Marker_key
+into #tt1
+from MRK_Marker m, MRK_ClusterMember cm, MRK_Cluster c
+where c._ClusterSource_key = 13611349
+and m._Marker_key = cm._Marker_key
+and c._Cluster_key = cm._Cluster_key
+
+||
+create index idx1 on #tt1(_Organism_key, _Cluster_key, _Marker_key)
+||
+
+select t1._Organism_key, t1._Cluster_key, count(distinct t1._Marker_key) as "gene_count"
+into #tt2
+from #tt1 t1
+GROUP BY t1._Cluster_key, t1._Organism_key
+
+||
+create index idx2 on #tt2(_Organism_key, _Cluster_key, gene_count)
+||
+
+select t2._Cluster_key, t2.gene_count
+into #tt3
+from #tt2 t2
+where t2.gene_count = 4
+
+||
+create index idx3 on #tt3(_Cluster_key, gene_count)
+||
+
+select distinct t1._Marker_key, t3._Cluster_key, t3.gene_count, m.symbol, t1._Organism_key, a.accID as "EG_ID"
+from #tt1 t1, #tt3 t3, MRK_Marker m, ACC_Accession a
+where a._LogicalDB_key = 55
+and a._Object_key = t1._Marker_key
+and m._Marker_key = t1._Marker_key
+and t1._Cluster_key = t3._Cluster_key
+
+5 rows returned, 0.013 seconds
+
+Row #	_Marker_key	_Cluster_key	gene_count	symbol	_Organism_key	EG_ID
+1	624307	2398194	4	crp.4	95	100216304
+2	606296	2398194	4	LOC100494488	95	100494488
+3	1159	2398194	4	Crp	1	12944
+4	616925	2398194	4	crp.2	95	496975
+5	616996	2398194	4	crp.3	95	548380
+
+
+Test result: PASS
+-----------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
