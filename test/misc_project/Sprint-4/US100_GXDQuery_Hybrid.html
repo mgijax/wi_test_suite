@@ -1,0 +1,105 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 100</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>GXD QF - Use Hybrid Homology for OMIM term search</h1>
+    <ul>
+        <li>US 100 - Change GXD disease query to use Hybrid homology</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    The search by disease (OMIM) term on the GXD query form is a combination of the list of "rolled up"
+    genes and mouse homologs of human homologs associated to the disease.  Currently on Public the homologs
+    are determined by HomoloGene relationships.  
+    <p>
+    As part of this project HGNC homology relationships have been loaded.  A hybrid set of homology 
+    relationships (combo of HomoloGene and HGNC) has been derived.  The Disease Detail page uses this set
+    to determine what mouse and human homologs to display for a Disease.
+    <p>
+    <ol>
+       <li>Use the Hybrid homology relationships instead of the HomoloGene relationships to determine the
+           mouse homolog portion of the count displayed for disease terms in the Vocabulary auto-complete
+           on the GXD query form.  The other portion of the count is the number of "rolled up" genes for the disease.</li>
+       <li>Modify the search for GXD results in the same way (use Hybrid Homology).</li>
+       <li>Using the Hybrid homology may increase or decrease the number of mouse genes counted/searched by.
+           The majority of diseases will stay the same.</li>
+    </ol>
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    	    
+    	    <li>Verify counts for Diseases that are not searchable (no associated genes and/or no GXD results)
+    		<p concordion:assertTrue="true">PASS - jlewis 3/11/15</p>  
+    		<ol>
+    		  <li>Select disease in auto-complete that had 0 genes prior to change and is still 0; Jumping Frenchman of Maine.  Expect: term grayed out</li>
+    		  <li>Select disease in a-c that had 0 genes prior and now has 1 gene with no GXD data; Cystic Fibrosis, Modifier of, 1; CFM1.  Expect: count=1 gene; warning message - no GXD data.</li>
+    		  <li>Select disease in a-c that had 1 gene prior and now has 0 genes.  Expect: term grayed out. NOT A VALID CASE.</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify counts/results for diseases where the homologs changed (gained/lost)
+    		<p concordion:assertTrue="true">PASS - jlewis 3/12/15</p>  
+    		<ol>
+    		  <li>Select disease in a-c that had 0 genes prior and now has 1 gene with GXD data; Spondyloepiphyseal Dysplasia, Kimberley Type.  Expect: count=1; results=1 gene (Acan gained).</li>
+    		  <li>Select disease in a-c where a mouse homolog replaced another; Chemokine, Cc Motif, Ligand 2; CCL2.  Expect: count=1 (same); results=1 gene; but Ccl2 returned instead of Ccl12.</li>
+    		  <li>Select disease in a-c that had mult genes prior and now has an add'l gene with GXD data; Amyloidosis, Familial Visceral.  Expect: count=5 and results=5 genes (+1 vs. public)</li>
+    		  <li>Select disease in a-c that had mult genes prior and now has less genes, but gene dropped did not have GXD results; Craniosynostosis and Dental Anomalies; CRSDA.  Expect: count=3 (-1 vs. public), but same GXD results (2 genes).</li>
+    		  <li>Select disease in a-c that had mult genes prior and now has less genes and fewer results; Long QT Syndrome 2; LQT2.  Expect: count=1 and results=1 gene (Alg10 lost) (-1 vs. public).</li>
+    	    </ol></li>
+    	    
+    	    <li>Verify counts/results for diseases where the homologs changed and clusters used have multiple homologs.
+    		<p concordion:assertTrue="true">PASS - jlewis 3/12/15</p>  
+    		<ol>
+    		  <li>Select disease in a-c that has more genes due to more mouse genes in a single cluster; Human Immunodeficiency Virus Type 1, Susceptibility to.  Expect: count=13 (prev 10); results=9 genes (prev 8)
+    		  <li>Select disease in a-c that has fewer genes due to mouse genes dropped from a single cluster; Diabetes Mellitus, Noninsulin-Dependent; NIDDM.  Expect: count=49; results=43 genes (1 less than public; Hmga-rs1 dropped)
+    	    </ol></li>
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
