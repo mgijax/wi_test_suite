@@ -1,0 +1,165 @@
+US121_new_eucomm-hmgu_cassette
+
+Testing Doc
+
+Corresponding TR: TR11941
+A new cassette appeared in the Targeted Allele Load input files for the EUCOMM-Hmgu load (Ifitm2_intron_L1L2_Bact_P).
+
+From:
+TargetedAllele Load (EUCOMM Hmgu) - Process Summary Log
+
+Start Log: Sat Mar  7 21:45:38 EST 2015
+
+ERRORS
+Number of records missing cassette in CFG file: 543
+
+
+1) User Story Requirements
+
+1.1) New entry in the Cell Line Vector Name Vocab (EI entry).
+
+1.2) New Derivation(s) for this vector (only one is required because there's only one PCL that uses this cassette (JM8A3.N1) and the new Allele Types require only one Derivation Type (targeted) (EI entry).
+
+1.3) The TAL needs to be configured to accommodate the new cassette.
+
+
+
+2) Test Requirements
+
+2.1) Verify that the new vector was entered.
+
+2.2) Verify that the new Derivation was entered.
+
+2.3) Verify that all MCLs from the input file associated with this cassette were loaded into MGI.
+
+2.4) Verify that that all Alleles specified by the input file for this cassette were loaded appropriately into MGI.
+
+
+
+
+3) Testing
+
+
+3.1) Verify that the new vector was entered.
+
+Cell Line Vector Name (_Vocab_key = 72)
+
+select *
+from VOC_Term
+where _Vocab_key = 72
+and term = "Ifitm2_intron_L1L2_Bact_P"
+
+Results from sybase : PROD1_MGI..mgd
+
+1 rows returned, 0.046 seconds
+
+Row #	_CreatedBy_key	term	modification_date	sequenceNum	_ModifiedBy_key	creation_date	abbreviation	_Vocab_key	isObsolete	_Term_key
+1	1530	Ifitm2_intron_L1L2_Bact_P	(2015, 3, 11)	164	1530	(2015, 3, 11)	null	72	0	13946926
+
+Result: PASS
+
+
+
+
+
+
+3.2) Verify that the new Derivation was entered.
+
+Again, only a single derivation is needed because only one PCL is used for this vector, now there's only one Allele Type involved (and thus only one Derivation Type required).
+
+
+select d.vector, d.parentCellLine, d.name as "Derivation_Name", d._Derivation_key, u.name as "created_by"
+from ALL_CellLine_Derivation_View d, MGI_User u
+where d.vector = "Ifitm2_intron_L1L2_Bact_P"
+and d._CreatedBy_key = u._User_key
+
+Results from sybase : PROD1_MGI..mgd
+
+1 rows returned, 0.874 seconds
+
+Row #	vector	parentCellLine	Derivation_Name	created_by	_Derivation_key
+1	Ifitm2_intron_L1L2_Bact_P	JM8A3.N1	Helmholtz Zentrum Muenchen GmbH Targeted Library JM8A3.N1 C57BL/6N-A<tm1Brd> Ifitm2_intron_L1L2_Bact_P	Meiyee Law	5018 
+Results from sybase : PROD1_MGI..mgd
+
+
+Result: PASS
+
+
+
+
+
+3.3) Verify that all MCLs from the input file associated with this cassette were loaded into MGI.
+
+According to the 3/7/15 Process Summary Log for EUCOMM Hmgu, 543 records (MCLs) are associated with this 'missing' cassette.  I verified this with a separate XML call to the Mart (restricting the query to this cassette).
+
+
+Database query to count MCLs associated with the new Derivation (_Derivation_key=5018)
+
+select count(*)
+from ALL_CellLine
+where isMutant = 1
+and _Derivation_key = 5018
+
+Results from sybase : DEV_MGI..mgd_bob
+
+543
+
+Result: PASS
+
+
+
+
+
+
+
+3.4) Verify that that all Alleles specified by the input file for this cassette were loaded appropriately into MGI.
+
+The input file from the Mart contains information for Conditional Ready (tm#a) and Targeted Non Conditional (tm#e) alleles involving this cassette.  A given allele can have multiple MCLs in the input file.  Within the restricted input data set used here (the Mart call for just this cassette), specification for an allele is the combination of a specific coordinate value (cassette_start, for example) and mutation_type ('Conditional Ready' or 'Targeted Non Conditional').   This information was used to count the expected numbers of tm#a alleles and tm#e alleles associated with the new cassette.
+
+Expected Allele counts:
+Conditional Ready: 40
+Targeted Non Conditional: 33
+
+
+Database queries for Alleles associated with the new cassette:
+
+
+Conditional Ready
+
+select count(distinct a._Allele_key) as "tm#a alleles"
+from ALL_Allele a, ALL_CellLine c, ALL_Allele_CellLine ac
+where c.isMutant = 1
+and a.symbol like "%a(EUCOMM)Hmgu>"
+and c._Derivation_key = 5018
+and a._Allele_key = ac._Allele_key
+and c._CellLine_key = ac._MutantCellLine_key
+
+Results from sybase : DEV_MGI..mgd_bob 
+
+tm#a alleles
+40
+
+
+
+
+Targeted Non Conditional
+
+select count(distinct a._Allele_key) as "tm#e alleles"
+from ALL_Allele a, ALL_CellLine c, ALL_Allele_CellLine ac
+where c.isMutant = 1
+and a.symbol like "%e(EUCOMM)Hmgu>"
+and c._Derivation_key = 5018
+and a._Allele_key = ac._Allele_key
+and c._CellLine_key = ac._MutantCellLine_key
+
+Results from sybase : DEV_MGI..mgd_bob 
+
+Row #	tm#e alleles
+1	33
+
+
+Result: PASS
+
+
+
+
