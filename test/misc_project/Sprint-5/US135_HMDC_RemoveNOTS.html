@@ -29,7 +29,10 @@
     <h2>Test Requirements</h2>
     
     <ol>
-       <li>req 1</li>
+       <li>The change to the HMDC to use the derived roll-up annotations included the OMIM NOT annotations.
+           At this point, it is desired to remove these from the HMDC (as they were prior to this work).</li>
+       <li>NOTs should be excluded from all tabs (grid, gene, disease) and all drill down pop-ups too.  They also 
+           should not be factored into the count of annotations that determine the cell color.</li>
     </ol>
    
 </div>
@@ -47,15 +50,28 @@
 		
 		<ol>
     	    
-    	    <li>Test 1
+    	    <li>Verify that a disease/gene pair with only NOT OMIM annotations do not include the NOT annotations in the HMDC.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>test 1.1</li>
+    		  <li>Query by gene/disease with only NOTs to the mouse gene plus an annotation to the human homolog;
+    		      Prnp and 603218 (Huntington like; HDL1).  Expect: Not returned on grid or gene tabs; Not displayed in PRNP/HDL1 pop-up.</li>
+    		  <li>Query by gene/disease with only NOTs to the mouse gene and no annotation to human homolog; 
+    		      Tg(B2m)1Rms and 222100 (Diabetes; IDDM).  Expect: Not returned on grid or gene tab.</li>
     		  </ol></li>
     	    
+    	    <li>Verify that a disease/gene pair with a mix of positive and NOT OMIM annotations include only the positive annotations in the HMDC.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query by gene/disease with a mix of annotations plus a human homolog annotation;
+    		      Prnp and 600072 (FFI).  Expect: Grid cell color not impacted by NOTs and not in pop-up display.</li>
+    		  <li>Query by gene/disease with a mix of annotations and NO human homolog annotation; 
+    		      B2m and 222100 (Diabetes, IDDM).  Expect: Grid cell color not impacted by NOTs and not in pop-up display.</li>
+    		  </ol></li>
     	   
 		</ol>
     	    
+    	<h3>Automated tests</h3>
+    	Execute the suite of HMDC tests as part of this user story.  Those tests include checks to verify that the NOT annotations are excluded.
       	    
 	</div>
 	<div id="sql">
