@@ -51,7 +51,7 @@
 		<ol>
     	    
     	    <li>Verify that a disease/gene pair with only NOT OMIM annotations do not include the NOT annotations in the HMDC.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/23/2015</p>  
     		<ol>
     		  <li>Query by gene/disease with only NOTs to the mouse gene plus an annotation to the human homolog;
     		      Prnp and 603218 (Huntington like; HDL1).  Expect: Not returned on grid or gene tabs; Not displayed in PRNP/HDL1 pop-up.</li>
@@ -60,7 +60,7 @@
     		  </ol></li>
     	    
     	    <li>Verify that a disease/gene pair with a mix of positive and NOT OMIM annotations include only the positive annotations in the HMDC.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 3/23/2015</p>  
     		<ol>
     		  <li>Query by gene/disease with a mix of annotations plus a human homolog annotation;
     		      Prnp and 600072 (FFI).  Expect: Grid cell color not impacted by NOTs and not in pop-up display.</li>
@@ -71,7 +71,8 @@
 		</ol>
     	    
     	<h3>Automated tests</h3>
-    	Execute the suite of HMDC tests as part of this user story.  Those tests include checks to verify that the NOT annotations are excluded.
+    	Execute the suite of HMDC tests as part of this user story.  Those tests include checks to verify that the NOT annotations are excluded. 
+    	  -- all NOT tests passed (meaning that NOTs are excluded from HMDC results)  3/23/2015
       	    
 	</div>
 	<div id="sql">
