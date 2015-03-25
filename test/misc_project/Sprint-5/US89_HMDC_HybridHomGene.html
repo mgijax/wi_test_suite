@@ -29,7 +29,14 @@
     <h2>Test Requirements</h2>
     
     <ol>
-       <li>req 1</li>
+       <li>Change Human markers on the HMDC Gene Tab to link to the appropriate homology cluster page using the Hybrid Homology results.</li>
+       <li>Link per the hybrid results
+       <ol><li>Hybrid = Both (HGNC and HomoloGene).  Link to HomoloGene page.</li>
+           <li>Hybrid = HomoloGene.  Link to HomoloGene page.</li>
+           <li>Hybrid = HGNC. Link to HGNC page.</li>
+           <li>Hybrid = reject.  No link for human marker.</li>
+           <li>Hybrid = double orphan.  No link for human marker.</li>
+       </ol></li>
     </ol>
    
 </div>
@@ -47,13 +54,41 @@
 		
 		<ol>
     	    
-    	    <li>Test 1
+    	    <li>Verify the Hybrid Homology BOTH case links to the HomoloGene Homology page
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>test 1.1</li>
+    		  <li>Query for a cluster with a single human gene; PAX6.  Expect: link to HomoloGene page. </li>
+    		  <li>Query for a cluster with multiple human genes; C4A.  Expect: C4A, C4B to link to HomoloGene page.</li>
     		  </ol></li>
     	    
+    	    <li>Verify the Hybrid Homology ONLY HOMOLOGENE case links to the HomoloGene Homology page
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query for a cluster with a single human gene; SELM.  Expect: link to HomoloGene page. </li>
+    		  <li>Query for a cluster with multiple human genes; XXX.  Expect: </li>
+    		  </ol></li>
+    		  
+    	    <li>Verify the Hybrid Homology ONLY HGNC case links to the HGNC Homology page
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query for a cluster with a single human gene; SLN.  Expect: link to HGNC page. </li>
+    		  <li>Query for a cluster with multiple human genes; XXX.  Expect: </li>
+    		  </ol></li>
     	   
+    	    <li>Verify the Hybrid Homology conflict cases link to the appropriate Homology page
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query for a cluster with a single human gene that uses HGNC; ACAN.  Expect: link to HGNC page. </li>
+    		  <li>Query for a cluster with multiple human genes that uses HG; SMN1, SMN2.  Expect: link to HomoloGene page.</li>
+    		  </ol></li>
+    		  
+    		<li>Verify the Hybrid Homology reject and double orphan cases -- human markers have no link.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query for a human marker reject; COMMD3-BMI1  Expect: no link </li>
+    		  <li>Query for a human marker double orphan; HTOR.  Expect: no link </li>
+    		  </ol></li>  
+    	    
 		</ol>
     	    
       	    
