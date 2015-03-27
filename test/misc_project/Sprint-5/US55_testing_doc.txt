@@ -1,0 +1,289 @@
+US55 Testing Doc
+
+Implement link to Xenbase on Marker Detail Page
+
+1) Test Requirements
+
+1a) Display links to Xenbase pages in the Other vertebrate links: section of the Expression ribbon on Marker Detail Pages.
+
+1b) Display format: Xenbase genesymbol
+Where "genesymbol" is the symbol of the Xenopus tropicalis gene in MGI and serves as the link tag for the link to Xenbase.
+
+1c) If Xenbase homology appears with other GXD homology sources (GEISHA and/or ZFIN), the sort order of homology sources should be alphabetical (GEISHA > Xenbase > ZFIN).
+
+1d) If multiple Xenbase genes appear for a singe mouse gene, the Xenbase genes should be sorted alphabetically.
+
+1e) If a mouse gene is clustered with multiple chicken or zebrafish genes, assure that if there's also a Xenbase association for that mouse marker, there's no affect on the display of multiple genes from the other species.
+
+1f) The URL to Xenbase pages should run off the X. tropicalis EntrezGene ID, with the structure:
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=#####&tabId=1
+
+Where "#####" is the appropriate X. tropicalis EntrezGene ID.
+
+
+
+2) Testing
+
+------------------------
+2a) Display links to Xenbase pages in the Other vertebrate links: section of the Expression ribbon on Marker Detail Pages.
+
+-----
+Test Case1:
+EntrezGene ID	symbol	organism
+110877	Slc18a1	mouse, laboratory
+594935	slc18a1	western clawed frog
+
+-----
+Test Case2:
+EntrezGene ID	symbol	organism
+12944	Crp	mouse, laboratory
+496975	crp.2	western clawed frog
+548380	crp.3	western clawed frog
+100216304	crp.4	western clawed frog
+100494488	LOC100494488	western clawed frog 
+
+Result: PASS
+
+
+------------------------
+2b) Display format: Xenbase genesymbol
+Where "genesymbol" is the symbol of the Xenopus tropicalis gene in MGI and serves as the link tag for the link to Xenbase.
+
+-----
+Test Case1:
+EntrezGene ID	symbol	organism
+110877	Slc18a1	mouse, laboratory
+594935	slc18a1	western clawed frog
+
+Display:
+Other vertebrate links: Xenbase slc18a1
+
+Result: PASS
+
+
+-----
+Test Case2:
+EntrezGene ID	symbol	organism
+12944	Crp	mouse, laboratory
+496975	crp.2	western clawed frog
+548380	crp.3	western clawed frog
+100216304	crp.4	western clawed frog
+100494488	LOC100494488	western clawed frog 
+
+Display:
+Other vertebrate links: Xenbase crp.2, crp.3, crp.4, LOC100494488
+
+Result: PASS
+
+
+
+
+------------------------
+2c) If Xenbase homology appears with other GXD homology sources (GEISHA and/or ZFIN), the sort order of homology sources should be alphabetical (GEISHA > Xenbase > ZFIN).
+
+-----
+Test Case1:
+Xenbase + GEISHA
+
+EntrezGene ID	symbol	organism
+11461	Actb	mouse, laboratory
+396526	ACTB	Chicken
+407952	actb western clawed frog
+
+Display:
+Other vertebrate links: GEISHA ACTB ; Xenbase actb
+
+-----
+Test Case2:
+Xenbase + ZFIN
+
+EntrezGene ID	symbol	organism
+320560	Dennd5b	mouse, laboratory
+100216203	dennd5b western clawed frog
+323528	dennd5b	Zebrafish
+
+Display:
+Other vertebrate links: Xenbase dennd5b ; ZFIN dennd5b
+
+-----
+Test Case3:
+Xenbase + GEISHA + ZFIN
+
+EntrezGene ID	symbol	organism
+12159	Bmp4	mouse, laboratory
+396165	BMP4	Chicken
+549788	bmp4 western clawed frog
+30612	bmp4	Zebrafish
+
+Display:
+Other vertebrate links: GEISHA BMP4 ; Xenbase bmp4 ; ZFIN bmp4
+
+Species Order Test: PASS
+
+
+------------------------
+2d) If multiple Xenbase genes appear for a singe mouse gene, the Xenbase genes should be sorted alphabetically.  
+
+-----
+Test Case1:
+4 frog genes in the cluster
+
+EntrezGene ID	symbol	organism
+12944	Crp	mouse, laboratory
+496975	crp.2	western clawed frog
+548380	crp.3	western clawed frog
+100216304	crp.4	western clawed frog
+100494488	LOC100494488	western clawed frog 
+
+Display:
+Other vertebrate links: Xenbase crp.2, crp.3, crp.4, LOC100494488
+
+
+-----
+Test Case2:
+5 frog genes in the cluster
+
+EntrezGene ID	symbol	organism
+110308	Krt5	mouse, laboratory
+779830	krt5.2	western clawed frog
+100144701	krt6	western clawed frog
+100489309	krt1	western clawed frog
+100101751	krt5.7	western clawed frog
+100489468	LOC100489468	western clawed frog 
+
+Display:
+Other vertebrate links: GEISHA KRT5 ; Xenbase krt1, krt5.2, krt5.7, krt6, LOC100489468 ; ZFIN krt5
+
+
+Frog gene order Test: PASS
+
+
+
+
+
+
+------------------------
+2e) If a mouse gene is clustered with multiple chicken or zebrafish genes, assure that if there's also a Xenbase association for that mouse marker, there's no affect on the display of multiple genes from the other species.
+
+
+
+-----
+Test Case1:
+Multiple GESHA links plus a Xenbase link
+
+EntrezGene ID	symbol	organism
+109052	Krt75	mouse, laboratory
+408041	KRT6A	Chicken
+408042	KRT75	Chicken
+100491159	LOC100491159 western clawed frog
+
+Display:
+Other vertebrate links: GEISHA KRT6A, KRT75 ; Xenbase LOC100491159
+
+
+
+
+-----
+Test Case2:
+Multiple ZFIN links plus a Xenbase link
+
+EntrezGene ID	symbol	organism
+11928	Atp1a1	mouse, laboratory
+396530	ATP1A1	Chicken
+64612	atp1a1a.1	Zebrafish
+64613	atp1a1a.2	Zebrafish
+64614	atp1a1a.3	Zebrafish
+64615	atp1a1a.4	Zebrafish
+245703	atp1a1a.5	Zebrafish
+64616	atp1a1b	Zebrafish
+395044	atp1a1 western clawed frog
+
+Display:
+Other vertebrate links: GEISHA ATP1A1 ; Xenbase atp1a1 ; ZFIN atp1a1a.1, atp1a1a.2, atp1a1a.3, atp1a1a.4, atp1a1a.5, atp1a1b
+
+
+Result: PASS
+
+
+
+
+------------------------
+2f) The URL to Xenbase pages should run off the X. tropicalis EntrezGene ID, with the structure:
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=#####&tabId=1
+
+
+EntrezGene ID	symbol	organism
+110308	Krt5	mouse, laboratory
+779830	krt5.2	western clawed frog
+100144701	krt6	western clawed frog
+100489309	krt1	western clawed frog
+100101751	krt5.7	western clawed frog
+100489468	LOC100489468	western clawed frog 
+
+krt1
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=100489309&tabId=1
+
+krt5.2
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=779830&tabId=1
+
+krt5.7
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=100101751&tabId=1
+
+krt6
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=100144701&tabId=1
+
+LOC100489468
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=100489468&tabId=1
+
+
+URL structure Test: PASS
+
+
+
+Test of the Links to Xenbase
+
+Test Case1:
+EntrezGene ID	symbol	organism
+110877	Slc18a1	mouse, laboratory
+594935	slc18a1	western clawed frog
+
+Link:
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=594935&tabId=1
+
+Link is working.
+
+-----
+Test Case2:
+EntrezGene ID	symbol	organism
+110308	Krt5	mouse, laboratory
+779830	krt5.2	western clawed frog
+100144701	krt6	western clawed frog
+100489309	krt1	western clawed frog
+100101751	krt5.7	western clawed frog
+100489468	LOC100489468	western clawed frog 
+
+krt1
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=100489309&tabId=1
+
+krt5.2
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=779830&tabId=1
+
+krt5.7
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=100101751&tabId=1
+
+krt6
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=100144701&tabId=1
+
+LOC100489468
+http://test.xenbase.org/gene/expression.do?method=displayGenePageExpression&entrezId=100489468&tabId=1
+
+Links are working.
+
+URL Linkout Test: PASS
+
+
+
+
+
+
+
