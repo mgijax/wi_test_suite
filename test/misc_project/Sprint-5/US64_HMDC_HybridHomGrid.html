@@ -64,84 +64,158 @@
 		
 		<ol>
     	    
-    	    <li>Verify Grid display of Clusters using Hybrid Homology/"Both" case
+    	    <li>Verify Grid display of Clusters using Hybrid Homology/"Both" case - query by Phenotype
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		  <li>Query by Peters Anomaly (604229); match to "Both" case PAX6/Pax6; match both human/mouse genes. Expect: 1 row for Pax6/PAX6; link to HomoloGene</li>
     		  <li>Query by Coloboma of Optic Nerve (120430); match to "Both" case PAX6/Pax6; only match Human gene.  Expect: 1 row for Pax6/PAX6; link to HomoloGene; </li>
     		  <li>Query by Endometrial Cancer (608089); match to "Both" case TP53/Trp53; only match mouse gene.  Expect: 1 row for TP53/Trp53; link to HomoloGene;</li>
+    		  <li>Query by Systemic Lupus Erythematosus; SLE (152700); match to "Both" case C4A,C4B/C4a,C4b; match to C4A,C4b.  Expect: 1 row for cluster; link to HomoloGene</li>
     		  </ol></li>
     		  
-    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/"Both" case
+    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/"Both" case - query by Phenotype
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
     		  <li>Query by Peters Anomaly (604229); match to "Both" case PAX6/Pax6; match both human/mouse genes. Expect: Both genes in Gene Tab; human links to HomoloGene</li>
     		  <li>Query by Coloboma of Optic Nerve (120430); match to "Both" case PAX6/Pax6; only match Human gene.  Expect: Human gene in Gene Tab; link to HomoloGene; </li>
     		  <li>Query by Endometrial Cancer (608089); match to "Both" case TP53/Trp53; only match mouse gene.  Expect: Mouse gene in Gene Tab</li>
+    		  <li>Query by Systemic Lupus Erythematosus; SLE (152700); match to "Both" case C4A,C4B/C4a,C4b; match disease to C4A,C4b.  Expect: Mouse C4b, Human C4A in Gene Tab; human gene links to HomoloGene</li>
     		  </ol></li>
     		  
-    		<li>Verify Grid display of Clusters using Hybrid Homology/"HomoloGene Only" case
+    		<li>Verify Grid display of Clusters using Hybrid Homology/ when the HomoloGene cluster was selected by the Hybrid - query by Phenotype
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query by xxxx; match to "HG Only" case XXX/xxx; match both human/mouse genes. Expect: 1 row for XXX/xxx; link to HomoloGene</li>
-    		  <li>Query by xxxxx; match to "HG Only" case XXX/xxx; only match Human gene.  Expect: 1 row for XXX/xxx; link to HomoloGene; </li>
-    		  <li>Query by xxxxx; match to "HG Only" case XXX/xxx; only match mouse gene.  Expect: 1 row for XXX/xxx; link to HomoloGene;</li>
+    		  <li>Query by Spinal Muscular Atrophy, Type I; SMA1 - 253300; match to HG cluster SMN1,SMN2/Smn1; match disease to SMN1/Smn1. Expect: 1 row for cluster; link human genes to HomoloGene</li>
+    		  <li>Query by Pepsinogen 3, Group I; PGA3 - 169710; match to the human only cluster PGA3/PGA4/PGA5 (no mouse homologs); only match Human gene.  Expect: 1 row for for cluster; link to HomoloGene; </li>
+    		  <li>Query by decreased circulating corticosterone level - MP:0002665; match to "HG Only" case SELM/Selm; only match mouse gene.  Expect: 1 row for SELM/Selm; link human gene to HomoloGene;</li>
     		  </ol></li>
     		  
-    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/"HomoloGene Only" case
+    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/ when the HomoloGene cluster was selected by the Hybrid - query by Phenotype
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query by xxxx; match to "HG Only" case XXX/xxx; match both human/mouse genes. Expect: 1 row for XXX/xxx; link to HomoloGene</li>
-    		  <li>Query by xxxxx; match to "HG Only" case XXX/xxx; only match Human gene.  Expect: 1 row for XXX/xxx; link to HomoloGene; </li>
-    		  <li>Query by xxxxx; match to "HG Only" case XXX/xxx; only match mouse gene.  Expect: 1 row for XXX/xxx; link to HomoloGene;</li>
+    		  <li>Query by Spinal Muscular Atrophy, Type I; SMA1 - 253300; match to HG cluster SMN1,SMN2/Smn1; match disease to SMN1/Smn1. Expect: SMN1/Smn1 in Gene tab; link Human gene to HomoloGene</li>
+    		  <li>Query by Pepsinogen 3, Group I; PGA3 - 169710; match to the human only cluster PGA3/PGA4/PGA5 (no mouse homologs); only match Human gene.  Expect: PGA3 in Gene Tab; link to HomoloGene </li>
+    		  <li>Query by decreased circulating corticosterone level - MP:0002665; match to "HG Only" case SELM/Selm; only match mouse gene.  Expect: only mouse Selm in Gene tab</li>
     		  </ol></li>
     		  
-    		<li>Verify Grid display of Clusters using Hybrid Homology/"HGNC Only" case
+    		<li>Verify Grid display of Clusters using Hybrid Homology/ when the HGNC cluster was selected by the Hybrid - query by Phenotype
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query by xxxx; match to "HGNC Only" case XXX/xxx; match both human/mouse genes. Expect: 1 row for XXX/xxx; link to HomoloGene</li>
-    		  <li>Query by xxxxx; match to "HGNC Only" case XXX/xxx; only match Human gene.  Expect: 1 row for XXX/xxx; link to HomoloGene; </li>
-    		  <li>Query by xxxxx; match to "HGNC Only" case XXX/xxx; only match mouse gene.  Expect: 1 row for XXX/xxx; link to HomoloGene;</li>
+    		  <li>Query by Glycerol Kinase Deficiency, 307030; match to HGNC cluster GK/Gyk; match both human/mouse genes. Expect: 1 row for GK/Gyk; link human gene to HGNC homology.</li>
+    		  <li>Query by Spondyloepiphyseal Dysplasia, Kimberley Type - 608361; match to HGNC cluster ACAN/Acan; only match Human gene.  Expect: 1 row for ACAN/Acan; link human gene to HGNC homology; </li>
+    		  <li>Query by increased cardiac muscle contractility - MP:0005599; match to "HGNC Only" case SLN/Sln; only match mouse gene.  Expect: 1 row for SLN/Sln; link human gene to HGNC homology;</li>
     		  </ol></li>
     		  
-    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/"HGNC Only" case
+    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/ when the HGNC cluster was selected by the Hybrid - query by Phenotype
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query by xxxx; match to "HGNC Only" case XXX/xxx; match both human/mouse genes. Expect: 1 row for XXX/xxx; link to HomoloGene</li>
-    		  <li>Query by xxxxx; match to "HGNC Only" case XXX/xxx; only match Human gene.  Expect: 1 row for XXX/xxx; link to HomoloGene; </li>
-    		  <li>Query by xxxxx; match to "HGNC Only" case XXX/xxx; only match mouse gene.  Expect: 1 row for XXX/xxx; link to HomoloGene;</li>
+    		  <li>Query by Glycerol Kinase Deficiency, 307030; match to HGNC cluster GK/Gyk; match both human/mouse genes. Expect: GK and Gyk in Gene Tab; link human gene to HGNC homology.</li>
+    		  <li>Query by Spondyloepiphyseal Dysplasia, Kimberley Type - 608361; match to HGNC cluster ACAN/Acan; only match Human gene.  Expect: ACAN in Gene tab; link to HGNC homology; </li>
+    		  <li>Query by increased cardiac muscle contractility - MP:0005599; match to "HGNC Only" case SLN/Sln; only match mouse gene.  Expect: Sln in gene tab</li>
     		  </ol></li>
     		  
-    		<li>Verify Grid display of Clusters using Hybrid Homology/"Reject" case
+    		<li>Verify Grid display of Clusters using Hybrid Homology/"Reject" case - query by Phenotype
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query by xxxx; match to "Reject" case XXX/xxx; match both human/mouse genes. Expect: 1 row for XXX/xxx; no link</li>
     		  <li>Query by xxxxx; match to "Reject" case XXX/xxx; only match Human gene.  Expect: 1 row for XXX/xxx; no link </li>
-    		  <li>Query by xxxxx; match to "Reject" case XXX/xxx; only match mouse gene.  Expect: 1 row for XXX/xxx; no link</li>
+    		  <li>Query by Deafness, Autosomal Recessive 63; DFNB63 - 611451; match to "Reject" mouse gene Tomt.  Expect: 1 row for Tomt; no human homolog</li>
     		  </ol></li>
     		  
-    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/"Reject" case
+    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/"Reject" case - query by Phenotype
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query by xxxx; match to "Reject" case XXX/xxx; match both human/mouse genes. Expect: 1 row for XXX/xxx; no link</li>
+    		  <li>Query by xxxx; match to "Reject" case XXX/xxx; only match Human gene.  Expect: 1 row for XXX/xxx; no link </li>
+    		  <li>Query by Deafness, Autosomal Recessive 63; DFNB63 - 611451; match to "Reject" mouse gene Tomt.  Expect: Tomt in Gene Tab.</li>
+    		  </ol></li>
+    		  
+    		<li>Verify Grid display of Clusters using Hybrid Homology/"Double Orphan" case - query by Phenotype
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query by 5-hydroxytryptamine Oxygenase Regulator; HTOR - 143460; match to "Dbl Oprhan" human gene HTOR.  Expect: 1 row for HTOR; no mouse homolog; no link </li>
+    		  <li>Query by Ciliary Dyskinesia, Primary, 14; CILD14 - 613807; match to "Dbl Oprhan" mouse gene b2b2025Clo; only match mouse gene.  Expect: 1 row for b2b2025Clo; no human homolog</li>
+    		  </ol></li>
+    		  
+    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/"Double Orphan" case - query by Phenotype
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query by 5-hydroxytryptamine Oxygenase Regulator; HTOR - 143460; match to "Dbl Oprhan" human gene HTOR.  Expect: HTOR in gene tab; no link</li>
+    		  <li>Query by Ciliary Dyskinesia, Primary, 14; CILD14 - 613807; match to "Dbl Oprhan" mouse gene b2b2025Clo; only match mouse gene.  Expect: b2b2025Clo in Gene tab</li>
+    		  </ol></li>
+    		  
+    	     <li>Verify Grid display of Clusters using Hybrid Homology/"Both" case - query by Nomen/Location
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query by Pax6 match to "Both" case PAX6/Pax6; match both human/mouse genes. Expect: 1 row for Pax6/PAX6; human gene links to HomoloGene</li>
+    		  <li>Query by TP53; match to "Both" case TP53/Trp53; only match human gene.  Expect: 1 row for TP53/Trp53; human gene links to HomoloGene;</li>
+    		  <li>Query by C4B; match to "Both" case C4A,C4B/C4a,C4b; match to C4A,C4B/C4a,C4b.  Expect: 1 row for cluster; link human genes to HomoloGene</li>
+    		  </ol></li>
+    		  
+    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/"Both" case - query by Nomen/Location
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query by Pax6  mouse coordinates match to "Both" case PAX6/Pax6; match both human/mouse genes. Expect: Both genes returned in gene tab; human gene links to HomoloGene</li>
+    		  <li>Query by TP53 human coordinates; match to "Both" case TP53/Trp53; only match human gene.  Expect: Both genes returned in gene tab; human gene links to HomoloGene;</li>
+    		  <li>Query by C4B; match to "Both" case C4A,C4B/C4a,C4b; match to C4A,C4B/C4a,C4b.  Expect: All 4 genes in Gene tab; link human genes to HomoloGene</li>
+    		  </ol></li>
+    		  
+    		<li>Verify Grid display of Clusters using Hybrid Homology/ when the HomoloGene cluster was selected by the Hybrid - query by Nomen/Location
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query by SMN1; match to HG cluster SMN1,SMN2/Smn1; match to both SMN1/Smn1. Expect: 1 row for cluster in Grid with human and mouse annotations; link human genes to HomoloGene</li>
+    		  <li>Query by PGA5; match to the human only cluster PGA3/PGA4/PGA5 (no mouse homologs); only match Human gene.  Expect: 1 row for cluster in Grid with only Human annotations; links to HomoloGene; </li>
+    		  <li>Query by SELM; match to "HG Only" case SELM/Selm; only match mouse gene.  Expect: 1 row for cluster with only mouse annotations; link human gene to HomoloGene;</li>
+    		  </ol></li>
+    		  
+    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/ when the HomoloGene cluster was selected by the Hybrid - query by Nomen/Location
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query by SMN1; match to HG cluster SMN1,SMN2/Smn1; match disease to SMN1/Smn1. Expect: All 3 genes in Gene Tab; link Human gene to HomoloGene</li>
+    		  <li>Query by PGA5; match to the human only cluster PGA3/PGA4/PGA5 (no mouse homologs); only match Human gene.  Expect: All human genes in cluster in Gene Tab; link to HomoloGene </li>
+    		  <li>Query by SELM; match to "HG Only" case SELM/Selm; only match mouse gene.  Expect: Return both genes in Gene Tab; link human gene to HomoloGene</li>
+    		  </ol></li>
+    		  
+    		<li>Verify Grid display of Clusters using Hybrid Homology/ when the HGNC cluster was selected by the Hybrid - query by Nomen/Location
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query by GK; match human gene. Expect: 1 row for GK/Gyk; link human gene to HGNC homology.</li>
+    		  <li>Query by ACAN; match to HGNC cluster ACAN/Acan; match both Human/Mouse genes.  Expect: 1 row for ACAN/Acan; link human gene to HGNC homology; </li>
+    		  <li>Query by SLN; match to "HGNC Only" case SLN/Sln; match both genes.  Expect: 1 row for SLN/Sln; link human gene to HGNC homology;</li>
+    		  </ol></li>
+    		  
+    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/ when the HGNC cluster was selected by the Hybrid - query by Nomen/Location
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query by GK; match to HGNC cluster GK/Gyk; match human gene.  Expect: GK and Gyk in Gene Tab; link human gene to HGNC homology.</li>
+    		  <li>Query by ACAN; match to HGNC cluster ACAN/Acan; match both genes.  Expect: ACAN/Acan in Gene tab; link human gene to HGNC homology; </li>
+    		  <li>Query by SLN; match to "HGNC Only" case SLN/Sln; only match both genes.  Expect: Both genes in gene tab; link human to HGNC</li>
+    		  </ol></li>
+    		  
+    		<li>Verify Grid display of Clusters using Hybrid Homology/"Reject" case - query by Nomen/Location
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
     		  <li>Query by xxxxx; match to "Reject" case XXX/xxx; only match Human gene.  Expect: 1 row for XXX/xxx; no link </li>
-    		  <li>Query by xxxxx; match to "Reject" case XXX/xxx; only match mouse gene.  Expect: 1 row for XXX/xxx; no link</li>
+    		  <li>Query by Tomt; match to "Reject" mouse gene Tomt.  Expect: 1 row for Tomt; no human homolog</li>
     		  </ol></li>
     		  
-    		<li>Verify Grid display of Clusters using Hybrid Homology/"Double Orphan" case
+    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/"Reject" case - query by Nomen/Location
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query by xxxx; match to "Dbl Oprhan" case XXX/xxx; match both human/mouse genes. Expect: 1 row for XXX/xxx; no link</li>
-    		  <li>Query by xxxxx; match to "Dbl Oprhan" case XXX/xxx; only match Human gene.  Expect: 1 row for XXX/xxx; no link </li>
-    		  <li>Query by xxxxx; match to "Dbl Oprhan" case XXX/xxx; only match mouse gene.  Expect: 1 row for XXX/xxx; no link</li>
+    		  <li>Query by COMMD3-BMI1; match to "Reject" case COMMD3-BMI1; only match Human gene.  Expect: this human gene in Gene Tab; no link </li>
+    		  <li>Query by Tomt; match to "Reject" mouse gene Tomt.  Expect: Tomt in Gene Tab.</li>
     		  </ol></li>
     		  
-    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/"Double Orphan" case
+    		<li>Verify Grid display of Clusters using Hybrid Homology/"Double Orphan" case - query by Nomen/Location
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>Query by xxxx; match to "Dbl Oprhan" case XXX/xxx; match both human/mouse genes. Expect: 1 row for XXX/xxx; no link</li>
-    		  <li>Query by xxxxx; match to "Dbl Oprhan" case XXX/xxx; only match Human gene.  Expect: 1 row for XXX/xxx; no link </li>
-    		  <li>Query by xxxxx; match to "Dbl Oprhan" case XXX/xxx; only match mouse gene.  Expect: 1 row for XXX/xxx; no link</li>
+    		  <li>Query by HTOR; match to "Dbl Oprhan" human gene HTOR.  Expect: 1 row for HTOR; no mouse homolog; no link </li>
+    		  <li>Query by b2b2025Clo; match to "Dbl Oprhan" mouse gene b2b2025Clo; only match mouse gene.  Expect: 1 row for b2b2025Clo; no human homolog</li>
+    		  </ol></li>
+    		  
+    		<li>Verify Gene Tab display of Clusters using Hybrid Homology/"Double Orphan" case - query by Nomen/Location
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Query by HTOR; match to "Dbl Oprhan" human gene HTOR.  Expect: HTOR in gene tab; no link</li>
+    		  <li>Query by b2b2025Clo; match to "Dbl Oprhan" mouse gene b2b2025Clo; only match mouse gene.  Expect: b2b2025Clo in Gene tab</li>
     		  </ol></li>
     	    
     	   
