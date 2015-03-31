@@ -74,22 +74,22 @@
     		  <li>Query by disease that matches a hybrid HG cluster via "both" (Human/Mouse); 604229 (Peters Anomaly).  Expect: Allele of Ext1 returned; not gene Ext1.</li>
     		  <li>Query by disease that matches a hybrid HGNC cluster (Human/Mouse); 604229 (Peters Anomaly).  Expect: Allele of Foxe3 returned; not gene Foxe3.</li>
     		  <li>Query by disease that matches a hybrid HG cluster (Human/Mouse); 604229 (Peters Anomaly).  Expect: Allele of Tgfb2 returned; not gene Tgfb2.</li>
-    		  <li>Query by disease that matches a hybrid HG cluster (mouse only); 222100 (Diabetes Mellitus, Insulin-Dependent; IDDM).  Expect: allele of Fasl returned</li>
+    		  
     		  </ol></li>
     		  
     		<li>Verify QS results when multiple genes are in a cluster and one of them is associated to an OMIM term
     		<p concordion:assertTrue="true">PASS - jlewis 3/31/15</p> 
     		<ol>
     		  <li>Query by disease that matches a human gene with multiple mouse orthologs; 105200 (Amyloidosis, Familial Visceral).  Expect: 3 genes returned as Disease Orthologs (Lyz1, Lyz2, 9530003J23Rik)</li>
-    		  <li>Query by disease that matches a mouse gene with multiple human orthologs; 253300 (Spinal Muscular Atrophy, Type I; SMA1).  Expect: allele of Smn1 returned; gene Smn1 matched by Disease Ortholog</li>
+    		  <li>Query by disease that matches a mouse gene with multiple human orthologs; 253300 (Spinal Muscular Atrophy, Type I; SMA1).  Expect: allele of Smn1 returned; not gene Smn1</li>
     		  <li>Query by disease that matches genes with multiple mouse/human orthologs; 152700 (Systemic Lupus Erythematosus; SLE).  Expect: allele of C4b returned; C4a and C4b matched by Disease Ortholog.</li>
     		  </ol></li>
     		  
     		<li>Verify QS results when a reject is associated to an OMIM term
     		<p concordion:assertTrue="true">PASS - jlewis 3/31/15</p> 
     		<ol>
-    		  <li>Query by disease that matches a mouse gene reject; 611451 (Deafness, Autosomal Recessive 63; DFNB63).  Expect: Allele of Tomt returned.</li>
-    		  <li>Query by disease that matches a human gene reject; xxxx.  Expect:</li>
+    		  <li>Query by disease that matches a mouse gene reject; 611451 (Deafness, Autosomal Recessive 63; DFNB63).  Expect: Allele of Tomt returned; not gene Tomt.</li>
+    		  <li>Query by disease that matches a human gene reject; xxxx.  NO CASE FOUND IN DATABASE</li>
     		  </ol></li>
     		  
     		<li>Verify QS results when a double orphan is associated to an OMIM term
