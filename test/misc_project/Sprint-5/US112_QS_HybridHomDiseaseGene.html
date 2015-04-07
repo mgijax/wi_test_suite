@@ -52,7 +52,7 @@
 		<ol>
     	    
     	    <li>Verify QS results when both mouse/human genes in a cluster are associated to an OMIM term
-    		<p concordion:assertTrue="false">FAILED - case 1.2 did not return the gene; not sure what is special about this case</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 4/7/15</p>  
     		<ol>
     		  <li>Query by disease that matches a hybrid HomoloGene cluster via "both"; 604229 (Peters Anomaly).  Expect: Pax6 matched by Disease Ortholog.</li>
     		  <li>Query by disease that matches a hybrid HGNC cluster; 307030 (Glycerol Kinase Deficiency).  Expect:  Gyk matched by Disease Ortholog.</li>
@@ -74,14 +74,14 @@
     		  <li>Query by disease that matches a hybrid HG cluster via "both" (Human/Mouse); 604229 (Peters Anomaly).  Expect: Allele of Ext1 returned; not gene Ext1.</li>
     		  <li>Query by disease that matches a hybrid HGNC cluster (Human/Mouse); 604229 (Peters Anomaly).  Expect: Allele of Foxe3 returned; not gene Foxe3.</li>
     		  <li>Query by disease that matches a hybrid HG cluster (Human/Mouse); 604229 (Peters Anomaly).  Expect: Allele of Tgfb2 returned; not gene Tgfb2.</li>
-    		  
+    		  <li>Query by disease that matches a hybrid HG cluster (mouse only); 222100 (Diabetes...; IDDM).  Expect: allele of E2f1 returned; not gene E2f1.</li>
     		  </ol></li>
     		  
     		<li>Verify QS results when multiple genes are in a cluster and one of them is associated to an OMIM term
     		<p concordion:assertTrue="true">PASS - jlewis 3/31/15</p> 
     		<ol>
     		  <li>Query by disease that matches a human gene with multiple mouse orthologs; 105200 (Amyloidosis, Familial Visceral).  Expect: 3 genes returned as Disease Orthologs (Lyz1, Lyz2, 9530003J23Rik)</li>
-    		  <li>Query by disease that matches a mouse gene with multiple human orthologs; 253300 (Spinal Muscular Atrophy, Type I; SMA1).  Expect: allele of Smn1 returned; not gene Smn1</li>
+    		  <li>Query by disease that matches a mouse gene with multiple human orthologs; 253300 (Spinal Muscular Atrophy, Type I; SMA1).  Expect: allele of Smn1 returned and gene Smn1</li>
     		  <li>Query by disease that matches genes with multiple mouse/human orthologs; 152700 (Systemic Lupus Erythematosus; SLE).  Expect: allele of C4b returned; C4a and C4b matched by Disease Ortholog.</li>
     		  </ol></li>
     		  
@@ -95,8 +95,8 @@
     		<li>Verify QS results when a double orphan is associated to an OMIM term
     		<p concordion:assertTrue="true">PASS - jlewis 3/31/15</p> 
     		<ol>
-    		  <li>Query by disease that matches a mouse gene double orphan; 613807 (Ciliary Dyskinesia, Primary, 14; CILD14).  Expect: Allele of gene returned.</li>
-    		  <li>Query by disease that matches a human gene double orphan; 143460 (5-hydroxytryptamine Oxygenase Regulator; HTOR).  Expect: No genes returned.</li>
+    		  <li>Query by disease that matches a mouse gene double orphan; 613807 (Ciliary Dyskinesia, Primary, 14; CILD14).  Expect: Allele of gene b2b2025Clo returned.</li>
+    		  <li>Query by disease that matches a human gene double orphan; 143460 (5-hydroxytryptamine Oxygenase Regulator; HTOR).  Expect: No genes returned; disease associated to human gene HTOR (double orphan).</li>
     		  </ol></li>
     	    
     	    
