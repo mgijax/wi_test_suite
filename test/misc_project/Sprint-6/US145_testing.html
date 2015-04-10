@@ -1,0 +1,226 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 165</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Add human gene links back to HMDC popups</h1>
+    <ul>
+        <li>User Story 145 - Restore the links to Homology Pages from Human gene symbols on HMDC Popup pages (following the Hybrid)</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+
+    <ol>
+       <li>Add back the links from human gene symbols on HMDC popup pages<br>
+Note: These links were temporarily removed when we switched to the Hybrid before implementing the new 'HGNC Mouse/Human Homology' page, but were not restored.</li>
+       <li>Links should lead to the appropriated Homology Page (HomoloGene or HGNC, as directed by the Hybrid Homology selection)</li>
+<p>
+    </ol>
+   
+</div>
+
+<br>
+<b>WI Links</b>:<br>
+Scrum-bob Dev WI: <a href="http://scrumbob.informatics.jax.org/">scrum-bob dev</a>
+<p>
+
+
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+
+
+		<h3>Test Cases</h3>
+<OL>
+<LI>Human Gene in HG and HGNC clusters, HG and HGCN clusters disagree, Hybrid selects HG (link should go to HG cluster page).
+
+<LI>Human Gene in HG and HGNC clusters, HG and HGCN clusters disagree, Hybrid selects HGNC (link should go to HGNC cluster page).
+
+<LI>Human Gene in HG and HGNC clusters, HG and HGCN clusters agree, Hybrid selects both (link should go to HG cluster page).
+
+<LI>Human Gene in HG or HGNC cluster, HG and HGCN clusters disagree, Hybrid selects source that does not include this human gene (reject) (not cases where the human gene is annotated to a disease).
+
+<LI>Human Gene in neither HG nor HGNC clusters (double orphan) (no link).
+
+</OL>
+
+
+
+
+
+		<h3>Manual tests</h3>
+
+
+
+<OL>
+<LI>Human Gene in HG and HGNC clusters, HG and HGCN clusters disagree, Hybrid selects HG (link should go to HG cluster page).<p>
+
+<ol type="a">
+<li>Human Gene: SGCB (NCBI Gene ID: 6443, associated with OMIM ID: 604286)<br>
+<blockquote>
+HG - Clusters human SGCB with mouse Sgcb<br>
+HGNC - Has human SGCB as a singleton<br>
+Expected link from popup for disease 604286 - To HG homology page containing human SGCB (HomoloGene Cluster: 195)<br>
+</blockquote>
+
+Result: PASS - rmb 4/9/15<br><br>
+
+
+<li>Human Genes: SMN1 and SMN2 (SMN1-NCBI Gene ID: 6606, associated with OMIM IDs: 253400, 253550, 253300 and 271150; SMN2- NCBI Gene ID: 6607, associated with OMIM ID: 253400)<br>
+<blockquote>
+HG - Clusters human SMN1 and SMN2 with mouse Smn1<br>
+HGNC - Has human SMN1 and SMN2 both as a singletons<br>
+Expected link from popups for all four diseases indicated, and for both human genes - To HG homology page containing human SMN1 and SMN2 (HomoloGene Cluster: 292)<br>
+</blockquote>
+
+Result: PASS - rmb 4/9/15<br><br>
+</ol>
+
+
+
+
+
+
+<br><br>
+<LI>Human Gene in HG and HGNC clusters, HG and HGCN clusters disagree, Hybrid selects HGNC (link should go to HGNC cluster page).
+
+<ol type="a">
+<li>Human Gene: HSD3B2 (NCBI Gene ID: 3284, associated with OMIM ID: 201810)<br>
+<blockquote>
+HG - Clusters human HSD3B2 with mouse Hsd3b1<br>
+HGNC - Clusters human HSD3B2 with human FHSD3B1, and with 8 mouse genes, including mouse Hsd3b1 and Hsd3b2<br>
+Expected link from popup for disease 201810 - To HGNC homology page containing human HSD3B2
+</blockquote>
+
+Result: PASS - rmb 4/9/15<br><br>
+
+
+<li>Human Gene: ACAN (our favorite) (NCBI Gene ID: 176, associated with OMIM IDs: 165800, 612813 and 608361)<br>
+<blockquote>
+HG - Clusters human ACAN with only non-mouse species (HomoloGene Cluster: 136177)<br>
+HGNC - Clusters human ACAN with mouse Acan<br>
+Expected link from popups for the diseases indicated- To HGNC homology page containing human ACAN
+</blockquote>
+
+Result: PASS - rmb 4/9/15<br><br>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br>
+<LI>Human Gene in HG and HGNC clusters, HG and HGCN clusters agree, Hybrid selects both (link should go to HG cluster page).
+
+<ol type="a">
+<li>Human Gene: ADAMTS13 (NCBI Gene ID: 11093, associated with OMIM ID: 274150)<br>
+<blockquote>
+HG and HGNC- Cluster human ADAMTS13 with mouse Adamts13<br>
+Expected link from popup for disease 274150 - To HG homology page containing human ADAMTS13 (HomoloGene Cluster: 16372)<br>
+</blockquote>
+
+Result: PASS - rmb 4/9/15<br><br>
+
+
+<li>Human Gene: VWF (NCBI Gene ID: 7450, associated with OMIM IDs: 193400, 613554 and 277480 - grouped into Disease Cluster Term: "Von Willebrand Disease")<br>
+<blockquote>
+HG and HGNC- Cluster human VWF with mouse Vwf<br>
+Expected link from popups for the three diseases indicated - To HG homology page containing human VWF (HomoloGene Cluster: 466)<br>
+</blockquote>
+
+Result: PASS - rmb 4/9/15<br><br>
+</ol>
+
+
+
+
+
+
+
+<br><br>
+<LI>Human Gene in HG or HGNC cluster, HG and HGCN clusters disagree, Hybrid selects source that does not include this human gene (reject).<p>
+This case is not testable.<p>
+There are only 10 human markers that are "rejects", all are rejected from HomoloGene clusters, but none are associated with any diseases (there are many more mouse gene rejects than human).
+
+
+
+
+
+
+
+
+<br><br>
+<LI>Human Gene in neither HG nor HGNC clusters (double orphan) (no link).
+
+
+
+<ol type="a">
+<li>Human Gene: HTOR (NCBI Gene ID: 3349, associated with OMIM ID: 143460)<br>
+<blockquote>
+Neither HG nor HGNC cluster human HTOR<br>
+Expected link from popup for disease 143460 - No Link<br>
+</blockquote>
+
+Result: PASS - rmb 4/9/15<br><br>
+
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</OL>
+
+
+
+    	    
+       	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+
+ 	</div>
+</div>
+
+</body>
+</html>
