@@ -1,0 +1,94 @@
+US109 Testing Doc
+
+Remove "mouse ortholog" counts from the Quick Search Vocab bucket.
+
+
+1) Testing Requirements
+Quick Search queries by disease terms/IDs return disease in the Vocabulary Terms section.  On Public, if one or more human ortholog(s) of a mouse gene is(are) annotated to the returned disease, the count of orthologs appears in the Associated Data column as "# mouse orthologs".  This user story removes the display of these mouse ortholog counts.
+
+
+2) Test Cases
+
+In all test cases, the expected result is the same: no mouse ortholog count should be displayed with the disease indicated.  The test cases vary by the source of the Hybrid cluster, the number of mouse orthologs, and the presence or absence of mouse models for the disease.
+
+----------
+2.1) Hybrid selects HomoloGene
+Disease: Keratoconus 1; KTCN1
+Associated human gene: VSX1
+
+Result:
+PASS 4/13/15
+
+----------
+2.2) Hybrid selects HGNC
+Disease: Spondyloenchondrodysplasia with Immune Dysregulation; SPENCDI
+Associated human gene: ACP5
+
+Result:
+PASS 4/13/15
+
+ 
+----------
+2.3) Hybrid selects both
+Disease: Inflammatory Bowel Disease 14; IBD14
+Associated human gene: IRF5
+
+Result:
+PASS 4/13/15
+
+
+----------
+2.4) There are mouse models in addition to an Ortholog (Hybrid selects: HomoloGene)
+Disease: Cardiomyopathy, Dilated, 1r; CMD1R
+Associated human gene: ACTC1
+
+Result:
+PASS 4/13/15
+
+
+----------
+2.5) There are mouse models in addition to an Ortholog (Hybrid selects: HGNC)
+Disease: Neuropathy, Hereditary Sensory and Autonomic, Type VI; HSAN6
+Associated human gene: DST
+
+Note: On Public, no mouse ortholog count is shown for HSAN6 because HomoloGene does not group human DST with a mouse gene, where on Scrum Bob, human DST is grouped with mouse Dst.
+
+Result:
+PASS 4/13/15
+
+
+
+----------
+2.6) There are multiple Mouse Orthologs involved
+Disease: Hemoglobin H Disease; HBH
+Associated human genes: HBA1, HBA2
+
+On Public, the count shows "4 mouse orthologs"
+There are only two human genes involved, but there are also two mouse genes in the HomoloGene Cluster (Hba-a1, Hba-a2), so the count reflects each human gene with each mouse gene, even though there are really only two human orthologs here.  No mouse ortholog display on Scrum Bob.
+
+Result:
+PASS 4/13/15
+
+
+
+----------
+2.7) There are multiple Mouse Orthologs involved with different sources represented in the Hybrids (multiple homology clusters represented) plus mouse models are present
+Disease: Conotruncal Heart Malformations; CTHM
+Associated human genes with mouse models: CFC1 (hybrid selects HGNC) (one mouse model)
+Associated human genes with no models: 
+GATA6, NKX2-5 (hybrid selects HomoloGene)
+GDF1, NKX2-6, TBX1 (hybrid selects HomoloGene)
+
+Result:
+PASS 4/13/15
+
+
+
+
+
+
+
+
+
+
+
