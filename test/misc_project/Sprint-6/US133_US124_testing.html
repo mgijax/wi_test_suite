@@ -1,0 +1,169 @@
+<HTML>
+<HEAD><TITLE>US133 and US124 Test doc</TITLE></HEAD>
+<BODY>
+<H2>US133 and US124 Test doc</H2>
+<H3>Overview</H3>
+US133:<BR>
+<OL>
+<LI> creates a new, combined antibody/antigen detail page in the fewi
+<LI> moves antibody and antigen data into the front-end (fe) database
+<LI> removes defunct files from old python wi_pg product: antibody detail,
+	antigen detail, and antibody summary (no links to this page anymore)
+<LI> updates links (on the accession report and the assay detail page) for
+	antibodies and antigens to point to the new page
+<LI> updates the wiki page listing which pages are hosted by which products
+</OL>
+US124:<BR>
+<OL>
+<LI> updates antibody links from the quick search to go to the new, combined
+	antibody/antigen page
+<LI> removes support for antigen IDs from the quick search
+</OL>
+<H3>Details</H3>
+Individual requirements and tests are detailed below.
+<B>All requirements pass testing.</B><P>
+
+<table border="1" width="70%">
+<tr><th width="60%">requirement</th><th >shown in</th></tr>
+
+<tr><td colspan="2" bgcolor="#dddddd">Links from Quick Search</td></tr>
+
+<tr>
+<td>Quick Search now links to new page for antibody IDs.</td>
+<td ><a target="_blank" href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A3763619">MGI:3763619</a> (anti-sialin)</td>
+</tr>
+
+<tr>
+<td>Quick Search no longer recognizes antigen IDs.</td>
+<td ><a target="_blank" href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A1276056">MGI:1276056</a> (En-2)</td>
+</tr>
+
+<tr><td colspan="2" bgcolor="#dddddd">General</td></tr>
+
+<tr>
+<td>Updated wiki page listing which pages are in which products</td>
+<td ><a target="_blank" href="http://mgiwiki.jax.org/mediawiki/index.php?title=sw%3AWI_Pages_by_Software_Product&diff=46733&oldid=43801">WI_Pages_by_Software_Product</a></td>
+</tr>
+
+<tr>
+<td>Accession report accepts antibody IDs and goes to new page.</td>
+<td ><a target="_blank" href="http://scrumbob.informatics.jax.org/accession/MGI:3763619">anti-sialin</a> (roll over to see link)</td>
+</tr>
+
+<tr>
+<td>Page title is "Antibody" with a "Detail" subtitle.</td>
+<td ><a target="_blank" href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A3763619">anti-sialin</a></td>
+</tr>
+
+<tr><td colspan="2" bgcolor="#dddddd">Antibody section</td></tr>
+
+<tr>
+<td>Name, Host, Type, and MGI Accession ID are always displayed</td>
+<td ><a target="_blank" href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A3763619">anti-sialin</a></td>
+</tr>
+
+<tr>
+<td>Synonyms displayed when available, comma-delimited</td>
+<td>Synonyms: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/key/2215">Cdx2 antibody</a>
+<br>No synonyms: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/key/3406">anti-sialin</a>
+</td>
+</tr>
+
+<tr>
+<td>Class not shown if Not Applicable</td>
+<td><a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:4830098">anti-GFP</a></td>
+</tr>
+
+<tr>
+<td>Class shown if Not Specified and Type is Monoclonal</td>
+<td><a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:1276067">anti-Rb</a></td>
+</tr>
+
+<tr>
+<td>Class not shown if Not Specified and Type is other than Monoclonal</td>
+<td><a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:1334753">RTC</a></td>
+</tr>
+
+<tr>
+<td>Note shown when available</td>
+<td>Note: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:4830098">anti-GFP</a>
+<br>No Note: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:2662710">PEN-LEN</a>
+</td>
+</tr>
+
+<tr><td colspan="2" bgcolor="#dddddd">Antigen section</td></tr>
+
+<tr>
+<td>Name and Species always displayed</td>
+<td ><a target="_blank" href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A3763619">anti-sialin</a></td>
+</tr>
+
+<tr>
+<td>Strain, sex, age, tissue, and cell line only shown if other than Not Specified and Not Applicable</td>
+<td>Not specifieds: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:1261602">GLUT1</a>
+<br>Not applicables: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:5302202">PTK2B (Y402)</a>, <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:2135883">ALK2 (ActR-I)</a>
+</td>
+</tr>
+
+<tr>
+<td>Tissue description shown when available</td>
+<td>TD: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:1934344">CD29</a>
+<br>No TD: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:1261602">GLUT1</a>
+</td>
+</tr>
+
+<tr>
+<td>Region covered shown when available</td>
+<td>RC: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:1261602">GLUT1</a>
+<br>No RC: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:1276067">pRb</a>
+</td>
+</tr>
+
+<tr>
+<td>Note shown when available</td>
+<td>Note: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:2135883">ALK2 (ActR-I)</a>
+<br>No note: <a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:1261602">GLUT1</a>
+</td>
+</tr>
+
+<tr><td colspan="2" bgcolor="#dddddd">Genes section</td></tr>
+
+<tr>
+<td>For each associated marker, list symbol followed by name for each, one per line.  Smart-alpha order.</td>
+<td><a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:3055847">anti-pan-ERK</a></td>
+</tr>
+
+<tr>
+<td>If no markers, do not show ribbon.</td>
+<td><a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:3763264">anti-GFP</a></td>
+</tr>
+
+<tr><td colspan="2" bgcolor="#dddddd">Expression section</td></tr>
+
+<tr>
+<td>When available show count of results, linked to expression summary page.</td>
+<td><a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:3055847">anti-pan-ERK</a></td>
+</tr>
+
+<tr>
+<td>If no expression results, do not show ribbon.</td>
+<td><a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:5559945">anti-YFP</a></td>
+</tr>
+
+
+<tr><td colspan="2" bgcolor="#dddddd">References section</td></tr>
+
+<tr>
+<td>List primary reference first, followed by other associated references ordered by year and J: number.  Link J: number to reference detail, followed by mini citation, one reference per line.</td>
+<td><a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:3763264">anti-GFP</a></td>
+</tr>
+
+<tr>
+<td>If no references, do not show ribbon.  (only one example in db)</td>
+<td><a target="_blank" href="http://scrumbob.informatics.jax.org/antibody/MGI:5573120">anti-B-galactosidase</a></td>
+</tr>
+
+</table>
+
+</BODY>
+</HTML>
