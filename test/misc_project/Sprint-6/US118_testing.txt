@@ -1,0 +1,319 @@
+US118 - TR11873 - HMDC grid query bug with apostrophe
+
+Testing Doc
+
+Contents
+1) Introduction
+1.1) Apostrophe bug Description
+1.2) GXD Query Form
+1.3) Special Character Issue
+1.3.1) Different characters for an "apostrophe"
+1.3.2) Special Character Query Example
+
+2) Test Requirements
+2.1) Testing Scope
+
+3) Testing
+
+
+
+1) Introduction
+
+1.1) Apostrophe bug Description
+Queries containing an apostrophe are causing the HMDC grid to show no results when the corresponding genes returned are shown in the Genes tab. Apparently, apostrophes are not escaped when present in join queries (AND/OR), causing the grid queries to fail.  The fix was to escape apostrophes. 
+
+1.2) GXD Query Form
+Because the GXD Query Form contains Solr join code, it was possible that the apostrophe escape issue also affected GXD queries (where AND/OR are used).  However, the GXD query input boxes behave very differently from the HMDC input boxes in that: 1) The user must select a term from the auto-complete pick list, and 2) Boolean queries have not be implemented for the auto-complete pick list, thus Solr joins are not used as they are for the HMDC grid.  The changes implemented for US118 don't really affect functionality of the GXD Query Form.
+
+1.3) Special Character Issue
+When a user types a single quote (') from the keyboard into an HMDC query input box, this is the character we refer to as an apostrophe.  However, there are several other characters that can be used as an apostrophe in different applications.  In Microsoft products (like Word), for example, if the default setting to convert straight quotes to smart quotes in is on, then the apostrophe character is converted to a right single quote (’).  The list of different characters for an apostrophe are listed below.  It was too complicated to get the search mechanism to escape all of these different characters, so this user story is limited to just the apostrophe character when typed in from the keyboard (').
+
+1.3.1) Different characters for an "apostrophe"
+
+- apostrophe: (')
+- acute accent: (´)
+- grave accent: (`)
+- right single quote (’)
+- left single quote (‘)
+
+Note that browsers can render these characters to an altered character (see below), and some browsers (Firefox, for example) render these characters differently in the text input box when the user clicks on the 'Click to modify search' button.  Since Firefox, Chrome and Safari all render these characters similarly for the initial query, testing here will use Firefox.
+
+- apostrophe: (')
+"apostrophe rendered in Firefox: (')"
+"apostrophe rendered in Chrome: (')"
+"apostrophe rendered in Safari: (')"
+
+- acute accent: (´)
+"acute accent rendered in Safari: (Â´)"
+"acute accent rendered in Chrome: (Â´)"
+"acute accent rendered in Safari: (Â´)"
+
+- grave accent: (`)
+"grave accent rendered in Firefox: (`)"
+"grave accent rendered in Chrome: (`)"
+"grave accent rendered in Safari: (`)"
+
+- right single quote (’)
+"right single quote rendered in Firefox: (â)"
+"right single quote rendered in Chrome: (â)"
+"right single quote rendered in Safari: (â)"
+
+- left single quote (‘)
+"left single quote rendered in Firefox: (â)"
+"left single quote rendered in Chrome: (â)"
+"left single quote rendered in Safari: (â)"
+
+
+1.3.2) Special Character Query Example
+The following shows the result of using one of the special characters other than an apostrophe in the query.
+
+
+the right single quote (’)
+Query: Ebner’s
+
+----------
+Public
+humanDisease
+mgihome humanDisease page (click on the Doctor)
+
+You searched for:
+Phenotypes or Diseases matching: Ebnerâs
+
+grid: No genes found that match your search criteria. 
+genes: 0
+
+
+----------
+Scrum Bob
+humanDisease
+mgihome humanDisease page (click on the Doctor)
+
+
+You searched for:
+Phenotypes or Diseases matching: Ebnerâs
+
+grid: No genes found that match your search criteria. 
+genes: 0
+
+
+
+
+
+
+
+2) Test Requirements
+
+2.1) Testing Scope
+In the "Search by disease or phenotype terms" input box of the HMDC Query Form, words containing an apostrophe character (the character inserted when typing (') on the keyboard) should not interfere with Boolean queries.
+
+There are two HMDC query forms to check.
+- humanDisease page
+Public: http://www.informatics.jax.org/humanDisease.shtml
+Scrum Bob: http://scrumbob.informatics.jax.org/humanDisease.shtml
+
+mgihome humanDisease page (click on the Doctor)
+Public: http://www.informatics.jax.org/mgihome/homepages/humanDisease.shtml
+Scrum Bob: http://www.informatics.jax.org/mgihome/homepages/humanDisease.shtml
+
+Unless the behavior of these two pages differs, results of only one will be shown (although both were tested).
+
+
+
+
+
+3) Testing
+Test cases for this user story only involve use of the Apostrophe (') from the keyboard.
+
+3.1) Apostrophe in an MP term, Boolean not used
+
+Query: Ebner's
+This word appears in MP term: abnormal Ebner's gland morphology (under headers digestive/alimentary system and endocrine/exocrine glands)
+Mouse gene Sox2 is rolled up to this term.
+
+Expected Result: The Homology Cluster containing mouse Sox2 should be returned in the grid and mouse Sox2 should be returned in the Genes Tab.
+
+----------
+Public
+
+You searched for:
+Phenotypes or Diseases matching: Ebner's
+
+grid: No genes found that match your search criteria.
+genes: 1 (Sox2)
+
+
+----------
+Scrum Bob
+
+You searched for:
+Phenotypes or Diseases matching: Ebner's
+
+grid: SOX2/Sox2
+genes: 1 (Sox2)
+
+
+Test Result: PASS
+
+
+
+
+
+3.2) Apostrophe used in a Boolean search (the Apostrophe is not part of a term in MGI)
+
+Query: Ebstein OR Alzheimer's
+The term "Ebstein" appears in an MP term: "Ebstein's malformation of tricuspid valve" (under header Cardiovascular System) and an OMIM term: "Ebstein Anomaly".
+Mouse gene Bmpr1a is rolled up to both of these terms.
+
+The term "Alzheimer's" is not part of any MP or OMIM terms.
+
+Expected result: The Homology Cluster containing mouse Bmpr1a should be returned on the Grid (two headers highlighted (Cardiovascular System and Ebstein Anomaly), and mouse Bmpr1a should be returned in the Genes Tab.
+
+----------
+Public
+
+You searched for:
+Phenotypes or Diseases matching: (Ebstein OR Alzheimer's)
+
+grid: No genes found that match your search criteria. 
+genes: 1 (Bmpr1a)
+
+
+----------
+Scrum Bob
+
+You searched for:
+Phenotypes or Diseases matching: (Ebstein OR Alzheimer's)
+
+grid:  BMPR1A/Bmpr1a 
+genes: 1 (Bmpr1a)
+
+
+Test Result: PASS
+
+
+
+
+3.2) Multiple Apostrophes used in a Boolean search (one Apostrophe is not part of a term in MGI, the other is)
+
+Query: Ebstein's OR Alzheimer's
+The term "Ebstein's" appears in an MP term: "Ebstein's malformation of tricuspid valve" (under header Cardiovascular System).
+Mouse gene Bmpr1a is rolled up to this term.
+
+The term "Alzheimer's" is not part of any MP or OMIM terms.
+
+Expected result: The Homology Cluster containing mouse Bmpr1a should be returned on the Grid (one header highlighted (Cardiovascular System)), and mouse Bmpr1a should be returned in the Genes Tab.
+
+
+
+
+
+3.3) OMIM ID used with Apostrophe in a Boolean search (the Apostrophe is not part of a term in MGI)
+
+3.3a) OMIM ID first in the query
+
+Query: 312750, OR, Alzheimer's disease
+OMIM ID 312750 (Rett Syndrome; RTT) is annotated to Human and Mouse genes MECP2 and Mecp2.  
+The term "Alzheimer's disease" is not part of any MP or OMIM terms ("disease" is a filtered term in HMDC queries)
+
+Expected result: The Homology Cluster containing Human and Mouse genes MECP2 and Mecp2 should be returned on the Grid (one header highlighted (Rett Syndrome)), and both Human and Mouse genes (MECP2 and Mecp2) should be returned in the Genes Tab.
+
+
+----------
+Public
+
+You searched for:
+Phenotypes or Diseases matching: (Rett Syndrome; RTT - 312750 OR Alzheimer's OR disease)
+
+grid: No genes found that match your search criteria. 
+genes: 2 (MECP2 and Mecp2)
+
+
+----------
+Scrum Bob
+
+You searched for:
+Phenotypes or Diseases matching: (Rett Syndrome; RTT - 312750 OR Alzheimer's OR disease)
+
+grid:  MECP2/Mecp2 
+genes: 2 (MECP2 and Mecp2)
+
+
+Test Result: PASS
+
+
+
+3.3b) Apostrophe term first in the query
+
+Query: Angelman's Syndrome, OR 312750
+OMIM ID 312750 (Rett Syndrome; RTT) is annotated to Human and Mouse genes MECP2 and Mecp2.  
+The term "Angelman's Syndrome" is not part of any MP or OMIM terms ("Syndrome" is a filtered term in HMDC queries).  The term "Angelman Syndrome" (no apostrophe) (OMIM: 105830) is annotated to three human genes and two mouse genes.
+
+Expected result: The Homology Cluster containing Human and Mouse genes MECP2 and Mecp2 should be returned on the Grid (one header highlighted (Rett Syndrome)), and both Human and Mouse genes (MECP2 and Mecp2) should be returned in the Genes Tab.
+
+
+----------
+Public
+
+You searched for:
+Phenotypes or Diseases matching: (Angelman's OR Syndrome OR Rett Syndrome; RTT - 312750)
+
+grid: No genes found that match your search criteria. 
+genes: 2 (MECP2 and Mecp2)
+
+
+----------
+Scrum Bob
+
+You searched for:
+Phenotypes or Diseases matching: (Angelman's OR Syndrome OR Rett Syndrome; RTT - 312750)
+
+grid:  MECP2/Mecp2 
+genes: 2 (MECP2 and Mecp2)
+
+
+Test Result: PASS
+
+
+
+
+
+
+3.4) OMIM ID used with Apostrophe in a Boolean search (the Apostrophe is part of a term in MGI)
+
+Query: 224700, AND Ebstein's
+OMIM ID 224700 (Ebstein Anomaly) and MP term "Ebstein's malformation of tricuspid valve" both roll up to mouse gene Bmpr1a.
+
+Expected result: The Homology Cluster containing Mouse gene Bmpr1a should be returned on the Grid (two headers highlighted (Cardiovascular System and Ebstein Anomaly), and mouse Bmpr1a should be returned in the Genes Tab.
+
+
+----------
+Public
+
+You searched for:
+Phenotypes or Diseases matching: (Ebstein Anomaly - 224700 AND Ebstein's)
+
+grid: No genes found that match your search criteria. 
+genes: 1 (Bmpr1a)
+
+
+----------
+Scrum Bob
+
+You searched for:
+Phenotypes or Diseases matching: (Ebstein Anomaly - 224700 AND Ebstein's)
+
+grid:   BMPR1A/Bmpr1a 
+genes: 1 (Bmpr1a )
+
+
+Test Result: PASS
+
+
+
+
+
+
+
+
+
+
