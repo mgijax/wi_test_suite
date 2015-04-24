@@ -1,0 +1,325 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 116 Test Doc</title>
+
+
+<STYLE TYPE="text/css">
+<!--
+TH{font-family: Verdana; font-size: 7pt; font-weight: bold;}
+TD{font-family: Verdana; font-size: 7pt;}
+--->
+</STYLE>
+
+</head>
+
+
+</head>
+
+<body>
+
+
+<h2>US116 - Update the MRK_OMIM_Cache table to use Hybrid homology</h2>
+
+
+<b>Test Requirements</b><br>
+From analysis in preparation for testing this user story, it appears that no Public products use homology fields of the MRK_OMIM_Cache table.  Thus, we can't really test the conversion of MRK_OMIM_Cache to the Hybrid in products.  See note regarding technical debt below.<p>
+Testing of this user story will include:<p>
+
+<OL>
+<LI>SQL confirmation that homology in MRK_OMIM_Cache has been converted to the Hybrid (not needed, but it was done, so just confirming).
+<LI>Confirmation that products using the MRK_OMIM_Cache table are not affected by this change.<p>
+Affected Products<br>
+<UL>
+<LI> Allele QF: Nothing to test here regarding conversion to the Hybrid<p>
+<LI> public reports<p>
+<OL type="a">
+<LI>mgimarkerfeed (for JAX Mice)<br>
+&nbsp;&nbsp;- marker_omim.bcp<br>
+&nbsp;&nbsp;- marker.bcp<p>
+
+<LI>ALL_OMIM.rpt (for LAMHDI, some resource that maintains an archive of animal models of diseases)<br>
+&nbsp;&nbsp;[uses genotypeDisplay fields]
+ftp link: ftp://ftp.informatics.jax.org/pub/reports/ALL_OMIM.rpt
+</OL>
+<p>
+<LI> qc reports<p>
+<OL type="a">
+<LI>MRK_GOIEA_D.html – Genes with GO Annotations of evidence IEA only and with references that are selected for GO but have not been used<br>
+&nbsp;&nbsp;[puts ‘OMIM’ in col 8 if a gene has a mouse model annotated to an OMIM disease]<br>
+link to current report: <a href="http://prodwww.informatics.jax.org/data/reports/qcreports_db/output/MRK_GOIEA_D.html" target="blank">MRK_GOIEA_D.html</a><p>
+
+<LI>MRK_GOIEA_E.rpt – Genes with OMIM Annotations and either GO Annotations of evidence IEA only or no GO Annotations<br>
+&nbsp;&nbsp;[selects markers with OMIM annotations and either only IEA GO annotations or no GO annotations]<br>
+link to current report: <a href="http://prodwww.informatics.jax.org/data/reports/qcreports_db/output/MRK_GOIEA_E.rpt" target="blank">MRK_GOIEA_E.rpt</a><p>
+
+There are no records in this report currently on lindon (the old report), nor on rohan/scrum bob (the new report), thus there is nothing to test for this report.
+
+</OL>
+</UL>
+
+
+</OL><br><br>
+
+<b>Note regarding technical debt</b><br>
+Several fields in MRK_OMIM_Cache have become obsolete over time from various projects.  Not only are homology fields not used, but there are also display fields that were established way back for the "Look and Feel" releases (LAF) that are not longer used.  While addressing this technical debt is desirable (i.e. removing unused fields in this table), the team decided not to make schema changes while infrastructure work is ongoing with the Scrum Dog team.  A comment will be added to the code that produces the MRK_OMIM_Cache table bringing attention to the fact that some fields in this table are no longer used, and that homology has been converted to the Hybrid. The Mrkcacheload wiki page will also be updated with this information (<a href="http://mgiwiki/mediawiki/index.php/sw:Mrkcacheload#4._Marker_OMIM_Cache_Load" target="blank">Marker_OMIM_Cache_Load</a>)<p>
+
+
+<br><br>
+
+
+
+<b>Testing</b><br>
+
+<OL>
+<LI>SQL confirmation that MRK_OMIM_Cache is using the Hybrid<p>
+
+
+
+
+
+<b>Query:</b><br>
+The following query returns mouse markers in MRK_OMIM_Cache that are clustered with human markers in the Hybrid, but have no human homolog via HMD tables.  The query shows that MRK_OMIM_Cache has been converted to use the Hybrid Homology.<p>
+
+<blockquote>
+SQL <font size=-1>(sybase syntax)</font><br>
+<textarea name="SQL" rows="8" cols="70">
+select hm._Marker_key as "HMD_MouseKey", h._Class_key
+into #tt1
+from HMD_Homology_Marker hm, MRK_Marker m, HMD_Homology h
+where m._Organism_key = 1
+and hm._Marker_key = m._Marker_key
+and hm._Homology_key = h._Homology_key
+
+||
+create index idx1 on #tt1(HMD_MouseKey, _Class_key)
+||
+
+select hm._Marker_key as "HMD_HumanKey", h._Class_key
+into #tt2
+from HMD_Homology_Marker hm, MRK_Marker m, HMD_Homology h
+where m._Organism_key = 2
+and hm._Marker_key = m._Marker_key
+and hm._Homology_key = h._Homology_key
+
+||
+create index idx2 on #tt2(HMD_HumanKey, _Class_key)
+||
+
+select distinct t1.HMD_MouseKey, t2.HMD_HumanKey, t1._Class_key
+into #tt3
+from #tt1 t1, #tt2 t2
+where t1._Class_key = t2._Class_key
+
+||
+create index idx3 on #tt3(HMD_MouseKey, HMD_HumanKey, _Class_key)
+||
+
+select moc._Marker_key, moc.markerSymbol
+into #tt4
+from MRK_OMIM_Cache moc
+where moc._Organism_key = 1
+and moc._OrthologMarker_key != null
+
+||
+create index idx4 on #tt4(_Marker_key, markerSymbol)
+||
+
+select t4._Marker_key, t4.markerSymbol
+into #tt5
+from #tt4 t4
+LEFT OUTER JOIN #tt3 t3 on (t4._Marker_key = t3.HMD_MouseKey)
+where t3.HMD_MouseKey is NULL
+
+||
+create index idx5 on #tt5(_Marker_key, markerSymbol)
+||
+
+select distinct t5._Marker_key, t5.markerSymbol
+from #tt5 t5, #tt4 t4
+where t5._Marker_key = t4._Marker_key
+order by t5.markerSymbol
+
+</textarea><p>
+</blockquote>
+<p>
+
+
+<blockquote>
+<b>Query Results</b><p>
+<font size=-1>
+- Results from:  DEV_MGI..mgd_bob &nbsp;&nbsp;(query date: 4/24/15)</font><p>
+<table border="1">
+<tr><th>Row #</th><th>_Marker_key</th><th>markerSymbol
+</th></tr><tr><td>1</td><td align="right">37270</td><td>Gt(ROSA)26Sor
+</td></tr><tr><td>2</td><td align="right">11100</td><td>Lyz2
+</td></tr><tr><td>3</td><td align="right">45221</td><td>Peg12
+</td></tr></table>
+</blockquote>
+<br><br>
+
+The following links to the Production WI (on lindon) and the Scrum Bob WI, show the homolgy differences between HMD_ tables (Production WI) and the Hybrid (Scrum Bob).<p>
+
+<UL>
+<LI><b>Gt(ROSA)26Sor</b> - This was surprising at first, but HGNC asserts homology between mouse Gt(ROSA)26Sor and human THUMPD3-AS1.<br>
+- Production: <a href="http://prodwww.informatics.jax.org/wi/searches/homology_report.cgi?_Marker_key=37270" target="blank">Gt(ROSA)26Sor Homology</a> (this is a blank page because there is no homology for Gt(ROSA)26Sor on Production)<p>
+
+- Scrum Bob: <a href="http://scrumbob.informatics.jax.org/homology/cluster/key/2406110" target="blank">HGNC Homology for Gt(ROSA)26Sor</a><p>
+
+
+<LI><b>Lyz2</b><br>
+- Production: <a href="http://prodwww.informatics.jax.org/wi/searches/homology_report.cgi?_Marker_key=11100" target="blank">Lyz2 Homology</a> (Note: no human marker)<p>
+
+- Scrum Bob: <a href="http://scrumbob.informatics.jax.org/homology/121490" target="blank">HomoloGene Homology for Lyz2</a><p>
+
+
+<LI><b>Peg12</b><br>
+- Production: <a href="http://prodwww.informatics.jax.org/wi/searches/homology_report.cgi?_Marker_key=45221" target="blank">Peg12 Homology</a> (Note: no human marker)<p>
+
+- Scrum Bob: <a href="http://scrumbob.informatics.jax.org/homology/cluster/key/2429860" target="blank">HGNC Homology for Lyz2</a><p>
+
+<br><br>
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/24/15)</font><br><br>
+
+<br><br>
+</UL>
+
+
+
+<LI>Confirmation that products using the MRK_OMIM_Cache table are not affected<p>
+
+<OL>
+<LI>Allele QF: Again, there's nothing to test here regarding conversion to the Hybrid<p>
+
+
+<LI>public reports<p>
+<OL type="a">
+<LI>mgimarkerfeed (for JAX Mice)<br>
+
+Relevant bcp files will be compared before and after the change to MRK_OMIM_Cache, to confirm that these files are comparable.<p>
+
+&nbsp;&nbsp;- marker_omim.bcp<br>
+&nbsp;&nbsp;Comparing counts of these files before and after the change to the Hybrid<p>
+<blockquote>
+5097 marker_omim_before<p>
+
+5097 marker_omim_after<p>
+
+A diff on the two files showed a few changes in row order, but all of the data are the same between the files run before and after the change.
+</blockquote>
+<p>
+
+
+
+&nbsp;&nbsp;- marker.bcp<p>
+&nbsp;&nbsp;Comparing counts of these files before and after the change to the Hybrid<p>
+<blockquote>
+474563 marker_before<p>
+
+474563 marker_after
+</blockquote>
+
+<p>
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/24/15)</font><br><br>
+
+<p>
+
+
+<LI>ALL_OMIM.rpt (for LAMHDI, some resource that maintains an archive of animal models of diseases)<br>
+
+&nbsp;&nbsp;Comparing counts of these files before and after the change to the Hybrid<p>
+<blockquote>
+4705 ALL_OMIM_before<p>
+
+4680 ALL_OMIM_after<p>
+
+The before/after here refers to implementation of changes (i.e. converting MRK_OMIM_Cache to the Hybrid).  It turns out that the 'before' ALL_OMIM report was actually run after the report was run on Scrum Bob (4/23 vs. 4/22, respectively).  The count differences reflect a few updates between the Scrum Bob run and the latest version of the ALL_OMIM report on lindon.
+
+For US116, the point is that the change implemented has not affected the use of MRK_OMIM_Cache in the production of the ALL_OMIM report.
+</blockquote>
+
+<p>
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/24/15)</font><br><br>
+
+<p>
+
+</OL>
+
+
+
+<LI> qc reports<p>
+<OL type="a">
+<LI>MRK_GOIEA_D.html – Genes with GO Annotations of evidence IEA only and with references that are selected for GO but have not been used<br>
+&nbsp;&nbsp;[puts ‘OMIM’ in col 8 if a gene has a mouse model annotated to an OMIM disease]<p>
+
+No rows in this report currently on Public or on Scrum Bob have 'OMIM" listed in column 8.<p>
+Check that the reference count is the same between the files:<p>
+<blockquote>
+<pre>
+grep "J:" MRK_GOIEA_D_before.html | wc -l
+     335
+
+grep "J:" MRK_GOIEA_D_after.html | wc -l
+     335
+</pre><p>
+Same number of references between these files.<p>
+
+For US116, the change implemented has not affected production of the MRK_GOIEA_D.html.
+</blockquote>
+
+
+
+<p>
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/24/15)</font><br><br>
+
+<p>
+
+
+
+
+
+
+
+
+<LI>MRK_GOIEA_E.rpt – Genes with OMIM Annotations and either GO Annotations of evidence IEA only or no GO Annotations<br>
+&nbsp;&nbsp;[selects markers with OMIM annotations and either only IEA GO annotations or no GO annotations]<p>
+
+There are no records in this report currently on lindon (the old report), nor on rohan/scrum bob (the new report), thus there is nothing to test for this report.
+
+
+</OL>
+
+
+
+</UL>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</OL>
+
+</OL>
+
+</body>
+</jtml>
