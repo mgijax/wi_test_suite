@@ -1,0 +1,532 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 152</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h2>Change how the anatomical system filter works on the expression summary page</h2>
+    <ul>
+        <li>User Story 106 - Coordinate the function of the anatomical system filter on the GXD Expression Summary Page with the tissue filter on the GXD Matrix</li>
+    </ul>
+</div>
+
+    <h3>Test Requirements</h3>
+Replace the filter mechanism that filters Anatomical Systems on the GXD Expression Summary Page with a new filter mechanism with the following functionality:<br>
+<OL>
+<LI>Filters results the same way that the Tissue filter on the GXD matrix grid does.  It's providing a separate user interface to filter the same way as the matrix does, except it's limited to the high-level terms.<br>
+<OL>
+<li type="a">creates "remove filter" buttons
+<li type="a">limits Anatomical Systems displayed in the popup (no lower-level terms displayed (as selectable Systems) in the popup).
+<li type="a">Checks selected System [<input type="checkbox" name="check" value="System" checked> selected system ]
+</OL><p>
+
+<LI>Affects display of results on both matrix views in the same way that filtering by Tissue does in these matrix views.<p>
+
+<LI>Responds to Tissue filter selections in the matrix views in two ways:
+<OL>
+<li type="a">If one or more System-level terms are selected as Tissue filters in the matrix, then the corresponding Systems are selected as Anatomical System filters.
+<li type="a">If one or more sub-System-level terms are selected as Tissue filters in the matrix, then a note will be displayed in the Anatomical System filter popup (below any System-level filters selected): "<i>Tissue matrix filters have been selected.</i>"
+</OL><p>
+
+<LI>Anatomical System Filter works with other "Filter expression by:" filters (Assay Type, Detected?, Theiler Stage, Wild type?) and with other matrix filters (Theiler Stage and Gene).
+
+<LI>Browser Compatibility testing need not be exhaustive here.  A few popular Browsers on the Mac will be compared for consistency.
+</OL>
+
+
+
+
+
+    <h3>Tests</h3>
+    
+		<h4>Manual tests</h4>
+		
+		<ol>
+
+
+ <li>Verify display of high-level EMAPA System terms in the Anatomical Systems filter popup<p>
+<OL>
+<li type="a">Show only high-level EMAPA terms sorted by alpha<br>
+<li type="a">Don't show "Mouse" or "organ system"<br>
+<li type="a">Show organ system sub-terms in the alpha sort.<p>
+This is consistent with changes implemented for US122, except no lower-level terms are displayed.<p>
+
+</OL>
+
+<UL>
+<li type="circle">Test Case: Query by Pax6, Click on Anatomical System filter, compare with Anatomical System filter on Public.<br>
+Results:<p>
+Scrum bob: <a href="http://scrumbob.informatics.jax.org/gxd#gxd=nomenclature%3DPax6%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dresultstab" target="blank">Pax6 Gene Expression Data</a><p>
+
+Public: <a href="http://www.informatics.jax.org/gxd#gxd=nomenclature%3DPax6%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dresultstab" target="blank">Pax6 Gene Expression Data</a>
+
+<br><br>
+
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/26/15)</font><br><br>
+</UL>
+
+
+
+
+
+ <li>Verify proper Anatomical System Filter function <p>
+<OL>
+<li type="a">Filters by EMAPA terms<br>
+
+<UL>
+<li type="circle">Test Case: Query by Kcn*, filter by Anatomical System: "alimentary system"<p>
+Expected Gene Count filtering by EMAPA term: "alimentary system": 30 (see SQL query)<p>
+
+&nbsp;&nbsp;&nbsp;&nbsp;Query - Genes with symbol like "Kcn%", annotated to EMAPA term "alimentary system"<br>
+<blockquote>
+SQL <font size=-1>(sybase syntax)</font><br>
+<textarea name="SQL" rows="12" cols="78">
+/* This gets the EMAPA term key, term and stage range for the query entry */
+select vt._Term_key as "EMAPA_key", vt.term as "EMAPA_term", vta.startStage, vta.endStage, a.accID as "EMAPA_ID"
+into #tt1
+from VOC_Term_EMAPA vta, VOC_Term vt, ACC_Accession a
+where vt._Vocab_key = 90
+and a._LogicalDB_key = 169
+and a._MGIType_key = 13
+and a.preferred = 1
+and vt._Term_key = a._Object_key
+and vt.term = "alimentary system"
+and vt._Term_key = vta._Term_key
+
+||
+create index idx1 on #tt1(EMAPA_key, EMAPA_term, startStage, endStage, EMAPA_ID)
+||
+
+/* This gets all of the EMAPS term keys for the corresponding EMAPA */
+select t1.EMAPA_key, vts._Term_key as "EMAPS_key", vts.stage
+into #tt2
+from #tt1 t1, VOC_Term_EMAPS vts
+where t1.EMAPA_key = vts._EMAPA_Term_key
+
+||
+create index idx2 on #tt2(EMAPA_key, EMAPS_key, stage)
+||
+
+/* This gets the EMAPS IDs for the corresponding EMAPS terms */
+select t2.EMAPA_key, t2.EMAPS_key, a1.accID as "EMAPS_ID", t2.stage
+into #tt3
+from #tt2 t2, ACC_Accession a1
+where a1._LogicalDB_key = 170
+and a1._MGIType_key = 13
+and a1.preferred = 1
+and t2.EMAPS_key = a1._Object_key
+
+||
+create index idx3 on #tt3(EMAPA_key, EMAPS_key, EMAPS_ID, stage)
+||
+
+/* This gets the AD ID for the corresponding EMAPS ID from the Golden Bridge */
+select t3.EMAPA_key, t3.EMAPS_key, t3.EMAPS_ID, t3.stage, mem.accID as "AD_ID"
+into #tt4
+from #tt3 t3, MGI_EMAPS_Mapping mem
+where t3.EMAPS_ID = mem.emapsID
+
+||
+create index idx4 on #tt4(EMAPA_key, EMAPS_key, EMAPS_ID, stage, AD_ID)
+||
+
+/* This gets the GXD Structure key for the corresponding AD_ID*/
+select t4.EMAPA_key, t4.EMAPS_key, t4.EMAPS_ID, t4.stage, t4.AD_ID, a2._Object_key as "GXD_Structure_key"
+into #tt5
+from #tt4 t4, ACC_Accession a2
+where a2._LogicalDB_key = 1
+and a2._MGIType_key = 38
+and a2.preferred = 1
+and t4.AD_ID = a2.accID
+
+||
+create index idx5 on #tt5(EMAPA_key, EMAPS_key, EMAPS_ID, stage, AD_ID, GXD_Structure_key)
+||
+
+/* This gets the GXD Expression results for the corresponding AD_Structure */
+select t5.EMAPA_key, t1.EMAPA_term, t1.startStage, t1.endStage, t5.EMAPS_key, t5.EMAPS_ID, t5.stage, t5.AD_ID, ge._Expression_key, ge._AssayType_key, ge._Marker_key, ge._Structure_key
+into #tt6
+from #tt1 t1, #tt5 t5, GXD_Expression ge
+where not ge._AssayType_key in (10, 11)
+and t5.GXD_Structure_key = ge._Structure_key
+and t1.EMAPA_key = t5.EMAPA_key
+
+||
+create index idx6 on #tt6(EMAPA_key, EMAPA_term, startStage, endStage, EMAPS_key, EMAPS_ID, stage, AD_ID, _Expression_key, _AssayType_key, _Marker_key, _Structure_key)
+||
+
+/* This gets the descendent EMAPA term keys (DescendentObject_key) for the query entry */
+select t1.EMAPA_key as "Ancestor_EMAPA_key", t1.startStage as "Ancestor_Start", t1.endStage as "Ancestor_end", t1.EMAPA_term as "Ancestor_EMAPA_term", dc._DescendentObject_key as "Descendent_EMAPA_key", vt.term as "Descendent_EMAPA_term"
+into #tt7
+from #tt1 t1, DAG_Closure dc, VOC_Term vt
+where dc._DAG_key = 13
+and vt._Vocab_key = 90
+and t1.EMAPA_key = dc._AncestorObject_key
+and vt._Term_key = dc._DescendentObject_key
+
+||
+create index idx7 on #tt7(Ancestor_EMAPA_key, Ancestor_Start, Ancestor_end, Ancestor_EMAPA_term, Descendent_EMAPA_key, Descendent_EMAPA_term)
+||
+
+/* This gets all of the EMAPS term keys for the corresponding descendent EMAPA terms */
+select t7.Ancestor_EMAPA_key, t7.Ancestor_EMAPA_term, t7.Descendent_EMAPA_key, vts._Term_key as "Descendent_EMAPS_key", vt.term as "Descendent_EMAPS_term", vts.stage as "Descendent_EMAPS_stage"
+into #tt8
+from #tt7 t7, VOC_Term_EMAPS vts, VOC_Term vt
+where vt._Vocab_key = 91
+and vt._Term_key = vts._Term_key
+and t7.Descendent_EMAPA_key = vts._EMAPA_Term_key
+
+||
+create index idx8 on #tt8(Ancestor_EMAPA_key, Ancestor_EMAPA_term, Descendent_EMAPA_key, Descendent_EMAPS_key, Descendent_EMAPS_term, Descendent_EMAPS_stage)
+||
+
+/* This gets the EMAPS IDs for the corresponding Descendent_EMAPS keys */
+select t8.Ancestor_EMAPA_key, t8.Ancestor_EMAPA_term, t8.Descendent_EMAPA_key, t8.Descendent_EMAPS_key, a1.accID as "Descendent_EMAPS_ID", t8.Descendent_EMAPS_term, t8.Descendent_EMAPS_stage
+into #tt9
+from #tt8 t8, ACC_Accession a1
+where a1._LogicalDB_key = 170
+and a1._MGIType_key = 13
+and a1.preferred = 1
+and t8.Descendent_EMAPS_key = a1._Object_key
+
+||
+create index idx9 on #tt9(Ancestor_EMAPA_key, Ancestor_EMAPA_term, Descendent_EMAPA_key, Descendent_EMAPS_key, Descendent_EMAPS_ID, Descendent_EMAPS_term, Descendent_EMAPS_stage)
+||
+
+/* This gets the AD_IDs for the corresponding Descendent_EMAPS_IDs from the Golden Bridge */
+select t9.Ancestor_EMAPA_key, t9.Ancestor_EMAPA_term, t9.Descendent_EMAPA_key, t9.Descendent_EMAPS_ID, t9.Descendent_EMAPS_term, t9.Descendent_EMAPS_stage, mem.accID as "Descendent_AD_ID"
+into #tt10
+from #tt9 t9, MGI_EMAPS_Mapping mem
+where t9.Descendent_EMAPS_ID = mem.emapsID
+
+||
+create index idx10 on #tt10(Ancestor_EMAPA_key, Ancestor_EMAPA_term, Descendent_EMAPA_key, Descendent_EMAPS_ID, Descendent_EMAPS_term, Descendent_EMAPS_stage, Descendent_AD_ID)
+||
+
+/* This gets the GXD Structure key for the corresponding Descendent_AD_ID */
+select t10.Ancestor_EMAPA_key, t10.Ancestor_EMAPA_term, t10.Descendent_EMAPA_key, t10.Descendent_EMAPS_ID, t10.Descendent_EMAPS_term, t10.Descendent_EMAPS_stage, t10.Descendent_AD_ID, a2._Object_key as "Descendent_GXD_Structure_key"
+into #tt11
+from #tt10 t10, ACC_Accession a2
+where a2._LogicalDB_key = 1
+and a2._MGIType_key = 38
+and a2.preferred = 1
+and t10.Descendent_AD_ID = a2.accID
+
+||
+create index idx11 on #tt11(Ancestor_EMAPA_key, Ancestor_EMAPA_term, Descendent_EMAPA_key, Descendent_EMAPS_ID, Descendent_EMAPS_term, Descendent_EMAPS_stage, Descendent_AD_ID, Descendent_GXD_Structure_key)
+||
+
+/* This gets the GXD Expression results for the corresponding Descendent_GXD_Structure_key */
+select t11.Ancestor_EMAPA_key, t11.Ancestor_EMAPA_term, t11.Descendent_EMAPA_key, t11.Descendent_EMAPS_ID, t11.Descendent_EMAPS_term, t11.Descendent_EMAPS_stage, t11.Descendent_AD_ID, t11.Descendent_GXD_Structure_key, ge._Expression_key, ge._AssayType_key, ge._Marker_key
+into #tt12
+from #tt11 t11, GXD_Expression ge
+where not ge._AssayType_key in (10, 11)
+and t11.Descendent_GXD_Structure_key = ge._Structure_key
+
+||
+create index idx12 on #tt12(Ancestor_EMAPA_key, Ancestor_EMAPA_term, Descendent_EMAPS_ID, Descendent_EMAPS_term, Descendent_EMAPS_stage, Descendent_AD_ID, Descendent_GXD_Structure_key, _Expression_key, _AssayType_key, _Marker_key)
+||
+
+select distinct t12._Marker_key, m.symbol
+from #tt12 t12, MRK_Marker m
+where m.symbol like "Kcn%"
+and t12._Marker_key = m._Marker_key
+</textarea><p>
+</blockquote>
+<p>
+
+<blockquote>
+<b>Query Results</b><p>
+- Results from:  Results from sybase : DEV_MGI..mgd_bob &nbsp;&nbsp;<font size = -1>(query date: 4/26/15)</font><br>
+<FONT SIZE="-1">30 rows returned</FONT><P>
+<TABLE border=1>
+<TR><TH>Row #<TH>_Marker_key<TH>symbol
+<TR><TD>1<TD align=right>10581<TD>Kcna5
+<TR><TD>2<TD align=right>10582<TD>Kcna6
+<TR><TD>3<TD align=right>31151<TD>Kcnab2
+<TR><TD>4<TD align=right>10592<TD>Kcne1
+<TR><TD>5<TD align=right>80290<TD>Kcne2
+<TR><TD>6<TD align=right>48379<TD>Kcne3
+<TR><TD>7<TD align=right>41610<TD>Kcnh1
+<TR><TD>8<TD align=right>41611<TD>Kcnh2
+<TR><TD>9<TD align=right>156173<TD>Kcnh5
+<TR><TD>10<TD align=right>90786<TD>Kcnh7
+<TR><TD>11<TD align=right>64721<TD>Kcnip2
+<TR><TD>12<TD align=right>28674<TD>Kcnj11
+<TR><TD>13<TD align=right>30084<TD>Kcnj12
+<TR><TD>14<TD align=right>81845<TD>Kcnj14
+<TR><TD>15<TD align=right>38119<TD>Kcnj15
+<TR><TD>16<TD align=right>25004<TD>Kcnj2
+<TR><TD>17<TD align=right>25002<TD>Kcnj3
+<TR><TD>18<TD align=right>25003<TD>Kcnj4
+<TR><TD>19<TD align=right>25015<TD>Kcnj5
+<TR><TD>20<TD align=right>25042<TD>Kcnj6
+<TR><TD>21<TD align=right>29408<TD>Kcnj9
+<TR><TD>22<TD align=right>31347<TD>Kcnk1
+<TR><TD>23<TD align=right>41671<TD>Kcnk7
+<TR><TD>24<TD align=right>34705<TD>Kcnma1
+<TR><TD>25<TD align=right>39961<TD>Kcnmb1
+<TR><TD>26<TD align=right>48364<TD>Kcnmb4
+<TR><TD>27<TD align=right>37281<TD>Kcnn4
+<TR><TD>28<TD align=right>34707<TD>Kcnq1
+<TR><TD>29<TD align=right>38057<TD>Kcnq2
+<TR><TD>30<TD align=right>40328<TD>Kcnq3
+</td></tr>
+</TABLE></blockquote>
+<br>
+
+
+Results:<p>
+Scrum bob: <a href="http://scrumbob.informatics.jax.org/gxd#gxd=nomenclature%3DKcn*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dresultstab%26structureIDFilter%3DEMAPA%3A16246" target="blank">Kcn* Expression Data filtered by: alimentary system</a><p>
+
+Public: <a href="http://www.informatics.jax.org/gxd#gxd=nomenclature%3DKcn*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dresultstab%26systemFilter%3Dalimentary%20system" target="blank">Kcn* Expression Data filtered by: alimentary system</a><p>
+Note: 30 genes are returned on Scrum Bob using EMAPA, while 31 genes are returned on Public using the AD (Kcnab1 is the extra gene returned).  The Anatomical System filter on Scurm Bob is using EMAPA.
+<br><br>
+
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/26/15)</font><br><br>
+</UL>
+
+
+
+<li type="a">Displays "remove filter" button(s)<br>
+<li type="a">Limits Anatomical System display in the popup to selected systems<br>
+<li type="a">Selected Systems are checked<p>
+
+<UL>
+<li type="circle">Test Case: These requirements are confirmed in the same test case as above: Query by Kcn*, filter by Anatomical System: "alimentary system"
+</UL>
+<br>
+
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/26/15)</font><br><br>
+
+</OL>
+
+
+
+
+
+<LI>Verify that the Anatomical Filter affects display of results on both matrix views in the same way that filtering by Tissue does in these matrix views.<p>
+
+<UL>
+<li type="circle">Test Case: Query by Sox*, filter by Anatomical Systems: "alimentary system", "cardiovascular system", "early embryo", compare result counts and Matrix displays.  Compare with similar sequence on Public.<br>
+Expected Results:<br>
+- Only the corresponding anatomical structure rows should be shown in the Matrix views<br>
+- The counts of Genes, Assays, Assay results, and Images should be the same when the same System-level term is used to filter results from the Anatomical System filter or the Matrix Tissue filter.<p>
+
+Compare Counts:<p>
+Scrum Bob<p>
+Anatomical System Filter ("alimentary system", "cardiovascular system", "early embryo")<br>
+<blockquote>
+Genes (21)<br>
+Assays (134)<br>
+Assay results (1228)<br>
+Images (337)
+</blockquote>
+<p>
+
+Matrix Tissue Filter ("alimentary system", "cardiovascular system", "early embryo")<br>
+<blockquote>
+Genes (21)<br>
+Assays (134)<br>
+Assay results (1228)<br>
+Images (337)
+</blockquote>
+<p>
+
+
+Public<p>
+Anatomical System Filter ("alimentary system", "cardiovascular system", "early embryo")<br>
+<blockquote>
+Genes (22)<br>
+Assays (131)<br>
+Assay results (1176)<br>
+Images (334)
+</blockquote>
+<p>
+
+Matrix Tissue Filter ("alimentary system", "cardiovascular system", "early embryo")<br>
+<blockquote>
+Genes (21)<br>
+Assays (134)<br>
+Assay results (1228)<br>
+Images (337)
+</blockquote>
+<p>
+
+Tissue x Stage Matrix<br>
+
+- Scrum bob: <a href="http://scrumbob.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dstagegridtab%26structureIDFilter%3DEMAPA%3A16246%26structureIDFilter%3DEMAPA%3A16104%26structureIDFilter%3DEMAPA%3A36032" target="blank">Tissue x Stage Matrix</a> (Sox* query, filtered)<p>
+
+- Public: <a href="http://www.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dstagegridtab%26systemFilter%3Dalimentary%20system%26systemFilter%3Dcardiovascular%20system%26systemFilter%3Dearly%20embryo" target="blank">Tissue x Stage Matrix</a> (Sox* query, filtered)<p>
+
+Tissue x Gene Matrix<br>
+
+- Scrum bob: <a href="http://scrumbob.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dgenegridtab%26structureIDFilter%3DEMAPA%3A16246%26structureIDFilter%3DEMAPA%3A16104%26structureIDFilter%3DEMAPA%3A36032" target="blank">Tissue x Gene Matrix</a> (Sox* query, filtered)<p>
+
+- Public: <a href="http://www.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dgenegridtab%26systemFilter%3Dalimentary%20system%26systemFilter%3Dcardiovascular%20system%26systemFilter%3Dearly%20embryo" target="blank">Tissue x Gene Matrix</a> (Sox* query, filtered)
+
+
+
+<br><br>
+
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/27/15)</font><br><br>
+</UL>
+
+
+
+
+
+
+<LI>Verify that the Anatomical Filter responds to Tissue filter selections in the matrix views.<p>
+Note that Matrix Tissue selections override any Anatomical System filter selections made.<p>
+<OL>
+
+<li type="a">If one or more System-level terms are selected as Tissue filters in the matrix, then the corresponding Systems are selected as Anatomical System filters.<p>
+
+<UL>
+<li type="circle">Test Case1: No Anatomical System filters selected, Matrix Systems selected (at the System Level).<br>
+Query by Sox*, go to Matrix view, filter by Matrix Tissues: "endocrine system" and "exocrine system", open Anatomical System filter, observe selected filters.<br>
+Expected Results: Only "endocrine system" and "exocrine system" should be shown in the Anatomical System popup, compared to Public where several non-selected Systems appear in the popup (not checked).<p>
+
+Tissue x Stage Matrix<br>
+
+- Scrum bob: <a href="http://scrumbob.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dstagegridtab%26structureIDFilter%3DEMAPA%3A35306%26structureIDFilter%3DEMAPA%3A35329" target="blank">Tissue x Stage Matrix</a> (open Anatomical System Filter)<p>
+
+- Public: <a href="http://www.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dstagegridtab%26structureIDFilter%3DEMAPA%3A35306%26structureIDFilter%3DEMAPA%3A35329" target="blank">Tissue x Stage Matrix</a> (open Anatomical System Filter)<p>
+
+
+Tissue x Gene Matrix<br>
+
+- Scrum bob: <a href="http://scrumbob.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dgenegridtab%26structureIDFilter%3DEMAPA%3A35306%26structureIDFilter%3DEMAPA%3A35329" target="blank">Tissue x Gene Matrix</a> (Sox* query, filtered)<p>
+
+- Public: <a href="http://www.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dgenegridtab%26structureIDFilter%3DEMAPA%3A35306%26structureIDFilter%3DEMAPA%3A35329" target="blank">Tissue x Gene Matrix</a> (open Anatomical System Filter)
+
+<br><br>
+
+
+<li type="circle">Test Case2:  Anatomical System filters selected, and then a sub-set of these "systems" are selected as Tissue filters on the Matrix.<br>
+Query by Sox*; filter by Anatomical Systems: "alimentary system", "cardiovascular system", "extraembryonic component", "integumental system"; go to the Matrix view; filter by Matrix Tissues: "alimentary system" and "extraembryonic component"; open Anatomical Systems filter popup observe selected Systems, also observe the "Filtered by:" list.<br>
+
+Expected Results: Only "alimentary system" and "extraembryonic component" should be shown in the Anatomical System popup, and these should appear only once in the Filtered by: list.<p>
+
+Tissue x Stage Matrix<br>
+
+- Scrum bob: <a href="http://scrumbob.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dstagegridtab%26structureIDFilter%3DEMAPA%3A16246%26structureIDFilter%3DEMAPA%3A16042" target="blank">Tissue x Stage Matrix</a> (open Anatomical System Filter)<p>
+
+- Public: <a href="http://www.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dstagegridtab%26systemFilter%3Dalimentary%20system%26systemFilter%3Dcardiovascular%20system%26systemFilter%3Dextraembryonic%20component%26systemFilter%3Dintegumental%20system%26structureIDFilter%3DEMAPA%3A16042%26structureIDFilter%3DEMAPA%3A16246" target="blank">Tissue x Stage Matrix</a> (open Anatomical System Filter)<p>
+Note that Filtered by: "alimentary system" and "extraembryonic component" appear in addition to "System: alimentary system" and "System: extraembryonic component"<p>
+
+Tissue x Gene Matrix<br>
+The same results are observed.
+</UL>
+<p>
+
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/27/15)</font><br><br>
+
+
+
+
+<li type="a">If one or more sub-System-level terms are selected as Tissue filters in the matrix, then a note will be displayed in the Anatomical System filter popup (below any System-level filters selected): "<i>Tissue matrix filters have been selected.</i>" 
+
+<UL>
+<li type="circle">Test Case1: Matrix Tissues selected at the sub-System Level.<br>
+Query by Sox*, go to a Matrix view, filter by Matrix Tissues: "heart" (under cardiovascular system) and "skeletal system" (under musculoskeletal system); open Anatomical System filter; observe selected filters.<br>
+Expected Results: No Anatomical Systems should be displayed.  The following note should be displayed: "Tissue matrix filters have been selected."<p>
+
+Tissue x Stage Matrix<br>
+
+- Scrum bob: <a href="http://scrumbob.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dstagegridtab%26structureIDFilter%3DEMAPA%3A16105%26structureIDFilter%3DEMAPA%3A35773" target="blank">Tissue x Stage Matrix</a> (open Anatomical System Filter)<p>
+
+- Public: <a href="http://www.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dstagegridtab%26structureIDFilter%3DEMAPA%3A16105%26structureIDFilter%3DEMAPA%3A35773" target="blank">Tissue x Stage Matrix</a> (open Anatomical System Filter)<p>
+
+Tissue x Gene Matrix<br>
+The same results are observed.
+
+<br><br>
+
+
+<li type="circle">Test Case2: Matrix Tissues selected at both the System and sub-System Levels.<br>
+Query by Sox*; go to a Matrix view; filter by Matrix Tissues: "extraembryonic component" (System-Level), "alimentary system" (System-Level), "heart" (sub-System Level) and "skin" (sub-System Level); open Anatomical Systems filter popup; observe selected Systems.<br>
+Expected Results: Systems: "alimentary system" and "extraembryonic component" should be shown in the Anatomical System popup, above the Note: "Tissue matrix filters have been selected."<p>
+
+Tissue x Stage Matrix<br>
+
+- Scrum bob: <a href="http://scrumbob.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dstagegridtab%26structureIDFilter%3DEMAPA%3A16042%26structureIDFilter%3DEMAPA%3A16246%26structureIDFilter%3DEMAPA%3A16105%26structureIDFilter%3DEMAPA%3A17525" target="blank">Tissue x Stage Matrix</a> (open Anatomical System Filter)<p>
+
+- Public: <a href="http://www.informatics.jax.org/gxd#gxd=nomenclature%3DSox*%26vocabTerm%3D%26annotationId%3D%26locations%3D%26structure%3D%26structureID%3D%26theilerStage%3D0%26results%3D100%26startIndex%3D0%26sort%3D%26dir%3Dasc%26tab%3Dstagegridtab%26structureIDFilter%3DEMAPA%3A16042%26structureIDFilter%3DEMAPA%3A16246%26structureIDFilter%3DEMAPA%3A16105%26structureIDFilter%3DEMAPA%3A17525" target="blank">Tissue x Stage Matrix</a> (open Anatomical System Filter)<br>
+Note that several unchecked Anatomical Systems appear in the popup in addition to the Systems selected in the Matirx.<p>
+
+Tissue x Gene Matrix<br>
+The same results are observed.
+
+</UL>
+<p>
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/28/15)</font><br><br>
+
+
+</OL>
+
+<p>
+
+
+</UL>
+
+
+
+
+<LI>Verify Anatomical System Filters work with other "Filter expression by:" filters (Assay Type, Detected?, Theiler Stage, Wild type?) and with other matrix filters (Theiler Stage and Gene).<p>
+Test Process: No specific test case is presented here, since many different filter combinations were explored.  Starting with Expression Query by Sox*, several combinations of "Filter expression by:" filters and Matrix filters were executed with or without Anatomical System filters.  All filter combinations appeared to work consistently and according to expectation.<br><br> 
+
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/28/15)</font><br><br>
+
+
+
+
+<li>Verify Browser Compatibility<br>
+Browser Compatibility has been evaluated for Expression Filters elsewhere, and exhaustive Browser testing should not be necessary here.  A few Browsers on the Mac OS were checked, and results were consistent across these Browsers.<p>
+
+Browsers tested:<br>
+- Mac: Firefox, Chrome, Sarari<br>
+<br>
+
+<b>Test Result</b>: <font color="#659D32"><b>PASS</b></font>&nbsp;&nbsp;<font size=-1>(rmb, 4/28/15)</font><br><br>
+   </li>
+
+</OL>
+
+    	    </ol></li>
+    	    <br><br>
+
+
+    </OL>	    
+       	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
