@@ -1,0 +1,239 @@
+
+
+US168_testing
+TR11004 addition of an extra apostrophe ('') to EMAPA term synonyms.
+
+
+Test Requirements
+
+1) Confirm that the extra apostrophes have been removed from EMAPA and EMAPS synonyms on DEV_MGI..mgd_bob, and verify that the single apostrophe (') versions of these synonyms are present.
+
+2) Confirm that the extra apostrophes have been removed from the bcp files produced for the EMAPA/EMAPS load, and verify that the single apostrophe (') versions of these synonyms are present.
+
+
+
+
+Testing
+
+1) Confirm that the extra apostrophes have been removed from EMAPA and EMAPS synonyms on DEV_MGI..mgd_bob, and verify that the single apostrophe (') versions of these synonyms are present.
+
+The following Query counts synonyms with a double apostorphe in all MGI vocabularies.  Note that there are some synonyms for GO and MP terms that also have the double apostrophe.  A follow-up user story may be wanted to address these cases, but for US168, only the EMAPA and EMAPS synonyms are addressed.
+
+select v.name, count(distinct s.synonym) as "synonyms"
+from MGI_synonym s, VOC_Term t, VOC_Vocab v
+where s._MGIType_key = 13
+and synonym like "%''%"
+and t._Vocab_key = v._Vocab_key
+and s._Object_key = t._Term_key
+GROUP BY v.name
+
+Results from sybase : DEV_MGI..mgd 
+name	synonyms
+EMAPA	10
+EMAPS	10
+GO	149
+Mammalian Phenotype	20
+
+
+Results from sybase : DEV_MGI..mgd_bob
+name	synonyms
+GO	144
+Mammalian Phenotype	20 
+ 
+
+
+The following query shows which terms in EMAPA and EMAPS have synonyms with the double apostrophe on DEV_MGI..mgd, and that these are now gone on DEV_MGI..mgd_bob.
+
+select distinct t.term, v.name,  s.synonym
+from MGI_synonym s, VOC_Term t, VOC_Vocab v
+where s._MGIType_key = 13
+and synonym like "%''%"
+and v.name in ("EMAPA", "EMAPS")
+and t._Vocab_key = v._Vocab_key
+and s._Object_key = t._Term_key
+
+Results from sybase : DEV_MGI..mgd 
+24 rows returned
+
+Row #	term	name	synonym
+1	urethral gland of clitoral urethra	EMAPS	Skene''s gland of clitoral urethra
+2	urethral gland of pelvic urethra of female	EMAPS	Skene''s gland of clitoral urethra
+3	urethral gland of clitoral urethra	EMAPA	Skene''s gland of clitoral urethra
+4	urethral gland of pelvic urethra of female	EMAPA	Skene''s gland of clitoral urethra
+5	female urethral gland	EMAPS	Skene''s gland
+6	female urethral gland	EMAPA	Skene''s gland
+7	vestibulocochlear VIII ganglion vestibular component	EMAPS	Scarpa''s ganglion
+8	vestibulocochlear VIII ganglion vestibular component	EMAPA	Scarpa''s ganglion
+9	sphenopalatine ganglion	EMAPS	Meckel''s ganglion
+10	sphenopalatine ganglion	EMAPA	Meckel''s ganglion
+11	vomeronasal organ	EMAPS	Jacobson''s organ
+12	vomeronasal organ	EMAPA	Jacobson''s organ
+13	node	EMAPS	Henson''s node
+14	node	EMAPA	Henson''s node
+15	bulbourethral gland of male	EMAPS	Cowper''s gland
+16	bulbourethral gland of male	EMAPA	Cowper''s gland
+17	urinary space of mature renal corpuscle	EMAPS	Bowman''s space
+18	urinary space of maturing renal corpuscle	EMAPS	Bowman''s space
+19	urinary space of mature renal corpuscle	EMAPA	Bowman''s space
+20	urinary space of maturing renal corpuscle	EMAPA	Bowman''s space
+21	bulbourethral gland of female	EMAPS	Bartholin''s gland
+22	bulbourethral gland of female	EMAPA	Bartholin''s gland
+23	hippocampus	EMAPS	Ammon''s horn
+24	hippocampus	EMAPA	Ammon''s horn
+
+
+Results from sybase : DEV_MGI..mgd_bob
+0 rows returned
+
+
+
+The following query confirms that the correct version of these synonyms are present on DEV_MGI..mgd_bob.
+
+select distinct t.term, v.name, s.synonym
+from MGI_synonym s, VOC_Term t, VOC_Vocab v
+where s._MGIType_key = 13
+and synonym like "%'%"
+and v.name in ("EMAPA", "EMAPS")
+and t._Vocab_key = v._Vocab_key
+and s._Object_key = t._Term_key
+
+Results from sybase : DEV_MGI..mgd_bob
+24 rows returned
+
+Row #	term	name	synonym
+1	urethral gland of clitoral urethra	EMAPS	Skene's gland of clitoral urethra
+2	urethral gland of pelvic urethra of female	EMAPS	Skene's gland of clitoral urethra
+3	urethral gland of clitoral urethra	EMAPA	Skene's gland of clitoral urethra
+4	urethral gland of pelvic urethra of female	EMAPA	Skene's gland of clitoral urethra
+5	female urethral gland	EMAPS	Skene's gland
+6	female urethral gland	EMAPA	Skene's gland
+7	vestibulocochlear VIII ganglion vestibular component	EMAPS	Scarpa's ganglion
+8	vestibulocochlear VIII ganglion vestibular component	EMAPA	Scarpa's ganglion
+9	sphenopalatine ganglion	EMAPS	Meckel's ganglion
+10	sphenopalatine ganglion	EMAPA	Meckel's ganglion
+11	vomeronasal organ	EMAPS	Jacobson's organ
+12	vomeronasal organ	EMAPA	Jacobson's organ
+13	node	EMAPS	Henson's node
+14	node	EMAPA	Henson's node
+15	bulbourethral gland of male	EMAPS	Cowper's gland
+16	bulbourethral gland of male	EMAPA	Cowper's gland
+17	urinary space of mature renal corpuscle	EMAPS	Bowman's space
+18	urinary space of maturing renal corpuscle	EMAPS	Bowman's space
+19	urinary space of mature renal corpuscle	EMAPA	Bowman's space
+20	urinary space of maturing renal corpuscle	EMAPA	Bowman's space
+21	bulbourethral gland of female	EMAPS	Bartholin's gland
+22	bulbourethral gland of female	EMAPA	Bartholin's gland
+23	hippocampus	EMAPS	Ammon's horn
+24	hippocampus	EMAPA	Ammon's horn 
+
+
+Test Result: PASS (5/5/15) - rmb
+
+
+2) Confirm that the extra apostrophes have been removed from the bcp files produced for the EMAPA/EMAPS load, and verify that the single apostrophe (') versions of these synonyms are present.
+
+Production bcp file paths:
+lindon:/data/loads/mgi/emapload/output/MGI_Synonym.a.bcp
+lindon:/data/loads/mgi/emapload/output/MGI_Synonym.s.bcp
+
+Scrum-bob bcp file paths:
+rohan:/data/loads/scrum-bob/mgi/emapload/output/MGI_Synonym.a.bcp
+rohan:/data/loads/scrum-bob/mgi/emapload/output/MGI_Synonym.s.bcp
+
+Note that only a few synonyms are listed here, but this shows that the expected results are present in these bcp files.
+ 
+
+-----------------
+From EMAPA_synonym bcp file (Production)
+
+53312273|14409919|13|1017|202491|Ammon''s horn||||
+
+53312007|14408011|13|1017|202491|Bowman''s space||||
+53312523|14411461|13|1017|202491|Bowman''s space||||
+
+53311647|14405650|13|1017|202491|Jacobson''s organ||||
+
+-----------------
+From EMAPS_synonym bcp file (Production)
+
+53316242|14432378|13|1017|202491|Ammon''s horn||||
+53316244|14432379|13|1017|202491|Ammon''s horn||||
+53316246|14432380|13|1017|202491|Ammon''s horn||||
+53316248|14432381|13|1017|202491|Ammon''s horn||||
+53316250|14432382|13|1017|202491|Ammon''s horn||||
+53316252|14432383|13|1017|202491|Ammon''s horn||||
+53316254|14432384|13|1017|202491|Ammon''s horn||||
+
+53314656|14423759|13|1017|202491|Bowman''s space||||
+53314657|14423760|13|1017|202491|Bowman''s space||||
+53314658|14423761|13|1017|202491|Bowman''s space||||
+53314659|14423762|13|1017|202491|Bowman''s space||||
+53314660|14423763|13|1017|202491|Bowman''s space||||
+53314661|14423764|13|1017|202491|Bowman''s space||||
+53317689|14439479|13|1017|202491|Bowman''s space||||
+53317690|14439480|13|1017|202491|Bowman''s space||||
+53317691|14439481|13|1017|202491|Bowman''s space||||
+53317692|14439482|13|1017|202491|Bowman''s space||||
+
+53312701|14412892|13|1017|202491|Jacobson''s organ||||
+53312702|14412893|13|1017|202491|Jacobson''s organ||||
+53312703|14412894|13|1017|202491|Jacobson''s organ||||
+53312704|14412895|13|1017|202491|Jacobson''s organ||||
+53312705|14412896|13|1017|202491|Jacobson''s organ||||
+53312706|14412897|13|1017|202491|Jacobson''s organ||||
+53312707|14412898|13|1017|202491|Jacobson''s organ||||
+53312708|14412899|13|1017|202491|Jacobson''s organ||||
+53312709|14412900|13|1017|202491|Jacobson''s organ||||
+
+
+
+-----------------
+From EMAPA_synonym bcp file (Scrum-bob)
+
+53131776|14342780|13|1017|202491|Ammon's horn||||
+
+53131136|14338350|13|1017|202491|Bowman's space||||
+53131793|14342828|13|1017|202491|Bowman's space||||
+
+53131659|14341990|13|1017|202491|Jacobson's organ||||
+
+
+-----------------
+From EMAPS_synonym bcp file (Scrum-bob)
+
+53136652|14369470|13|1017|202491|Ammon's horn||||
+53136654|14369471|13|1017|202491|Ammon's horn||||
+53136656|14369472|13|1017|202491|Ammon's horn||||
+53136658|14369473|13|1017|202491|Ammon's horn||||
+53136660|14369474|13|1017|202491|Ammon's horn||||
+53136662|14369475|13|1017|202491|Ammon's horn||||
+53136664|14369476|13|1017|202491|Ammon's horn||||
+
+53133023|14349085|13|1017|202491|Bowman's space||||
+53133024|14349086|13|1017|202491|Bowman's space||||
+53133025|14349087|13|1017|202491|Bowman's space||||
+53133026|14349088|13|1017|202491|Bowman's space||||
+53133027|14349089|13|1017|202491|Bowman's space||||
+53133028|14349090|13|1017|202491|Bowman's space||||
+53136760|14369669|13|1017|202491|Bowman's space||||
+53136761|14369670|13|1017|202491|Bowman's space||||
+53136762|14369671|13|1017|202491|Bowman's space||||
+53136763|14369672|13|1017|202491|Bowman's space||||
+
+53135971|14365757|13|1017|202491|Jacobson's organ||||
+53135972|14365758|13|1017|202491|Jacobson's organ||||
+53135973|14365759|13|1017|202491|Jacobson's organ||||
+53135974|14365760|13|1017|202491|Jacobson's organ||||
+53135975|14365761|13|1017|202491|Jacobson's organ||||
+53135976|14365762|13|1017|202491|Jacobson's organ||||
+53135977|14365763|13|1017|202491|Jacobson's organ||||
+53135978|14365764|13|1017|202491|Jacobson's organ||||
+53135979|14365765|13|1017|202491|Jacobson's organ||||
+
+
+Test Result: PASS (5/5/15) - rmb
+
+
+
+
+
