@@ -27,53 +27,58 @@
 
 <div id="acceptance">
     <h2>Test Requirements</h2>
-    
+    <p>
     Richard has written a detailed requirements document for the conversion to NCBI Blast.  This list of requirements
     is limited to the Marker Detail work in US 2.  It is a summary level list used to guide creation of test cases.  See the
-    document for implementation details.  (add link here)
-    
+    document for implementation details.  <a href="http://prodwww.informatics.jax.org/all/wts_projects/10500/10539/NCBIblast_Requirements.docx)">NCBIblast_Requirements.docx</a>.  This document is in TR10539.
+    </p>
     <ol>
       <li>Convert the "forward to MouseBlast" option in the Sequence ribbon to "forward to NCBI BLAST"</li>
-      <li>Convert the check boxes in the Sequence ribbon to radio buttons (limit to 1 sequence at a time)
-      <ul><li>Note: this also will limit the FASTA download to 1 sequence at a time</li></ul></li>
+      <li>Convert the check boxes in the Sequence ribbon to radio buttons (limits to 1 sequence at a time)
+      <ul><li>Note: this also will limit the FASTA download to 1 sequence at a time</li>
+          <li>Continue to trap the error of forwarding to blast without selecting a sequence (currently part of the Forward to MouseBlast page)</li>
+      </ul></li>
       <li>Link directly to NCBI Blast -- no longer use the "Forward to MouseBLAST" page (retire)
-          <ul><li>Create new tab or window? (Richard will ask sequence group)</li></ul></li>
+          <ul><li>Display NCBI Blast in new tab or window? (Richard will ask sequence group)</li></ul></li>
       <li>Forward sequences by accession id
          <ul>
          <li>Sequence accession ids valid in NCBI BLAST URL
-            <ol><li>GenBank (LogicalDB=9)</li>
-              <li>SWISS PROT (13)</li>
-              <li>RefSeq (27)</li>
+            <ol><li>GenBank (nucleotide; LogicalDB=9)</li>
+              <li>SWISS PROT (protein; 13)</li>
+              <li>RefSeq (nucleotide; 27)</li>
             </ol></li>
          <li>URL structure/parameters per requirements document (link above)</li>
-         <li>Any error (e.g. not a valid id) is handled by NCBI Blast interface.</li>
+         <li>Errors - no error trapping on MGI's side of the fence for this type of blast.  NCBI Blast
+             will display an error message if the Accession ID in the URL is not recognized.</li>
          </ul></li>
       <li>Forward gene model sequences by FASTA format using coordinates and genome assembly files (nib files)
       <ul>
       <li>Types of Gene Models in MGI
-        <ol><li>NCBI Gene Model (LogicalDB=59)</li>
-          <li>Ensembl Gene Model (60)</li>
-          <li>VEGA Gene Model (85)</li>
+        <ol><li>NCBI Gene Model (nucleotide; LogicalDB=59)</li>
+          <li>Ensembl Gene Model (nucleotide; 60)</li>
+          <li>VEGA Gene Model (nucleotide; 85)</li>
         </ol></li>
-      <li>Flanking sequence</li>
-      <li>FASTA format</li>
-      <li>Errors</li>
+      <li>Flanking sequence - recognize the request of flanking sequence
+      <ul><li>Note: the flanking sequence is displayed, but ignored for genomic sequences that are not gene models.  This public bug is not addressed </ul></li>
+      <li>FASTA format = URL/parameters (see doc) + ">" + existing text from SeqFetch + carriage return + the actual sequence</li>
+      <li>Errors: nothing to trap on MGI side</li>
       </ul></li>
-      <li>Forward sequences by FASTA format from EMBOSS
+      <li>Forward sequences by FASTA format retrieved from EMBOSS
       <ul>
-      <li>Types of sequence accession ids to find in EMBOSS
-      <ol><li>TrEMBL (LogicalDB=41)</li>
-          <li>Ensembl Transcript (133)</li>
-          <li>Ensembl Protein (134)</li>
-          <li>VEGA Transcript (131)</li>
-          <li>VEGA Protein (132)</li>
-          <li>DFCI (35)</li>
-          <li>DoTS (36)</li>
-          <li>NIA Mouse Gene Index (53)</li>
+      <li>Types of sequence accession ids to retrieve from EMBOSS
+      <ol><li>TrEMBL (protein; LogicalDB=41)</li>
+          <li>Ensembl Transcript (nucleotide; 133)</li>
+          <li>Ensembl Protein (protein; 134)</li>
+          <li>VEGA Transcript (nucleotide; 131)</li>
+          <li>VEGA Protein (protein; 132)</li>
+          <li>DFCI (nucleotide; 35)</li>
+          <li>DoTS (nucleotide; 36)</li>
+          <li>NIA Mouse Gene Index (nucleotide; 53)</li>
       </ol></li>
-      <li>FASTA format</li>
-      <li>Errors</li>
+      <li>FASTA format = URL w/parameters (see doc) + ">" + sequence accession id + Carriage return + the actual sequence</li>
+      <li>Inform users if we can't retrieve the sequence from EMBOSS.  Error message: <i>An error occurred while trying to retrieve your sequence from our EMBOSS repository.</i></li>
       </ul></li>
+      <li>No limit to the length of sequence to pass to NCBI Blast is defined.</li>
     </ol>   
    
 </div>
