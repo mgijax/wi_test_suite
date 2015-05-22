@@ -28,9 +28,52 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
     
+    Richard has written a detailed requirements document for the conversion to NCBI Blast.  This list of requirements
+    is limited to the Marker Detail work in US 2.  It is a summary level list used to guide creation of test cases.  See the
+    document for implementation details.  (add link here)
+    
     <ol>
-      <li>req 1</li>
-      <li>req 2</li>
+      <li>Convert the "forward to MouseBlast" option in the Sequence ribbon to "forward to NCBI BLAST"</li>
+      <li>Convert the check boxes in the Sequence ribbon to radio buttons (limit to 1 sequence at a time)
+      <ul><li>Note: this also will limit the FASTA download to 1 sequence at a time</li></ul></li>
+      <li>Link directly to NCBI Blast -- no longer use the "Forward to MouseBLAST" page (retire)
+          <ul><li>Create new tab or window? (Richard will ask sequence group)</li></ul></li>
+      <li>Forward sequences by accession id
+         <ul>
+         <li>Sequence accession ids valid in NCBI BLAST URL
+            <ol><li>GenBank (LogicalDB=9)</li>
+              <li>SWISS PROT (13)</li>
+              <li>RefSeq (27)</li>
+            </ol></li>
+         <li>URL structure/parameters per requirements document (link above)</li>
+         <li>Any error (e.g. not a valid id) is handled by NCBI Blast interface.</li>
+         </ul></li>
+      <li>Forward gene model sequences by FASTA format using coordinates and genome assembly files (nib files)
+      <ul>
+      <li>Types of Gene Models in MGI
+        <ol><li>NCBI Gene Model (LogicalDB=59)</li>
+          <li>Ensembl Gene Model (60)</li>
+          <li>VEGA Gene Model (85)</li>
+        </ol></li>
+      <li>Flanking sequence</li>
+      <li>FASTA format</li>
+      <li>Errors</li>
+      </ul></li>
+      <li>Forward sequences by FASTA format from EMBOSS
+      <ul>
+      <li>Types of sequence accession ids to find in EMBOSS
+      <ol><li>TrEMBL (LogicalDB=41)</li>
+          <li>Ensembl Transcript (133)</li>
+          <li>Ensembl Protein (134)</li>
+          <li>VEGA Transcript (131)</li>
+          <li>VEGA Protein (132)</li>
+          <li>DFCI (35)</li>
+          <li>DoTS (36)</li>
+          <li>NIA Mouse Gene Index (53)</li>
+      </ol></li>
+      <li>FASTA format</li>
+      <li>Errors</li>
+      </ul></li>
     </ol>   
    
 </div>
