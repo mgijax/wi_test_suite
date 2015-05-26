@@ -60,7 +60,7 @@
         </ol></li>
       <li>Flanking sequence - recognize the request of flanking sequence
       <ul><li>Note: the flanking sequence is displayed, but ignored for genomic sequences that are not gene models.  This public bug is not addressed </ul></li>
-      <li>FASTA format = URL/parameters (see doc) + ">" + existing text from SeqFetch + carriage return + the actual sequence</li>
+      <li>FASTA format = URL/parameters (see doc) +   &quot;&gt;&quot; + existing text from SeqFetch + carriage return + the actual sequence</li>
       <li>Errors: nothing to trap on MGI side</li>
       </ul></li>
       <li>Forward sequences by FASTA format retrieved from EMBOSS
@@ -75,7 +75,7 @@
           <li>DoTS (nucleotide; 36)</li>
           <li>NIA Mouse Gene Index (nucleotide; 53)</li>
       </ol></li>
-      <li>FASTA format = URL w/parameters (see doc) + ">" + sequence accession id + Carriage return + the actual sequence</li>
+      <li>FASTA format = URL w/parameters (see doc) + "&gt;" + sequence accession id + Carriage return + the actual sequence</li>
       <li>Inform users if we can't retrieve the sequence from EMBOSS.  Error message: <i>An error occurred while trying to retrieve your sequence from our EMBOSS repository.</i></li>
       </ul></li>
       <li>No limit to the length of sequence to pass to NCBI Blast is defined.</li>
@@ -95,12 +95,63 @@
 		<h3>Manual tests</h3>
 		
 		<ol>
-    	    
-    	    <li>Test 1
+		
+		    <li>Forward GenBank nucleotide GENOMIC sequences by accession id
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>test 1.1</li>
-    		  </ol></li>
+    		  <li>Display marker with Genomic = GenBank id; Xxx; don't enter flanking.  Expected results: sequence forwarded to NCBI Blast. </li>
+    		  <li>For above marker enter flanking sequence.  Expected results: Same as above; flanking is ignored.  Known issue; low priority.</li>
+    		</ol></li>
+    	    
+    	    <li>Forward GenBank and RefSeq nucleotide TRANSCRIPT sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with Transcript = GenBank id; Xxx.  Expected results: sequence forwarded to NCBI Blast. </li>
+    		  <li>Display marker with Transcript = RefSeq NM id; Xxx.  Expected results: sequence forwarded to NCBI Blast.</li>
+    		  <li>Display marker with Transcript = RefSeq XM id; Xxx.  Expected results:  seq forwarded to NCBI Blast.</li>
+    		</ol></li>
+    		
+    		<li>Forward SWISS-PROT and RefSeq PROTEIN sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with Protein = SWISS-PROT id; Xxx.  Expected results: sequence forwarded to NCBI Blast. </li>
+    		  <li>Display marker with Protein = RefSeq NP id; Xxx.  Expected results: sequence forwarded to NCBI Blast.</li>
+    		  <li>Display marker with Protein = RefSeq XP id; Xxx.  Expected results:  seq forwarded to NCBI Blast.</li>
+    		</ol></li>
+    		
+    		<li>Forward Gene Model nucleotide GENOMIC sequences in FASTA format - no flanking sequence
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with Genomic = NCBI gene model, Xxx.  Expected results: Display to populated NCBI Blast QF. </li>
+    		  <li>Display marker with Genomic = Ensembl gene model, Xxx.  Expected results: Display populated NCBI Blast QF.</li>
+    		  <li>Display marker with Genoic = VEGA gene model, XXX.  Expected results: Display populated NCBI Blast QF.</li>
+    		</ol></li>
+    		
+    		<li>Forward Gene Model nucleotide GENOMIC sequences in FASTA format with flanking sequence
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with a relatively short genomic sequence; Xxx.  Add 1 kb of flanking seq.  Expected results: Display to populated NCBI Blast QF. </li>
+    		  <li>Display marker with a relatively short genomic sequence; Xxx.  Add 10 kb of flanking seq.  Expected results: Display populated NCBI Blast QF.</li>
+    		  <li>Display marker with a long genomic sequence; Xxx.  Add 5 kb of flanking seq.  Expected results: Display populated NCBI Blast QF.</li>
+    		</ol></li>
+    		
+    		<li>Forward nucleotide TRANSCRIPT sequences in FASTA format
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with Transcript = Ensembl Transcript id; Xxx.  Expected results: sequence forwarded to NCBI Blast. </li>
+    		  <li>Display marker with Transcript = VEGA Transcript id; Xxx.  Expected results: sequence forwarded to NCBI Blast.</li>
+    		  <li>Display marker with Transcript = DFCI id; Xxx.  Expected results:  seq forwarded to NCBI Blast.</li>
+    		  <li>Display marker with Transcript = DoTS id; Xxx.  Expected results: sequence forwarded to NCBI Blast. </li>
+    		  <li>Display marker with Transcript = NIA Mouse Gene Index id; Xxx.  Expected results: sequence forwarded to NCBI Blast.</li>
+    		</ol></li>
+    		
+    		<li>Forward PROTEIN sequences in FASTA format
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with Protein = TrEMBL id; Xxx.  Expected results: sequence forwarded to NCBI Blast. </li>
+    		  <li>Display marker with Protein = Ensembl protein id; Xxx.  Expected results: sequence forwarded to NCBI Blast.</li>
+    		  <li>Display marker with Protein = VEGA Protein id; Xxx.  Expected results:  seq forwarded to NCBI Blast.</li>
+    		</ol></li>
     	   
 		</ol>
     	    
