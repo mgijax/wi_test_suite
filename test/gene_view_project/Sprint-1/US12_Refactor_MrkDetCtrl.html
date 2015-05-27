@@ -125,6 +125,14 @@
     		  <li>Display Blite (5 ribbons).  Expect: same as Public</li>
     		  <li>Display Tcrd-V8 (8 ribbons).  Expect: same as Public</li>
     		</ol></li>
+    		
+    		<li>Search for transgenes in the Quick Search to verify the redirect to the Allele Detail
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Search for transgene marker with only 1 allele; Tg(ACTB-APP)1Colm.  Expect: link to Allele Detail.</li>
+    		  <li>Search for transgene marker with multiple alleles; xxxx.  Expect: link to Marker Detail. NOTE: There is currently no transgene marker with multiple alleles.</li>
+    		  
+    		</ol></li> 
     	   
 		</ol>
     	    
