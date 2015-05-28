@@ -63,6 +63,8 @@
            <li>multiple human markers</li>
         </ol></li>
         <li>Ensure that transgene links are redirected to the Allele Detail when appropriate</li>
+        <li>NOTE: MINI-MAP does not display on Scrum Bob WI (Linux issue); this is a known issue and 
+            nothing to do with these changes.</li>
     
     
     </ol>   
@@ -83,7 +85,7 @@
 		<ol>
 		
 		    <li>Check markers that have a full complement of data
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/27/15</p>  
     		<ol>
     		  <li>Display Tyr - 19 ribbons (SNPs w/ mult loc).  Expect: same as Public</li>
     	      <li>Display Wnt1 - 18 ribbons (Mutation involves, disease refs).  Expect: same as Public</li>
@@ -91,32 +93,32 @@
     		</ol></li>
     		
     		<li>Check marker with Strain Specific icon/pop-up
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/27/15</p>  
     		<ol>
     		  <li>Display Ren2 (16 ribbons).  Expect: same as Public</li>
     		</ol></li>
     		
     		<li>Check markers that are clusters/cluster member
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/27/15</p>  
     		<ol>
     		  <li>Display cluster Amy (8 ribbons).</li>
     		  <li>Display cluster member Amy2b (14 ribbons).</li>
     		</ol></li>
     		
     		<li>Check marker with Biotype Conflict icon/pop-up
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/27/15</p>  
     		<ol>
     		  <li>Display Pclo (17 ribbons).  Expect: same as Public</li>
     		</ol></li>
     	    
     	    <li>Check marker with multiple human markers
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/27/15</p>  
     		<ol>
     		  <li>Display Ranbp2 (18 ribbons).  Expect: same as Public</li>
     		</ol></li> 
     	   
     	    <li>Check markers with various combinations of ribbons
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/27/15</p> 
     		<ol>
     		  <li>Display QTL Dbts1 (7 ribbons).  Expect: same as Public</li>
     		  <li>Display Sts (14 ribbons).  Expect: same as Public</li>
@@ -127,7 +129,7 @@
     		</ol></li>
     		
     		<li>Search for transgenes in the Quick Search to verify the redirect to the Allele Detail
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/27/15</p>  
     		<ol>
     		  <li>Search for transgene marker with only 1 allele; Tg(ACTB-APP)1Colm.  Expect: link to Allele Detail.</li>
     		  <li>Search for transgene marker with multiple alleles; xxxx.  Expect: link to Marker Detail. NOTE: There is currently no transgene marker with multiple alleles.</li>
