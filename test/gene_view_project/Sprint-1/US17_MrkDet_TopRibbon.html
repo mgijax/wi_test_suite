@@ -30,20 +30,21 @@
     <ol>
        <li>Combine the current Nomenclature, Synonyms, and Feature Type ribbons into 1 new ribbon.</li>
        <li>List fields in 2 columns with styling like the Allele Detail page.</li>
-       <li>Only list fields if values exist.</li>
-       <li>Display all fields -- options to display ribbon in open/close mode NOT part of this user story.</li>
+       <li>Only include labels if values exist.</li>
+       <li>Display in "open" state -- options to display ribbon in open/close mode NOT part of this user story.</li>
        <li>List the following fields in column 1 (when they exist)
-       <ol><li>Symbol (larger font; bold text) - display "Interim"?</li>
-           <li>Name - wrap for long name?</li>
-           <li>Synonyms - comma delimited list (wrap for long list?); optional</li>
-           <li>Cluster members - comma delimited teaser list of markers plus link with pop-up; optional</li>
-           <li>Member of - link to cluster marker; optional</li>
+       <ol><li>Symbol (larger font; bold text) - display "Interim" (e.g. Selk)</li>
+           <li>Name - wrap for long name</li>
+           <li>Synonyms - comma delimited list (wrap for long list); optional</li>
+           
        </ol></li>
        <li>List the following items in column 2 (when they exist)
        <ol><li>Feature type - assume only 1 type per marker for this user story</li>
            <li>MGI ID</li>
-           <li>BioType Conflict and/or Strain-Specific Marker icons with pop-ups; optional</li>
+           <li>Cluster members - comma delimited teaser list of markers plus link with pop-up; optional</li>
+           <li>Member of - link to cluster marker; optional</li>
        </ol></li>
+       <li>Below both columns display BioType Conflict and/or Strain-Specific Marker icons with pop-ups; optional</li>
     
     </ol>   
    
@@ -63,7 +64,7 @@
 		<ol>
 		
 		    <li>Verify the required fields display as expected (symbol, name, feature type, id)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/29/15</p>  
     		<ol>
     		  <li>Display marker with only the required fields; Gm30003.  Expect: only 4 fields displayed.</li>
     		  <li>Display marker with symbol with superscript; O&lt;hv&gt; MGI:97393.  Expect: hv displayed as superscript.</li>
@@ -76,7 +77,7 @@
     		</ol></li>
     		
     	    <li>Verify the synonyms are displayed as expected
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/29/15</p>  
     		<ol>
     		  <li>Display marker with 1 synonym; cw.</li>
     		  <li>Display marker with a long list of synonyms; Gal3st1.</li>
@@ -86,7 +87,7 @@
     		</ol></li>
     		
     		<li>Verify the cluster fields are displayed as expected
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/29/15</p>  
     		<ol>
     		  <li>Display marker with 3+ markers; Amy.</li>
     		  <li>Display marker with < 3 markers; Cd1.</li>
@@ -96,7 +97,7 @@
     		</ol></li>
     		
     		<li>Verify the strain specifc icons and pop-up
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/29/15</p>  
     		<ol>
     		  <li>Display marker with strain note and synonyms; Ren2.</li>
     		  <li>Display marker with strain note and no synonyms; Ear12.</li>
@@ -105,7 +106,7 @@
     		</ol></li>
     		
     		<li>Verify the biotype conflict icons and pop-up
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 5/29/15</p>   
     		<ol>
     		  <li>Display marker with biotype note and synonyms; Ptprv.</li>
     	      <li>Display marker with biotype note and no synonyms; Rny3.</li>
