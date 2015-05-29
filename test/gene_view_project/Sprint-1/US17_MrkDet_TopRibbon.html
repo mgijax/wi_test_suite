@@ -44,11 +44,6 @@
            <li>MGI ID</li>
            <li>BioType Conflict and/or Strain-Specific Marker icons with pop-ups; optional</li>
        </ol></li>
-           
-        
-       
-       
-    
     
     </ol>   
    
@@ -67,14 +62,54 @@
 		
 		<ol>
 		
-		    <li>Test 1
+		    <li>Verify the required fields display as expected (symbol, name, feature type, id)
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>test 1.1</li>
+    		  <li>Display marker with only the required fields; Gm30003.  Expect: only 4 fields displayed.</li>
+    		  <li>Display marker with symbol with superscript; O&lt;hv&gt; MGI:97393.  Expect: hv displayed as superscript.</li>
+    		  <li>Display marker with long symbol; 32.MMHAP50FRC11.seq (MGI:2135321). 
+    		  <li>Display marker with spec chars in symbol; Atp5b-rs.</li>
+    		  <li>Display marker with long name; Adamts4.  </li>
+    		  <li>Display marker with spec chars in name; B3Galt5.</li>
+    		  <li>Display marker with long feature type; Gm9884</li>
     	      
     		</ol></li>
     		
-    	
+    	    <li>Verify the synonyms are displayed as expected
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with 1 synonym; cw.</li>
+    		  <li>Display marker with a long list of synonyms; Gal3st1.</li>
+    		  <li>Display marker with a superscript in synonym (symbol and name too); MGI:3531160.</li>
+    		  <li>Display marker with special chars in synonym; Pax6 (quotation mark); Lepr (hyphen); Abce1 (parens); Tbca (ampersand).</li>
+    	      
+    		</ol></li>
+    		
+    		<li>Verify the cluster fields are displayed as expected
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with 3+ markers; Amy.</li>
+    		  <li>Display marker with < 3 markers; Cd1.</li>
+    		  <li>Display cluster member with conflict/strain warnings; Amy2b.</li>
+    		  <li>Display cluster member with no conflict/strain warnings; Gsta1.</li>
+    	      
+    		</ol></li>
+    		
+    		<li>Verify the strain specifc icons and pop-up
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with strain note and synonyms; Ren2.</li>
+    		  <li>Display marker with strain note and no synonyms; Ear12.</li>
+    		  <li>Display marker with strain and biotype warnings; Amy2b.</li>
+    	      
+    		</ol></li>
+    		
+    		<li>Verify the biotype conflict icons and pop-up
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with biotype note and synonyms; Ptprv.</li>
+    	      <li>Display marker with biotype note and no synonyms; Rny3.</li>
+    		</ol></li>
     	   
 		</ol>
     	    
