@@ -1,0 +1,158 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 20</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - Homology ribbon</h1>
+    <ul>
+        <li>US 20 - Marker detail: new homology ribbon (combine vertebrate homology and human homolog ribbons)</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+    <li>Combine the 2 ribbons: Vertebrate homology and Human homologs into 1 ribbon (with 2 sections)</li>
+    <li>Display the fields for the human homologs at the top of the ribbon.  Include the following fields:
+    <ol><li>Human Orthologs: human symbol, human name, orthology source</li>
+        <li>Links: HGNC, NCBI, neXtProt AC, HCOP (?)</li>
+        <li>Human Synonyms</li>
+        <li>Human Chr (Location)</li>
+    </ol></li>
+    <li>When no human orthologs are associated to the mouse gene none of these labels are displayed.</li>
+    <li>When multiple human orthologs are associated to the mouse gene repeat these fields for each one.</li>
+    <li>Display the fields for the Vertebrate homology:
+    <ol><li>HomoloGene: link to HomoloGene Homology Class page, list of organisms/counts in HomoloGene class</li>
+        <li>HCOP: link to HCOP for all human genes associated to mouse marker (?)</li>
+        <li>Protein SuperFamily: link</li>
+        <li>Gene Tree: link</li>
+    </ol></li>
+    <li>When data fields don't exist for a marker -- do not display the label</li>
+      
+    
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify display of human homolog portion of the ribbon; presence/absence of human orthologs
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with 1 human ortholog with all values; Brca1 and Pax6.</li>
+    		  <li>Display marker with many human orthologs; Ranbp2.</li>
+    		  <li>Display marker with 0 human orthologs; Mug2.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify display of human homolog portion of the ribbon; homology source
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with homology source: both; C4a.</li>
+    		  <li>Display marker with homology source: HGNC; Acan.</li>
+    		  <li>Display marker with homology source: HomoloGene; Tomt.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify display of human homolog portion of the ribbon; presence/absence of links
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with no HGNC id link; Selm.</li>
+    		  <li>Display marker with multiple nextprot ids; Tomt</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify display of human homolog portion of the ribbon; presence/absence of human synonyms
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with many human synonyms; Lepr.</li>
+    		  <li>Display marker with 0 human synonyms; Nsg2 and Bmi1.</li>
+    		  <li>Display marker with human synonyms with special chars (superscripts?); Xxx</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify display of human homolog portion of the ribbon; human chr/location
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with only a human chromosome; Zfp385c.</li>
+    		  <li>Display marker with no human location; Xxx.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify display of vertebrate portion of the ribbon; HomoloGene
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with all values for this section; Ren1.</li>
+    		  <li>Display marker with no HomoloGene data; Sln.  Expect: no display/link to homology class page; no organism list</li>
+    		  <li>Display marker with no human location; Xxx.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify display of human homolog portion of the ribbon; gene tree/protein superfamily
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with no Protein SuperFamily; Lrrc51</li>
+    		  <li>Display marker with no Gene Tree; Pclo.</li>
+    		  <li>Display marker with only PSF and GT links; MGI:4439772</li>
+    		  <li>Display marker with only PSF link: Ren2 and Sts.</li>
+    		  <li>Display marker with only GT link; Amy2b.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify display of new ribbon; different combinations of fields
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with HCOP and Gene Tree links; 1 Human Ortholog; Sacs and Eln</li>
+    		  <li>Display marker with HomoloGene and Gene Tree; no human gene; Hamp2.</li>
+    		  <li>Display marker with no homology ribbon at all; cw.</li>
+    		  
+    		</ol></li>
+    		
+    	   
+    	   
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
