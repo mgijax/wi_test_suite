@@ -79,7 +79,7 @@
       <li>FASTA format = URL w/parameters (see doc) + "&gt;" + sequence accession id + Carriage return + the actual sequence</li>
       <li>Inform users if we can't retrieve the sequence from EMBOSS.  Error message: <i>An error occurred while trying to retrieve your sequence from our EMBOSS repository.</i></li>
       </ul></li>
-      <li>No limit to the length of sequence to pass to NCBI Blast is defined.</li>
+      <li>No limit to the length of sequence to pass to NCBI Blast is defined.  Blasts that are longer than NCBI allows will be trapped by NCBI.</li>
       <li>Should work in all supported browsers</li>
     </ol>   
    
@@ -99,14 +99,14 @@
 		<ol>
 		
 		    <li>Forward GenBank nucleotide GENOMIC sequences by accession id
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/3/15</p>  
     		<ol>
     		  <li>Display marker with Genomic = GenBank id; Ren2; don't enter flanking.  Expected results: sequence K02597 forwarded to NCBI Blast (length = 640). </li>
     		  <li>For above marker enter flanking sequence (any value).  Expected results: Same as above; flanking is ignored, but sequence forwarded okay.  Known issue; low priority.</li>
     		</ol></li>
     	    
     	    <li>Forward GenBank and RefSeq nucleotide TRANSCRIPT sequences by accession id
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/3/15</p>  
     		<ol>
     		  <li>Display marker with Transcript = GenBank id; Olfr28.  Expected results: sequence X89682 forwarded to NCBI Blast. (length=472) </li>
     		  <li>Display marker with Transcript = RefSeq NM id; C4a.  Expected results: sequence NM_011413 forwarded to NCBI Blast. (length=5369)</li>
@@ -115,7 +115,7 @@
     		</ol></li>
     		
     		<li>Forward SWISS-PROT and RefSeq PROTEIN sequences by accession id
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/3/15</p>  
     		<ol>
     		  <li>Display marker with Protein = SWISS-PROT id; Sts.  Expected results: sequence P50427 forwarded to NCBI Blast. (length=624)</li>
     		  <li>Display marker with Protein = RefSeq NP id; Oas1e.  Expected results: sequence NP_660211 forwarded to NCBI Blast. (Length=356)</li>
@@ -123,7 +123,7 @@
     		</ol></li>
     		
     		<li>Forward Gene Model nucleotide GENOMIC sequences in FASTA format - no flanking sequence
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/3/15</p>  
     		<ol>
     		  <li>Display marker with Genomic = NCBI gene model, Ranbp2.  Expected results: Display sequence 19386 in populated NCBI Blast QF. (length=47304; chr=10) </li>
     		  <li>Display marker with Genomic = Ensembl gene model, Sln.  Expected results: Display sequence ENSMUSG00000042045 in populated NCBI Blast QF (length = 3594; chr=9).</li>
@@ -131,15 +131,16 @@
     		</ol></li>
     		
     		<li>Forward Gene Model nucleotide GENOMIC sequences in FASTA format with flanking sequence
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/3/15</p>  
     		<ol>
     		  <li>Display marker with a relatively short genomic sequence; Selm.  Add 1 kb of flanking seq.  Expected results: Display sequence OTTMUSG00000005021 (length=2668+flanking) to populated NCBI Blast QF. </li>
     		  <li>Display marker with a relatively short genomic sequence; Sry.  Add 10 kb of flanking seq.  Expected results: Display sequence OTTMUSG00000045384 (length=1188+flanking) to populated NCBI Blast QF.</li>
     		  <li>Display marker with a long genomic sequence; a (nonagouti).  Add 5 kb of flanking seq.  Expected results: Display sequence OTTMUSG00000015981 (length=259611+flanking) to populated NCBI Blast QF.</li>
+    		  <li>Forward genomic sequence with a large flanking value to exceed NCBI allowed length.  Add 9999 of flanking sequence.  Expected results: error message from NCBI.</li>
     		</ol></li>
     		
     		<li>Forward nucleotide TRANSCRIPT sequences in FASTA format
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/3/15</p>  
     		<ol>
     		  <li>Display marker with Transcript = Ensembl Transcript id; Acan.  Expected results: sequence ENSMUST00000032835 forwarded to NCBI Blast (length = 7355). </li>
     		  <li>Display marker with Transcript = VEGA Transcript id; Lep.  Expected results: sequence OTTMUST00000091731 forwarded to NCBI Blast (length = 3259)</li>
@@ -149,7 +150,7 @@
     		</ol></li>
     		
     		<li>Forward PROTEIN sequences in FASTA format
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/3/15</p>  
     		<ol>
     		  <li>Display marker with Protein = TrEMBL id; Mtag2.  Expected results: sequence P97815 forwarded to NCBI Blast. (length=140) </li>
     		  <li>Display marker with Protein = Ensembl protein id; Tyr.  Expected results: sequence ENSMUSP00000004770 forwarded to NCBI Blast (length = 533).</li>
@@ -157,7 +158,7 @@
     		</ol></li>
     		
     		<li>Verify error messages displayed in MGI blast options
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/3/15</p>  
     		<ol>
     		  <li>Attempt to forward a sequence without selecting one of the sequences.  Display error message to user. </li>
     		  <li>Attempt to forward a sequence that is not found in EMBOSS.  Display error message to user.</li>
@@ -165,7 +166,7 @@
     		</ol></li>
     		
     		<li>Verify blast works in all supported browsers (Firefox; Safari; Chrome)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/3/15</p>  
     		</li>
     	   
 		</ol>
