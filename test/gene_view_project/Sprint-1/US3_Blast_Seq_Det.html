@@ -1,0 +1,242 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US3: Blast/Seq Detail</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>MouseBlast - Sequence Detail</h1>
+    <ul>
+        <li>US 2 - Replace MouseBlast - Sequence Detail</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <p>
+    Richard has written a detailed requirements document for the conversion to NCBI Blast.  This list of requirements
+    is limited to the Sequence Detail work in US 3.  It is a summary level list used to guide creation of test cases.  See the
+    document for implementation details.  <a href="http://prodwww.informatics.jax.org/all/wts_projects/10500/10539/NCBIblast_Requirements.docx)">NCBIblast_Requirements.docx</a>.  This document is in TR10539.
+    </p>
+    <ol>
+      <li>Convert the "forward to MouseBlast" option in the Sequence ribbon to "forward to NCBI BLAST"</li>
+      <li>Send sequence to NCBI Blast; create new tab</li>
+      <li>FASTA downloads from the sequence ribbon continues to return the same results.</li>
+      <li>Forward mouse sequences by accession id
+         <ul>
+         <li>Sequence accession ids valid in NCBI BLAST URL
+            <ol><li>GenBank (nucleotide; LogicalDB=9)</li>
+              <li>SWISS PROT (protein; 13)</li>
+              <li>RefSeq (nucleotide &amp; protein; 27)</li>
+            </ol></li>
+         <li>URL structure/parameters per requirements document (link above)</li>
+         <li>Errors - no error trapping on MGI's side of the fence for this type of blast.  NCBI Blast
+             will display an error message if the Accession ID in the URL is not recognized.</li>
+         </ul></li>
+      <li>Forward mouse gene model sequences by FASTA format using coordinates and genome assembly files (nib files)
+      <ul>
+      <li>Types of Gene Models in MGI
+        <ol><li>NCBI Gene Model (nucleotide; LogicalDB=59)</li>
+          <li>Ensembl Gene Model (nucleotide; 60)</li>
+          <li>VEGA Gene Model (nucleotide; 85)</li>
+        </ol></li>
+      <li>Flanking sequence - recognize the request of flanking sequence</li>
+      <li>FASTA format = URL/parameters (see doc) +   &quot;&gt;&quot; + existing text from SeqFetch + carriage return + the actual sequence</li>
+      <li>Errors: nothing to trap on MGI side</li>
+      </ul></li>
+      <li>Forward mouse sequences by FASTA format retrieved from EMBOSS
+      <ul>
+      <li>Types of sequence accession ids to retrieve from EMBOSS
+      <ol><li>TrEMBL (protein; LogicalDB=41)</li>
+          <li>Ensembl Transcript (nucleotide; 133)</li>
+          <li>Ensembl Protein (protein; 134)</li>
+          <li>VEGA Transcript (nucleotide; 131)</li>
+          <li>VEGA Protein (protein; 132)</li>
+          <li>DFCI (nucleotide; 35)</li>
+          <li>DoTS (nucleotide; 36)</li>
+          <li>NIA Mouse Gene Index (nucleotide; 53)</li>
+      </ol></li>
+      <li>FASTA format = URL w/parameters (see doc) + "&gt;" + sequence accession id + Carriage return + the actual sequence</li>
+      <li>Inform users if we can't retrieve the sequence from EMBOSS.  Error message: <i>An error occurred while trying to retrieve your sequence from our EMBOSS repository.</i></li>
+      </ul></li>
+      <li>Forward non-mouse nucleotide sequences by accession id
+      <ul>
+         <li>Non-mouse Sequence accession ids valid in NCBI BLAST URL
+            <ol><li>GenBank (nucleotide; LogicalDB=9)</li>
+              <li>SWISS PROT (protein; 13)</li>
+              <li>RefSeq (nucleotide &amp; protein; 27)</li>
+            </ol></li>
+         <li>URL structure/parameters per requirements document (does not set repeats filter)</li>
+         <li>Errors - no error trapping on MGI's side of the fence for this type of blast.  NCBI Blast
+             will display an error message if the Accession ID in the URL is not recognized.</li>
+         </ul></li>
+         
+       <li>Forward sequences by accession id with "Not Loaded" sequence type and organism
+      <ul>
+         <li>Not Loaded Sequence accession ids valid in NCBI BLAST URL
+            <ol><li>GenBank sequences (recognize by provider key)</li>
+              <li>RefSeq nucleotide sequences; NG, XR, XM, NM (recognize by provider key/prefix)</li>
+              <li>RefSeq protein sequences; NP, XP (recognize by provider key/prefix)</li>
+            </ol></li>
+         <li>URL structure/parameters per requirements document</li>
+         <li>Errors - no error trapping on MGI's side of the fence for this type of blast.  NCBI Blast
+             will display an error message if the Accession ID in the URL is not recognized.</li>
+         </ul></li>
+      
+      
+      <li>No limit to the length of sequence to pass to NCBI Blast is defined.  Blasts that are longer than NCBI allows will be trapped by NCBI.</li>
+      <li>Should work in all supported browsers</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Forward mouse GenBank nucleotide sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display nucleotide GenBank sequence; K02597.  Expected results: sequence K02597 forwarded to NCBI Blast (length = 640). </li>
+    		  <li>Display nucleotide GenBank sequence; X89682.  Expected results: sequence X89682 forwarded to NCBI Blast. (length=472) </li>
+    		</ol></li>
+    	    
+    	    <li>Forward mouse RefSeq nucleotide sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  
+    		  <li>Display RefSeq NM id; NM_011413.  Expected results: sequence NM_011413 forwarded to NCBI Blast. (length=5369)</li>
+    		  <li>Display RefSeq NR id; NR_027802.  Expected results: sequence NR_027802 forwarded to NCBI Blast. (length = 716)
+    		  <li>Display RefSeq XM id; XM_621234.  Expected results:  sequence XM_621234 forwarded to NCBI Blast. (length=978)</li>
+    		</ol></li>
+    		
+    		<li>Forward mouse SWISS-PROT and RefSeq PROTEIN sequences by accession id
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		  <li>Display SWISS-PROT id; P50427.  Expected results: sequence P50427 forwarded to NCBI Blast. (length=624)</li>
+    		  <li>Display RefSeq NP id; NP_660211.  Expected results: sequence NP_660211 forwarded to NCBI Blast. (Length=356)</li>
+    		  <li>Display RefSeq XP id; XP_514582.  Expected results:  sequence XP_514582 forwarded to NCBI Blast. (no length displayed)</li>
+    		</ol></li>
+    		
+    		<li>Forward mouse Gene Model nucleotide sequences in FASTA format - no flanking sequence
+    		<p concordion:assertTrue="false">new test</p>
+    		<ol>
+    		  <li>Display NCBI gene model, 19386.  Expected results: Display sequence 19386 in populated NCBI Blast QF. (length=47304; chr=10) </li>
+    		  <li>Display Ensembl gene model, ENSMUSG00000042045.  Expected results: Display sequence ENSMUSG00000042045 in populated NCBI Blast QF (length = 3594; chr=9).</li>
+    		  <li>Display VEGA gene model, OTTMUSG00000033496.  Expected results: Display sequence OTTMUSG00000033496 in populated NCBI Blast QF (length=12839; chr=13).</li>
+    		</ol></li>
+    		
+    		<li>Forward Gene Model nucleotide GENOMIC sequences in FASTA format with flanking sequence
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display a relatively short genomic sequence; OTTMUSG00000005021.  Add 1 kb of flanking seq.  Expected results: Display sequence OTTMUSG00000005021 (length=2668+flanking) to populated NCBI Blast QF. </li>
+    		  <li>Display a relatively short genomic sequence; OTTMUSG00000045384.  Add 10 kb of flanking seq.  Expected results: Display sequence OTTMUSG00000045384 (length=1188+flanking) to populated NCBI Blast QF.</li>
+    		  <li>Display a long genomic sequence; OTTMUSG00000015981.  Add 5 kb of flanking seq.  Expected results: Display sequence OTTMUSG00000015981 (length=259611+flanking) to populated NCBI Blast QF.</li>
+    		  <li>Forward genomic sequence with a large flanking value to exceed NCBI allowed length.  Add 9999 of flanking sequence.  Expected results: error message from NCBI.</li>
+    		</ol></li>
+    		
+    		<li>Forward mouse nucleotide sequences in FASTA format (ids not recognized by NCBI Blast)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display Ensembl Transcript id; ENSMUST00000032835.  Expected results: sequence ENSMUST00000032835 forwarded to NCBI Blast (length = 7355). </li>
+    		  <li>Display VEGA Transcript id; OTTMUST00000091731.  Expected results: sequence OTTMUST00000091731 forwarded to NCBI Blast (length = 3259)</li>
+    		  <li>Display DFCI id; TC1581943.  Expected results:  sequence TC1581943 forwarded to NCBI Blast. (length=922)</li>
+    		  <li>Display DoTS id; DT.40140747.  Expected results: sequence DT.40140747 forwarded to NCBI Blast. (length=118) </li>
+    		  <li>Display mNIA Mouse Gene Index id; U306586.  Expected results: sequence U306586 forwarded to NCBI Blast. (length=438)</li>
+    		</ol></li>
+    		
+    		<li>Forward mouse protein sequences in FASTA format
+    		<p concordion:assertTrue="false">new test</p> 
+    		<ol>
+    		  <li>Display TrEMBL id; P97815.  Expected results: sequence P97815 forwarded to NCBI Blast. (length=140) </li>
+    		  <li>Display Ensembl protein id; ENSMUSP00000004770.  Expected results: sequence ENSMUSP00000004770 forwarded to NCBI Blast (length = 533).</li>
+    		  <li>Display VEGA Protein id; OTTMUSP00000016666.  Expected results:  sequence OTTMUSP00000016666 forwarded to NCBI Blast (length=394).</li>
+    		</ol></li>
+    		
+    		<li>Forward non-mouse sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display human nucleotide GenBank sequence; AB007885.  Expected results: human sequence </li>
+    		  <li>Display human nucleotide RefSeq sequence; NM_001036645.  Expected results: human sequence</li>
+    		  <li>Display rat nucleotide RefSeq sequence: NM_001037179.  Expected results: rat sequence.</li>
+    		  <li>Display human protein SWISS-PROT sequence; O00110.  Expected results: Forwarded to NCBI using blastp URL.</li>
+    		  <li>Display human protein RefSeq sequence; NP_001031722.  Expected results: Forwarded to NCBI using blastp URL.</li>
+    		  <li>Display rat protein RefSeq sequence; NP_001032256.  Expected results: Forwarded to NCBI using blastp URL.</li>
+    		</ol></li>
+    		
+    		<li>Forward not loaded GenBank nucleotide sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display nucleotide GenBank sequence; A06108.  Expected results: xxx </li>
+    		  <li>Display nucleotide GenBank sequence; AB001105.  Expected results: xxx </li>
+    		</ol></li>
+    		
+    		<li>Forward not loaded RefSeq nucleotide sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display nucleotide RefSeq sequence; NG_xxxxx.  Expected results: xxx </li>
+    		  <li>Display nucleotide RefSeq sequence; XR_xxxxx.  Expected results: xxx </li>
+    		  <li>Display nucleotide RefSeq sequence; XM_538843.  Expected results: Dog sequence for C4a </li>
+    		  <li>Display nucleotide RefSeq sequence; NM_000412.  Expected results: Human sequence for HRG </li>
+    		</ol></li>
+    		
+    		<li>Forward not loaded RefSeq protein sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display nucleotide RefSeq sequence; NP_001103471.  Expected results: Cattle sequence for Kras </li>
+    		  <li>Display nucleotide RefSeq sequence; XP_001172077.  Expected results: Chimp sequence for Trp53 </li>
+    		</ol></li>
+    		
+    		<li>Verify error messages displayed in MGI blast options
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Attempt to forward a sequence that is not found in EMBOSS; A0A0D2X7Z2.  Display error message to user.</li>
+    		  <li>Forward a sequence id to NCBI that is not valid -- NCBI will display appropriate message.</li>
+    		</ol></li>
+    		
+    		<li>Verify blast works in all supported browsers (Firefox; Safari; Chrome)
+    		<p concordion:assertTrue="false">new test</p>
+    		</li>
+    	   
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
