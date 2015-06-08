@@ -1,0 +1,297 @@
+<HTML>
+<head>
+<!-- rmb toggle -->
+
+    <title>User Story 44 Test Doc</title>
+
+
+<STYLE TYPE="text/css">
+<!--
+TH{font-family: Verdana; font-size: 8pt; font-weight: bold;}
+TD{font-family: Verdana; font-size: 8pt;}
+--->
+</STYLE>
+
+</head>
+<body bgcolor="#DDEAEF">
+<h2>US44 - Enable Quick Search Queries for Genotype IDs (TR11952)</h2>
+
+
+
+<b>Test Requirements</b><br>
+Searches by Productive Genotype* accession IDs (MGI:IDs) in the Quick Search Tool should return the corresponding MGI genotype in the Other Results By ID section.<p>
+
+*Productive Genotype: An MGI genotype annotated to MP terms and/or OMIM terms.<p>
+
+Display Text in the "Other Results By ID section":<br>
+Under Type: "MGI Genotype" - This should link to the corresponding genotype page<br>
+Under Name/Description: Genotype contains: Marker1, Marker2, ..., MarkerN<p>
+
+Test Environments:<br>
+
+<a href="http://scrumbob.informatics.jax.org/" target="_blank">Scrum Bob WI</a><br>
+<a href="http://firien.informatics.jax.org/" target="_blank">firien WI</a><br><p>
+
+
+
+
+
+
+<b>Test Cases/Testing</b><p>
+The following table contains test cases and test results for US44.<br>
+- Each row represents a tested Genotype (the MGI IDs link to corresponding QS summary pages in Scrum Bob).<br>
+- Scrum Bob: links to corresponding QS summary pages in Scrum Bob<br>
+- firien: links to corresponding QS summary pages in Scrum Bob (included for this user story)<br>
+- Whether the genotype has annotations to 'MP", 'OMIM' or 'GXD" data is indicated in the corresponding columns.<br>
+- An expectation of 'Returned' means that the genotype ID should return the genotype in the QS.<br>
+- An expectation of 'Not Returned' means that the genotype ID should not return the genotype in the QS (not annotated to MP or OMIM).<br>
+- For genotypes returned:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- Verification of the text displayed in the Other Results By ID section (Display Text) is indicated by a check mark (&#10003;).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- Verification of the link from the QS summary page to the corresponding Genotype Detail Page (Genotype Detail Link) is also indicated by a check mark (&#10003;).
+<p>
+
+
+
+<table WIDTH="!" BORDER=0 CELLPADDING=4 CELLSPACING=0>
+<tr>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font class="label"><b>Test Case</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>MP</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>OMIM</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>GXD</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-top:thin solid grey;border-left:none;border-right:thin solid grey;border-bottom:thin solid grey"><font class="label"><b>_Genotype_key</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-top:thin solid grey;border-left:none;border-right:thin solid grey;border-bottom:thin solid grey"><font class="label"><b>Scrum Bob</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-top:thin solid grey;border-left:none;border-right:thin solid grey;border-bottom:thin solid grey"><font class="label"><b>firien</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-top:thin solid grey;border-left:none;border-right:thin solid grey;border-bottom:thin solid grey"><font class="label"><b>Allelic Composition</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-top:thin solid grey;border-left:none;border-right:thin solid grey;border-bottom:thin solid grey"><font class="label"><b>Genetic Background</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>Expected</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><font color=maroon><b>Observed</b></font></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>Display Text</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>Genotype Detail Link</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>Result (date)</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>Note</b></td>
+</tr>
+
+<tr>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center>1</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>31035</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A3709293&submit=Quick%0D%0ASearch" target="_blank">MGI:3709293</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://firien.informatics.jax.org/searchtool/Search.do?query=MGI%3A3709293&submit=Quick%0D%0ASearch" target="_blank">MGI:3709293</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Nr2e3<sup>rd7</sup>/Nr2e3<sup>rd7</sup></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>B6.Cg-Nr2e3<sup>rd7</sup>/J</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Returned</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>Returned</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>PASS (6/8/15)</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&nbsp;</td>
+</tr>
+
+<tr>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center>2a</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>31187</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A3710405&submit=Quick%0D%0ASearch" target="_blank">MGI:3710405</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://firien.informatics.jax.org/searchtool/Search.do?query=MGI%3A3710405&submit=Quick%0D%0ASearch" target="_blank">MGI:3710405</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Lpin1<sup>fld</sup>/Lpin1<sup>fld</sup></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>BALB/cByJ-Lpin1<sup>fld</sup></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Returned</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>Returned</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>PASS (6/8/15)</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&nbsp;</td>
+</tr>
+
+<tr>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center>2b</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>47508</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A4358354&submit=Quick%0D%0ASearch" target="_blank">MGI:4358354</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://firien.informatics.jax.org/searchtool/Search.do?query=MGI%3A4358354&submit=Quick%0D%0ASearch" target="_blank">MGI:4358354</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Hoxa5<sup>tm1Rob</sup>/Hoxa5<sup>+</sup><br>Hoxa6<sup>tm1Mrc</sup>/Hoxa6<sup>+</sup><br>Hoxb5<sup>tm1Mrc</sup>/Hoxb5<sup>+</sup><br>Hoxb6<sup>tm1Mrc</sup>/Hoxb6<sup>+</sup><br>Hoxc5<sup>tm1Mrc</sup>/Hoxc5<sup>+</sup><br>Hoxc6<sup>tm1Dds</sup>/Hoxc6<sup>+</sup></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>involves: 129S/SvEv * 129S7/SvEvBrd</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Returned</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>Returned</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>PASS (6/8/15)</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Multiple Allele Pairs</td>
+</tr>
+
+<tr>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center>3</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>41441</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A3814588&submit=Quick%0D%0ASearch" target="_blank">MGI:3814588</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://firien.informatics.jax.org/searchtool/Search.do?query=MGI%3A3814588&submit=Quick%0D%0ASearch" target="_blank">MGI:3814588</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Tg(MT1A-Dyrk1a)9Xest/0</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>involves: C57BL/6 * SJL</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Returned</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>Returned</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>PASS (6/8/15)</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&nbsp;</td>
+</tr>
+
+<tr>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center>4</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>65850</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A5491061&submit=Quick%0D%0ASearch" target="_blank">MGI:5491061</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://firien.informatics.jax.org/searchtool/Search.do?query=MGI%3A5491061&submit=Quick%0D%0ASearch" target="_blank">MGI:5491061</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Gli3<sup>Xt-J</sup>/Gli3<sup>Xt-J</sup></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>B10.C3-Gli3<sup>Xt-J</sup>/J</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Not Returned</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>Not Returned</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>PASS (6/8/15)</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&nbsp;</td>
+</tr>
+
+<tr>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center>5a</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>66877</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A5509382&submit=Quick%0D%0ASearch" target="_blank">MGI:5509382</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://firien.informatics.jax.org/searchtool/Search.do?query=MGI%3A5509382&submit=Quick%0D%0ASearch" target="_blank">MGI:5509382</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Gdf5<sup>Bp-5J</sup>/Gdf5<sup>+</sup></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>C57BL/6J-Gdf5<sup>Bp-5J</sup>/GrsrJ</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Returned</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>Returned</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>PASS (6/8/15)</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&nbsp;</td>
+</tr>
+
+<tr>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center>5b</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>28134</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A3687167&submit=Quick%0D%0ASearch" target="_blank">MGI:3687167</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://firien.informatics.jax.org/searchtool/Search.do?query=MGI%3A3687167&submit=Quick%0D%0ASearch" target="_blank">MGI:3687167</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>H2<sup>g7</sup>/H2<sup>g7</sup><br>Ins2<sup>tm1Jja</sup>/Ins2<sup>tm1Jja</sup><br>Rag1<sup>tm1Mom</sup>/Rag1<sup>tm1Mom</sup><br>Tg(TcraBDC12-4.1)10Jos/0<br>Tg(TcrbBDC12-4.1)82Gse/0</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>involves: 129S2/SvPas * 129S7/SvEvBrd * C57BL/6 * FVB * NOD</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Returned</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>Returned</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>PASS (6/8/15)</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Multiple Allele Pairs</td>
+</tr>
+
+<tr>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center>6</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>19638</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A3525567&submit=Quick%0D%0ASearch" target="_blank">MGI:3525567</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://firien.informatics.jax.org/searchtool/Search.do?query=MGI%3A3525567&submit=Quick%0D%0ASearch" target="_blank">MGI:3525567</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Foxe1<sup>tm1Rdl</sup>/Foxe1<sup>tm1Rdl</sup></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>B6.129-Foxe1<sup>tm1Rdl</sup></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Returned</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>Returned</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&#10003;</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>PASS (6/8/15)</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&nbsp;</td>
+</tr>
+
+<tr>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center>7</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>yes</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Returned</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>no cases</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>not tested</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no cases</td>
+</tr>
+
+<tr>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center>8a</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>21381</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A3580880&submit=Quick%0D%0ASearch" target="_blank">MGI:3580880</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://firien.informatics.jax.org/searchtool/Search.do?query=MGI%3A3580880&submit=Quick%0D%0ASearch" target="_blank">MGI:3580880</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Ap3b1<sup>pe-11J</sup>/Ap3b1<sup>+</sup></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>B10.RIII H2<sup>r</sup> H2-T18<sup>b</sup>/(71NS)Sn-Ap3b1<sup>pe-11J</sup>/J</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Not Returned</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>Not Returned</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>PASS (6/8/15)</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>&nbsp;</td>
+</tr>
+
+<tr>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center>8b</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>no</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>71672</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/searchtool/Search.do?query=MGI%3A5608376&submit=Quick%0D%0ASearch" target="_blank">MGI:5608376</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://firien.informatics.jax.org/searchtool/Search.do?query=MGI%3A5608376&submit=Quick%0D%0ASearch" target="_blank">MGI:5608376</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Slc25a21<sup>tm1a(KOMP)Wtsi</sup>/Slc25a21<sup>tm1a(KOMP)Wtsi</sup></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>B6Brd;B6Dnk;B6N-Tyrc-Brd Slc25a21<sup>tm1a(KOMP)Wtsi</sup>/Wtsi</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>Not Returned</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>Not Returned</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>-</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>PASS (6/8/15)</td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>KOMP orphaned</td>
+</tr>
+
+
+
+
+
+
+
+</table>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</BODY>
+</HTML>
