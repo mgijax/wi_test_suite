@@ -1,0 +1,67 @@
+US4 Test Doc
+
+Mouseblast - Convert to NCBI BLAST from Allele Detail for Gene Traps
+
+-----------
+1) Confirm text change in Drop Down menu to "BLAST at NCBI".
+
+Test case:
+Aqr<Gt(pT1Betageo)1Ruiz> (1 sequence tag)
+http://scrumbob.informatics.jax.org/allele/key/25338
+(several additional Gene Traps tested)
+
+Test Result: PASS
+
+-----------
+2) Confirm gene trap sequence is sent to the mouse-specific NCBI BLAST query form.
+
+Test case:
+Gt(PST1016)Mfgc (2 sequence tags)
+http://scrumbob.informatics.jax.org/allele/key/75980
+(several additional Gene Traps tested)
+
+Test Result: PASS
+
+
+-----------
+3) Confirm that the GenBank ID for the sequence tag is sent to NCBI BLAST (as opposed to the Sequence Tag ID).
+
+Test case:
+Pecam1<Gt(OST16303)Lex> (1 sequence tag)
+GenBank seqID: CG482954 - should be sent to NCBI BLAST
+Sequence Tag ID: OST16303
+http://scrumbob.informatics.jax.org/allele/key/2723
+(several additional Gene Traps tested)
+
+Test Result: PASS
+
+
+-----------
+4) Confirm that for a Gene Trap Allele with multiple sequence tags, radio buttons allow only one sequence to be submitted at a time (Note that if a Gene Trap Allele has only one sequence tag, the Radio button for that sequence does not have to be selected to download the sequence of forward to BLAST).  This behavior is present on Public currently.
+
+Test case:
+Gt(IST12158F9)Tigm (7 sequence tags)
+http://scrumbob.informatics.jax.org/allele/key/287338
+
+
+
+-----------
+5) Confirm proper forwarding to NCBI BLAST for a Gene Trap Allele that has both DNA-based and RNA-based sequence tags.
+
+Test Case:
+Adipor2<Gt(M122D06)Wrst> (2 sequence tags)
+ER911047 (5'Splinkerette PCR - DNA based tag)
+CZ170536  (5' RACE - RNA based tag)
+http://scrumbob.informatics.jax.org/allele/key/75402
+
+Test Result: PASS
+
+
+
+
+
+
+
+
+
+
