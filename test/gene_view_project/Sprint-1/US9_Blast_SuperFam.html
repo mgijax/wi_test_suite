@@ -1,0 +1,151 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US9: Blast/SuperFamily</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>MouseBlast - Protein SuperFamily</h1>
+    <ul>
+        <li>US 8 - Replace MouseBlast - Protein SuperFamily</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <p>
+    Richard has written a detailed requirements document for the conversion to NCBI Blast.  This list of requirements
+    is limited to the Protein SuperFamily page for US9.  It is a summary level list used to guide creation of test cases.  See the
+    document for implementation details.  <a href="http://prodwww.informatics.jax.org/all/wts_projects/10500/10539/NCBIblast_Requirements.docx)">NCBIblast_Requirements.docx</a>.  This document is in TR10539.
+    </p>
+    <ol>
+      <li>Convert the "forward to MouseBlast" option on the page to "forward to NCBI BLAST"</li>
+      <li>Send sequence(s) to NCBI Blast; create new tab</li>
+      <li>FASTA downloads continue to work the same way and return the same results.</li>
+      <li>Forward 1-many sequences per the checkboxes clicked on by the user
+      <ul><li>List accession IDs before sequences in FASTA format on the NCBI QF.</li>
+          <li>If a selected sequence is not found in EMBOSS - display an error message; abort the forward.</li>
+      </ul></li>
+      <li>By definition, this page only contains protein sequences.</li>
+      <li>Forward mouse sequences by accession id
+         <ul>
+         <li>Sequence accession ids valid in NCBI BLAST URL (mouse, human, rat)
+            <ol>
+              <li>SWISS PROT (protein; 13)</li>
+              <li>RefSeq (protein; 27)</li>
+            </ol></li>
+         <li>URL structure/parameters per requirements document (link above)</li>
+         <li>Errors - no error trapping on MGI's side of the fence for this type of blast.  NCBI Blast
+             will display an error message if the Accession ID in the URL is not recognized.</li>
+         </ul></li>
+     
+      <li>Forward mouse sequences by FASTA format retrieved from EMBOSS
+      <ul>
+      <li>Types of sequence accession ids to retrieve from EMBOSS
+      <ol><li>TrEMBL (protein; LogicalDB=41)</li>
+          <li>Ensembl Protein (protein; 134)</li>
+          <li>VEGA Protein (protein; 132)</li>
+      </ol></li>
+      <li>FASTA format = URL w/parameters (see doc) + "&gt;" + sequence accession id + Carriage return + the actual sequence</li>
+      <li>Inform users if we can't retrieve the sequence from EMBOSS.  Error message: <i>An error occurred while trying to retrieve your sequence from our EMBOSS repository.</i></li>
+      </ul></li>
+
+         
+      <li>No limit to the length of sequence to pass to NCBI Blast is defined.  Blasts that are longer than NCBI allows will be trapped by NCBI.</li>
+      <li>Should work in all supported browsers</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    	    
+    	    <li>Forward mouse and non-mouse RefSeq protein sequences by accession id
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p>    
+    		<ol>
+    		  <li>Display PSF page with a mouse RefSeq protein sequence to forward; PIRSF001607; gene Oas1c.  Expected results: ID listed on blastp form.</li>
+    		  <li>Display PSF page with a non-mouse RefSeq protein sequence to forward; PIRSF038195; gene Pax2.  Expected results: ID listed on blastp form.</li>
+    		  
+    		  
+    		</ol></li>
+    		
+    		<li>Forward mouse and non-mouse SWISS-PROT protein sequences by accession id
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p> 
+    		<ol>
+    		  <li>Display PSF page with a mouse SWISS-PROT protein sequence to forward; PIRSF001135; gene Klk1.  Expected results: ID listed on blastp form.</li>
+    		  <li>Display PSF page with a non-mouse SWISS-PROT protein sequence to forward; PIRSF038195; gene Pax1.  Expected results: ID listed on blastp form.</li>
+    		</ol></li>
+    		
+    		
+    		<li>Forward mouse protein sequences in FASTA format
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p>  
+    		<ol>
+    		  <li>Forward TrEMBL protein sequence.  CASE NOT FOUND. </li>
+    		  <li>Forward Ensembl Protein sequence; PIRSF001283; gene mt-Atp6.  Expected results: FASTA listed on blastp QF</li>
+    		  <li>Forward VEGA Protein sequence; PIRSF001607; gene Oas1a.  Expected results: 2 FASTA sequences listed on blastp QF</li>
+    		</ol></li>
+    		
+    		 <li>Forward multiple protein sequences
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p>   
+    		<ol>
+    		  <li>Forward multiple sequences by IDs; PIRSF001630; gene Agt.  Expect: blastp with list of IDs.</li>
+    		  <li>Forward multiple sequences by FASTA format; PIRSF001630; genes Serpina3a, Serpina3h.  Expect: blastp with FASTA sequences.</li>
+    		  <li>Forward a combo of sequences by IDs and FASTA format; PIRSF001630; genes (combine 3 above).  Expect: blastp with ids listed first, then FASTA.</li>
+    		</ol></li>
+    		
+    		
+    		<li>Verify error messages displayed in MGI blast options
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p>   
+    		<ol>
+    		  <li>Attempt to forward without selecting any sequences.  Display error message to user.</li>
+    		  <li>Attempt to forward a sequence that is not found in EMBOSS; xxxxx.  Display error message to user. (could not find an example from this page)</li>
+    		  <li>Forward a sequence id to NCBI that is not valid -- NCBI will display appropriate message.</li>
+    		</ol></li>
+    		
+    		<li>Verify blast works in all supported browsers (Firefox; Safari; Chrome)
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p> 
+    		</li>
+    	   
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
