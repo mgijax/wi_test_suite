@@ -82,29 +82,7 @@
       </ul></li>
 
          
-       <li>Forward sequences by accession id with "Not Loaded" sequence type and organism
-      <ul>
-         <li>Not Loaded Sequence accession ids valid in NCBI BLAST URL
-            <ol><li>GenBank sequences (recognize by provider key)</li>
-              <li>RefSeq nucleotide sequences; NG, XR, XM, NM (recognize by provider key/prefix)</li>
-              <li>RefSeq protein sequences; NP, XP (recognize by provider key/prefix)</li>
-            </ol></li>
-         <li>URL structure/parameters per requirements document</li>
-         <li>Errors - no error trapping on MGI's side of the fence for this type of blast.  NCBI Blast
-             will display an error message if the Accession ID in the URL is not recognized.</li>
-         </ul></li>
-         
-         <li>Forward sequences by accession id with "Not Loaded" sequence type and organism = mouse
-      <ul>
-         <li>Not Loaded Sequence accession ids valid in NCBI BLAST URL
-            <ol><li>GenBank sequences (recognize by provider key)</li>
-              <li>RefSeq nucleotide sequences; NG, XR, XM, NM (recognize by provider key/prefix)</li>
-              <li>RefSeq protein sequences; NP, XP (recognize by provider key/prefix)</li>
-            </ol></li>
-         <li>URL structure/parameters per requirements document</li>
-         <li>Errors - no error trapping on MGI's side of the fence for this type of blast.  NCBI Blast
-             will display an error message if the Accession ID in the URL is not recognized.</li>
-         </ul></li>
+       <li>Forward sequences by accession id with "Not Loaded" sequence type and/or organism -- NOT PRESENT on this page</li>
       
       <li>No limit to the length of sequence to pass to NCBI Blast is defined.  Blasts that are longer than NCBI allows will be trapped by NCBI.</li>
       <li>Should work in all supported browsers</li>
@@ -126,9 +104,9 @@
 		<ol>
 		
 		    <li>Forward mouse and non-mouse GenBank nucleotide sequences by accession id
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis - 6/9/15</p>  
     		<ol>
-    		  <li>Display homology page with a mouse GenBank sequence to forward.  Expected results: Id listed on blastn form.</li>
+    		  <li>Display homology page with a mouse GenBank sequence to forward; Ccl21c (2247).  Expected results: Id listed on blastn form.</li>
     		  <li>Display homology page with a non-mouse GenBank sequence to forward.  Expected results: NO CASE FOUND.</li>
     		</ol></li>
     	    
@@ -168,30 +146,11 @@
     		</ol></li>
     		
     		<li>Forward mouse protein sequences in FASTA format
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p>  
     		<ol>
-    		  <li>Forward TrEMBL protein sequence.  CASE NOT FOUND. </li>
+    		  <li>Forward TrEMBL protein sequence.  homology Slco6b1 (12199).  Expected results: FASTA listed on blastp QF. </li>
     		  <li>Forward Ensembl Protein sequence; homology mt-Atp6.  Expected results: FASTA listed on blastp QF</li>
     		  <li>Forward VEGA Protein sequence; homology Oas1 (HGNC).  Expected results: FASTA listed on blastp QF</li>
-    		</ol></li>
-    		
-    		
-    		<li>Forward SeqType = not loaded; Organism = mouse GenBank nucleotide sequences by accession id
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol>
-    		  <li>Display homology page with "not loaded" GenBank sequence; Nnnn.  Expected results: ID displayed on blastn QF. </li>
-    		</ol></li>
-    		
-    		<li>Forward SeqType = not loaded; Organism = mouse RefSeq nucleotide sequences by accession id
-    		<p concordion:assertTrue="false">new test</p>   
-    		<ol>
-    		  <li>Display homology page with "not loaded" RefSeq sequence.  Expected results: ID displayed on blastn QF.</li>
-    		</ol></li>
-    		
-    		<li>Forward not loaded RefSeq protein sequences by accession id
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol>
-    		  <li>Display homology page with "not loaded" RefSeq protein sequence.  Expected results: ID displayed on blastp QF.</li>
     		</ol></li>
 
             <li>Forward multiple nucleotide sequences
