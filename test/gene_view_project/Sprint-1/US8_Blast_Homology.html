@@ -1,0 +1,244 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US8: Blast/Homology</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>MouseBlast - Homology</h1>
+    <ul>
+        <li>US 8 - Replace MouseBlast - Homology pages (HGNC and HomoloGene)</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <p>
+    Richard has written a detailed requirements document for the conversion to NCBI Blast.  This list of requirements
+    is limited to the Homology pages for US8.  It is a summary level list used to guide creation of test cases.  See the
+    document for implementation details.  <a href="http://prodwww.informatics.jax.org/all/wts_projects/10500/10539/NCBIblast_Requirements.docx)">NCBIblast_Requirements.docx</a>.  This document is in TR10539.
+    </p>
+    <ol>
+      <li>Convert the "forward to MouseBlast" option on the page to "forward to NCBI BLAST"</li>
+      <li>Send sequence(s) to NCBI Blast; create new tab</li>
+      <li>FASTA downloads continue to work the same way and return the same results.</li>
+      <li>Forward 1-many sequences per the checkboxes clicked on by the user
+      <ul><li>List accession IDs before sequences in FASTA format on the NCBI QF.</li>
+          <li>If any submitted sequence is a nucleotide - use blastn and set the repeat filter.</li>
+          <li>If all sequences are non-mouse -- select blastn v. blastp per the first sequence in the list.</li>
+          <li>If a selected sequence is not found in EMBOSS - display an error message; abort the forward.</li>
+          <li>If a user chooses both nucleotide and protein sequences to blast at once they 
+              receive an error from NCBI - the MGI software does not check for this case.</li>
+      </ul></li>
+      <li>Forward mouse sequences by accession id
+         <ul>
+         <li>Sequence accession ids valid in NCBI BLAST URL
+            <ol><li>GenBank (nucleotide; LogicalDB=9)</li>
+              <li>SWISS PROT (protein; 13)</li>
+              <li>RefSeq (nucleotide &amp; protein; 27)</li>
+            </ol></li>
+         <li>URL structure/parameters per requirements document (link above)</li>
+         <li>Errors - no error trapping on MGI's side of the fence for this type of blast.  NCBI Blast
+             will display an error message if the Accession ID in the URL is not recognized.</li>
+         </ul></li>
+      <li>Forward mouse gene model sequences by FASTA format using coordinates and genome assembly files (nib files)
+      <ul>
+      <li>Types of Gene Models in MGI
+        <ol><li>NCBI Gene Model (nucleotide; LogicalDB=59)</li>
+          <li>Ensembl Gene Model (nucleotide; 60)</li>
+          <li>VEGA Gene Model (nucleotide; 85)</li>
+        </ol></li>
+      <li>FASTA format = URL/parameters (see doc) +   &quot;&gt;&quot; + existing text from SeqFetch + carriage return + the actual sequence</li>
+      <li>Errors: nothing to trap on MGI side</li>
+      </ul></li>
+      <li>Forward mouse sequences by FASTA format retrieved from EMBOSS
+      <ul>
+      <li>Types of sequence accession ids to retrieve from EMBOSS
+      <ol><li>TrEMBL (protein; LogicalDB=41)</li>
+          <li>Ensembl Transcript (nucleotide; 133)</li>
+          <li>Ensembl Protein (protein; 134)</li>
+          <li>VEGA Transcript (nucleotide; 131)</li>
+          <li>VEGA Protein (protein; 132)</li>
+          <li>DFCI (nucleotide; 35)</li>
+          <li>DoTS (nucleotide; 36)</li>
+          <li>NIA Mouse Gene Index (nucleotide; 53)</li>
+      </ol></li>
+      <li>FASTA format = URL w/parameters (see doc) + "&gt;" + sequence accession id + Carriage return + the actual sequence</li>
+      <li>Inform users if we can't retrieve the sequence from EMBOSS.  Error message: <i>An error occurred while trying to retrieve your sequence from our EMBOSS repository.</i></li>
+      </ul></li>
+
+         
+       <li>Forward sequences by accession id with "Not Loaded" sequence type and organism
+      <ul>
+         <li>Not Loaded Sequence accession ids valid in NCBI BLAST URL
+            <ol><li>GenBank sequences (recognize by provider key)</li>
+              <li>RefSeq nucleotide sequences; NG, XR, XM, NM (recognize by provider key/prefix)</li>
+              <li>RefSeq protein sequences; NP, XP (recognize by provider key/prefix)</li>
+            </ol></li>
+         <li>URL structure/parameters per requirements document</li>
+         <li>Errors - no error trapping on MGI's side of the fence for this type of blast.  NCBI Blast
+             will display an error message if the Accession ID in the URL is not recognized.</li>
+         </ul></li>
+         
+         <li>Forward sequences by accession id with "Not Loaded" sequence type and organism = mouse
+      <ul>
+         <li>Not Loaded Sequence accession ids valid in NCBI BLAST URL
+            <ol><li>GenBank sequences (recognize by provider key)</li>
+              <li>RefSeq nucleotide sequences; NG, XR, XM, NM (recognize by provider key/prefix)</li>
+              <li>RefSeq protein sequences; NP, XP (recognize by provider key/prefix)</li>
+            </ol></li>
+         <li>URL structure/parameters per requirements document</li>
+         <li>Errors - no error trapping on MGI's side of the fence for this type of blast.  NCBI Blast
+             will display an error message if the Accession ID in the URL is not recognized.</li>
+         </ul></li>
+      
+      <li>No limit to the length of sequence to pass to NCBI Blast is defined.  Blasts that are longer than NCBI allows will be trapped by NCBI.</li>
+      <li>Should work in all supported browsers</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Forward mouse and non-mouse GenBank nucleotide sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display homology page with a mouse GenBank sequence to forward.  Expected results: Id listed on blastn form.</li>
+    		  <li>Display homology page with a non-mouse GenBank sequence to forward.  Expected results: NO CASE FOUND.</li>
+    		</ol></li>
+    	    
+    	    <li>Forward mouse and non-mouse RefSeq nucleotide and protein sequences by accession id
+    		<p concordion:assertTrue="true">PASS - jlewis - 6/9/15</p>    
+    		<ol>
+    		  <li>Display homology page with a mouse RefSeq nucleotide sequence to forward; Klk1 (HGNC).  Expected results: ID listed on blastn form.</li>
+    		  <li>Display homology page with a mouse RefSeq protein sequence to forward; 36030 (C4a,C4b).  Expected results: ID listed on blastp form.</li>
+    		  <li>Display homology page with a non-mouse RefSeq nucleotide sequence to forward; Selm.  Expected results: ID listed on blastn form.</li>
+    		  <li>Display homology page with a non-mouse RefSeq protein sequence to forward; Selm.  Expected results: ID listed on blastp form.</li>
+    		  <li>Change order of protein and nucleotide sequences selected to change blast form selected; Selm.  Expected results: protein id first-use blastp; nucleo id first-use blastn</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Forward mouse and non-mouse SWISS-PROT and RefSeq PROTEIN sequences by accession id
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p>  
+    		<ol>
+    		  <li>Display homology page with a mouse RefSeq protein sequence to forward; 36030 (C4a,C4b).  Expected results: ID listed on blastp form.</li>
+    		  <li>Display homology page with a non-mouse RefSeq protein sequence to forward; 36030.  Expected results: ID listed on blastp form.</li>
+    		  <li>Display homology page with a mouse SWISS-PROT protein sequence to forward; Klk1.  Expected results: ID listed on blastp form.</li>
+    		  <li>Display homology page with a non-mouse SWISS-PROT protein sequence to forward; 36030.  Expected results: ID listed on blastp form.</li>
+    		</ol></li>
+    		
+    		<li>Forward mouse Gene Model nucleotide sequences in FASTA format
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p>  
+    		<ol>
+    		  <li>Display NCBI gene model, 68141.  Klk1 homology page.  Expected results: FASTA on blastn qf. </li>
+    		  <li>Display Ensembl gene model, ENSMUSG00000042045; Sln homology page.  Expected results: FASTA on blastn QF.</li>
+    		  <li>Display VEGA gene model, OTTMUSG00000033496; Kit.  Expected results: Display sequence FASTA on blastn QF.</li>
+    		</ol></li>
+    		
+    		<li>Forward mouse nucleotide sequences in FASTA format (ids not recognized by NCBI Blast)
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p>   
+    		<ol>
+    		  <li>Forward Ensembl Transcript sequence; homology mt-Atp6.  Expected results: FASTA listed on blastn QF. </li>
+    		  <li>Forward VEGA Transcript sequence; homology Kit.  Expected results: FASTA listed on blastn QF.</li>
+    		</ol></li>
+    		
+    		<li>Forward mouse protein sequences in FASTA format
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Forward TrEMBL protein sequence.  CASE NOT FOUND. </li>
+    		  <li>Forward Ensembl Protein sequence; homology mt-Atp6.  Expected results: FASTA listed on blastp QF</li>
+    		  <li>Forward VEGA Protein sequence; homology Oas1 (HGNC).  Expected results: FASTA listed on blastp QF</li>
+    		</ol></li>
+    		
+    		
+    		<li>Forward SeqType = not loaded; Organism = mouse GenBank nucleotide sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Display homology page with "not loaded" GenBank sequence; Nnnn.  Expected results: ID displayed on blastn QF. </li>
+    		</ol></li>
+    		
+    		<li>Forward SeqType = not loaded; Organism = mouse RefSeq nucleotide sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		  <li>Display homology page with "not loaded" RefSeq sequence.  Expected results: ID displayed on blastn QF.</li>
+    		</ol></li>
+    		
+    		<li>Forward not loaded RefSeq protein sequences by accession id
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Display homology page with "not loaded" RefSeq protein sequence.  Expected results: ID displayed on blastp QF.</li>
+    		</ol></li>
+
+            <li>Forward multiple nucleotide sequences
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p>   
+    		<ol>
+    		  <li>Forward multiple sequences by IDs; OAS1 (HGNC).</li>
+    		  <li>Forward multiple sequences by FASTA format; OAS1 (HGNC).</li>
+    		  <li>Forward a combo of sequences by IDs and FASTA format; OAS1 (HGNC).  Expected results: IDs listed first on blastn form.</li>
+    		</ol></li>
+    		
+    		 <li>Forward multiple protein sequences
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p>  
+    		<ol>
+    		  <li>Forward multiple sequences by IDs; HomoloGene 85917 (CYP2A6, etc).</li>
+    		  <li>Forward multiple sequences by FASTA format; 111129 (SERPINA3).</li>
+    		  <li>Forward a combo of sequences by IDs and FASTA format; 11129.</li>
+    		</ol></li>
+    		
+    		
+    		<li>Verify error messages displayed in MGI blast options
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p>   
+    		<ol>
+    		  <li>Attempt to forward without selecting any sequences.  Display error message to user.</li>
+    		  <li>Attempt to forward a sequence that is not found in EMBOSS; xxxxx.  Display error message to user. (could not find an example from this page)</li>
+    		  <li>Forward a sequence id to NCBI that is not valid -- NCBI will display appropriate message.</li>
+    		</ol></li>
+    		
+    		<li>Verify blast works in all supported browsers (Firefox; Safari; Chrome)
+    		<p concordion:assertTrue="true">PASS - jlewis; 6/9/15</p> 
+    		</li>
+    	   
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
