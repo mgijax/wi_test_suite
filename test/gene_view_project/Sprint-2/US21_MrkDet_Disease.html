@@ -28,8 +28,25 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
     <ol>
-    
-      
+      <li>Create new Marker Detail ribbon named "Disease" and list it after the "Homology" ribbon when data exists.</li>
+      <li>The new ribbon lists diseases that are rolled up to a mouse marker and/or associated to its human homolog(s).</li>
+      <li>Diseases are displayed in a table in alpha order with the following columns
+      <ol><li>Icons: mouse, human, or both -- display icons to represent the associations</li>
+          <li>OMIM ID</li>
+          <li>Human Disease - display OMIM term; link to disease detail</li>
+          <li>Mouse Models Involving Xxx -- Number of mouse models; should match the count displayed on the Disease Detail; includes complex models</li>
+          <li>Human Homologs Associated with the Disease* -- Human homolog symbol (each occurrence includes an asterisk)</li>
+      </ol>
+      <li>Display count of diseases associated to mouse models for the Mouse Marker (rolled up count).</li>
+      <li>Display count of diseases associated to human homolog(s).</li>
+      <li>Display count and link to disease references.</li>
+      <li>When multiple homologs exist for a mouse marker
+      <ol><li>Combine counts of human diseases associated with all homologs.</li>
+          <li>Display comma delimited list of human homologs that have diseases (may not be all of the homologs)</li>
+          <li>Display appropriate human homolog symbol in last column.</li>
+      </ol></li>
+      <li>When a mouse marker is part of a homology set with multiple mouse markers (e.g. C4a, C4b)
+      <ul><li>Don't include any disease associations and/or models for the mouse paralog.  Does this case exist?  If so, this is different than the Disease Detail page.</li></ul>
     
     </ol>   
    
@@ -48,17 +65,85 @@
 		
 		<ol>
 		
-		    <li>Test 1
-    		<p concordion:assertTrue="false">new test</p>  
+		    <li>Verify the display of diseases on the Marker Detail when only a single disease is present.
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/16/15 (data rows okay; styling and wording issues to review later)</p>  
     		<ol>
-    		  <li>Test 1.1</li>
+    		  <li>Display marker with 1 disease associated to both human and mouse; Pax9.  Expect: 1 row; both icons; human symbol in last column.</li>
+    		  <li>Display marker with 1 disease associated to human; Elp4.  Expect: 1 row; human icon; model column blank; human symbol in last column.</li>
+    		  <li>Display marker with 1 disease associated to human plus a mutation with a disease annotation that doesn't roll up; Idh2.  Expect: 1 row; human icon; model column blank; human symbol in last column.</li>
+    		  <li>Display marker with 1 disease associated to mouse; Hoxa3.  Expect: 1 row; mouse icon; human homolog column blank.</li>
     		  
     		</ol></li>
     		
+    		<li>Verify the display of diseases on the Marker Detail when multiple diseases of a single type are present.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with many diseases associated ONLY to both human and mouse; Xxx.  Expect: n rows; both icons; human symbol in last column.</li>
+    		  <li>Display marker with many diseases associated ONLY to human; Vsx2.  Expect: n rows; human icon; model column blank; human symbol in last column.</li>
+    		  <li>Display marker with many diseases associated ONLY to mouse; Robo1.  Expect: n rows; mouse icon; human homolog column blank.</li>
+    		  
+    		</ol></li>
     		
+    	    <li>Verify the display of diseases on the Marker Detail when multiple diseases of multiple types are present.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with diseases associated to human and diseases associated to mouse (not both); Acan.  Expect: n rows </li>
+    		  <li>Display marker with diseases associated to human and diseases associated to both (mouse/human); Park2.  Expect: n rows.</li>
+    		  <li>Display marker with diseases associated to mouse and diseases associated to both; Xxx.  Expect: n rows</li>
+    		  <li>Display marker with diseases associated to mouse, human, and both; Apc.  Expect: n rows.</li>
+    		  
+    		</ol></li>
+    	   
+    	    <li>Verify the display of diseases on the Marker Detail with NOT annotations
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with a disease associated to a Human gene with a Mouse NOT annotation; Wisp3; PPAC (208230).  Expect: Disease displayed with a human icon; 3 NOT models in model column.</li>
+    		  <li>Display marker with only NOT annotations to a disease and no human association; Adam33; Asthma, Susceptibility to (600807).  Expect: Disease not displayed on the Marker Detail page.</li>
+    		  <li>Display marker with a combination of NOT and regular annotations to a disease; Prnp; Creutzfeldt-Jakob Disease.  Expect: Disease displayed and NOT models included in the pop-up (but not the count) of mouse models.  8 mouse models (4 add'l NOT models)</li>
+    		  
+    		</ol></li>
     		
-    	   
-    	   
+    		<li>Verify the display of diseases on the Marker Detail for a marker that is part of a homology class with multiple markers (human and/or mouse)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker that has multiple human homologs with disease annotations; C4b.  Expect: 3 diseases listed; 2 human (to diff homologs) and 1 mouse. </li>
+    		  <li>Display marker that has multiple human homologs with disease annotations with no mouse assocations; C4a.  Expect: 2 diseases listed; 2 human (to diff homologs).</li>
+    		  <li>Display marker that has multiple human homologs with disease annotations where at least one shares a mouse model; Smn1.  Expect:  n rows listed; xxxxx.</li>
+    		  <li>Display marker that has mouse paralogs with disease annotations to more than one; Xxx.  Expect: xxxxx.
+    		  
+    		</ol></li>
+    		
+    		<li>Verify there are no issues for markers with no mouse or human disease annotations
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with no disease annotations; cw.  Expect: no ribbon.</li>
+    		  <li>Display marker with no disease annotations that roll-up, but disease references exist; Scrib.  Expect:  ribbon with disease reference link to 1 reference.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the display of diseases with a long disease name
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with a disease that has a long name where multiple diseases are displayed; Rag1.  Expect: Disease name to wrap.</li>
+    		  <li>Display marker with a disease that has a long name where single disease displayed; Pigl.  Expect: Disease name to wrap.</li>
+    		  <li>Display marker with a disease that has a long name and associated to human and mouse; Sox3.  Expect:  Disease name to wrap.</li>
+    		  
+    		</ol></li>
+    	    
+    	    <li>Verify the display of a marker with a large number of associated diseases is in alpha order
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display Trp53.  Expect: Table of 13 diseases in alpha order.</li>
+    		  
+    		</ol></li>
+    	    
+    	    <li>Verify the display of a marker with a disease that has complex models
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display a marker with a disease association to a human homolog where there are complex mouse models; Psen2 / Alzheimer.  Expect: View 1 model. </li>
+    		  
+    		</ol></li>
+    	    
 		</ol>
     	    
       	    
