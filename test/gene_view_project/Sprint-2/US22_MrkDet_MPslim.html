@@ -1,0 +1,158 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 22/Marker/MP Slim Grid</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - MP Slim Grid</h1>
+    <ul>
+        <li>US 22 - Base slim grid - for MP</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Display MP slim grid at the top of the existing Pheno ribbon.  Leave all other text/links as is for this user story.</li>
+       <li>The MP slim vocabulary consists of most of the MP header terms with the exception of the following terms that are excluded along with their annotations.
+       <ol><li>normal phenotype</li>
+           <li>no phenotypic analysis</li>
+           <li>other phenotype</li>
+       </ol></li>
+       <li>Limit the slim grid to rolled-up MP annotations using the same roll-up rules used by the HMDC.</li>
+       <li>Limit the slim grid to abnormal phenotypes.  Filter out all normal annotations.
+       <ol><li>Exclude all annotations to MP header terms - this are by convention normal ones.</li>
+           <li>Exclude all annotations with a normal qualifier.</li>
+       </ol>
+       <li>Include all the slim MP header terms when displaying the grid regardless of whether annotations exist or not.
+       <ul><li>Cells with annotations are blue and cells without are left white.</li>
+           <li>Labels are shortened version of terms - removing "phenotype" for this user story (likely will change in other stories)</li>
+           <li>Bold labels when annotations exist for that header term.</li>
+       </ul></li>
+       <li>The order of the terms in the grid is the same each time it is displayed; alpha by term.</li>
+       <li>When a marker has no rolled-up abnormal annotations -- no slim grid is displayed.</li>
+       <li>Display number of annotations as roll-over text.</li>
+       <li>Pop-up windows for the annotations are not part of this user story.</li>
+       <li>The grids should display correctly in all supported browsers.</li>
+       
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify excluded header terms not in slim grid
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with MP annotations to "Normal Phenotype"; Myo5a.  Expect: Those annotations not in grid.</li>
+    		  <li>Display marker with only MP annotations to "no phenotypic analysis"; Ap2a1.  Expect:  No grid.</li>
+    		  <li>Display marker with MP annotations to "other phenotype"; Atox1.  Expect:  Those annotations not in grid and other annotations to display as expected.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify rolled-up MP annotations are in correct MP grid
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with MP annotations rolled up due to Expresses Component; Mir155; ataxia.  Expect: behavior/neuro cell blue with 3 annotations.</li>
+    		  <li>Display marker with MP annotations rolled up due to Cre; Pax4; Endo/Exo.  Expect: 7 annotations for this header.</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify MP annotations that don't roll-up are not in MP grid
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  
+    		  <li>Display marker with only Mutation Involves alleles that have MP; Gm9552.  Expect: no MP grid.</li>
+    		  <li>Display marker with a mix of simple alleles and Mutation Involves alleles with MP; Wnt1.  Expect: Grid has no growth/size/body annotations; confirms that MI allele annotations not included.</li>
+    		  <li>Display marker with only Complex genotypes with MP; Olfr6 or Prrx2.  Expect no MP grid.</li>
+    		  <li>Display Gt(ROSA).  Expect: No grid.</li>
+    		  <li>Display docking site marker; Col1a1.  Expect: MP annotation "decreased brain weight" excluded per docking site rules; 2 annotations for nervous system</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify Normal annotations are not in MP grid
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with only normal annotations to an MP header term; Atp10a.  Expect: No MP grid.</li>
+    		  <li>Display marker with normal simple annotations and complex abnorm ones; Zbp1.  Expect: no MP grid.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify that grid does not display when no MP data is present.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with no alleles; Es19.  Expect: no MP grid</li>
+    		  <li>Display marker with alleles that have no MP annotations; Mir34c.  Expect:  no MP grid.</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify roll-over text of cells with annotations
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Verify annotation count when only 1 annotation; Mtss1; Skeleton.  Expect: 1 annotation for the "Skeleton" header term</li>
+    		  <li>Verify annotation counts when normals are present; Pomc/Adipose tissue.  Expect: count of 6 annotations (excludes 1 normal annotation).</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify display of grid, labels, styling, etc.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display a marker with all the full set of pheno links in addition to the slim grid; Trp53.  Expect: Grid displays and other data appears as on Public.</li>
+    		  <li>Display a marker with a limited set of pheno links in addition to the slim grid; Rubie.  Expect:  Grid displays and other data appears as on Public.</li>
+    		  <li>Display a QTL marker with no marker clip; Map1a.  Expect: Grid with other links as before.</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify grid works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Test each of these browsers using a subset of the test cases above.</li>
+    		  
+    		</ol></li>
+    		
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
