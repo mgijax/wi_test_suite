@@ -68,7 +68,7 @@
 		<ol>
 		
 		    <li>Verify excluded header terms not in slim grid
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/19/15</p>  
     		<ol>
     		  <li>Display marker with MP annotations to "Normal Phenotype"; Myo5a.  Expect: Those annotations not in grid.</li>
     		  <li>Display marker with only MP annotations to "no phenotypic analysis"; Ap2a1.  Expect:  No grid.</li>
@@ -77,7 +77,7 @@
     		</ol></li>
     		
     		<li>Verify rolled-up MP annotations are in correct MP grid
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/19/15</p>  
     		<ol>
     		  <li>Display marker with MP annotations rolled up due to Expresses Component; Mir155; ataxia.  Expect: behavior/neuro cell blue with 3 annotations.</li>
     		  <li>Display marker with MP annotations rolled up due to Cre; Pax4; Endo/Exo.  Expect: 7 annotations for this header.</li>
@@ -85,7 +85,7 @@
     		</ol></li>
     		
     		 <li>Verify MP annotations that don't roll-up are not in MP grid
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/19/15</p> 
     		<ol>
     		  
     		  <li>Display marker with only Mutation Involves alleles that have MP; Gm9552.  Expect: no MP grid.</li>
@@ -97,7 +97,7 @@
     		</ol></li>
     		
     		<li>Verify Normal annotations are not in MP grid
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/19/15</p> 
     		<ol>
     		  <li>Display marker with only normal annotations to an MP header term; Atp10a.  Expect: No MP grid.</li>
     		  <li>Display marker with normal simple annotations and complex abnorm ones; Zbp1.  Expect: no MP grid.</li>
@@ -105,15 +105,15 @@
     		</ol></li>
     		
     		<li>Verify that grid does not display when no MP data is present.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/19/15</p>   
     		<ol>
-    		  <li>Display marker with no alleles; Es19.  Expect: no MP grid</li>
+    		  <li>Display marker with no alleles (has a marker clip); Es19.  Expect: no MP grid</li>
     		  <li>Display marker with alleles that have no MP annotations; Mir34c.  Expect:  no MP grid.</li>
     		  
     		</ol></li>
     		
     		 <li>Verify roll-over text of cells with annotations
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/19/15</p>   
     		<ol>
     		  <li>Verify annotation count when only 1 annotation; Mtss1; Skeleton.  Expect: 1 annotation for the "Skeleton" header term</li>
     		  <li>Verify annotation counts when normals are present; Pomc/Adipose tissue.  Expect: count of 6 annotations (excludes 1 normal annotation).</li>
@@ -121,7 +121,7 @@
     		</ol></li>
     		
     		<li>Verify display of grid, labels, styling, etc.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/19/15</p>   
     		<ol>
     		  <li>Display a marker with all the full set of pheno links in addition to the slim grid; Trp53.  Expect: Grid displays and other data appears as on Public.</li>
     		  <li>Display a marker with a limited set of pheno links in addition to the slim grid; Rubie.  Expect:  Grid displays and other data appears as on Public.</li>
@@ -130,7 +130,7 @@
     		</ol></li>
     		
     		 <li>Verify grid works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">FAIL - jlewis 6/19/15 -- Safari not displaying header labels correctly.</p>  
     		<ol>
     		  <li>Test each of these browsers using a subset of the test cases above.</li>
     		  
