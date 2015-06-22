@@ -46,7 +46,7 @@
        </ul></li>
        <li>The order of the terms in the grid is the same each time it is displayed; alpha by term.</li>
        <li>When a marker has no rolled-up abnormal annotations -- no slim grid is displayed.</li>
-       <li>Display number of annotations as roll-over text.</li>
+       <li>Display number of rolled up annotations as roll-over text. (don't include normal ones)</li>
        <li>Pop-up windows for the annotations are not part of this user story.</li>
        <li>The grids should display correctly in all supported browsers.</li>
        
@@ -113,10 +113,11 @@
     		</ol></li>
     		
     		 <li>Verify roll-over text of cells with annotations
-    		<p concordion:assertTrue="true">PASS - jlewis 6/19/15</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 6/22/15</p>   
     		<ol>
     		  <li>Verify annotation count when only 1 annotation; Mtss1; Skeleton.  Expect: 1 annotation for the "Skeleton" header term</li>
-    		  <li>Verify annotation counts when normals are present; Pomc/Adipose tissue.  Expect: count of 6 annotations (excludes 1 normal annotation).</li>
+    		  <li>Verify annotation counts when normals are present; Pomc/Adipose tissue.  Expect: count of 14 annotations (excludes 1 normal annotation).</li>
+    		  <li>Verify annotation counts when multiple exist for a term; Lepr / Mortality/Aging.  Expect: count of 7 annotations.</li>
     		  
     		</ol></li>
     		
@@ -130,7 +131,7 @@
     		</ol></li>
     		
     		 <li>Verify grid works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
-    		<p concordion:assertTrue="false">FAIL - jlewis 6/19/15 -- Safari not displaying header labels correctly.</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 6/22/2015</p>  
     		<ol>
     		  <li>Test each of these browsers using a subset of the test cases above.</li>
     		  
