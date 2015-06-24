@@ -1,0 +1,124 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 58/Marker/Model Pop-up</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - Disease ribbon - Model pop-up</h1>
+    <ul>
+        <li>US 58 - Marker Detail - disease model pop-up</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+      <li>Add pop-up page for the "Mouse Models Involving Xxx" column links.</li>
+      <li>Pop-up should be the same as the pop-up for that marker/disease combination on the Disease Detail page.</li>
+      <li>Count displayed is typically the number of models present -- regardless if associated via a complex or simple genotype.
+      <ul><li>The exception -- if there are only NOT models -- then the count is the total of NOT models. E.g. Wisp3</li></ul></li>
+      <li>The pop-up page lists the all the models for the marker/disease combination and then any NOT models.  This is the same as the Disease Detail page.</li>
+      <li>The models displayed are limited to the mouse gene of the Marker Detail page -- even when the gene may have a mouse paralog.  e.g. C4a, C4b
+      <ul><li>C4a has no disease annotations and therefore its Marker Detail page won't show that relationship.  Its paralog C4b has one and will display it on its own Marker Detail page.</li></ul></li>
+      <li>The pop-up should display correctly on all supported browsers.</li>
+      
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify model pop-ups when only models are present (no NOTs) (text, links, UI)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display pop-up for marker/disease combo with multiple models; Apc/114500.  Expect: 6 models.</li>
+    		  <li>Display pop-up for marker/disease combo with 1 model; Tyr/203100.  Expect: 1 model.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify model pop-ups when both models and NOTs are present (text, links, UI)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display pop-up for marker/disease combo with models and 1 NOT; Psen1/607822.  Expect: 14 models/1 NOT.</li>
+    		  <li>Display pop-up for marker/disease combo with models and multiple NOTs; Prnp/123400.  Expect: 8 models/4 NOTs.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify model pop-ups for markers part of n:m homology classes
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display pop-up for marker/disease combo with multiple mouse genes in class; Ly6a/166710.  Expect: 1 model.</li>
+    		  <li>Display pop-up for marker/disease combo with multiple mouse/human genes in class; C4b/152700.  Expect: 1 model.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify model pop-ups when models are present for Human only associations (text, links, UI)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display pop-up for marker/disease combo for models only; Ptch2/155255.  Expect: 2 models.</li>
+    		  <li>Display pop-up for marker/disease combo for models and NOTs; Rtn4r/181500.  Expect: 1 model and 2 NOTs.</li>
+    		  <li>Display pop-up for marker/disease combo with only NOTs; Wisp/3208230.  Expect: 3 NOTs.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify model pop-ups when for data exception cases
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display pop-up for marker/disease combo with multiple references; Ppp3r1/181500.  Expect: A row with 2 J#s in pop-up.</li>
+    		  <li>Display pop-up for marker/disease combo with superscripts in background; Pde6b/163500.  Expect: Superscript displayed per Public.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the model pop-up in all supported browsers
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display pop-up for marker/disease combo with many models; App/104300.  Expect: 95 models.</li>
+    		  <li>Display pop-up for marker/disease combo with models and NOTs; Psen1/104300.  Expect: 43 models and 1 NOT.</li>
+    		  
+    		</ol></li>
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
