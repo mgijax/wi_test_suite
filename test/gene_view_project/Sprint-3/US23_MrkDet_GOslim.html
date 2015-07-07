@@ -1,0 +1,187 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 23/Marker/GO Slim Grid</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - GO Slim Grid</h1>
+    <ul>
+        <li>US 23 - Base slim grid - for GO</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Display GO slim grids at the top of the existing Gene Ontology ribbon.  Leave all other text/links as is for this user story.</li>
+       <li>The set of GO slim terms are a custom set of GO terms and labels for each of the 3 ontologies defined by the GO curators.</li>
+       <li>There are 3 GO slim grids and they are displayed in the following order:
+       <ul>
+           <li>Molecular Function</li>
+           <li>Biological Process</li>
+           <li>Cellular Component</li>
+       </ul></li>
+       <li>The order of the slim terms in each grid is alpha by slim label</li>
+       <li>Include all the GO slim terms when displaying the grid regardless of whether annotations exist or not.
+       <ul><li>Cells with annotations are blue and cells without are left white.</li>
+           <li>Labels are defined by the curators in a GO slim vocab file</li>
+           <li>Bold labels when annotations exist for that header term.</li>
+       </ul></li>
+       <li>Display all 3 grids even if only 1 grid has a "blue cell"</li>
+       <li>If all 3 grids have no "blue cells" -- do not display any of them.
+       <ul><li>NOTE: Although there are no blue cells -- there still may be GO annotations for a marker because some annotations do not roll up to the GO slim vocab</li></ul>
+       <li>Do not include annotations with an evidence code of ND (no data) in the GO slim grids</li>
+       <li>Do not include annotations with NOT qualifiers (other qualifiers are okay) in the slim grids
+       <ol><li>NOT qualifiers = NOT, NCOL, NCON</li>
+           <li>Other qualifiers = COL, CON</li>
+       </ol></li>
+       <li>The GO slim terms are a custom set of GO terms that do not have to be high level terms
+       <ul><li>Use of lower level terms results in some annotations being left off of the grid -- this is intentional (e.g. protein binding)</li></ul></li>
+       <li>The GO slim vocab may include parent and child terms in the same slim grid -- this results in some annotations being reported twice -- this is intentional.</li>
+       <li>Multiple GO terms may be consolidated into a single GO slim term (by specifying the same GO slim label for multiple terms in the GO slim file).  E.g. Transcription (in Function grid)</li>
+       
+       
+       <li>Display number of rolled up annotations as roll-over text.
+       <ol><li>Count annotations in the same was as the GO Marker page -- e.g. J#s consolidated if other uniqueness fields are the same</li>
+           <li>NOT and ND annotations are not in the annotation count</li></ol></li>
+       <li>Pop-up windows for the annotations are not part of this user story -- they are present to assist in testing.</li>
+       <li>The grids should display correctly in all supported browsers.</li>
+       
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify GO slim terms -- labels and order of grids themselves and terms within those grids
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with GO annotations; Lep.  Expect: full set of slim terms in order from GO file.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify GO slim term that consolidates 2 GO terms (for transcription slim)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Verify display/counts when both terms exist for a marker; Glmp.  Expect: Cell to be blue and counts to include annotations from both terms; count = 3.</li>
+    		  <li>Verify display/counts when only terms exist for GO:0000988 or its children (protein binding transcription factor activity); Bcor.  Expect: blue cell; counts=2.</li>
+    		  <li>Verify display/counts when only terms exist for GO:0001071 or its children (nucleic acid binding transcription factor activity); Vdr.  Expect: blue cell; counts=4.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify GO slim terms that have a parent/child relationship (parent = GO:0043232; non-membrane-bounded organelle and child = GO:0005856; cytoskeleton); also another child = GO:0005634 nucleus
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with only annotations to parent; Espn.  Expect: parent cell blue; counts = 2 for stereocilium bundle</li>
+    		  <li>Display marker with only annotations to child; Bcl2l11.  Expect: parent and child cells blue; counts = child annotations counted for both -- each have 1 annotation.</li>
+    		  <li>Display marker with annotations to both parent and child; Cdh23.  Expect: parent and child cells blue; counts = child annotations counted for both -- parent has add'l ones. child=1; parent = 3+ and 1</li> 
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the various NOT annotations are not in GO grids
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with only NOT annotations for a slim grid term; Ptk7 (3 NOT annotations for MFunction).  Expect: a white cell for carbohydrate derivative binding slim term (due to NOT ATP binding).</li>
+    		  <li>Display marker with both regular and NOT annotations for a slim grid term; Pnpla7, term=GO:0004622, slim=hydrolase.  Expect: a blue cell for that slim grid term.</li>
+    		  <li>Display marker with a NCOL annotation for a slim grid term; Ahnak, term=plasma membrane.  Expect: the NCOL annotation excluded; count=3.</li>
+    		  <li>Display marker with a NCON annotation for a slim grid term; Pdilt, term=oxidoreductase.  Expect: the NCON annotation excluded; white cell.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the positive qualifiers (COL, CON) are included in slim grid and counts
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with CON as a annotation qualifier; Capza1 - cytoskeletal protein binding.  Expect: Annotation included in slim grid and counts.</li>
+    		  <li>Display marker with COL as a annotation qualifier; Bcl2l11 - cytoskeleton.  Expect: Annotation included in slim grid and counts; count=1.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify that ND annotations are not in GO grids
+    		<p concordion:assertTrue="false">PASS - jlewis 7/6/15</p>  
+    		<ol>
+    		  <li>Display marker with ND annotations to some but not all of the GO ontologies; Spt1.  Expect: Display an empty grid for the ontologies with an ND annotation.</li>
+    		  
+    		  
+    		</ol></li>
+    		
+    		<li>Verify that grid does not display when no GO data is present.
+    		<p concordion:assertTrue="true">PASS jlewis - 7/6/15</p>     
+    		<ol>
+    		  <li>Display marker with no GO annotations at all; cw.  Expect: no GO grid or GO ribbon</li>
+    		  <li>Display marker with only ND GO annotations; Gm10036.  Expect: no GO grid</li>
+    		  <li>Display marker with only GO annotations that don't display on the grid; MGI:1917144.  Expect: no GO grid -- 1 grid has ND and other 2 have annotations that don't roll-up.</li>
+    		  <li>Display marker with only GO annotations that don't display on the grid plus NOT annotations; Abcg4.  Expect: no GO grids</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify roll-over annotation counts
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Display marker with a single annotation to a slim term; Ada, term=lysosome, slim=vacuole.  Expect: annotation count of 1</li>
+    		  <li>Display marker with annotations to the slim term itself; Atp6v0c, term=vacuole.  Expect: annotation count = 4 (1 annotation to slim term itself; 3 child terms).</li>
+    		  <li>Display marker with annotations with multiple J#s; Brca2, term=nucleus.  Expect: 2 annotations to nucleus; 1 with mult J#s; count=2 (mult J#s collapsed)</li>
+    		  <li>Display marker with annotations that vary by evidence code; Trp53, term=positive regulation of transcription, DNA-templated, slim=nucleic acid-templated transcription.  Expect: each annotation to be counted separately.</li>
+    		  
+    		  
+    		</ol></li>
+    		
+    		<li>Verify display of grid, labels, styling, bold, order
+    		<p concordion:assertTrue="false">new test</p>     
+    		<ol>
+    		  <li>Display a marker with all the full set of GO links in addition to the slim grid; Trp53.  Expect: Grid displays and other data appears as on Public.</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify grid works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		  <li>Test each of these browsers using a subset of the test cases above.</li>
+    		  
+    		</ol></li>
+    		
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
