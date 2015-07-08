@@ -80,14 +80,14 @@
 		<ol>
 		
 		    <li>Verify GO slim terms -- labels and order of grids themselves and terms within those grids
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="false">PASS - jlewis 7/8/15</p>  
     		<ol>
     		  <li>Display marker with GO annotations; Lep.  Expect: full set of slim terms in order from GO file.</li>
     		  
     		</ol></li>
     		
     		<li>Verify GO slim term that consolidates 2 GO terms (for transcription slim)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/8/15</p>  
     		<ol>
     		  <li>Verify display/counts when both terms exist for a marker; Glmp.  Expect: Cell to be blue and counts to include annotations from both terms; count = 3.</li>
     		  <li>Verify display/counts when only terms exist for GO:0000988 or its children (protein binding transcription factor activity); Bcor.  Expect: blue cell; counts=2.</li>
@@ -96,16 +96,16 @@
     		</ol></li>
     		
     		<li>Verify GO slim terms that have a parent/child relationship (parent = GO:0043232; non-membrane-bounded organelle and child = GO:0005856; cytoskeleton); also another child = GO:0005634 nucleus
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/8/15</p>  
     		<ol>
-    		  <li>Display marker with only annotations to parent; Espn.  Expect: parent cell blue; counts = 2 for stereocilium bundle</li>
+    		  <li>Display marker with only annotations to parent; Espn.  Expect: parent cell blue; counts = 2 for stereocilium bundle (plus 4 annotations that are common for both slim cells)</li>
     		  <li>Display marker with only annotations to child; Bcl2l11.  Expect: parent and child cells blue; counts = child annotations counted for both -- each have 1 annotation.</li>
     		  <li>Display marker with annotations to both parent and child; Cdh23.  Expect: parent and child cells blue; counts = child annotations counted for both -- parent has add'l ones. child=1; parent = 3+ and 1</li> 
     		  
     		</ol></li>
     		
     		<li>Verify the various NOT annotations are not in GO grids
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/8/15</p>  
     		<ol>
     		  <li>Display marker with only NOT annotations for a slim grid term; Ptk7 (3 NOT annotations for MFunction).  Expect: a white cell for carbohydrate derivative binding slim term (due to NOT ATP binding).</li>
     		  <li>Display marker with both regular and NOT annotations for a slim grid term; Pnpla7, term=GO:0004622, slim=hydrolase.  Expect: a blue cell for that slim grid term.</li>
@@ -115,7 +115,7 @@
     		</ol></li>
     		
     		<li>Verify the positive qualifiers (COL, CON) are included in slim grid and counts
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/8/15</p>  
     		<ol>
     		  <li>Display marker with CON as a annotation qualifier; Capza1 - cytoskeletal protein binding.  Expect: Annotation included in slim grid and counts.</li>
     		  <li>Display marker with COL as a annotation qualifier; Bcl2l11 - cytoskeleton.  Expect: Annotation included in slim grid and counts; count=1.</li>
@@ -123,7 +123,7 @@
     		</ol></li>
     		
     		<li>Verify that ND annotations are not in GO grids
-    		<p concordion:assertTrue="false">PASS - jlewis 7/6/15</p>  
+    		<p concordion:assertTrue="false">PASS - jlewis 7/8/15</p>  
     		<ol>
     		  <li>Display marker with ND annotations to some but not all of the GO ontologies; Spt1.  Expect: Display an empty grid for the ontologies with an ND annotation.</li>
     		  
@@ -131,7 +131,7 @@
     		</ol></li>
     		
     		<li>Verify that grid does not display when no GO data is present.
-    		<p concordion:assertTrue="true">PASS jlewis - 7/6/15</p>     
+    		<p concordion:assertTrue="true">PASS jlewis - 7/8/15</p>     
     		<ol>
     		  <li>Display marker with no GO annotations at all; cw.  Expect: no GO grid or GO ribbon</li>
     		  <li>Display marker with only ND GO annotations; Gm10036.  Expect: no GO grid</li>
@@ -141,7 +141,7 @@
     		</ol></li>
     		
     		 <li>Verify roll-over annotation counts
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 7/8/15</p>    
     		<ol>
     		  <li>Display marker with a single annotation to a slim term; Ada, term=lysosome, slim=vacuole.  Expect: annotation count of 1</li>
     		  <li>Display marker with annotations to the slim term itself; Atp6v0c, term=vacuole.  Expect: annotation count = 4 (1 annotation to slim term itself; 3 child terms).</li>
@@ -152,14 +152,14 @@
     		</ol></li>
     		
     		<li>Verify display of grid, labels, styling, bold, order
-    		<p concordion:assertTrue="false">new test</p>     
+    		<p concordion:assertTrue="true">PASS - jlewis 7/8/15</p>     
     		<ol>
     		  <li>Display a marker with all the full set of GO links in addition to the slim grid; Trp53.  Expect: Grid displays and other data appears as on Public.</li>
     		  
     		</ol></li>
     		
     		 <li>Verify grid works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 7/8/15</p>   
     		<ol>
     		  <li>Test each of these browsers using a subset of the test cases above.</li>
     		  
