@@ -1,0 +1,157 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 24/Marker/EMAPA Slim Grid</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - EMAPA Slim Grid</h1>
+    <ul>
+        <li>US 24 - Base slim grid - for anatomy (EMAPA)</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Display Anatomy slim grid at the top of the existing Expression ribbon.  Leave all other text/links as is for this user story.</li>
+       <li>The set of EMAPA slim terms are a custom set defined by the GXD group.</li>
+       <li>The order of the slim terms in each grid is a custom order per the order of the slim term file</li>
+       <li>Include all the EMAPA slim terms when displaying the grid regardless of whether annotations exist or not.
+       <ul><li>Labels are defined by the curators in the vocab slim file, but at this point the GXD curators use the real term name as the label.</li>
+           <li>Bold labels only when the cell is blue.</li>
+       </ul></li>
+       <li>GXD annotations may be positive, absent, not specified, or ambiguous.  Results are also either mutant or wild-type.  A combination of these 
+           characteristics determine how to color a cell in the slim grid.</li>
+       <li>A wild-type result is defined the same way as on the GXD QF -- no genotypes with allele pairs allowed except for in situ reporter assays; then single pair hets allowed if allele's gene same as assay's gene.</li>
+       <li>Color a cell blue when there are positive (detected=yes), wild type results
+       <ul><li>Other annotations that are not positive, wild type may be present -- cell is still blue.</li></ul> </li>
+       <li>Dog-ear a cell when the only annotations present are mutant and/or non-positive results (detected = no, not specified, ambiguous). </li>
+       <li>If the slim grid has no blue or dog-earred cells -- do not display the grid.
+       <ul><li>NOTE: Although there are no colored cells -- there still may be GXD annotations for a marker because some annotations do not 
+               roll up to the slim vocab</li></ul></li>
+       <li>Display number of rolled up annotations as roll-over text.
+       <ol><li>Count annotations in the same was as the GXD Summary page -- includes all types of expression (positive, absent, etc); wild types and mutants.</li>
+           </ol></li>
+       <li>Pop-up windows for the annotations are not part of this user story.</li>
+       <li>Add a title and informational pop-up above the grid (per reqs doc).</li>
+       <li>The grids should display correctly in all supported browsers.</li>
+       
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify EMAPA slim terms -- labels and order
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/15</p>  
+    		<ol>
+    		  <li>Display marker with GXD annotations; Lep.  Expect: full set of slim terms in order from EMAPA slim file.</li>
+    		  
+    		</ol></li>
+    		
+    		
+    		<li>Verify blue cell display on Anatomy grid
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/15</p>   
+    		<ol>
+    		  <li>Display marker that has only positive, WT annotations; Gabbr2.  Expect: 2 cells to be blue</li>
+    		  <li>Display marker that has only positive, WT annotations (with a mutant allele of that marker); 2010111I01Rik.  Expect: Hemolymphoid system to be blue (1 annotation).</li>
+    		  <li>Display grid with a term that has only positive WT and mutant annotations; Vcl/extraembryonic component.  Expect:  Cell to be blue; count=13; mutant=7; WT=6.</li>
+    		  <li>Display grid with a term that has positive/non-positive, WT annotations; Acan/olfactory system.  Expect: Cell to be blue; count=18</li>
+    		  <li>Display grid with a term that has positive/non-positive, WT/mutant annotations; Vtn/Respiratory system.  Expect: Cell to be blue; count=13; pos/WT=3; pos/mutant=1; non-pos/WT=9</li>
+    		</ol></li>
+    		
+    		<li>Verify dog-ear cell display on Anatomy grid
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/15</p>  
+    		<ol>
+    		  <li>Display grid with a term that has only non-positive, WT annotations; Apip.  Expect: all cells to be dog-earred</li>
+    		  <li>Display grid with a term that has only positive, mutant annotations; 6330403A02Rik (MGI:2138735).  Expect:  Cell to be dog-earred.</li>
+    		  <li>Display grid with a term that has non-positive WT annotations and positive mutant ones; C7.  Expect: "reproductive system" cell to be dog-earred</li>
+    		  <li>Display grid with a term that has only "dog-ear" annotations plus unmapped ones; Hoxb.  Expect:  Liver and...system to be dog-earred -- other annotations ignored.</li>
+    		</ol></li>
+    		
+    		  
+    		
+    		<li>Verify that grid does not display when no EMAPA data is present.
+    		<p concordion:assertTrue="true">PASS - jlewis 7/13/15</p>      
+    		<ol>
+    		  <li>Display marker with no GXD annotations at all; cw.  Expect: no grid</li>
+    		  <li>Display marker with only GXD annotations that don't display on the grid; MGI:1923883.  Expect: no grid</li>
+    		  <li>Display marker with no GXD annotations, but GXD Lit results exist; Inadl.  Expect: no grid.</li>
+    		</ol></li>
+    		
+    		 <li>Verify roll-over annotation counts for blue cells
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/15</p>     
+    		<ol>
+    		  <li>Display marker/cell with only positive/WT annotations; Bmp1/alimentary system.  Expect: count=7; count matches # of pos/WT annotations.</li>
+    		  <li>Display marker/cell with positive/WT annotations plus non-positive and mutant annotations; Pax6/alimentary system.  Expect:  count=46; count matches the total of both.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify roll-over annotation counts for dog ear cells
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/15</p>     
+    		<ol>
+    		  <li>Display marker/cell with only non-positive/WT annotations; Pax6/embryo mesenchyme.  Expect: count matches # of these annotations; count=3.</li>
+    		  <li>Display marker/cell with only positive/mutant annotations; 6330403A02Rik/nervous system.  Expect: count=2; matches # of these annotations.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify display of grid, labels, styling, bold, order
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/15</p>      
+    		<ol>
+    		  <li>Display a marker with all the full set of GXD links in addition to the slim grid; Trp53.  Expect: Grid displays and other data appears as on Public.</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify grid works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
+    		<p concordion:assertTrue="true">PASS - jlewis 7/14/15</p>   
+    		<ol>
+    		  <li>Test each of these browsers using a subset of the test cases above.</li>
+    		  
+    		</ol></li>
+    		
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
