@@ -1,0 +1,129 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 55 Pheno ribbon re-do</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - Pheno ribbon</h1>
+    <ul>
+        <li>US 55 - Pheno ribbon: content & format beyond slim grid</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Only display the ribbon if there are data</li>
+       <li>Use Label | value structure - refer to mock-up (add link here)</li>
+       <li>Add slim grid title and help icon with pop-up text.</li>
+       <li>Gracefully handle cases when items are missing (e.g. the grid, the clip, etc.)
+       <li>Disease links are now in the disease ribbon - remove them from this ribbon.</li>
+       <li>All other counts/links remain -- just in a different format and position.</li>
+       <li>The ribbon should display correctly in all supported browsers.</li>
+       
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		    <li>Verify ribbon re-do - full set of data (grid, clip, images, alleles, mutation involves, incidental mutations)
+    		<p concordion:assertTrue="true">PASS - jlewis 7/15/15</p>  
+    		<ol>
+    		  <li>Display a marker that has all the various fields of the Pheno ribbon; Trp53.  Expect: all fields displayed per mockup.</li>
+    		</ol></li>
+		
+		    <li>Verify that when no phenotype/allele data is present for a marker - no ribbon is displayed
+    		<p concordion:assertTrue="true">PASS - jlewis 7/15/15</p>  
+    		<ol>
+    		  <li>Display marker Mir181a-1.  Expect: no pheno ribbon.</li>
+    		</ol></li>
+		   
+    		<li>Verify pheno ribbon layout when no MP slim grid is displayed
+    		<p concordion:assertTrue="true">PASS - jlewis 7/15/15</p>  
+    		<ol>
+    		  <li>Display marker with only MP annotations to "no phenotypic analysis"; Ap2a1.  Expect: no grid; includes: alleles, incidental mutations</li>
+    		  <li>Display marker with no MP annotations that roll-up; Gt(Rosa)26Sor.  Expect: no grid; includes: lots of annotations; images; alleles; MIs; clip</li>
+    		  <li>Display marker with only mutation involves alleles; Gm9552.  Expect: no grid; includes: MP annotations, images, alleles, MIs</li>
+    		  <li>Display marker with only MP annotations to complex genotypes; Prrx2.  Expect: no grid; includes: MP alleles, clip</li>
+    		  <li>Display marker with only normal annotations; Zbp1.  Expect: no MP grid; includes: MP, alleles, clip, incidental mutations.</li>
+    		</ol></li>
+		
+		    <li>Verify ribbon with no marker clip.
+    		<p concordion:assertTrue="true">PASS - jlewis 7/15/15</p>   
+    		<ol>
+    		  <li>Display a QTL marker with no marker clip with a grid; Map1a.  Expect: no clip; includes: MP, grid, alleles, incidental mutations.</li>
+    		  <li>Display a marker with no grid or clip; Olfr6.  Expect: no grid; includes: MP, alleles, incidental mutations.</li>
+    		</ol></li>
+    		
+    		<li>Verify ribbon when alleles are present (no grid)
+    		<p concordion:assertTrue="true">PASS - jlewis 7/15/15</p>    
+    		<ol>
+    		  <li>Display marker with alleles and clip; Mir34c.  Expect: clip and allele counts.</li>
+    		  <li>Display marker with allele counts and incidental mutations; Apip.  Expect: allele counts and incidental mutations.</li>
+    		</ol></li>
+		
+		    <li>Verify ribbon when only the marker clip is present
+    		<p concordion:assertTrue="true">PASS - jlewis 7/15/15</p>   
+    		<ol>
+    		  <li>Display marker Es19.  Expect: Pheno ribbon with marker clip.</li>
+    		</ol></li>
+    		
+    		<li>Verify ribbon when only incidental mutations present
+    		<p concordion:assertTrue="true">PASS - jlewis 7/15/15</p>   
+    		<ol>
+    		  <li>Display marker Gm5591.  Expect: Only incidental mutations link</li>
+    		</ol></li>
+    		
+    		 <li>Verify ribbon works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
+    		<p concordion:assertTrue="false">PASS (for Mac browsers) - PC testing not completed due to PC hardware issues.</p>  
+    		<ol>
+    		  <li>Test each of these browsers using a subset of the test cases above.</li>
+    		  
+    		</ol></li>
+    		
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
