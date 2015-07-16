@@ -1,0 +1,154 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 57 - Marker/GO</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - GO ribbon</h1>
+    <ul>
+        <li>US 57 - GO ribbon - content and format beyond slim grid</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Only display the GO ribbon if there is data.</li>
+       <li>Reformat existing GO ribbon elements per the mockups.</li>
+       <li>Don't include the ND annotations in the GO annotation counts any longer
+       <ul><li>Note - this will result in the count on the Marker Detail page being different than the GO Marker page when NDs are present.</li></ul></li>
+       <li>Change the FuncBase link to create a new tab when clicked.</li>
+       <li>Remove the teasers from the ribbon.</li>
+       <li>Remove the Reference Genome link from the ribbon.</li>
+       <li>The ribbon should display correctly in all supported browsers.</li>
+       <li>Due to the change of excluding the ND annotations -- regression testing needed on the following pages
+       <ol><li>Marker GO table summary - NDs still display</li>
+           <li>Reference GO summary - NDs still display</li>
+           <li>Batch Query - NDs still displayed in output</li>
+           <li>Reference Summary/Detail - NDs still included in counts</li>
+        </ol></li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify the GO ribbon when the full-set of data are present
+    		<p concordion:assertTrue="true">PASS - jlewis 7/16/15</p>  
+    		<ol>
+    		  <li>Display marker Brca1.  Expect: Grid, Count, and FuncBase link per the mockups.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify cases when the GO ribbon is not displayed
+    		<p concordion:assertTrue="true">PASS - jlewis 7/16/15</p>  
+    		<ol>
+    		  <li>Display a marker with no GO annotations; cw.  Expect: No GO ribbon on page.</li>
+    		  <li>Display a marker with only ND GO annotations; Gm16367.  Expect: No GO ribbon on page.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the GO ribbon display when no grid is displayed
+    		<p concordion:assertTrue="true">PASS - jlewis 7/16/15</p>  
+    		<ol>
+    		  <li>Display marker with only ND annotations with FuncBase link; Prr27.  Expect: No grid, no count, FuncBase link only</li>
+    		  <li>Display a marker with GO annotations that don't display on the grid, but incl FuncBase; Abcg4.  Expect: No grid, count=2, FuncBase link.</li>
+    		  <li>Display a marker with GO annotations that don't display on the grid and no FuncBase; Hp1bp1.  Expect: No grid, count=1, no FuncBase.</li>
+    		  <li>Display a marker with only FuncBase link and no GO annotations; Spi15.  Expect: FuncBase link only.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the GO ribbon display when grid and counts are displayed when ND annotations are present
+    		<p concordion:assertTrue="true">PASS - jlewis 7/15/15</p>  
+    		<ol>
+    		  <li>Display marker with ND and regular GO annotations; with a FuncBase link; Spt1.  Expect: grid, count=1, FuncBase link</li>
+    		  <li>Display marker with ND and regular GO annotations; w/out a FuncBase link; MGI:3698433.  Expect: grid, count=1, no FuncBase.</li>
+    		</ol></li>
+    		
+    		<li>Verify the GO ribbon that has a Reference Genome Project link on Public no longer displays the link
+    		<p concordion:assertTrue="true">PASS - jlewis 7/16/15</p>  
+    		<ol>
+    		  <li>Display marker MGI:1921348.  Expect: No reference genome project link.</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify grid works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		  <li>Test each of these browsers using a subset of the test cases above.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Regression test GO Marker 
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		  <li>test 1.1</li>
+    		  
+    		</ol></li>
+    	    
+    	    <li>Regression test GO Reference
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		  <li>test 1.1</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Regression test Batch Query 
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		  <li>test 1.1</li>
+    		  
+    		</ol></li>
+    	    
+    	    <li>Regression test Reference Summary/Detail
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		  <li>test 1.1</li>
+    		  
+    		</ol></li>
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
