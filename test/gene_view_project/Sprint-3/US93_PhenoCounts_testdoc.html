@@ -1,0 +1,194 @@
+<HTML>
+<head>
+<!-- rmb toggle -->
+
+    <title>User Story 93 Test Doc</title>
+
+
+<STYLE TYPE="text/css">
+<!--
+TH{font-family: Verdana; font-size: 8pt; font-weight: bold;}
+TD{font-family: Verdana; font-size: 8pt;}
+--->
+</STYLE>
+
+</head>
+<body bgcolor="#DDEAEF">
+<h2>US93 - Marker detail: A&P ribbon - annotation/allele count</h2>
+
+
+
+<b>Test Requirements - General</b><p>
+- In the Mutations, alleles, and phenotypes ribbon, add a "Phenotype summary" sub-section.<br>
+- In the Phenotype summary sub-section display the number of MP annotations associated with the Marker and the number of Alleles for that marker involved in these annotations.<br>
+- Display format: "# annotations from # alleles", where the first # is the annotation count and the second # is the allele count.<p>
+
+
+<b>Count Specifications</b><br>
+From Jon<br>
+<OL>
+<LI>Traverse traditional marker/allele relationships, mutation involves relationships, and expresses component relationships.
+<LI>Exclude wild-type alleles from consideration.
+<LI>Include normal annotations, header annotations, etc.
+<LI>Omit all annotations to the 'phenotype not analyzed' annotations.
+<LI>For the annotations included (rules 3-4), traverse from marker to allele to genotype to annotation to count the annotations for the marker
+<LI>For the alleles included (rules 1-2) and the annotations included (rules 3-4), traverse from marker to allele to genotype to annotation to count the annotations for the marker and to count the alleles used to arrive at that set of annotations.
+</OL>
+
+
+
+<b>Test Environment:</b> <a href="http://scrumbob.informatics.jax.org" target="_blank">Scrum Bob</a><br><br>
+
+
+
+
+
+
+
+<b>Test Cases/Testing</b><p>
+The following table contains test cases with links to the corresponding Marker Detail pages on ScrumBob<p>
+Abbreviation key:<br>
+<font color=maroon>&#10003;</font>: Test result verified<br>
+<p>
+
+
+
+<table WIDTH="!" BORDER=0 CELLPADDING=4 CELLSPACING=0>
+<tr>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-top:thin solid grey;border-left:thin solid grey;border-right:thin solid grey;border-bottom:thin solid grey"><font class="label"><b>Test Case</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-top:thin solid grey;border-left:none;border-right:thin solid grey;border-bottom:thin solid grey"><font class="label"><b>Test Case Note</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-top:thin solid grey;border-left:none;border-right:thin solid grey;border-bottom:thin solid grey"><font class="label"><b>Expected<br>Annot/Allele Count</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>Link to<br>Expected Results</b><font color=maroon>*</font></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>Observed<br>Annot/Allele Count</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>Scrum Bob</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>Layout</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>Text</b></td>
+<td bgcolor="#D0E0F0" nowrap align=center style="border-left:none;border-top:thin solid grey;border-bottom:thin solid grey;border-right:thin solid grey"><font class="label" ><b>Result (date)</b></td>
+</tr>
+
+<tr>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center><font size=-1>has alleles with all 'Normal' and<br>alleles with 'phenotype not analyzed' annotations</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font size=-1>should count 'Normal' annotations/alleles<br>but not 'Not Analyzed' annotations/alleles</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>1/1</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://prodwww.informatics.jax.org/all/wts_projects/11700/11726/US93/US93_Akap7_Expected.html" target="_blank">Akap7_Expected</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>1/1</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/marker/MGI:1859150" target="_blank">Akap7</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><b>PASS</b> (7/15/15)</td>
+</tr>
+
+<tr>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center><font size=-1>has alleles with all 'Normal' and<br>has 'mutation involves' annotations</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font size=-1>should count 'Normal' and<br>'mutation involves' annotations/alleles</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>18/3</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://prodwww.informatics.jax.org/all/wts_projects/11700/11726/US93/US93_Oxr1_Expected.html" target="_blank">Oxr1_Expected</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>18/3</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/marker/MGI:2179326" target="_blank">Oxr1</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><b>PASS</b> (7/15/15)</td>
+</tr>
+
+<tr>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center><font size=-1>has alleles with 'expresses component' annotations</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font size=-1>should count 'expresses component' annotations/alleles</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>266/8</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://prodwww.informatics.jax.org/all/wts_projects/11700/11726/US93/US93_Insr_Expected.html" target="_blank">Insr_Expected</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>266/8</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/marker/MGI:96575" target="_blank">Insr</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><b>PASS</b> (7/15/15)</td>
+</tr>
+
+<tr>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center><font size=-1>has only alleles with 'phenotype not analyzed' annotations</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font size=-1>should have no Phenotype summary section</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>0/0</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://prodwww.informatics.jax.org/all/wts_projects/11700/11726/US93/US93_2210018M11Rik_Expected.html" target="_blank">2210018M11Rik_Expected</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>none</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/marker/MGI:1924203" target="_blank">2210018M11Rik</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><b>PASS</b> (7/15/15)</td>
+</tr>
+
+<tr>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center><font size=-1>has only alleles with 'mutation involves' annotations</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font size=-1>should count all annotations/alleles</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>30/3</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://prodwww.informatics.jax.org/all/wts_projects/11700/11726/US93/US93_Mir1930_Expected.html" target="_blank">Mir1930_Expected</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>30/3</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/marker/MGI:3836965" target="_blank">Mir1930</a></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><b>PASS</b> (7/15/15)</td>
+</tr>
+
+<tr>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:thin solid grey;border-bottom:thin solid grey" align=center><font size=-1>marker with lots of alleles and MP annotations</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font size=-1>tests the counts across many genotypes</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center>418/123</td>
+<td bgcolor="#FFFFFF" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://prodwww.informatics.jax.org/all/wts_projects/11700/11726/US93/US93_Tyr_Expected.html" target="_blank">Tyr_Expected</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>418/123</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><a href="http://scrumbob.informatics.jax.org/marker/MGI:98880" target="_blank">Tyr</a></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><font color=maroon>&#10003;</font></td>
+<td bgcolor="#F0F0F0" nowrap style="border-top:none;border-right:thin solid grey;border-left:none;border-bottom:thin solid grey" align=center><b>PASS</b> (7/15/15)</td>
+</tr>
+
+
+
+
+
+
+
+</table>
+<p>
+
+
+<font color=maroon>*</font></b> Expected Results<br>
+These links lead to SQL query results designed to get the counts that should appear for US93. SQL queries were against the postgres server mgi-testdb3 on the export database.<p>
+
+Interpreting the results:<br>
+Disregard the multiple temp tables at the top, and go to the bottom of the page for results.  Result Sets 31-39 are informative and Result Sets 37 and 38 have the counts that should appear in the Phenotype summary (see below for more details on the Result Sets).<p>
+
+<b>Result Set 31</b><br>
+This counts MP annotations and Alleles for the Marker based on traditional marker/allele relationships.<p>
+
+<b>Result Set 32</b><br>
+This shows the Alleles responsible for the annotation count in Result Set 35.<p>
+
+<b>Result Set 33</b><br>
+This counts MP annotations and Alleles for the Marker based on mutation involves relationships.<p>
+
+<b>Result Set 34</b><br>
+This shows the Alleles responsible for the annotation count in Result Set 33.<p>
+
+<b>Result Set 35</b><br>
+This counts MP annotations and Alleles for the Marker based on expresses component relationships.<p>
+
+<b>Result Set 36</b><br>
+This shows the Alleles responsible for the annotation count in Result Set 35.<p>
+
+<b>Result Set 37</b><br>
+This counts the UNION of all MP annotations from Result Sets 31, 33 and 35. This is the annotation count that should appear in the Phenotype summary on Scurm Bob. Note that since annotations are associated with genotypes which can have multiple allele pairs, it is possible for the same annotation to appear for a traditional marker/allele relationship and for an expressed component relationship, if the expressed gene for one allele pair is the same as the mutated gene for another allele pair of that genotype.  This is why a UNION is needed to get the unique annotation count.<p>
+
+<b>Result Set 38</b><br>
+This counts the UNION of all Alleles from Result Sets 32, 33 and 34. This is the allele count that should appear in the Phenotype summary on Scurm Bob. Again, as for annotations, an expressing allele can be part of a genotype that has MP annotations, so the UNION is needed to get the unique allele count.<p>
+
+<b>Result Set 39</b><br>
+This shows alleles from the allele count in Result Set 38.<p>
+
+
+
+
+
+
+
+
+
+
+</BODY>
+</HTML>
