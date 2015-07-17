@@ -99,37 +99,35 @@
     		</ol></li>
     		
     		 <li>Verify grid works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 7/17/15 (limited testing on PC)</p>    
     		<ol>
     		  <li>Test each of these browsers using a subset of the test cases above.</li>
     		  
     		</ol></li>
     		
-    		<li>Regression test GO Marker 
-    		<p concordion:assertTrue="false">new test</p>   
+    		<li>Regression test GO Marker -- counts and display should still include ND annotations.
+    		<p concordion:assertTrue="true">PASS - jlewis 7/17/15</p>     
     		<ol>
-    		  <li>test 1.1</li>
-    		  
-    		</ol></li>
-    	    
-    	    <li>Regression test GO Reference
-    		<p concordion:assertTrue="false">new test</p>   
-    		<ol>
-    		  <li>test 1.1</li>
+    		  <li>Display marker with a combination of positive and ND annotations; Spt1.  Expect: Count on marker=1; Count on GO pg=3.</li>
+    		  <li>A gene with only ND annotations no longer has a link to the GO Marker page; Prr27.</li>
     		  
     		</ol></li>
     		
-    		<li>Regression test Batch Query 
-    		<p concordion:assertTrue="false">new test</p>   
+    		<li>Regression test Batch Query -- continue to return ND annotations
+    		<p concordion:assertTrue="true">PASS - jlewis 7/17/15</p>    
     		<ol>
-    		  <li>test 1.1</li>
+    		  <li>Query for marker with a combination of positive and ND annotations; Spt1.  Expect: 3 GO terms returned; 2 are ND</li>
+    		  <li>Query for marker with all NDs; Prr27.  Expect: 2 GO terms returned, all ND.</li>
     		  
     		</ol></li>
     	    
-    	    <li>Regression test Reference Summary/Detail
-    		<p concordion:assertTrue="false">new test</p>   
+    	    <li>Regression test Reference Summary/Detail & Reference GO - GO Annotations counts per reference should still include NDs
+    		<p concordion:assertTrue="true">PASS - jlewis 7/17/15</p>    
     		<ol>
-    		  <li>test 1.1</li>
+    		  <li>Verify J:73796 includes Marker with only ND annotations; Prr27.  Expect: Look at Excel file and verify 2 ND 
+    		      annotations included.</li>
+    		  <li>Verify J:73796 includes Marker with positive and ND annotations; Spt1.  Expect: Look at Excel file and verify 2 ND annotations</li>
+    		  <li>Verify GO annotation counts displayed for J:73796 match the number in the file that includes the NDs.</li>
     		  
     		</ol></li>
     	    
