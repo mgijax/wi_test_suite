@@ -1,0 +1,127 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 96 - Marker/GXD/Image</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - GXD image thumb</h1>
+    <ul>
+        <li>US 96 - GXD ribbon - Image thumbnail and link</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Revise the image count link in the GXD ribbon to an image thumbnail and "Images" title (count removed).</li>
+       <li>Use the first image in the GXD image summary for the marker as the thumbnail
+       <ul><li>The sort order for the GXD image summary is a custom one -- use the same one to determine what image to display</li></ul></li>
+       <li>If no images exist the tissue matrix icon should move over (when it exists)</li>
+       <li>Sizing of the thumbnail -- keep image in same proportions as large image; similar size to matrix icon (in general).</li>
+       <li>No copyright symbol or text required</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify new GXD image thumbnail for various shapes
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Verify markers with vertical rectangle shaped image; Pax6, Sry.  Expect: proportions the same as seen on the image summary</li>
+    		  <li>Verify marker with horizontal rectangle shaped image; Pax4.  Expect: proportions the same as seen on the image summary.</li>
+    		  <li>Verify marker with a blot image; Bik.  Expect: blot image displayed as the thumb.</li>
+    		  <li>Verify marker with a square image; Pax1.  Expect: proportions the same as seen on the image summary</li>
+    		  
+    		</ol></li>
+    			
+    		<li>Verify new GXD image thumbnail for light and dark images
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Verify markers with very light image; Car12, Lep, Lepr, MGI:2444398, MGI:1919667.  Expect: Ability to distinguish image from background</li>
+    		  <li>Verify marker with dark images; Kit, Bmp1.  Expect: Ability to distinguish image vs. black blob.</li>
+    		  <li>Verify marker with Gudmap image (light composite); MGI:1916036.  Expect: Ability to distinguish image from background.</li>
+    		</ol></li>	
+    		
+    		<li>Verify new GXD image thumbnails per portion of original image
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Verify markers with thumb image that is the same as the full image; Tyr.  Expect: Display and proportions as full image (just smaller).</li>
+    		  <li>Verify markers with thumb image that is a portion of the full image; Trp53.   Expect:  Display and proportions the same as the Image Summary (just smaller)</li>
+    		</ol></li>
+    		
+    		<li>Verify new GXD image thumbnail when the Marker has only 1 image
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker Dnajc28.  Expect:  The only image for this marker displayed as the thumb/link.
+    		</ol></li>
+    			
+    		<li>Verify image link when no anatomy slim grid is displayed
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with only EMAPA annotations that don't aggregate to slim terms; MGI:1923883.  Expect: no grid; Includes: results, images, matrix, other mouse links</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the Expression ribbon display when no images are present, but results are present
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker Apip.  Expect: No image link and matrix linked moved over.</li>
+    		  <li>Display marker MGI:1914781.  Expect: No grid, no images.  Matrix icon moved over.</li>
+    		  
+    		</ol></li>
+    		
+    		
+    		 <li>Verify grid works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		  <li>Test each of these browsers using a subset of the test cases above.</li>
+    		  
+    		</ol></li>
+    		
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
