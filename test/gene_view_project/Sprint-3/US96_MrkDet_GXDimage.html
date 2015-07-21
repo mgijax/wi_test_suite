@@ -31,6 +31,8 @@
        <li>Revise the image count link in the GXD ribbon to an image thumbnail and "Images" title (count removed).</li>
        <li>Use the first image in the GXD image summary for the marker as the thumbnail
        <ul><li>The sort order for the GXD image summary is a custom one -- use the same one to determine what image to display</li></ul></li>
+       <li>Outline the image with a black border</li>
+       <li>Add roll-over text of image count</li>
        <li>If no images exist the tissue matrix icon should move over (when it exists)</li>
        <li>Sizing of the thumbnail -- keep image in same proportions as large image; similar size to matrix icon (in general).</li>
        <li>No copyright symbol or text required</li>
@@ -52,7 +54,7 @@
 		<ol>
 		
 		    <li>Verify new GXD image thumbnail for various shapes
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/21/15</p>  
     		<ol>
     		  <li>Verify markers with vertical rectangle shaped image; Pax6, Sry.  Expect: proportions the same as seen on the image summary</li>
     		  <li>Verify marker with horizontal rectangle shaped image; Pax4.  Expect: proportions the same as seen on the image summary.</li>
@@ -62,7 +64,7 @@
     		</ol></li>
     			
     		<li>Verify new GXD image thumbnail for light and dark images
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/21/15</p>  
     		<ol>
     		  <li>Verify markers with very light image; Car12, Lep, Lepr, MGI:2444398, MGI:1919667.  Expect: Ability to distinguish image from background</li>
     		  <li>Verify marker with dark images; Kit, Bmp1.  Expect: Ability to distinguish image vs. black blob.</li>
@@ -70,27 +72,27 @@
     		</ol></li>	
     		
     		<li>Verify new GXD image thumbnails per portion of original image
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/21/15</p>  
     		<ol>
     		  <li>Verify markers with thumb image that is the same as the full image; Tyr.  Expect: Display and proportions as full image (just smaller).</li>
     		  <li>Verify markers with thumb image that is a portion of the full image; Trp53.   Expect:  Display and proportions the same as the Image Summary (just smaller)</li>
     		</ol></li>
     		
-    		<li>Verify new GXD image thumbnail when the Marker has only 1 image
-    		<p concordion:assertTrue="false">new test</p>  
+    		<li>Verify new GXD image thumbnail and counts when the Marker has only 1 image
+    		<p concordion:assertTrue="true">PASS - jlewis 7/21/15</p>  
     		<ol>
     		  <li>Display marker Dnajc28.  Expect:  The only image for this marker displayed as the thumb/link.
     		</ol></li>
     			
     		<li>Verify image link when no anatomy slim grid is displayed
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/21/15</p>  
     		<ol>
     		  <li>Display marker with only EMAPA annotations that don't aggregate to slim terms; MGI:1923883.  Expect: no grid; Includes: results, images, matrix, other mouse links</li>
     		  
     		</ol></li>
     		
     		<li>Verify the Expression ribbon display when no images are present, but results are present
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/21/15</p> 
     		<ol>
     		  <li>Display marker Apip.  Expect: No image link and matrix linked moved over.</li>
     		  <li>Display marker MGI:1914781.  Expect: No grid, no images.  Matrix icon moved over.</li>
@@ -99,7 +101,7 @@
     		
     		
     		 <li>Verify grid works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 7/21/15</p>  
     		<ol>
     		  <li>Test each of these browsers using a subset of the test cases above.</li>
     		  
