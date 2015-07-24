@@ -17,7 +17,7 @@
 
 <body>
 
-<div id="maintitle"><h1>Implement slim grid page for Anatomy</h1>
+<div id="maintitle"><h1>Implement slim grid link outs for Anatomy</h1>
     <ul>
         <li>US 40 - Implement slim grid new tabs for Anatomy</li>
     </ul>
@@ -31,7 +31,7 @@
        <li>Clicking on a colored cell (blue or dog-earred) results in a new tab with the Tissue x Stage matrix for a gene & slim term combo.
        <ul><li>This behavior is an exception to the typical links to MGI that remain in the same browser window/tab.</ul></li>
        <li>Each link will bring up a new tab (so they may be compared by users).</li>
-       <li>The heading is similiar to the Marker/Assay summaries: main heading - gene stuff; sub heading - slim term.  GXD gold rules the day.</li>
+       <li>The heading is similiar to the Marker/Assay summaries: main heading - gene stuff; sub heading - slim term (but no parens).  GXD gold rules the day.</li>
        <li>The legend is displayed by default.</li>
        <li>The summary is the same as would be displayed via the QF for the marker and EMAPA term
        <ol><li>The topmost term will be the one clicked on in the slim grid.</li>
@@ -59,29 +59,36 @@
 		<ol>
 		
 		    <li>Verify clicking on cells display the initial page in a new tab as expected
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/24/15</p>  
     		<ol>
-    		  <li>Click on blue cell with > 1 annotation; Xxx/nnnnnnn.  Expect: page with gene/term heading in new tab</li>
-    		  <li>Click on blue cell with 1 annotation; Xxx/nnnnn.  Expect: page with gene/term heading in new tab</li>
+    		  <li>Click on blue cell with > 1 annotation; Brca1/embryo mesenchyme.  Expect: page with gene/term heading in new tab</li>
+    		  <li>Click on blue cell with 1 annotation; Lep/cardiovascular system.  Expect: page with gene/term heading in new tab</li>
     		  <li>Click on white cell.  Expect: no action.</li>
-    		  <li>Click on dog-earred cell; Xxx/nnnnn.  Expect: page with gene/term heading in new tab</li>
+    		  <li>Click on dog-earred cell; Shh/hemolymphoid system.  Expect: page with gene/term heading in new tab</li>
     		</ol></li>
     		
     		<li>Verify display of multiple tabs for a gene  
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/24/15</p>  
     		<ol>
-    		  <li>Click on multiple cells; Xxx.  Expect: separate tab opened for each cell clicked.</li>
+    		  <li>Click on multiple cells; Lep.  Expect: separate tab opened for each cell clicked.</li>
     		</ol></li>
     		
     		<li>Verify display of Theiler Stages on page
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/24/15</p> 
     		<ol>
-    		  <li>Click on cell with many annotations to many TS; Xxx/nnnnn.  Expect:  page to display appropriate stages</li>
-    		  <li>Click on cell with annotations to 1 TS; Xxx/nnnnn.  Expect: page to display appropriate stages</li>
+    		  <li>Click on cell with many annotations to many TS; Shh/nervous system.  Expect:  page to display appropriate stages</li>
+    		 
+    		</ol></li>
+    		
+    		<li>Verify display of parent/child terms on page
+    		<p concordion:assertTrue="true">PASS - jlewis 7/24/15</p> 
+    		<ol>
+    		  <li>Click on cell with many child annotations; Shh/urinary system.  Expect:  page to display terms (matching results for GXD QF)</li>
+    		  
     		</ol></li>
     		
     		 <li>Verify grid works on all supported browsers: Firefox, Chrome (PC, Mac); Safaric (Mac)
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 7/24/15 (exception - my PC is broken and cannot verify the PC browsers)</p>  
     		<ol>
     		  <li>Test each of these browsers using a subset of the test cases above.</li>
     		  
