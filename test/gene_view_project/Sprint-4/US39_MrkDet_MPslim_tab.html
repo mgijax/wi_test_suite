@@ -1,0 +1,95 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 39/Marker/MP slim summary</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Implement slimgrid tab summary for MP</h1>
+    <ul>
+        <li>US 39 - Implement slim grid tab summary for MP</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Clicking on a colored cell results in a new tab with the HMDC-like grid for a gene & slim term combo.
+       <ul><li>This behavior is an exception to the typical links to MGI that remain in the same browser window/tab.</ul></li>
+       <li>Each link will bring up a new tab (so they may be compared by users).</li>
+       <li>The heading includes the Gene symbol + MP slim term.</li>
+       <li>The legend text includes strain background ! (exclamation pt) and explanation of colored cells.</li>
+       <li>The summary page is a grid that behaves like the HMDC grid drilldown pages
+       <ol><li>genoclusters are listed (row)</li>
+           <li>MP terms annotated to the genoclusters are columns</li>
+           <li>normal data is excluded (this is different than HMDC)</li>
+           <li>each row links to a genocluster page</li>
+       </ol></li>
+       <li>link to IMSR at top - same as on HMDC</li>
+       <li>The summary page should act and display correctly in all supported browsers.</li>
+       
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Test
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>test 1.1</li>
+    		</ol></li>
+    		
+    		
+    		 <li>Verify grid works on all supported browsers: Firefox, Chrome (PC, Mac); Safaric (Mac)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Test each of these browsers using a subset of the test cases above.</li>
+    		  
+    		</ol></li>
+    		
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
