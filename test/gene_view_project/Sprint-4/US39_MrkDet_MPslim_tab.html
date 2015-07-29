@@ -32,11 +32,12 @@
        <ul><li>This behavior is an exception to the typical links to MGI that remain in the same browser window/tab.</ul></li>
        <li>Each link will bring up a new tab (so they may be compared by users).</li>
        <li>The heading includes the Gene symbol + MP slim term.</li>
-       <li>The legend text includes strain background ! (exclamation pt) and explanation of colored cells.</li>
-       <li>The summary page is a grid that behaves like the HMDC grid drilldown pages
+       <li>The legend text includes strain background ! (exclamation pt) and normal data (asterisk)</li>
+       <li>New - add explanation of colored cells.</li>
+       <li>The summary page is a grid that behaves like the HMDC grid drill down pages
        <ol><li>genoclusters are listed (row)</li>
            <li>MP terms annotated to the genoclusters are columns</li>
-           <li>normal data is excluded (this is different than HMDC)</li>
+           <li>normal data is displayed -- even though they are not in the slim grid itself</li>
            <li>each row links to a genocluster page</li>
        </ol></li>
        <li>link to IMSR at top - same as on HMDC</li>
@@ -59,10 +60,49 @@
 		
 		<ol>
 		
-		    <li>Test
+		    <li>Verify all summaries for a gene with normals, background strains, complex genos, etc.
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		  <li>test 1.1</li>
+    		  <li>Display summaries for each MP slim term and compare to HMDC results; Fmr1.  Expect: summaries to be the same as HMDC.</li>
+    		</ol></li>
+    		
+    		<li>Verify multiple summaries can be viewed at once
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display multiple summaries; Lep.  Expect: each summary to open in a new window -- tab header title?</li>
+    		</ol></li>
+		 
+		    <li>Verify summary with Normal annotations (asterisks)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker/term summary w/ a single normal annotation; Bbs1/mortality/aging.  Expect: 1 = normal; 1 = rest</li>
+    		  <li>Display marker/term summary w/ a single normal annotation; Mus81/cardiovascular system.  Expect: 1 = normal; 23 = rest</li>
+    		  <li>Display marker/term summary w/ many normal annotation; Ptprcap/immune system.  Expect: 2 = normals; 5 = rest</li>
+    		</ol></li>
+    		
+    		<li>Verify summary with differences in background strains (exclamation marks)
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker/term summary w/ a single strain variation annotation; a/mortality and aging.  Expect: 1 = strain variation; 11 = annotations; 1 normal</li>
+    		  <li>Display marker/term summary w/ many strain variation annotations; Fmr1/nervous system.  Expect: 2 = strain variations (same term; annotated twice); n = annotations</li>
+    		  <li>Display marker/term summary w/ both normals and strain variations; Sry; reproductive system.  Expect: 27=reg annotations; 2 norms; 1 w/bground sens.</li>
+    		  <li>Display marker/term summary with a single annotation that has background sensitivty; Adrb1/mortality and aging.  Expect: 1 annotation with an exclamation point.</li>
+    		</ol></li>
+    		
+    		<li>Verify summary with and without IMSR link - same IMSR link on Summary pages as on the Marker Detail
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with 1 IMSR strain; Pax9/immune system.  Expect: count=1.</li>
+    		  <li>Display marker with many IMSR strains; Kcp/mortality and aging.  Expect: count=4.</li>
+    		  <li>Display marker with 0 IMSR strains; Bmp15/reproductive systems.</li>
+    		  <li>Display marker/slim term combo with multiple links to IMSR; Ren1; behavior/neurological.  Expect: Ren1=5 imsr strains and Tg(Alb1-Ren)2Unc/0=1
+    		</ol></li>
+    		
+    		<li>Verify summary factors out complex genotypes
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker/term summary w/ a simple and complex annotation to the same term; Ppt1/nervous system.  Expect: complex genotype not listed in slim grid tab summary (term=brain atrophy)</li>
+    		  <li>Display marker/term summary w/ an annotation to a term via a complex genotype; Elane/immune system.  Expect: Complex genotype and its annotation not displayed; term=decreased susceptibility to endotoxin shock</li>
     		</ol></li>
     		
     		
