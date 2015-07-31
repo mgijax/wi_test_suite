@@ -61,19 +61,19 @@
 		<ol>
 		
 		    <li>Verify all summaries for a gene with normals, background strains, complex genos, etc.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/31/15</p>  
     		<ol>
     		  <li>Display summaries for each MP slim term and compare to HMDC results; Fmr1.  Expect: summaries to be the same as HMDC.</li>
     		</ol></li>
     		
-    		<li>Verify multiple summaries can be viewed at once
-    		<p concordion:assertTrue="false">new test</p>  
+    		<li>Verify multiple summaries can be viewed at once and a summary for each term is displayed
+    		<p concordion:assertTrue="true">PASS - jlewis 7/31/15</p>  
     		<ol>
-    		  <li>Display multiple summaries; Lep.  Expect: each summary to open in a new window -- tab header title?</li>
+    		  <li>Display multiple summaries; Trp53; Pax6 (coverage of all high level terms).  Expect: each summary to open in a new window -- tab header title?</li>
     		</ol></li>
 		 
 		    <li>Verify summary with Normal annotations (asterisks)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/31/15</p> 
     		<ol>
     		  <li>Display marker/term summary w/ a single normal annotation; Bbs1/mortality/aging.  Expect: 1 = normal; 1 = rest</li>
     		  <li>Display marker/term summary w/ a single normal annotation; Mus81/cardiovascular system.  Expect: 1 = normal; 23 = rest</li>
@@ -81,16 +81,16 @@
     		</ol></li>
     		
     		<li>Verify summary with differences in background strains (exclamation marks)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/31/15</p>   
     		<ol>
     		  <li>Display marker/term summary w/ a single strain variation annotation; a/mortality and aging.  Expect: 1 = strain variation; 11 = annotations; 1 normal</li>
-    		  <li>Display marker/term summary w/ many strain variation annotations; Fmr1/nervous system.  Expect: 2 = strain variations (same term; annotated twice); n = annotations</li>
+    		  <li>Display marker/term summary w/ many strain variation annotations; Fmr1/nervous system.  Expect: 2 = strain variations (same term; annotated twice); 34 = annotations</li>
     		  <li>Display marker/term summary w/ both normals and strain variations; Sry; reproductive system.  Expect: 27=reg annotations; 2 norms; 1 w/bground sens.</li>
     		  <li>Display marker/term summary with a single annotation that has background sensitivty; Adrb1/mortality and aging.  Expect: 1 annotation with an exclamation point.</li>
     		</ol></li>
     		
     		<li>Verify summary with and without IMSR link - same IMSR link on Summary pages as on the Marker Detail
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/31/15</p>   
     		<ol>
     		  <li>Display marker with 1 IMSR strain; Pax9/immune system.  Expect: count=1.</li>
     		  <li>Display marker with many IMSR strains; Kcp/mortality and aging.  Expect: count=4.</li>
@@ -99,7 +99,7 @@
     		</ol></li>
     		
     		<li>Verify summary factors out complex genotypes
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/31/15</p>  
     		<ol>
     		  <li>Display marker/term summary w/ a simple and complex annotation to the same term; Ppt1/nervous system.  Expect: complex genotype not listed in slim grid tab summary (term=brain atrophy)</li>
     		  <li>Display marker/term summary w/ an annotation to a term via a complex genotype; Elane/immune system.  Expect: Complex genotype and its annotation not displayed; term=decreased susceptibility to endotoxin shock</li>
@@ -107,7 +107,7 @@
     		
     		
     		 <li>Verify grid works on all supported browsers: Firefox, Chrome (PC, Mac); Safaric (Mac)
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 7/31/15 (unable to check PC as yet)</p>    
     		<ol>
     		  <li>Test each of these browsers using a subset of the test cases above.</li>
     		  
