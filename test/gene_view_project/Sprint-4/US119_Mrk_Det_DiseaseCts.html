@@ -1,0 +1,150 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 119/Marker/Disease Cts</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - Disease ribbon</h1>
+    <ul>
+        <li>US 119 - Disease ribbon - wording/format changes (counts)</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+      <li>Update the position and text of the 4 counts that may exist in the Disease ribbon per mockup in TR 11726 directory
+      <ol><li>count of diseases with mouse models</li>
+          <li>count of diseases associated to the human ortholog(s)</li>
+          <li>disease references</li>
+          <li>alleles with disease annotations (rolled up and complex)</li>
+      </ol></li>
+      
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify markers when all 4 counts are present: mouse; human; alleles; references.
+    		<p concordion:assertTrue="true">PASS - jlewis 8/3/15</p>  
+    		<ol>
+    		  <li>Display marker with all 4 counts; Pax9.  Expect: mouse=1; human=1; alleles=2; refs=1</li>
+    		</ol></li>
+    		
+    		<li>Verify markers when just 3 counts are present: mouse models; alleles; references.
+    		<p concordion:assertTrue="true">PASS - jlewis 7/31/15</p>  
+    		<ol>
+    		  <li>Display marker with 3 counts and grid (no human); Robo1.  Expect: mouse=2; alleles=2; refs=2</li>
+    		</ol></li>
+    		
+    		<li>Verify markers when just 3 counts are present: human annotations; alleles; references.
+    		<p concordion:assertTrue="true">PASS - jlewis 7/31/15</p>  
+    		<ol>
+    		  <li>Display marker with 3 counts and grid (no mouse); Rb1.  Expect: human=4; alleles=3; refs=2</li>
+    		</ol></li>
+    		
+    		<li>Verify markers when just 2 counts are present: alleles; references.
+    		<p concordion:assertTrue="true">PASS - jlewis 8/3/15</p>   
+    		<ol>
+    		  <li>Display marker with 2 counts and no grid; Scrib.  Expect: alleles=1; refs=1</li>
+    		  <li>Display marker with 2 counts and no grid; Gt(ROSA)26Sor.  Expect: alleles=24; refs=4</li>
+    		</ol></li>
+    		
+    		<li>Verify markers when just 1 count present
+    		<p concordion:assertTrue="true">PASS - jlewis 8/3/15</p> 
+    		<ol>
+    		  <li>Display marker with 1 count and no grid; Elp4.  Expect: human=1 (no mouse annotations therefore no mouse connected counts)</li>
+    		  <li>Display marker with 1 count and no grid; Dlx6os1.  Expect: alleles=1.</li>
+    		</ol></li>
+		
+		    <li>Verify the display of diseases on the Marker Detail when only a single disease is present.
+    		<p concordion:assertTrue="true">PASS - jlewis 8/3/15</p>   
+    		<ol>
+    		  <li>Display marker with 1 disease associated to human plus a mutation with a disease annotation that doesn't roll up; Idh2.  Expect: mouse=0; human=1; alleles=1; diseases=0</li>
+    		  <li>Display marker with 1 disease associated to mouse; Hoxa3.  Expect: mouse=1; human=0; alleles=1; references = 1</li>
+    		  
+    		</ol></li>
+    		
+    		
+    	    <li>Verify the display of diseases on the Marker Detail when multiple diseases of multiple types are present.
+    		<p concordion:assertTrue="true">PASS - jlewis 8/3/15</p>   
+    		<ol>
+    		  <li>Display marker with diseases associated to human and diseases associated to mouse (not both); Acan.  Expect: mouse=1; human=3; alleles=1; references=2 </li>
+    		  <li>Display marker with diseases associated to human and diseases associated to both (mouse/human); Park2.  Expect: Expect: mouse=1; human=4; alleles=6; references=9.</li>
+    		  
+    		</ol></li>
+    	   
+    	    <li>Verify the display of diseases on the Marker Detail with NOT annotations
+    		<p concordion:assertTrue="true">PASS - jlewis 8/3/15</p>    
+    		<ol>
+    		  <li>Display marker with a disease associated to a Human gene with a Mouse NOT annotation; Wisp3; PPAC (208230).  Expect: Expect: mouse=0; human=1; alleles=0; references=2</li>
+    		  <li>Display marker with only NOT annotations to a disease and no human association; Adam33; Asthma, Susceptibility to (600807).  Expect: Expect: mouse=0; human=0; alleles=0; references=n.</li>
+    		  <li>Display marker with a combination of NOT and regular annotations to a disease; Prnp; Creutzfeldt-Jakob Disease.  Expect: mouse=3; human=6; alleles=10; references=12</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the display of diseases on the Marker Detail for a marker that is part of a homology class with multiple markers (human and/or mouse)
+    		<p concordion:assertTrue="true">PASS - jlewis 8/3/15</p>    
+    		<ol>
+    		  <li>Display marker that has multiple human homologs with disease annotations; C4b.  Expect: mouse=1; human=2; alleles=1; references=1</li>
+    		  <li>Display marker that has multiple human homologs with disease annotations with no mouse assocations; C4a.  Expect: mouse=0; human=2; alleles=0; references=0</li>
+    		  <li>Display marker that has multiple human homologs with disease annotations where at least one shares a mouse model; Smn1.  Expect:  mouse=2; human=4; alleles=17; references=18.</li>
+    		  <li>Display marker that has mouse paralogs with disease annotations to more than one; Xxx.  Expect: xxxxx. (NO CASE IN MGI)
+    		  
+    		</ol></li>
+    		
+
+    	    
+    	    <li>Verify the display of a marker with a disease that has complex models
+    		<p concordion:assertTrue="true">PASS - jlewis 8/3/15</p> 
+    		<ol>
+    		  <li>Display a marker with a disease association to a human homolog where there are complex mouse models; Psen2 / Alzheimer.  Expect: mouse=0; human=2; alleles=5; references=2. </li>
+    		  
+    		</ol></li>
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
