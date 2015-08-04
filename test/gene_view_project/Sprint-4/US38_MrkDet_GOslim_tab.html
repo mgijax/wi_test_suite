@@ -1,0 +1,170 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 38/Marker/GO slim tab</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Implement slimgrid tab summary for GO</h1>
+    <ul>
+        <li>US 38 - Implement slim grid tab summary for GO</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Clicking on a colored cell results in a new tab with a GO summary for a gene & slim term combo.
+       <ul><li>This behavior is an exception to the typical links to MGI that remain in the same browser window/tab.</ul></li>
+       <li>Each link will bring up a new tab (so they may be compared by users).</li>
+       <li>The heading includes the Gene symbol + GO slim term.</li>
+       <li>The GO legend of evidence codes is displayed beneath the summary</li>
+       <li>The summary page has the same layout and mouse overs as the GO Marker "tabular view"</li>
+       <li>annotations are collapsed in the same way as the GO Marker page
+       <ul><li>annotations with the same term, evid code, and inferred from field but different J#s are collapsed into 1 annotation</li></ul>
+       </li>
+       <li>NOT annotations are included in the summary (even though they are not included in the count of annotations for a slim grid cell)</li>
+       <li>Include the same table controls/features as found on the GO Marker table view
+       <ol><li>column sort</li>
+           <li>filters</li>
+           <li>data download</li>
+           <li>pagination</li>
+       </ol></li>
+       <li>The summary page should act and display correctly in all supported browsers.</li>
+       
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify GO slim tabs display in new tabs with headings of gene x slim term
+    		<p concordion:assertTrue="true">PASS - jlewis 8/4/15</p>  
+    		<ol>
+    		  <li>Display marker with GO annotations; Lep.  Expect: new tab for each cell clicked on</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify GO slim term tabs that consolidates 2 GO terms (for transcription slim)
+    		<p concordion:assertTrue="true">PASS - jlewis 8/4/15</p>   
+    		<ol>
+    		  <li>Verify display/counts when both terms exist for a marker; Glmp.  Expect: counts to include annotations from both terms; count = 3.</li>
+    		  <li>Verify display/counts when only terms exist for GO:0000988 or its children (protein binding transcription factor activity); Bcor.  Expect: counts=2.</li>
+    		  <li>Verify display/counts when only terms exist for GO:0001071 or its children (nucleic acid binding transcription factor activity); Vdr.  Expect: counts=4.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify GO slim tabs that have a parent/child relationship (parent = GO:0043232; non-membrane-bounded organelle and child = GO:0005856; cytoskeleton); also another child = GO:0005634 nucleus
+    		<p concordion:assertTrue="true">PASS - jlewis 8/4/15</p>   
+    		<ol>
+    		  <li>Display marker with only annotations to parent; Espn.  Expect: counts = 2 for stereocilium bundle (plus 4 annotations that are common for both slim cells)</li>
+    		  <li>Display marker with only annotations to child; Bcl2l11.  Expect: both parent and child tabs to have summaries; counts = child annotations counted for both -- each have 1 annotation.</li>
+    		  <li>Display marker with annotations to both parent and child; Cdh23.  Expect: parent and child summaries; counts = child annotations counted for both -- parent has add'l ones. child=1; parent = 3+ and 1</li> 
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the various NOT annotations are not in GO grid counts; but do display in tab summaries
+    		<p concordion:assertTrue="true">PASS - jlewis 8/4/15</p>    
+    		<ol>
+    		  <li>Display marker with only NOT annotations for a slim grid term; Ptk7 (3 NOT annotations for MFunction).  Expect: a white cell for carbohydrate derivative binding slim term (due to NOT ATP binding); no summary tab.</li>
+    		  <li>Display marker with both regular and NOT annotations for a slim grid term; Pnpla7, term=GO:0004622, slim=hydrolase.  Expect: blue cell ct = 23; Summary ct=24 (display NOT).</li>
+    		  <li>Display marker with a NCOL annotation for a slim grid term; Ahnak, term=plasma membrane.  Expect: blue cell count=3; Summary ct=4 (includes NOT).</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the positive qualifiers (COL, CON) are included in slim grid counts and on summary tab
+    		<p concordion:assertTrue="true">PASS - jlewis 8/4/15</p>  
+    		<ol>
+    		  <li>Display marker with CON as a annotation qualifier; Capza1 - cytoskeletal protein binding.  Expect: Annotation included in slim grid counts and summary tab.</li>
+    		  <li>Display marker with COL as a annotation qualifier; Bcl2l11 - cytoskeleton.  Expect: Annotation included in slim grid counts and summary tab; count=1.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify that ND annotations are not in GO grids (regression test)
+    		<p concordion:assertTrue="true">PASS - jlewis 8/4/15</p>    
+    		<ol>
+    		  <li>Display marker with ND annotations to some but not all of the GO ontologies; Spt1.  Expect: Display an empty grid for the ontologies with an ND annotation.</li>
+    		  
+    		  
+    		</ol></li>
+    		
+    		<li>Verify that grid does not display when no GO data is present (regression test)
+    		<p concordion:assertTrue="true">PASS - jlewis 8/4/15</p>       
+    		<ol>
+    		  <li>Display marker with no GO annotations at all; cw.  Expect: no GO grid or GO ribbon</li>
+    		  <li>Display marker with only ND GO annotations; Gm10036.  Expect: no GO grid</li>
+    		  <li>Display marker with only GO annotations that don't display on the grid; MGI:1917144.  Expect: no GO grid -- 1 grid has ND and other 2 have annotations that don't roll-up.</li>
+    		  <li>Display marker with only GO annotations that don't display on the grid plus NOT annotations; Abcg4.  Expect: no GO grids</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify roll-over annotation counts and counts on summary tabs
+    		<p concordion:assertTrue="true">PASS - jlewis 8/4/15</p>     
+    		<ol>
+    		  <li>Display marker with a single annotation to a slim term; Ada, term=lysosome, slim=vacuole.  Expect: annotation count of 1</li>
+    		  <li>Display marker with annotations to the slim term itself; Atp6v0c, term=vacuole.  Expect: annotation count = 4 (1 annotation to slim term itself; 3 child terms).</li>
+    		  <li>Display marker with annotations with multiple J#s; Brca2, term=nucleus.  Expect: 2 annotations to nucleus; 1 with mult J#s; count=2 (mult J#s collapsed)</li>
+    		  <li>Display marker with annotations that vary by evidence code; Trp53, term=positive regulation of transcription, DNA-templated, slim=nucleic acid-templated transcription.  Expect: each annotation to be counted separately.</li>
+    		  
+    		  
+    		</ol></li>
+    		
+    		<li>Verify display of summary page headings, pagination, filters, sorting, downloads
+    		<p concordion:assertTrue="true">PASS - jlewis 8/4/15</p>     
+    		<ol>
+    		  <li>Display a marker with robust slim grid; Trp53.  Expect: Summary display and features to work as on Public</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify grid works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
+    		<p concordion:assertTrue="true">PASS - jlewis 8/4/15</p>   
+    		<ol>
+    		  <li>Test each of these browsers using a subset of the test cases above.</li>
+    		  
+    		</ol></li>
+    		
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
