@@ -1,0 +1,115 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 108/Marker/GO ref ct</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>GO ribbon: reference count</h1>
+    <ul>
+        <li>US 108 - Marker Detail: GO ribbon: reference count</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Add GO reference count to the GO ribbon per mockup.</li>
+       <li>Count of all J numbers associated to the GO annotations for the gene -- regardless of type (load, literature, etc.).</li>
+       <li>Omit the references for NDs in the count.</li>
+       <li>Includes references for NOT annotations.</li>
+       <li>A link to a reference summary for this count is not part of this story.</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify GO reference count - standard case
+    		<p concordion:assertTrue="true">PASS - jlewis - 8/10/15</p>    
+    		<ol>
+    		  <li>Display marker with non-ND; positive GO annotations for all ontologies; Glmp.  Expect: reference count = 3
+    		  <li>Display marker with annotations to the slim term itself; Atp6v0c.  Expect: reference count = 6.</li>
+    		 
+    		</ol></li>
+    		
+    		
+    		<li>Verify GO reference count when NOTs are present (NOT references are counted)
+    		<p concordion:assertTrue="true">PASS - jlewis - 8/10/15</p>   
+    		<ol>
+    		  <li>Display marker with both regular and NOT annotations; Pnpla7.  Expect: reference count = 6</li>
+    		  <li>Display marker with a NCOL annotation; Ahnak.  Expect:  reference count = 4.</li>
+    		  <li>Display marker with a NCON annotations; Pdilt.  Expect: reference count = 4 (1 reference unique to NOT annotation).</li>
+    		  <li>Display marker with only GO annotations that don't display on the grid plus NOT annotations; Abcg4.  Expect: no GO grid; reference count = 2</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the positive qualifiers (COL, CON) are included in slim grid counts and on summary tab
+    		<p concordion:assertTrue="true">PASS - jlewis - 8/10/15</p>     
+    		<ol>
+    		  <li>Display marker with CON as a annotation qualifier; Capza1.  Expect: reference count = 7.</li>
+    		  
+    		</ol></li>
+    		
+    		
+    		<li>Verify that ND reference not included in count
+    		<p concordion:assertTrue="true">PASS - jlewis - 8/10/15</p>    
+    		<ol>
+    		  <li>Display marker with only ND annotations plus GO annotations not on grid; MGI:1917144.  Expect: no GO grid; reference count = 2</li>  
+    		  <li>Display marker with ND annotations to some but not all of the GO ontologies; Spt1.  Expect: GO grid; reference count = 1.</li>
+    		  <li>Display marker with only ND annotations: Gm10036.  Expect: no GO ribbon.</li>
+    		</ol></li>
+    		
+    		<li>Verify that annotations with multiple references are included
+    		<p concordion:assertTrue="true">PASS - jlewis - 8/10/15</p>    
+    		<ol>
+    		  <li>Display marker Pax7.  Expect: reference count = 14</li>  
+    		  
+    		</ol></li>
+    		
+    	
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
