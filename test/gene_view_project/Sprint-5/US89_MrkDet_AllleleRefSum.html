@@ -12,14 +12,14 @@
 	p {margin:2px 0px;}
 </style>
 
-    <title>US 94/Marker/Allele Ref Ct</title>
+    <title>US 89/Marker/Allele Ref Summary</title>
 </head>
 
 <body>
 
-<div id="maintitle"><h1>Pheno ribbon: reference count</h1>
+<div id="maintitle"><h1>Pheno ribbon: reference summary</h1>
     <ul>
-        <li>US 94 - Marker Detail:Pheno ribbon: reference count</li>
+        <li>US 89 - Marker Detail:Pheno ribbon: reference summary</li>
     </ul>
 </div>
 
@@ -28,15 +28,14 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
     <ol> 
-       <li>Add Allele reference count to the Pheno ribbon per mockup.</li>
-       <li>Unique count of J numbers associated to alleles of the gene
+       <li>Link to the standard Reference Summary from the allele reference count.</li>
+       <li>Unique set of J numbers associated to alleles of the gene
        <ol><li>includes all reference types -- same logic as used on the Allele Detail page for references</li>
        </ol></li>
        <li>Alleles associated via Mutation Involves and Expresses Component relationships are included as "alleles for the gene"
        <ul><li>Expresses Component - mouse and non-mouse relationships</li>
        </ul></li>
        <li>Do not include references for non-public alleles or wild type alleles</li>
-       <li>A link to a reference summary for this count is not part of this story.</li>
     </ol>   
    
 </div>
@@ -54,41 +53,40 @@
 		
 		<ol>
 		
-		    <li>Verify Allele reference count for gene without EC or MI alleles
-    		<p concordion:assertTrue="true">PASS - jlewis 8/11/15</p>    
+		    <li>Verify Allele reference summary for gene without EC or MI alleles
+    		<p concordion:assertTrue="true">PASS - jlewis 8/13/15</p>    
     		<ol>
-    		  <li>Display marker Pax4.  Expect: Allele reference count = 19.</li>
+    		  <li>Display marker Pax4.  Expect: Allele reference summary count = 19.</li>
     		 
     		</ol></li>
     		
-    		<li>Verify Allele reference count for gene with Mutation Involves alleles
-    		<p concordion:assertTrue="true">PASS - jlewis 8/11/15</p> 
+    		<li>Verify Allele reference summary for gene with Mutation Involves alleles
+    		<p concordion:assertTrue="true">PASS - jlewis 8/13/15</p> 
     		<ol>
-    		  <li>Display marker with MI alleles; Pax6os1.  Expect: Allele reference count = 1.</li>
+    		  <li>Display marker with MI alleles; Pax6os1.  Expect: Allele reference summary count = 1.</li>
     		 
     		</ol></li>
     		
-    		<li>Verify Allele reference count for gene with Expresses component alleles
-    		<p concordion:assertTrue="true">PASS - jlewis 8/11/15</p>    
+    		<li>Verify Allele reference summary for gene with Expresses component alleles
+    		<p concordion:assertTrue="true">PASS - jlewis 8/13/15</p>    
     		<ol>
-    		  <li>Display marker Mir155 (EC and MI alleles).  Expect: count = 47</li>
-    		  <li>Display marker with a human EC allele; Pitx1.  Expect: count = 11.</li>
+    		  <li>Display marker Mir155 (EC and MI alleles).  Expect: summary count = 47</li>
+    		  <li>Display marker with a human EC allele; Pitx1.  Expect: summary count = 11.</li>
     		 
     		</ol></li>
     		
     		<li>Verify Allele reference count when a reference is associated to more than 1 allele of the gene
-    		<p concordion:assertTrue="true">PASS - jlewis 8/11/15</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 8/13/15</p>    
     		<ol>
-    		  <li>Display marker Adam33.  Expect: Allele reference count = 8 (2 references are associated to more than 1 allele)</li>
+    		  <li>Display marker Adam33.  Expect: Allele reference summary count = 8 (2 references are associated to more than 1 allele)</li>
     		 
     		</ol></li>
     		
-    		<li>Verify Allele reference count display with the other counts for the "Phenotype summary" column (MP annotations and Images)
+    		<li>Verify Allele reference summary edge cases
     		<p concordion:assertTrue="true">PASS - jlewis 8/13/15</p>    
     		<ol>
-    		  <li>Display marker with all 3 counts; Trp53.  Expect: 3 counts</li>
-    		  <li>Display marker with only MP and Reference counts; Asthm1.  Expect: 2 counts</li>
-    		  <li>Display marker with only Reference counts in first column; Pnpla7.  Expect: Label + 1 count</li>
+    		  <li>Display marker with a single allele reference; Asthm1.  Expect: 1 reference in summary</li>
+    		  <li>Display marker with allele references that exceed the default page size on summary; Lep.  Expect: appropriate pagination.</li>
     		 
     		</ol></li>
     	
