@@ -59,11 +59,12 @@
 		
 		<ol>
 		     <li>Verify the count/summary of Alleles with disease annotations now INCLUDES those alleles with NOT annotations
-    		<p concordion:assertTrue="true">PASS - jlewis 8/19/15</p>    
+    		<p concordion:assertTrue="false">FAIL - jlewis 8/19/15; test 1.4 -- count = 4; summary = 5.</p>    
     		<ol>
     		  <li>Display marker with a disease associated to a Human gene with a Mouse NOT annotation; Wisp3; PPAC (208230).  Expect: mouse=0; human=1; alleles=2 (includes NOTs); references=2</li>
     		  <li>Display marker with only NOT annotations to a disease and no human association; Adam33; Asthma, Susceptibility to (600807).  Expect: Expect: mouse=0; human=0; alleles=1; references=1.</li>
     		  <li>Display marker with a combination of NOT and regular annotations to a disease; Prnp; Creutzfeldt-Jakob Disease.  Expect: mouse=3; human=6; alleles=13; references=12</li>
+    		  <li>Display marker with a Expresses Component allele with a NOT annotation; Pik3ca.  Expect: alleles = 5</li>
     		  
     		</ol></li>
     		
