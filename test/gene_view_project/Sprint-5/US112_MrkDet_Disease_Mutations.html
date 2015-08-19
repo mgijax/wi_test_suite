@@ -1,0 +1,124 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 112/Marker/Disease mutatations</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - Disease ribbon - Mutations</h1>
+    <ul>
+        <li>US 112 - Disease ribbon: change "mutations with disease annotations" count semantics</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+      <li>Change the count and summary rules for the "Mutations with disease annotations" in the Disease ribbon.</li>
+      <li>This count and Allele Summary (linked to) should include the following ALLELES
+         <ol><li>Ones with rolled up OMIM annotations</li>
+             <li>Ones with non-rolled up OMIM annotations (complex, etc)</li>
+             <li>Expresses Component ones with OMIM annotations (mouse and non-mouse)</li>
+             <li>(NEW) Ones with OMIM NOT annotations</li>
+             <li>(NEW) Do not include Mutation Involves alleles with OMIM annotations</li>
+         </ol></li>
+      <li>Verify that other allele links on the page are not impacted
+         <ol><li>Pheno ribbon - ALL link: still return MI alleles</li>
+             <li>Pheno ribbon - MI link: returns MI alleles</li>
+         </ol></li>
+      
+      
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		     <li>Verify the count/summary of Alleles with disease annotations now INCLUDES those alleles with NOT annotations
+    		<p concordion:assertTrue="true">PASS - jlewis 8/19/15</p>    
+    		<ol>
+    		  <li>Display marker with a disease associated to a Human gene with a Mouse NOT annotation; Wisp3; PPAC (208230).  Expect: mouse=0; human=1; alleles=2 (includes NOTs); references=2</li>
+    		  <li>Display marker with only NOT annotations to a disease and no human association; Adam33; Asthma, Susceptibility to (600807).  Expect: Expect: mouse=0; human=0; alleles=1; references=1.</li>
+    		  <li>Display marker with a combination of NOT and regular annotations to a disease; Prnp; Creutzfeldt-Jakob Disease.  Expect: mouse=3; human=6; alleles=13; references=12</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify the count of Alleles with Disease annotations no longer includes Mutation Involves alleles, BUT All and MI links in the Pheno ribbon continue to include them
+    		<p concordion:assertTrue="true">PASS - jlewis 8/19/15</p>    
+    		<ol>
+    		  <li>Display marker with an MI allele that has a disease annotation; Dlx5.  Expect:  MI allele not in count or summary.  mouse=1; human=1; alleles=1; references=1</li>
+    		  <li>Display marker with only 1 allele annotated to OMIM -- but it is an MI allele; Dlx6os1.  Expect: No alleles associated to disease in the Disease ribbon -- for this gene that means the ribbon goes away.</li>
+    		</ol></li>
+
+    		
+    		<li>Verify markers disease counts - regression tests
+    		<p concordion:assertTrue="true">PASS - jlewis 8/19/15</p>   
+    		<ol>
+    		  <li>Display marker with 3 counts and grid (no human); Robo1.  Expect: mouse=2; alleles=2; refs=2</li>
+    		  <li>Display marker with 3 counts and grid (no mouse); Rb1.  Expect: human=4; alleles=3; refs=2</li>
+    		  <li>Display marker with 2 counts and no grid; Scrib.  Expect: alleles=1; refs=1</li>
+    		  <li>Display marker with 2 counts and no grid; Gt(ROSA)26Sor.  Expect: alleles=24; refs=4</li>
+    		  <li>Display marker with 1 count and no grid; Elp4.  Expect: human=1 (no mouse annotations therefore no mouse connected counts)</li>
+    		  <li>Display marker with 1 disease associated to human plus a mutation with a disease annotation that doesn't roll up (EC human); Idh2.  Expect: mouse=0; human=1; alleles=1; diseases=0</li>
+    		</ol></li>
+    			
+    		<li>Verify the display of diseases on the Marker Detail for a marker that is part of a homology class with multiple markers (human and/or mouse) - regression test
+    		<p concordion:assertTrue="true">PASS - jlewis 8/19/15</p>       
+    		<ol>
+    		  <li>Display marker that has multiple human homologs with disease annotations; C4b.  Expect: mouse=1; human=2; alleles=1; references=1</li>
+    		  <li>Display marker that has multiple human homologs with disease annotations with no mouse assocations; C4a.  Expect: mouse=0; human=2; alleles=0; references=0</li>
+    		  <li>Display marker that has multiple human homologs with disease annotations where at least one shares a mouse model; Smn1.  Expect:  mouse=2; human=4; alleles=17; references=18.</li>
+    		  <li>Display marker that has mouse paralogs with disease annotations to more than one; Xxx.  Expect: xxxxx. (NO CASE IN MGI)
+    		  
+    		</ol></li>
+    		
+    	    <li>Verify the display of a marker with a disease that has complex models - regression test
+    		<p concordion:assertTrue="true">PASS - jlewis 8/19/15</p>    
+    		<ol>
+    		  <li>Display a marker with a disease association to a human homolog where there are complex mouse models; Psen2 / Alzheimer.  Expect: mouse=0; human=2; alleles=5; references=2. </li>
+    		  
+    		</ol></li>
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
