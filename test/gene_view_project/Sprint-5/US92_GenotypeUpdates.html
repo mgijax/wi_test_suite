@@ -1,0 +1,153 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 92/Genotype updates</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Improve Genotype Page</h1>
+    <ul>
+        <li>US 92 - Improve genotype page</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Update the format of the Genotype page that is linked to from the following
+       <ol><li>Quick Search (genotype id search)</li>
+           <li>Accession (via ID - available to external users)</li>
+           <li>Allele Detail page (several spots on the page by clicking on abbrev, e.g. hm1)</li>
+           <li>Disease Detail - model pop-up (last column)</li>
+           <li>Marker Detail - Disease ribbon - model pop-up (last column)</li>
+           <li>All Mouse Models page - last column in table</li>
+        </ol></li>
+        <li>The Genocluster page is a different page and is not part of this story (HMDC, MP slim grid).</li>
+        <li>Add standard tool bar and footer to the page</li>
+        <li>Add a title (per mockup) and user help link (see URL from David S)</li>
+        <li>Add MGI ID of Genotype</li>
+        <li>Remove Print button</li>
+        <li>Reformat data fields and links found in the current header to a header ribbon format (see mockup).</li>
+        <li>Continue to display the cell line label only when that field exists.</li>
+        <li>Continue to display the IMPC link and help text only when IMPC data is present on the page.</li>
+        <li>Only display the "hm1" identifier when linking from the Allele Detail page with a counter.</li>
+        <li>Change the link from the Allele Detail from a pop-up to a pop-tab</li>
+        <li>Continue to display the body of the page (phenotypes, images, diseases) as is done now in Public (see mockup).</li>
+        <li>Add SEO title, description, keywords, etc to HTML</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify links from pages other than Allele Detail to updated Genotype page
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Link from Quick Search; MGI:3623749.  Expect: Stay in same window.</li>
+    		  <li>Link using the Accession URL; http://scrumbob.informatics.jax.org/accession/MGI:3623749.  Expect: Same browser window</li>
+    		  <li>Link from the model pop-up of a Disease Detail page; 211980, Kras.  Expect: Pop-tab.</li>
+    		  <li>Link from the model pop-up of a Marker Detail/Disease ribbon page; Kras.  Expect: Pop-tab</li>
+    		</ol></li>
+    		
+    		<li>Verify links from Allele Detail to updated Genotype page (all pop-tabs)
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Link from Allele Detail (2 places); xxxxx.  Expect: Each link displays a pop-tab and the counter box is displayed, e.g. hm1</li>
+    		  <li>Link from Allele Detail with abbrevs - hm, ht, cn, cx; Apoe<sup>tm1Unc</sup>.  Expect: All abbrevs/colors match Allele Detail.</li>
+    		  <li>Link from Allele Detail with abbrevs ot; MGI:1855930.  Expect: Abbrevs/colors match Allele Detail.</li>
+    		  <li>Link from Allele Detail with abbrev tg; MGI:3047080.  Expect: Abbrev/color match Allele Detail.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify SEO fields in html
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Display Genotype page; MGI:3719353.</li>
+    		</ol></li>
+    		
+    		<li>Verify Genocluster page not impacted
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Search for Pax6 in the HMDC.  Click on colored cell and then click on row of pop-up page.</li>
+    		</ol></li>
+    		
+    		<li>Verify links, etc. in tool bar and footer; title and user help link
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Display genotype page: MGI:5638045.</li>
+    		</ol></li>
+    		
+    		
+    		<li>Verify genotype with external data sources
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Display genotype with IMPC data; MGI:5608446.  Expect: IMPC data; IMPC link; data source help; cell line.</li>
+    		  <li>Display genotype with WTSI data; MGI:5449984.  Expect: WTSI data, data source help, cell line.</li>
+    		</ol></li>
+    		
+    		<li>Verify genotype with cell lines, but not IMPC data
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Display genotype MGI:5641692.  Expect: cell line displayed, but no links to IMPC.</li>
+    		</ol></li>
+    		
+    		<li>Verify genotype with diseases and images
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Display genotype with disease annotations; MGI:3695904.  Expect: Table with 1 disease at bottom of page.</li>
+    		  <li>Display genotype with image and disease annotations; MGI:3623749.  Expect: Image and disease table in body of page.</li>
+    		</ol></li>
+    		
+    		<li>Verify genotype with various allelic composition formats
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Display genotype with commas (in superscript) in AC field; MGI:5512979.  Expect: AC displayed in 1 line, both alleles linked.</li>
+    		  <li>Display complex genotype, each pair has superscript; MGI:5316883.  Expect: AC displayed in 2 lines, all alleles linked.</li>
+    		  <li>Display genotype with a lengthy allele pair; MGI:4443112.  Expect: displayed on 1 line -- do we wrap these or not??</li>
+    		  <li>Display genotype with 3 allele pairs; MGI:3805035.  Expect: each pair displayed on a line.</li>
+    		</ol></li>
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
