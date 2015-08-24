@@ -59,38 +59,38 @@
 		
 		<ol>
 		     <li>Verify the count/summary of references associated via OMIM/genotype NOT annotations
-    		<p concordion:assertTrue="false">new test</p>     
+    		<p concordion:assertTrue="true">PASS - jlewis 8/24/15</p>     
     		<ol>
     		  <li>Display marker with disease references for NOT rolled-up annotations; Wisp3.  Expect: no change in reference count: current=2; new=2</li>
     		  <li>Display marker with a single disease reference to a NOT rolled-up annotation; Adam33.  Expect: no change in reference count: current =1 new=1.</li>
-    		  <li>Display marker with a disease reference for a NOT complex annotation; Cd40.  Expect:  (J:93923 for the NOT annotation)</li>
+    		  <li>Display marker with a disease reference for a NOT complex annotation; Cd40.  Expect:  count=1; (J:93923 for the NOT annotation)</li>
     		  <li>Display marker with a disease reference for a NOT EC rolled up annotation; Pik3ca.  Expect: count = 7 (includes 1 NOT; 2 other rolled up refs; 2 complex refs; 2 allele/disease refs)</li> 
     		</ol></li>
     		
     		<li>Verify the count/summary of references associated via Mutation Involves alleles.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/24/15</p> 
     		<ol>
     		  <li>Display marker with disease reference for MI OMIM/genotype complex annotation; Dlx5.  Expect: count=2 vs. Public references=1 (add'l reference for MI annotation)</li>
     		  <li>Display marker with only 1 disease reference (and it is MI) via complex; Dlx6os1.  Expect: count=1 vs. Public = 0</li>
     		  <li>Display marker with a disease reference via MI OMIM/genotype that was rolled up; Del(6Dlx6-Dlx5)1Tlu.  Expect: no change; count=1 vs. Public=1.  View in HMDC.</li>
-    		  <li>Display marker with a Mutation Involves allele/disease annotation; Xxx.  Expect: xxx</li>
+    		  <li>Display marker with a Mutation Involves allele/disease annotation; bpck.  Expect: count=3 (no change; 2 allele/disease; 1 rolled up)</li>
     		</ol></li>
     		
     		<li>Verify the count/summary of references associated via Expresses Component alleles.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 8/24/15</p>   
     		<ol>
-    		  <li>Display marker with disease reference for EC OMIM/genotype complex annotation; Xxx.  Expect: xxx</li>
+    		  <li>Display marker with disease reference for EC OMIM/genotype complex annotation; Trp53.  Expect: J:122846 to now be included in the list of references </li>
     		  <li>Display marker with disease reference for Human EC OMIM/genotype annotation (does not roll up); Idh2.  Expect: count=1; Public=0</li>
-    		  <li>Display marker with disease reference for EC OMIM/genotype rolled up annotation; Xxx.  Expect: xxx</li>
-    		  <li>Display marker with a EC allele/disease annotation; Xxx.  Expect: xxx</li>
+    		  <li>Display marker with disease reference for EC OMIM/genotype rolled up annotation; Fgf9.  Expect: count=1; J:204282 included</li>
+    		  <li>Display marker with a EC allele/disease annotation; Pik3ca.  Expect: count=7 (includes 2 allele/disease annotations to EC alleles)</li>
     		</ol></li>
 
     		<li>Verify the count/summary of references associated via complex OMIM/genotype annotations.
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">??? - jlewis 8/24/15; Gt(ROSA) - no disease refs in HMDC</p>  
     		<ol>
     		  <li>Display marker with allele/disease and complex OMIM/genotypes; Rb1.  Expect: count = 13; Public = 2 (11 add'l refs via complex)</li>
     		  <li>Display marker with allele/disease and complex OMIM/genotypes; Scrib.  Expect: count=3; Public = 1 (2 add'l refs via complex)</li>
-    		  <li>Display marker Gt(ROSA)26Sor.  Expect:  count = N; Public = 4</li>
+    		  <li>Display marker Gt(ROSA)26Sor.  Expect:  count = 31; Public = 4</li>
     		  <li>Display marker with no disease references; Elp4.  Expect: no count</li>
     		  <li>Display marker with all types of annotations; Braf.  Expect: count=7 (1 rollup; 3 complex; 3 allele/disease) vs. Public = 4</li>
     		</ol></li>
