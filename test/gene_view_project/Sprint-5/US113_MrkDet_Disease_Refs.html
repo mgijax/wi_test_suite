@@ -1,0 +1,119 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 112/Marker/Disease mutatations</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - Disease ribbon - Mutations</h1>
+    <ul>
+        <li>US 112 - Disease ribbon: change "mutations with disease annotations" count semantics</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+      <li>Change the semantics of how disease references for a gene are identified.</li>
+      <li>Include the unique set of references associated by the following annotations:
+      <ol><li>via the "Allele/Disease" annotation</li>
+          <li>via the OMIM/genotype annotation</li>
+      </ol> </li>
+      <li>What data for the gene is searched?
+      <ol>
+         <li>All alleles for the gene including mutation involves and expresses component ones.</li>
+         <li>All genotypes for those alleles including complex ones and those with NOT annotations.</li>
+      </ol></li>
+      <li>These rules should be used for all the disease reference counts/summaries in the WI and HMDC
+      <ol>
+         <li>Marker Detail: Disease ribbon and Reference riibon</li>
+         <li>HMDC: Gene tab</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		     <li>Verify the count/summary of references associated via OMIM/genotype NOT annotations
+    		<p concordion:assertTrue="false">new test</p>     
+    		<ol>
+    		  <li>Display marker with disease references for NOT rolled-up annotations; Wisp3.  Expect: no change in reference count: current=2; new=2</li>
+    		  <li>Display marker with a single disease reference to a NOT rolled-up annotation; Adam33.  Expect: no change in reference count: current =1 new=1.</li>
+    		  <li>Display marker with a disease reference for a NOT complex annotation; Cd40.  Expect:  (J:93923 for the NOT annotation)</li>
+    		  <li>Display marker with a disease reference for a NOT EC rolled up annotation; Pik3ca.  Expect: count = 7 (includes 1 NOT; 2 other rolled up refs; 2 complex refs; 2 allele/disease refs)</li> 
+    		</ol></li>
+    		
+    		<li>Verify the count/summary of references associated via Mutation Involves alleles.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with disease reference for MI OMIM/genotype complex annotation; Dlx5.  Expect: count=2 vs. Public references=1 (add'l reference for MI annotation)</li>
+    		  <li>Display marker with only 1 disease reference (and it is MI) via complex; Dlx6os1.  Expect: count=1 vs. Public = 0</li>
+    		  <li>Display marker with a disease reference via MI OMIM/genotype that was rolled up; Del(6Dlx6-Dlx5)1Tlu.  Expect: no change; count=1 vs. Public=1.  View in HMDC.</li>
+    		  <li>Display marker with a Mutation Involves allele/disease annotation; Xxx.  Expect: xxx</li>
+    		</ol></li>
+    		
+    		<li>Verify the count/summary of references associated via Expresses Component alleles.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with disease reference for EC OMIM/genotype complex annotation; Xxx.  Expect: xxx</li>
+    		  <li>Display marker with disease reference for Human EC OMIM/genotype annotation (does not roll up); Idh2.  Expect: count=1; Public=0</li>
+    		  <li>Display marker with disease reference for EC OMIM/genotype rolled up annotation; Xxx.  Expect: xxx</li>
+    		  <li>Display marker with a EC allele/disease annotation; Xxx.  Expect: xxx</li>
+    		</ol></li>
+
+    		<li>Verify the count/summary of references associated via complex OMIM/genotype annotations.
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		  <li>Display marker with allele/disease and complex OMIM/genotypes; Rb1.  Expect: count = 13; Public = 2 (11 add'l refs via complex)</li>
+    		  <li>Display marker with allele/disease and complex OMIM/genotypes; Scrib.  Expect: count=3; Public = 1 (2 add'l refs via complex)</li>
+    		  <li>Display marker Gt(ROSA)26Sor.  Expect:  count = N; Public = 4</li>
+    		  <li>Display marker with no disease references; Elp4.  Expect: no count</li>
+    		  <li>Display marker with all types of annotations; Braf.  Expect: count=7 (1 rollup; 3 complex; 3 allele/disease) vs. Public = 4</li>
+    		</ol></li>
+    			
+    		
+    	  
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
