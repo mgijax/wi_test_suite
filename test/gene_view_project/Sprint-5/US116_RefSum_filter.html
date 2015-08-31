@@ -1,0 +1,143 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 116 Ref Sum Filter</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Reference Summary: filter</h1>
+    <ul>
+        <li>US 116 - Reference Summary: filter out database/load references</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Add a new "Reference Type" filter to the Reference Summary page.</li>
+       <li>Include 2 options in the filter
+       <ol><li>Literature</li>
+           <li>Database, data loads, curation, submissions</li>
+       </ol></li>
+       <li>Set this new filter to "Literature" by default for all Reference Summaries</li>
+       <li>The count of references continues to be the total of references - unfiltered (no change)</li>
+       <li>Reference Summaries are linked to from the following pages
+       <ol><li>Reference Query Form</li>
+           <li>Marker Detail: Disease, MP, GO, Reference ribbons (8 links on page)</li>
+           <li>Allele Detail: Reference ribbon</li>
+           <li>Recombinase Summary</li>
+           <li>Recombinase Detail</li>
+           <li>Disease Detail</li>
+           <li>HMDC: Gene tab (2 links)</li>
+           <li>HMDC: Disease tab</li>
+        </ol></li>
+        <li>For THIS STORY -- only update the "All" links on the Marker Detail and Allele Detail pages</li>
+        <li>A link to the Reference page by ID/key would not set this filter (no change).</li>
+        <li>This story sets the reference type to "not literature" using the following rules in the Mover (future stories would move this to the database)
+        <ol><li>Title contains "personal communic"</li>
+            <li>Journal contains any of the following: "database release", "database proc", "load", "personal communic", "direct data", "submission", "curation", "unpublished", "omim", "www"</li>
+            <li>Journal is empty and title contains: "database", "load", "direct data", "curation", "annotation", "nomenclature", "mouse genome informatics", "locuslink"</li>
+            <li>Journal is empty and reftype=ART and title is empty</li>
+        </ol></li>
+        <li>The new filter should display and operate consistent with the other filter buttons on the Reference Summary</li>
+        <li>The new filter should display and operate in all supported browsers.</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Verify reference summary links for objects with only literature references.  Expect:  All references to display after new filter is applied -- total counts all the same.
+    		<p concordion:assertTrue="true">PASS - jlewis; 8/31/15</p>    
+    		<ol>
+    		  <li>Verify marker with only literature references; Tir4.  Expect: 7 references.</li>
+    		  <li>Verify marker with only a single literature reference; Ymin.  Expect: 1 reference.</li>
+    		  <li>Verify allele with only literature references; Tg(Acp2)1Hume.  Expect: 3 references.</li>
+    		  <li>Verify allele with only a single literature references; Twl.  Expect: 1 reference.</li>
+    		</ol></li>
+    		
+    		<li>Verify reference summary links for objects with only non-literature references.  Expect:  No references to display after new filter is applied.
+    		<p concordion:assertTrue="true">PASS - jlewis; 8/31/15</p>   
+    		<ol>
+    		  <li>Verify marker with only non-literature references; Kcng2.  Expect: 0 refs displayed; 21 filtered out.</li>
+    		  <li>Verify marker with only a single non-literature reference; Hbmd.  Expect: 0 refs displayed; 1 filtered out.</li>
+    		  <li>Verify allele with only non-literature references; Gena15.  Expect: 0 refs displayed; 2 filtered out.</li>
+    		  <li>Verify allele with only a single non-literature reference; Gsfwt.  Expect: 0 refs displayed; 1 filtered out.</li>
+    		</ol></li>
+    		
+    		<li>Verify reference summary links for objects with both literature and non-literature references.  Expect: Display only the literature ones using filter.
+    		<p concordion:assertTrue="true">PASS - jlewis; 8/31/15</p>   
+    		<ol>
+    		  <li>Verify marker with only 1 literature and 1 non-literature reference; Candy.  Expect: 1 reference displayed; 1 filtered out.</li>
+    		  <li>Verify allele with only 1 literature and 1 non-literature reference; candy.  Expect: 1 reference displayed; 1 filtered out.</li>
+    		  <li>Verify marker with multiple references of both types; Cst12.  Expect: 6 refs displayed; 23 filtered out.</li>
+    		  <li>Verify marker with multiple references of both types; Pre2.  Expect: 10 displayed; 3 filtered out.</li>
+    		  <li>Verify allele with multiple references of both types; at;.  Expect: 6 displayed; 1 filtered out</li>
+    		</ol></li>
+    		
+    		<li>Verify filter box on Summary page from the Reference Query Form.
+    		<p concordion:assertTrue="true">PASS - jlewis; 8/31/15</p>   
+    		<ol>
+    		  <li>Test presence of the 2 options is driven by the results of the query.</li>
+    		  <li>Test selection of each and/or both of the options returns correct results.</li>
+              <li>Test new filter in conjunction with the other filters on the page.</li>
+    		</ol></li>
+    		
+    		<li>Verify deletion of new filter
+    		<p concordion:assertTrue="true">PASS - jlewis; 8/31/15</p>    
+    		<ol>
+    		  <li>Delete filter one option at a time.</li>
+    		  <li>Delete filter using the remove all option.</li>
+    		  <li>Delete filter when other filters are present.</li>
+    		</ol></li>
+    		
+    		<li>Test new filter on all supported browsers: PC (Firefox, Chrome); Mac(Firefox, Chrome, Safari)
+    		<p concordion:assertTrue="true">PASS - jlewis; 8/31/15</p>   
+    		<ol>
+    		  <li>Test using some of the test cases above.</li>
+    		</ol></li>
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
