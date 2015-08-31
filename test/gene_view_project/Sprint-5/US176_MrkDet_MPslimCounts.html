@@ -1,0 +1,122 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 176/Marker/MP slimgrid change</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail - MP slim grid - count change</h1>
+    <ul>
+        <li>US 176 - A/P slimgrid change: cell mouse-overs count distinct MP terms</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Change - mouse over counts should be changed to the number of distinct MP terms annotated under the slim term header. (original requirements in US 22)</li>
+       <li>Other requirements for counts
+       <ol>
+          <li>Limit the slim grid to rolled-up MP annotations using the same roll-up rules used by the HMDC.</li>
+          <li>Limit the slim grid to abnormal phenotypes.  Filter out all normal annotations.
+          <ol><li>Exclude all annotations to MP header terms - this are by convention normal ones.</li>
+              <li>Exclude all annotations with a normal qualifier.</li>
+          </ol></li>
+       </ol></li>
+       <li>Change roll-over text to "# phenotype(s)" instead of "# annotations".</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		     <li>Verify roll-over count of cells with annotations -- distinct number of terms
+    		<p concordion:assertTrue="true">PASS - jlewis 8/31/15</p> 
+    		<ol>
+    		  <li>Verify annotation count when only 1 annotation; Mtss1; Skeleton.  Expect: 1 phenotype for the "Skeleton" header term</li>
+    		  <li>Verify annotation counts when normals are present; Pomc/Adipose tissue.  Expect: 6 phenotypes (excludes 1 term with normal annotation).</li>
+    		  <li>Verify annotation counts when multiple exist for a term; Lepr / Mortality/Aging.  Expect: 4 phenotypes.</li>
+    		  
+    		</ol></li>
+		   
+    		
+    		<li>Verify rolled-up MP annotations are in correct MP grid
+    		<p concordion:assertTrue="true">PASS - jlewis 8/31/15</p>  
+    		<ol>
+    		  <li>Display marker with MP annotations rolled up due to Expresses Component; Mir155; ataxia.  Expect: behavior/neuro cell blue with 3 phenotypes.</li>
+    		  <li>Display marker with MP annotations rolled up due to Cre; Pax4; Endo/Exo.  Expect: 7 phenotypes for this header.</li>
+    		  
+    		</ol></li>
+    		
+    		 <li>Verify MP annotations that don't roll-up are not in MP grid
+    		<p concordion:assertTrue="true">PASS - jlewis 8/31/15</p> 
+    		<ol>
+    		  
+    		  <li>Display marker with only Mutation Involves alleles that have MP; Gm9552.  Expect: no MP grid.</li>
+    		  <li>Display marker with a mix of simple alleles and Mutation Involves alleles with MP; Wnt1.  Expect: Grid has no growth/size/body annotations; confirms that MI allele annotations not included.</li>
+    		  <li>Display marker with only Complex genotypes with MP; Olfr6 or Prrx2.  Expect no MP grid.</li>
+    		  <li>Display Gt(ROSA).  Expect: No grid.</li>
+    		  <li>Display docking site marker; Col1a1.  Expect: MP annotation "decreased brain weight" excluded per docking site rules; 2 phenotypes for nervous system</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify Normal annotations are not in MP grid
+    		<p concordion:assertTrue="true">PASS - jlewis 8/31/15</p> 
+    		<ol>
+    		  <li>Display marker with only normal annotations to an MP header term; Atp10a.  Expect: No MP grid.</li>
+    		  <li>Display marker with normal simple annotations and complex abnorm ones; Zbp1.  Expect: no MP grid.</li>
+    		  
+    		</ol></li>
+    		
+    		<li>Verify counts when a term is included in 2 different headers
+    		<p concordion:assertTrue="true">PASS - jlewis 8/31/15</p>
+    		<ol>
+    		  <li>Display marker with an MP annotation that is included in multiple header terms; Sec23b, term=nasal gland degneration.  Expect: term counted as a phenotype
+    		      for 4 different header terms: craniofacial = 1, endocrine/exocrine = 22, growth/size/body = 2, respiratory = 1.</li>
+    		</ol></li>
+    		
+    		
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
