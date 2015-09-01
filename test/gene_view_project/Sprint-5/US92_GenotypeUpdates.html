@@ -48,6 +48,12 @@
         <li>Change the link from the Allele Detail from a pop-up to a pop-tab</li>
         <li>Continue to display the body of the page (phenotypes, images, diseases) as is done now in Public (see mockup).</li>
         <li>Add SEO title, description, keywords, etc to HTML</li>
+        <li>Update concatenated view with rules above, plus...
+        <ol><li>Title= Phenotypes associated with this allele</li>
+            <li>Allele header (same as the References for Allele header)</li>
+            <li>SEO fields - alter for concatenated view</li>
+        </ol></li>
+            
     </ol>   
    
 </div>
@@ -66,7 +72,7 @@
 		<ol>
     		
     		<li>Verify links from pages other than Allele Detail to updated Genotype page
-    		<p concordion:assertTrue="true">PASS - jlewis 8/24/15</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 9/1/15</p>    
     		<ol>
     		  <li>Link from Quick Search; MGI:3623749.  Expect: Stay in same window.</li>
     		  <li>Link using the Accession URL; http://scrumbob.informatics.jax.org/accession/MGI:3623749.  Expect: Same browser window</li>
@@ -76,7 +82,7 @@
     		</ol></li>
     		
     		<li>Verify links from Allele Detail to updated Genotype page (all pop-tabs)
-    		<p concordion:assertTrue="true">PASS - jlewis 8/24/15</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 9/1/15</p>   
     		<ol>
     		  <li>Link from Allele Detail (3 places); MGI:2156556.  Expect: Each link displays a pop-tab and the counter box is displayed, e.g. hm1</li>
     		  <li>Link from Allele Detail with abbrevs - hm, ht, cn, cx; Apoe<sup>tm1Unc</sup>.  Expect: All abbrevs/colors match Allele Detail.</li>
@@ -86,7 +92,7 @@
     		</ol></li>
     		
     		<li>Verify SEO fields in html
-    		<p concordion:assertTrue="false">FAIL - jlewis; allele pairs not in correct format in Description and Keywords</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 9/1/15</p>  
     		<ol>
     		  <li>Display Genotype page; MGI:3719353.</li>
     		</ol></li>
@@ -98,27 +104,27 @@
     		</ol></li>
     		
     		<li>Verify links, etc. in tool bar and footer; title and user help link
-    		<p concordion:assertTrue="false">FAIL - jlewis; user help link missing anchor tag</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 9/1/15</p>    
     		<ol>
     		  <li>Display genotype page: MGI:5638045.</li>
     		</ol></li>
     		
     		
     		<li>Verify genotype with external data sources
-    		<p concordion:assertTrue="false">FAIL - jlewis; cell line, IMPC link, and Data source in smaller font size</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 9/1/15</p>      
     		<ol>
     		  <li>Display genotype with IMPC data; MGI:5608446.  Expect: IMPC data; IMPC link; data source help; cell line.</li>
     		  <li>Display genotype with WTSI data; MGI:5449984.  Expect: WTSI data, data source help, cell line.</li>
     		</ol></li>
     		
     		<li>Verify genotype with cell lines, but not IMPC data
-    		<p concordion:assertTrue="false">FAIL; cell line value in smaller font size</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 9/1/15</p>      
     		<ol>
     		  <li>Display genotype hm1 for allele; MGI:4362924.  Expect: cell line displayed, but no links to IMPC.</li>
     		</ol></li>
     		
     		<li>Verify genotype with diseases and images
-    		<p concordion:assertTrue="true">PASS - jlewis 8/24/15</p>      
+    		<p concordion:assertTrue="true">PASS - jlewis 9/1/15</p>      
     		<ol>
     		  <li>Display genotype with disease annotations; MGI:3695904.  Expect: Table with 1 disease at bottom of page.</li>
     		  <li>Display genotype with image and disease annotations; MGI:3623749.  Expect: Image and disease table in body of page.</li>
@@ -134,11 +140,11 @@
     		</ol></li>
     		
     		<li>Verify concatenated genotype view
-    		<p concordion:assertTrue="true">new test</p>      
+    		<p concordion:assertTrue="true">PASS - jlewis 9/1/15</p>      
     		<ol>
-    		  <li>Display view with only 1 genotype; XXX.  Expect: 1 header/body in pop-tab.</li>
-    		  <li>Display view with multiple genotypes; MGI:nnn.  Expect: nnnn</li>
-    		  <li>Title of page?  SEO values?  - needs to be defined.</li>
+    		  <li>Display view with only 1 genotype;MGI:5524274.  Expect: 1 header/body in pop-tab.</li>
+    		  <li>Display view with multiple genotypes; MGI:2156556.  Expect: 19 genotype summaries; allele header</li>
+    		  <li>Verify Title, Description, and Keyword tags are specific to concatenated view.</li>
     		  
     		</ol></li>
     	    
