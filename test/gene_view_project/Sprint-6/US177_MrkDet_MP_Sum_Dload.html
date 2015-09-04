@@ -1,0 +1,150 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 177 Marker MP Sum Download</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker MP Summaries Download</h1>
+    <ul>
+        <li>US 177 - Add download option - Phenotype Summaries</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Add Excel download option to the 2 new MP Summaries for a marker (rolled up ones and multigenic)</li>
+       <li>Download button -- use label and styling in place elsewhere in the WI</li>
+       <li>Normalize the data found on this report and include 1 row for each set of unique values - all single values</li>
+       <li>Display the following columns in the report in the following order (label:definition)
+       <ol><li>Genotype: allele pair(s)</li>
+           <li>Genetic Background: strain background</li>
+           <li>Genotype ID: MGI id</li>
+           <li>Qualifier: e.g. normal</li>
+           <li>Phenotype: MP term name</li>
+           <li>Phenotype Summary Category: slim grid header</li>
+           <li>Reference: J number</li>
+       </ol></li>
+       <li>The following fields may have multiple values -- which will result in multiple rows in the file
+       <ol><li>Phenotype Summary Category (slim grid header)</li>
+           <li>Reference (J number)</li>
+       </ol></li>
+       <li>The Phenotype Summary Category (slim grid header) may also be blank</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		    <li>Verify MP annotations for genotypes that roll up to the gene are included in Main summary
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display marker with simple genotypes that roll-up to the gene; Pax4.  Expect: "abnormal pancreatic islet morphology" included.</li>
+    		   <li>Display marker with simple conditional genotype that rolls-up; Pax4. Expect: "increased pancreatic alpha cell number" included</li>
+    		   <li>Display marker with transactivator genotype that rolls-up; Kras.  Expect: increased tumor latency for genotype with Transactivator allele</li>
+    		   <li>Display marker with Expresses Component (mouse) genotype that rolls-up; Trp53. Expect: MP annotation for J:46426 in main summary.</li>
+    		   <li>Display marker with normal annotations to a genotype that rolls up; Adcy8.  Expect: normal annotation for taste/olfaction included in summary</li>
+    		</ol></li>
+    		
+    		<li>Verify MP annotations for genotypes that do not roll up to the gene are not included in Main summary, but are in the multi-genic summary
+    		<p concordion:assertTrue="false">new test</p>     
+    		<ol>
+    		   <li>Display marker with complex conditional genotype that does not roll-up; Col1a1.  Expect: "decreased brain weight" included in m-g summary. </li>
+    		   <li>Display marker with complex genotype that does not roll-up; Adrb1.  Expect: "increased total body fat amount" included in m-g summary.  </li>
+    		   <li>Display marker with Expresses Component (human) genotype that does not roll-up; Idh2. Expect: annotations via EC allele in multi-genic summary.</li>
+    		   <li>Display marker with normal annotations to a genotype that does not roll up; Arhgap1.  Expect: normal annotation to cellular phenotype included in m-g summary.</li>
+    		   <li>Display Gt(ROSA)26Sor.  Expect: No main summary (nothing rolls up) -- all annotations in m-g summary.</li>
+    		</ol></li>
+    		
+    		<li>Verify MP annotations for genotypes that are not included in either summary
+    		<p concordion:assertTrue="false">new test</p>     
+    		<ol>
+    		   <li>Display marker with a Mutation Involves allele; Dlx6os1.  Expect: MP annotations for this allele not in either summary</li>
+    		   <li>Display marker with only Mutation Involves alleles that have MP; Gm9552.  Expect: no MP grid, no summaries.</li>
+    		   <li>Display marker with annotations to "No Phenotypic Analysis" for genotype not rolled up; Ccr2.  Expect: This term not included in either summary. </li>
+    		   <li>Display marker with annotations to "No Phenotypic Analysis" for genotype rolled up; Adam23.  Expect: This term not included in either summary. </li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify sort order and column headings of both summaries
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display marker with many genotypes and terms in both summaries; Pten.  Expect: Primary sort by genotype; secondary sort by term name </li>
+    		   
+    		</ol></li>
+    		
+    		<li>Verify atypical summaries
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Display marker with only a main summary; cw.</li>
+    		   <li>Display marker with only a multi-genic summary; Olfr6.</li>
+    		   <li>Display marker with a single annotation in the main summary; Atp10a.</li>
+    		   <li>Display marker with a single annotation to the multi-genic summary; Zbp1.</li>
+    		   <li>Display marker with summaries, but no grid; Prrx2.</li>
+    		   
+    		</ol></li>
+    		
+    		
+		
+		    <li>Verify excluded header terms not in slim grid -- but still in Phenotype Summaries
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		  <li>Display marker with MP annotations to "Normal Phenotype"; Myo5a.  Expect: Child terms for this header to be included in the Summary.</li>
+    		  <li>Display marker with only MP annotations to "no phenotypic analysis"; Ap2a1.  Expect:  No grid, no summaries.</li>
+    		  <li>Display marker with MP annotations to "other phenotype"; Atox1.  Expect:  Those annotations not in grid, but "maternal effect" is in the Summary.</li>
+    		  
+    		</ol></li>
+    	
+    		
+    		 <li>Verify download option works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
+    		<p concordion:assertTrue="false">new test</p>   
+    		<ol>
+    		  <li>Download a file on each of the supported browsers.  </li>
+    		  
+    		</ol></li>
+    		
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
