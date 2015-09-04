@@ -61,74 +61,65 @@
 		<h3>Manual tests</h3>
 		
 		<ol>
-		    <li>Verify MP annotations for genotypes that roll up to the gene are included in Main summary
+		    <li>Verify genotypes in download file 
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display marker with simple genotypes that roll-up to the gene; Pax4.  Expect: "abnormal pancreatic islet morphology" included.</li>
-    		   <li>Display marker with simple conditional genotype that rolls-up; Pax4. Expect: "increased pancreatic alpha cell number" included</li>
-    		   <li>Display marker with transactivator genotype that rolls-up; Kras.  Expect: increased tumor latency for genotype with Transactivator allele</li>
-    		   <li>Display marker with Expresses Component (mouse) genotype that rolls-up; Trp53. Expect: MP annotation for J:46426 in main summary.</li>
-    		   <li>Display marker with normal annotations to a genotype that rolls up; Adcy8.  Expect: normal annotation for taste/olfaction included in summary</li>
-    		</ol></li>
-    		
-    		<li>Verify MP annotations for genotypes that do not roll up to the gene are not included in Main summary, but are in the multi-genic summary
-    		<p concordion:assertTrue="false">new test</p>     
-    		<ol>
-    		   <li>Display marker with complex conditional genotype that does not roll-up; Col1a1.  Expect: "decreased brain weight" included in m-g summary. </li>
-    		   <li>Display marker with complex genotype that does not roll-up; Adrb1.  Expect: "increased total body fat amount" included in m-g summary.  </li>
-    		   <li>Display marker with Expresses Component (human) genotype that does not roll-up; Idh2. Expect: annotations via EC allele in multi-genic summary.</li>
-    		   <li>Display marker with normal annotations to a genotype that does not roll up; Arhgap1.  Expect: normal annotation to cellular phenotype included in m-g summary.</li>
-    		   <li>Display Gt(ROSA)26Sor.  Expect: No main summary (nothing rolls up) -- all annotations in m-g summary.</li>
-    		</ol></li>
-    		
-    		<li>Verify MP annotations for genotypes that are not included in either summary
-    		<p concordion:assertTrue="false">new test</p>     
-    		<ol>
-    		   <li>Display marker with a Mutation Involves allele; Dlx6os1.  Expect: MP annotations for this allele not in either summary</li>
-    		   <li>Display marker with only Mutation Involves alleles that have MP; Gm9552.  Expect: no MP grid, no summaries.</li>
-    		   <li>Display marker with annotations to "No Phenotypic Analysis" for genotype not rolled up; Ccr2.  Expect: This term not included in either summary. </li>
-    		   <li>Display marker with annotations to "No Phenotypic Analysis" for genotype rolled up; Adam23.  Expect: This term not included in either summary. </li>
+    		   <li>Get Excel file for summary with only single allele pairs; cw.  Expect:</li>
+    		   <li>Get Excel file for summary with multiple allele pairs; Xxx.  Expect:</li>
+    		   <li>Get Excel file for summary with transgene alleles; Xxx.  Expect:</li>
     		   
     		</ol></li>
     		
-    		<li>Verify sort order and column headings of both summaries
+    		<li>Verify superscripts in genotypes and genetic background fields
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display marker with many genotypes and terms in both summaries; Pten.  Expect: Primary sort by genotype; secondary sort by term name </li>
+    		   <li>Get Excel file for summary with genotype superscripts; Xxx.  Expect: superscripts in pointy brackets.</li>
+    		   <li>Get Excel file for summary with background superscripts; Xxx.  Expect: superscripts in pointy brackets.</li>
     		   
     		</ol></li>
     		
-    		<li>Verify atypical summaries
+    		<li>Verify normal qualifiers
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Display marker with only a main summary; cw.</li>
-    		   <li>Display marker with only a multi-genic summary; Olfr6.</li>
-    		   <li>Display marker with a single annotation in the main summary; Atp10a.</li>
-    		   <li>Display marker with a single annotation to the multi-genic summary; Zbp1.</li>
-    		   <li>Display marker with summaries, but no grid; Prrx2.</li>
+    		   <li>Get Excel file for summary with normal qualifiers; Xxx.  Expect: </li>
     		   
     		</ol></li>
     		
+    		<li>Verify that multiple J numbers result in multiple rows
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Get Excel file for a summary with multiple J numbers.  Expect: </li>
+    		   <li>Get Excel file for a summary with multiple J numbers and slim terms for same annotation.  Expect: </li>
+    		   
+    		</ol></li>
+		  
+		    <li>Verify slim term header column
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Get Excel file for a summary with complete coverage of all slims; Xxx.  Expect:  all headers in file</li>
+    		   <li>Get Excel file for a summary with terms not in the slim grid; Myo5a (normal phenotype) or Atox1 (other phenotype).  Expect: field to be blank.</li>
+    		   <li>Get Excel file for a summary with term with multiple headers; Xxx.  Expect: multiple rows for that term.</li>
+    		   
+    		</ol></li>
     		
+    		<li>Verify downloads for atypical summaries
+    		<p concordion:assertTrue="false">new test</p>  
+    		<ol>
+    		   <li>Get Excel file with only 1 row; Atp10a or Zbp1.  Expect: 1 row in file.</li>
+    		   <li>Get Excel file with only 1 genotype, but multiple terms; Olfr6.  Expect: 2 rows (1 row per term).</li>
+    		   <li>Get Excel file with only 1 term, but with multi-value fields; Xxx.  Expect: multiple rows in file.</li>
+    		   <li>Get Excel file with a symbol that translates to a date; Xxx.  Expect:</li>
+    		   <li>Get Excel file with no slim terms (all blank); Prrx2.  Expect: 3 rows with no slim term headers.</li>
+    		   
+    		</ol></li>
 		
-		    <li>Verify excluded header terms not in slim grid -- but still in Phenotype Summaries
-    		<p concordion:assertTrue="false">new test</p>   
-    		<ol>
-    		  <li>Display marker with MP annotations to "Normal Phenotype"; Myo5a.  Expect: Child terms for this header to be included in the Summary.</li>
-    		  <li>Display marker with only MP annotations to "no phenotypic analysis"; Ap2a1.  Expect:  No grid, no summaries.</li>
-    		  <li>Display marker with MP annotations to "other phenotype"; Atox1.  Expect:  Those annotations not in grid, but "maternal effect" is in the Summary.</li>
-    		  
-    		</ol></li>
-    	
-    		
-    		 <li>Verify download option works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
+		     <li>Verify download option works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
     		<p concordion:assertTrue="false">new test</p>   
     		<ol>
     		  <li>Download a file on each of the supported browsers.  </li>
     		  
     		</ol></li>
     		
-    	    
 		</ol>
     	    
       	    
