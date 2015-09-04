@@ -64,41 +64,42 @@
 		    <li>Verify genotypes in download file 
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Get Excel file for summary with only single allele pairs; cw.  Expect:</li>
-    		   <li>Get Excel file for summary with multiple allele pairs; Xxx.  Expect:</li>
-    		   <li>Get Excel file for summary with transgene alleles; Xxx.  Expect:</li>
+    		   <li>Get Excel file for summary with only single allele pairs; cw.  Expect: Same allele pais as on Summary page. </li>
+    		   <li>Get Excel file for summary with multiple allele pairs; Rb1 (multigenic).  Expect: Same allele pairs as on Summary page.</li>
+    		   <li>Get Excel file for summary with transgene alleles; Trp53.  Expect: Same as summary</li>
     		   
     		</ol></li>
     		
-    		<li>Verify superscripts in genotypes and genetic background fields
+    		<li>Verify genetic background in download file
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Get Excel file for summary with genotype superscripts; Xxx.  Expect: superscripts in pointy brackets.</li>
-    		   <li>Get Excel file for summary with background superscripts; Xxx.  Expect: superscripts in pointy brackets.</li>
+    		   <li>Get Excel file where backgrounds have many special characters; Pax4  Expect: all special characters displayed.</li>
+    		   <li>Get Excel file for summary with background superscripts; Kras.  Expect: superscripts in pointy brackets -- embedded and trailing superscripts for this summary.</li>
     		   
     		</ol></li>
     		
     		<li>Verify normal qualifiers
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Get Excel file for summary with normal qualifiers; Xxx.  Expect: </li>
+    		   <li>Get Excel file for summary with normal qualifiers; Ncoa2.  Expect: 4 rows with normal. </li>
     		   
     		</ol></li>
     		
     		<li>Verify that multiple J numbers result in multiple rows
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Get Excel file for a summary with multiple J numbers.  Expect: </li>
-    		   <li>Get Excel file for a summary with multiple J numbers and slim terms for same annotation.  Expect: </li>
+    		   <li>Get Excel file for a summary with multiple J numbers; Apoe, term= atherosclerotic lesions.  Expect: Term listed 3 times for 1 genotype - why? (6 refs, 2 refs, 1 ref)</li>
+    		   <li>Get Excel file for a summary with multiple J numbers and slim terms for same annotation, Hfm, term=small ears.  Expect: term has 3 header terms and 2 references = 6 rows for term. </li>
+    		   <li>Get Excel file with multiple J numbers for a normal term; Apoe, term = nervous system.  Expect: nervous system in 2 rows, each with normal qualifier.</li>
     		   
     		</ol></li>
 		  
 		    <li>Verify slim term header column
     		<p concordion:assertTrue="false">new test</p>  
     		<ol>
-    		   <li>Get Excel file for a summary with complete coverage of all slims; Xxx.  Expect:  all headers in file</li>
+    		   <li>Get Excel file for a summary with complete coverage of all slims; Trp53 and Bmpr1a.  Expect:  all headers represented between the 2 genes.</li>
     		   <li>Get Excel file for a summary with terms not in the slim grid; Myo5a (normal phenotype) or Atox1 (other phenotype).  Expect: field to be blank.</li>
-    		   <li>Get Excel file for a summary with term with multiple headers; Xxx.  Expect: multiple rows for that term.</li>
+    		   <li>Get Excel file for a summary with term with multiple headers; Sec23b, term=nasal gland degneration.  Expect: headers=craniofacial, endocrine/exocrine, growth/size/body, respiratory; term in 3 genotypes; 12 rows for this term.</li>
     		   
     		</ol></li>
     		
@@ -108,7 +109,6 @@
     		   <li>Get Excel file with only 1 row; Atp10a or Zbp1.  Expect: 1 row in file.</li>
     		   <li>Get Excel file with only 1 genotype, but multiple terms; Olfr6.  Expect: 2 rows (1 row per term).</li>
     		   <li>Get Excel file with only 1 term, but with multi-value fields; Xxx.  Expect: multiple rows in file.</li>
-    		   <li>Get Excel file with a symbol that translates to a date; Xxx.  Expect:</li>
     		   <li>Get Excel file with no slim terms (all blank); Prrx2.  Expect: 3 rows with no slim term headers.</li>
     		   
     		</ol></li>
