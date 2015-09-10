@@ -17,7 +17,7 @@
 
 <body>
 
-<div id="maintitle"><h1>Marker MP Summaries Download</h1>
+<div id="maintitle"><h1>Marker MP Summaries Excel Download</h1>
     <ul>
         <li>US 177 - Add download option - Phenotype Summaries</li>
     </ul>
@@ -62,16 +62,16 @@
 		
 		<ol>
 		    <li>Verify genotypes in download file 
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/8/15</p>  
     		<ol>
-    		   <li>Get Excel file for summary with only single allele pairs; cw.  Expect: Same allele pais as on Summary page. </li>
+    		   <li>Get Excel file for summary with only single allele pairs; cw.  Expect: Same allele pairs as on Summary page. </li>
     		   <li>Get Excel file for summary with multiple allele pairs; Rb1 (multigenic).  Expect: Same allele pairs as on Summary page.</li>
     		   <li>Get Excel file for summary with transgene alleles; Trp53.  Expect: Same as summary</li>
     		   
     		</ol></li>
     		
     		<li>Verify genetic background in download file
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/8/15</p>
     		<ol>
     		   <li>Get Excel file where backgrounds have many special characters; Pax4  Expect: all special characters displayed.</li>
     		   <li>Get Excel file for summary with background superscripts; Kras.  Expect: superscripts in pointy brackets -- embedded and trailing superscripts for this summary.</li>
@@ -79,14 +79,14 @@
     		</ol></li>
     		
     		<li>Verify normal qualifiers
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/8/15</p>  
     		<ol>
     		   <li>Get Excel file for summary with normal qualifiers; Ncoa2.  Expect: 4 rows with normal. </li>
     		   
     		</ol></li>
     		
     		<li>Verify that multiple J numbers result in multiple rows
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/8/15</p>    
     		<ol>
     		   <li>Get Excel file for a summary with multiple J numbers; Apoe, term= atherosclerotic lesions.  Expect: Term listed 3 times for 1 genotype - why? (6 refs, 2 refs, 1 ref)</li>
     		   <li>Get Excel file for a summary with multiple J numbers and slim terms for same annotation, Hfm, term=small ears.  Expect: term has 3 header terms and 2 references = 6 rows for term. </li>
@@ -95,7 +95,7 @@
     		</ol></li>
 		  
 		    <li>Verify slim term header column
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/10/15</p>
     		<ol>
     		   <li>Get Excel file for a summary with complete coverage of all slims; Trp53 and Bmpr1a.  Expect:  all headers represented between the 2 genes.</li>
     		   <li>Get Excel file for a summary with terms not in the slim grid; Myo5a (normal phenotype) or Atox1 (other phenotype).  Expect: field to be blank.</li>
@@ -104,17 +104,16 @@
     		</ol></li>
     		
     		<li>Verify downloads for atypical summaries
-    		<p concordion:assertTrue="false">new test</p>  
+    		<p concordion:assertTrue="true">PASS - jlewis 9/8/15</p>  
     		<ol>
     		   <li>Get Excel file with only 1 row; Atp10a or Zbp1.  Expect: 1 row in file.</li>
     		   <li>Get Excel file with only 1 genotype, but multiple terms; Olfr6.  Expect: 2 rows (1 row per term).</li>
-    		   <li>Get Excel file with only 1 term, but with multi-value fields; Xxx.  Expect: multiple rows in file.</li>
     		   <li>Get Excel file with no slim terms (all blank); Prrx2.  Expect: 3 rows with no slim term headers.</li>
     		   
     		</ol></li>
 		
 		     <li>Verify download option works on all supported browers: Firefox, Chrome (PC, Mac); Safaric (Mac)
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="false">ISSUE - jlewis 9/8/15; line breaks between allele pairs on PC Excel, but only spaces on Mac Excel.  No easy fix -- okay to be different.</p>   
     		<ol>
     		  <li>Download a file on each of the supported browsers.  </li>
     		  
