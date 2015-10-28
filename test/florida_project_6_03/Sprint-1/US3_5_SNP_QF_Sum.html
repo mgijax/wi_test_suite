@@ -1,0 +1,133 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 3-US 5: SNP QF/Summary</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Minimal SNP Query Form/Basic SNP Summary</h1>
+    <ul>
+        <li>US 3 and US 5: SNP QF and Summary - convert to fewi</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+      <li>Provide a minimal SNP QF with only the Associated Genes ribbon.</li>
+      <li>QF - Include page header area as currently implemented
+      <ol><li>Title</li>
+          <li>user help icon/link</li>
+          <li>text at top of page -- refer to SNP build (driven by database value)</li>
+          <li>Remove anchor link to output options</li>
+      </ol></li>
+      <li>QF - Include Associated Gene ribbon
+      <ol><li>Gene field - remove operators, accept wildcard, accept lists of symbols, search limted to current symbols</li>
+          <li>Regardless of paradigm -- not valid to return QTLs</li>
+          <li>SNP location field - match display of Public; remove with 500 and 1000 kb options in pull down
+          <ul><li>Default = "within 2 kb of" returned genes</li></ul></li>
+          <li>Remove Either, Upstream, Downstream options - always default to EITHER</li>
+      </ol></li>
+     <li>Use the following defaults for the query by marker symbol:
+      <ol><li>All strains</li>
+          <li>All Variation types and dbSNP function classes</li>
+          <li>Include SNPs with multiple locations.</li>
+          <li>Include SNPs with dbSNP function class associations to a marker when there's a "within" search -- even if it is not "within" the coordinate range of the marker.</li>
+      </ol></li>
+      <li>Use new roll-up/down QF and Summary page paradigm</li>
+      <li>Summary pages use the standard pagination paradigm.  Propose: use Marker Summary options: (50, 100, 250, 500) with the default = 100.</li>
+      <li>Sort order - Primary: mapping location - chr/coordinate</li>
+      <li>Display Mode - use "nucleotide values" display (not Same/Different)</li>
+      <li>Display the following columns
+      <ol><li>SNP ID (dbSNP Build nnn) - rs id; links to MPD, dbSNP, MGI SNP Detail</li>
+          <li>Map Position (GRCm38) - chromosome; coordinate</li>
+          <li>rs orient - r/f</li>
+          <li>Gene : dbSNP Function Class - list of genes with distance association OR dbSNP Function Classes; marker symbol linked to Marker Detail</li>
+          <li>Assays (ss) - number of sub snps; link to SNP Detail</li>
+          <li>Variation Type - SNP, IN-DEL, Named, Mixed, MNP</li>
+          <li>strain columns (1-many); alpha order -- ONLY display for SNP variations for this user story? i.e. not for IN-DEL, Named, Mixed, MNP</li>
+          <li>Allele Summary (all strains) -- ONLY display for SNP variations for this user story?</li>
+          <li>Insertions - optional column only present when insertions are in the results -- will this column be displayed with no values or just not displayed for this user story?</li>
+      </ol></li>
+      <li>Display rules - page level
+      <ol>
+          <li>Flag multiple location SNPS with an asterisk next to the rs id.
+          <ul><li>Include text at the top of every page that defines the asterisk.  This is only displayed if there is a multiple somewhere in the results.</li>  
+          </ul></li>
+          <li>Return all variation types -- but limit display for non-SNP ones.  All fields displayed exception strains columns, Allele Summary, and Insertions?</li>
+      </ol></li>
+      <li>Display rules - column specific
+      <ol>
+          <li>Strain names and rs orient column headings: use CSS rotation; handle superscripts correctly.</li>
+          <li>Gene column: Alpha order by marker symbol.</li>
+          <li>Gene column: Display all gene/dbSNP Function Class pairs with the exception of contig_reference.</li>
+          <li>Gene column: Only display the distance association (i.e. upstream/downstream) for a marker if there is NO dbSNP function class association to that marker.</li>
+      </ol></li>     
+      <li>The SNP QF/Summary works in all supported OS/browser combinations.</li>
+      <li>Do NOT include any out-of-sync logic, error trapping, filters, You searched for, or QF striping logic.</li>
+      
+      
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    		
+    		<li>Test 1
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>test 1</li>
+    		</ol></li>
+    		
+    		
+    		
+    		<li>Test rewritten QF on all supported browsers: PC (Firefox, Chrome); Mac(Firefox, Chrome, Safari)
+    		<p concordion:assertTrue="false">new test/p>   
+    		<ol>
+    		  <li>test 1</li>
+    		</ol></li>
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
