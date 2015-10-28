@@ -43,7 +43,7 @@
           <li>Remove Either, Upstream, Downstream options - always default to EITHER</li>
       </ol></li>
      <li>Use the following defaults for the query by marker symbol:
-      <ol><li>All strains</li>
+      <ol><li><s>All strains</s></li>
           <li>All Variation types and dbSNP function classes</li>
           <li>Include SNPs with multiple locations.</li>
           <li>Include SNPs with dbSNP function class associations to a marker when there's a "within" search -- even if it is not "within" the coordinate range of the marker.</li>
@@ -51,7 +51,8 @@
       <li>Use new roll-up/down QF and Summary page paradigm</li>
       <li>Summary pages use the standard pagination paradigm.  Propose: use Marker Summary options: (50, 100, 250, 500) with the default = 100.</li>
       <li>Sort order - Primary: mapping location - chr/coordinate</li>
-      <li>Display Mode - use "nucleotide values" display (not Same/Different)</li>
+      <li>Display number of results returned.  Only count multiple location SNPs once.</li>
+      <li><s>Display Mode - use "nucleotide values" display (not Same/Different)</s></li>
       <li>Display the following columns
       <ol><li>SNP ID (dbSNP Build nnn) - rs id; links to MPD, dbSNP, MGI SNP Detail</li>
           <li>Map Position (GRCm38) - chromosome; coordinate</li>
@@ -59,20 +60,19 @@
           <li>Gene : dbSNP Function Class - list of genes with distance association OR dbSNP Function Classes; marker symbol linked to Marker Detail</li>
           <li>Assays (ss) - number of sub snps; link to SNP Detail</li>
           <li>Variation Type - SNP, IN-DEL, Named, Mixed, MNP</li>
-          <li>strain columns (1-many); alpha order -- ONLY display for SNP variations for this user story? i.e. not for IN-DEL, Named, Mixed, MNP</li>
-          <li>Allele Summary (all strains) -- ONLY display for SNP variations for this user story?</li>
-          <li>Insertions - optional column only present when insertions are in the results -- will this column be displayed with no values or just not displayed for this user story?</li>
+          <li><s>strain columns (1-many); alpha order -- ONLY display for SNP variations for this user story? i.e. not for IN-DEL, Named, Mixed, MNP</s></li>
+          <li><s>Allele Summary (all strains) -- ONLY display for SNP variations for this user story?</s></li>
+          <li><s>Insertions - optional column only present when insertions are in the results -- will this column be displayed with no values or just not displayed for this user story?</s></li>
       </ol></li>
       <li>Display rules - page level
       <ol>
           <li>Flag multiple location SNPS with an asterisk next to the rs id.
           <ul><li>Include text at the top of every page that defines the asterisk.  This is only displayed if there is a multiple somewhere in the results.</li>  
           </ul></li>
-          <li>Return all variation types -- but limit display for non-SNP ones.  All fields displayed exception strains columns, Allele Summary, and Insertions?</li>
       </ol></li>
       <li>Display rules - column specific
       <ol>
-          <li>Strain names and rs orient column headings: use CSS rotation; handle superscripts correctly.</li>
+          <li><s>Strain names and rs orient column headings: use CSS rotation; handle superscripts correctly.</s></li>
           <li>Gene column: Alpha order by marker symbol.</li>
           <li>Gene column: Display all gene/dbSNP Function Class pairs with the exception of contig_reference.</li>
           <li>Gene column: Only display the distance association (i.e. upstream/downstream) for a marker if there is NO dbSNP function class association to that marker.</li>
@@ -97,19 +97,127 @@
 		<h3>Manual tests</h3>
 		
 		<ol>
-    		
-    		<li>Test 1
+		
+		    <li>Query for SNPs by Marker Symbol (matching to current symbol only)
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
-    		  <li>test 1</li>
+    		  <li>Query by text that returns a single marker; Xxx.  Expect: nn rows returned</li>
+    		  <li>Query by text + wildcard that returns a single marker; Xxx*.  Expect: nn rows returned.</li>
+    		  <li>Query by text + wildcard that returns multiple markers; Xxx*.  Expect: nn rows returned.</li>
+    		  <li>Query by text that doesn't match any markers; football.  Expect: no rows returned.</li>
+              <li>Query by list of valid markers; Kit, Pax6, Lep.  Expect: nn rows returned.</li>
+              <li>Query by list of markers including an invalid one; Kit, football, Lep.  Expect:  nn rows returned.</li>
+              <li>Query by marker synonym; Xxx.  Expect: nn rows returned (only matches to current symbol).</li>
     		</ol></li>
     		
+    		<li>Verify SNPs returned for each marker type with coordinates except QTL
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Query by Gene marker; Xxx.  Expect: nn rows returned.</li>
+    		  <li>Query by Psuedogene marker; Xxx.  Expect:  nn rows returned.</li>
+    		  <li>Query by Transgene marker; Xxx.  Expect: N/A - no coordinates.</li>
+    		  <li>Query by Complex/Cluster/Region marker; Xxx.  Expect:  nn rows returned.</li>
+    		  <li>Query by Cytogenetic marker; Xxx.  Expect: nn rows returned.</li>
+    		  <li>Query by BAC/YAC end marker; Xxx.  Expect:  N/A - no coordinates.</li>
+    		  <li>Query by Other Genome Feature marker; Xxx.  Expect: nn rows returned.</li>
+    		  <li>Query by DNA segment marker; Xxx.  Expect:  nn rows returned.</li>
+    		  <li>Query by heritable phenotype marker; Xxx.  Expect: nn rows returned.</li>
+    		  <li>Query by QTL; Xxx.  Expect: no rows returned.</li>
+    		  <li>Query by marker that has no coordinates; Xxx.  Expect: no rows returned.</li>
+    		</ol></li>
     		
+    		<li>Verify all Variation types are returned (SNP, IN-DEL, Named, Mixed, MNP)
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Query for marker with only SNP variations; Xxx.  Expect: nn rows returned</li>
+    		  <li>Query for marker with IN-DEL variations; Xxx.  Expect: nn rows returned</li>
+    		  <li>Query for marker with Named variation; Xxx.  Expect: nn rows returned</li>
+    		  <li>Query for marker with Mixed variations; Xxx.  Expect: nn rows returned</li>
+    		  <li>Query for marker with MNP variations; Xxx.  Expect: nn rows returned.</li>
+    		</ol></li>
     		
-    		<li>Test rewritten QF on all supported browsers: PC (Firefox, Chrome); Mac(Firefox, Chrome, Safari)
+    		<li>Verify all dbSNP function classes are returned
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Query for marker with a Coding-NonSynonymous SNP; Xxx.  Expect: nn rows returned.</li>
+    		  <li>Query for marker with a Coding-Synonymous SNP; Xxx.  Expect: nn rows returned.</li>
+    		  <li>Query for marker with a Intron SNP; Xxx.  Expect: nn rows returned.</li>
+    		  <li>Query for marker with a Locus-Region SNP; Xxx.  Expect: nn rows returned.</li>
+    		  <li>Query for marker with a mRNA-UTR SNP; Xxx.  Expect: nn rows returned.</li>
+    		  <li>Query for marker with a Noncoding-Transcript-Variant SNP; Xxx.  Expect: nn rows returned.</li>
+    		  <li>Query for marker with a Splice-Site SNP; Xxx.  Expect:  nn rows returned.</li>
+    		</ol></li>
+    		
+    		<li>Verify SNPs with multiple locations are returned 
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Query for marker with only SNPs with multiple locations; Sly.  Expect: nn rows, all with asterisks; count=unique SNPs.</li>
+    		  <li>Query for marker with mix of SNPs - multiple and single locations; Xxx.  Expect:  nn rows, multiples w/ asterisks; count=unique SNPs.</li>
+    		</ol></li>
+    		
+    		<li>Verify that SNPs with dbSNP function class associations but outside of the MGI coordinate range ARE returned.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Query for "within coordinates of" marker with an dbSNP annotation outside of the coordinates; Xxx.  Expect: SNP with dbSNP annotation returned.</li>
+    		</ol></li>
+    		
+    		<li>Verify pagination controls - page size, default, etc.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Run query that returns multiple pages of results.</li>
+    		  <li>Run query that returns 1 page of results.</li>
+    		  <li>Run query that returns no results.</li>
+    		</ol></li>
+    		
+    		<li>Verify roll-up/down paradigm
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Run query with marker text and default location.  Expect: parameters still in place when re-opening QF.</li>
+    		  <li>Run query with marker text and non-default location.  Expect: parameters still in place when re-opening QF.</li>
+    		</ol></li>
+    		
+    		<li>Verify sort order
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Query for results on 1 chromosome.  Expect: SNPs in coordinate order.</li>
+    		  <li>Query for results on multiple chromosomes.  Expect: SNPs in chr/coordinate order.</li>
+    		  <li>Query for results that include multiple location SNPs.  Expect: multiple location SNPs to be in coordinate order.</li>
+    		  <li>Query for results that include non-numeric and numeric chromosomes.  Expect: SNPs in chr/coordinate order.</li>
+    		  <li>Query for results that have a reverse orientation.  Expect: SNPs in chr/coordinate order.</li>
+    		</ol></li>
+    		
+    		<li>Verify subsnps counts
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Return SNP with a single subsnp; Xxx.  Expect: Assay count = 1</li>
+    		  <li>Return SNP with multiple subsnps; Xxx.  Expect: Assay count = nn.</li>
+    		</ol></li>
+    		
+    		<li>Verify Gene column alpha sort order
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Return SNP with multiple associated genes; Xxx.  Expect: genes in alpha order.  </li>
+    		</ol></li>
+    		
+    		<li>Verify Gene column displays all dbSNP function class associations
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Return SNP with a single function class; Xxx.  Expect: function class displayed</li>
+    		  <li>Return SNP with multiple function classes; Xxx.  Expect: all function class annotations displayed.</li>
+    		  <li>Return SNP with only a function class of "contig_reference"; Xxx.  Expect: no display of this function class.</li>
+    		  <li>Return SNP with multiple function classes with one being "contig_reference"; Xxx.  Expect: all function classes except "contig_reference" displayed.</li>
+    		</ol></li>
+    		
+    		<li>Verify Gene column displays "within coordinates of" when no function class present
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Return SNP with no function class, but is located within the marker's coordinates; Xxx.  Expect: distance annotation displayed</li>
+    		</ol></li>
+    		
+    		<li>Test rewritten QF and Summary on all supported browsers: PC (Firefox, Chrome); Mac(Firefox, Chrome, Safari)
     		<p concordion:assertTrue="false">new test/p>   
     		<ol>
-    		  <li>test 1</li>
+    		  <li>Repeat selected above tests for each OS/browser combination.</li>
     		</ol></li>
     		
 		</ol>
