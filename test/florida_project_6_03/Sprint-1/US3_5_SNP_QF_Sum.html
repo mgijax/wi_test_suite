@@ -44,7 +44,7 @@
       </ol></li>
      <li>Use the following defaults for the query by marker symbol:
       <ol><li><s>All strains</s></li>
-          <li>All Variation types and dbSNP function classes</li>
+          <li>Only SNP variation type and dbSNP function classes (No IN-DEL, Named, Mixed, or MNP variations)</li>
           <li>Include SNPs with multiple locations.</li>
           <li>Include SNPs with dbSNP function class associations to a marker when there's a "within" search -- even if it is not "within" the coordinate range of the marker.</li>
       </ol></li>
@@ -59,7 +59,7 @@
           <li>rs orient - r/f</li>
           <li>Gene : dbSNP Function Class - list of genes with distance association OR dbSNP Function Classes; marker symbol linked to Marker Detail</li>
           <li>Assays (ss) - number of sub snps; link to SNP Detail</li>
-          <li>Variation Type - SNP, IN-DEL, Named, Mixed, MNP</li>
+          <li>Variation Type - SNP</li>
           <li><s>strain columns (1-many); alpha order -- ONLY display for SNP variations for this user story? i.e. not for IN-DEL, Named, Mixed, MNP</s></li>
           <li><s>Allele Summary (all strains) -- ONLY display for SNP variations for this user story?</s></li>
           <li><s>Insertions - optional column only present when insertions are in the results -- will this column be displayed with no values or just not displayed for this user story?</s></li>
@@ -78,7 +78,7 @@
           <li>Gene column: Only display the distance association (i.e. upstream/downstream) for a marker if there is NO dbSNP function class association to that marker.</li>
       </ol></li>     
       <li>The SNP QF/Summary works in all supported OS/browser combinations.</li>
-      <li>Do NOT include any out-of-sync logic, error trapping, filters, You searched for, or QF striping logic.</li>
+      <li>Do NOT include any out-of-sync logic, minimal error trapping (at SE discretion), filters, You searched for, or QF striping logic.</li>
       
       
     </ol>   
