@@ -98,67 +98,69 @@
 		
 		<ol>
 		
-		    <li>Query for SNPs by Marker Symbol (matching to current symbol only)
+		    <li>Query for SNPs by Marker Symbol (matching to current symbols only)
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
-    		  <li>Query by text that returns a single marker; Xxx.  Expect: nn rows returned</li>
-    		  <li>Query by text + wildcard that returns a single marker; Xxx*.  Expect: nn rows returned.</li>
-    		  <li>Query by text + wildcard that returns multiple markers; Xxx*.  Expect: nn rows returned.</li>
+    		  <li>Query by text that matches a current symbol; Kit.  Expect: 1 marker matched; nn rows returned</li>
+    		  <li>Query by text + wildcard that matches current symbols; Kit*.  Expect: 2 markers matched (Kit, Kitl); nn rows returned.</li>
+    		  <li>Query by text + wildcard that matches current symbols; Pax6*.  Expect: 2 markers matched (Pax6, Pax6os1); nn rows returned.</li>
     		  <li>Query by text that doesn't match any markers; football.  Expect: no rows returned.</li>
-              <li>Query by list of valid markers; Kit, Pax6, Lep.  Expect: nn rows returned.</li>
-              <li>Query by list of markers including an invalid one; Kit, football, Lep.  Expect:  nn rows returned.</li>
-              <li>Query by marker synonym; Xxx.  Expect: nn rows returned (only matches to current symbol).</li>
+              <li>Query by list of valid markers; Kit, Pax6, Lep.  Expect: 3 markers returned; nn rows returned.  Try again with Kit* (4 markers returned).</li>
+              <li>Query by list of markers including an invalid one; Kit, football, Lep.  Expect:  2 markers returned; 1 error; nn rows returned.</li>
+              <li>Query by marker synonym that matches no current symbols; Sox10m1 (synonym for Ednrb).  Expect: 0 markers returned; no rows returned.</li>
     		</ol></li>
     		
     		<li>Verify SNPs returned for each marker type with coordinates except QTL
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
-    		  <li>Query by Gene marker; Xxx.  Expect: nn rows returned.</li>
-    		  <li>Query by Psuedogene marker; Xxx.  Expect:  nn rows returned.</li>
-    		  <li>Query by Transgene marker; Xxx.  Expect: N/A - no coordinates.</li>
-    		  <li>Query by Complex/Cluster/Region marker; Xxx.  Expect:  nn rows returned.</li>
-    		  <li>Query by Cytogenetic marker; Xxx.  Expect: nn rows returned.</li>
-    		  <li>Query by BAC/YAC end marker; Xxx.  Expect:  N/A - no coordinates.</li>
-    		  <li>Query by Other Genome Feature marker; Xxx.  Expect: nn rows returned.</li>
-    		  <li>Query by DNA segment marker; Xxx.  Expect:  nn rows returned.</li>
-    		  <li>Query by heritable phenotype marker; Xxx.  Expect: nn rows returned.</li>
-    		  <li>Query by QTL; Xxx.  Expect: no rows returned.</li>
-    		  <li>Query by marker that has no coordinates; Xxx.  Expect: no rows returned.</li>
+    		  <li>Query by Gene marker; Tomt.  Expect: 1 marker matched; nn rows returned.</li>
+    		  <li>Query by Psuedogene marker; Cnn2-ps.  Expect:  1 marker returned; nn rows returned.</li>
+    		  <li>Query using wildcard and special character; Rpl31-ps*.  Expect 7 markers matched (Rpl31-ps24, Rpl31-ps21, Rpl31-ps23, Rpl31-ps2, Rpl31-ps22, Rpl31-ps25, Rpl31-ps20); nn rows returned.</li>   
+    		  <li>Query by Transgene marker; Tg(KITLG)3Ygy.  Expect: 0 SNPs returned (no coordinates for this marker).</li>
+    		  <li>Query by Complex/Cluster/Region marker; Mirc17.  Expect:  1 marker matched; nn rows returned.</li>
+    		  <li>Query by Cytogenetic marker; Del(2Hoxd1-Hoxd4)55Ddu (MGI:5318060).  Expect: 1 marker matched; nn rows returned.</li>
+    		  <li>Query by BAC/YAC end marker; 52S.  Expect:  0 rows returned (no coordinates for this marker type).</li>
+    		  <li>Query by Other Genome Feature marker; Cpgi200.  Expect: 1 marker matched; nn rows returned.</li>
+    		  <li>Query by DNA segment marker; D19Dcr1.  Expect:  1 marker matched; nn rows returned.</li>
+    		  <li>Query by heritable phenotype marker; sgl.  Expect: 1 marker matched; nn rows returned.</li>
+    		  <li>Query by QTL without coordinates; Asthm1 or Asthm*.  Expect: no rows returned.</li>
+    		  <li>Query by QTL with coordinates; Datd.  Expect: no rows returned.</li>
+    		  <li>Query by non-QTL marker that has no coordinates; D19Pas1 or Sox19.  Expect: no rows returned.</li>
     		</ol></li>
     		
     		<li>Verify all Variation types are returned (SNP, IN-DEL, Named, Mixed, MNP)
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
-    		  <li>Query for marker with only SNP variations; Xxx.  Expect: nn rows returned</li>
-    		  <li>Query for marker with IN-DEL variations; Xxx.  Expect: nn rows returned</li>
-    		  <li>Query for marker with Named variation; Xxx.  Expect: nn rows returned</li>
-    		  <li>Query for marker with Mixed variations; Xxx.  Expect: nn rows returned</li>
-    		  <li>Query for marker with MNP variations; Xxx.  Expect: nn rows returned.</li>
+    		  <li>Query for marker with only SNP variations; Brca2.  Expect: nn rows returned</li>
+    		  <li>Query for marker with IN-DEL variations; Hprt or Cd22 or D8Mit71.  Expect: no IN-DELs returned</li>
+    		  <li>Query for marker with Named variation; D15Mit121.  Expect: no Named returned</li>
+    		  <li>Query for marker with Mixed variations; Hnf4a.  Expect: no Mixed returned (2 within coords; 1 function class)</li>
+    		  <li>Query for marker with MNP variations; Ube3b.  Expect: no MNP returned.</li>
     		</ol></li>
     		
     		<li>Verify all dbSNP function classes are returned
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
-    		  <li>Query for marker with a Coding-NonSynonymous SNP; Xxx.  Expect: nn rows returned.</li>
-    		  <li>Query for marker with a Coding-Synonymous SNP; Xxx.  Expect: nn rows returned.</li>
-    		  <li>Query for marker with a Intron SNP; Xxx.  Expect: nn rows returned.</li>
-    		  <li>Query for marker with a Locus-Region SNP; Xxx.  Expect: nn rows returned.</li>
-    		  <li>Query for marker with a mRNA-UTR SNP; Xxx.  Expect: nn rows returned.</li>
-    		  <li>Query for marker with a Noncoding-Transcript-Variant SNP; Xxx.  Expect: nn rows returned.</li>
-    		  <li>Query for marker with a Splice-Site SNP; Xxx.  Expect:  nn rows returned.</li>
+    		  <li>Query for marker with a Coding-NonSynonymous SNP; Trappc8.  Expect: 6 rows returned with this class.</li>
+    		  <li>Query for marker with a Coding-Synonymous SNP; Cpt1a.  Expect: 5 rows returned with this class.</li>
+    		  <li>Query for marker with a Intron SNP; Kdm5d.  Expect: 37 rows returned with this class.</li>
+    		  <li>Query for marker with a Locus-Region SNP; Gal.  Expect: 31 rows returned with this class.</li>
+    		  <li>Query for marker with a mRNA-UTR SNP; Xk.  Expect: 21 rows returned with this class.</li>
+    		  <li>Query for marker with a Noncoding-Transcript-Variant SNP; Klc2.  Expect: 7 rows returned.</li>
+    		  <li>Query for marker with a Splice-Site SNP; Adamts15.  Expect:  1 row returned with this class.</li>
     		</ol></li>
     		
     		<li>Verify SNPs with multiple locations are returned 
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
-    		  <li>Query for marker with only SNPs with multiple locations; Sly.  Expect: nn rows, all with asterisks; count=unique SNPs.</li>
-    		  <li>Query for marker with mix of SNPs - multiple and single locations; Xxx.  Expect:  nn rows, multiples w/ asterisks; count=unique SNPs.</li>
+    		  <li>Query for marker with only SNPs with multiple locations; Sly.  Expect: 4 rows, all with asterisks; unique SNPs=2.</li>
+    		  <li>Query for marker with mix of SNPs - multiple and single locations; Zdbf2.  Expect:  91 rows, 4 multiples w/ asterisks; 89=unique SNPs.</li>
     		</ol></li>
     		
     		<li>Verify that SNPs with dbSNP function class associations but outside of the MGI coordinate range ARE returned.
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
-    		  <li>Query for "within coordinates of" marker with an dbSNP annotation outside of the coordinates; Xxx.  Expect: SNP with dbSNP annotation returned.</li>
+    		  <li>Query for "within coordinates of" marker with an dbSNP annotation outside of the coordinates; Trappc8.  Expect: 26 SNPs with dbSNP annotation of Locus Region returned.</li>
     		</ol></li>
     		
     		<li>Verify pagination controls - page size, default, etc.
@@ -215,7 +217,7 @@
     		</ol></li>
     		
     		<li>Test rewritten QF and Summary on all supported browsers: PC (Firefox, Chrome); Mac(Firefox, Chrome, Safari)
-    		<p concordion:assertTrue="false">new test/p>   
+    		<p concordion:assertTrue="false">new test</p>   
     		<ol>
     		  <li>Repeat selected above tests for each OS/browser combination.</li>
     		</ol></li>
