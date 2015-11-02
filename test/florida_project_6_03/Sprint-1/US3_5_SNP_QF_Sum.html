@@ -38,7 +38,7 @@
       <li>QF - Include Associated Gene ribbon
       <ol><li>Gene field - remove operators, accept wildcard, accept lists of symbols, search limted to current symbols</li>
           <li>Regardless of paradigm -- not valid to return QTLs</li>
-          <li>SNP location field - match display of Public; remove with 500 and 1000 kb options in pull down
+          <li>(DISTANCE QUERY NOT PART OF THIS STORY) SNP location field - match display of Public; remove with 500 and 1000 kb options in pull down
           <ul><li>Default = "within 2 kb of" returned genes</li></ul></li>
           <li>Remove Either, Upstream, Downstream options - always default to EITHER</li>
       </ol></li>
@@ -75,10 +75,10 @@
           <li><s>Strain names and rs orient column headings: use CSS rotation; handle superscripts correctly.</s></li>
           <li>Gene column: Alpha order by marker symbol.</li>
           <li>Gene column: Display all gene/dbSNP Function Class pairs with the exception of contig_reference.</li>
-          <li>Gene column: Only display the distance association (i.e. upstream/downstream) for a marker if there is NO dbSNP function class association to that marker.</li>
+          <li><s>Gene column: Only display the distance association (i.e. upstream/downstream) for a marker if there is NO dbSNP function class association to that marker.</s></li>
       </ol></li>     
       <li>The SNP QF/Summary works in all supported OS/browser combinations.</li>
-      <li>Do NOT include any out-of-sync logic, minimal error trapping (at SE discretion), filters, You searched for, or QF striping logic.</li>
+      <li>Do NOT include any out-of-sync logic, minimal error trapping (at SE discretion), filters, You searched for, QF striping logic.  No "distance relationships" will be returned via the QF.</li>
       
       
     </ol>   
@@ -110,19 +110,19 @@
               <li>Query by marker synonym that matches no current symbols; Sox10m1 (synonym for Ednrb).  Expect: 0 markers returned; no rows returned.</li>
     		</ol></li>
     		
-    		<li>Verify SNPs returned for each marker type with coordinates except QTL
+    		<li>Verify SNPs returned for each marker type with coordinates except QTL <b>(for this user story -- only SNPs with dbSNP function class are returned)</b>
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
     		  <li>Query by Gene marker; Tomt.  Expect: 1 marker matched; nn rows returned.</li>
-    		  <li>Query by Psuedogene marker; Cnn2-ps.  Expect:  1 marker returned; nn rows returned.</li>
+    		  <li>Query by Psuedogene marker; Cnn2-ps.  Expect:  1 marker returned (only distance relationships); nn rows returned.</li>
     		  <li>Query using wildcard and special character; Rpl31-ps*.  Expect 7 markers matched (Rpl31-ps24, Rpl31-ps21, Rpl31-ps23, Rpl31-ps2, Rpl31-ps22, Rpl31-ps25, Rpl31-ps20); nn rows returned.</li>   
     		  <li>Query by Transgene marker; Tg(KITLG)3Ygy.  Expect: 0 SNPs returned (no coordinates for this marker).</li>
-    		  <li>Query by Complex/Cluster/Region marker; Mirc17.  Expect:  1 marker matched; nn rows returned.</li>
-    		  <li>Query by Cytogenetic marker; Del(2Hoxd1-Hoxd4)55Ddu (MGI:5318060).  Expect: 1 marker matched; nn rows returned.</li>
+    		  <li>Query by Complex/Cluster/Region marker; Mirc17.  Expect:  1 marker matched (only distance relationships); nn rows returned.</li>
+    		  <li>Query by Cytogenetic marker; Del(2Hoxd1-Hoxd4)55Ddu (MGI:5318060).  Expect: 1 marker matched (only distance relationships); nn rows returned.</li>
     		  <li>Query by BAC/YAC end marker; 52S.  Expect:  0 rows returned (no coordinates for this marker type).</li>
-    		  <li>Query by Other Genome Feature marker; Cpgi200.  Expect: 1 marker matched; nn rows returned.</li>
-    		  <li>Query by DNA segment marker; D19Dcr1.  Expect:  1 marker matched; nn rows returned.</li>
-    		  <li>Query by heritable phenotype marker; sgl.  Expect: 1 marker matched; nn rows returned.</li>
+    		  <li>Query by Other Genome Feature marker; Cpgi200.  Expect: 1 marker matched (only distance relationships); nn rows returned.</li>
+    		  <li>Query by DNA segment marker; D19Dcr1.  Expect:  1 marker matched (only distance relationships); nn rows returned.</li>
+    		  <li>Query by heritable phenotype marker; sgl.  Expect: 1 marker matched (only distance relationships); nn rows returned.</li>
     		  <li>Query by QTL without coordinates; Asthm1 or Asthm*.  Expect: no rows returned.</li>
     		  <li>Query by QTL with coordinates; Datd.  Expect: no rows returned.</li>
     		  <li>Query by non-QTL marker that has no coordinates; D19Pas1 or Sox19.  Expect: no rows returned.</li>
@@ -163,6 +163,12 @@
     		  <li>Query for "within coordinates of" marker with an dbSNP annotation outside of the coordinates; Trappc8.  Expect: 26 SNPs with dbSNP annotation of Locus Region returned.</li>
     		</ol></li>
     		
+    		<li>Verify that SNPs on the MT chromsome are returned correctly.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol>
+    		  <li>Query by genes on the MT chromosome using the default "within 2kb setting"; mt-Tf, mt-Atp6, mt-Tp.  Expect: mt-Tf (only downstream SNPs), mt-Atp6 (no SNPs), mt-Tp (downstream,w/in,upstream SNPs)</li>
+    		</ol></li>
+    		
     		<li>Verify pagination controls - page size, default, etc.
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
@@ -182,10 +188,9 @@
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
     		  <li>Query for results on 1 chromosome.  Expect: SNPs in coordinate order.</li>
-    		  <li>Query for results on multiple chromosomes.  Expect: SNPs in chr/coordinate order.</li>
+    		  <li>Query for results on multiple chromosomes; Pax*.  Expect: SNPs in chr/coordinate order (chromosomes: 1,2,4,5,6,12,16,19).</li>
     		  <li>Query for results that include multiple location SNPs.  Expect: multiple location SNPs to be in coordinate order.</li>
-    		  <li>Query for results that include non-numeric and numeric chromosomes.  Expect: SNPs in chr/coordinate order.</li>
-    		  <li>Query for results that have a reverse orientation.  Expect: SNPs in chr/coordinate order.</li>
+    		  <li>Query for results that include non-numeric and numeric chromosomes; Bmp*.  Expect: SNPs in chr/coordinate order. (chromosomes: 1,2,3,4,5,6,9,13,14,X)</li>
     		</ol></li>
     		
     		<li>Verify subsnps counts
@@ -213,7 +218,7 @@
     		<li>Verify Gene column displays "within coordinates of" when no function class present
     		<p concordion:assertTrue="false">new test</p>    
     		<ol>
-    		  <li>Return SNP with no function class, but is located within the marker's coordinates; Xxx.  Expect: distance annotation displayed</li>
+    		  <li>Return SNP with no function class, but is located within the marker's coordinates; mt-Tp.  Expect: distance annotations displayed - upstream, downstream, and within coordinates</li>
     		</ol></li>
     		
     		<li>Test rewritten QF and Summary on all supported browsers: PC (Firefox, Chrome); Mac(Firefox, Chrome, Safari)
