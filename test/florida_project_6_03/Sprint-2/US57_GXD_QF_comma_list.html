@@ -37,7 +37,7 @@
            <li>multiple tokens in a string - token1 AND token2</li>
        </ol>
        <li>If any element of the comma delimited list does not return results -- no error or warning message is displayed.</li>
-       <li>If all of the elements of the comma delimited list do not return results -- no error or warning message is displayed.</li>
+       <li>If all of the elements of the comma delimited list do not return results, display "No results with expression data found".</li>
       
     </ol>   
    
@@ -57,43 +57,36 @@
 		<ol>
 		
 		    <li>Verify that single token items in a comma delimited list search symbols, names, and synonyms
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Enter a list of tokens that match current symbols: xxx,xxx,xxx.  Expect: N matches to gene symbols.</li>
-    		    <li>Enter a list of tokens that match current names: xxx,xxx,xxx.  Expect: N matches to gene names.</li>
-    		    <li>Enter a list of tokens that match current synonyms: xxx,xxx,xxx.  Expect: N matches to gene synonyms.</li>
-    		    <li>Enter a token that matches allele nomenclature: xxx,xxx.  Expect: 0 matches to allele nomenclature.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 11/9/15</p>    
+    		<ol><li>Enter a list of tokens that match current symbols: kit, pax4, cw.  Expect: Kit and Pax4 matches to gene symbols.</li>
+    		    <li>Enter a list of tokens that match current names: pax6, brca1, kit.  Expect: 7 matches to gene names.</li>
+    		    <li>Enter a list of tokens that match current synonyms: lung, kit, pax4.  Expect: 1 match via gene synonyms (Cbr2).</li>
+    		    <li>Enter a token that matches allele nomenclature: kit, pax4, yellow.  Expect: 0 matches to allele nomenclature, e.g. "a, nonagouti" not returned.</li>
     		    <li>Enter a token that matches orthologs: Rg, kit, dlx5.  Expect: 0 matches by ortholog nomenclature (Rg = human synonym (mouse C4a, C4b); Dlx5 = Rat synonym (mouse Dlx2).</li>
     		</ol></li>
     		
     		<li>Verify that multiple token items in a comma delimited list search symbols, names, synonyms
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Enter a multiple token element that matches symbols: xxx-xxx,xxx,xxx.  Expect: N matches to gene symbols.</li>
-    		    <li>Enter a multiple token element that matches names: xxx xxx,xxx,xxx.  Expect: N matches.</li>
-    		    <li>Enter a multiple token element that matches synonyms: xxx-xxx, xxx, xxx.  Expect: N matches.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 11/9/15</p>      
+    		<ol><li>Enter a multiple token element that matches symbols: Zfp353-ps, kras, lepr.  Expect: 3 matches to gene symbols.</li>
+    		    <li>Enter a multiple token element that matches names: kit, paired box, shh.  Expect: 10 matches to gene names (the paired box genes).</li>
+    		    <li>Enter a multiple token element that matches synonyms: dickies eye, pax4, Kit.  Expect: Pax6 returned due to multiple token synonym.</li>
     		</ol></li>
     		
     		<li>Verify that wild-cards are accepted in comma delimited lists.
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Enter a token with a preceding wild card; xxx, *xxx, xxx.  Expect: N matches.</li>
-    		    <li>Enter a token with a following wild card; xxx, xxx*, xxx.  Expect: N matches.</li>
-    		    <li>Enter a token enclosed by wild cards; xxx, *xxx*, xxx.  Expect: N matches.</li>
-    		    <li>Enter a multiple token element with wild cards; xxx, xxx* xxx*, xxx.  Expect: N matches.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 11/9/15</p>   
+    		<ol><li>Enter a token with a preceding wild card; pax4, *epr, kit.  Expect: 3 matches to token with wildcard- Lepr, Ereg, Msrb1.</li>
+    		    <li>Enter a token with a following wild card; pax4, hedge*, kit.  Expect: 5 matches to token with w-card - Dhh, Hhat, Hhip, Ihh, Shh.</li>
+    		    <li>Enter a token enclosed by wild cards; pax4, *blind*, kit.  Expect: 5 matches to token with w-cards - Mbnl1, Mbnl2, Mbnl3, Opn1mw, Opn1sw.</li>
+    		    <li>Enter a multiple token element with wild cards; kit, pair* box*, shh.  Expect: 10 matches to tokens with w-cards, - Pax1-9, Pax6os1.</li>
     		</ol></li>
     		
     		<li>Verify special characters are ignored in comma delimited lists
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Enter a token with a apostrophe; xxx, xxx'x, xxx.  Expect: N matches.</li>
-    		</ol></li>
-    		
-    		<li>Test
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>test 1</li>
-    		</ol></li>
-    		
-    		<li>Test on all supported browsers: PC (Firefox, Chrome); Mac(Firefox, Chrome, Safari)
-    		<p concordion:assertTrue="false">new test</p>   
-    		<ol>
-    		  <li>Repeat selected above tests for each OS/browser combination.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 11/9/15</p>    
+    		<ol><li>Enter a token with a apostrophe; Kit, dickie's, Pax4.  Expect: Match to Pax6 - dickie's small eye is a synonym.</li>
+    		    <li>Enter an element with a slash and parens; pax4, (sodium/hydrogen exchanger), kit.  Expect: 11 matches to genes with (sodiumn/hydrogen exchanger) in their names.</li>
+    		    <li>Enter a list with extra commas: ,pax4,,kit,,,shh,  Expect: 4 genes returned.</li>
+    		    <li>Enter a list with tokens that don't match a gene and tokens with no GXD data; kit, football, cw, pax4.  Expect: 3 genes returned.</li>
+    		    <li>Enter a list with tokens that return no results; cw, football.  Expect: no results.</li>
     		</ol></li>
     		
 		</ol>
