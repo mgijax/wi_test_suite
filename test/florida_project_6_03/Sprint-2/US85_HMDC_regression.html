@@ -1,0 +1,218 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 85: HMDC - femover refactoring</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>HMDC - Refactor femover</h1>
+    <ul>
+        <li>US 85: HMDC - femover refactoring</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>This story breaks a large HMDC gatherer in the femover into smaller ones.
+       <ol><li>Genocluster HMDC annotations: hdp_genocluster_genotype, hdp_genocluster, hdp_genocluster_annotation</li>
+           <li>Disease references: hdp_term_to_reference</li>
+           <li>Homology relationships: hdp_gridcluster, hdp_gridcluster_marker</li>
+           <li>Marker/genotype HMDC annotations: hdp_annotation</li>
+           <li>Marker references: hdp_marker_to_reference (done previously - no change)</li>
+       </ol>
+       <li>SEARCH by GENE nomenclature (symbols, names, IDs) or location (mouse or human coordinates)
+       <ul><li>GRID TAB
+           <ol><li>return MP/OMIM annotations of ALL simple mouse genoclusters for matching markers.</li>
+               <li>return all human OMIM annotations for matching genes
+               <li>return orthologs (and associated annotations) of matching genes (i.e. match to mouse marker; return mouse plus human ortholog OR match to human gene; return human plus mouse ortholog)</li>
+            </ol></li>
+            <li>GENE TAB 
+            <ol><li>return all matching mouse and human markers plus their orthologs -- regardless of the presence of MP and/or OMIM annotations.
+                  <ul><li>human genes returned do NOT have to have a homology relationship</li></ul></li>
+                <li>for each mouse or human marker returned display OMIM diseases rolled up to</li>
+                <li>for each mouse marker returned display high-level MP terms rolled up to</li>
+                <li>for each mouse marker returned display reference counts: all and disease relevant.</li>
+            </ol></li>
+            <li>DISEASE TAB
+           <ol><li>return all diseases that are present on the grid.</li>
+               <li>for each disease display mouse model count - all models including those for complex genotypes</li>
+               <li>for each disease display associated mouse genes - only those that roll up.</li>
+               <li>for each disease display associated human genes</li>
+               <li>for each disease display mouse model references</li>
+           </ol></li>
+          
+       </ul></li>
+       <li>SEARCH by Phenotype and Disease terms or IDs (OMIM, MP)</li>
+       <ul><li>GRID TAB
+           <ol><li>return all MP/OMIM mouse annotations for simple genoclusters that contain a match to the search string</li>
+               <li>return all OMIM annotations for human genes that match via an OMIM term.</li>
+               <li>group results by mouse/human orthologs -- but don't include an ortholog's annotations unless specifically matched.</li>
+            </ol></li>
+            <li>GENE TAB 
+            <ol><li>return mouse genes that have an annotation that matches the search string.  The annotation must be to a simple genocluster (complex annotations are not searched).</li>
+                <li>return human genes that have an OMIM annotation that matches the search string.</li>
+                <li>Orthologs for the above genes are NOT included (different than search by genes above).</li>
+                <li>for each mouse or human marker returned display rolled up OMIM diseases</li>
+                <li>for each mouse marker returned display rolled up high-level MP terms</li>
+                <li>for each mouse marker returned display reference counts: all and disease relevant.</li>
+            </ol></li>
+            <li>DISEASE TAB
+           <ol><li>return all diseases that are present on the grid.</li>
+               <li>return diseases that match the search string, but that may not be on the grid.
+                   <ul><li>Search by OMIM id with no annotations OR search by text.  E.g. "Lung Cancer".</li></ul></li>
+               <li>for each disease display mouse model count - all models including those for complex genotypes</li>
+               <li>for each disease display associated mouse genes - only those that roll up.</li>
+               <li>for each disease display associated human genes</li>
+               <li>for each disease display mouse model references</li>
+           </ol></li>
+          
+       </ul></li>
+       
+       
+       
+    </ol>   
+    
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify search by Gene Nomenclature returns the correct data on the Grid Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Search by text that matches a mouse gene symbol; Xxx.  Expect: all simple genocluster annotations for gene plus all human ortholog OMIM annotations.</li>
+    		    <li>Search by text that matches a human gene symbol; XXX.</li>
+    		    <li>Search by text that matches a mouse gene ID; nnnnnnn.</li>
+    		    <li>Search by text that matches a human gene ID; nnnnnnn.</li>
+    		   </ol></li>
+    		
+    		<li>Verify search by Gene Nomenclature returns the correct data on the Gene Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		   
+    		<li>Verify search by Gene Nomenclature returns the correct data on the Disease Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		   
+    		<li>Verify search by Gene Nomenclature recognizes correct homology relationship for Grid and Gene Tabs.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		   
+    	    <li>Verify search by Gene Location returns the correct data on the Grid Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		   
+    	    <li>Verify search by Gene Location returns the correct data on the Gene Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		 
+    		<li>Verify search by Gene Location returns the correct data on the Disease Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		   
+    		<li>Verify search by Gene Location recognizes correct homology relationship for Grid and Gene Tabs.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		   
+    		<li>Verify search by Phenotype (MP) returns the correct data on the Grid Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		   
+    	    <li>Verify search by Phenotype (MP) returns the correct data on the Gene Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		 
+    		<li>Verify search by Phenotype (MP) returns the correct data on the Disease Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		   
+    		<li>Verify search by Disease (OMIM) returns the correct data on the Grid Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		   
+    	    <li>Verify search by Disease (OMIM) returns the correct data on the Gene Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		 
+    		<li>Verify search by Disease (OMIM) returns the correct data on the Disease Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		   
+    		<li>Verify search that matches both MP and OMIM terms returns the correct data on the Grid Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		   
+    	    <li>Verify search that matches both MP and OMIM terms returns the correct data on the Gene Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		 
+    		<li>Verify search that matches both MP and OMIM terms returns the correct data on the Disease Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		
+    		<li>Verify search by Phenotype/Disease recognizes correct homology relationship for Grid Tab.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>test 1</li>
+    		   </ol></li>
+    		
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
