@@ -31,19 +31,21 @@
        <li>This story breaks a large HMDC gatherer in the femover into smaller ones.
        <ol><li>Genocluster HMDC annotations: hdp_genocluster_genotype, hdp_genocluster, hdp_genocluster_annotation</li>
            <li>Disease references: hdp_term_to_reference</li>
-           <li>Homology relationships: hdp_gridcluster, hdp_gridcluster_marker</li>
-           <li>Marker/genotype HMDC annotations: hdp_annotation</li>
+           <li>Grid cluster HMDC annotations (homology relationships): hdp_gridcluster, hdp_gridcluster_marker</li>
+           <li>Marker/genotype HMDC annotations (MP/OMIM): hdp_annotation</li>
            <li>Marker references: hdp_marker_to_reference (done previously - no change)</li>
        </ol>
        <li>SEARCH by GENE nomenclature (symbols, names, IDs) or location (mouse or human coordinates)
        <ul><li>GRID TAB
            <ol><li>return MP/OMIM annotations of ALL simple mouse genoclusters for matching markers.</li>
                <li>return all human OMIM annotations for matching genes
-               <li>return orthologs (and associated annotations) of matching genes (i.e. match to mouse marker; return mouse plus human ortholog OR match to human gene; return human plus mouse ortholog)</li>
+               <li>(by nomenclature search) return orthologs (and associated annotations) of matching genes (i.e. match to mouse marker; return mouse plus human ortholog OR match to human gene; return human plus mouse ortholog)</li>
+               <li>(by location search) display orthologs of matched markers but do NOT return their annotations as is done when matching by nomenclature.</li>
             </ol></li>
             <li>GENE TAB 
-            <ol><li>return all matching mouse and human markers plus their orthologs -- regardless of the presence of MP and/or OMIM annotations.
+            <ol><li>(by nomenclature search) return all matching mouse and human markers plus their orthologs -- regardless of the presence of MP and/or OMIM annotations.
                   <ul><li>human genes returned do NOT have to have a homology relationship</li></ul></li>
+                <li>(by location search) return all matching mouse OR human markers.  Orthologs do NOT come along for the ride in this Tab.</li>
                 <li>for each mouse or human marker returned display OMIM diseases rolled up to</li>
                 <li>for each mouse marker returned display high-level MP terms rolled up to</li>
                 <li>for each mouse marker returned display reference counts: all and disease relevant.</li>
@@ -53,7 +55,7 @@
                <li>for each disease display mouse model count - all models including those for complex genotypes</li>
                <li>for each disease display associated mouse genes - only those that roll up.</li>
                <li>for each disease display associated human genes</li>
-               <li>for each disease display mouse model references</li>
+               <li>for each disease display mouse model references (all references for the disease in MGI: genotype/OMIM and allele/OMIM)</li>
            </ol></li>
           
        </ul></li>
@@ -67,8 +69,8 @@
             <ol><li>return mouse genes that have an annotation that matches the search string.  The annotation must be to a simple genocluster (complex annotations are not searched).</li>
                 <li>return human genes that have an OMIM annotation that matches the search string.</li>
                 <li>Orthologs for the above genes are NOT included (different than search by genes above).</li>
-                <li>for each mouse or human marker returned display rolled up OMIM diseases</li>
-                <li>for each mouse marker returned display rolled up high-level MP terms</li>
+                <li>for each mouse or human marker returned display rolled up OMIM diseases (not limited by what is on grid)</li>
+                <li>for each mouse marker returned display rolled up high-level MP terms (not limited by what is on grid)</li>
                 <li>for each mouse marker returned display reference counts: all and disease relevant.</li>
             </ol></li>
             <li>DISEASE TAB
@@ -78,7 +80,7 @@
                <li>for each disease display mouse model count - all models including those for complex genotypes</li>
                <li>for each disease display associated mouse genes - only those that roll up.</li>
                <li>for each disease display associated human genes</li>
-               <li>for each disease display mouse model references</li>
+               <li>for each disease display mouse model references (all references for the disease in MGI: genotype/OMIM and allele/OMIM)</li>
            </ol></li>
           
        </ul></li>
@@ -104,7 +106,7 @@
 		<ol>
 		
 		    <li>Verify search by Gene Nomenclature returns the correct data on the Grid Tab
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>    
     		<ol><li>Search by text that matches a mouse gene symbol; Pax4.  Expect: all simple genocluster annotations for gene plus all human ortholog OMIM annotations.</li>
     		    <li>Search by text that matches a human gene symbol; TP53.  Expect: all human OMIM annotations for human gene plus all simple genocluster annotations for mouse ortholog (Trp53).</li>
     		    <li>Search by text that matches a mouse gene ID; MGI:96677 (Kit).  Expect: 1 row for Kit - all simple genotypes plus Human ortholog (KIT) OMIM annotations.</li>
@@ -112,7 +114,7 @@
     		    </ol></li>
     		
     		<li>Verify search by Gene Nomenclature returns the correct data on the Gene Tab
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>    
     		<ol><li>Search by text that matches a mouse/human homology pair; Brca1.  Expect: Both Brca1 and BRCA1 on gene tab.</li>
     		    <li>Search by text that matches only mouse symbol of homology pair; Tomt.  Expect: Tomt and LRTOMT on gene tab (note this is a human ortholog of non-hybrid relationship).</li>
     		    <li>Search by text that matches only human symbol of homology pair; RGPD1.  Expect: Ranbp2 and the 7 human orthologs per H-gene. (RGPD1...RGPD6, RGPD8)</li>
@@ -121,7 +123,7 @@
     		   </ol></li>
     		   
     		<li>Verify search by Gene Nomenclature returns the correct data on the Disease Tab
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>    
     		<ol><li>Search by text that matches mouse and human genes with OMIM; pten.  Expect: 19 diseases on grid to be on Disease tab.</li>
     		    <li>Search by text that matches only mouse genes with OMIM; Sox7.  Expect: 1 disease on grid to be on Disease tab.</li>
     		    <li>Search by text that matches only human genes with OMIM; PAX4.  Expect: 3 diseases on grid to be on Disease tab.</li>
@@ -129,37 +131,38 @@
     		   </ol></li>
     		   
     		<li>Verify search by Gene Nomenclature recognizes correct homology relationship for Grid and Gene Tabs.
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>   
     		<ol><li>Search by text that matches a gene with only a HomoloGene relationship: Selm.  Expect: 1 row for Selm, SELM.</li>
     		    <li>Search by text that matches a gene with only a HGNC relationship: Sln.  Expect: Sln row to match Public -- link for SLN to the HGNC homology page.</li>
-    		    <li>Search by text that matches a gene with multiple orthologs; C4a or C4b.  Expect:  Either search returns the same results for the C4a,C4b row.</li>
+    		    <li>Search by text that matches a gene with multiple orthologs; C4a.  Expect:  1 row for C4a,C4b.  Search by C4b returns the same row.</li>
     		    <li>Search by text that matches mouse genes without orthologs; Mug*.  Expect: 1 row for Mug2, Mug1.</li>
     		    <li>Search by text that matches a gene when HGNC trumps H-gene; Acan.  Expect: 1 row for Acan, ACAN. Human gene links to HGNC homology page.</li>
+    		    <li>Search by text that matches a marker with no homology relationship; Del(6Dlx6-Dlx5)1Tlu.  Expect: Grid: 1 row, Gene: 1; Disease: 1.  Verify sort order of grid drill down pop-up.</li>
     		   </ol></li>
     		   
     	    <li>Verify search by Gene Location returns the correct data on the Grid Tab
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>   
     		<ol><li>Search by mouse coordinates; Chr5:75574916-75656722 (Kit's coords).  Expect: 10 rows on Grid includes Kit.</li>
     		    <li>Search by human coordinates; Chr4:54657928-54740715 (KIT's coords).  Expect: 1 row (Kit/KIT) on grid.</li>
     		    <li>Search by human coordinates that return multiple rows on grid; Chr4:54657928-55740715.  Expect: 6 rows on grid includes KIT.  </li>
     		   </ol></li>
     		   
     	    <li>Verify search by Gene Location returns the correct data on the Gene Tab
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>    
     		<ol><li>Search by mouse coordinates; Chr7:79053483-79115099 (Acan's coords).  Expect: 15 rows; ACAN only human gene. </li>
     		    <li>Search by human coordinates; Chr15:88803442-88875354 (ACAN's coords).  Expect: 2 rows; Acan/ACAN.</li>
     		    <li>Search by human coordinates that return add'l genes on gene tab not on grid; Chr15:88803442-88975354.  Expect: 7 genes; 3 mouse; 4 human.</li>
     		   </ol></li>
     		 
     		<li>Verify search by Gene Location returns the correct data on the Disease Tab
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>      
     		<ol><li>Search by mouse coordinates; ChrMT:13552-14070 (mt-Nd6's coords).  Expect: 2 diseases. </li>
     		    <li>Search by human coordinates; Chr11:89177858-89295759 (TYR's coordinates).  Expect: 4 diseases (includes broken out cluster). </li>
     		    <li>Search by human coordintes that match more than 1 gene; Chr11:89177858-90295759.  Expect: 5 diseases.</li>
     		   </ol></li>
     		   
     		<li>Verify search by Gene Location recognizes correct homology relationship for Grid and Gene Tabs.
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>    
     		<ol><li>Search by mouse coordinates; Chr13:100124852-100137690 (Smn1's coordinates).  Expect: Smn1/SMN1,SMN2 on grid; those 3 on gene tab plus 10 other mouse genes; 4 diseases on disease tab</li>
     		    <li>Search by human coordinates; Chr5:70924941-70953015 (SMN1's coordinates).  Expect: 1 row on grid, 3 genes (Smn1, SMN1, other human); 4 diseases.</li>
     		    <li>Search by human coordinates; Chr5:70049523-70077595 (SMN2's coordinates).  Expect: 1 row on grid, 4 genes (Smn1, SMN2, 2 other human); 2 diseases.</li>
@@ -168,73 +171,53 @@
     		   </ol></li>
     		   
     		<li>Verify search by Phenotype (MP) returns the correct data on the Grid Tab
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Search by single MP id; MP:0008480 (absent eye pigmentation).  Expect: Match to 9 mouse genes.  Grid=9 rows; Gene=9 genes; Disease=9 (note that not all diseases for genes returned are on the disease tab due to only returning a subset of the genoclusters).</li>
-    		    <li>Search by multiple MP ids with OR; mmmm, pppp.  Expect: </li>
-    		    <li>Search by multiple MP ids with AND; mmmm AND pppp.  Expect:  </li>
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>    
+    		<ol><li>Search by single MP id; MP:0008480 (absent eye pigmentation).  Expect: Match to 9 mouse genes.  Grid=9 rows; Gene=9 mouse genes; Disease=9 (note that not all diseases for genes returned are on the disease tab due to only returning a subset of the genoclusters).</li>
+    		    <li>Search by multiple MP ids with OR; (absent eye pigmentation - MP:0008480 OR shiny fur - MP:0000411).  Expect: Grid=22; Gene=22 mouse genes; Disease=11. (1 gene difference during testing due to new EC relationship on Public)</li>
+    		    <li>Search by multiple MP ids with AND; (absent eye pigmentation - MP:0008480 AND shiny fur - MP:0000411).  Expect: Grid=1; Gene=1; Disease=0.  </li>
     		   </ol></li>
     		   
-    	    <li>Verify search by Phenotype (MP) returns the correct data on the Gene Tab
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Search by single MP id; xxxx.  Expect: </li>
-    		    <li>Search by multiple MP ids with OR; mmmm, pppp.  Expect: </li>
-    		    <li>Search by multiple MP ids with AND; mmmm AND pppp.  Expect:  </li>
+    	    <li>Verify search by Phenotype (MP) returns the correct data on the Gene Tab and Disease Tab.
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>  
+    		<ol><li>Search by single MP id; decreased interleukin-6 secretion - MP:0008706.  Expect: Grid: 84 rows; Gene: 84 genes; Disease: 7.</li>
+    		    <li>Search by multiple MP ids with OR; (liver hemorrhage - MP:0003888 OR liver cysts - MP:0003327).  Expect: Grid: 45 rows; Gene: 45 genes; Disease: 12.</li>
+    		    <li>Search by multiple MP ids with AND; (decreased interleukin-6 secretion - MP:0008706 AND abnormal macrophage physiology - MP:0002451).  Expect: Grid: 28 rows; Gene: 28 genes, Disease: 5.</li>
+    		   </ol></li>
+    		   
+    	    <li>Verify search by Disease (OMIM) returns the correct data on the Grid, Gene, and Disease Tabs
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>   
+    		<ol><li>Search by single OMIM id; Angelman Syndrome; AS - 105830.  Expect: Grid: 5 rows; Gene: 6 - 3 mouse/3 human; Disease: 8 (mouse, human, both)</li>
+    		    <li>Search by multiple OMIM ids with OR; (Angelman Syndrome; AS - 105830 OR Fanconi-Bickel Syndrome; FBS - 227810).  Expect: Grid: 6 rows; Gene: 7/3 mouse, 4 human; Disease: 10.</li>
+    		    <li>Search by multiple OMIM ids with AND; 114480 AND 104300.  Expect: Grid: 1 row; Gene: 1; Diseases: 2. </li>
     		   </ol></li>
     		 
-    		<li>Verify search by Phenotype (MP) returns the correct data on the Disease Tab
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Search by single MP id; xxxx.  Expect: </li>
-    		    <li>Search by multiple MP ids with OR; mmmm, pppp.  Expect: </li>
-    		    <li>Search by multiple MP ids with AND; mmmm AND pppp.  Expect:  </li>
+    		<li>Verify search by Disease (OMIM) returns the correct data for disease without mouse annotations
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>     
+    		<ol><li>Search by OMIM id with no human or mouse annotations; 604324.  Expect: Grid: 0 rows; Gene: 0 rows; Disease: 1. </li>
+    		    <li>Search by OMIM id with only human annotations; 600501.  Expect: Grid: 1 row; Gene 1 row; Disease: 3.</li>
+    		    <li>Search by multiple OMIM ids with AND; 600501 AND 600155.  Expect: Grid: 1 row; Gene 1 row; Disease: 3. </li>
     		   </ol></li>
     		   
-    		<li>Verify search by Disease (OMIM) returns the correct data on the Grid Tab
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Search by single OMIM id; xxxx.  Expect: </li>
-    		    <li>Search by multiple OMIM ids with OR; mmmm, pppp.  Expect: </li>
-    		    <li>Search by multiple OMIM ids with AND; mmmm AND pppp.  Expect:  </li>
-    		   </ol></li>
-    		   
-    	    <li>Verify search by Disease (OMIM) returns the correct data on the Gene Tab
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Search by single OMIM id; xxxx.  Expect: </li>
-    		    <li>Search by multiple OMIM ids with OR; mmmm, pppp.  Expect: </li>
-    		    <li>Search by multiple OMIM ids with AND; mmmm AND pppp.  Expect:  </li>
-    		   </ol></li>
-    		 
-    		<li>Verify search by Disease (OMIM) returns the correct data on the Disease Tab
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Search by single OMIM id; xxxx.  Expect: </li>
-    		    <li>Search by multiple OMIM ids with OR; mmmm, pppp.  Expect: </li>
-    		    <li>Search by multiple OMIM ids with AND; mmmm AND pppp.  Expect:  </li>
-    		   </ol></li>
-    		   
-    		<li>Verify search that matches both MP and OMIM terms returns the correct data on the Grid Tab
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Search by single text token; xxxx.  Expect:</li>
-    		    <li>Search by multiple text tokens; xxxx xxxx (implicit OR).  Expect:</li>
-    		    <li>Search by multiple text tokens with AND; xxxx AND xxxx.  Expect:</li>
-    		   </ol></li>
-    		   
-    	    <li>Verify search that matches both MP and OMIM terms returns the correct data on the Gene Tab
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Search by single text token; xxxx.  Expect:</li>
-    		    <li>Search by multiple text tokens; xxxx xxxx (implicit OR).  Expect:</li>
-    		    <li>Search by multiple text tokens with AND; xxxx AND xxxx.  Expect:</li>
-    		   </ol></li>
-    		 
-    		<li>Verify search that matches both MP and OMIM terms returns the correct data on the Disease Tab
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Search by single text token; xxxx.  Expect:</li>
-    		    <li>Search by multiple text tokens; xxxx xxxx (implicit OR).  Expect:</li>
-    		    <li>Search by multiple text tokens with AND; xxxx AND xxxx.  Expect:</li>
+    		<li>Verify search that matches both MP and OMIM terms returns the correct data on the Grid, Gene, Disease Tabs
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>    
+    		<ol><li>Search by single text token; albino.  Expect: Grid 24; Gene 24; Disease 13.</li>
+    		    <li>Search by multiple text tokens; obesity blindness (implicit OR).  Expect: Grid: 344; Gene: 365; Disease: 118. (1 less disease on SBob; new disease on Public-ok.)</li>
+    		    <li>Search by multiple text tokens with double quotes; "lung cancer" .  Expect: Grid: 35; Gene: 36; Disease: 44.</li>
+    		    <li>Search by multiple text tokens with AND; lung AND cancer.  Expect: Grid: 119; Gene: 121; Disease 66.</li>
     		   </ol></li>
     		
     		<li>Verify search by Phenotype/Disease recognizes correct homology relationship for Grid Tab.
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Search by single text token; xxxx.  Expect:</li>
-    		    <li>Search by multiple text tokens; xxxx xxxx (implicit OR).  Expect:</li>
-    		    <li>Search by multiple text tokens with AND; xxxx AND xxxx.  Expect:</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p> 
+    		<ol><li>Search by single text token; lupus.  Expect: Grid: 75; Gene: 78; Disease: 45. (Homology class for C4a/C4b returned).</li>
+    		    <li>Search by multiple text tokens; coumarin OR tobacco.  Expect: Grid: 7; Gene: 7; Disease: 9 (n:m homology class returned)</li>
+    		    <li>Return a marker that is not part of a Homology class; Sex AND reversal.  Expect: view Sry/Reproductive grid drill down -- Sort order of terms same as Public.</li>
+    		   </ol></li>
+    		
+    		<li>Verify BOOLEAN searches by Phenotype/Disease.
+    		<p concordion:assertTrue="true">PASS - jlewis 11/19/15</p>    
+    		<ol><li>Search using NOT; (fused cornea and lens - MP:0001307 AND (NOT behavior/neurological phenotype - MP:0005386)).  Expect: Grid: 14; Gene: 14; Disease: 4.</li>
+    		    <li>Search by multiple text tokens; sandhoff salla Maine (implicit OR).  Expect: Grid: 5; Gene: 7; Disease: 5.</li>
+    		    <li>Search by multiple text tokens Autism AND "social behavior".  Expect: Grid: 1; Gene 1; Disease: 2. (ScrumBob only had 1 disease-new assoication on Public: okay)</li>
     		   </ol></li>
     		
 		</ol>
