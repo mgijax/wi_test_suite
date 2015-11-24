@@ -31,19 +31,22 @@
        <li>Add a 1 box query form to the HMDC - Model Finder.</li>
        <li>Modify the original query form page to one with 2 tabs -- Model Finder and Advanced Search.</li>
        <li>The default display for the HMDC search is now the simple "Model Finder" tab.</li>
-       <li>The 1 box query is limited to search of diseases for this story and results displayed using the existing Disease Tab summary.</li>
        <li>Search the following data fields for matches to query string.
           <ul><li>OMIM terms and synonyms</li>
               <li>disease clusters (special type of synonym)</li>
               <li>OMIM IDs -- with an optional "OMIM:" prefix.  e.g. OMIM:222100 or 222100 would match the same disease.</li>
          </ul></li>
+       <li>The 1 box query is limited to search of diseases for this story and results displayed using the existing Disease Tab summary.</li>
+       <li>What is included on the Disease Tab Summary?  Same list of diseases as if a user entered a list of OMIM IDs?
+       <ul><li>If so, this will return many diseases that don't match the search string but "come along for the ride".  There was discussion about separating these out somehow, but maybe not for this user story??</li></ul>
        <li>This story does not include the auto-complete - just a type-in box.  Multiple tokens use AND operators (results match all tokens).  Other weird entry cases not being considered as the A-C will eliminate them.</li>
        <li>This story does not include refining labels/text for the new Model Finder tab.</li>
        <li>The new query form paradigm should work in all supported OS/browser combinations.</li>
-       <li>ASSUMPTION: The matches in the Disease Tab from the Model Finder QF also brings back data for the other Tabs (gene and grid). (Below is a guess)
-       <ul><li>Gene Tab = all mouse and human genes associated to the diseases returned on the Disease Tab.</li>
+       <li>ASSUMPTION: The matches in the Disease Tab from the Model Finder QF also brings back data for the other Tabs (gene and grid).  (i.e. As if a user entered a list of OMIM IDs)
+        <ul><li>Gene Tab = all mouse and human genes associated to the diseases returned on the Disease Tab.</li>
            <li>Grid Tab (human) = Human/OMIM annotations for human genes listed on the Disease tab</li>
            <li>Grid Tab (mouse) = Mouse genoclusters with an annotation to a disease returned in the Diseaes Tab.</li>
+           <li>Disease Tab = all diseases that match the query string PLUS other diseases that are displayed on the Grid.</li>
        </ul>
     </ol>   
    
@@ -80,40 +83,47 @@
     		
     		<li>Verify Model Finder query matches OMIM disease terms and displays them on the Disease Tab
     		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Enter single token that matches a single disease term; LNCR3.  Expect: 1 disease found with 3 models.</li>
-    		    <li>Enter single token that matches multiple disease terms; Lupus.  Expect: 23 diseases (by term); 1 disease (by synonym) found.</li>
-    		    <li>Enter multiple tokens that match a single disease term; Adult Acne.  Expect: 1 disease matched by term.</li>
-    		    <li>Enter multiple tokens that match multiple disease terms; piebald trait.  Expect: 2 diseases matched by term.</li>
+    		<ol><li>Enter single token that matches a single disease term; LNCR3.  Expect: term match = 1; synonym match = 0; Other diseases = 0</li>
+    		    <li>Enter single token that matches multiple disease terms; angelman.  Expect: term match = 1; synonym match = 1; other diseases returned = 7</li>
+    		    <li>Enter multiple tokens that match a single disease term; Adult Acne.  Expect: term match = 1; synonym match = 0; other diseases = 0</li>
+    		    <li>Enter multiple tokens that match multiple disease terms; piebald trait.  Expect: term match = 2; synonym match = 0; other diseases = 4</li>
     		    <li>Enter text that matches 0 diseases; football or football cancer.  Expect: 0 diseases returned.</li>
     		
     		</ol></li>
     		
     		 <li>Verify Model Finder query matches OMIM disease synonyms and displays them on the Disease Tab
     		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Enter single token that matches a single disease synonym; Huntington.  Expect: 5 diseases returned; 4 by term and 1 by synonym (Spinocerebellar Ataxia 17; SCA17)</li>
-    		    <li>Enter single token that matches multiple disease synonyms; vocal.  Expect: 6 diseases returned by synonym; 1 disease by term; 1 disease by both.</li>
-    		    <li>Enter multiple tokens that match a single disease synonyms; face blindness.  Expect: 1 disease found by synonym (Prosopagnosiz, Hereditary)</li>
-    		    <li>Enter multiple tokens that match multiple disease synonyms; charcot marie deafness.  Expect: 3 diseases matched by synonym; 1 disease matched by term.</li>
+    		<ol><li>Enter single token that matches a single disease synonym; Huntington (same as: 143100, 603218, 606438, 604802, 607136).  Expect: term match = 4; synonym match = 1 (Spinocerebellar Ataxia 17; SCA17); other diseases = 6</li>
+    		    <li>Enter single token that matches multiple disease synonyms; vocal (same as: 193240, 308850, 150260, 150270, 607706, 158580, 607641, 606070).  Expect: term match=1; synonym match=6;  both=1;  other diseases = 5.</li>
+    		    <li>Enter multiple tokens that match a single disease synonyms; face blindness (610382).  Expect: 1 disease found by synonym (Prosopagnosiz, Hereditary); no other diseases</li>
+    		    <li>Enter multiple tokens that match multiple disease synonyms; charcot marie deafness (same as: 118300, 214370, 310490).  Expect: term match=1; synonym match=2; other diseases=5</li>
     		
     		</ol></li>
 	
     		<li>Verify Model Finder query matches disease clusters (special synonyms) and displays them on the Disease Tab
     		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Enter text that only matches a disease cluster; retinal cone rod dystrophy OR Retinal Cone-Rod Dystrophy.  Expect: 22 diseases matched to this disease cluster (synonym)</li>
-    		    <li>Enter text that matches a disease cluster with diseases with no models; Reticulate Pigment Disorder.  Expect: 6 diseases matches.</li>
-    		    <li>Enter text that matches both disease cluster and disease term; Neuropathy, Hereditary Sensory and Autonomic.  Expect: 14 diseases matched to synonym; 2 others matched via term.</li>
+    		<ol><li>Enter text that matches a disease cluster with diseases with no models; Reticulate Pigment Disorder.  Expect: disease cluster match=6; other disease=8.</li>
+    		    <li>Enter text that matches both disease cluster and disease term; Neuropathy, Hereditary Sensory and Autonomic.  Expect: term match=2; disease cluster match=14; other diseases=13.</li>
     		    
     		
     		</ol></li>
     		
     		 <li>Verify Model Finder query matches OMIM IDs with and without a prefix (OMIM:) and displays them on the Disease Tab
     		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Enter OMIM ID for disease with models; 222100 or OMIM:222100.  Expect: Match to Diabetes Mellitus, Insulin-Dependent; IDDM with 79 models.</li>
-    		    <li>Enter OMIM ID for disease with no models and no human genes; 244100 or OMIM:244100.  Expect: Match to Jumping Frenchmen of Maine with 0 models.</li>
-    		    <li>Enter OMIM ID for a disease with human genes, but no models; 271150 or OMIM:271150.  Expect: Match to Spinal Muscular Atrophy, Type IV; SMA4 with 0 models.</li>
-    		    <li>Enter OMIM ID for a disease with human gene, mouse model, but no mouse gene; 613657 or OMIM:613657.  Expect: Match to D-2-Hydroxyglutaric Aciduria 2; D2HGA2 with 1 model.</li>
+    		<ol><li>Enter OMIM ID for disease with models; 222100 or OMIM:222100.  Expect: Match to Diabetes Mellitus, Insulin-Dependent; IDDM with 79 models; other diseases = 11.</li>
+    		    <li>Enter OMIM ID for disease with no models and no human genes; 244100 or OMIM:244100.  Expect: Match to Jumping Frenchmen of Maine with 0 models; other diseases = 0.</li>
+    		    <li>Enter OMIM ID for a disease with human genes, but no models; 271150 or OMIM:271150.  Expect: Match to Spinal Muscular Atrophy, Type IV; SMA4 with 0 models; other diseases = 3.</li>
+    		    <li>Enter OMIM ID for a disease with human gene, mouse model, but no mouse gene; 613657 or OMIM:613657.  Expect: Match to D-2-Hydroxyglutaric Aciduria 2; D2HGA2 with 1 model; other diseases = 0.</li>
     		</ol></li>
     		
+    		 <li>Verify Gene and Grid Tab when querying from the Model Finder box 
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Enter search that will return only mouse genes; 107100.  Expect: 1 mouse gene (Wnt5a) on the Gene Tab; Grid tab = 1 row.</li>
+    		    <li>Enter search that will return only human genes; 603909.  Expect: 1 human gene (CASP10) on the Gene Tab; Grid tab = 1 row.</li>
+    		    <li>Enter search that will return both mouse and human genes; 123500.  Expect: 2 mouse (Fgfr2, Bey) + 1 human gene (FGFR2) on the Gene Tab; Grid tab = 2 rows.</li>
+    		    </ol></li>
+    		    
+  
     		 <li>Verify new display on all supported OS/Browser combinations (repeat selected tests above)
     		<p concordion:assertTrue="false">new test</p>    
     		</li>
