@@ -1,0 +1,135 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 74: HMDC: Quick disease query</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>HMDC: Quick disease query - tabbed QF</h1>
+    <ul>
+        <li>US 74: HMDC: Quick disease query</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Add a 1 box query form to the HMDC - Model Finder.</li>
+       <li>Modify the original query form page to one with 2 tabs -- Model Finder and Advanced Search.</li>
+       <li>The default display for the HMDC search is now the simple "Model Finder" tab.</li>
+       <li>The 1 box query is limited to search of diseases for this story and results displayed using the existing Disease Tab summary.</li>
+       <li>Search the following data fields for matches to query string.
+          <ul><li>OMIM terms and synonyms</li>
+              <li>disease clusters (special type of synonym)</li>
+              <li>OMIM IDs -- with an optional "OMIM:" prefix.  e.g. OMIM:222100 or 222100 would match the same disease.</li>
+         </ul></li>
+       <li>This story does not include the auto-complete - just a type-in box.  Multiple tokens use AND operators (results match all tokens).  Other weird entry cases not being considered as the A-C will eliminate them.</li>
+       <li>This story does not include refining labels/text for the new Model Finder tab.</li>
+       <li>The new query form paradigm should work in all supported OS/browser combinations.</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify links to HMDC now display new Search page with 2 tabs -- Model Finder is displayed by default.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Links from tool bar pull-down menu and  Human Disease tab in tool bar.</li>
+    		    <li>Link from All Search Page (no link to HMDC from this page - odd).</li>
+    		    <li>Link from MGI Home page - &quot;Human-Mouse: Disease Connection&quot; option.</li>
+    		    <li>Link from Pheno mini-home page.</li>
+    		    <li>Link from HMDC itself (Lab person icon in top right corner).</li>
+    		
+    		</ol></li>
+    		
+    		 <li>Verify current "Advanced Search" query form displays and works as before.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Use selected tests from US 85 HMDC regression tests.</li>
+    		
+    		</ol></li>
+    		
+    		<li>Verify Model Finder query matches OMIM disease terms and displays them on the Disease Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Enter single token that matches a single disease term; LNCR3.  Expect: 1 disease found with 3 models.</li>
+    		    <li>Enter single token that matches multiple disease terms; Lupus.  Expect: 23 diseases (by term); 1 disease (by synonym) found.</li>
+    		    <li>Enter multiple tokens that match a single disease term; Adult Acne.  Expect: 1 disease matched by term.</li>
+    		    <li>Enter multiple tokens that match multiple disease terms; piebald trait.  Expect: 2 diseases matched by term.</li>
+    		    <li>Enter text that matches 0 diseases; football or football cancer.  Expect: 0 diseases returned.</li>
+    		
+    		</ol></li>
+    		
+    		 <li>Verify Model Finder query matches OMIM disease synonyms and displays them on the Disease Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Enter single token that matches a single disease synonym; Huntington.  Expect: 5 diseases returned; 4 by term and 1 by synonym (Spinocerebellar Ataxia 17; SCA17)</li>
+    		    <li>Enter single token that matches multiple disease synonyms; vocal.  Expect: 6 diseases returned by synonym; 1 disease by term; 1 disease by both.</li>
+    		    <li>Enter multiple tokens that match a single disease synonyms; face blindness.  Expect: 1 disease found by synonym (Prosopagnosiz, Hereditary)</li>
+    		    <li>Enter multiple tokens that match multiple disease synonyms; charcot marie deafness.  Expect: 3 diseases matched by synonym; 1 disease matched by term.</li>
+    		
+    		</ol></li>
+	
+    		<li>Verify Model Finder query matches disease clusters (special synonyms) and displays them on the Disease Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Enter text that only matches a disease cluster; retinal cone rod dystrophy OR Retinal Cone-Rod Dystrophy.  Expect: 22 diseases matched to this disease cluster (synonym)</li>
+    		    <li>Enter text that matches a disease cluster with diseases with no models; Reticulate Pigment Disorder.  Expect: 6 diseases matches.</li>
+    		    <li>Enter text that matches both disease cluster and disease term; Neuropathy, Hereditary Sensory and Autonomic.  Expect: 14 diseases matched to synonym; 2 others matched via term.</li>
+    		    
+    		
+    		</ol></li>
+    		
+    		 <li>Verify Model Finder query matches OMIM IDs with and without a prefix (OMIM:) and displays them on the Disease Tab
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Enter OMIM ID for disease with models; 222100 or OMIM:222100.  Expect: Match to Diabetes Mellitus, Insulin-Dependent; IDDM with 79 models.</li>
+    		    <li>Enter OMIM ID for disease with no models and no human genes; 244100 or OMIM:244100.  Expect: Match to Jumping Frenchmen of Maine with 0 models.</li>
+    		    <li>Enter OMIM ID for a disease with human genes, but no models; 271150 or OMIM:271150.  Expect: Match to Spinal Muscular Atrophy, Type IV; SMA4 with 0 models.</li>
+    		    <li>Enter OMIM ID for a disease with human gene, mouse model, but no mouse gene; 613657 or OMIM:613657.  Expect: Match to D-2-Hydroxyglutaric Aciduria 2; D2HGA2 with 1 model.</li>
+    		</ol></li>
+    		
+    		 <li>Verify new display on all supported OS/Browser combinations (repeat selected tests above)
+    		<p concordion:assertTrue="false">new test</p>    
+    		</li>
+    		
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
