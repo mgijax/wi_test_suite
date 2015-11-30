@@ -1,0 +1,134 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 6: Move basic SNP Detail page to fewi</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>SNP Detail - top ribbons</h1>
+    <ul>
+        <li>US6: Move basic SNP Detail page to fewi</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Move SNP Detail from the JavaWI to the Fewi.</li>
+       <li>Use the new Detail page styling paradigm for the SNP Detail (like Marker Detail).
+       <ul><li>Wrapping, spacing, font size, borders, etc.</li>
+           <li>External links generate a new tab</li>
+           <li>Ribbon names and field labels use title case.</li>
+       </ul></li>
+       <li>Convert existing top 4 existing ribbons to 2 ribbons for this story (story limited to display of these 2 ribbons).</li>
+       <li>Ribbon 1 fields - Summary
+       <ol><li>ID - display rs ID and link to dbSNP (intentionally removed the dbSNP release #)</li>
+           <li>Variation Type - same display as Public</li>
+           <li>Alleles - same display as Public</li>
+           <li>Created in dbSNP Build - same display as Public (top of second column when not wrapping)</li>
+           <li>Last Updated in dbSNP Build - same display as Public</li>
+           <li>Additional Resources - same display as Public except Mouse Genome Browser
+           <ul><li>Convert Gbrowse link to Jbrowse; modify URL to include highlighting.</li></ul></li>
+           <li>Special case -- for multiple location SNPs display a special message in this ribbon and remove Mouse Genome Browser link.</li>
+       </ol></li>
+       <li>Ribbon 2 fields - Genome Location and Flanking Sequence
+       <ol><li>Location - same display as Public (chr, coord, build name)</li>
+           <li>SNP Orientation to the Genome - same display as Public (forward, reverse)</li>
+           <li>List above 2 fields multiple times for multiple location SNPs.</li>
+           <li>SNP Reference Flanking Sequence - Same text as Public.</li>
+       </ol></li>
+       <li>Update link from Batch Query to SNP Detail page to new URL.</li>
+       <li>Add appropriate SEO (search engine optimization fields) - title, description, keywords, robots</li>
+       <li>Display appropriately on all supported OS/browser combinations.</li>
+       <li>Not included -- display of variations other than SNP (no IN-DEL, mixed, etc.)
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify all fields for 1 location, basic SNPs
+    		<p concordion:assertTrue="true">PASS - jlewis 11/30/15</p>    
+    		<ol><li>Display SNP with a single sub snp; rs33825453.  Expect: same as public.</li>
+    		    <li>Display SNP with multiple sub snps: rs30612375.  Expect: same as public except updated in build 142.</li>
+    		    <li>Display SNP with a reverse orientation; rs108186827.  Expect: same as public.</li>
+    		    <li>Display SNP with no gene associations; rs33855201.  Expect: same as public.</li>
+    		    </ol></li>
+    		
+    		
+    		<li>Verify all fields and links for a multiple location SNP.
+    		<p concordion:assertTrue="true">PASS - jlewis 11/30/15</p>    
+    		<ol><li>Display SNP; rs107905296.  Expect: Same as Public; slight variation to red text</li>
+    		    </ol></li>
+    		
+    		<li>Verify all fields and links for a SNP on alpha chromosome
+    		<p concordion:assertTrue="true">PASS - jlewis 11/30/15</p>    
+    		<ol><li>Display SNP on MT chromosome; rs33251939.  Expect: same as public.</li>
+    		    </ol></li>
+    		
+    		<li>Verify links from Batch Query
+    		<p concordion:assertTrue="true">PASS - jlewis 11/30/15</p>   
+    		<ol><li>Query by Pax4 in Batch Query.  Expect: links to SNP Detail to new page.</li>
+    		    </ol></li>
+    		
+    		<li>Verify allele special cases 
+    		<p concordion:assertTrue="true">PASS - jlewis 11/30/15</p>    
+    		<ol><li>Display SNP with only 1 allele; rs108186827.  Expect: Same display as Public.</li>
+    		    <li>Display SNP with 3 alleles; rs37476596.  Expect: same display as Public</li>
+    		    <li>Display SNP with a ? (conflict); rs46362681.  Expect: same display as Public.</li>
+    		    </ol></li>
+    		    
+    		<li>Verify SNP Detail displays okay in all supported browsers.
+    		<p concordion:assertTrue="true">PASS - jlewis 11/30/15</p>    
+    		<ol><li>Use selected above tests to verify.</li>
+    		    </ol></li>
+    		
+    		<li>Verify SEO fields - title, description, keywords, robots
+    		<p concordion:assertTrue="true">PASS - jlewis 11/30/15</p>    
+    		<ol><li>Use selected above tests to verify.</li>
+    		    </ol></li>
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
