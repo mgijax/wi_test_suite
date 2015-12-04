@@ -80,10 +80,11 @@
     		    <li>Display marker with no human homologs; Mug1.  Expect: no link.</li>
     		    </ol></li>
     		    
-    		<li>Verify that mouse genes with no URL loaded (in exception list on back-end) have no link
+    		<li>Verify that mouse genes with no URL loaded have no link
     		<p concordion:assertTrue="false">new test</p>    
     		<ol><li>Display marker with a wiki URL that is too long; Fmo3.  Expect: no wiki link.</li>
     		    <li>Display marker with a wiki URL with commas; Itgb5.  Expect: no wiki link.</li>
+    		    <li>Display cluster marker (no human homolog); Amy.  Expect: no change (verify new optional field doesn't alter display).</li>
     		    </ol></li>
     		
     		<li>Verify that mouse genes with optional fields in column 2 still display new link okay.
