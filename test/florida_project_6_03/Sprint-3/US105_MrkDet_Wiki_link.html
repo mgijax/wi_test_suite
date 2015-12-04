@@ -1,0 +1,115 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 105:  Marker Detail: Add gene summary link</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Marker Detail: Add gene summary wiki link</h1>
+    <ul>
+        <li>US 105: Marker Detail: Add gene summary link</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+      <li>Add new link to the bottom of the 2nd column in the Summary ribbon (under IDs and Member of)</li>
+      <li>Format: Gene Overview  human {symbol}  Link: symbol is the link</li>
+      <li>Human symbol: display the human gene symbol that is the homolog for the mouse gene via the "Hybrid" homology source.</li>
+      <li>If the mouse gene has 0 OR 2 or more human homologs in the Hybrid - display nothing.</li>
+      <li>In the hybrid homology -- mouse and/or human genes can only be in 1 homology class.</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify that the 1:1 case (homology hybrid/union the same) results in a link to a wiki.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Display mouse marker with mouse, human symbols same in MGI; Kit/KIT.  Expect: Link to CD117 on wiki.  EG id=3815</li>
+    		    <li>Display mouse marker with mouse, human symbols different in MGI; Trp53/TP53.  Expect: Link to P53 on wiki.  EG id = 7157.</li>
+    		    </ol></li>
+    		    
+    		<li>Verify that the 1:1 hybrid cases that differ from the homology union result in a link to a wiki.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Display mouse marker with a 1:1 hybrid class, but with multiple human homologs in union; Ranbp2.  Expect:  Link to RANBP2 on wiki.  EG id = 5903</li>
+    		    <li>Display mouse marker with a 1:1 hybrid class, but with a human homolog associated to multiple mouse genes in union; Lrrc51.  Expect: link to LRTOMT on wiki.  EG id = 220074
+    		    </ol></li>
+    		    
+    		<li>Verify that the 1:1 union case that is not a 1:1 hybrid class does NOT have a link to a wiki.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Display mouse marker with a 1:1 union class, but with no human homolog in the hybrid; Tomt.  Expect:  No link.</li>
+    		   
+    		    </ol></li>
+    	
+    	    <li>Verify that the hybrid homologies with 1 human homolog but multiple mouse genes result in a link to a wiki.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Display mouse markers in same homology class with a single human homolog; Dsg1a and Dsg1b.  Expect: Link to DSG1 on both Marker Detail pages. (EGid=1828)</li>
+    		    </ol></li>
+    		    
+    	    <li>Verify that the hybrid homologies with either 0 or more than 1 human homolog have no link.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Display marker with multiple mouse genes and multiple human homologs; C4.  Expect: no link.  EGids: C4A= 720; C4B= 721</li>
+    		    <li>Display marker with single mouse gene, multiple human homologs; Smn1.  Expect: no link.  EGids: SMN1= 6606; SMN2= 6607 </li>
+    		    <li>Display marker with no human homologs; Mug1.  Expect: no link.</li>
+    		    </ol></li>
+    		    
+    		<li>Verify that mouse genes with no URL loaded (in exception list on back-end) have no link
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Display marker with a wiki URL that is too long; Fmo3.  Expect: no wiki link.</li>
+    		    <li>Display marker with a wiki URL with commas; Itgb5.  Expect: no wiki link.</li>
+    		    </ol></li>
+    		
+    		<li>Verify that mouse genes with optional fields in column 2 still display new link okay.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Display marker with a wiki link and strain specific icon; Hbb-bs.  Expect: wiki link to HBB (EGid=3043) displays and wraps okay.</li>
+    		    <li>Display marker with a wiki link and bio-type conflict icon; Frat1.  Expect: wiki link to FRAT1 displays and wraps okay. (EGid=10023)</li>
+    		    <li>Display marker with a wiki link and both strain specific and bio-type conflict icons; Clec7a.  Expect: wiki link to CLEC7a (EGid=64581) displays and wraps okay.</li>
+    		    <li>Display marker with a wiki link and Member of field; Amy2a5.  Expect: wiki link to AMY2B below Member of field (EGid=280)</li>
+    		    </ol></li>
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
