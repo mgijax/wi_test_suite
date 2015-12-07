@@ -51,48 +51,53 @@
 		<ol>
 		
 		    <li>Verify that the 1:1 case (homology hybrid/union the same) results in a link to a wiki.
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 12/7/15</p>    
     		<ol><li>Display mouse marker with mouse, human symbols same in MGI; Kit/KIT.  Expect: Link to CD117 on wiki.  EG id=3815</li>
     		    <li>Display mouse marker with mouse, human symbols different in MGI; Trp53/TP53.  Expect: Link to P53 on wiki.  EG id = 7157.</li>
     		    </ol></li>
     		    
     		<li>Verify that the 1:1 hybrid cases that differ from the homology union result in a link to a wiki.
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 12/7/15</p>     
     		<ol><li>Display mouse marker with a 1:1 hybrid class, but with multiple human homologs in union; Ranbp2.  Expect:  Link to RANBP2 on wiki.  EG id = 5903</li>
     		    <li>Display mouse marker with a 1:1 hybrid class, but with a human homolog associated to multiple mouse genes in union; Lrrc51.  Expect: link to LRTOMT on wiki.  EG id = 220074
     		    </ol></li>
     		    
     		<li>Verify that the 1:1 union case that is not a 1:1 hybrid class does NOT have a link to a wiki.
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 12/7/15</p> >    
     		<ol><li>Display mouse marker with a 1:1 union class, but with no human homolog in the hybrid; Tomt.  Expect:  No link.</li>
     		   
     		    </ol></li>
     	
     	    <li>Verify that the hybrid homologies with 1 human homolog but multiple mouse genes result in a link to a wiki.
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 12/7/15</p>     
     		<ol><li>Display mouse markers in same homology class with a single human homolog; Dsg1a and Dsg1b.  Expect: Link to DSG1 on both Marker Detail pages. (EGid=1828)</li>
     		    </ol></li>
     		    
     	    <li>Verify that the hybrid homologies with either 0 or more than 1 human homolog have no link.
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 12/7/15</p>     
     		<ol><li>Display marker with multiple mouse genes and multiple human homologs; C4.  Expect: no link.  EGids: C4A= 720; C4B= 721</li>
     		    <li>Display marker with single mouse gene, multiple human homologs; Smn1.  Expect: no link.  EGids: SMN1= 6606; SMN2= 6607 </li>
     		    <li>Display marker with no human homologs; Mug1.  Expect: no link.</li>
     		    </ol></li>
     		    
     		<li>Verify that mouse genes with no URL loaded have no link
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 12/7/15</p>     
     		<ol><li>Display marker with a wiki URL that is too long; Fmo3.  Expect: no wiki link.</li>
     		    <li>Display marker with a wiki URL with commas; Itgb5.  Expect: no wiki link.</li>
     		    <li>Display cluster marker (no human homolog); Amy.  Expect: no change (verify new optional field doesn't alter display).</li>
     		    </ol></li>
     		
     		<li>Verify that mouse genes with optional fields in column 2 still display new link okay.
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 12/7/15</p>     
     		<ol><li>Display marker with a wiki link and strain specific icon; Hbb-bs.  Expect: wiki link to HBB (EGid=3043) displays and wraps okay.</li>
     		    <li>Display marker with a wiki link and bio-type conflict icon; Frat1.  Expect: wiki link to FRAT1 displays and wraps okay. (EGid=10023)</li>
     		    <li>Display marker with a wiki link and both strain specific and bio-type conflict icons; Clec7a.  Expect: wiki link to CLEC7a (EGid=64581) displays and wraps okay.</li>
     		    <li>Display marker with a wiki link and Member of field; Amy2a5.  Expect: wiki link to AMY2B below Member of field (EGid=280)</li>
+    		    </ol></li>
+    		    
+    		<li>Verify that the human genes with a special character display okay as the link.
+    		<p concordion:assertTrue="true">PASS - jlewis 12/7/15</p>     
+    		<ol><li>Display marker Synb.  Expect: Human homolog symbol, ERVFRD-1, displays, links, wraps okay.</li>
     		    </ol></li>
     		
 		</ol>
