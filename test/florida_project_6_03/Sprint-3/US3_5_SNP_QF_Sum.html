@@ -28,8 +28,8 @@
 <div id="acceptance">
     <h2>Test Requirements</h2>
     <ol> 
-      <li>Provide a minimal SNP QF with only the Associated Genes ribbon.</li>
-      <li>QF - Include page header area as currently implemented
+      <li>Use a minimal SNP QF with only the Associated Genes ribbon.</li>
+      <li>QF/Summary display (same requirements as Public)
       <ol><li>Title</li>
           <li>user help icon/link</li>
           <li>text at top of page -- refer to SNP build (driven by database value)</li>
@@ -37,48 +37,35 @@
       </ol></li>
       <li>QF - Include Associated Gene ribbon
       <ol><li>Gene field - remove operators, accept wildcard, accept lists of symbols, search limted to current symbols</li>
-          <li>Regardless of paradigm -- not valid to return QTLs</li>
-          <li>(DISTANCE QUERY NOT PART OF THIS STORY) SNP location field - match display of Public; remove with 500 and 1000 kb options in pull down
-          <ul><li>Default = "within 2 kb of" returned genes</li></ul></li>
-          <li>Remove Either, Upstream, Downstream options - always default to EITHER</li>
+          <li>SNPs Located Near Genes - within 2 kb of (default); other options = within coordinates, within 10 kb</li>
       </ol></li>
      <li>Use the following defaults for the query by marker symbol:
-      <ol><li><s>All strains</s></li>
-          <li>Only SNP variation type and dbSNP function classes (No IN-DEL, Named, Mixed, or MNP variations)</li>
-          <li>Include SNPs with multiple locations.</li>
-          <li>Include SNPs with dbSNP function class associations to a marker when there's a "within" search -- even if it is not "within" the coordinate range of the marker.</li>
+      <ol>
+          <li>Only SNP variation type (No IN-DEL, Named, Mixed, or MNP variations)</li>
+          <li>Include SNPs with SINGLE locations (per Carol on 12/8; don't return ones with multiple locations).</li>
+          <li>Return SNPs with dbSNP function class associations to a marker when there's a "within" search -- even if it is not "within" the coordinate range of the marker.
+          <ul><li>The within coordinates search for a marker = within coordinates + dbSNP function class.</li> </ul></li>
       </ol></li>
       <li>Use new roll-up/down QF and Summary page paradigm</li>
       <li>Summary pages use the standard pagination paradigm.  Propose: use Marker Summary options: (50, 100, 250, 500) with the default = 100.</li>
-      <li>Sort order - Primary: mapping location - chr/coordinate</li>
-      <li>Display number of results returned.  Only count multiple location SNPs once.</li>
-      <li><s>Display Mode - use "nucleotide values" display (not Same/Different)</s></li>
-      <li>Display the following columns
-      <ol><li>SNP ID (dbSNP Build nnn) - rs id; links to MPD, dbSNP, MGI SNP Detail</li>
+      <li>Sorting
+      <ol><li>Report sort order for SNPs returned: primary=by mapping location (chr/coordinate)</li>
+          <li>Order for list of genes in Gene column by SNP: primary=alpha by marker symbol; secondary=alpha by dbSNP function class</li>
+      </ol></li>
+      <li>Display number of results returned.</li>
+      <li>Display the following columns in this order (see Public)
+      <ol><li>SNP ID (dbSNP Build nnn) - rs id; links to MPD, dbSNP, MGI SNP Detail (external links display new tab)</li>
           <li>Map Position (GRCm38) - chromosome; coordinate</li>
-          <li>rs orient - r/f</li>
+          <li>rs orient: NO LONGER DISPLAY</li>
           <li>Gene : dbSNP Function Class - list of genes with distance association OR dbSNP Function Classes; marker symbol linked to Marker Detail</li>
-          <li>Assays (ss) - number of sub snps; link to SNP Detail</li>
+          <li>Assays (ss): NO LONGER DISPLAY</li>
           <li>Variation Type - SNP</li>
-          <li><s>strain columns (1-many); alpha order -- ONLY display for SNP variations for this user story? i.e. not for IN-DEL, Named, Mixed, MNP</s></li>
-          <li><s>Allele Summary (all strains) -- ONLY display for SNP variations for this user story?</s></li>
-          <li><s>Insertions - optional column only present when insertions are in the results -- will this column be displayed with no values or just not displayed for this user story?</s></li>
+          <li>Allele Summary (all strains)</li>
       </ol></li>
-      <li>Display rules - page level
-      <ol>
-          <li>Flag multiple location SNPS with an asterisk next to the rs id.
-          <ul><li>Include text at the top of every page that defines the asterisk.  This is only displayed if there is a multiple somewhere in the results.</li>  
-          </ul></li>
-      </ol></li>
-      <li>Display rules - column specific
-      <ol>
-          <li><s>Strain names and rs orient column headings: use CSS rotation; handle superscripts correctly.</s></li>
-          <li>Gene column: Alpha order by marker symbol.</li>
-          <li>Gene column: Display all gene/dbSNP Function Class pairs with the exception of contig_reference.</li>
-          <li><s>Gene column: Only display the distance association (i.e. upstream/downstream) for a marker if there is NO dbSNP function class association to that marker.</s></li>
-      </ol></li>     
+      <li>For this user story -- display all relationships we have for each SNP.  This includes distance, within, and dbSNP function class associations.  Refinement of this list in future user stories.  
+      <ul><li>The only exception: a marker may have multiple dbSNP function class associations (e.g. Intron) due to multiple RefSeqs -- only show 1.</li></ul> </li>
       <li>The SNP QF/Summary works in all supported OS/browser combinations.</li>
-      <li>Do NOT include any out-of-sync logic, minimal error trapping (at SE discretion), filters, You searched for, QF striping logic.  No "distance relationships" will be returned via the QF.</li>
+      <li>Do NOT include any out-of-sync logic, minimal error trapping (at SE discretion), filters, You searched for, QF striping logic.</li>
       
       
     </ol>   
