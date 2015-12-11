@@ -42,7 +42,7 @@
      <li>Use the following defaults for the query by marker symbol:
       <ol>
           <li>Only SNP variation type (No IN-DEL, Named, Mixed, or MNP variations)</li>
-          <li>Include SNPs with SINGLE locations (per Carol on 12/8; don't return ones with multiple locations).</li>
+          <li>Include SNPs with SINGLE locations (per Carol on 12/8; don't return ones with multiple locations).  Summary may include these (original definition of story), limited testing, if any, needed.</li>
           <li>Return SNPs with dbSNP function class associations to a marker when there's a "within" search -- even if it is not "within" the coordinate range of the marker.
           <ul><li>The within coordinates search for a marker = within coordinates + dbSNP function class.</li> </ul></li>
       </ol></li>
@@ -57,13 +57,13 @@
       <ol><li>SNP ID (dbSNP Build nnn) - rs id; links to MPD, dbSNP, MGI SNP Detail (external links display new tab)</li>
           <li>Map Position (GRCm38) - chromosome; coordinate</li>
           <li>rs orient: NO LONGER DISPLAY</li>
-          <li>Gene : dbSNP Function Class - list of genes with distance association OR dbSNP Function Classes; marker symbol linked to Marker Detail</li>
+          <li>Associated Genes - list of genes with distance association OR dbSNP Function Classes; marker symbol linked to Marker Detail</li>
           <li>Assays (ss): NO LONGER DISPLAY</li>
           <li>Variation Type - SNP</li>
           <li>Allele Summary (all strains)</li>
       </ol></li>
       <li>For this user story -- display all relationships we have for each SNP.  This includes distance, within, and dbSNP function class associations.  Refinement of this list in future user stories.  
-      <ul><li>The only exception: a marker may have multiple dbSNP function class associations (e.g. Intron) due to multiple RefSeqs -- only show 1.</li></ul> </li>
+      <ul><li>The only exception: a marker may have multiple associations to the same dbSNP function class for a gene (e.g. Intron) due to multiple RefSeqs -- only show 1.</li></ul> </li>
       <li>The SNP QF/Summary works in all supported OS/browser combinations.</li>
       <li>Do NOT include any out-of-sync logic, minimal error trapping (at SE discretion), filters, You searched for, QF striping logic.</li>
       
