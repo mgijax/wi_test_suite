@@ -1,0 +1,152 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 7: Add SNP assays to SNP Detail</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>SNP Detail - Assays ribbon</h1>
+    <ul>
+        <li>US7: Add SNP assays to SNP Detail</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Display all SubSNPs for a RefSNP.</li>
+       <li>Display: Assay ID, Submitter SNP ID, Submitter Handle, Population, ss orientation, Variation Type, and the strains/allele calls.</li>
+       <li>Link Assay ID, Submitter SNP ID, Submitter Handle, and Population to pages at NCBI.</li>
+       <li>When multiple SubSNPs exist -- order by Assay ID - smart alpha order (this is different than Public which uses regular alpha)</li>
+       <li>Display the consensus SNP (i.e. RefSNP).</li>
+       <li>Display fields for RefSNP: SNP, Consensus Type, and the strains/allele calls.</li>
+       <li>Display a separate table of SubSNPs with no allele calls if those are present.</li>
+       <li>Bold the ID of the Exemplar SubSNP if it has been displayed on the page.</li>
+       <li>Roll over tool tip for strain columns - tool tip recognizes superscripts.</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify all fields for 1 location, basic SNPs
+    		<p concordion:assertTrue="false">FAIL - jlewis; 12/11/15; Test 1.4 - no SNP found</p>     
+    		<ol><li>Display SNP with a single sub snp; rs33825453.  Expect: same as public.</li>
+    		    <li>Display SNP with multiple sub snps: rs30612375.  Expect: same as public except updated in build 142.</li>
+    		    <li>Display SNP with a reverse orientation and exemplar; rs108186827.  Expect: exemplar in bold; same as public.</li>
+    		    <li>Display SNP with no gene associations; rs33855201.  Expect: same as public.</li>
+    		    </ol></li>
+    		
+    		
+    		<li>Verify all fields and links for a multiple location SNP.
+    		<p concordion:assertTrue="true">PASS - jlewis; 12/11/15</p>  
+    		<ol><li>Display SNP; rs107905296.  Expect: Same as Public; slight variation to red text</li>
+    		    </ol></li>
+    		
+    		<li>Verify SNP with a ? (conflict)
+    		<p concordion:assertTrue="true">PASS - jlewis; 12/11/15</p>         
+    		<ol><li>Display SNP with a ? (conflict); rs30306985.  Expect: same display as Public.</li>
+    		    <li>Display SNP with only conflicts (?) in the consensus SNP; rs30504332.  Expect: same display as Public.</li>
+    		    </ol></li>
+    		
+    		<li>Verify SNPs with other than 2 alleles (1 or 3)
+    		<p concordion:assertTrue="true">PASS - jlewis; 12/11/15</p>   
+    		<ol><li>Display SNP with 3 alleles; rs37476596.  Expect: same display as Public</li>
+    		    <li>Display SNP with only 1 allele; rs108186827.  Expect: Same display as Public.</li>
+    		    </ol></li>
+    		 
+    		 <li>Verify SNP with subSNPs that have no strain alleles 
+    		<p concordion:assertTrue="true">PASS - jlewis; 12/11/15</p>        
+    		<ol><li>Display SNP; rs3023914.  Expect: Same as Public (also includes same subsnp in both tables with diff populations: Population now included in this table.</li>
+    		    <li>Display SNP with a single subSNP with no strain alleles; rs30162899.  Expect: Same as public.</li>
+    		    </ol></li>
+    		
+    		<li>Verify exemplar subsnp is bolded
+    		<p concordion:assertTrue="true">PASS - jlewis; 12/11/15</p>      
+    		<ol><li>Display SNP with an exemplar subsnp ; rs3021544.  Expect: same display as Public.</li>
+    		    <li>Display SNP with no exemplar; rs6368288.  Expect: no SubSNP id to be in bold.</li>
+    		    </ol></li>  
+    		    
+    		<li>Verify SNPs with reverse subSNP orientation
+    		<p concordion:assertTrue="true">PASS - jlewis; 12/11/15</p>       
+    		<ol>
+    		    <li>Display SNP with more reverse ss ids than forward; rs3142930.  Expect: Same as Public.</li>
+    		    <li>Display SNP with more forward ss ids than reverse; rs3684501.  Expect: Same as Public.</li>
+    		    </ol></li>
+    		    
+    		<li>Verify consensus SNP allele underlined = Nucleotide value conflict for the strain; consensus value determined by majority. 
+    		<p concordion:assertTrue="false">FAIL - jlewis; 12/11/15</p>       
+    		<ol><li>Display SNP when an allele underlined in the consensus SNP ; rs3142930; G for DBA/2J.  Expect: same display as Public.</li>
+    		    <li>Display SNP with an underline; rs107746998; G for A/J.  Expect: G underlined.</li>
+    		    </ol></li>   
+    		 
+    		<li>Verify SNP with multiple populations for a single SubSNP.
+    		<p concordion:assertTrue="true">PASS - jlewis; 12/11/15</p>      
+    		<ol><li>Display SNP ; rs4228732.  Expect: same display as Public.</li>
+    		    </ol></li>
+    		    
+    		<li>Verify SNP for with N as an allele value (seems to no longer exist (not in User Help) -- rmb will verify)
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Display SNP ; rsxxx.  Expect: same display as Public.</li>
+    		    </ol></li>   
+    		 
+    		<li>Verify SNP with consensus allele calls for some strains 
+    		<p concordion:assertTrue="false">FAIL: jlewis 12/11/15; background color for dash and question mark differ from Public.</p>       
+    		<ol><li>Display Mixed SNP ; rs3021912.  Expect: same display as Public.</li>
+    		    </ol></li>
+    		    
+    		<li>Verify strain tool tip handles superscripts
+    		<p concordion:assertTrue="true">PASS - jlewis; 12/11/15</p>       
+    		<ol><li>Display SNP with a strain that has a superscript; rs362628670.  Expect: BTBR... strain to display superscripts in tool tip.</li>
+    		</ol></li>   
+    		    
+    		<li>Verify assay ribbon displays okay in all supported browsers.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Use selected above tests to verify.</li>
+    		    </ol></li>
+    		
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
