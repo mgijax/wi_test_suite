@@ -37,6 +37,7 @@
        <li>Display a separate table of SubSNPs with no allele calls if those are present.</li>
        <li>Bold the ID of the Exemplar SubSNP if it has been displayed on the page.</li>
        <li>Roll over tool tip for strain columns - tool tip recognizes superscripts.</li>
+       <li>NOT PART OF THIS STORY -- snps with no marker association.  Not currently in Search index.  Verify these as part of story that fixes this issue.</li>
     </ol>   
    
 </div>
@@ -55,7 +56,7 @@
 		<ol>
 		
 		    <li>Verify all fields for 1 location, basic SNPs
-    		<p concordion:assertTrue="false">FAIL - jlewis; 12/11/15; Test 1.4 - no SNP found</p>     
+    		<p concordion:assertTrue="true">PASS - jlewis 12/14/15</p>     
     		<ol><li>Display SNP with a single sub snp; rs33825453.  Expect: same as public.</li>
     		    <li>Display SNP with multiple sub snps: rs30612375.  Expect: same as public except updated in build 142.</li>
     		    <li>Display SNP with a reverse orientation and exemplar; rs108186827.  Expect: exemplar in bold; same as public.</li>
@@ -100,7 +101,7 @@
     		    </ol></li>
     		    
     		<li>Verify consensus SNP allele underlined = Nucleotide value conflict for the strain; consensus value determined by majority. 
-    		<p concordion:assertTrue="false">FAIL - jlewis; 12/11/15</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis; 12/14/15</p>        
     		<ol><li>Display SNP when an allele underlined in the consensus SNP ; rs3142930; G for DBA/2J.  Expect: same display as Public.</li>
     		    <li>Display SNP with an underline; rs107746998; G for A/J.  Expect: G underlined.</li>
     		    </ol></li>   
@@ -116,17 +117,17 @@
     		    </ol></li>   
     		 
     		<li>Verify SNP with consensus allele calls for some strains 
-    		<p concordion:assertTrue="false">FAIL: jlewis 12/11/15; background color for dash and question mark differ from Public.</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis; 12/14/15</p>          
     		<ol><li>Display Mixed SNP ; rs3021912.  Expect: same display as Public.</li>
     		    </ol></li>
     		    
     		<li>Verify strain tool tip handles superscripts
     		<p concordion:assertTrue="true">PASS - jlewis; 12/11/15</p>       
-    		<ol><li>Display SNP with a strain that has a superscript; rs362628670.  Expect: BTBR... strain to display superscripts in tool tip.</li>
+    		<ol><li>Display SNP with a strain that has a superscript; rs28189792.  Expect: BTBR... strain to display superscripts in tool tip.</li>
     		</ol></li>   
     		    
     		<li>Verify assay ribbon displays okay in all supported browsers.
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis; 12/11/15</p>    
     		<ol><li>Use selected above tests to verify.</li>
     		    </ol></li>
     		
