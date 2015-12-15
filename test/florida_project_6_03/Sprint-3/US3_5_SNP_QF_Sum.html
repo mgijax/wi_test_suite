@@ -37,14 +37,14 @@
       </ol></li>
       <li>QF - Include Associated Gene ribbon
       <ol><li>Gene field - remove operators, accept wildcard, accept lists of symbols, search limted to current symbols</li>
-          <li>FOR THIS STORY --- DON'T TEST THIS FIELD: SNPs Located Near Genes - within 2 kb of (default); other options = within coordinates, within 10 kb</li>
+          <li>SNPs Located Near Genes - within 2 kb of (default); other options = within coordinates, within 10 kb</li>
       </ol></li>
      <li>Use the following defaults for the query by marker symbol:
       <ol>
           <li>Only SNP variation type (No IN-DEL, Named, Mixed, or MNP variations)</li>
           <li>Include SNPs with SINGLE locations (per Carol on 12/8; don't return ones with multiple locations).  Summary may include these (original definition of story), limited testing, if any, needed.</li>
           <li>Return SNPs with dbSNP function class associations to a marker when there's a distance search -- even if it is outside the range of the distance search. 
-          <ul><li>Limited to testing "within 10 kb of" for this user story</li> </ul></li>
+          </li>
       </ol></li>
       <li>Use new roll-up/down QF and Summary page paradigm</li>
       <li>Summary pages use the standard pagination paradigm.  Propose: use Marker Summary options: (50, 100, 250, 500) with the default = 100.</li>
@@ -86,33 +86,33 @@
 		<ol>
 		
 		    <li>Query for SNPs by Marker Symbol (matching to current symbols only)
-    		<p concordion:assertTrue="true">PASS - jlewis 12/14/15</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 12/15/15</p>    
     		<ol>
-    		  <li>Query by text that matches a current symbol; Pax6.  Expect: 1 marker matched; 130 rows returned (if matching marker name - Paupar SNPs would also be returned)</li>
-    		  <li>Query by text + wildcard that matches current symbols; Pax6*.  Expect: 2 markers matched (Pax6, Pax6os1); 723 rows returned.  Elp4 not returned (matches human synonym)</li>
+    		  <li>Query by text that matches a current symbol; Pax6.  Expect: 1 marker matched; 61/69/129 rows returned (if matching marker name - Paupar SNPs would also be returned)</li>
+    		  <li>Query by text + wildcard that matches current symbols; Pax6*.  Expect: 2 markers matched (Pax6, Pax6os1); 629/644/718 rows returned.  Elp4 not returned (matches human synonym)</li>
     		  <li>Query by text that doesn't match any markers; football.  Expect: no rows returned.</li>
-              <li>Query by list of valid markers; Pax4, Pax6, Lep.  Expect: 3 markers returned; 627 rows returned.</li>
+              <li>Query by list of valid markers; Pax4, Pax6, Lep.  Expect: 3 markers returned; 288/328/626 rows returned.</li>
               <li>Query by list of markers including an invalid one; Pax4, football, Pax6.  Expect:  2 markers returned, no errors.</li>
               <li>Query by marker synonym that matches no current symbols; Sox10m1 (synonym for Ednrb).  Expect: 0 markers returned; no rows returned.</li>
     		</ol></li>
     		
     		<li>Verify only SNP Variation type is returned (SNP, IN-DEL, Named, Mixed, MNP)
-    		<p concordion:assertTrue="false">FAIL - jlewis 12/15/15; IN-DELs, Mixed, MNP returned</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 12/15/15</p>    
     		<ol>
-    		  <li>Query for marker with only SNP variations; Brca2.  Expect: 289 rows returned -- all SNP</li>
-    		  <li>Query for marker with IN-DEL variations; Hprt.  Expect: no IN-DELs returned (IN-DELs returned)</li>
+    		  <li>Query for marker with only SNP variations; Brca2.  Expect: 216/227/289 rows returned -- all SNP</li>
+    		  <li>Query for marker with IN-DEL variations; Hprt.  Expect: no IN-DELs returned</li>
     		  <li>Query for marker with Named variation; D15Mit121.  Expect: no Named returned (not returned - maybe no longer a valid test case)</li>
-    		  <li>Query for marker with Mixed variations; Hnf4a.  Expect: no Mixed returned (2 within coords; 1 function class) (MIXED RETURNED)</li>
-    		  <li>Query for marker with MNP variations; Ube3b.  Expect: no MNP returned (MNP RETURNED)</li>
+    		  <li>Query for marker with Mixed variations; Hnf4a.  Expect: no Mixed returned (2 within coords; 1 function class)</li>
+    		  <li>Query for marker with MNP variations; Ube3b.  Expect: no MNP returned</li>
     		</ol></li>
     		
-    		<li>Verify all dbSNP function classes are returned
+    		<li>Verify all dbSNP function classes are returned.  Search by marker symbol/within 2 kb.
     		<p concordion:assertTrue="true">PASS - jlewis 12/15/15</p>    
     		<ol>
     		  <li>Query for marker with a Coding-NonSynonymous SNP; Trappc8.  Expect: 5 returned.</li>
-    		  <li>Query for marker with a Coding-Synonymous SNP; Cpt1a.  Expect: 3 rows returned with this class.</li>
-    		  <li>Query for marker with a Intron SNP; Kdm5d.  Expect: 33 rows returned with this class.</li>
-    		  <li>Query for marker with a Locus-Region SNP; Gal.  Expect: 31 rows returned with this class.</li>
+    		  <li>Query for marker with a Coding-Synonymous SNP; Cpt1a.  Expect: 5 rows returned with this class.</li>
+    		  <li>Query for marker with a Intron SNP; Kdm5d.  Expect: 34 rows returned with this class.</li>
+    		  <li>Query for marker with a Locus-Region SNP; Gal.  Expect: 30 rows returned with this class.</li>
     		  <li>Query for marker with a mRNA-UTR SNP; Xk.  Expect: 21 rows returned with this class.</li>
     		  <li>Query for marker with a Noncoding-Transcript-Variant SNP; Klc2.  Expect: 7 rows returned.</li>
     		  <li>Query for marker with a Splice-Site SNP; Adamts15.  Expect:  1 row returned with this class.</li>
@@ -127,7 +127,7 @@
     		
     		
     		<li>Verify pagination controls - page size, default, etc.
-    		<p concordion:assertTrue="false">FAIL - jlewis; 12/14/15 - defaults not set yet, first/last options not present</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 12/15/15</p>    
     		<ol>
     		  <li>Run query that returns multiple pages of results.  Expect: Default of 100 SNPs, option to change to other sizes.</li>
     		  <li>Run query that returns 1 page of results.  Expect: Default of 100 SNPs.</li>
@@ -135,14 +135,15 @@
     		</ol></li>
     		
     		<li>Verify roll-up/down paradigm
-    		<p concordion:assertTrue="false">FAIL - jlewis 12/14/15; roll-up not working when search button clicked on.</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 12/15/15</p>     
     		<ol>
-    		  <li>Run query with marker text and default location.  Expect: parameters still in place when re-opening QF.</li>
-    		  <li>Run query with marker text and non-default location.  Expect: parameters still in place when re-opening QF.</li>
+    		  <li>Query using the QF with no summary results.  Expect: QF to roll-up when search button hit.</li>
+    		  <li>Query by opening the rolled up QF.  Expect: both open controls to open form.</li>
+    		  <li>Query using the QF with summary results.  Expect: QF to roll-up when search button hit.</li>
     		</ol></li>
     		
     		<li>Verify sort order
-    		<p concordion:assertTrue="false">>WAITING - on sort order to be implemented</p>    
+    		<p concordion:assertTrue="false">SORTING DEFERRED to another user story</p>    
     		<ol>
     		  <li>Query for results on 1 chromosome; Pax6*.  Expect: SNPs in coordinate order.</li>
     		  <li>Query for results on multiple chromosomes; Pax*.  Expect: SNPs in chr/coordinate order (chromosomes: 1,2,4,5,6,12,16,19).</li>
@@ -151,23 +152,14 @@
     		
     		
     		<li>Verify Gene column alpha sort order
-    		<p concordion:assertTrue="false">WAITING - on sort order to be implemented</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 12/15/15</p> 
     		<ol>
-    		  <li>Return SNP with multiple associated genes; mt-Tp.  Expect: genes in alpha order.  </li>
+    		  <li>Return SNP with multiple associated genes; Klc2.  Expect: genes in alpha order.  </li>
     		  <li>Return SNPs with multiple associated genes (some numeric symbols too); Xk.  Expect: genes in alpha order.</li>
     		</ol></li>
     		
-    		<li>Verify Gene column displays all dbSNP function class associations
-    		<p concordion:assertTrue="false">WAITING - on sort order to be implemented</p>    
-    		<ol>
-    		  <li>Return SNP with a single function class; Lepr.  Expect: function class displayed okay (lots of SNPs for Lepr with only Intron associations.)</li>
-    		  <li>Return SNP with multiple function classes; Klc2.  Expect: all function class annotations displayed and in alpha order.</li>
-    		  <li>Return SNP with multiple function classes with one being "contig_reference"; Klc2.  Expect: all function classes displayed.</li>
-    		</ol></li>
-    		
-    		
     		<li>Test Summary on all supported browsers: PC (Firefox, Chrome); Mac(Firefox, Chrome, Safari)
-    		<p concordion:assertTrue="false">new test</p>   
+    		<p concordion:assertTrue="true">PASS - jlewis 12/15/15</p>  
     		<ol>
     		  <li>Repeat selected above tests for each OS/browser combination.</li>
     		</ol></li>
