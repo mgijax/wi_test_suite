@@ -1,0 +1,167 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 8: Add marker ribbon to SNP Detail</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>SNP Detail - Marker ribbon</h1>
+    <ul>
+        <li>US8: Add Markers to SNP Detail</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+        <li>Display a ribbon of marker associations for a SNP.  It is possible for a SNP to have no associated markers.  In that case do not display the ribbon.</li> 
+        <li>Use new styling: Title case for labels, links not underlined, wrapping, other?</li>
+        <li>Marker associations to display include:
+        <ol><li>all markers that have a dbSNP function class for this SNP.</li>
+            <li>all eligible markers where this SNP is "within coordinates".</li>
+            <li>all eligible markers that are within 2KB upstream/downstream (or proximal/distal) of SNP coordinate.</li>
+        </ol></li>
+        <li>Eligible markers are those that have had associations determined in the back-end.  All markers with coordinates except QTL, Cytogenetic, and Heritable Phenotype. (is it true this is driven by the data or is there new logic in place for this rule?)</li>
+        <li>Data displayed in this ribbon is consistent with the current Public display
+        <ul><li>Exception: display of distance direction for the Locus-Region function class.</li></ul></li>
+        <li>SNPs with multiple locations have 2 tables in this ribbon (location at top of each table).</li>
+        <li>Location is displayed at the top of the table.  Location= chromosome, coordinate, genome build number, rs orientation</li>
+        <li>Each marker with an association to the SNP is a row in the table -- certain fields may have multiple fields which will result in multiple sub-rows.</li>
+        <li>All columns are displayed for each marker -- symbol, name, and function class will always have a value.  The others may be blank.</li>
+        <li>Table - sort rows: smart alpha by marker symbol.
+        <ol>
+            <li>Symbol - marker symbol linked to Marker Detail page</li>
+            <li>Name - marker name</li>
+            <li>Multiple occurrences of Transcript ID, Protein ID, and/or dbSNP function class results in sub-rows for all fields except marker symbol/name.</li>
+            <li>Multiple sub-rows may result in Transcript and/or Protein IDs listed multiple times.</li> 
+            <li>Transcript - display ID, link to MGI Sequence Detail page.</li>
+            <li>Protein - display ID, link to MGI Sequence Detail page.</li>
+            <li>Function Class - dbSNP function class, within coordinates of, or within distance of.
+            <ol><li>Multiple dbSNP function classes are possible for a marker - display all of them, no exclusions.</li>
+                <li>Sort order of sub rows for multiple function classes for a marker: Primary: alpha by function class; Secondary: alpha by Transcript ID or no secondary sort?  What does Public do here?</li>
+                <li>Append distance direction to the dbSNP function class "Locus-Region" (part of original SNP requirements, but not part of most recent Public version)</li>
+                <li>Display "{distance} bp {direction} of" for each distance association.</li>
+            </ol></li>
+            <li>Allele - use same background color as Assay ribbon for each allele.</li>
+            <li>Residue - display as stored in database</li>
+            <li>Codon Position - display as stored in database</li>
+            <li>AA Position - display as stored in database</li>
+        </ol></li>  
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify marker ribbon exists when a marker association is present
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Display SNP with both distance and dbSNP function class markers; rsnnnnn.  Expect: </li>
+    		    <li>Display SNP with only distance function class markers; rsnnnnn.  Expect:  </li>
+    		    <li>Display SNP with only dbSNP function class markers; rsnnnnn.  Expect:  </li>
+    		    <li>Display SNP with a marker association beyond 2 KB; rsnnnnnn.  Expect: Xxx not in the list of marker associations.</li>
+    		    <li>Display SNP with no marker associations; rs33855201.  Expect:  no marker ribbon.</li>
+    		    </ol></li>
+		
+		    <li>Verify SNPs that are within the coordinate range of ineligible markers do not have them listed in the Marker ribbon
+    		<p concordion:assertTrue="false">new test</p>        
+    		<ol><li>Display SNP in the range of a QTL; rsnnnnn.  Expect: QTL not listed.</li>
+    		    <li>Display SNP in the range of a Cyto marker; rsnnnnn.  Expect: Cyto marker not listed.</li>
+    		    <li>Display SNP in the range of a heritable pheno marker; rsnnnnn.  Expect: marker not listed.</li>
+    		    </ol></li>
+    		
+    		<li>Verify SNP with multiple locations
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Display a multiple location SNP that displays 2 different genes; rs107905296.  Expect: 2 tables displayed; different locations; different genes.</li>
+    		    <li>Display a multiple location SNP that displays the same gene; rsnnnnn.  Expect: 2 tables; 2 diff locations; same gene.</li>
+    		    </ol></li>
+    		
+    		<li>Verify SNP location display
+    		<p concordion:assertTrue="false">new test</p>      
+    		<ol><li>Display SNP with a reverse orientation; rsnnnnn.  Expect:</li>
+    		    <li>Display SNP with MT chromosome; rsnnnnn.  Expect:</li>
+    		    </ol></li>
+    		
+    		<li>Verify SNPs with marker associations with no sub-rows
+    		<p concordion:assertTrue="false">new test</p>     
+    		<ol><li>Display SNP with a single marker association/dbSNP FC.  Expect:</li>
+    		    <li>Display SNP with a single marker association/distance FC.  Expect:</li>
+    		    <li>Display SNP with multiple markers/1 row each; no sub-rows.  Expect:</li>
+    		    </ol></li>
+    		 
+    		 <li>Verify SNPs with marker associations with sub-rows (i.e. multiple values for some fields)
+    		<p concordion:assertTrue="false">new test</p>           
+    		<ol><li>Display SNP with multiple dbSNP classes; no seq ids; rsnnnnn.  Expect:  </li>
+    		    <li>Display SNP with multiple transcript ids; rsnnnnn.  Expect:  </li>
+    		    <li>Display SNP with multiple protein ids; rsnnnnn.  Expect:  </li>
+    		    
+    		    </ol></li>
+    		
+    		<li>Verify sorting of dbSNP function classes for a marker (when multiple ones exist)
+    		<p concordion:assertTrue="false">new test</p>         
+    		<ol><li>Display SNP with multiple Introns; rsnnnnn.  Expect:  secondary sort?</li>
+    		    <li>Display SNP with mRNA... plus others; rsnnnn.  Expect: sort to be case insensitive.</li>
+    		    </ol></li>  
+    		    
+    		<li>Verify SNP with Locus-Region includes distance direction
+    		<p concordion:assertTrue="false">new test</p>           
+    		<ol>
+    		    <li>Display SNP with Locus-Region upstream/downstream; rsnnnnn, rsnnnnnn.  Expect:</li>
+    		    <li>Display SNP with Locus-Region proximal/distal; rsnnnnn, rsnnnnn.  Expect:</li>
+    		    </ol></li>
+    		    
+    		<li>Verify SNPs with Alleles in marker ribbon
+    		<p concordion:assertTrue="false">new test</p>           
+    		<ol><li>Display SNP with alleles displayed in marker ribbon; rsnnnnn.  Expect:.</li>
+    		    </ol></li>   
+    		 
+    		    
+    		<li>Verify assay ribbon displays okay in all supported browsers.
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Use selected above tests to verify.</li>
+    		    </ol></li>
+    		
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
