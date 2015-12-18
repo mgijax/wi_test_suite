@@ -35,7 +35,7 @@
             <li>all eligible markers where this SNP is "within coordinates".</li>
             <li>all eligible markers that are within 2KB upstream/downstream (or proximal/distal) of SNP coordinate.</li>
         </ol></li>
-        <li>Eligible markers are those that have had associations determined in the back-end.  All markers with coordinates except QTL, Cytogenetic, and Heritable Phenotype. (is it true this is driven by the data or is there new logic in place for this rule?)</li>
+        <li>Eligible markers are those that have had associations determined in the back-end.  All markers with coordinates except QTL, Cytogenetic, and Heritable Phenotype. (assume this is driven by the data from back-end)</li>
         <li>Data displayed in this ribbon is consistent with the current Public display
         <ul><li>Exception: display of distance direction for the Locus-Region function class.</li></ul></li>
         <li>SNPs with multiple locations have 2 tables in this ribbon (location at top of each table).</li>
@@ -48,19 +48,24 @@
             <li>Name - marker name</li>
             <li>Multiple occurrences of Transcript ID, Protein ID, and/or dbSNP function class results in sub-rows for all fields except marker symbol/name.</li>
             <li>Multiple sub-rows may result in Transcript and/or Protein IDs listed multiple times.</li> 
+            <li>Sub-row sort order: Primary: Transcript ID; Secondard: alpha by function class.</li>
             <li>Transcript - display ID, link to MGI Sequence Detail page.</li>
             <li>Protein - display ID, link to MGI Sequence Detail page.</li>
             <li>Function Class - dbSNP function class, within coordinates of, or within distance of.
             <ol><li>Multiple dbSNP function classes are possible for a marker - display all of them, no exclusions.</li>
-                <li>Sort order of sub rows for multiple function classes for a marker: Primary: alpha by function class; Secondary: alpha by Transcript ID or no secondary sort?  What does Public do here?</li>
                 <li>Append distance direction to the dbSNP function class "Locus-Region" (part of original SNP requirements, but not part of most recent Public version)</li>
-                <li>Display "{distance} bp {direction} of" for each distance association.</li>
+                <li>Display "{distance} bp {direction} of" for upstream/downstream distance association.</li>
+                <li>Display "{distance} bp {direction}" for proximal/distal distance association.</li>
             </ol></li>
             <li>Allele - use same background color as Assay ribbon for each allele.</li>
             <li>Residue - display as stored in database</li>
             <li>Codon Position - display as stored in database</li>
             <li>AA Position - display as stored in database</li>
         </ol></li>  
+        <li>Fix bugs on Public
+        <ol><li>Display RefSeqs with prefix XM/XR (transcripts) and XP (proteins).  These are missing on Public even though Richard sees data there.</li>
+            <li>Misalignment of some Transcript/Protein RefSeq pairs.</li>
+        </ol></li>
     </ol>   
    
 </div>
@@ -83,7 +88,7 @@
     		<ol><li>Display SNP with both distance and dbSNP function class markers; rsnnnnn.  Expect: </li>
     		    <li>Display SNP with only distance function class markers; rsnnnnn.  Expect:  </li>
     		    <li>Display SNP with only dbSNP function class markers; rsnnnnn.  Expect:  </li>
-    		    <li>Display SNP with a marker association beyond 2 KB; rsnnnnnn.  Expect: Xxx not in the list of marker associations.</li>
+    		    <li>Display SNP with a marker association beyond 2 KB; rs33437897.  Expect: Gm25481 not in the list of marker associations. This marker has a distance relationship of 4767 upstream.</li>
     		    <li>Display SNP with no marker associations; rs33855201.  Expect:  no marker ribbon.</li>
     		    </ol></li>
 		
@@ -109,7 +114,7 @@
     		<li>Verify SNPs with marker associations with no sub-rows
     		<p concordion:assertTrue="false">new test</p>     
     		<ol><li>Display SNP with a single marker association/dbSNP FC.  Expect:</li>
-    		    <li>Display SNP with a single marker association/distance FC.  Expect:</li>
+    		    <li>Display SNP with a single marker association/distance FC; rs29601346.  Expect: Lep/no transcript/no protein/1251 bp downstream</li>
     		    <li>Display SNP with multiple markers/1 row each; no sub-rows.  Expect:</li>
     		    </ol></li>
     		 
@@ -121,10 +126,11 @@
     		    
     		    </ol></li>
     		
-    		<li>Verify sorting of dbSNP function classes for a marker (when multiple ones exist)
+    		<li>Verify sorting of sub-rows for a marker
     		<p concordion:assertTrue="false">new test</p>         
-    		<ol><li>Display SNP with multiple Introns; rsnnnnn.  Expect:  secondary sort?</li>
-    		    <li>Display SNP with mRNA... plus others; rsnnnn.  Expect: sort to be case insensitive.</li>
+    		<ol><li>Display SNP with multiple dbSNP function classes that are the same; rs29598424.  Expect:  Lep/2 transcripts/0 proteins/2 mRNA-UTR/sort by refseq id.</li>
+    		    <li>Display SNP with lots of transcript IDs; rs237160095.  Expect: Pax2/11 transcripts/0 proteins/Intron.</li>
+    		    <li>Display SNP with multiple dbSNP classes for a single marker; rs26922534.  Expect: Wrap3/4 transcripts/0 proteins/2 mRNA-UTR/1 Noncoding-T-V/1 Locus Region.</li>
     		    </ol></li>  
     		    
     		<li>Verify SNP with Locus-Region includes distance direction
@@ -132,6 +138,13 @@
     		<ol>
     		    <li>Display SNP with Locus-Region upstream/downstream; rsnnnnn, rsnnnnnn.  Expect:</li>
     		    <li>Display SNP with Locus-Region proximal/distal; rsnnnnn, rsnnnnn.  Expect:</li>
+    		    </ol></li>
+    		    
+    		<li>Verify SNPs with XM, XR, XP RefSeqs
+    		<p concordion:assertTrue="false">new test</p>      
+    		<ol><li>Display SNP with a XM transcript; rs48316449  Expect: Lep/XM/no protein/Intron</li>
+    		    <li>Display SNP with a XR RefSeq; rsnnnnn.  Expect:</li>
+    		    <li>Display SNP with a XP protein; rs29392909.  Expect: Trp53: 8 subrows.  Multiple dbSNP classes per transcript - verify sort.  All rows have transcript+protein.</li>
     		    </ol></li>
     		    
     		<li>Verify SNPs with Alleles in marker ribbon
