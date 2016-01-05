@@ -1,0 +1,151 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 8: Add marker ribbon to SNP Detail</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>SNPs - Batch Query</h1>
+    <ul>
+        <li>US45: update femover to use new back-end SNP/marker associations (Batch Query)</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Return SNPs for a marker (option in Additional Information radio buttons)
+       <ol><li>Return all SNPs associated to a marker via dbSNP function classes (regardless of distance from the marker).</li>
+           <li>Return add'l SNPs that are located within 2 KB upstream or downstream (or proximal/distal) from the marker.</li>
+           <li>Do not return any multiple location SNPS.</li>
+           <li>Do not return any variation types other than SNP.  E.g. no IN-DEL, Mixed, etc.</li>
+           <li>By policy we don't associate SNPs to certain types of markers: QTL, heritable phenotype, Cytogenetic.</li>
+           <li>If a marker has no SNPs -- the SNP column is empty.</li>
+       </ol></li>
+       
+       <li>Return Markers for a SNP (rs id)
+       <ol><li>Return all Markers associated to the SNP via a dbSNP function class (regardless of distance from the SNP).</li>
+           <li>Return all Markers located within 2 KB upstream or downstream (or proximal/distal) from the SNP.</li>
+           <li>Do not return any markers for a SNP with multiple locations.</li>
+           <li>Do not return any markers for a SNP with a variation other than SNP (e.g. IN-DEL, Mixed)</li>
+           <li>Do not return any markers of type: QTL, heritable phenotype, Cytogenetic.</li>
+           <li>If a SNP has no markers - return a row with no associated markers.</li>
+       </ol></li>
+       
+       <li>This user story includes changes to the SNP count for a marker.  Deferring the testing of these counts to US 41 -- SNP Summary for a Marker.</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li>Verify correct SNPs are returned for a marker via dbSNP associations
+		    <p concordion:assertTrue="false">new test</p> 
+		    <ol><li>Query by marker with SNPs that have a single dbSNP function class for a marker; Gm5524.  Expect: SNP rs31030915 to be returned.</li>
+		        <li>Query by marker with SNPs that have multiple dbSNP function classes for a marker; Lepr.  Expect: SNP rs3091041 to be returned.</li>
+		        <li>Query by marker with a SNP that has a Contig-Reference function class and a 2nd function class annotated; Trp53.  Expect: SNP rs29392909 returned due to the non-Contig-Reference function class.</li>
+		        <li>Query by marker with a SNP that has ONLY a Contig-Reference function class for a marker; Xxx.  Expect: SNP not returned.  DOES THIS CASE EXIST?</li>
+		        <li>Query by marker with a SNP outside the 2KB range with a dbSNP function clase; Gm33973.  Expect: SNP rs6367566 to be returned.</li>
+		    </ol></li>
+		    
+		    <li>Verify correct SNPs are returned for a marker via distance relationships
+		    <p concordion:assertTrue="false">new test</p> 
+		    <ol><li>Query by marker with SNPs associated by within coordinates; D7Mit31.  Expect: SNP to be returned; rs36519101.</li>
+		        <li>Query by marker with SNPs associated by distance and less than 2kb; Pax4.  Expect: SNP to be returned; rs213561160.</li>
+		        <li>Query by marker with SNP associated by distance (proximal/distal) and less than 2kb; Cpgi17217.  Expect: SNP to be returned; rs33824078.</li>
+		        <li>Query by marker with SNPs associated by distance greater than 2Kb; Gm25481.  Expect: SNPs with a distance greater than 2KB are NOT returned; rs33437897.</li>
+		    </ol></li>
+		    
+		    <li>Verify cases when SNPs should NOT be returned for a marker.
+		    <p concordion:assertTrue="false">new test</p> 
+		    <ol><li>Return SNPs for a marker that has multiple location SNPs; Sly.  Expect: No SNPs returned; this gene only has multiple location SNPs.</li>
+		        <li>Return SNPs for a marker that has IN-DEL or Mixed SNPs; Sim1.  Expect: no Mixed or IN-DELs returned; e.g. rs8244363.</li>
+		        <li>Select SNPs for a QTL marker; Loco1.  Expect: no SNPs returned.</li>
+		        <li>Select SNPs for a heritable phenotype marker; Wld.  Expect:  no SNPs returned.</li>
+		        <li>Select SNPs for a Cytogenetic marker; MGI:3616202.  Expect:  no SNPs returned; Public returns several.</li>
+		    </ol></li>
+		    
+		    <li>Verify that markers with no SNPs return a blank column
+		    <p concordion:assertTrue="false">new test</p> 
+		    <ol><li>Query by a marker with no SNPs; Ren2.  Expect: A blank column when SNPs are selected.</li>
+		    </ol></li>
+		    
+		     <li>Verify correct markers are returned for a SNP with dbSNP associations
+		    <p concordion:assertTrue="false">new test</p> 
+		    <ol>
+		        <li>Query by SNP that has a single dbSNP function class for a marker; rs31030915.  Expect: marker Gm5524 returned.</li>
+		        <li>Query by SNP that has multiple dbSNP function classes for a marker; rs3091041.  Expect: marker Lepr to be returned.</li>
+		        <li>Query by SNP that has a Contig-Reference function class and a 2nd function class annotated; rs29392909.  Expect: marker Trp53 returned due to the non-Contig-Reference function class.</li>
+		        <li>Query by SNP that has ONLY a Contig-Reference function class for a marker; rsnnnn.  Expect: marker not returned.  DOES THIS CASE EXIST?</li>
+		        <li>Query by a SNP with a dbSNP function class association to a marker where the SNP is beyond the 2KB region; rs6367566.  Expect: marker Gm33973 to be returned.</li>
+		    </ol></li>
+		    
+		    <li>Verify correct markers are returned for a SNP via distance relationships
+		    <p concordion:assertTrue="false">new test</p> 
+		    <ol><li>Query by SNP associated by within coordinates; rs36519101.  Expect: Marker D7Mit31 to be returned.</li>
+		        <li>Query by SNP associated by distance and less than 2kb; rs213561160.  Expect: Marker Pax4 to be returned.</li>
+		        <li>Query by SNP associated by distance (proximal/distal) and less than 2kb; rs33824078.  Expect: Marker Cpgi17217 to be returned.</li>
+		        <li>Query by a SNP associated to a marker via distance greater than 2kb; rs33437897.  Expect: Markers associated via a distance greater than 2kb are NOT returned; Gm25481 should not be returned.</li>
+		    </ol></li>
+		    
+		    <li>Verify cases when markers should NOT be returned for a SNP.
+		    <p concordion:assertTrue="false">new test</p> 
+		    <ol><li>Query by a SNP with multiple location; rs107905296.  Expect: no markers returned</li>
+		        <li>Query by an IN-DEL; rs8253350.  Expect: associated marker Oprk1 NOT returned.</li>
+		        <li>Query by a mixed; rs16812175.  Expect: no associated markers; including Ren1.</li>
+		        <li>Query by a SNP that is located within a QTL marker's coordinates; rs29662355.  Expect: no QTL returned (Hivan1 - QTL with coordinates that overlap this SNP).</li>
+		        <li>Query by a SNP that is located within a heritable phenotype marker's coordinates; rs16811814.  Expect: no heritable phenotype marker returned; ctl should not be returned (within coordinates).</li>
+		        <li>Query by a SNP that is located within a Cytogenetic marker's coordinates; rs13486747.  Expect: no Cytogenetic marker returned (Del(5Gtf2i-Limk1)1Uta - cyto marker that overlaps with this SNP).</li>
+		    </ol></li>
+		    
+		    <li>Verify that a SNP with no marker association returns a blank column
+		    <p concordion:assertTrue="false">new test</p> 
+		    <ol><li>Query by a SNP that has no marker associations; rs33855201.  Expect: A message that no markers are associated to this ID.</li>
+		    </ol></li>
+		
+		    
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
