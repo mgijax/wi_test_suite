@@ -86,7 +86,7 @@
 		    </ol></li>
 		    
 		    <li>Verify cases when SNPs should NOT be returned for a marker.
-		    <p concordion:assertTrue="false">FAIL - 3.2; IN-DEL and Mixed returned (563).</p> 
+		    <p concordion:assertTrue="true">PASS - jlewis; 1/7/2016</p>
 		    <ol><li>Return SNPs for a marker that has multiple location SNPs; Sly.  Expect: No SNPs returned; this gene only has multiple location SNPs.</li>
 		        <li>Return SNPs for a marker that has IN-DEL or Mixed SNPs; Sim1.  Expect: no Mixed or IN-DELs returned; e.g. rs8244363; 557 SNPs.</li>
 		        <li>Select SNPs for a QTL marker; Loco1.  Expect: no SNPs returned.</li>
@@ -117,7 +117,7 @@
 		    </ol></li>
 		    
 		    <li>Verify cases when markers should NOT be returned for a SNP.
-		    <p concordion:assertTrue="false">FAIL - 7.2, 7.3 - IN DEL and Mixed return results</p> 
+		    <p concordion:assertTrue="true">PASS - jlewis; 1/7/2016</p>
 		    <ol><li>Query by a SNP with multiple location; rs107905296.  Expect: no markers returned</li>
 		        <li>Query by an IN-DEL; rs8253350.  Expect: associated marker Oprk1 NOT returned.</li>
 		        <li>Query by a mixed; rs16812175.  Expect: no associated markers; including Ren1.</li>
@@ -132,7 +132,7 @@
 		    </ol></li>
 		    
 		    <li>Verify header fields on Marker SNP Summary
-		    <p concordion:assertTrue="true">FAIL - user help link incorrect</p> 
+		    <p concordion:assertTrue="true">PASS - jlewis; 1/7/2016</p>
 		    <ol><li>Verify header bar: field display and link.</li>
 		        <li>Verify user help link.</li>
 		        <li>Verify pagination, summary display.</li>
