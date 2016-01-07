@@ -29,7 +29,7 @@
     <h2>Test Requirements</h2>
     <ol> 
         <li>Display a ribbon of marker associations for a SNP.  It is possible for a SNP to have no associated markers.  In that case do not display the ribbon.</li> 
-        <li>Use new styling: Title case for labels, links not underlined, wrapping, other?</li>
+        <li>Use new styling: Title case for labels, links not underlined, wrapping</li>
         <li>Marker associations to display include:
         <ol><li>all markers that have a dbSNP function class for this SNP.</li>
             <li>all eligible markers where this SNP is "within coordinates".</li>
@@ -83,75 +83,81 @@
 		
 		<ol>
 		
-		    <li>Verify marker ribbon exists when a marker association is present
-    		<p concordion:assertTrue="false">new test</p>    
-    		<ol><li>Display SNP with both distance and dbSNP function class markers; rsnnnnn.  Expect: </li>
-    		    <li>Display SNP with only distance function class markers; rsnnnnn.  Expect:  </li>
-    		    <li>Display SNP with only dbSNP function class markers; rsnnnnn.  Expect:  </li>
-    		    <li>Display SNP with a marker association beyond 2 KB; rs33437897.  Expect: Gm25481 not in the list of marker associations. This marker has a distance relationship of 4767 upstream.</li>
+		    <li><b>Verify marker ribbon exists when a marker association is present</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/6/2016 (data displayed as loaded; deleted XM observation sent to SME/PO)</p>    
+    		<ol><li>Display SNP with both distance and dbSNP function class markers; rs51567171.  Expect: Gm39552 - within coords; Uty - Intron</li>
+    		    <li>Display SNP with only distance function class markers; rs8281485.  Expect: 9 MT markers with distance relationships; matches Public. </li>
+    		    <li>Display SNP with only dbSNP function class markers; rs50829759.  Expect:  1 NM transcript/Intron pair.  7 XM transcripts - flagged as deleted in MGI.</li>
+    		    <li>Display SNP with a marker distance association beyond 2 KB; rs33437897.  Expect: Gm25481 not in the list of marker associations. This marker has a distance relationship of 4767 upstream.  Gm41889, Xk markers listed </li>
+    		    <li>Display SNP with a dbSNP function class for a marker that is beyond 2KB; rs6367566.  Expect: Gm33973 to be included in marker ribbon (dbSNP FC trumps distance limitation).</li>
     		    <li>Display SNP with no marker associations; rs33855201.  Expect:  no marker ribbon.</li>
     		    </ol></li>
 		
-		    <li>Verify SNPs that are within the coordinate range of ineligible markers do not have them listed in the Marker ribbon
-    		<p concordion:assertTrue="false">new test</p>        
-    		<ol><li>Display SNP in the range of a QTL; rsnnnnn.  Expect: QTL not listed.</li>
-    		    <li>Display SNP in the range of a Cyto marker; rsnnnnn.  Expect: Cyto marker not listed.</li>
-    		    <li>Display SNP in the range of a heritable pheno marker; rsnnnnn.  Expect: marker not listed.</li>
+		    <li><b>Verify SNPs that are within the coordinate range of ineligible markers do not have them listed in the Marker ribbon</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/6/2016</p>        
+    		<ol><li>Display SNP in the range of a QTL; rs29662355.  Expect: QTL not listed (QTL Hivan1 overlaps). Note: case of valid XM (not deleted).</li>
+    		    <li>Display SNP in the range of a Cyto marker; rs13486747.  Expect: Cyto marker not listed (Cyto marker Del(5Gtf2i-Limk1)1Uta overlaps).</li>
+    		    <li>Display SNP in the range of a heritable pheno marker; rs16811814.  Expect: Pheno marker not listed (pheno marker ctl overlaps).</li>
     		    </ol></li>
     		
-    		<li>Verify SNP with multiple locations
-    		<p concordion:assertTrue="false">new test</p>    
+    		<li><b>Verify SNP with multiple locations</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/7/2016</p>    
     		<ol><li>Display a multiple location SNP that displays 2 different genes; rs107905296.  Expect: 2 tables displayed; different locations; different genes.</li>
-    		    <li>Display a multiple location SNP that displays the same gene; rsnnnnn.  Expect: 2 tables; 2 diff locations; same gene.</li>
+    		    <li>Display a multiple location SNP that displays the same gene; rs3022817.  Expect: 2 tables; 2 diff locations; same gene: D1Mit281.</li>
     		    </ol></li>
     		
-    		<li>Verify SNP location display
-    		<p concordion:assertTrue="false">new test</p>      
-    		<ol><li>Display SNP with a reverse orientation; rsnnnnn.  Expect:</li>
-    		    <li>Display SNP with MT chromosome; rsnnnnn.  Expect:</li>
+    		<li><b>Verify SNP location display</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/6/2016</p>    
+    		<ol><li>Display SNP with a reverse orientation; rs46633278.  Expect: Marker Syne1 (Scrumbob displays 18 XM transcripts)</li>
+    		    <li>Display SNP with MT chromosome; rs33259749.  Expect: 10 markers associated via distance relationship.</li>
     		    </ol></li>
     		
-    		<li>Verify SNPs with marker associations with no sub-rows
-    		<p concordion:assertTrue="false">new test</p>     
-    		<ol><li>Display SNP with a single marker association/dbSNP FC.  Expect:</li>
+    		<li><b>Verify SNPs with marker associations with no sub-rows</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/7/2016</p>     
+    		<ol><li>Display SNP with a single marker association/dbSNP FC; rs6367566.  Expect: Gm33973 - Locus-Region.</li>
     		    <li>Display SNP with a single marker association/distance FC; rs29601346.  Expect: Lep/no transcript/no protein/1251 bp downstream</li>
-    		    <li>Display SNP with multiple markers/1 row each; no sub-rows.  Expect:</li>
+    		    <li>Display SNP with multiple markers/1 row each; no sub-rows; rs33259749.  Expect: 10 rows with no sub-rows, sorted alpha by symbol.</li>
     		    </ol></li>
     		 
-    		 <li>Verify SNPs with marker associations with sub-rows (i.e. multiple values for some fields)
-    		<p concordion:assertTrue="false">new test</p>           
-    		<ol><li>Display SNP with multiple dbSNP classes; no seq ids; rsnnnnn.  Expect:  </li>
-    		    <li>Display SNP with multiple transcript ids; rsnnnnn.  Expect:  </li>
-    		    <li>Display SNP with multiple protein ids; rsnnnnn.  Expect:  </li>
+    		 <li><b>Verify SNPs with marker associations with sub-rows (i.e. multiple values for some fields)</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/7/2016</p>            
+    		<ol>
+    		    <li>Display SNP with multiple transcript ids; rs16789951.  Expect:  4 transcripts. Sorted by seq id - smart alpha.</li>
+    		    <li>Display SNP with multiple protein ids; rs33823858.  Expect: 3 sets of transcripts/proteins.  Sort by transcript and function class  </li>
     		    
     		    </ol></li>
     		
-    		<li>Verify sorting of sub-rows for a marker
-    		<p concordion:assertTrue="false">new test</p>         
+    		<li><b>Verify sorting of sub-rows for a marker</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/7/2016</p>         
     		<ol><li>Display SNP with multiple dbSNP function classes that are the same; rs29598424.  Expect:  Lep/2 transcripts/0 proteins/2 mRNA-UTR/sort by refseq id.</li>
     		    <li>Display SNP with lots of transcript IDs; rs237160095.  Expect: Pax2/11 transcripts/0 proteins/Intron.</li>
     		    <li>Display SNP with multiple dbSNP classes for a single marker; rs26922534.  Expect: Wrap3/4 transcripts/0 proteins/2 mRNA-UTR/1 Noncoding-T-V/1 Locus Region.</li>
     		    </ol></li>  
     		    
-    		<li>Verify SNP with Locus-Region includes distance direction
-    		<p concordion:assertTrue="false">new test</p>           
+    		<li><b>Verify SNPs that include distance direction</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/7/2016</p>            
     		<ol>
-    		    <li>Display SNP with Locus-Region upstream/downstream; rsnnnnn, rsnnnnnn.  Expect:</li>
-    		    <li>Display SNP with Locus-Region proximal/distal; rsnnnnn, rsnnnnn.  Expect:</li>
+    		    <li>Display SNP with Locus-Region upstream/downstream; rs29598988 (upstream), rs29599403 (downstream).  Expect: Function class appended with appropriate direction.</li>
+    		    <li>Display SNP with distance association with proximal/distal; rs36693433 (proximal), rs36522050 (distal).  Expect: appropriate direction appended.</li>
     		    </ol></li>
     		    
-    		<li>Verify SNPs with XM, XR, XP RefSeqs
-    		<p concordion:assertTrue="false">new test</p>      
+    		<li><b>Verify SNPs with XM, XR, XP RefSeqs</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/7/2016</p>      
     		<ol><li>Display SNP with a XM transcript; rs48316449  Expect: Lep/XM/no protein/Intron</li>
-    		    <li>Display SNP with a XR RefSeq; rsnnnnn.  Expect:</li>
+    		    <li>Display SNP with a XR RefSeq; rs51567171.  Expect: 3 XR transcripts in Uty row.</li>
     		    <li>Display SNP with a XP protein; rs29392909.  Expect: Trp53: 8 subrows.  Multiple dbSNP classes per transcript - verify sort.  All rows have transcript+protein.</li>
     		    </ol></li>
     		    
-    		<li>Verify SNPs with Alleles in marker ribbon
-    		<p concordion:assertTrue="false">new test</p>           
-    		<ol><li>Display SNP with alleles displayed in marker ribbon; rsnnnnn.  Expect:.</li>
+    		<li><b>Verify SNPs with Alleles in marker ribbon</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/7/2016</p>          
+    		<ol><li>Display SNPs that display all types of alleles; rs33823080 (A/T); rs33823858 (A/G); rs29607066 (C).  Expect: Display to match colors in previous Assay ribbon on page.</li>
+    		    <li>Display SNP with alleles of (-); rs16789951.  Expect: Display to reflect Solr data listed beneath page.SEND TO RMB FOR REVIEW.</li>
     		    </ol></li>   
     		 
+    		<li><b>Verify SNPs with misalignment issues on Public now (example from rmb)</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/7/2016</p>           
+    		<ol><li>Display SNP with issue on Public; rs6314659.  Expect: transcripts and proteins to be aligned properly in table.</li>
+    		</ol></li>  
     		    
     		<li>Verify assay ribbon displays okay in all supported browsers.
     		<p concordion:assertTrue="false">new test</p>    
