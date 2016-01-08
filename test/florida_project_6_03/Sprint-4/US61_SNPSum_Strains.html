@@ -1,0 +1,102 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 61: Add Strains to SNP Summary</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>SNP Summary - Strain columns</h1>
+    <ul>
+        <li>US61: Add strain columns to SNP Summary</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol> 
+       <li>Add Strain columns to the SNP Summary -- both from the Query Form and Marker Detail.</li>
+       <li>Insert strain columns between Variation Type and Allele Summary columns.</li>
+       <li>Sort the strains returned in Smart Alpha order; no concept of primary/secondary strain lists anymore.</li>
+       <li>Use CSS rotation for strain column headings.</li>
+       <li>Strain name in column heading uses angle brackets for superscripts; also truncated.</li>
+       <li>Roll over tool tip for strain columns - tool tip recognizes superscripts and is not truncated.</li>
+       <li>Alleles displayed use standard colors for ACGT.</li>
+       <li>Support ? and underline (_) in allele cells.</li>
+       <li>Only SNP Variations are returned in the SNP Summary -- so the IN-DEL and Mixed features are not part of this story.</li>
+       <li>No query of strains in this user story -- so all strains that are present in the set of query results are displayed.</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+	        <li><b>Verify Summary pages with varying number of strains returned.  Resize browser, page through results, move columns, check sort order.</b>
+    		<p concordion:assertTrue="false">new test</p>        
+    		<ol><li>Query for a marker with a moderate number of strains; Brca1.  Expect: 280 SNPs, 21 strains on Public.</li>
+    		    <li>Query for a marker with many strains; Pax*.  Expect: 5479 SNPs, 57 strains on Public.</li>
+    		</ol></li>   
+    		    
+		    
+    		 
+    		<li><b>Verify consensus SNP allele ? (conflict) and underlines display correctly.</b>
+    		<p concordion:assertTrue="false">new test</p>         
+    		<ol><li>Display SNP with an underline and question mark; Query by location - chrY 2009000-2009999.  Expect: rs107746998 -- ? and underline in RefSNP.</li>
+    		    <li>Display SNP with a ?: Query=Chr19:22940000-22940500.  Expect: rs30306985 displays a question mark.</li>
+    		    <li>Display SNP with only conflicts (?) in the consensus SNP; Query=Chr19: Chr19:26929719-26929719.  Expect: rs30504332 returned; 2 strains both with ?'s. (NOTE: this query returned no results in Jon's dev copy, no sure why)</li>
+    		 
+            </ol></li>   
+      
+    		<li><b>Verify strain tool tip handles superscripts</b>
+    		<p concordion:assertTrue="false">new test</p>        
+    		<ol><li>Query by a marker for SNPs that includes a strain with a superscript; Leprot.  Expect: BTBR... strain to display superscripts in tool tip.</li>
+    		</ol></li>   
+    		    
+    		<li><b>Verify strain columns display okay in all supported browsers.</b>
+    		<p concordion:assertTrue="false">new test</p>    
+    		<ol><li>Use selected above tests to verify.</li>
+    		    </ol></li>
+    		
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
