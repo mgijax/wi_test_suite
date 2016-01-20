@@ -29,7 +29,7 @@
     <h2>Test Requirements</h2>
     <ol> 
        <li>Add Strain columns to the SNP Summary -- both from the Query Form and Marker Detail.</li>
-       <li>Insert strain columns between Variation Type and Allele Summary columns.</li>
+       <li>Insert strain columns after Allele Summary column (note this is different than Public).</li>
        <li>Sort the strains returned in Smart Alpha order; no concept of primary/secondary strain lists anymore.</li>
        <li>Use CSS rotation for strain column headings.</li>
        <li>Strain name in column heading uses angle brackets for superscripts; also truncated.</li>
@@ -37,7 +37,8 @@
        <li>Alleles displayed use standard colors for ACGT.</li>
        <li>Support ? and underline (_) in allele cells.</li>
        <li>Only SNP Variations are returned in the SNP Summary -- so the IN-DEL and Mixed features are not part of this story.</li>
-       <li>No query of strains in this user story -- so all strains that are present in the set of query results are displayed.</li>
+       <li>Return set of strains that have at least one value in the set of query results returned. (future "hide" functionality)</li>
+       <li>Should work on all supported browsers.</li>
     </ol>   
    
 </div>
@@ -55,28 +56,28 @@
 		
 		<ol>
 	        <li><b>Verify Summary pages with varying number of strains returned.  Resize browser, page through results, move columns, check sort order.</b>
-    		<p concordion:assertTrue="false">new test</p>        
+    		<p concordion:assertTrue="true">PASS - jlewis 1/20/2016</p>        
     		<ol><li>Query for a marker with a moderate number of strains; Brca1.  Expect: 280 SNPs, 21 strains on Public.</li>
-    		    <li>Query for a marker with many strains; Pax*.  Expect: 5479 SNPs, 57 strains on Public.</li>
+    		    <li>Query for a marker with many strains; Pax*.  Expect: 5479 SNPs, 57 strains on Public. (5504 SNPs on Scrum Bob)</li>
     		</ol></li>   
     		    
 		    
     		 
     		<li><b>Verify consensus SNP allele ? (conflict) and underlines display correctly.</b>
-    		<p concordion:assertTrue="false">new test</p>         
+    		<p concordion:assertTrue="true">PASS - jlewis 1/20/2016</p>       
     		<ol><li>Display SNP with an underline and question mark; Query by location - chrY 2009000-2009999.  Expect: rs107746998 -- ? and underline in RefSNP.</li>
     		    <li>Display SNP with a ?: Query=Chr19:22940000-22940500.  Expect: rs30306985 displays a question mark.</li>
-    		    <li>Display SNP with only conflicts (?) in the consensus SNP; Query=Chr19: Chr19:26929719-26929719.  Expect: rs30504332 returned; 2 strains both with ?'s. (NOTE: this query returned no results in Jon's dev copy, no sure why)</li>
+    		    <li>Display SNP with only conflicts (?) in the consensus SNP; Query=Chr19: Chr19:26929719-26929719.  Expect: rs30504332 returned; 2 strains both with ?'s.</li>
     		 
             </ol></li>   
       
     		<li><b>Verify strain tool tip handles superscripts</b>
-    		<p concordion:assertTrue="false">new test</p>        
+    		<p concordion:assertTrue="true">PASS - jlewis 1/20/2016</p>        
     		<ol><li>Query by a marker for SNPs that includes a strain with a superscript; Leprot.  Expect: BTBR... strain to display superscripts in tool tip.</li>
     		</ol></li>   
     		    
     		<li><b>Verify strain columns display okay in all supported browsers.</b>
-    		<p concordion:assertTrue="false">new test</p>    
+    		<p concordion:assertTrue="true">PASS - jlewis 1/20/2016</p>    
     		<ol><li>Use selected above tests to verify.</li>
     		    </ol></li>
     		
