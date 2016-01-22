@@ -74,7 +74,7 @@ concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.cus
     		</ol></li>   
     		    
 		    <li><b>Verify 0 result searches.</b>
-    		<p concordion:assertTrue="false">new</p>        
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/16</p>        
     		<ol><li>Query by a gene and 0 strains.  Expect:  0 results.</li>
     		    <li>Query by a chromosome and 0 strains.  Expect:  0 results.</li>
     		    <li>Query by all strains, but no gene.  Expect: 0 results.</li>
@@ -82,13 +82,13 @@ concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.cus
     		</ol></li>   
     		 
     	    <li><b>Verify search results with all strains selected.</b>
-    		<p concordion:assertTrue="false">new</p>        
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/16</p>        
     		<ol><li>Query by Pax4 within 2KB and all strains.  Expect:  119 SNPs returned; 20 strain columns (same results as from Mrk Det)</li>
     		    <li>Query by Sim1 coordinate range plus 2 KB on each end and all strains.  Expect: 552 SNPs returned; 53 strain columns. (note: 5 fewer than from Marker Detail page due to 5 Locus Region SNPs)</li>
     		</ol></li>  
     		
     		 <li><b>Verify search results with a single strain selected.</b>
-    		<p concordion:assertTrue="false">new</p>        
+    		<p concordion:assertTrue="true">PASS - jlewis 1/22/16</p>       
     		<ol><li>Query for a location/single strain that returns a single SNP; ChrY:2009000-2009999 and NOD/ShiLtJ.  Expect: 1 SNP and 1 strain column.</li>
     		    <li>Query for a gene/single strain that returns multiple SNPs; D7Mit31 and C57BL/6J.  Expect: 3 SNPs and 1 strain column.</li>
     		    <li>Query for gene/multiple strains where all strains are found; Uty and 129X1/SvJ; MSM/Ms.  Expect: SNPs that match either strain and both strains.  11 SNPs.</li>

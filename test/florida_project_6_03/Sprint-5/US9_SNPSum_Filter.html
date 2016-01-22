@@ -1,0 +1,97 @@
+concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 9: Filter for SNP function class</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>SNP Summary - filter for SNP function class</h1>
+    <ul>
+        <li>US 9 - Filter for SNP function classes on summary page</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+       <li>Add Function Class filter to SNP Summary using standard filter implementation. (See GO Annotations)</li>
+       <li>A RefSNP may have multiple function classes.</li>
+       <li>The type of original query (either query by region or gene tab) does not effect the way the filter works.</li>
+       <li>The initial filter list will include only dbSNP Function Classes present in the result set (standard behavior).</li>
+       <li>The list of dbSNP Function Classes valid for filtering
+       <ol><li>Coding-NonSynonymous</li>
+           <li>Coding-Synonymous</li>
+           <li>Intron</li>
+           <li>Locus-Region (2.0 kb 5' or 0.5 kb 3')</li>
+           <li>mRNA-UTR</li>
+           <li>Noncoding-Transcript-Variant</li>
+           <li>Splice-Site</li>
+        </ol></li>
+        <li>Exceptions:
+        <ol><li>The Function Class Contig-Reference is not included in the filter options even when present.</li>
+            <li>Locus-Region has add'l text for the filter option vs. what is in the database (db = Locus-Region). Jim indicated he was flexible with this difference if it's an issue.</li>
+        </ol></li>
+        <li>User may select 1 or many function classes to filter by -- return SNPs that have at least one of the selected classes (OR).</li>
+        <li>Display delete buttons for each Function Class selected plus a "Remove All Filters".  Use the same text as in filter box (standard behavior).</li>
+        <li>Update Function Class filter contents to include all function classes that are selected with a check and also any add'l function classes (unchecked) that are still in the results.  This happens because a RefSNP may have multiple function classes.</li>
+        <li>If a user's filter removes all allele calls for a specific strain in the results -- this Strain Column should be removed from the SNP Summary IF the HIDE functionality is set.</li>
+        <li>Question: Count for unfiltered results -- part of this user story?</li>
+        
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+	        <li><b>Test 1</b>
+    		<p concordion:assertTrue="false">new</p>        
+    		<ol><li>test 1.1</li>
+    		   
+    		</ol>
+    		    
+		  
+    		
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
