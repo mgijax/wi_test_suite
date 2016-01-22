@@ -1,0 +1,118 @@
+concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 21: SNP QF-add strain query</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>SNP QF - add strain selection and query</h1>
+    <ul>
+        <li>US21: Support SNP strain selection and querying - not reference strain</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol><li>SNP Query Form requirements:
+        <ol>
+          <li>Add "Strains and Strain Comparisons" ribbon to both tabs of the SNP QF -- each ribbon is independent of the other (don't share values selected).</li>
+          <li>Add a list of all strains in smart alpha order w/ checkboxes</li>
+          <li>Display superscripts in strain names</li>
+          <li>There is no truncation of strain names.</li>
+          <li>Check all boxes by default.</li>
+          <li>Provide Select All and Clear All buttons</li>
+          <li>Return 0 results if a user does not select a strain.</li>
+          <li>Return 0 results if a user selects any or all strains, but does not select any other search criteria.</li>
+          <li>Should work on all supported browsers.</li>
+        </ol></li>
+        <li>SNP Summary (query results) requirements:
+        <ol>
+          <li>Include the query of strains with the existing queries by Region and Gene Nomenclature.</li>
+          <li>Return SNPs that have an allele call for ANY of the selected strains plus any other entered search criteria.  The strain query is an OR.</li>
+          <li>Only display strain columns  for SELECTED strains that have values in the results (this is the hide functionality).</li>
+          <li>Display the strain columns in smart alpha order.</li>
+        </ol></li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+	        <li><b>Verify strain ribbon on Search by Gene tab and Search by Region tab.  They should be the same.</b>
+    		<p concordion:assertTrue="false">new</p>        
+    		<ol><li>Check that ribbon and field names are in title case and correct text.</li>
+    		    <li>Check that all boxes are checked by default -- Reset button should check them all.</li>
+    		    <li>Verify strains are in smart alpha order.</li>
+    		    <li>Verify select all/clear all buttons work.</li>
+    		    <li>Verify that superscripts in strain names are displayed.</li>
+    		    <li>Verify wrapping when resizing of browser window.</li>
+    		    <li>Check above in all supported browsers.</li>
+    		</ol></li>   
+    		    
+		    <li><b>Verify 0 result searches.</b>
+    		<p concordion:assertTrue="false">new</p>        
+    		<ol><li>Query by a gene and 0 strains.  Expect:  0 results.</li>
+    		    <li>Query by a chromosome and 0 strains.  Expect:  0 results.</li>
+    		    <li>Query by all strains, but no gene.  Expect: 0 results.</li>
+    		    <li>Query by all strains, but no location.  Expect:  0 results.</li>
+    		</ol></li>   
+    		 
+    	    <li><b>Verify search results with all strains selected.</b>
+    		<p concordion:assertTrue="false">new</p>        
+    		<ol><li>Query by Pax4 within 2KB and all strains.  Expect:  119 SNPs returned; 20 strain columns (same results as from Mrk Det)</li>
+    		    <li>Query by Sim1 coordinate range plus 2 KB on each end and all strains.  Expect: 552 SNPs returned; 53 strain columns. (note: 5 fewer than from Marker Detail page due to 5 Locus Region SNPs)</li>
+    		</ol></li>  
+    		
+    		 <li><b>Verify search results with a single strain selected.</b>
+    		<p concordion:assertTrue="false">new</p>        
+    		<ol><li>Query for a location/single strain that returns a single SNP; ChrY:2009000-2009999 and NOD/ShiLtJ.  Expect: 1 SNP and 1 strain column.</li>
+    		    <li>Query for a gene/single strain that returns multiple SNPs; D7Mit31 and C57BL/6J.  Expect: 3 SNPs and 1 strain column.</li>
+    		    <li>Query for gene/multiple strains where all strains are found; Uty and 129X1/SvJ; MSM/Ms.  Expect: SNPs that match either strain and both strains.  11 SNPs.</li>
+    		    <li>Query for location/multiple strains when only some of the strains are found; chr7:1-23400000 and BUB; MOLF; NZB/BIN.  Expect: 63 SNPs; BUB and MOLF strains.  NZB/BIN is not present in the coordinate range.</li>
+    		    <li>Query by location/strains that returns SNPs not associated to any markers; ChrY:258000-800000 and 3 strains: 129X1/SvJ; DBA/2J; ZALENDE/EiJ.  Expect: 71 SNPs, 2 strain columns (no alleles for ZALENDE); return of SNP with no marker association - rs33855201.</li>
+    		    
+    		</ol></li>   
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
