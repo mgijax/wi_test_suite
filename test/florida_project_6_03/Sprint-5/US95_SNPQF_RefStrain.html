@@ -1,0 +1,132 @@
+concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 95: SNP QF-add reference strain</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>SNP QF - add reference strain selection and query</h1>
+    <ul>
+        <li>US 95 - Support SNP query for reference strain</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol><li>SNP Query Form requirements:
+        <ol>
+          <li>Add the Reference Strain field to the Strains ribbon on both tabs of the Query Form.</li>
+          <li>Display pull-down list of all strains in alpha order.  Only allow the selection of 1 strain.</li>
+          <li>This field is optional -- the default is No Reference Strain Selected.</li>
+          <li>Display superscripts in strain names (only able to do the angle bracket style).</li>
+          <li>There is no truncation of strain names.</li>
+          <li>Return 0 results if a user selects a Reference Strain and selects no other strains.</li>
+          <li>Should work on all supported browsers.</li>
+        </ol></li>
+        <li>SNP Summary (query results) requirements:
+        <ol>
+          <li>A query with a Reference Strain only returns RefSNPs that have an allele for that Reference Strain AND an allele for one of the selected strains.</li>
+          <li>A valid allele call may be a ? or an allele with an underline -- if present in the Reference Strain the RefSNP is returned.</li>
+          <li>The Reference Strain should be displayed as the first strain column.</li>
+          <li>Modify the column heading for the Reference Strain so that it stands out.</li>
+          <li>Only display strain columns  for SELECTED strains that have values in the results (this is the hide functionality).</li>
+          <li>Display the strain columns in smart alpha order.</li>
+        </ol></li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+	        <li><b>Verify the new Reference Strain field in the strain ribbon on both tabs.  They should be the same.</b>
+    		<p concordion:assertTrue="true">new test</p>        
+    		<ol><li>Check that field names are in title case and correct text.</li>
+    		    <li>Verify the default option of No Reference Strain Selected -- reset button should return it to this value.</li>
+    		    <li>Verify strains in pull-down are in smart alpha order.</li>
+    		    <li>Verify that superscripts in strain names are displayed with angle brackets.</li>
+    		    <li>Verify you can only select 1 strain at a time.</li>
+    		    <li>Verify you can select the default option.</li>
+    		    <li>Verify wrapping of field when resizing of browser window.</li>
+    		    <li>Check above in all supported browsers.</li>
+    		</ol></li>   
+    		
+    		<li><b>Verify queries that include Reference Strain, but would return 0 results due to missing fields on QF.</b>
+    		<p concordion:assertTrue="true">new test</p>        
+    		<ol><li>Query by a gene with a reference strain, but no other strains selected.  Expect: 0 results.</li>
+    		    <li>Query by a location with a reference strain, but no other strains selected.  Expect: 0 results.</li>
+    		    <li>Query on gene tab with Reference Strain, but no gene entered.  Expect: 0 results.</li>
+    		    <li>Query on region tab with Reference Strain, but no location entered.  Expect: 0 results.</li>
+    		</ol></li>   
+    		    
+    		<li><b>Verify that RefSNPs returned have an allele for the Reference Strain selected.</b>
+    		<p concordion:assertTrue="true">new test</p>        
+    		<ol><li>Execute Gene query that returns SNPs that all have alleles for a Strain -- make that strain the Reference Strain; mt-Nd1; within coords; all strains; Ref strain=A/J.  Expect:  17 SNPs returned with/without Reference Strain selection.</li>
+    		    <li>Execute Gene query that returns 1 SNP when Reference Strain selected; Lep; Ref Strain=ZALENDE/EiJ; all strains.  Expect: 1 SNP returned w/ Ref Strain and 140 SNPs returned without Reference strain.</li>
+    		    <li>Execute Gene query that returns mult SNPs when Reference Strain selected; nnnnn.  Expect: nn SNPs returned w/ Ref Strain and nn SNPs returned without Reference strain.</li>
+    		    <li>Execute Region query that returns SNPs that all have alleles for a Strain -- make that strain the Reference Strain; mt-Nd1; within coords; all strains; Ref strain=A/J.  Expect:  17 SNPs returned with/without Reference Strain selection.</li>
+    		    <li>Execute Region query that returns 1 SNP when Reference Strain selected; Lep; Ref Strain=ZALENDE/EiJ; all strains.  Expect: 1 SNP returned w/ Ref Strain and 140 SNPs returned without Reference strain.</li>
+    		    <li>Execute Region query that returns mult SNPs when Reference Strain selected; nnnnn.  Expect: nn SNPs returned w/ Ref Strain and nn SNPs returned without Reference strain.</li>
+    		    
+    		</ol></li>  
+    		
+    		<li><b>Verify that RefSNPs returned have a value for the Strains selected (the non-reference ones).</b>
+    		<p concordion:assertTrue="true">new test</p>        
+    		<ol><li>test 1.1</li>
+    		    
+    		</ol></li>   
+
+            <li><b>Verify that the Reference Strain is displayed in the first column of the Summary and remaining strains in alpha order.</b>
+    		<p concordion:assertTrue="true">new test</p>        
+    		<ol><li>test 1.1.</li>
+    		    
+    		</ol></li>     
+    		
+    		<li><b>Verify that the Reference Strain selection plays well with the other search criteria (both ribbons).</b>
+    		<p concordion:assertTrue="true">new test</p>        
+    		<ol><li>test 1.1</li>
+    		    
+    		</ol></li>   
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
