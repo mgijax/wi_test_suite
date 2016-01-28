@@ -98,6 +98,14 @@ concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.cus
     		    
     		</ol></li>  
     		
+    		<li><b>Verify that RefSNPs returned have an allele for the Reference Strain and at least one other allele.</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 1/28/2016</p>        
+    		<ol><li>Execute query that verifies a SNP with no other allele but the one for the Reference Strain is NOT returned; ChrY: 4990000-5000000; ref strain = MSM/Ms; all strains.  Expect:  3 SNPs returned w/ ref strain; 10 SNPs without a RS.</li>
+    		    
+    		</ol></li>  
+    		
+    		
+    	
 		</ol>
     	    
       	    
