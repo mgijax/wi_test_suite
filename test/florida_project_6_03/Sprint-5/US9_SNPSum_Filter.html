@@ -33,23 +33,24 @@ concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.cus
        <li>The type of original query (either query by region or gene tab) does not effect the way the filter works.</li>
        <li>The initial filter list will include only dbSNP Function Classes present in the result set (standard behavior).</li>
        <li>The list of dbSNP Function Classes valid for filtering
-       <ol><li>Coding-NonSynonymous</li>
+       <ol><li>Coding</li>
+           <li>Coding-NonSynonymous</li>
            <li>Coding-Synonymous</li>
            <li>Intron</li>
-           <li>Locus-Region (2.0 kb 5' or 0.5 kb 3')</li>
+           <li>Locus-Region</li>
            <li>mRNA-UTR</li>
            <li>Noncoding-Transcript-Variant</li>
            <li>Splice-Site</li>
         </ol></li>
         <li>Exceptions:
         <ol><li>The Function Class Contig-Reference is not included in the filter options even when present.</li>
-            <li>Locus-Region has add'l text for the filter option vs. what is in the database (db = Locus-Region). Jim indicated he was flexible with this difference if it's an issue.</li>
-        </ol></li>
+            </ol></li>
         <li>User may select 1 or many function classes to filter by -- return SNPs that have at least one of the selected classes (OR).</li>
         <li>Display delete buttons for each Function Class selected plus a "Remove All Filters".  Use the same text as in filter box (standard behavior).</li>
         <li>Update Function Class filter contents to include all function classes that are selected with a check and also any add'l function classes (unchecked) that are still in the results.  This happens because a RefSNP may have multiple function classes.</li>
         <li>If a user's filter removes all allele calls for a specific strain in the results -- this Strain Column should be removed from the SNP Summary IF the HIDE functionality is set.</li>
-        <li>Question: Count for unfiltered results -- part of this user story?</li>
+        <li>Question: Count for unfiltered results -- part of this user story?  ANSWER: NO.</li>
+        <li>Due to conflicts with column reordering -- this story was modified to put columns back in their original position each time a filter is executed.</li>
         
     </ol>   
    
@@ -67,13 +68,52 @@ concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.cus
 		<h3>Manual tests</h3>
 		
 		<ol>
-	        <li><b>Test 1</b>
-    		<p concordion:assertTrue="false">new</p>        
-    		<ol><li>test 1.1</li>
+	        <li><b>Verify filter list when all function classes in MGI are present.</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 2/2/16</p>       
+    		<ol><li>Query by Chr11:1-99999999.  Expect: 8 classes in alpha order.</li>
     		   
     		</ol>
+    		
+    		<li><b>Verify filter by each function class.</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 2/2/16</p>      
+    		<ol><li>Query by Chr11:1-99999999 and filter by Coding.  Expect: 4 SNPs returned.</li>
+    		    <li>Query by Pax (symbols/names...) and filter by Coding-NonSynonymous.  Expect: 15 SNPs returned.</li>
+    		    <li>Query by Tp53 (homologs...) and filter by Coding-Synonymous.  Expect:  33.</li>
+    		    <li>Query by Pax4,Lep and filter by Intron.  Expect: 152 SNPs returned.</li>
+    		    <li>Query by ChrY:1-9999999999 bp and ref strain=A/J.  Filter by Locus Region.  Expect:  Both upstream, downstream, not applicable Locus-Region returned.  62 SNPs.</li>
+    		    <li>Query by Bmpr* and filter by mRNA-UTR.  Expect: 119 SNPs.</li>
+    		    <li>Query by Uty and filter by Non-coding-Transcript-Variant.  Expect: 8 SNPs returned.</li>
+    		    <li>Query by ChrX:1-9999999999 bp; Strains=A/J, DBA/2J, 129X1/SvJ.  Filter by Splice-site.  Expect: 16 SNPs.</li>
+    		</ol>
     		    
-		  
+		    <li><b>Verify filter list when no dbSNP function classes are present</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 2/2/16</p>        
+    		<ol><li>Query by ChrMT:1-99999999.  Expect: 74 SNPS -- filter has special message "No values in results to filter."</li>
+    		   
+    		</ol>
+    		
+    		 <li><b>Verify selection of multiple filter options at once.</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 2/2/16</p>       
+    		<ol><li>Query by Uty.  Filter by mRNA-UTR and Noncoding-Transcript-Variant.  Expect:  8 SNPs.</li>
+    		    <li>Query by Chr19:1-7000000 bp.  Filter by Locus-Region and Splice-Site.  Expect:  1841 SNPs.  </li>
+    		    <li>Query by same region in previous test; add ref strain of 129S1/SvImJ; select 3 other strains: BLG2/Ms, FVB, NZW/Lac.  Filter by Locus-Region; Coding-Synonymous.  Expect: 18 SNPs.</li>
+    		   
+    		</ol>
+    		
+    		  <li><b>Exercise filter selection and delete buttons in all supported browsers.</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 2/2/16</p>        
+    		<ol><li>Query by a large region of a chromosome to return all the function classes (Chr 11).</li>
+    		   
+    		</ol>
+    		
+    		<li><b>Verify filters on SNP Summary for a Marker.</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 2/2/16</p>    
+    		<ol><li>Display summary for Uty.  Filter by mRNA-UTR and Noncoding-Transcript-Variant.  Expect:  8 SNPs.</li>
+    		    <li>Display summary for mt-Nd1.  Expect: no filter options available message.</li>
+    		    <li>Display summary for Sim1.  Filter by Splice-Site, Locus-Region, Coding-NonSyn.  Expect: 52 SNPs.</li>
+    		    <li>Display summary for Pax4.  Filter by mRNA-UTR.  Expect: 4 SNPs.</li>
+    		   
+    		</ol>
     		
     		
 		</ol>
