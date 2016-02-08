@@ -1,0 +1,179 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 12: SNP Tab-delimited File</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>SNP Tab-delimited file</h1>
+    <ul>
+        <li>US 12 - support tab-delimited download of SNP query</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+       <li>Provide tab-delimited file download on SNP Summary for a Marker and SNP Summary via Query Form.</li>
+       <li>Use standard paradigm for format/location of download button.</li>
+       <li>The tab delimited file will contain the SNPs displayed on the Summary page at the time the download is selected.  E.g. if filters are used to reduce the number of SNPs returned from a query -- the reduced set is the one that is in the file.</li>
+       <li>Columns on tab-delimited file mimic the SNP Summary along with the MGI Gene ID.
+       <ol><li>SNP ID</li>
+           <li>Chromosome</li>
+           <li>Coordinate</li>
+           <li>MGI Gene ID</li>
+           <li>Gene Symbol</li>
+           <li>Category</li>
+           <li>Variation Type</li>
+           <li>Allele Summary</li>
+           <li>Reference Strain (if present)</li>
+           <li>list of Strains displayed in Summary</li>
+        </ol></li>
+        <li>The default order of the columns is always used for this file -- any custom order in place by the user is ignored.</li>
+        <li>The categories included in the download file should mimic the ones displayed on the SNP Summary.  Note that the logic re: what is displayed in the category column differs by type of query.</li>
+        <li>dbSNP function classes (except Contig-Reference) are always displayed for RefSNPs in the download file.  Multiple rows for a single RefSNP are possible when the Category column includes more than 1 dbSNP function class/gene association.
+        <ol><li>Example: RefSNP has 5 Intron/Trp53 associations: just include once (1 row).</li>
+            <li>Example: RefSNP has Intron/Trp53 and Splice-Site/Trp53: include both (2 rows).</li>
+            <li>Example: RefSNP has Intron/Trp53 and Intron/Xxx33: include both (2 rows).</li>
+        </ol></li>
+        <li>The rules for displaying distance relationships for a RefSNP vary by the query performed.  
+        <ol><li>For Region queries: Don't include distance relationships beyond "within" coordinates.</li>
+            <li>For Gene queries: use the distance parameter plus the query string in the gene field to determine what distance relationships to include in the file.</li>
+        </ol></li>
+        <li>Allele conflicts that are indicated by an underline in the SNP Summary are called out with "{conflict}" in the download file.  Alleles with question marks should also include this text.</li>
+        <li>Superscripts in the strain names use angle brackets.</li>
+        <li>No row limit.  Maximum possible to query for are all SNPs for a single Chromosome.</li>
+        <li>Support the download in all supported OS/Browser combinations.</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+		
+		    <li><b>Verify download file from a SNP Summary via a Marker Search.</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Query by Pax4 within 2kb; all strains.  Expect: 119 SNPs on Summary page; 122 SNP rows in file (plus col heading).</li>
+    		    <li>Query by Pax4 within 10kb; all strains.  Expect: 223 SNPs on Summary page; 267 SNP rows in file.</li>
+    		    <li>Query by Pax4 within coordinates; all strains.  Expect: 109 SNPs on Summary page; 112 SNP rows in file.</li>
+    		    <li>Query for marker with Locus Region SNPs outside of coordinates; query=Sim1 w/in coordinates.  Expect: 553 SNPs on Summary -- first 22 are outside coordinate range of gene.  These should also be in SNP file.</li>
+    		    
+    		</ol>
+    		
+    		<li><b>Verify download file from a SNP Summary via a Region Search.</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Query for a region with no dbSNP function classes of Chr MT; ChrMT:1-999999999.  Expect: 74 SNPs on Summary page; 74 SNPs in file (+col hdg) </li>
+    		    <li>Query for a region with multiple genes and function classes; query=Chr19:4000000-4100000. Expect: 418 SNPs on Summary page; 488 SNPs in file (+col hdg). </li>
+    		</ol>
+		
+		
+	       
+    		<li><b>Verify SNP with a Contig Reference function class -- SNP in file, but not a row for Contig Reference</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Download SNPs with a Contig Reference; rs29392909 (3 C-R); query=Trp53 w/in 2kb.  Expect: 134 SNP on Summary; None in file (205 rows+col hdg) </li>
+    	    </ol>
+    	    
+    	    <li><b>Verify SNP with Locus Region function class include upstream/downstream and proximal/distal</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Download SNP with various Locus Regions; query=Xk w/in 2kb.  Expect: 246 SNPs on Summary; 304 SNP rows in file; Upstream/Downstream/Proximal/Distal in file (Category column).</li>
+    	    </ol>
+    	    
+    	     <li><b>Verify strains with superscripts display correctly in the download file</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Download SNPs including only strains with superscripts; Chr11:70085142-70236460 bp; select the 3 strains w/ sscripts.  Expect: 379 SNPs on Summary; 422 SNP rows in file; all superscripts in angle brackets. </li>
+    	    </ol>
+    	    
+    	    <li><b>Verify reference strain includes (reference strain) in column heading.</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Download SNPs using Gene Tab including a Reference Strain; query=Pax*; all strains; ref strain=A.  Expect: extra text in Reference Strain column heading; 3 SNPs on Summary; 6 SNP rows in file. </li>
+    		    <li>Download SNPs including a Reference Strain w/ superscripts: query=Chr11:70000000-80000000 bp; strains=3 w/ sscripts; ref strain=B.10.D2-Hc.../oSnJ.  Expect: Both strains in file to use angle brackets for superscript.  43 SNPs in Summary; 46 SNP rows in file.</li>
+    	    </ol>
+    	    
+    	    <li><b>Verify special characters handled okay.</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Download SNPs with gene symbol that includes a hyphen; query= Bmp4-ps w/in 10kb.  Expect: Gene symbol ok in file; 52 SNPs in Summary; 52 SNP rows in file.</li>
+    		    <li>Download SNPs with gene symbol that includes a period; query=D16Mit98.2 w/in 2kb.  Expect: Gene symbol ok in file; 31 SNPs in Summary; 62 SNP rows in file.</li>
+    	    </ol>
+    	    
+    	    <li><b>Verify alpha chromosomes display okay.</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Download SNPs on X, Y, and MT; query=Bmp15, mt-Nd1, Kdm5d .  Expect: 112 SNP on Summary; 139 (+col hdg) SNPs rows in file; Chromsomes displayed okay and in correct order (X,Y,MT).</li>
+    	    </ol>
+    	    
+    	    <li><b>Verify conflicts in Alleles displayed okay.</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Download SNPs in a region with both types of conflict (? and u-line); query=ChrY:2009000-2009999 bp.  Expect: 34 SNPs on Summary; 34 rows in file; "conflict" displayed for both types of conflicts.</li>
+    		   
+    	    </ol>
+    	    
+    	    <li><b>Verify user Filtering is recognized by download.</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Filter results and then download.  Expect: Filtered results downloaded (not original results).</li>
+    		    <li>Filter results and then remove filters.  Download.  Expect:  Original results downloaded.</li>
+    	    </ol>
+    	    
+    	    <li><b>Verify re-ordering of columns has no impact on downloaded file.</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Re-order SNP columns and then download.  Expect: File with columns in default order.</li>
+    	    </ol>
+    	    
+    	    <li><b>Verify show/hide changes download file.</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Select show all strains.  Expect: Download file to have all strains.</li>
+    		    <li>Select show all and then deselect.  Expect:  Download file to have only strains with alleles.</li>
+    		    <li>Repeat above 2 tests from the SNP Summary for a Marker.</li>
+    	    </ol>
+    	    
+    	    <li><b>Verify a large download file works okay.</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Query for all SNPs on a chromosome.  Verify download is successful.</li>
+    	    </ol>
+    	    
+    	    <li><b>Verify download file works on all supported OS/Browser combs.</b>
+    		<p concordion:assertTrue="false">new test</p>       
+    		<ol><li>Repeat selected above tests.</li>
+    	    </ol>
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
