@@ -53,8 +53,9 @@
         <li>The rules for displaying distance relationships for a RefSNP vary by the query performed.  
         <ol><li>For Region queries: Don't include distance relationships beyond "within" coordinates.</li>
             <li>For Gene queries: use the distance parameter plus the query string in the gene field to determine what distance relationships to include in the file.</li>
+            <li>For Gene queries: include all marker/within coordinates of relationships for SNPs returned.  E.g. returns "Cpgi12015 within coordinates of" for rs27444178 on a search by Pax6.</li>
         </ol></li>
-        <li>Allele conflicts that are indicated by an underline in the SNP Summary are called out with "{conflict}" in the download file.  Alleles with question marks should also include this text.</li>
+        <li>Allele conflicts that are indicated by an underline in the SNP Summary are called out with "&lt;conflict&gt;" in the download file.  Alleles with question marks should also include this text.</li>
         <li>Superscripts in the strain names use angle brackets.</li>
         <li>No row limit.  Maximum possible to query for are all SNPs for a single Chromosome.</li>
         <li>Support the download in all supported OS/Browser combinations.</li>
@@ -76,7 +77,7 @@
 		<ol>
 		
 		    <li><b>Verify download file from a SNP Summary via a Marker Search.</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>       
     		<ol><li>Query by Pax4 within 2kb; all strains.  Expect: 119 SNPs on Summary page; 122 SNP rows in file (plus col heading).</li>
     		    <li>Query by Pax4 within 10kb; all strains.  Expect: 223 SNPs on Summary page; 267 SNP rows in file.</li>
     		    <li>Query by Pax4 within coordinates; all strains.  Expect: 109 SNPs on Summary page; 112 SNP rows in file.</li>
@@ -85,76 +86,75 @@
     		</ol>
     		
     		<li><b>Verify download file from a SNP Summary via a Region Search.</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>       
     		<ol><li>Query for a region with no dbSNP function classes of Chr MT; ChrMT:1-999999999.  Expect: 74 SNPs on Summary page; 74 SNPs in file (+col hdg) </li>
     		    <li>Query for a region with multiple genes and function classes; query=Chr19:4000000-4100000. Expect: 418 SNPs on Summary page; 488 SNPs in file (+col hdg). </li>
     		</ol>
-		
-		
 	       
     		<li><b>Verify SNP with a Contig Reference function class -- SNP in file, but not a row for Contig Reference</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>       
     		<ol><li>Download SNPs with a Contig Reference; rs29392909 (3 C-R); query=Trp53 w/in 2kb.  Expect: 134 SNP on Summary; None in file (205 rows+col hdg) </li>
     	    </ol>
     	    
     	    <li><b>Verify SNP with Locus Region function class include upstream/downstream and proximal/distal</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>      
     		<ol><li>Download SNP with various Locus Regions; query=Xk w/in 2kb.  Expect: 246 SNPs on Summary; 304 SNP rows in file; Upstream/Downstream/Proximal/Distal in file (Category column).</li>
     	    </ol>
     	    
     	     <li><b>Verify strains with superscripts display correctly in the download file</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>       
     		<ol><li>Download SNPs including only strains with superscripts; Chr11:70085142-70236460 bp; select the 3 strains w/ sscripts.  Expect: 379 SNPs on Summary; 422 SNP rows in file; all superscripts in angle brackets. </li>
     	    </ol>
     	    
     	    <li><b>Verify reference strain includes (reference strain) in column heading.</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>       
     		<ol><li>Download SNPs using Gene Tab including a Reference Strain; query=Pax*; all strains; ref strain=A.  Expect: extra text in Reference Strain column heading; 3 SNPs on Summary; 6 SNP rows in file. </li>
     		    <li>Download SNPs including a Reference Strain w/ superscripts: query=Chr11:70000000-80000000 bp; strains=3 w/ sscripts; ref strain=B.10.D2-Hc.../oSnJ.  Expect: Both strains in file to use angle brackets for superscript.  43 SNPs in Summary; 46 SNP rows in file.</li>
     	    </ol>
     	    
     	    <li><b>Verify special characters handled okay.</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>       
     		<ol><li>Download SNPs with gene symbol that includes a hyphen; query= Bmp4-ps w/in 10kb.  Expect: Gene symbol ok in file; 52 SNPs in Summary; 52 SNP rows in file.</li>
     		    <li>Download SNPs with gene symbol that includes a period; query=D16Mit98.2 w/in 2kb.  Expect: Gene symbol ok in file; 31 SNPs in Summary; 62 SNP rows in file.</li>
+    		    <li>Download SNPs with gene symbol that includes parens; query=Chr5:24919123-24920000 bp.  Expect: Gene symbol Del(5D5Mit348-D5Mit389)6Jcs ok in file; 22 SNPs in Summary; 68 SNP rows in file.</li>
     	    </ol>
     	    
     	    <li><b>Verify alpha chromosomes display okay.</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>         
     		<ol><li>Download SNPs on X, Y, and MT; query=Bmp15, mt-Nd1, Kdm5d .  Expect: 112 SNP on Summary; 139 (+col hdg) SNPs rows in file; Chromsomes displayed okay and in correct order (X,Y,MT).</li>
     	    </ol>
     	    
     	    <li><b>Verify conflicts in Alleles displayed okay.</b>
-    		<p concordion:assertTrue="false">new test</p>       
-    		<ol><li>Download SNPs in a region with both types of conflict (? and u-line); query=ChrY:2009000-2009999 bp.  Expect: 34 SNPs on Summary; 34 rows in file; "conflict" displayed for both types of conflicts.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>       
+    		<ol><li>Download SNPs in a region with both types of conflict (? and u-line); query=ChrY:2009000-2009999 bp.  Expect: 34 SNPs on Summary; 34 rows in file; "conflict" displayed for both types of conflicts.  13 total conflicts.</li>
     		   
     	    </ol>
     	    
     	    <li><b>Verify user Filtering is recognized by download.</b>
-    		<p concordion:assertTrue="false">new test</p>       
-    		<ol><li>Filter results and then download.  Expect: Filtered results downloaded (not original results).</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>        
+    		<ol><li>Filter results and then download; query=Chr1:125-130 Mbp; Filter=Coding-NonSynonymous . Expect: Filtered results downloaded (not original results).  79 SNPs on Summary; 128 SNP rows in file.</li>
     		    <li>Filter results and then remove filters.  Download.  Expect:  Original results downloaded.</li>
     	    </ol>
     	    
     	    <li><b>Verify re-ordering of columns has no impact on downloaded file.</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>        
     		<ol><li>Re-order SNP columns and then download.  Expect: File with columns in default order.</li>
     	    </ol>
     	    
     	    <li><b>Verify show/hide changes download file.</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/9/16</p>        
     		<ol><li>Select show all strains.  Expect: Download file to have all strains.</li>
     		    <li>Select show all and then deselect.  Expect:  Download file to have only strains with alleles.</li>
     		    <li>Repeat above 2 tests from the SNP Summary for a Marker.</li>
     	    </ol>
     	    
     	    <li><b>Verify a large download file works okay.</b>
-    		<p concordion:assertTrue="false">new test</p>       
-    		<ol><li>Query for all SNPs on a chromosome.  Verify download is successful.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 2/10/16</p>       
+    		<ol><li>Query for all SNPs on a chromosome.  Verify download is successful.  Downloaded Chr 19 -- 403,000+ SNPs.  This took 45 minutes.  SNP rows in file ~440,000.</li>
     	    </ol>
     	    
     	    <li><b>Verify download file works on all supported OS/Browser combs.</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/10/16</p>       
     		<ol><li>Repeat selected above tests.</li>
     	    </ol>
     		
