@@ -72,14 +72,14 @@
 		<ol>
 		    
     		<li><b>Verify Batch Search using Input Box for all supported IDs (search by all ID types)</b>
-    		<p concordion:assertTrue="true">PASS - jlewis 2/17/16</p>        
-    		<ol><li>Copy/Paste list of 42 test IDs from BQTestIDs into Input Box (delimited by newlines).  Expect: Supported IDs with GXD Data to be returned = 37.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 2/23/16</p>        
+    		<ol><li>Copy/Paste list of 40 test IDs from BQTestIDs into Input Box (delimited by newlines).  Expect: Supported IDs with GXD Data to be returned = 37.</li>
     		    <li>Copy/Paste same IDs as above into Input Box -- change delimiter to space.  Expect: Same result as above.</li>
     		</ol></li>
     	    
     	    <li><b>Verify Batch Search using Input Box and specific Input Types with list of all supported IDs</b>
-    		<p concordion:assertTrue="false">FAIL - selecting non-ID input types should return no results; instead all GXD data was returned (2 and 3 below)</p>       
-    		<ol><li>Use the same set of 42 test IDs and select each of the Input Types in the pull down
+    		<p concordion:assertTrue="true">PASS - jlewis 2/23/16</p>       
+    		<ol><li>Use the same set of 40 test IDs and select each of the Input Types in the pull down
     		    <ol><li>MGI Marker ID = 1 (Kras)</li>
     		        <li>Current symbols = 0</li>
     		        <li>All symbols, synonyms, homologs = 0</li>
@@ -98,41 +98,43 @@
     	    </ol></li>
     	    
     	    <li><b>Verify Batch Search using Input Box with a large list of IDs.</b>
-    		<p concordion:assertTrue="false">FAIL - large file never returned; same list into Batch Query took a few seconds.</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/23/16</p>       
     		<ol><li>Copy/Paste LargeTestSet of MGI Marker Ids  into input box; all protein coding genes on Chr 19 = 725 IDs; Input Type = MGI Marker ID.  Expect: Those with GXD results to be returned = 452.</li>
     		    <Li>Copy/Paste large list of a mix of IDs into input box.  Expect: Those with GXD Results to be returned.</Li>
     	    </ol></li>
     	    
     	    <li><b>Verify Batch Search using Input Box for all Nomenclature searches (select all Input Types)</b>
-    		<p concordion:assertTrue="true">PASS - jlewis 2/17/16</p>        
-    		<ol><li>Copy/Paste list of 19 input values from BQNomenTest into Input Box (delimited by newlines).  Expect: Genes returned via match by nomenclature with GXD Data = 21.
-    		    <ul><li>List of 19 returns 27 genes in Batch Query; only 21 of those have GXD data.</li></ul></li>
-    		    <li>Enter Lepr, Dlx2, Paupar in text file delimit by Tabs (no commas).  Cut/paste into input box.  Expect: 4 genes returned.</li> 
+    		<p concordion:assertTrue="true">PASS - jlewis 2/23/16</p>        
+    		<ol><li>Copy/Paste list of 16 input values (only single tokens) from BQNomenTest into Input Box (delimited by newlines).  Expect: Genes returned via match by nomenclature with GXD Data = 18.
+    		    <ul><li>List of 16 returns 24 genes in Batch Query; only 18 of those have GXD data.</li></ul></li>
+    		    <li>Enter Lepr	mt-Atp6	Paupar	Dlx5	F3a	TP53	SMN2	Leap1	football	Lrtomt in text file delimit by Tabs.  Cut/paste into input box.  Expect: 12 genes returned.</li> 
     		</ol></li>
     	    
     	    <li><b>Verify Batch Search using Input Box and specific Input Types for all supported nomenclature searches.</b>
-    		<p concordion:assertTrue="false">FAIL - any of the options expected to return 0 results instead returns all GXD data.</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/23/16</p>     
     		<ol><li>Use the same set of values from BQNomenTest and select each of the Input Types in the pull down
     		    <ol><li>All ID options = 0</li>
     		        <li>Current symbols = 3 genes w/ expression (list matches 2 other genes, but they have no GXD data)</li>
-    		        <li>All symbols, synonyms, homologs = 19 genes w/ expression (list matches 6 other genes, but they have no GXD data)</li>
+    		        <li>All symbols, synonyms, homologs = 18 genes w/ expression (list matches 6 other genes, but they have no GXD data)</li>
     		    </ol></li>
     	    </ol></li>
     	    
     	    <li><b>Verify Batch Search using File Upload with a large list of nomenclature text strings (i.e. marker symbols).</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/23/16</p>        
     		<ol><li>Download a file of markers from the Marker QF/Summary to use as input for this test (LargeTestSetFile.txt); all protein coding genes on Chr 19 = 725 marker symbols; Input Type = current symbol; (col 8).  Expect: Those with GXD results to be returned = 452.</li>
-    		    <li>Upload same file again -- this time specify col 6 and use the default of All Input Types.  Expect: same result as above.</li>
+    		    <li>Upload same file again -- this time specify col 6 and use the default of All Input Types.  Expect: same result as above.(NOT the same result as above; genes = 454; 2 genes returned due to column heading)</li>
+    		    <li>Specified a column not in file.  Expect: 0 results returned (plus nice message).</li>
+    		    <li>Specified no column in file and hit search.  Expect: 0 results (but no message).</li>
     	    </ol></li>
     	    
     		<li><b>Verify Batch Search using File Upload.</b>
-    		<p concordion:assertTrue="false">new test</p>       
-    		<ol><li>Upload file BQ_CSV_TEST_FILE.csv; all input types; column 2.  Expect: file is the same data as BQNomenTest; same results expected.</li>
-    		    <li>Upload file BQ_TAB_TEST_FILE.txt; same data as BQTestIDs; Column = 1.  Repeat Test 1.1 and 2.  Expect: same results.</li>
+    		<p concordion:assertTrue="true">PASS - jlewis 2/24/16</p>       
+    		<ol><li>Upload file BQ_CSV_TEST_FILE.csv; all input types; column 1.  Expect: file is the same data as BQIDsTest;37 genes returned.</li>
+    		    <li>Upload file Pax_Star_Protein_TAB.txt; query by Pax* and protein coding gene; Column = 6; MGI Gene IDs.  Expect: same results.</li>
     		</ol></li>
     	    
     	    <li><b>Verify Batch Search works on all supported OS/Browser combs.</b>
-    		<p concordion:assertTrue="false">new test</p>       
+    		<p concordion:assertTrue="true">PASS - jlewis 2/24/16</p>     
     		<ol><li>Repeat selected above tests.</li>
     	    </ol></li>
     		
