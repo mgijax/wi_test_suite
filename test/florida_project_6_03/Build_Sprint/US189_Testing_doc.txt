@@ -1,0 +1,68 @@
+US189 Testing
+
+Finish the front end of TR 12057 - support the weird RR ids in the quick search and the accession linking.
+
+This user story specifically addresses the issue of searches in the Quick Search by the newly added RRIDs returning other objects that match the "MGI" component of the RRID (in particular the match to synonym "MGI-IGM" (synonym for Csf2) and MP terms with "MGI-2" contained in the term (MGI stands for "Macrophage and Granulocyte Inducer").
+
+
+compare Public vs. firien
+
+Public
+http://www.informatics.jax.org/
+
+firien
+http://firien.informatics.jax.org/
+
+
+------------
+Verify that Quick Search queries by RRIDs return only genotypes associated with corresponding RRIDs (genotypes that have annotations).
+
+Test case1 (curator generated genotype)
+Genotype
+_genotype_key = 76478
+Allelic Composition: Acox2<em1Pvv>/Acox2<em1Pvv>	
+Genetic Background: C57BL/6N-Acox2<em1Pvv>
+MGI ID: MGI:5749444
+RRID: RRID:MGI:5749444
+
+
+
+Test case2 (High Throughput MP Load created genotype)
+Genotype
+_genotype_key: 76097
+Allelic Composition: Actn4<tm1a(EUCOMM)Wtsi>/Actn4<+> 	
+Genetic Background: C57BL/6N-Actn4<tm1a(EUCOMM)Wtsi>/Wtsi
+Cell Lines: EPD0525_2_B12
+MGI ID: MGI:5705945
+RRID: RRID:MGI:5705945
+
+
+Test Result:
+PASS
+
+
+
+------------
+Verify that Quick Search queries by MGI IDs for genotypes still return corresponding genotypes
+
+Same test cases as above
+
+
+Test Result:
+PASS
+
+
+
+
+------------
+Verify that nomenclature searches that contain "RRI*" are not affected by the changes to searching by RRIDs.
+
+
+Test cases
+Queries by "RR*", "*RR", "RRI*"
+
+Test Result:
+PASS
+
+
+
