@@ -1,4 +1,4 @@
-US189 Testing_test
+US189 Testing
 
 Finish the front end of TR 12057 - support the weird RR ids in the quick search and the accession linking.
 
