@@ -1,0 +1,234 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>User Story 13 & 16</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>HMDC - Disease Tab </h1>
+    <ul>
+        <li>HMDC - Disease Tab: new rules</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements -- OLD DOCUMENT -- NEEDS to be UPDATED (jrl 4/8/16)</h2>
+    <ol>
+         <li>Search MP and OMIM vocabularies with User's query and determine the set of OMIM and or MP terms to use for searching the annotations.</li>
+         <li>Search the simple set of mouse genoclusters for annotations to the MP/OMIM term search set.</li>
+         <li>Search the human gene/OMIM annotations for annotations to the OMIM term search set.</li>
+         <li>Apply boolean operation if present (explicit AND, OR, AND NOT or implicit OR).</li>
+         <li>Disease tab results
+         <ol><li>For every genocluster that results, return all diseases with annotations to those resulting genoclusters.</li>
+             <li>For every human gene that results, return all disease with annotations to those resulting human genes.</li>
+             <li>For text or id searches - return OMIM terms that match the OMIM vocabulary (ids, synonyms, terms) even if nothing is returned for them in the grid tab.</li>
+         </ol></li>
+    </ol>
+	       
+	
+	
+	More details -- <a href=http://mgiwiki/mediawiki/index.php/sw:HMDC_Boolean_Query>boolean queries</a>
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    	
+    	    <li>Search for results with a single OMIM term
+    		<p concordion:assertTrue="true">PASS - jlewis 10/20/14</p>  
+    		<ol>
+    		  <li>Query for OMIM term with no mouse or human annotations; 604324; Adult Acne.  Expect: 0 grid results; 1 disease tab result.</li>
+    		  <li>Query for OMIM term with only mouse annotations; direct OMIM annotation only; 179830, Renal Tubular Acidosis, Proximal.  Expect: 1 disease.</li>
+    		  <li>Query for OMIM term with only mouse annotations; direct+indirect OMIM annotations; 606391, Maturity-Onset Diabetes of the Young; MODY.  Expect: 3 diseases (1 direct + 2 indirect).</li>
+    		  <li>Query for OMIM term with only human annotations; direct OMIM annotation only; 606243, Alveolar Soft Part Sarcoma; ASPS.  Expect: 1 disease.</li>
+    		  <li>Query for OMIM term with only human annotations; direct+indirect OMIM annotations; 123150, Jackson-Weiss Syndrome; JWS.  Expect: 1 direct disease + 13 indirect diseases.</li>
+    		  <li>Query for OMIM term with mouse and human annotations; direct only; 604290, Aceruloplasminemia.  Expect 1 disease.</li>
+    		  <li>Query for OMIM term with mouse and human annotations; direct+indirect; 148190, Keratitis, Hereditary.  Expect: 1 direct; 5 human indirect; 2 mouse and human indirect diseases; total=8.</li>
+    		  <li>Query for OMIM term with only non-simple mouse OMIM annotations; 205700.  Expect: 0 diseases on grid; 1 disease on tab; Anemia, Autoimmune Hemolytic. </li>
+    	    </ol></li>
+    	    
+    	    <li>Search for results with a single MP term
+    		<p concordion:assertTrue="true">PASS - jlewis 10/20/14</p>  
+    		<ol>
+    		  <li>Query for MP term with no mouse OMIM annotations to same genocluster; MP:0010713; genes=col*.  Expect: 0 diseases</li>
+    		  <li>Query for MP term with mouse OMIM annotation to same genocluster/different genotype; MP:0003213, decreased susceptibility to age related obesity.  Expect: 1 disease; OPA1.
+    		  <li>Query for MP term with mouse OMIM annotations to genocluster (same and diff genotypes); MP:0005239; genes=abc*.  Expect: 2 diseases returned (same genotype as MP term) and 2 diseases returned (same genocluster/diff genotype than MP term)
+    		  <ul><li>same genotype = PXE, STGD1; same genocluster/diff genotype = CORD3, RP19</li></ul></li>
+    		  <li>Query for MP term with multiple mouse OMIM annotations to same disease cluster term on grid; MP:0008235(increased susceptibility to neuronal excitotoxicity); genes=psen*.  Expect: 2 diseases in disease tab (1 disease cluster on grid); AD, AD3</li>
+    	    </ol></li>
+    	    
+    	    <li>Search for results with multiple OMIM terms (implicit ORs)
+    		<p concordion:assertTrue="true">PASS - jlewis 10/20/14</p>  
+    		<ol>
+    		  <li>Query for OMIM terms with only mouse annotations; direct OMIM annotation only; 179830, 606369.  Expect: 2 diseases; Renal Tubular Acidosis, Proximal and Macrocephaly and Epileptic Encephalopathy.</li>
+    		  <li>Query for OMIM terms with only mouse annotations; direct+indirect OMIM annotations; 606391, 260450.  Expect: 5 diseases (2 direct; 3 indirect)
+    		  <ul><li>direct = MODY, Pancreatic Insufficiency, Combined Exocrine</li>
+    		      <li>indirect = NIDDM, MODY4, SDS</li>
+    		  </ul></li> 
+    		  <li>Query for OMIM terms with only human annotations; direct OMIM annotation only; 606243, 612356.  Expect: 2 diseases; ASPS, Heparin Cofactor II Deficiency.</li>
+    		  <li>Query for OMIM terms with only human annotations; direct+indirect OMIM annotations; 614025, 603218.  Expect: 8 diseases; 2 direct; 6 indirect.
+    		  <ul><li>direct = Hepatic Lipase Deficiency and HDL1</li>
+    		      <li>indirect = NIDDM, CJD, FFI, GSD, Kuru.., Spongiform...</li>
+    		  </ul></li>
+    		  <li>Query for OMIM terms with mouse and human annotations; direct only; 606243, 611185.  Expect 2 diseases; RLS6 and ASPS.</li>
+    		  <li>Query for OMIM terms with mouse and human annotations; direct+indirect; 607014, 218700.  Expect: 11 diseases; 2 direct; 5 indirect human; 2 indirect mouse; 2 indirect human/mouse.
+    		  <ul><li>direct = Hurler Syndrome, CHNG2</li>
+    		      <li>indirect = Scheie Syn, Hurler-Scheie Syn, Otitis; Hypothyroidism/Athyr, ASD7, CTHM, HLHS2, TOF, VSD3 </li>
+    		 </ul></li>
+    		  <li>Query for OMIM terms with mouse and human annotations with double quotes: "shwachman diamond".  Expect: 2 diseases; 1 direct; 1 indirect mouse.</li>
+    		  <li>Query for OMIM terms with mouse and human annotations with text; <i>shwachman diamond</i>.  Expect: 3 diseases on the grid; 2 direct; 1 mouse indirect; 0 human indirect. Disease tab = 16; these 3 diseases plus disease matches to  diamond (13 more).
+    		  <ul><li>3 grid diseases = Diamond-Blackfan Anemia, Pancreatic Insuff Comb Exoc, Shwachman-Diamond Syndrome</li></ul></li>
+    		  <li>Query for OMIM terms with mouse and human annotations with wild card; AUTS1*.  Expect: 2 diseases on grid; 10 disease on tab (2 grid ones + 8 vocab matches).</li>
+    	    </ol></li>
+    	    
+    	    <li>Search for results with multiple MP terms (implicit ORs)
+    		<p concordion:assertTrue="true">PASS - jlewis 10/20/14</p>  
+    		<ol>
+    		  <li>Query for MP terms with no mouse OMIM annotations to same genocluster; MP:0011568, MP:0012048;.  Expect: 0 diseases</li>
+    		  <li>Query for MP terms with mouse OMIM annotations to same genocluster/genotypes: MP:0001349, MP:0003096.  Expect: 2 diseases: Ehlers Danlos; Robinow.</li>
+    		  <li>Query for MP term with mouse OMIM annotations to genocluster (same and diff genotypes); MP:0001337, MP:0005576.  Expect: 9 diseases.
+    		  <ul><li>MP:0001337: same genotype = Sjogren, Otitis;  CHARGE.  same genocluster/diff genotype = SLE</li>
+    		      <li>MP:0005576: same genotype = CCHS, HBB; same genocluster/diff genotype = diabetes; same and diff genotype = Obesity; child term/same genotype = Prader.</ul></li>
+    		  <li>Query for MP term with multiple mouse OMIM annotations to same disease cluster term on grid; MP:0008235, MP:0004254.  Expect: 8 diseases on disease tab; 6 diseases on grid tab.
+    		  <ul><li>Alzheimers: 1 cluster term on grid for 2 diseases and Cerebral Amyloid: 1 cluster term on grid for 2 diseases.</li></ul></li>
+    	    </ol></li>
+    	    
+    	    <li>Search for results with a mix of OMIM and MP terms (implicit ORs)
+    		<p concordion:assertTrue="true">PASS - jlewis 10/20/14</p>  
+    		<ol>
+    		  <li>Query for MP and OMIM terms where both terms return diseases with no overlap.  MP:0000575, 203500.  Expect: 3 diseases; 1 direct via OMIM; 2 indirect via MP.</li>
+    		  <li>Query for MP and OMIM terms where both terms return diseases and there is at least 1 disease returned that is associated to both terms, 142340, MP:0011643.  Expect: 4 diseases.
+    		  <ul><li>Ullrich (MP indirect); Diaphrag (overlap direct OMIM/indirect MP); Gastroschisis (indirect OMIM; Ompha (indirect OMIM)</ul></li>
+    		  
+    	    </ol></li>
+    	    
+    	    <li>Search for results converting implicit ORs to explicit ORs
+    		<p concordion:assertTrue="true">PASS - jlewis 10/22/14</p>  
+    		<ol>
+    		  <li>Repeat a sampling of the above implicit OR tests and insert an OR operator.  Expect: same results as implicit OR</li>
+    	    </ol></li>
+    	    
+    	     <li>Search for results with OMIM terms with an AND operator
+    		<p concordion:assertTrue="true">PASS - jlewis 10/21/2014</p>  
+    		<ol>
+    		  <li>AND query for OMIM terms with no overlap mouse or human; 211980 AND 172800.  Expect: 0 results.</li>
+    		  <li>AND query for OMIM terms with overlap on mouse annotations (same genocluster); 131200 AND 211980.  Expect: 2 diseases on grid; 2 diseases on tab.  Endometriosis and Lung Cancer.</li>
+    		  <li>AND query for OMIM terms with overlap on human annotations; 211980 AND 601859.  Expect: 2 diseases on grid tab; 2 diseases on tab.  Autoimmune Lymph... and Lung Cancer.</li>
+    		  <li>AND query for OMIM terms with overlap on mouse and human annotations; 152700 AND 611162.  Expect: 2 diseases on grid; 2 diseases on tab; SLE and malaria.</li>
+    	    </ol></li>
+  
+            <li>Search for results with MP terms with an AND operator
+    		<p concordion:assertTrue="true">PASS - jlewis 10/21/2014</p>  
+    		<ol>
+    		  <li>AND query for MP terms with no OMIM overlap; MP:0001307 AND MP:0003198.  Expect: 0 diseases.</li>
+    		  <li>AND query for MP terms with an OMIM overlap (same genotype); MP:0008041 AND MP:0011279.  Expect: 1 disease on grid; 1 disease on tab- Chediak-Higashi.</li>
+    		  <li>AND query for MP terms with an OMIM overlap (same genocluster/diff g-type); MP:0010307 AND MP:0005070.  Expect: 2 diseases on grid/tab due to same genocluster/diff genotype - MS and Hemo Lymph.  Also 2 other dieseases on grid/tab (same genos): diabetes and malaria.</li>
+    		  
+    	    </ol></li>
+  
+            <li>Search for results with MP and OMIM terms with an AND operator
+    		<p concordion:assertTrue="true">PASS - jlewis 10/21/2014</p>  
+    		<ol>
+    		  <li>Query with text and OMIM id; 222100 AND arthritis.  Expect: 3 diseases returned; 1 direct; 2 human indirect.</li>
+    		  <li>Query with text that matches both OMIM and MP terms; coloboma AND "optic nerve hypoplasia".  Expect; 10 diseases returned; 2 indirect mouse; 8 human. </li>
+    		  <li>Query with text and MP id; MP:0006221 AND coloboma.  Expect: 2 diseases returned - grid and tab.</li> 
+    	    </ol></li>
+    	    
+    	     <li>Search for results with OMIM terms with an AND NOT operator
+    		<p concordion:assertTrue="true">PASS - jlewis 10/21/14</p>  
+    		<ol>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes all results; 104310 AND, NOT, 606889.  Expect: 0 results.</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes none of the results; 166950, AND, NOT, 114480,.  Expect: 1 disease (same results when querying by element 1 by iteself).</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes a portion of human results; 211980, AND, NOT, "gastric cancer".  Expect: 4 human genes and their associated diseases removed from the results for 211980.  (KRAS, ERBB2, IRF1, PIK3CA); 22 diseases on tab.</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes a portion of human and mouse results; 604229, AND, NOT, 148190.  Expect: 6 diseases removed from results for 604229.  9 diseases on tab.</li>
+    	    </ol></li>
+  
+            <li>Search for results with MP terms with an AND NOT operator
+    		<p concordion:assertTrue="true">PASS - jlewis 10/21/14</p>  
+    		<ol>
+    		  <li>AND NOT query for MP terms where the AND NOT clause removes all results; MP:0004031, AND, NOT, MP:0005387.  Expect: 0 results.</li>
+    		  <li>AND NOT query for MP terms where the AND NOT clause removes none of the results; MP:0001274, AND, NOT, MP:0005394.  Expect: 71 rows in grid; 7 diseases (same results when querying by element 1 by iteself).</li>
+    		  <li>AND NOT query for MP terms where the AND NOT clause removes a portion of the results; MP:0001307, AND, NOT, MP:0005386.  Expect: 4 diseases; lost ADHD when including the AND NOT element.</li>
+    		  <li>AND NOT query for MP terms where the AND NOT clause has 2 elements; MP:0001274, AND, NOT, (MP:0005385, OR, MP:0010768,).  Expect: 2 diseases; Lost Menkes, Molybdenum, parietal, Peters Ana, Wilson when AND NOT clause included.</li>
+    	    </ol></li>
+  
+            <li>Search for results with OMIM terms AND NOT MP term
+    		<p concordion:assertTrue="true">PASS - jlewis 10/22/14</p>  
+    		<ol>
+    		  <li>613659 (gastric cancer) AND NOT MP:0000691 (enlarged spleen) -- Expect: MP term element to remove 1 mouse gene (Il6st) and associated diseases from grid; same on disease tab.</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes all results; 179830, AND, NOT, MP:0005378.  Expect: 0 results.
+    		  <ul><li>(Renal Tubular Acidosis, Proximal - 179830 AND (NOT growth/size/body phenotype - MP:0005378))</li></ul></li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes none of the results; 240800, AND, NOT, MP:0001261, .  Expect: 5 diseases due to a match to a human gene AND NOT clause did not change the results.
+    		  <ul><li>(Hypoglycemia, Leucine-Induced; LIH - 240800 AND (NOT obese - MP:0001261))</li></ul></li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes a portion of the results; 209850, AND, NOT, MP:0001186,.  Expect: 10 diseases on grid and tab (no change); 1 marker removed due to AND NOT clause (Tg(Mov1/Tyr)OVE876BPay).
+    		  <ul><li>(Autism - 209850 AND (NOT pigmentation phenotype - MP:0001186))</li></ul></li>
+    		  
+    	    </ol></li>
+    	    
+    	    <li>Search using the AND NOT boolean for a mix of OMIM and MP terms
+    		<p concordion:assertTrue="true">PASS - jlewis 10/22/14</p>  
+    		<ol>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes all results; "achalasia familial", AND, NOT, MP:0003631.  Expect: 0 results.
+    		  <ul><li>("achalasia familial" AND (NOT nervous system phenotype - MP:0003631))</li></ul></li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes none of the results; "gastric cancer", AND, NOT, pancreas.  Expect: 38 diseases on tab (same results when querying by element 1 by iteself).</li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes the mouse results; "renal tubular acidosis proximal", AND, NOT, MP:0005378.  Expect: 1 disease returned per human annotation; AND NOT clause removed 1 disease per the mouse annotation
+    		  <ul><li>("renal tubular acidosis proximal" AND (NOT growth/size/body phenotype - MP:0005378))</li></ul></li>
+    		  <li>AND NOT query for OMIM terms where the AND NOT clause removes human results; "gastric cancer", AND, NOT, craniofacial.  Expect: human gene FGFR2 and 10 associated diseaes not returned when using the AND NOT clause.</li>
+    		  <li>AND NOT query for OMIM terms where vocab matches are present; "achalasia", AND, NOT, MP:0003631.  Expect: 2 add'l diseases on Disease tab due to the match to "achalasia".
+    		  <ul><li>("achalasia" AND (NOT nervous system phenotype - MP:0003631))</li></ul></li>
+    	    </ol></li>
+    	    
+    	    <li>Text searches that return results on Disease Tab, but not on Grid
+    		<p concordion:assertTrue="true">PASS - jlewis 10/21/14</p>  
+    		<ol>
+    		  <li>Query using a single token that returns only matches to the Disease Tab; zechi.  Expect: 1 disease (all with no annotations in MGI)</li>
+    		  <li>Query using a single token that returns matches to the Grid and add'l matches to the Disease Tab; Maine.  Expect: 1 disease on grid; 2 diseases on tab.</li>
+    		  <li>Query using multiple tokens in quotes that returns matches  to a disease synonym in the Diseaes Tab; "Choanal Atresia".  Expect: 7 disease on grid; 9 diseases on tab. CHARGE Syndrome matched via synonym.</li>
+    		  <li>Query using multiple tokens in quotes that return matches to the Grid and add'l matches to the Disease Tab; "coarse hair".  Expect: 2 diseases on grid; 3 diseases on tab. Add'l disease = Onychogryposis, Pedal, with Keratosis Plantaris and Coarse Hair</li>
+    		  <li>Query using text and Boolean AND that returns add'l matches to the Disease Tab; Choanal AND Atresia.  Expect: 7 diseases on grid; 9 diseases on tab</li>
+    		  <li>Query using text and Boolean AND NOT that returns add'l matches to the Disease Tab; Aarskog AND, NOT, kuwait.  Expect:  1 disease on grid; 2 diseases on tab. Faciodigitogenital Syndrome not returned due to "kuwait" in synonym list.</li>
+    		  <li>Query using text and Boolean AND that returns add'l matches to the Disease Tab; "renal cell cancer", OR, "colon cancer".  Expect: 2 add'l diseases on tab.</li>
+    	    </ol></li>
+    	    
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+	
+ <!--  EXAMPLE TEST CASE USING DYNAMIC DATA SPREADSHEET AT https://docs.google.com/spreadsheet/ccc?key=0ArepxibBtJW2dEl0eEg1bElOc1Mxc1FnNGtmSmlUSlE#gid=2 
+     			<li>
+    			Query for <b concordion:set="#structure">4-cell stage</b> should return 
+    			<b cc:assertEquals="getResultCount(#structure)"><b cc:dynamicData="countFor4CellStageResults"></b></b> assay results, 
+    			<b cc:assertEquals="getAssayCount(#structure)"><b cc:dynamicData="countFor4CellStageAssays"></b></b> assays, 
+    			and <b cc:assertEquals="getGeneCount(#structure)"><b cc:dynamicData="countFor4CellStageGenes"></b></b> genes.<br/></li>
+  -->
+ 	</div>
+</div>
+
+</body>
+</html>
