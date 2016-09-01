@@ -4289,7 +4289,7 @@ create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
 select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
 from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
 where m._Organism_key in (1, 2)
-and m._Marker_Status_key in (1, 3)
+and m._Marker_Status_key = 1
 and vt._Vocab_key = 89
 and mp._PropertyType_key = 1001
 and t2._ClusterSource_key in (9272151, 13437099, 13764519)
@@ -4347,7 +4347,7 @@ create index idx2 on #tt2(_Cluster_key, _Marker_key, _ClusterSource_key)
 select distinct t2._Cluster_key, cm._Marker_key, m.symbol, m._Organism_key, vt.term as "ClusterSource", mp.sequenceNum, mp.value as "HybridSource"
 from MRK_ClusterMember cm, MRK_Cluster c, MRK_Marker m, #tt2 t2, VOC_term vt, MGI_Property mp
 where m._Organism_key in (1, 2)
-and m._Marker_Status_key in (1, 3)
+and m._Marker_Status_key = 1
 and vt._Vocab_key = 89
 and mp._PropertyType_key = 1001
 and t2._ClusterSource_key in (9272151, 13437099, 13764519)
