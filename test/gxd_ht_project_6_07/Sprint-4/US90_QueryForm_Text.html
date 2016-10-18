@@ -1,0 +1,116 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:cc="http://fewi.custom.commands.FewiExtensions">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	table {border-collapse: collapse; padding-bottom:5px; margin-bottom:5px;}
+	table, th, td {border: 1px solid #CCCCCC;}
+	td, th {padding:2px;}
+	.man {background-color:#FFFFCC;}
+	ul {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	ol {padding: 0px; padding-bottom:3px; padding-top:0px; margin: 0px;}
+	li {padding-left:2px; padding-top:0px; padding-bottom:0px; margin-left:25px;}
+	p {margin:2px 0px;}
+</style>
+
+    <title>US 90: Public QF/summary plumbing plus title/description field</title>
+</head>
+
+<body>
+
+<div id="maintitle"><h1>Public QF: title/description search</h1>
+    <ul>
+        <li>US 90: Public QF/summary plumbing plus title/description field</li>
+    </ul>
+</div>
+
+
+
+<div id="acceptance">
+    <h2>Test Requirements</h2>
+    <ol>
+       <li>Provide a text search of Experiment Title and Description.</li>
+       <li>Allow users to search by either field or both.</li>
+       <li>Each token a user entered has a wild card appended under the covers.  E.g. diabet child is treated as diabet* child*</li>
+       <li>All special characters a user enters are ignored and treated as a space (except apostrophe).</li>
+       <li>The text in the Index treats special characters as a space (except apostrophe).</li>
+       <li>Apostrophe is treated as a null.  E.g. Parkinson's Disease -> Parkinsons Disease.</li>
+       <li>The search uses the Solr proximity search -- so multiple tokens will match text in any order and aren't required to be abutting to match.</li>
+       <li>When a search of multiple tokens is done of both Title and Description -- the software looks at both fields as one for matching.  So a partial match to each field can return a result.</li>
+       <li>The search is case insensitive.</li>
+       <li>Note: The Public WI search works differently than the search provided to the curators in the PWI.  A combination of multiple searches in the PWI comes close, but does not equal the WI search.</li>
+    </ol>   
+   
+</div>
+
+
+<div id="tests">
+    <h2>Tests</h2>
+    
+	<div id="manual">
+<!-- To insert manual test results, use the following:
+<p concordion:assertTrue="true">testing assertTrue - displays as green</p>
+<p concordion:assertTrue="false">testing assertFalse - displays as red</p>
+ -->
+		<h3>Manual tests</h3>
+		
+		<ol>
+    	    <li><b>Search experiments/samples by Title</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 10/17/2016</p>         
+    		<ol><li>Enter a single token; ptch.  Expect: 8 experiments returned.  E.g. E-GEOD-59560.</li>
+    		    <li>Enter a single token with a number; Brca1.  Expect: 16 experiments returned.  E.g. E-NCMF-6</li>
+    		    <li>Enter a single token with an embedded special char; LT-HSCs.  Expect: 6 experiments returned.  E.g. E-GEOD-12467. </li>
+    		    <li>Enter a single token that matches text with a prepended special character; Smad3.  Expect: 4 experiments returned including E-GEOD-28598 that matches TGf-beta/Smad3.</li>
+    		    <li>Enter a single token with a appended special character; Parkin-/-.  Expect: 12 experiments returned; equivalent to searching for just 'Parkin'.  E.g. E-GEOD-9651. </li>
+    		    <li>Enter a single token enclosed with special characters; (LT-HSCs).  Expect: 6 experiment returned.  E-GEOD-82073 (has exact match w/ chars); others no parens.
+    		    <li>Enter a single token that matches via wildcard; PTCH.  Expect: 8 experiments returned.  E-GEOD-19360 (matches Ptch1) </li>
+    		    <li>Enter multiple tokens that are adjacent in the match; mammary cancer cells.  Expect: 8 experiments returned.  E.g. E-GEOD-38251.  </li>
+    		    <li>Enter multiple tokens that are separated in the match; same order; aggressive carcinoma.  Expect: 4 experiments returned.  E.g. E-GEOD-8666.  </li>
+    		    <li>Enter multiple tokens that are separated in the match; reverse order; (utrophin/dystrophin-deficient)  Expect: Match to E-GEOD-6790.   </li>
+    		    <li>Enter multiple tokens that match via wildcard; lun tumorig.  Expect: 3 results; E.g. E-GEOD-52798</li>
+    	    </ol>
+    	    
+    	    <li><b>Search experiments/samples by Description</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 10/17/2016</p>         
+    		<ol><li>Enter a single token; cholangitis.  Expect: 4 experiments returned; e.g. E-GEOD-4603.</li>
+    		    <li>Enter a single token with a number; Jnk3.  Expect: 1 experiment returned; E-GEOD-22267.  Also matches E-GEOD-71159, but that one currently has 0 samples in db.</li>
+    		    <li>Enter a single token with an embedded special char; mdr2-ko.  Expect: 6 experiments returned; e.g. E-GEOD-4612.  Same results as 'mdr2 ko' </li>
+    		    <li>Enter a single token with a prepended special character; (n-3 LC-PUFA).  Expect:  3 experiments returned; e.g. E-GEOD-36716.  2 exact matches; 1 with the 3 tokens thru-out.</li>
+    		    <li>Enter a single token with a appended special character; Fzd1-/-.  Expect: 2 experiments returned; e.g. E-GEOD-38315.  Same results as 'Fzd1'.  </li>
+    		    <li>Enter a single token that matches via wildcard; Cyp19.  Expect: 4 experiments returned; e.g. E-GEOD-38315.  </li>
+    		    <li>Enter multiple tokens that are adjacent in the match; inner medullary.  Expect: 3 experiments returned; e.g. E-GEOD-33955.</li>
+    		    <li>Enter multiple tokens that are separated in the match; same order; neurodegenerative children.  Expect: 2 experiments returned; e.g. E-GEOD-15758.  </li>
+    		    <li>Enter multiple tokens that are separated in the match; reverse order; children neurodegenerative.  Expect:  same results as previous case. </li>
+    		    <li>Enter multiple tokens that match via wildcard; diabet child.  Expect:  2 experiments returned; E-GEOD-28277.  Note that one of these not returned by PWI due to weird special chars.</li>
+    		    <li>Enter multiple tokens with special characters; (utrophin/dystrophin-deficient).  Expect: 2 experiments returned; 1 with exact match (E-GEOD-1463); 1 with all tokens in diff order; E-GEOD-6790.</li>
+    		    <li>Enter a query that only has matches in Description; splenomegaly.  Expect:  10 experiments returned.
+    	    </ol>
+    	    
+
+    	    <li><b>Search experiments/samples by Title & Description</b>
+    		<p concordion:assertTrue="true">PASS - jlewis; 10/17/2016</p>         
+    		<ol><li>Enter a single token; blindness.  Expect: 14 experiments returned; e.g. E-GEOD-5766 (another one matched in PWI not returned due to samples=0).</li>
+    		    <li>Enter a single token with a number; Pax6.  Expect: 32 experiments returned (1 not returned due to 0 samples).  E.g. E-CBIL-40</li>
+    		    <li>Enter a single token with an embedded special char;  helix-loop-helix.  Expect: 29 Experiments returned.  E.g. E-GEOD-67406 </li>
+    		    <li>Enter a single token with a prepended special character; (papillomas).  Expect: 8 experiments found.  Same results with parens. </li>
+    		    <li>Enter a single token with a appended special character; APC(Min/+).  Expect: 26 experiments returned.  </li>
+    		    <li>Enter a single token that matches via wildcard; albin.  Expect: 7 experiments returned; 6 with matches to albino and 1 match to albinism. </li>
+    		    <li>Enter multiple tokens that are adjacent in the match; systemic lupus.  Expect: 16 Experiments returned.  Combination of matches to just title, just descrp, and both.  E.g. E-GEOD-9287.  </li>
+    		    <li>Enter multiple tokens that are separated in the match; same order; ovarian cancer.  Expect:  30 experiments returned.  e.g. E-GEOD-4647 </li>
+    		    <li>Enter multiple tokens that are separated in the match; reverse order; cancer ovarian.  Expect:   30 experiments returned.  E.g. E-MTAB-3980.</li>
+    		    <li>Enter multiple tokens that should match tokens that include a special character; parkinson's disease vs. parkinsons disease.  Expect: 44 results w/out apostrophe & 47 with apostrophe.  The 3 difference is a match to "Parkinson Disease".  Slight difference okay by stakeholders.</li>
+    		    <li>Enter multiple tokens that match via wildcard; oviduc epithe.  Expect:   9 experiments returned; e.g. E-GEOD-70016.</li>
+    		    <li>Enter multiple tokens that return a match due to a partial match to Title and partial match to Description; lung tumorigenesis.  Expect: 22 experiments returned; 1 due to partial match to both fields - E-GEOD-14514.  </li>
+    	    </ol>
+    		
+		</ol>
+    	    
+      	    
+	</div>
+	<div id="sql">
+	
+
+ 	</div>
+</div>
+
+</body>
+</html>
