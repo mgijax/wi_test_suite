@@ -70,7 +70,21 @@
     		<ol><li>Check experiment ID listed in QC report: GSE76466.  Expect: no record in MGI database.</li>
     	    </ol>
     	    
+    	    <li><b>Verify that all PubMed IDs in GEO are also in MGI database</b>
+    	    <p concordion:assertTrue="true">PASS: jlewis - 10/19/2016</p>    
+    		<ol><li>Per Sharon's script -- all IDs were loaded.</li>
+    	    </ol>
+    	    
     	</ol> 
+    	
+    	<h3>Statistics</h3>
+    	
+    	<ol>
+          <li>Number of PubMed IDs imported into GXD: 6,042 </li>
+          <li>Number of GEO experiments updated in MGI db: 5839 (some experiments got more than 1) </li>
+          <li>Number of add'l experiments that now have PubMed IDs: 5,669 (previously only 5,329; total=10,998)</li>
+    	</ol>
+    	
       	    
 	</div>
 	<div id="sql">
